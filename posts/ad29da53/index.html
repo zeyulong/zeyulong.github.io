@@ -24,7 +24,7 @@
 <meta property="og:description" content="本文主要分享了Windows、Linux系统的配置与常用软件的安装。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-01-31T16:27:11.000Z">
-<meta property="article:modified_time" content="2024-06-19T10:24:49.999Z">
+<meta property="article:modified_time" content="2024-07-04T12:06:58.473Z">
 <meta property="article:author" content="龙泽雨">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -409,7 +409,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2024年6月19日 晚上
+                    本文最后更新于 2024年7月4日 晚上
                   
                 
               </p>
@@ -996,37 +996,7 @@
 <li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/565455268?utm_id=0">如何使用 Nmcli 通过 Linux 终端连接到 Wi-Fi</a></li>
 </ul>
 <h2 id="NVIDIA显卡驱动">NVIDIA显卡驱动</h2>
-<h3 id="查询">查询</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">lspci | grep -i nvidia  <span class="hljs-comment"># 查看是否安装NVIDIA显卡</span><br>nvidia-smi  <span class="hljs-comment"># 查看显卡信息</span><br></code></pre></td></tr></table></figure>
-<h3 id="安装">安装</h3>
-<h4 id="图形界面（推荐）">图形界面（推荐）</h4>
-<p>打开应用程序界面，选择“软件和更新（softwares and updates）”-附加驱动，在此处选择“使用NVIDIA driver metapackage来自nvidia-driver-版本号(专有)”。</p>
-<blockquote>
-<p>一般安装版本号最大的那个。</p>
-</blockquote>
-<blockquote>
-<p>如果刚装好系统，应该会使用底下那个nouveau，nouveau不是英伟达提供的，是民间大佬写的适配英伟达显卡的驱动，只是浏览屏幕的话够用，但我们要深度学习，就需要使用英伟达的驱动了。</p>
-</blockquote>
-<h4 id="命令行">命令行</h4>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo add-apt-repository ppa:graphics-drivers/ppa<br>sudo apt-get update<br>ubuntu-drivers devices<br><span class="hljs-comment"># 找到最适合的驱动安装，安装recommended标记的，通常也是数字版本最大的那个</span><br>sudo apt install nvidia-driver-XXX<br><span class="hljs-comment"># 也可以自动安装系统推荐那个</span><br>sudo ubuntu-drivers autoinstall<br></code></pre></td></tr></table></figure>
-<p>如果没有遇到报错，说明安装成功，此时调用<code>nvidia-smi</code>指令可能还是看不到显卡信息，不要担心，重启系统之后就能看到了。</p>
-<h3 id="卸载">卸载</h3>
-<p>首先，打开应用程序界面，选择“软件和更新（softwares and updates）”-附加驱动，在此处选择“<a target="_blank" rel="noopener" href="http://xn--X-v96a181j.Org">使用X.Org</a> X server-Nouveau display driver来自xserver-Xorg-video-nouveau(开源)”。</p>
-<p>然后，开始卸载：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo apt-get --purge remove nvidia-*<br>sudo apt-get purge nvidia*<br>sudo apt-get purge libnvidia*<br><br><span class="hljs-comment"># 清除缓存（慎用）</span><br>sudo apt-get autoremove<br><br>sudo dpkg --list | grep nvidia  <span class="hljs-comment"># 验证一下有没有卸载干净，输出为空，表示全部卸载了</span><br><span class="hljs-comment"># (非必要不重启，万一进不了系统了)，再打开“软件与更新”，会发现显卡驱动又回到了而nouveau。执行</span><br><span class="hljs-built_in">cat</span> /proc/driver/nvidia/version   <span class="hljs-comment"># 会发现文件目录不存在，说明真的卸载干净了</span><br></code></pre></td></tr></table></figure>
-<p>之后重新安装NVIDIA驱动即可。</p>
-<h3 id="禁用nouveau">禁用nouveau</h3>
-<blockquote>
-<p>应该先装完Nvidia驱动，再在“软件与更新”里面更改驱动，最后再禁用。直接禁用后重启相当于没有驱动了，开机图形化界面进不了。</p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo gedit /etc/modprobe.d/blacklist.conf <br><span class="hljs-comment"># 在blacklist.conf文件末尾加上这两行，并保存：</span><br>blacklist nouveau<br>options nouveau modeset=0<br><br>sudo update-initramfs -u  <span class="hljs-comment"># 应用更改</span><br><span class="hljs-comment"># 重启电脑，验证是否禁用nouveau</span><br>lsmod | grep nouveau  <span class="hljs-comment"># 没有信息返回说明已禁用了</span><br></code></pre></td></tr></table></figure>
-<h3 id="无法进入图形化界面">无法进入图形化界面</h3>
-<p>如果重启后无法进入图形化界面，则强制重启电脑，在BIOS引导界面不直接进入Linux系统，而是进入Advance options for Ubuntu，并选择进入其中一个内核（最好是备用内核），过段时间左上角会出现“_”符号，按住Ctrl+Alt+F2，进入终端，输入用户名和密码，随后卸载所有驱动，清除缓存，重新安装驱动并重启即可。指令如下：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 卸载所有驱动</span><br>sudo apt-get --purge remove nvidia-*<br>sudo apt-get purge nvidia*<br>sudo apt-get purge libnvidia*  <br><br><span class="hljs-comment"># 清除缓存（慎用）</span><br>sudo apt-get autoremove<br><br><span class="hljs-comment"># 重新安装驱动</span><br>sudo add-apt-repository ppa:graphics-drivers/ppa<br>sudo apt-get update<br>ubuntu-drivers devices<br><span class="hljs-comment"># 找到最适合的驱动安装，安装recommended标记的，通常也是数字版本最大的那个</span><br><span class="hljs-comment"># 最好安装系统之前的那个</span><br>sudo apt install nvidia-driver-XXX<br><span class="hljs-comment"># 也可以自动安装系统推荐那个</span><br>sudo ubuntu-drivers autoinstall<br><br>reboot <span class="hljs-comment"># 重启</span><br></code></pre></td></tr></table></figure>
-<h3 id="参考链接">参考链接</h3>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/zency/article/details/127356788">Ubuntu系统下由于Nvidia驱动问题导致的无法开机的问题小结</a></li>
-</ul>
+<p><a href="https://zeyulong.com/posts/df5eb46/#NVIDIA%E6%98%BE%E5%8D%A1%E9%A9%B1%E5%8A%A8">NVIDIA显卡驱动</a></p>
 <h2 id="安装蓝牙驱动">安装蓝牙驱动</h2>
 <p>我的电脑网卡是Intel(R)Wi-Fi 6E AX211 160MHz，因为蓝牙模块太新和Ubuntu18.04版本太老，自己尝试了各种方法，无果。结论写在这，Linux系统还是要尽量少折腾。如果有成功的解决方案十分欢迎在下方评论区留言。</p>
 <h2 id="安装触摸板驱动">安装触摸板驱动</h2>
@@ -1173,7 +1143,7 @@
 <p>（可选）也可以在「advanced mode（高级模式）」配置菜单中对以上 3 种电源模式分别进行细化配置。如果配置搞得太乱，可以通过「restore default values」按钮来恢复 Slimbook Battery 的默认电源设置，还可以对「常规配置」进行更改，如：自动启动和默认电源模式等。</p>
 </li>
 </ol>
-<h4 id="命令行-2">命令行</h4>
+<h4 id="命令行">命令行</h4>
 <h5 id="cpufrequtils">cpufrequtils</h5>
 <ol>
 <li>
@@ -1240,7 +1210,7 @@
 <blockquote>
 <p>这个配置重启后会失效。如果需要持久化，可以设置开机自动运行本脚本，或通过修改BIOS配置达到目的。</p>
 </blockquote>
-<h3 id="参考链接-2">参考链接</h3>
+<h3 id="参考链接">参考链接</h3>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://blog.csdn.net/zaf0516/article/details/95758601">Ubuntu18.04下 设置CPU Performance模式</a></li>
 <li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/xyf9474/p/16303596.html">ubuntu系统CPU性能模式设置</a></li>
@@ -1248,6 +1218,141 @@
 <li><a target="_blank" rel="noopener" href="https://www.sysgeek.cn/slimbook-battery-ubuntu/">如何使用 Slimbook Battery 实现 Ubuntu 高级电源管理</a></li>
 <li><a target="_blank" rel="noopener" href="https://blog.kelu.org/tech/2021/05/14/linux-setting-performance-mode-for-cpu.html">linux物理机设置 CPU Performance 模式</a></li>
 </ul>
+<h2 id="升级GLIBC">升级GLIBC_</h2>
+<h3 id="注意">注意</h3>
+<blockquote>
+<p>没有金刚钻就不要升级glibc！因为glibc是系统最基础的C库，几乎所有的运行库都依赖它，特别是系统命令，一旦升级了glibc极有可能会导致很多系统命令都没法正常使用，这个系统基本上就报废了，这是很多Linux小白容易遇到的问题。</p>
+<p>其他依赖的第三方库都可以升级，唯有glibc不建议升级。正确的做法是在同一版本或者更低版本glibc的系统上进行编译可执行文件。</p>
+</blockquote>
+<p>下表是主流Linux发行版Ubuntu/CentOS/Debian系统默认的glic版本：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Ubuntu</th>
+<th style="text-align:center">Debian</th>
+<th style="text-align:center">CentOS</th>
+<th style="text-align:center">Glibc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">22.04</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">2.34</td>
+</tr>
+<tr>
+<td style="text-align:center">20.04</td>
+<td style="text-align:center">11</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">2.31</td>
+</tr>
+<tr>
+<td style="text-align:center">-</td>
+<td style="text-align:center">10</td>
+<td style="text-align:center">8</td>
+<td style="text-align:center">2.28</td>
+</tr>
+<tr>
+<td style="text-align:center">18.04</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">2.27</td>
+</tr>
+<tr>
+<td style="text-align:center">-</td>
+<td style="text-align:center">9</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">2.24</td>
+</tr>
+<tr>
+<td style="text-align:center">16.04</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">2.23</td>
+</tr>
+<tr>
+<td style="text-align:center">14.04</td>
+<td style="text-align:center">8</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">2.19</td>
+</tr>
+<tr>
+<td style="text-align:center">13.04</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">7</td>
+<td style="text-align:center">2.17</td>
+</tr>
+<tr>
+<td style="text-align:center">12.04</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">2.15</td>
+</tr>
+<tr>
+<td style="text-align:center">-</td>
+<td style="text-align:center">7</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">2.13</td>
+</tr>
+<tr>
+<td style="text-align:center">-</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">6</td>
+<td style="text-align:center">2.12</td>
+</tr>
+</tbody>
+</table>
+<h3 id="查询版本">查询版本</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">ldd --version<br>strings /lib/x86_64-linux-gnu/libm.so.6 |grep GLIBC_  <span class="hljs-comment"># strings /lib64/libc.so.6 |grep GLIBC_</span><br>ll /lib/x86_64-linux-gnu/libm.so.6<br></code></pre></td></tr></table></figure>
+<h3 id="命令行安装">命令行安装</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo apt-get update  <span class="hljs-comment"># 更新软件源</span><br>sudo apt-cache policy libc6  <span class="hljs-comment"># 查询候选版本</span><br>sudo apt-get install libc6  <span class="hljs-comment"># 安装候选版本</span><br></code></pre></td></tr></table></figure>
+<h3 id="源码编译">源码编译</h3>
+<ol>
+<li>
+<p>安装依赖项：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo apt-get install gawk bison texinfo<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>下载压缩包：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">wget http://ftp.gnu.org/pub/gnu/glibc/glibc-2.29.tar.gz<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>编译安装：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash">tar -zxvf glibc-2.29.tar.gz<br><span class="hljs-built_in">cd</span> glibc-2.29<br><span class="hljs-built_in">mkdir</span> build &amp;&amp; <span class="hljs-built_in">cd</span> build<br>../configure --prefix=/usr/local/glibc/glibc-2.29  <span class="hljs-comment"># configure最好不要加--with-headers参数，否则会遇到一些问题，因为这个参数指定make在该目录下查找库</span><br>sudo make -j8  <span class="hljs-comment"># 可以使用nproc来查看CPU核心数。编译的时间蛮长的，耐心等待。</span><br>sudo make install<br></code></pre></td></tr></table></figure>
+<p>报错：</p>
+<ol>
+<li>
+<p>LD_LIBRARY_PATH shouldn’t contain the current directory when building glibc. Please change the environment variable。</p>
+<p>此时把LD_LIBRARY_PATH临时设为空可以解决该问题：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">export</span> LD_LIBRARY_PATH=<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>等。</p>
+</li>
+</ol>
+</li>
+<li>
+<p>添加环境变量：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo gedit ~.bashrc<br><br><span class="hljs-comment"># 添加</span><br><span class="hljs-built_in">export</span> PATH=<span class="hljs-variable">$PATH</span>:/usr/local/glibc/glibc-2.29/bin<br><span class="hljs-built_in">export</span> LD_LIBRARY_PATH=<span class="hljs-variable">$LD_LIBRARY_PATH</span>:/usr/local/glibc/glibc-2.29/lib<br><span class="hljs-comment"># 保存后退出</span><br><br><span class="hljs-built_in">source</span> ~.bashrc<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>（谨慎，建议先跳过这一步）修改软链接。不可直接删除旧版软链接，如<code>libm.so.6</code>等，否则会导致系统崩溃。应备份后创建同名软连接指向新版：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cp</span> /lib/x86_64-linux-gnu/libm.so.6 /lib/x86_64-linux-gnu/libm.so.6.bak<br><span class="hljs-built_in">ln</span> -s /usr/local/glibc-2.29/lib/libm.so.6 /lib/x86_64-linux-gnu/libm.so.6<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>查询当前版本：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">ldd --version<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>完成。</p>
+</li>
+</ol>
+<h3 id="参考链接-2">参考链接</h3>
+<p><a target="_blank" rel="noopener" href="https://blog.lmshao.com/linux-glibc-version.html">主流Linux发行版(Ubuntu/CentOS/Debian)系统默认glibc版本</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/wq_0708/article/details/121105055">ubuntu安装glibc</a></p>
+<p><a target="_blank" rel="noopener" href="https://huaweicloud.csdn.net/63560fe9d3efff3090b595d5.html">ubuntu下安装glibc 2.28（报错及解决办法）</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/kobe24fgy/article/details/119356149">升级glibc2.27</a></p>
 <h1 id="CLion">CLion</h1>
 <h2 id="概述">概述</h2>
 <p>VScode代码编辑器与JetBrains系列等大型IDE的对比：</p>
@@ -1259,7 +1364,7 @@
 <li>VScode的远程开发做得好像是最好的？</li>
 <li>更喜欢使用哪个，看自己偏好。</li>
 </ul>
-<h2 id="安装-2">安装</h2>
+<h2 id="安装">安装</h2>
 <ol>
 <li>
 <p>在<a target="_blank" rel="noopener" href="https://www.jetbrains.com/zh-cn/clion/">下载链接</a>下载CLion。</p>
@@ -1282,6 +1387,7 @@
 <li>运行程序。点击右上角的绿色按键，使可以运行程序，运行结果在最下面的窗口。</li>
 </ol>
 <h2 id="配置">配置</h2>
+<h3 id="通用">通用</h3>
 <ol>
 <li>
 <p>导入设置：</p>
@@ -1357,7 +1463,7 @@
 <p>显示空格。文件-设置-编辑器-常规-外观-显示空格。</p>
 </li>
 <li>
-<p>制表符转空格。文件-设置-编辑器-代码样式-C/C++-取消勾选使用制表符，缩进：4。各个值取4或4的倍数。</p>
+<p>制表符转空格。文件-设置-编辑器-代码样式-C/C++(CMake)-取消勾选使用制表符，缩进：4。各个值取4或4的倍数。</p>
 </li>
 <li>
 <p><a target="_blank" rel="noopener" href="https://www.jetbrains.com/help/idea/using-todo.html">添加特殊注释</a>。文件-设置-编辑器-TODO：可添加自定义Tag并配置筛选器。</p>
@@ -1422,9 +1528,20 @@
 </li>
 <li></li>
 </ol>
+<h3 id="其它">其它</h3>
+<ol>
+<li>
+<p><a target="_blank" rel="noopener" href="https://intellij-support.jetbrains.com/hc/en-us/articles/15268113529362-Inotify-Watches-Limit-Linux">Inotify Watches Limit (Linux)</a></p>
+<blockquote>
+<p>对于智能 IDE，了解其使用的文件中的任何外部更改至关重要 - 例如VCS、构建工具或代码生成器等所做的更改。因此，IDE平台会启动一个后台进程来监视此类更改。而监控值不够的话，响应速度会不够。</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> /etc/sysctl.d/<br>sudo <span class="hljs-built_in">touch</span> idea.conf<br>sudo gedit idea.conf  <span class="hljs-comment"># 输入</span><br><br>fs.inotify.max_user_watches = 1048576<br><br><span class="hljs-comment"># 保存并退出</span><br><br>sudo sysctl -p --system  <span class="hljs-comment"># 运行此命令以应用更改</span><br>sysctl fs.inotify.max_user_watches  <span class="hljs-comment"># 查看当前设置</span><br><span class="hljs-comment"># 重启IDE</span><br></code></pre></td></tr></table></figure>
+</li>
+<li></li>
+</ol>
 <h2 id="使用">使用</h2>
 <p><a href="https://zeyulong.com/posts/a8aab215/">Linux系统下常用的命令及快捷键</a></p>
-<h2 id="卸载-2">卸载</h2>
+<h2 id="卸载">卸载</h2>
 <p><a target="_blank" rel="noopener" href="https://www.jetbrains.com/help/clion/uninstall.html">官方卸载说明</a></p>
 <blockquote>
 <p>注意：</p>
@@ -1547,7 +1664,7 @@
 <h1 id="Mission-Center">Mission Center</h1>
 <p>类似于Windows的任务管理器。</p>
 <p><a target="_blank" rel="noopener" href="https://missioncenter.io/">Mission Center官网</a></p>
-<h2 id="安装-3">安装</h2>
+<h2 id="安装-2">安装</h2>
 <p><a target="_blank" rel="noopener" href="https://flathub.org/setup/Ubuntu">flathub官方安装教程</a></p>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/jiexijihe945/article/details/137559859">Mission Center安装参考链接</a></p>
 <ol>
@@ -1597,7 +1714,7 @@
 <h1 id="Okular">Okular</h1>
 <p>Linux下使用的PDF阅读器。</p>
 <p><a target="_blank" rel="noopener" href="https://okular.kde.org/">Okular官网</a></p>
-<h2 id="安装-4">安装</h2>
+<h2 id="安装-3">安装</h2>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 首先，通过运行以下命令确保所有系统包都是最新的 apt 终端中的命令。</span><br>sudo apt update<br>sudo apt upgrade<br><span class="hljs-comment"># 默认情况下，Okular 在 Ubuntu 20.04 基础存储库中不可用。 现在运行以下命令以在您的 Ubuntu 系统上启用 Universe 存储库。</span><br>sudo add-apt-repository universe<br><span class="hljs-comment"># 运行以下命令更新包索引并安装 Okular PDF 查看器。</span><br>sudo apt update <br>sudo apt install okular<br><br><span class="hljs-comment"># 或，通过 Snap 安装 Okular</span><br><span class="hljs-comment"># 如果尚未安装 Snapd 软件包，则可以通过运行以下命令来安装它</span><br>sudo apt update<br>sudo apt install snapd<br><span class="hljs-comment"># 要安装 Okular，只需使用以下命令</span><br>sudo snap install okular<br><br><span class="hljs-comment"># 或，在软件中心搜索okular，点击install。</span><br></code></pre></td></tr></table></figure>
 <h2 id="中文配置">中文配置</h2>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_34626094/article/details/112647745">参考链接</a></p>
@@ -1633,7 +1750,7 @@ sudo okular
 <h1 id="Piper">Piper</h1>
 <p>我使用的鼠标是Logitech G502，但是Logitech的鼠标驱动<a target="_blank" rel="noopener" href="https://support.logi.com/hc/zh-cn/articles/360025298133-Logitech-G-HUB">Logitech G HUB</a>只提供了Windows和Mac版。当然，我相信Piper提供的鼠标驱动不止适用于这款鼠标。</p>
 <p><a target="_blank" rel="noopener" href="https://github.com/libratbag/piper">项目地址</a></p>
-<h2 id="安装-5">安装</h2>
+<h2 id="安装-4">安装</h2>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo add-apt-repository ppa:libratbag-piper/piper-libratbag-git<br>sudo apt update<br><span class="hljs-comment"># 对于 &lt; Ubuntu 20.04 版本的系统，需要先添加上面的PPA</span><br>sudo apt install piper<br></code></pre></td></tr></table></figure>
 <h2 id="使用-2">使用</h2>
 <p>Win+A打开应用列表，找到Piper点击即可。</p>
@@ -1899,6 +2016,17 @@ source ~/.bashrc  # source ~/.zshrc
 <p>（覆盖旧版安装后，临时密码将会变更）</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 安装命令：</span><br>sudo apt-get install ./todesk-v4.7.2.0-amd64.deb<br><span class="hljs-comment"># 启动命令：</span><br>todesk<br><span class="hljs-comment"># 删除服务设置配置:</span><br>sudo <span class="hljs-built_in">rm</span> /opt/todesk/config/config.ini<br><span class="hljs-comment"># 卸载:</span><br>sudo apt-get remove --purge todesk<br><br><span class="hljs-comment"># 如不能正常使用,请执行以下命令初始化.</span><br>sudo systemctl stop todeskd.service<br>sudo <span class="hljs-built_in">mv</span> /opt/todesk/config/config.ini /opt/todesk/config/config.ini.bak<br>sudo systemctl start todeskd.service<br><br><span class="hljs-comment"># 排查错误可执行以下命令看日志:</span><br><span class="hljs-comment"># 查看服务日志：（例如:xxxx_xx_xx.log为2022_08_03.log）</span><br><span class="hljs-built_in">tail</span> -f /var/log/todesk/service_xxxx_xx_xx.log<br><span class="hljs-comment"># 查看客户端日志：（例如:xxxx_xx_xx.log为2022_08_03.log）</span><br><span class="hljs-built_in">tail</span> -f ~/.local/share/todesk/Logs/client_xxxx_xx_xx.log<br></code></pre></td></tr></table></figure>
 <p>默认安装位置：<code>/opt/todesk</code></p>
+<h1 id="VSCode">VSCode</h1>
+<h2 id="配置-3">配置</h2>
+<ol>
+<li>字体大小：
+<ol>
+<li>设置（<code>Ctrl+,</code>）-窗口-Zoom Level</li>
+<li>设置（<code>Ctrl+,</code>）-文本编辑器-字体-Font Size</li>
+</ol>
+</li>
+<li>命令行缓冲区（终端）中保留的最大行数：设置-功能-终端（Terminal）-Scrollback：10000</li>
+</ol>
 <h1 id="微信">微信</h1>
 <ol>
 <li>

@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://zeyulong.com/posts/6dba0521/gcc%E5%91%BD%E4%BB%A4%E8%AF%AD%E6%B3%95.png">
 <meta property="article:published_time" content="2024-01-10T14:05:45.000Z">
-<meta property="article:modified_time" content="2024-01-11T08:32:27.372Z">
+<meta property="article:modified_time" content="2024-07-04T02:03:14.865Z">
 <meta property="article:author" content="龙泽雨">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://zeyulong.com/posts/6dba0521/gcc%E5%91%BD%E4%BB%A4%E8%AF%AD%E6%B3%95.png">
@@ -350,7 +350,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          777 字
+          1.4k 字
         
       </span>
     
@@ -361,7 +361,7 @@
         
         
         
-          7 分钟
+          12 分钟
         
       </span>
     
@@ -411,7 +411,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2024年1月11日 下午
+                    本文最后更新于 2024年7月4日 上午
                   
                 
               </p>
@@ -427,13 +427,65 @@
 </blockquote>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># gcc</span><br>gcc -v  <span class="hljs-comment"># 此时默认指定的gcc版本</span><br><span class="hljs-comment"># 查询除默认指定的gcc以外的其他gcc的版本</span><br>gcc-10 -v  <span class="hljs-comment"># 请将命令中的10替换为您安装的版本</span><br><span class="hljs-comment"># 查看/usr/bin目录下以gcc为前缀的文件</span><br><span class="hljs-built_in">ls</span> /usr/bin/gcc*<br><span class="hljs-comment">#此处使用 ll 命令更好（可以看到软链接）：</span><br>ll /usr/bin/gcc*<br><br><span class="hljs-comment"># g++</span><br>g++ -v  <span class="hljs-comment"># 此时默认指定的g++版本</span><br><span class="hljs-comment"># 查询除默认指定的gcc以外的其他gcc的版本</span><br>g++-10 -v  <span class="hljs-comment"># 请将命令中的10替换为您安装的版本</span><br><span class="hljs-comment"># 查看/usr/bin目录下以g++为前缀的文件</span><br><span class="hljs-built_in">ls</span> /usr/bin/g++*<br><span class="hljs-comment">#此处使用 ll 命令更好（可以看到软链接）：</span><br>ll /usr/bin/g++*<br></code></pre></td></tr></table></figure>
 <h1 id="安装">安装</h1>
-<h2 id="安装依赖">安装依赖</h2>
+<h2 id="命令行安装">命令行安装</h2>
+<h3 id="安装依赖">安装依赖</h3>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo apt update<br>sudo apt upgrade<br>sudo apt install build-essential<br></code></pre></td></tr></table></figure>
-<h2 id="安装gcc、g">安装gcc、g++</h2>
+<h3 id="安装gcc、g">安装gcc、g++</h3>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># gcc</span><br>sudo apt-get install gcc   <span class="hljs-comment">##安装最新版本，此处为7</span><br>sudo apt-get install gcc-4.8   <span class="hljs-comment">##安装指定版本</span><br><span class="hljs-comment"># g++</span><br>sudo apt-get install g++   <span class="hljs-comment">##安装最新版本，此处为7</span><br>sudo apt-get install g++-4.8   <span class="hljs-comment">##安装指定版本</span><br></code></pre></td></tr></table></figure>
 <p>如果终端提示找不到：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># gcc</span><br>apt-cache policy gcc-5  <span class="hljs-comment"># 查看gcc5可选的版本</span><br><span class="hljs-comment"># 选择其中一个版本进行安装</span><br>sudo apt-get install gcc-5=5.5.0-12ubuntu1<br><span class="hljs-comment"># g++</span><br>apt-cache policy g++-5  <span class="hljs-comment"># 查看gcc5可选的版本</span><br><span class="hljs-comment"># 选择其中一个版本进行安装</span><br>sudo apt-get install g++-5=5.5.0-12ubuntu1<br></code></pre></td></tr></table></figure>
+<h2 id="源码编译">源码编译</h2>
+<ol>
+<li>
+<p>安装依赖：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo apt update<br>sudo apt upgrade<br>sudo apt install build-essential<br>sudo apt install gcc g++  <span class="hljs-comment"># 系统一个gcc和g++也没有的话可能会报错？</span><br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>下载指定版本的源码，例如：<a target="_blank" rel="noopener" href="http://ftp.gnu.org/gnu/gcc/gcc-7.5.0/gcc-7.5.0.tar.gz">http://ftp.gnu.org/gnu/gcc/gcc-7.5.0/gcc-7.5.0.tar.gz</a></p>
+</li>
+<li>
+<p>解压：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> yourdownload/<br>tar -xzvf gcc-7.5.0.tar.gz<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>下载依赖:</p>
+<blockquote>
+<p><code>gcc-7.5.0</code>根目录下的<code>README</code>文档提示在<code>./INSTALL/index.html</code>下提供了详细的安装教程。</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> gcc-7.5.0<br>./contrib/download_prerequisites<br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>如果下载失败，可以离线下载，具体需要下载的依赖可以查看<code>download_prerequisites</code>脚本。下载完成后，将文件放在<code>gcc-9.2.0</code>根目录下。</p>
+</blockquote>
+</li>
+<li>
+<p>编译安装：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">mkdir</span> build<br><span class="hljs-built_in">cd</span> build<br>./configure -h  <span class="hljs-comment"># 可以查看详细的配置帮助</span><br>../configure --enable-languages=c,c++ --disable-multilib --enable-checking=release  <span class="hljs-comment"># 如果要编译多个gcc版本后面做版本管理，建议添加--prefix参数来指定安装路径（而不是使用默认路径），例如：--prefix=/usr/local/gcc/gcc750</span><br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>By default, <code>make install</code> will install all the files in <code>usr/local/bin/</code>, <code>usr/local/lib</code>etc. You can specify an installation prefix other than <code>/usr/local</code> using <code>--prefix</code> for instance <code>--prefix=$HOME</code>.</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo make -j8  <span class="hljs-comment"># 可以使用nproc来查看CPU核心数。编译的时间蛮长的，耐心等待。</span><br>sudo make install<br><span class="hljs-comment"># Libraries have been installed in:</span><br><span class="hljs-comment">#    /usr/local/lib/../lib64</span><br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>修改软链接：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 删除软链接</span><br>sudo <span class="hljs-built_in">rm</span> /usr/bin/gcc<br>sudo <span class="hljs-built_in">rm</span> /usr/bin/g++<br>sudo <span class="hljs-built_in">rm</span> /usr/bin/gcc-ar<br>sudo <span class="hljs-built_in">rm</span> /usr/bin/gcc-nm<br>sudo <span class="hljs-built_in">rm</span> /usr/bin/gcc-ranlib<br><span class="hljs-comment"># 重新建立软链接</span><br>sudo <span class="hljs-built_in">ln</span> -s /usr/local/bin/gcc /usr/bin/gcc<br>sudo <span class="hljs-built_in">ln</span> -s /usr/local/bin/gcc-ar /usr/bin/gcc-ar<br>sudo <span class="hljs-built_in">ln</span> -s /usr/local/bin/gcc-nm /usr/bin/gcc-nm<br>sudo <span class="hljs-built_in">ln</span> -s /usr/local/bin/gcc-ranlib /usr/bin/gcc-ranlib<br>sudo <span class="hljs-built_in">ln</span> -s /usr/local/bin/g++ /usr/bin/g++<br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>也可以不用修改软链接，而是直接在<code>.bashrc</code>里指定环境变量？</p>
+<p>例如，当编译命令为：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">../configure --disable-checking --enable-languages=c,c++ --disable-multilib --prefix=/home/xxx/gcc-5.5.0 --enable-threads=posix<br></code></pre></td></tr></table></figure>
+<p>时，在<code>~/.bashrc</code>文件内添加语句：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># .bashrc</span><br><span class="hljs-built_in">export</span> PATH=<span class="hljs-variable">$PATH</span>:/home/xxx/gcc-5.5.0/bin:/home/ronglei/gcc-5.5.0/lib64<br><span class="hljs-built_in">export</span> LD_LIBRARY_PATH=<span class="hljs-variable">$LD_LIBRARY_PATH</span>:/home/xxx/gcc-5.5.0/lib/<br></code></pre></td></tr></table></figure>
+</blockquote>
+</li>
+<li>
+<p>查看版本：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ gcc -v<br>Using built-in specs.<br>COLLECT_GCC=gcc<br>COLLECT_LTO_WRAPPER=/usr/local/libexec/gcc/x86_64-pc-linux-gnu/7.5.0/lto-wrapper<br>Target: x86_64-pc-linux-gnu<br>Configured with: ../configure -enable-languages=c,c++ -disable-multilib -enable-checking=release<br>Thread model: posix<br>gcc version 7.5.0 (GCC) <br><br>$ g++ -v<br>Using built-in specs.<br>COLLECT_GCC=g++<br>COLLECT_LTO_WRAPPER=/usr/local/libexec/gcc/x86_64-pc-linux-gnu/7.5.0/lto-wrapper<br>Target: x86_64-pc-linux-gnu<br>Configured with: ../configure -enable-languages=c,c++ -disable-multilib -enable-checking=release<br>Thread model: posix<br>gcc version 7.5.0 (GCC) <br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>完成。</p>
+</li>
+</ol>
 <h1 id="版本管理">版本管理</h1>
+<h2 id="对应使用命令行安装的方法">对应使用命令行安装的方法</h2>
 <p>在安装好多个版本后，使用 <code>update-alternatives</code> 命令为每个 GCC 版本设置优先级。Ubuntu 系统会默认使用优先级最高的版本，如果有需要，可以随时更改。</p>
 <img src="/posts/6dba0521/gcc%E5%91%BD%E4%BB%A4%E8%AF%AD%E6%B3%95.png" srcset="/img/loading.gif" lazyload class="" title="gcc命令语法">
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># gcc</span><br><span class="hljs-comment"># 将版本7加入候选中，其中50、100为优先级</span><br>sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-7 50<br><span class="hljs-comment"># 将版本10加入候选中</span><br>sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-10 100<br><span class="hljs-comment"># 通过下面的指令来选择不同的gcc的版本</span><br>sudo update-alternatives --config gcc<br><span class="hljs-comment"># 删除选项操作</span><br>sudo update-alternatives --remove gcc /usr/bin/gcc-4.8<br><br><span class="hljs-comment"># g++</span><br><span class="hljs-comment"># 将版本7加入候选中，其中50、100为优先级</span><br>sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-7 50<br><span class="hljs-comment"># 将版本10加入候选中</span><br>sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-10 100<br><span class="hljs-comment"># 通过下面的指令来选择不同的g++的版本</span><br>sudo update-alternatives --config g++<br><span class="hljs-comment"># 删除选项操作</span><br>sudo update-alternatives --remove g++ /usr/bin/g++-4.8<br></code></pre></td></tr></table></figure>
@@ -442,10 +494,15 @@
 </blockquote>
 <p>在配置完优先级之后，通过查询当前gcc、g++版本的方式来验证所期望的版本是否已成为默认版本。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 查看全部的备选项（包括从属链接），请使用 --display 选项：</span><br>sudo update-alternatives --display gcc<br>sudo update-alternatives --display g++<br></code></pre></td></tr></table></figure>
+<h2 id="对应使用源码编译的方法">对应使用源码编译的方法</h2>
+<p>同<a href="#%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91">源码编译</a>的第6步相同，修改软链接即可。</p>
 <h1 id="参考链接">参考链接</h1>
 <p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/FBsharl/p/17764874.html">【Linux 基础】gcc、g++多版本间的切换</a></p>
 <p><a target="_blank" rel="noopener" href="https://www.sysgeek.cn/ubuntu-install-gcc-compiler/">如何在 Ubuntu 中安装和切换多版本 GCC 编译器</a></p>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/CharlieVV/article/details/111242143">Ubuntu高版本如何安装低版本GCC (以Ubuntu 20安装GCC5为例)</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_73062333/article/details/136050031">Linux纯命令行以源码编译安装gcc（2024年2月5日）</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/whatday/article/details/122114434">linux gcc-9.2.0 源码编译</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/icaowu/p/17111105.html">ubuntu系统以源码方式安装gcc</a></p>
 
                 
               </div>

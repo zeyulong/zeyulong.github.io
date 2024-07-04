@@ -23,10 +23,13 @@
 <meta property="og:site_name" content="龙泽雨的博客">
 <meta property="og:description" content="本文主要分享了自己在使用Linux和Windows系统及各种软件过程中常用的命令及快捷键。">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://zeyulong.com/posts/a8aab215/vi-vim-cheat-sheet-sch.gif">
+<meta property="og:image" content="http://zeyulong.com/posts/a8aab215/vim-vi-workmodel.png">
 <meta property="article:published_time" content="2024-03-05T14:33:19.000Z">
-<meta property="article:modified_time" content="2024-06-17T07:33:55.923Z">
+<meta property="article:modified_time" content="2024-07-03T13:52:09.732Z">
 <meta property="article:author" content="龙泽雨">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://zeyulong.com/posts/a8aab215/vi-vim-cheat-sheet-sch.gif">
   
   
   
@@ -348,7 +351,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          20k 字
+          23k 字
         
       </span>
     
@@ -359,7 +362,7 @@
         
         
         
-          170 分钟
+          191 分钟
         
       </span>
     
@@ -409,7 +412,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2024年6月17日 下午
+                    本文最后更新于 2024年7月3日 晚上
                   
                 
               </p>
@@ -661,12 +664,14 @@
 <h3 id="查找查看">查找查看</h3>
 <h4 id="当前终端">当前终端</h4>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cat</span> /etc/shells  <span class="hljs-comment"># 查看系统安装了的shell</span><br><span class="hljs-comment"># /usr/bin/zsh为软链接，指向/bin/zsh。可能是为了系统兼容性。</span><br><span class="hljs-built_in">echo</span> <span class="hljs-variable">$SHELL</span>  <span class="hljs-comment"># 当前的shell。实际没显示成功，但是确实改成功了？</span><br><span class="hljs-comment"># 切换终端Shell</span><br>chsh -s /bin/bash<br>chsh -s /bin/zsh<br>chsh -s $(<span class="hljs-built_in">which</span> zsh)<br><span class="hljs-comment"># 或</span><br><span class="hljs-built_in">exec</span> bash  <span class="hljs-comment"># 将命令行从zsh切换为bash</span><br><span class="hljs-built_in">exec</span> zsh  <span class="hljs-comment"># 重新运行zsh命令行工具</span><br></code></pre></td></tr></table></figure>
+<h4 id="环境变量">环境变量</h4>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">echo</span> <span class="hljs-variable">$PATH</span><br><span class="hljs-built_in">echo</span> <span class="hljs-variable">$CUDA_HOME</span><br></code></pre></td></tr></table></figure>
 <h4 id="文件系统和挂载点">文件系统和挂载点</h4>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 推荐，可查看到交换空间</span><br><span class="hljs-built_in">cat</span> /etc/fstab<br><span class="hljs-comment"># 或，信息更全，有硬盘使用率等</span><br><span class="hljs-built_in">df</span> -hT<br></code></pre></td></tr></table></figure>
 <h4 id="文件（夹）大小">文件（夹）大小</h4>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># du 命令需要在root权限下操作，或者在命令行前加sudo命令也可以。但排序是乱的，不好查看。</span><br><span class="hljs-comment"># 使用 sort 命令 的 -k 参数设置对第二列的值进行重排，也就是按照文件（夹）名进行排序</span><br><span class="hljs-built_in">du</span> -ah --max-depth=1  --exclude=./proc --exclude=./tmp --exclude=./lost+found --exclude=./media --exclude=./mnt --exclude=./run | <span class="hljs-built_in">sort</span> -k 2<br><span class="hljs-comment"># 参数：</span><br>-a或 -all 显示目录中个别文件的大小。<br>-h或 --human-readable 以K，M，G为单位，提高信息的可读性。<br>--max-depth=&lt;目录层数&gt; 超过指定层数的目录后，予以忽略。<br>-exclude=&lt;目录或文件&gt; 略过指定的目录或文件。<br></code></pre></td></tr></table></figure>
 <h4 id="版本信息">版本信息</h4>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># Linux内核版本</span><br><span class="hljs-built_in">uname</span> -a  <span class="hljs-comment"># 系统架构x64（x86_64、amd64）</span><br><span class="hljs-comment"># 系统架构：x64（x86_64、amd64）、arm64（aarch64）、mips64（mips64el）</span><br><span class="hljs-comment"># cmake</span><br>cmake --version<br><span class="hljs-comment"># conda</span><br>conda --version<br><span class="hljs-comment"># CPU占用</span><br>top<br><span class="hljs-comment"># Eigen</span><br>/usr/include/eigen3  <span class="hljs-comment"># Eigen安装路径</span><br>/usr/include/eigen330  <span class="hljs-comment"># Eigen3.3.0安装路径</span><br>/usr/include/eigen340  <span class="hljs-comment"># Eigen3.4.0安装路径</span><br>gedit /usr/include/eigen3/Eigen/src/Core/util/Macros.h<br><span class="hljs-comment"># gcc</span><br>gcc -v<br><span class="hljs-comment"># java</span><br>java -version<br><span class="hljs-comment"># 内存</span><br>free<br><span class="hljs-comment"># NVIDIA</span><br>nvidia-smi<br><span class="hljs-comment"># 显卡型号</span><br>lspci | grep -i nvidia<br><span class="hljs-comment"># Opencv</span><br>/usr/local  <span class="hljs-comment"># opencv3.1.0安装路径</span><br>/usr/local/opencv/opencv320  <span class="hljs-comment"># opencv3.2.0安装路径</span><br>/usr/local/opencv/opencv345  <span class="hljs-comment"># opencv3.4.5安装路径</span><br>pkg-config --modversion opencv  <span class="hljs-comment"># 查询版本</span><br>pkg-config --cflags opencv  <span class="hljs-comment"># 得到opencv的安装路径</span><br><span class="hljs-comment"># -&gt; -I/usr/local/include/opencv -I/usr/local/include</span><br>pkg-config --cflags opencv4  <span class="hljs-comment"># 附加：得到opencv4的安装路径</span><br><span class="hljs-comment"># openssl</span><br>openssl version -a<br><span class="hljs-comment"># Pangolin</span><br>find / -name pangolin<br><span class="hljs-comment"># protoc</span><br>protoc --version<br><span class="hljs-comment"># python</span><br><span class="hljs-built_in">which</span> python<br>ll /usr/bin/python<br>python -V  <span class="hljs-comment"># python --version</span><br>sudo update-alternatives --config python<br>sudo update-alternatives --install /usr/bin/python python /usr/bin/python3 1<br>sudo update-alternatives --install /usr/bin/python python /usr/bin/python2 2<br><span class="hljs-comment"># Qt5.9.9</span><br>qmake -v<br><span class="hljs-comment"># ROS</span><br><span class="hljs-built_in">echo</span> <span class="hljs-variable">$ROS_PACKAGE_PATH</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># Linux内核版本</span><br><span class="hljs-built_in">uname</span> -a  <span class="hljs-comment"># 系统架构x64（x86_64、amd64）</span><br><span class="hljs-comment"># 系统架构：x64（x86_64、amd64）、arm64（aarch64）、mips64（mips64el）</span><br><span class="hljs-comment"># cmake</span><br>cmake --version<br><span class="hljs-comment"># conda</span><br>conda --version<br><span class="hljs-comment"># CPU核心数</span><br><span class="hljs-built_in">nproc</span><br><span class="hljs-comment"># CPU占用</span><br>top<br><span class="hljs-comment"># Eigen</span><br>/usr/include/eigen3  <span class="hljs-comment"># Eigen安装路径</span><br>/usr/include/eigen330  <span class="hljs-comment"># Eigen3.3.0安装路径</span><br>/usr/include/eigen340  <span class="hljs-comment"># Eigen3.4.0安装路径</span><br>gedit /usr/include/eigen3/Eigen/src/Core/util/Macros.h<br><span class="hljs-comment"># gcc</span><br>gcc -v<br><span class="hljs-comment"># java</span><br>java -version<br><span class="hljs-comment"># 内存</span><br>free<br><span class="hljs-comment"># NVIDIA</span><br>nvidia-smi<br>watch -n 1 nvidia-smi  <span class="hljs-comment"># 每 1 秒刷新一次</span><br><span class="hljs-comment"># 显卡型号</span><br>lspci | grep -i nvidia<br><span class="hljs-comment"># Opencv</span><br>/usr/local  <span class="hljs-comment"># opencv3.1.0安装路径</span><br>/usr/local/opencv/opencv320  <span class="hljs-comment"># opencv3.2.0安装路径</span><br>/usr/local/opencv/opencv345  <span class="hljs-comment"># opencv3.4.5安装路径</span><br>pkg-config --modversion opencv  <span class="hljs-comment"># 查询版本</span><br>pkg-config --cflags opencv  <span class="hljs-comment"># 得到opencv的安装路径</span><br><span class="hljs-comment"># -&gt; -I/usr/local/include/opencv -I/usr/local/include</span><br>pkg-config --cflags opencv4  <span class="hljs-comment"># 附加：得到opencv4的安装路径</span><br><span class="hljs-comment"># openssl</span><br>openssl version -a<br><span class="hljs-comment"># Pangolin</span><br>find / -name pangolin<br><span class="hljs-comment"># protoc</span><br>protoc --version<br><span class="hljs-comment"># python</span><br><span class="hljs-built_in">which</span> python<br>ll /usr/bin/python<br>python -V  <span class="hljs-comment"># python --version</span><br>sudo update-alternatives --config python<br>sudo update-alternatives --install /usr/bin/python python /usr/bin/python3 1<br>sudo update-alternatives --install /usr/bin/python python /usr/bin/python2 2<br><span class="hljs-comment"># Qt5.9.9</span><br>qmake -v<br><span class="hljs-comment"># ROS</span><br><span class="hljs-built_in">echo</span> <span class="hljs-variable">$ROS_PACKAGE_PATH</span><br></code></pre></td></tr></table></figure>
 <h4 id="用户手册">用户手册</h4>
 <p>Linux man 命令是 &quot;manual&quot; 单词的缩写，用于查看各种命令、函数和配置文件的手册页面。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">man [选项] [节号] 命令/主题<br></code></pre></td></tr></table></figure>
@@ -679,9 +684,15 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 查看整个文件</span><br><span class="hljs-built_in">cat</span> [filename]  <span class="hljs-comment"># cat /home/user/test.txt</span><br><br><span class="hljs-comment"># 查看开头几行</span><br><span class="hljs-built_in">head</span> -n [rows] [filename]  <span class="hljs-comment"># head -n 20 /home/user/test.txt</span><br><br><span class="hljs-comment"># 查看末尾几行</span><br><span class="hljs-built_in">tail</span> -n [rows] [filename]  <span class="hljs-comment"># tail -n 10 /home/user/test.txt</span><br><br><span class="hljs-comment"># 查看中间几行</span><br><span class="hljs-comment"># 方法一：</span><br><span class="hljs-built_in">cat</span> [filename]| <span class="hljs-built_in">head</span> -n [endRow] | <span class="hljs-built_in">tail</span> -n +[beginRow]<br><span class="hljs-comment"># 查看/home/user/test.txt的10~20行</span><br><span class="hljs-comment"># head -n 20 表示前20行</span><br><span class="hljs-comment"># tail -n 10 表示后10行</span><br><span class="hljs-comment"># tail -n +10 表示第10行之后的</span><br><span class="hljs-built_in">cat</span> /home/user/test.txt| <span class="hljs-built_in">head</span> -n 20 | <span class="hljs-built_in">tail</span> -n +10<br><span class="hljs-comment"># 方法二：</span><br>sed -n <span class="hljs-string">&#x27;[begin],[end]p&#x27;</span> [filename]<br>sed -n <span class="hljs-string">&#x27;10,20p&#x27;</span> /home/user/test.txt<br></code></pre></td></tr></table></figure>
 <h3 id="文件新建、复制、移动、重命名和删除">文件新建、复制、移动、重命名和删除</h3>
 <h4 id="基本">基本</h4>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs bash">gedit ~/.bashrc	 <span class="hljs-comment"># 使用gedit打开文件</span><br><span class="hljs-built_in">touch</span> file1.txt  <span class="hljs-comment"># 新建文件</span><br><br><span class="hljs-comment"># 在指定的目录下，创建一个名为 LINK_NAME 的硬链接或符号链接，指向名为 TARGET 的文件或目录。</span><br><span class="hljs-built_in">ln</span> [OPTION]... [-T] TARGET LINK_NAME<br><br><span class="hljs-comment"># 复制文件或目录cp命令</span><br><span class="hljs-comment"># 示例</span><br><span class="hljs-built_in">cp</span> file.txt /path/to/destination/<br>-a：此选项通常在复制目录时使用，它保留链接、文件属性，并复制目录下的所有内容。其作用等于 dpR 参数组合。<br>-r 或 --recursive：用于复制目录及其所有的子目录和文件，如果要复制目录，需要使用该选项。<br>-i 或 --interactive：在复制前提示确认，如果目标文件已存在，则会询问是否覆盖，回答 y 时目标文件将被覆盖。<br>-p 或 --preserve：保留源文件的权限、所有者和时间戳信息。<br><br><span class="hljs-comment"># Linux `mv`（英文全拼：move file）命令用来为文件或目录改名、或将文件或目录移入其它位置</span><br><span class="hljs-comment"># 注意：需要先执行`Ctrl+H`显示隐藏文件命令，否则，隐藏文件以及隐藏文件夹不会被移动到新目录</span><br><span class="hljs-comment"># 将源文件名 source_file 改为目标文件名 dest_file</span><br><span class="hljs-built_in">mv</span> source_file(文件) dest_file(文件)<br><span class="hljs-comment"># 将文件 source_file 移动到目标目录 dest_directory 中</span><br><span class="hljs-built_in">mv</span> source_file(文件) dest_directory(目录)<br><span class="hljs-comment"># 目录名 dest_directory 已存在，将 source_directory 移动到目录名 dest_directory 中；</span><br><span class="hljs-comment"># 目录名 dest_directory 不存在则 source_directory 改名为目录名 dest_directory</span><br><span class="hljs-built_in">mv</span> source_directory(目录) dest_directory(目录)<br><span class="hljs-comment"># 出错</span><br><span class="hljs-built_in">mv</span> source_directory(目录) dest_file(文件)<br><br><span class="hljs-comment"># 删除文件和文件夹rm命令</span><br><span class="hljs-built_in">rm</span> -rf <span class="hljs-built_in">test</span>/  <span class="hljs-comment"># 删除 test 文件夹，删除文件夹要加 -r 参数</span><br>-i 删除前逐一询问确认。<br>-f 即使原档案属性设为唯读，亦直接删除，无需逐一确认。<br>-r 将目录及以下之档案亦逐一删除。<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><code class="hljs bash">gedit ~/.bashrc	 <span class="hljs-comment"># 使用gedit打开文件</span><br><span class="hljs-built_in">touch</span> file1.txt  <span class="hljs-comment"># 新建文件</span><br><br><span class="hljs-comment"># 在指定的目录下，创建一个名为 LINK_NAME 的硬链接或符号链接，指向名为 TARGET 的文件或目录。</span><br><span class="hljs-built_in">ln</span> [OPTION]... [-T] TARGET LINK_NAME<br><br><span class="hljs-comment"># 复制文件或目录cp命令</span><br><span class="hljs-comment"># 示例</span><br><span class="hljs-built_in">cp</span> file.txt /path/to/destination/<br>-a：此选项通常在复制目录时使用，它保留链接、文件属性，并复制目录下的所有内容。其作用等于 dpR 参数组合。<br>-r 或 --recursive：用于复制目录及其所有的子目录和文件，如果要复制目录，需要使用该选项。<br>-i 或 --interactive：在复制前提示确认，如果目标文件已存在，则会询问是否覆盖，回答 y 时目标文件将被覆盖。<br>-p 或 --preserve：保留源文件的权限、所有者和时间戳信息。<br><br><span class="hljs-comment"># Linux `mv`（英文全拼：move file）命令用来为文件或目录改名、或将文件或目录移入其它位置</span><br><span class="hljs-comment"># 注意：需要先执行`Ctrl+H`显示隐藏文件命令，否则，隐藏文件以及隐藏文件夹不会被移动到新目录</span><br><span class="hljs-comment"># 将源文件名 source_file 改为目标文件名 dest_file</span><br><span class="hljs-built_in">mv</span> source_file(文件) dest_file(文件)<br><span class="hljs-comment"># 将文件 source_file 移动到目标目录 dest_directory 中</span><br><span class="hljs-built_in">mv</span> source_file(文件) dest_directory(目录)<br><span class="hljs-comment"># 目录名 dest_directory 已存在，将 source_directory 移动到目录名 dest_directory 中；</span><br><span class="hljs-comment"># 目录名 dest_directory 不存在则 source_directory 改名为目录名 dest_directory</span><br><span class="hljs-built_in">mv</span> source_directory(目录) dest_directory(目录)<br><span class="hljs-comment"># 出错</span><br><span class="hljs-built_in">mv</span> source_directory(目录) dest_file(文件)<br><br><span class="hljs-comment"># 删除文件和文件夹rm命令</span><br><span class="hljs-built_in">rm</span> -rf <span class="hljs-built_in">test</span>/  <span class="hljs-comment"># 删除 test 文件夹，删除文件夹要加 -r 参数</span><br>-i 删除前逐一询问确认。<br>-f 即使原档案属性设为唯读，亦直接删除，无需逐一确认。<br>-r 将目录及以下之档案亦逐一删除。<br><span class="hljs-comment"># 删除当前目录及其子目录中所有.json文件的bash命令：</span><br>find . -name <span class="hljs-string">&quot;*.json&quot;</span> -<span class="hljs-built_in">type</span> f -delete<br><span class="hljs-comment"># find：这是主命令，用于查找文件。</span><br><span class="hljs-comment"># .：这告诉find命令从当前目录开始搜索。</span><br><span class="hljs-comment"># -name &quot;*.json&quot;：这告诉find命令查找所有以.json结尾的文件。</span><br><span class="hljs-comment"># -type f：这告诉find命令只查找文件，不包括目录。</span><br><span class="hljs-comment"># -delete：这告诉find命令删除找到的所有文件。</span><br></code></pre></td></tr></table></figure>
 <h4 id="删除大量文件">删除大量文件</h4>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 使用rsync命令，原理是同步</span><br><span class="hljs-comment"># 1.</span><br><span class="hljs-comment"># 新建空文件夹</span><br><span class="hljs-comment"># 2.</span><br>rsync -av --delete [空文件夹路径] [要删除的文件夹路径]<br><span class="hljs-comment"># 示例：</span><br>rsync -av --delete /tmp/empty/ /var/log/target/<br><span class="hljs-comment"># 参数说明：</span><br>--delete 删除那些target中有而<span class="hljs-built_in">source</span>没有的文件<br>-a, --archive  归档模式，表示以递归的方式传输文件，并保持所有文件属性不变<br>-v 详细输出模式<br></code></pre></td></tr></table></figure>
+<h3 id="下载">下载</h3>
+<p><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000022301195#GeneratedCaptionsTabForHeroSec">wget 与 curl 命令详解</a></p>
+<h4 id="wget">wget</h4>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo apt install wget<br><br><span class="hljs-comment"># 下载单个文件</span><br>wget [options] &lt;URL&gt;<br>wget -O myfile.zip http://www.example.com/testfile.zip  <span class="hljs-comment"># 如果不指定&quot;-O&quot; 选项，wget默认会以 url 路径最后一个 &quot;/&quot; 的后面全部字符为下载的文件名</span><br><br><span class="hljs-comment"># 断点续传</span><br>wget -c http://www.example.com/testfile.zip  <span class="hljs-comment"># 当下载的文件特别大或者网络原因，文件没有下载完连接就已经被断开，使用 -c 选项可以在网络连接恢复时接着上次的下载任务继续下载，而不需要重头开始下载文件</span><br>wget --tries=40 http://www.example.com/testfile.zip  <span class="hljs-comment"># wget默认重试20次连接下载文件，如果网络一直有问题下载可能失败。如果需要的话，你可以使用--tries增加重试次数。</span><br></code></pre></td></tr></table></figure>
+<h4 id="curl">curl</h4>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 单个文件下载</span><br>curl [ -o 自定义文件名| -O] http://www.example.com/index.html<br><span class="hljs-comment"># -o 自定义文件名：把服务器响应输出到指定文件</span><br><span class="hljs-comment"># -O：与-o选项作用一样，区别在于以 url 路径最后一个&quot;/&quot;之后的部分作为文件名</span><br><span class="hljs-comment"># 如果这两个选项都不写，curl 默认会把服务器响应内容输出到终端</span><br><br><span class="hljs-comment"># 断点续传</span><br>curl -O -C 偏移量 http://www.example.com/testfile.zip<br><span class="hljs-comment"># -C 偏移量：从指定的偏移量处继续下载，偏移量以字节为单位</span><br><span class="hljs-comment"># 如果让curl自动推断出正确的续传位置可以使用 &quot;-&quot; 代替偏移量，例如：</span><br>curl -O -C - http://www.example.com/testfile.zip<br></code></pre></td></tr></table></figure>
 <h3 id="目录（跳转）">目录（跳转）</h3>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">mkdir</span> 新建目录<br><br>./（点斜杠）表示当前工作目录的相对路径<br>.表示当前目录<br>..表示（当前目录的）父目录<br><br><span class="hljs-built_in">pwd</span>  <span class="hljs-comment"># 打印当前所在目录</span><br><br><span class="hljs-built_in">cd</span> <span class="hljs-built_in">dir</span>  <span class="hljs-comment"># 切换到指定目录</span><br><span class="hljs-built_in">cd</span> /  <span class="hljs-comment"># 进入根目录</span><br><span class="hljs-built_in">cd</span> ~  <span class="hljs-comment"># root用户， 相当于 cd /root；普通用户，相当于cd /home/当前用户名，即主目录</span><br><span class="hljs-built_in">cd</span> -  <span class="hljs-comment"># 切换到我们之前所在的目录</span><br><span class="hljs-built_in">cd</span> .  <span class="hljs-comment"># 目前所在目录</span><br><span class="hljs-built_in">cd</span> ..  <span class="hljs-comment"># 返回上一层</span><br><span class="hljs-built_in">cd</span> ../..  <span class="hljs-comment"># 返回上两层</span><br><span class="hljs-built_in">cd</span> ../***  <span class="hljs-comment"># 进入当前目录父目录的**目录</span><br><span class="hljs-built_in">cd</span> ~=<span class="hljs-built_in">cd</span> /root  <span class="hljs-comment"># 进入root的根目录</span><br><br><span class="hljs-comment"># 标记目录</span><br><span class="hljs-comment"># 记录当前目录路径，待会返回需要用到</span><br>cur=`<span class="hljs-built_in">pwd</span>`<br><span class="hljs-comment"># 返回项目</span><br><span class="hljs-built_in">cd</span> <span class="hljs-variable">$cur</span><br></code></pre></td></tr></table></figure>
 <ol>
@@ -747,290 +758,6 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 查看文件权限</span><br>ll<br></code></pre></td></tr></table></figure>
 <h4 id="root用户把某个文件权限给到普通用户">root用户把某个文件权限给到普通用户</h4>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 先切换到root环境</span><br>su root<br><span class="hljs-comment"># 赋权</span><br><span class="hljs-built_in">chown</span> -R username filepath<br><span class="hljs-comment"># username 指的是 你的普通用户名称</span><br><span class="hljs-comment"># filepath 指的是 你需要赋权给普通用户的文件夹路径</span><br><span class="hljs-comment"># 这样普通用户也就可以操作这个路径下的文件了</span><br></code></pre></td></tr></table></figure>
-<h3 id="代码、编译">代码、编译</h3>
-<h4 id="本地库编译">本地库编译</h4>
-<ol>
-<li>
-<p>编译</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># cmake</span><br><span class="hljs-comment"># 指定安装目录。使用该参数可以指定安装目录，使得在执行make install命令时，生成的可执行文件、库文件、头文件等可以被安装到指定的目录下。</span><br>cmake -DCMAKE_INSTALL_PREFIX=/usr/local<br><span class="hljs-comment"># 指定使用的gcc和g++版本</span><br>-DCMAKE_C_COMPILER=gcc-10 -DCMAKE_CXX_COMPILER=g++-10<br><br><span class="hljs-comment"># 建议在make之前先查看CPU的核心数</span><br><span class="hljs-built_in">nproc</span>  <span class="hljs-comment"># 你可以根据你的核心数来调整make指令的参数，比如笔者的CPU核心数为12，则可以执行：</span><br>make -j12<br>make <span class="hljs-comment"># 根据Makefile编译源代码，连接，生成目标文件，可执行文件。</span><br>make install  <span class="hljs-comment"># 将编译成功的可执行文件安装到系统目录中，一般为/usr/local/bin目录。</span><br></code></pre></td></tr></table></figure>
-<p>在<code>CmakeLists.txt</code>里指定第三方库所在的路径，即指定其编译安装后<code>.cmake</code>文件所在的路径，例如：</p>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs cmake"><span class="hljs-comment"># 指定OpenCVConfig.cmake文件的目录</span><br><span class="hljs-comment"># 注意opencv安装目录下的/share/OpenCV</span><br><span class="hljs-keyword">set</span>(OpenCV_DIR /usr/local/share/OpenCV)  <span class="hljs-comment"># 默认安装在/usr/local/</span><br><span class="hljs-keyword">set</span>(OpenCV_DIR /usr/local/opencv/opencv345/share/OpenCV)  <span class="hljs-comment"># 自定义安装在/usr/local/opencv/opencv345的openv3.4.5</span><br><span class="hljs-keyword">set</span>(OpenCV_DIR /usr/local/opencv/opencv452/lib/cmake/opencv4)<br><span class="hljs-comment"># set(OpenCV_DIR /opt/ros/kinetic/share/OpenCV-3.3.1-dev)</span><br><span class="hljs-comment"># set（OpenCV_DIR  /path/to/opencv/build）</span><br></code></pre></td></tr></table></figure>
-</li>
-<li>
-<p>卸载</p>
-<ol>
-<li>
-<p>当场卸载</p>
-<p>如果因为反复<code>./configure xx</code>然后<code>make</code>会导致安装路径混乱，<code>sudo make install</code>失败。所以如果路径设错了又已经<code>make</code>完，需要<code>make clean</code>来清除一下。如果想把自己刚刚<code>make install</code>安装的卸载掉，可以在那个目录里直接用<code>sudo make uninstall</code>。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo make uninstall<br>sudo make clean <span class="hljs-comment">#清除上一次make命令生成的文件</span><br>sudo make distclean <span class="hljs-comment">#清除上一次make以及configure命令生成的文件</span><br>sudo <span class="hljs-built_in">rm</span> -r build<br></code></pre></td></tr></table></figure>
-</li>
-<li>
-<p>事后卸载</p>
-<p>找到<code>sudo make install</code>之后产生的这个文件<code>install_manifest.txt</code>，里面有安装的所有东西的路径，删除它们即可。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 参考命令：</span><br><span class="hljs-built_in">cat</span> install_manifest.txt | sudo xargs <span class="hljs-built_in">rm</span><br><span class="hljs-comment"># 或者</span><br>sudo xargs <span class="hljs-built_in">rm</span> &lt; install_manifest.txt<br></code></pre></td></tr></table></figure>
-<p>上述命令只会删除掉文件夹里的文件，会留下空文件夹。所以可以继续对照<code>install_manifest.txt</code>文件，手动删掉多余的空文件夹。</p>
-</li>
-</ol>
-</li>
-</ol>
-<h4 id="代码中的特殊注释">代码中的特殊注释</h4>
-<p>这些是注释中的标签（tag），有时也被称作“代码标签（codetag）”或“标记（token）”。</p>
-<p>标识：</p>
-<ul>
-<li>TODO：标记代码中需要实现的功能或任务。</li>
-<li>FIXME：标记代码中需要修复的问题或缺陷。</li>
-<li>XXX：如果代码中有该标识，说明标识处代码虽然实现了功能，但是实现的方法有待商榷，代码有问题或具误导性，需引起警惕。希望将来能改进，要改进的地方会在说明中简略说明。</li>
-<li>HACK/BODGE/KLUDGE：标记临时性修复或不优雅的解决方案。英语翻译为砍。如果代码中有该标识，说明标识处代码我们需要根据自己的需求去调整程序代码。</li>
-<li>BUG/DEBUG：标记已知的Bug或错误。</li>
-<li>UNDONE：对之前代码改动的撤销。</li>
-<li>NOTE：提供额外的注释或提示信息，帮助理解代码意图或设计决策。</li>
-</ul>
-<p>格式：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">/*</span><br><span class="hljs-comment">* 1. 使用大写字母</span><br><span class="hljs-comment">* 2. 只用双正斜杠//，而不是三个正斜杠 ///</span><br><span class="hljs-comment">* 3. 在标签后使用半角冒号 :</span><br><span class="hljs-comment">*/</span><br><span class="hljs-comment">//<span class="hljs-doctag">TODO:</span> Need implementation.</span><br><span class="hljs-comment">//<span class="hljs-doctag">FIXME:</span> We need to avoid the problem of duplicating windows when clicking multiple times on this menu item.</span><br></code></pre></td></tr></table></figure>
-<h4 id="编程命名规范">编程命名规范</h4>
-<ol>
-<li>
-<p>匈牙利命名法（将变量类型写进变量名的命名方法）。</p>
-<p>其基本原则是，变量名=属性+类型+对象描述。通过在变量名前面加上相应的小写字母的符号标识作为前缀，标识出变量的作用域，类型等。</p>
-<p>这些符号可以多个同时使用，顺序是先m_（成员变量），再指针，再简单数据类型，再其他。例如：m_lpsStr，表示指向一个字符串的长指针成员变量。</p>
-<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs txt"># 前缀类型<br>a      数组（Array）<br>b      布尔值（Boolean）<br>by     字节（Byte）<br>c      有符号字符（Char）<br>cb     无符号字符（Char Byte，并没有神马人用的）<br>cr     颜色参考值（Color Ref）<br>cx,cy  坐标差（长度 Short Int）<br>dw     双字（Double Word）<br>fn     函数（Function）<br>h      Handle（句柄）<br>i      整形（Int）<br>l      长整型（Long Int）<br>lp     长指针（Long Pointer）<br>m_     类成员（Class Member）<br>n      短整型（Short Int）<br>np     近程指针（Near Pointer）<br>p      指针（Pointer）<br>s      字符串（String）<br>sz     以 Null 做结尾的字符串型（String with Zero End）<br>w      字（Word）<br></code></pre></td></tr></table></figure>
-</li>
-<li>
-<p>驼峰式命名法，又叫小驼峰式命名法。常用于变量名，函数名。</p>
-<p>要求第一个单词首字母小写，后面其他单词首字母大写。</p>
-<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs txt">int myAge;<br>char myName[10];<br>float manHeight;<br></code></pre></td></tr></table></figure>
-</li>
-<li>
-<p>帕斯卡命名法，又叫大驼峰式命名法。常用于类名，属性，命名空间等。</p>
-<p>与小驼峰式命名法的最大区别在于，每个单词的第一个字母都要大写。</p>
-<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs txt">int MyAge;<br>char MyName[10];<br>float ManHeight;<br></code></pre></td></tr></table></figure>
-</li>
-<li>
-<p>下划线命名法。</p>
-<p>下划线命名法并不如大小驼峰式命名法那么备受推崇，但是也是浓墨重彩的一笔。尤其在宏定义和常量中使用比较多，通过下划线来分割全部都是大写的单词。</p>
-<p>该命名规范，也是很简单，要求单词与单词之间通过下划线连接即可。</p>
-<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs txt">int my_age;<br>char my_name[10];<br>float man_height;<br></code></pre></td></tr></table></figure>
-</li>
-</ol>
-<h4 id="sh脚本一次性启动多个程序（对应多个终端）"><code>.sh</code>脚本一次性启动多个程序（对应多个终端）</h4>
-<p>经常开发ros环境的应该知道，当节点太多难以控制的时候，不如写个脚本直接启动多个节点（对应多个终端）。</p>
-<p>先介绍一下<code>gnome-terminal</code>命令的使用：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs bash">gnome-terminal  <span class="hljs-comment"># 打开一个新的终端</span><br><span class="hljs-comment"># 参数</span><br><span class="hljs-comment"># 基本用法</span><br>--maximize  <span class="hljs-comment"># 打开后自动最大化</span><br>--full-screen  <span class="hljs-comment"># 打开后全屏</span><br>--window  <span class="hljs-comment"># 打开多个终端，多个标签页</span><br>	gnome-terminal --window --window  <span class="hljs-comment">#打开两个</span><br>	gnome-terminal --window --tab --window --tab --tab  <span class="hljs-comment">#打开两个，第一个两个tab，第二个3个tab</span><br>-t  <span class="hljs-comment"># 设置终端的标题。注意，有些版本不支持。</span><br><span class="hljs-comment"># 设置打开的位置和大小（宽度x高度+左侧偏移量+上方偏移量）</span><br>gnome-terminal --geometry=80x25+10+10<br><br><span class="hljs-comment"># 启动后自动执行命令</span><br>-e  <span class="hljs-comment"># 可以出现多次。如果在所有--window前面，表示对所有window和tab起作用，如果在--window或者--tab后面，表示只针对这个tab执行，要注意-e后面只能有一个参数，也就是说如果有空格，需要用引号。</span><br>-x  <span class="hljs-comment"># 只能出现一次，在-x后面的所有内容，均认为是要执行的命令，所以可以出现空格，这些命令是针对所有tab都执行的。</span><br>gnome-terminal -x bash -c <span class="hljs-string">&quot;ls&quot;</span><br>gnome-terminal -e <span class="hljs-string">&#x27;bash -c &quot;ls&quot;&#x27;</span><br><span class="hljs-comment"># 注，运行时会警告：</span><br><span class="hljs-comment"># 参数“-x”弃用并可能在 gnome-terminal 的后续版本中移除。</span><br><span class="hljs-comment"># 参数“-e”弃用并可能在 gnome-terminal 的后续版本中移除</span><br><span class="hljs-comment"># 使用“-- ”以结束选项并将要执行的命令行追加至其后。</span><br><span class="hljs-comment"># 所以，现在可以直接用“--”来替换掉“-x”和“-e”了。</span><br><br><span class="hljs-comment"># 执行完成后保持终端不自动关闭。</span><br><span class="hljs-comment"># 1. 最后加上exec bash的命令，并用分号跟前面的命令隔开。</span><br>gnome-terminal -x bash -c <span class="hljs-string">&quot;ls; exec bash&quot;</span><br>gnome-terminal -e <span class="hljs-string">&#x27;bash -c &quot;ls; exec bash&quot;&#x27;</span><br><span class="hljs-comment"># 2. 修改terminal的配置，在terminal点右键，选择Profiles-&gt;Profile Preferences，然后找到Title and Command，里面有一项When command exits，后面选择为Hold the terminal open，然后就可以了。</span><br><span class="hljs-comment"># 3. 把结果重定向给less，这样less执行完之前，是不会退出的。</span><br>gnome-terminal -x <span class="hljs-built_in">ls</span>|less<br></code></pre></td></tr></table></figure>
-<p>了解上面后我们可以创建属于自己的脚本了：</p>
-<ol>
-<li>
-<p>在ROS工作空间（例如，<code>catkin_ws</code>文件夹）下创建一个脚本文件，例如<code>runROS.sh</code>。</p>
-</li>
-<li>
-<p>写入内容，例如：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-meta">#!/bin/bash</span><br>gnome-terminal --window -- bash -c <span class="hljs-string">&quot;source ./devel/setup.bash &amp;&amp; roslaunch PACKAGE_NAME *.launch; exec bash&quot;</span><br><span class="hljs-built_in">sleep</span> 3s<br>gnome-terminal --window -- bash -c <span class="hljs-string">&quot;source ./devel/setup.bash &amp;&amp; rosrun PACKAGE_NAME NODE_NAME *.yaml; exec bash&quot;</span><br><span class="hljs-built_in">sleep</span> 3s<br>gnome-terminal --window -- bash -c <span class="hljs-string">&quot;rosbag play /yourfolder/*.bag; exec bash&quot;</span><br></code></pre></td></tr></table></figure>
-<p>需要什么节点按照这个模块添加即可。</p>
-<p>对于使用Terminator终端和zsh shell，修改文件内容为：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-meta">#!/bin/zsh</span><br>terminator -e <span class="hljs-string">&quot;zsh -c &#x27;source ./devel/setup.zsh &amp;&amp; roslaunch PACKAGE_NAME *.launch; exec zsh&#x27;&quot;</span><br><span class="hljs-built_in">sleep</span> 3s<br>terminator -e <span class="hljs-string">&quot;zsh -c &#x27;source ./devel/setup.zsh &amp;&amp; rosrun PACKAGE_NAME NODE_NAME *.yaml; exec zsh&#x27;&quot;</span><br><span class="hljs-built_in">sleep</span> 3s<br>terminator -e <span class="hljs-string">&quot;zsh -c &#x27;source ./devel/setup.zsh &amp;&amp; rosbag play /yourfolder/*.bag; exec zsh&#x27;&quot;</span><br></code></pre></td></tr></table></figure>
-<blockquote>
-<p>这里播放<code>rosbag</code>前面需要加上<code>source ./devel/setup.zsh</code>，否则会报错<code>zsh:1: command not found: rosbag</code>。</p>
-</blockquote>
-<blockquote>
-<p>如果<code>exec zsh</code>命令未能在命令运行完成后保持终端窗口打开，可以尝试修改terminal的配置，在terminal点右键，选择Profiles-&gt;Profile Preferences，然后找到Title and Command，里面有一项When command exits，后面选择为Hold the terminal open。</p>
-</blockquote>
-<blockquote>
-<p>因为<code>roscore</code>和<code>roslanuch</code>打开ROS节点后不会自行关闭，需要使用快捷键<code>Ctrl+C</code>手动关闭，所以不会运行到<code>exec zsh</code>这一步。</p>
-<p>而且，使用快捷键<code>Ctrl+C</code>手动关闭ROS节点后，终端会直接退出，也就是关闭窗口（这个BUG？反而能自动关闭终端窗口，减少了自己的操作？）。</p>
-<p>如果<code>Ctrl+C</code>后不想关闭终端，可以在terminal点右键，选择Profiles-&gt;Profile Preferences，然后找到Title and Command，里面有一项When command exits，后面选择为Hold the terminal open。不过即使这样，当前终端也不再能输入命令，只能使用Terminator的功能水平分割/数值分割另起一个终端。</p>
-</blockquote>
-</li>
-<li>
-<p>给脚本文件授予权限：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo <span class="hljs-built_in">chmod</span> 755 runROS.sh<br></code></pre></td></tr></table></figure>
-<p><code>chmod 755</code> 设置用户的权限为：</p>
-<ol>
-<li>文件所有者可读可写可执行。</li>
-<li>与文件所有者同属一个用户组的其他用户可读可执行。</li>
-<li>其它用户组可读可执行。</li>
-</ol>
-</li>
-<li>
-<p>运行脚本文件：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> catkin_ws<br>./runROS.sh<br></code></pre></td></tr></table></figure>
-</li>
-<li>
-<p>完成。</p>
-</li>
-</ol>
-<p><a href="https://zeyulong.com/posts/c4541b88/#%E8%BF%9B%E9%98%B6%E4%BD%BF%E7%94%A8">进阶使用</a></p>
-<blockquote>
-<p><code>shell</code>脚本在语句报错后默认仍会继续向下执行，解决方法为：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-meta">#!/bin/bash</span><br><span class="hljs-comment"># 增加语句</span><br><span class="hljs-built_in">set</span> -e<br><span class="hljs-comment"># 或，二选一即可</span><br><span class="hljs-built_in">set</span> -o errexit<br><span class="hljs-comment"># 或，使用逻辑与</span><br>python3 main.py &amp;&amp;<br>python3 do.py<br></code></pre></td></tr></table></figure>
-<p>默认情况下，脚本执行后，屏幕只显示运行结果，没有其他内容。如果多个命令连续执行，它们的运行结果就会连续输出。有时会分不清，某一段内容是什么命令产生的。</p>
-<p><code>set -x</code>用来在运行结果之前，先输出执行的那一行命令。执行<code>echo bar</code>之前，该命令会先打印出来，行首以<code>+</code>表示。这对于调试复杂的脚本是很有用的。</p>
-</blockquote>
-<h4 id="C-中输出函数的选择">C++中输出函数的选择</h4>
-<ol>
-<li>
-<p>C++ 中 <code>printf</code> 和 <code>cout</code> 有什么区别？</p>
-<p>在 C++ 中，<code>printf</code> 和 <code>cout</code> 都用于输出，但它们来自不同的库，有不同的用法和特性。下面是一些主要的不同之处：</p>
-<ol>
-<li><strong>来源</strong>：
-<ul>
-<li><code>printf</code> 是 C 语言中的标准输入输出函数，来源于 C 语言的标准库（stdio.h）。在 C++ 中依然可用，但需要包含头文件 <code>&lt;cstdio&gt;</code> 或者 C 风格的 <code>&lt;stdio.h&gt;</code>。</li>
-<li><code>cout</code> 是 C++ 专有的，属于 C++ 标准库中的一个对象，用于输出。<code>cout</code> 是定义在 <code>&lt;iostream&gt;</code> 头文件中的标准输出流对象。</li>
-</ul>
-</li>
-<li><strong>使用语法</strong>：
-<ul>
-<li><code>printf</code> 使用格式化字符串。例如：<code>printf(&quot;%d %s&quot;, 100, &quot;C++&quot;);</code>。</li>
-<li><code>cout</code> 使用流插入运算符(<code>&lt;&lt;</code>)。例如：<code>cout &lt;&lt; 100 &lt;&lt; &quot; C++&quot;;</code>。</li>
-</ul>
-</li>
-<li><strong>类型安全</strong>：
-<ul>
-<li><code>printf</code> 在处理类型时不够安全，因为它依赖于格式化字符串正确地匹配变量的类型；如果不匹配，可能会造成运行时错误或未定义行为。</li>
-<li><code>cout</code> 是类型安全的，编译器会检查插入到<code>cout</code>中的数据类型，确保与预期匹配，减少了错误的可能性。</li>
-</ul>
-</li>
-<li><strong>性能</strong>：
-<ul>
-<li><code>printf</code> 的性能通常情况下比 <code>cout</code> 快，尤其是在格式化字符串操作时，因为 <code>cout</code> 的类型安全和重载运算符使得它的运行效率稍低。</li>
-<li>但是，通过启用 C++ 的 <code>std::ios_base::sync_with_stdio(false);</code> 以及避开使用 <code>std::endl</code>（<code>std::endl</code> 会刷新输出缓冲区），可以提升 <code>cout</code> 的性能，使其与 <code>printf</code> 相近。</li>
-</ul>
-</li>
-<li><strong>灵活性和功能</strong>：
-<ul>
-<li>使用 <code>cout</code> 更灵活，因为它支持对输出格式的更细致控制，例如设置宽度、精度和填充字符等。此外，<code>cout</code> 可以直接打印用户定义的类型，只要为这些类型重载了输出运算符(<code>&lt;&lt;</code>)。</li>
-<li><code>printf</code> 在打印自定义类型时没有直接的方式，因为它需要预定义的格式化串。</li>
-</ul>
-</li>
-<li><strong>可移植性</strong>：
-<ul>
-<li><code>printf</code> 基于 C 语言，因此在许多不同的平台和编译器中使用广泛，具有很高的可移植性。</li>
-<li><code>cout</code> 虽然是 C++ 的一部分，理论上在所有支持 C++ 的平台上都是可用的，但在跨平台编程时，对输出格式的控制可能会遇到不一致性。</li>
-</ul>
-</li>
-</ol>
-<p>综上所述，<code>printf</code> 和 <code>cout</code> 都有各自的用途和优势，选择使用哪个取决于具体的编程需求和个人喜好。在实际编程中，了解它们的差异有助于更好地决策和优化代码。</p>
-</li>
-<li>
-<p>在C++程序开发中，推荐使用<code>printf</code>还是<code>cout</code>？</p>
-<p>在 C++ 程序开发中，通常推荐使用 <code>cout</code> 而不是 <code>printf</code>。这一推荐基于以下几个理由：</p>
-<ol>
-<li><strong>类型安全</strong>：<code>cout</code> 是类型安全的，这意味着编译器会对插入到 <code>cout</code> 的数据类型进行检查，减少了类型不匹配的错误。而 <code>printf</code> 需要开发者手动指定类型，在类型不匹配的情况下可能导致未定义行为或运行时错误。</li>
-<li><strong>易于使用</strong>：使用 <code>cout</code> 需要较少的手工干预来处理不同类型的数据，因为它可以自动调整输出格式，而 <code>printf</code> 请求用户显式地指定格式化字符串。特别是在处理字符串和数字的混合输出时，<code>cout</code> 的语法更为直观和简洁。</li>
-<li><strong>可扩展性</strong>：对于自定义类型，<code>cout</code> 允许开发者通过重载输出运算符 (<code>&lt;&lt;</code>) 来定义自己的输出格式，这提供了良好的可扩展性。而 <code>printf</code> 不能直接支持自定义类型的打印，除非通过某种方式将其转换为内建类型。</li>
-<li><strong>标准一致性</strong>：<code>cout</code> 是 C++ 标准库的一部分，充分利用 <code>cout</code> 能够使程序更加面向对象，更符合 C++ 的编程风格。<code>printf</code> 来自 C 语言标准库，虽然在 C++ 中仍然可用，但并不是 C++ 风格的首选。</li>
-<li><strong>灵活性</strong>：<code>cout</code> 提供了更好的控制输出格式的功能，如设置宽度、填充、精度等，而且这些设置易于读写和维护。</li>
-</ol>
-<p>然而，在某些特定情况下，<code>printf</code> 可能更为有用： - 当您需要更详细地控制输出格式，尤其是在涉及复杂格式时，<code>printf</code> 的格式化字符串可能更易于使用和理解。 - 在性能极致敏感的场景中，经过适当的优化后，<code>printf</code> 在某些情况下可能比 <code>cout</code> 有更好的性能。</p>
-<p>总之，虽然 <code>cout</code> 通常是在 C++ 中处理输出的首选，但确切选择取决于具体的应用场景、性能需求和个人偏好。在决定使用哪一个之前，考虑项目的需求和上下文非常重要。</p>
-</li>
-<li>
-<p>在使用C++语言的ROS平台开发中，推荐使用<code>printf</code>、<code>cout</code>还是<code>ROS_INFO</code>？</p>
-<p>在使用 C++ 语言开发 ROS (Robot Operating System) 平台的应用时，通常推荐使用 <code>ROS_INFO</code> 以及其相关的宏（如 <code>ROS_WARN</code>, <code>ROS_ERROR</code>, <code>ROS_DEBUG</code> 等）来进行消息的输出。这些宏专为 ROS 开发设计，提供了一些优势和特性，特别是在进行机器人软件开发时：</p>
-<ol>
-<li><strong>统一的日志管理</strong>：<code>ROS_INFO</code> 和其他相关宏能够将输出消息统一管理，使得日志记录、查看和分析变得更加容易。ROS 提供的 rqt_console 和 roslaunch 日志文件都可以捕捉这些输出，方便开发者调试和追踪问题。</li>
-<li><strong>级别管理</strong>：不同于 <code>printf</code> 和 <code>cout</code> 只能单纯输出文本，<code>ROS_INFO</code> 等宏允许你按照不同的严重性级别输出消息，如信息、警告、错误、调试等。这有助于开发者在运行时筛选和控制想要查看的输出类型。</li>
-<li><strong>节点识别</strong>：使用 ROS 日志函数，每条日志消息都会自动附带节点名信息。这对于在复杂系统中跟踪消息来源特别有用，尤其是当多个节点同时运行时。</li>
-<li><strong>格式化和类型安全</strong>：<code>ROS_INFO</code> 等宏支持类似 <code>printf</code> 的格式化功能，使得在输出文本时可以包含变量。同时，由于 <code>ROS_INFO</code> 是在 C++ 环境下设计的，因此也可以在一定程度上享受到 C++ 类型安全的好处（尽管其内部实现可能是利用 <code>printf</code> 风格的格式化字符串）。</li>
-<li><strong>条件编译</strong>：<code>ROS_DEBUG</code> 等调试相关的宏，在发布模式下可以通过编译选项完全禁用，从而不会对发布版本的性能造成影响。</li>
-</ol>
-<p>综上所述，虽然在 ROS 平台下开发时 <code>printf</code> 和 <code>cout</code> 依然可用，但 <code>ROS_INFO</code> 和相关的宏提供了更多符合 ROS 开发环境和需求的优势。因此，在大多数情况下，推荐使用 <code>ROS_INFO</code> 及其相关宏进行消息输出和日志记录。</p>
-</li>
-<li>
-<p>在使用C++语言的ROS平台开发中，推荐使用<code>printf</code>、<code>cout</code>、<code>ROS_INFO</code>还是<code>ROS_INFO_STREAM</code>？</p>
-<p>在使用C++语言的ROS（Robot Operating System）平台开发时，选择<code>printf</code>、<code>cout</code>、<code>ROS_INFO</code>还是<code>ROS_INFO_STREAM</code>取决于具体的应用场景和你的偏好。下面是它们各自的特点和适用情况：</p>
-<p><code>printf</code></p>
-<ul>
-<li>来源于C语言，C++也支持。</li>
-<li>用于格式化输出，语法稍显复杂，对类型安全的支持不如C++的IO流。</li>
-<li>适用于快速的调试或者当开发环境更接近C语言时使用。</li>
-</ul>
-<p><code>std::cout</code></p>
-<ul>
-<li>C++标准输入输出流的一部分，使用起来比<code>printf</code>更为方便和安全。</li>
-<li>支持类型安全的输出，可以通过重载<code>&lt;&lt;</code>操作符来扩展对自定义类型的支持。</li>
-<li>适用于C++程序的通用输出，特别是需要输出自定义类型数据时。</li>
-</ul>
-<p><code>ROS_INFO</code> 和 <code>ROS_INFO_STREAM</code></p>
-<ul>
-<li>这是ROS中专门用于日志输出的宏和流。</li>
-<li><code>ROS_INFO</code> 类似于<code>printf</code>，而<code>ROS_INFO_STREAM</code>则类似于<code>std::cout</code>，使用方法根据个人偏好和输出内容的复杂度来选择。</li>
-<li>它们的优势在于：</li>
-<li>集成了ROS的命名空间和节点名，可以更清楚地知道是哪个节点产生的日志。</li>
-<li>可以通过ROS的配置文件来调整日志的级别，方便调试和运行时的日志管理。</li>
-<li>支持网络日志（rosout），使得可以在ROS的不同部分或不同机器上收集和查看日志。</li>
-</ul>
-<p>推荐使用</p>
-<ul>
-<li>对于简单的调试信息，如果你更习惯C++风格，推荐使用<code>ROS_INFO_STREAM</code>；如果你倾向于使用类似C语言的格式化输出，可以选择<code>ROS_INFO</code>。</li>
-<li>对于非ROS系统级的调试或者涉及大量复杂数据类型输出时，<code>std::cout</code>可能更为直接和方便。</li>
-<li>一般建议尽量避免使用<code>printf</code>，除非你有特别的理由，因为它不提供类型安全且在C<ins>中使用<code>std::cout</code>和<code>ROS_INFO_STREAM</code>可以更好地利用C</ins>的特性。</li>
-</ul>
-<p>综上所述，选择哪一种取决于你的具体需求和开发习惯。在ROS开发中，<code>ROS_INFO</code>和<code>ROS_INFO_STREAM</code>因为其与ROS系统的集成，通常会是首选。</p>
-<p><a href="https://zeyulong.com/posts/c4541b88/">ROS消息打印</a></p>
-</li>
-<li>
-<p><code>if</code>语句和<code>switch</code>语句的选择：多个等值判断选择<code>switch</code>，其它情况（区间范围等）选择<code>if</code>。</p>
-</li>
-</ol>
-<h4 id="命名空间">命名空间</h4>
-<p>在C++中， <code>using namespace std;</code>  这条语句的作用是将 <code>std</code> 命名空间中的所有名称导入到当前作用域中，使得我们可以直接使用 <code>std</code> 命名空间中的类型和函数，而无需每次都完整地书写它们的命名空间。</p>
-<p>然而，这种做法也有其缺点。首先，它会导致命名空间污染，即同一个作用域中可能存在多个同名的类型或函数，导致编译器无法区分它们。其次，这种做法可能会导致程序效率降低，因为导入的命名空间中的类型和函数可能会增加编译时间和运行时间。</p>
-<p>因此，有些开发者会选择显式地书写类型和函数的完整名称，例如 <code>std::cout</code> ，而不是使用 <code>using namespace std</code>; 。这种做法可以避免命名空间污染，并且可以确保编译器能够准确地解析类型和函数的名称。同时，这种做法也可以提高程序的可读性，使得代码更加清晰易懂。</p>
-<p>总的来说，是否使用 <code>using namespace std;</code> ，以及是否显式地书写类型和函数的完整名称，取决于开发者的个人喜好和编程习惯。但是，在编写大型项目时，为了避免命名空间污染和保证程序的效率，建议尽量少使用 <code>using namespace std;</code> ，而是显式地书写类型和函数的完整名称。</p>
-<h4 id="C-C-形参和实参">C/C++ 形参和实参</h4>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_73671341/article/details/132818897">参考资料</a></p>
-<p>形参和实参是函数中的两个重要概念。</p>
-<p>形参（形式参数）是在函数定义中出现的参数，它是一个虚拟参数，只有在函数调用时才会接收到传递进来的实际参数。形参可以被看作是一个占位符，在函数定义时并没有实际的数值，只有在函数调用时才会得到实参的数值。形参的主要作用是表示函数需要从外部传递进来的数据。</p>
-<p>实参（实际参数）是在函数中实际出现的参数，它的值可以是常量、变量、表达式、类等。实参的值是确定的，必须在函数调用时提供。实参的主要作用是向函数传递数据，将数据的值传递给形参，在函数体内被使用。</p>
-<p>要注意的是，形参和实参之间的传递方式有两种：值传递和地址传递。值传递是指将实参的值复制给形参，形参在函数内部使用时不会改变实参的值。而地址传递是指将实参的地址传递给形参，形参在函数内部使用时可以通过地址修改实参的值。</p>
-<p>总结起来，形参是函数定义中的参数，是一个虚拟的占位符，用于接收函数调用时传递进来的实参。实参是函数调用时提供的具体数值，用于向函数传递数据。形参和实参之间的传递方式可以是值传递或地址传递。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">exchange1</span><span class="hljs-params">(<span class="hljs-type">int</span> x,<span class="hljs-type">int</span> y)</span></span>;<br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">exchange2</span><span class="hljs-params">(<span class="hljs-type">int</span> &amp;x,<span class="hljs-type">int</span> &amp;y)</span></span>;<br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">exchange3</span><span class="hljs-params">(<span class="hljs-type">int</span> *x,<span class="hljs-type">int</span> *y)</span></span>;<br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br><span class="hljs-type">int</span> a = <span class="hljs-number">7777777</span>,b = <span class="hljs-number">666666</span>;<br><span class="hljs-built_in">exchange1</span>(a,b);<br>cout &lt;&lt; a &lt;&lt; endl &lt;&lt; b &lt;&lt; endl;<br><span class="hljs-built_in">exchange2</span>(a,b);<br>cout &lt;&lt; a &lt;&lt; endl &lt;&lt; b &lt;&lt; endl;<br><span class="hljs-built_in">exchange3</span>(&amp;a,&amp;b);<br>cout &lt;&lt; a &lt;&lt; endl &lt;&lt; b &lt;&lt; endl;<br>&#125;<br><br><span class="hljs-comment">//  exchange1中a和b没有交换的原因是：x和y是函数定义中的形参，代码中吧实参a，b分别赋值给了x，y这两个形参变量。代码中只是替换掉了x和y的值，实参a和b不受影响，交换失败。</span><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">exchange1</span><span class="hljs-params">(<span class="hljs-type">int</span> x,<span class="hljs-type">int</span> y)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-type">int</span> temp;<br>    temp = y;<br>    y = x;<br>    x = temp;<br>&#125;<br><br><span class="hljs-comment">// exchange2中，x和y是a和b的引用，操作x和y交换就等于a和b交换，交换成功。</span><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">exchange2</span><span class="hljs-params">(<span class="hljs-type">int</span> &amp;x,<span class="hljs-type">int</span> &amp;y)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-type">int</span> temp;<br>    temp = y;<br>    y = x;<br>    x = temp;<br>&#125;<br><br><span class="hljs-comment">// exchange3中，x和y两个形参是a和b的指针，也就是存放实参的地址。然后函数里面交换了x和y指向的数据地址，也就是实参a和b，交换成功。</span><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">exchange3</span><span class="hljs-params">(<span class="hljs-type">int</span> *x,<span class="hljs-type">int</span> *y)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-type">int</span> temp;<br>    temp = *y;<br>    *y = *x;<br>    *x = temp;<br>&#125;<br></code></pre></td></tr></table></figure>
-<h4 id="逻辑运算符">逻辑运算符</h4>
-<p>在C++中，&quot;或&quot;逻辑可以使用逻辑运算符<code>||</code>来表示，<code>|</code>是按位或运算符。</p>
-<p>&quot;与&quot;逻辑可以使用逻辑运算符<code>&amp;&amp;</code>来表示，<code>&amp;</code>是按位与运算符。</p>
-<p>在C++中，<code>if ( IMU_VERSION == 0)</code>和<code>if ( IMU_VERSION = 0)</code>有着本质的区别。</p>
-<p><code>if ( IMU_VERSION == 0)</code>是一个比较操作，它检查<code>IMU_VERSION</code>是否等于0。如果<code>IMU_VERSION</code>的值为0，那么条件为真，<code>if</code>语句中的代码块将被执行。如果<code>IMU_VERSION</code>的值不为0，那么条件为假，<code>if</code>语句中的代码块将不会被执行。</p>
-<p>而<code>if ( IMU_VERSION = 0)</code>是一个赋值操作。它将<code>IMU_VERSION</code>的值设置为0，然后检查赋值后的<code>IMU_VERSION</code>是否为非零。在这种情况下，由于赋值为0，条件始终为假，因此<code>if</code>语句中的代码块将不会被执行。同时，这也改变了<code>IMU_VERSION</code>的原始值，这可能不是你想要的结果。因此，你应该谨慎使用赋值操作符<code>=</code>在<code>if</code>语句中，除非你确实想在检查条件的同时赋值。</p>
-<h4 id="全局变量">全局变量</h4>
-<p>在C++中，如果你想在多个源文件中共享一个变量，你可以使用<code>extern</code>关键字。你可以在一个源文件中定义一个变量，并在其他源文件中使用<code>extern</code>关键字声明同一个变量。</p>
-<p>首先，在<code>ESVIO/pose_graph/src/pose_graph_node.cpp</code>文件中，你需要将<code>SYSTEM_MODE</code>变量的定义移动到一个头文件中，例如<code>global.h</code>。然后在<code>pose_graph_node.cpp</code>和<code>keyframe.cpp</code>中都包含这个头文件。</p>
-<p><code>global.h</code>文件内容如下：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">ifndef</span> GLOBAL_H</span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> GLOBAL_H</span><br><br><span class="hljs-keyword">extern</span> <span class="hljs-type">int</span> SYSTEM_MODE;<br><br><span class="hljs-meta">#<span class="hljs-keyword">endif</span> <span class="hljs-comment">// GLOBAL_H</span></span><br></code></pre></td></tr></table></figure>
-<p>然后在<code>ESVIO/pose_graph/src/pose_graph_node.cpp</code>文件中，你需要包含<code>global.h</code>并定义<code>SYSTEM_MODE</code>：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;global.h&quot;</span></span><br><br><span class="hljs-type">int</span> SYSTEM_MODE = <span class="hljs-number">0</span>;  <span class="hljs-comment">// 初始化SYSTEM_MODE</span><br></code></pre></td></tr></table></figure>
-<p>最后，在<code>ESVIO/pose_graph/src/keyframe.cpp</code>文件中，你也需要包含<code>global.h</code>。这样你就可以在<code>keyframe.cpp</code>中使用<code>SYSTEM_MODE</code>变量了：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;global.h&quot;</span></span><br><br><span class="hljs-comment">// 现在你可以在这个文件中使用SYSTEM_MODE变量</span><br></code></pre></td></tr></table></figure>
-<p>注意，<code>extern</code>关键字告诉编译器变量的定义在别的地方，你不能在声明的时候初始化它。变量的定义（也就是初始化）应该在一个源文件中进行，而不是头文件。如果你在多个地方定义了同一个<code>extern</code>变量，那么会导致链接错误。</p>
-<h4 id="Shell脚本自动输入密码">Shell脚本自动输入密码</h4>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;password&quot;</span> | sudo -S <span class="hljs-built_in">command</span>  <span class="hljs-comment"># 可见加上-S参数sudo才会从标准输入中读取密码，不加-S参数以上命令将起不到作用</span><br></code></pre></td></tr></table></figure>
-<h4 id="其它">其它</h4>
-<ol>
-<li>
-<p>Python 并没有强制要求你用 <code>Tab</code> 缩进或者用空格缩进，但在PEP8中，建议使用4个空格来缩进。对于任何一个编辑器或者IDE，一般都有配置选项，可以设置把 <code>TAB</code> 键展开为4个空格，以保证代码的兼容性。</p>
-</li>
-<li>
-<p>命令行使用<code>\</code>实现换行：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo apt-get install \<br>    ros-<span class="hljs-variable">$1</span>-sophus \<br>    ros-<span class="hljs-variable">$1</span>-pcl-ros<br></code></pre></td></tr></table></figure>
-</li>
-<li>
-<p>报错：<code>SyntaxError: Non-ASCII character '\xe5'</code></p>
-<p>原因：Python默认是以ASCII作为编码方式的，如果在自己的Python源码中包含了中文（或者其他非英语系的语言），此时即使你把自己编写的Python源文件以UTF-8格式保存了，但实际上，这依然是不行的。</p>
-<p>解决：在源代码的第一行加入：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># -*- coding: UTF-8 -*-</span><br></code></pre></td></tr></table></figure>
-</li>
-<li>
-<p>python引入本地字体：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> matplotlib.font_manager <span class="hljs-keyword">as</span> fm<br>fm.fontManager.addfont(<span class="hljs-string">&#x27;/usr/share/fonts/truetype/Times-New-Roman/times.ttf&#x27;</span>)<br>fm.fontManager.addfont(<span class="hljs-string">&#x27;/usr/share/fonts/truetype/simsun/simsun.ttc&#x27;</span>)<br><br>plt.title(<span class="hljs-string">&#x27;层次聚类树形图&#x27;</span>, fontname=<span class="hljs-string">&quot;simsun&quot;</span>, fontsize=<span class="hljs-number">30</span>)<br>plt.xticks(fontname=<span class="hljs-string">&quot;Times New Roman&quot;</span>, fontsize=<span class="hljs-number">26</span>)<br><br>colorbar = plt.colorbar()<br>colorbar.ax.tick_params(labelsize=<span class="hljs-number">24</span>)  <span class="hljs-comment"># 设置坐标轴标签的字体大小</span><br><span class="hljs-keyword">for</span> l <span class="hljs-keyword">in</span> colorbar.ax.yaxis.get_ticklabels():<br>    l.set_family(<span class="hljs-string">&#x27;simsun&#x27;</span>)<br></code></pre></td></tr></table></figure>
-</li>
-<li>
-<p>idea错误提示File was loaded in the wrong encoding: ‘UTF-8‘解决方法：</p>
-<ol>
-<li>打开乱码文件，在软件右下角将当前页面的编码格式改为GB2312，弹出的提示消息中选择Reload；</li>
-<li>在软件右下角将当前页面的编码格式改为utf-8，弹出的提示消息中选择Convert；</li>
-<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/nuyoahso/article/details/114974906">参考链接</a></li>
-</ol>
-</li>
-<li></li>
-</ol>
 <h3 id="小贴士-2">小贴士</h3>
 <h4 id="Linux顺序执行多行命令">Linux顺序执行多行命令</h4>
 <ul>
@@ -1074,7 +801,7 @@
 <p>卸载 AppImage 软件。由于从未安装过该软件，因此无需“卸载”它。只需删除关联的 AppImage 文件，您的软件就会从系统中删除。</p>
 </li>
 </ol>
-<h4 id="其它-2">其它</h4>
+<h4 id="其它">其它</h4>
 <ol>
 <li>
 <p>Linux <a target="_blank" rel="noopener" href="https://www.runoob.com/linux/linux-comm-diff.html">diff</a> 命令用于比较文件的差异。<code>diff</code> 以逐行的方式，比较文本文件的异同处。如果指定要比较目录，则 <code>diff</code> 会比较目录中相同文件名的文件，但不会比较其中子目录。</p>
@@ -1109,6 +836,10 @@
 <tr>
 <td style="text-align:center">Ctrl+C</td>
 <td style="text-align:center">终止进程/命令</td>
+</tr>
+<tr>
+<td style="text-align:center">Ctrl+V</td>
+<td style="text-align:center">插入特殊字符。当你按下Ctrl+V后，终端会等待你输入下一个字符，然后将其ASCII值插入到当前位置。例如，如果你按下Ctrl+V然后按Enter，终端将插入一个表示换行的特殊字符。</td>
 </tr>
 <tr>
 <td style="text-align:center">Shift+Ctrl+C</td>
@@ -1244,44 +975,16 @@
 <blockquote>
 <p>选中即复制，鼠标中键粘贴。对于单词，双击即可选中，三击选中一行。</p>
 </blockquote>
-<h4 id="导出配置文件">导出配置文件</h4>
-<h5 id="gnome-terminal">gnome-terminal</h5>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 导出</span><br>dconf dump /org/gnome/terminal/legacy/profiles:/ &gt; ~/Documents/gnome-terminal-profiles.dconf<br><span class="hljs-comment"># 导入</span><br>dconf load /org/gnome/terminal/legacy/profiles:/ &lt; ~/Documents/gnome-terminal-profiles.dconf<br></code></pre></td></tr></table></figure>
-<p>报错：</p>
-<ul>
-<li>
-<p>错误：密钥文件不以组开头</p>
-</li>
-<li>
-<p>原因： .dconf 文件的引导行是问题所在：<code>default='...'</code></p>
-</li>
-<li>
-<p>解决：用这个替换引导线似乎使它可以加载：<code>[/]</code></p>
-<p>因此，如果它有帮助，您尝试加载的文件应具有如下所示的格式。请注意标题中的列表项与下面的条目一一对应。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs bash">[/]<br>list=[<span class="hljs-string">&#x27;22cb430e-3fde-42cb-a167-cc35a6b788cc&#x27;</span>, <span class="hljs-string">&#x27;4b1f055e-9bc4-4b58-bb12-eb5657db78fc&#x27;</span>]<br><br>[:22cb430e-3fde-42cb-a167-cc35a6b788cc]<br>audible-bell=<span class="hljs-literal">false</span><br>background-color=<span class="hljs-string">&#x27;rgb(255,255,221)&#x27;</span><br>cursor-shape=<span class="hljs-string">&#x27;ibeam&#x27;</span><br>foreground-color=<span class="hljs-string">&#x27;rgb(0,0,0)&#x27;</span><br>palette=[<span class="hljs-string">&#x27;rgb(46,52,54)&#x27;</span>, <span class="hljs-string">&#x27;rgb(204,0,0)&#x27;</span>, <span class="hljs-string">&#x27;rgb(58,43,143)&#x27;</span>, <span class="hljs-string">&#x27;rgb(196,160,0)&#x27;</span>, <span class="hljs-string">&#x27;rgb(52,101,164)&#x27;</span>, <span class="hljs-string">&#x27;rgb(117,80,123)&#x27;</span>, <span class="hljs-string">&#x27;rgb(6,152,154)&#x27;</span>, <span class="hljs-string">&#x27;rgb(211,215,207)&#x27;</span>, <span class="hljs-string">&#x27;rgb(85,87,83)&#x27;</span>, <span class="hljs-string">&#x27;rgb(239,41,41)&#x27;</span>, <span class="hljs-string">&#x27;rgb(150,52,226)&#x27;</span>, <span class="hljs-string">&#x27;rgb(252,233,79)&#x27;</span>, <span class="hljs-string">&#x27;rgb(114,159,207)&#x27;</span>, <span class="hljs-string">&#x27;rgb(173,127,168)&#x27;</span>, <span class="hljs-string">&#x27;rgb(52,226,226)&#x27;</span>, <span class="hljs-string">&#x27;rgb(238,238,236)&#x27;</span>]<br>use-theme-colors=<span class="hljs-literal">false</span><br>visible-name=<span class="hljs-string">&#x27;light&#x27;</span><br><br>[:4b1f055e-9bc4-4b58-bb12-eb5657db78fc]<br>audible-bell=<span class="hljs-literal">false</span><br>background-color=<span class="hljs-string">&#x27;rgb(0,0,0)&#x27;</span><br>background-transparency-percent=17<br>cursor-shape=<span class="hljs-string">&#x27;ibeam&#x27;</span><br>font=<span class="hljs-string">&#x27;Monospace 12&#x27;</span><br>foreground-color=<span class="hljs-string">&#x27;rgb(172,228,255)&#x27;</span><br>palette=[<span class="hljs-string">&#x27;rgb(46,52,54)&#x27;</span>, <span class="hljs-string">&#x27;rgb(175,95,255)&#x27;</span>, <span class="hljs-string">&#x27;rgb(0,102,255)&#x27;</span>, <span class="hljs-string">&#x27;rgb(196,160,0)&#x27;</span>, <span class="hljs-string">&#x27;rgb(255,7,168)&#x27;</span>, <span class="hljs-string">&#x27;rgb(117,80,123)&#x27;</span>, <span class="hljs-string">&#x27;rgb(6,152,154)&#x27;</span>, <span class="hljs-string">&#x27;rgb(211,215,207)&#x27;</span>, <span class="hljs-string">&#x27;rgb(85,87,83)&#x27;</span>, <span class="hljs-string">&#x27;rgb(235,148,255)&#x27;</span>, <span class="hljs-string">&#x27;rgb(0,229,255)&#x27;</span>, <span class="hljs-string">&#x27;rgb(252,233,79)&#x27;</span>, <span class="hljs-string">&#x27;rgb(114,159,207)&#x27;</span>, <span class="hljs-string">&#x27;rgb(173,127,168)&#x27;</span>, <span class="hljs-string">&#x27;rgb(52,226,226)&#x27;</span>, <span class="hljs-string">&#x27;rgb(238,238,236)&#x27;</span>]<br>use-system-font=<span class="hljs-literal">true</span><br>use-theme-colors=<span class="hljs-literal">false</span><br>use-theme-transparency=<span class="hljs-literal">false</span><br>use-transparent-background=<span class="hljs-literal">true</span><br>visible-name=<span class="hljs-string">&#x27;hi&#x27;</span><br></code></pre></td></tr></table></figure>
-</li>
-</ul>
-<h5 id="Terminator-2">Terminator</h5>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">gedit ~/.config/terminator/config<br></code></pre></td></tr></table></figure>
-<h5 id="Powerlevel10k">Powerlevel10k</h5>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">gedit ~/.p10k.zsh<br></code></pre></td></tr></table></figure>
 <h3 id="zsh">zsh</h3>
-<ol>
-<li>
-<p>重新设定 Powerlevel10k：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">p10k configure<br></code></pre></td></tr></table></figure>
-</li>
-<li>
-<p>特性</p>
+<h4 id="特性">特性</h4>
 <ol>
 <li>色彩高亮：不同的颜色表明当前命令的类型，并且路径有无下划线表示路径是否存在。</li>
 <li>智能补全：在使用cd切换路径时（要先cd后加一个路径，按Tab可后续补充），按下tab会列出当前目录下的目录和文件，如果是bash，它会提示你手动输入，但是zsh中你可以继续按一下tab进入选择模式，继续使用tab选择，或者使用方向键选择目标目录而不需手动输入。</li>
 <li>按键盘右方向键<code>-&gt;</code>直接确定整个补全提示。<code>Ctrl+-&gt;</code>按整词顺序依次确定。</li>
 <li><code>d</code>命令“回车”后，会列出我们最近进入的目录历史，并且会给这些目录加上序号，只需要输入对应目录的序号，即可重新进入该目录。</li>
 </ol>
-</li>
-<li>
-<p>插件</p>
+<h4 id="插件">插件</h4>
+<p>路径：<code>~/.oh-my-zsh/plugins</code></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs bash">plugins=(<br>    zsh-syntax-highlighting<br>    zsh-autosuggestions<br>    zsh-completions<br>    history-substring-search<br>    git<br>    autojump<br>    extract<br>    sudo<br>)<br></code></pre></td></tr></table></figure>
 <ol>
 <li>
@@ -1308,10 +1011,411 @@
 <p>sudo：双击两次<code>ESC</code>自动在句首添加<code>sudo</code>。</p>
 </li>
 </ol>
+<h4 id="报错">报错</h4>
+<ol>
+<li>
+<p>zsh: corrupt history file /home/XXX/.zsh_history</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 解决：</span><br><span class="hljs-built_in">cp</span> .zsh_history zsh_history<br><span class="hljs-built_in">rm</span> -f .zsh_history <br>strings zsh_history .zsh_history<br><span class="hljs-comment"># 或</span><br><span class="hljs-built_in">cd</span> ~<br><span class="hljs-built_in">mv</span> .zsh_history .zsh_history_bad<br>strings .zsh_history_bad &gt; .zsh_history<br><span class="hljs-built_in">fc</span> -R .zsh_history<br></code></pre></td></tr></table></figure>
+</li>
+<li></li>
+</ol>
+<h3 id="Powerlevel10k">Powerlevel10k</h3>
+<blockquote>
+<p>下面都是以Oh My Zsh框架为例，其它方式详见<a target="_blank" rel="noopener" href="https://github.com/romkatv/powerlevel10k">Powerlevel10k官方文档</a>。</p>
+</blockquote>
+<h4 id="安装">安装</h4>
+<ol>
+<li>
+<p>克隆仓库：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">git <span class="hljs-built_in">clone</span> --depth=1 https://github.com/romkatv/powerlevel10k.git <span class="hljs-variable">$&#123;ZSH_CUSTOM:-<span class="hljs-variable">$HOME</span>/.oh-my-zsh/custom&#125;</span>/themes/powerlevel10k  <span class="hljs-comment"># for Oh My Zsh</span><br></code></pre></td></tr></table></figure>
 </li>
 <li>
-<p>报错 zsh: corrupt history file /home/XXX/.zsh_history</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 解决：</span><br><span class="hljs-built_in">cp</span> .zsh_history zsh_history<br><span class="hljs-built_in">rm</span> -f .zsh_history <br>strings zsh_history .zsh_history<br><span class="hljs-comment"># 或</span><br><span class="hljs-built_in">cd</span> ~<br><span class="hljs-built_in">mv</span> .zsh_history .zsh_history_bad<br>strings .zsh_history_bad &gt; .zsh_history<br><span class="hljs-built_in">fc</span> -R .zsh_history<br></code></pre></td></tr></table></figure>
+<p>Set <code>ZSH_THEME=&quot;powerlevel10k/powerlevel10k&quot;</code> in <code>~/.zshrc</code>.</p>
+</li>
+</ol>
+<p><a target="_blank" rel="noopener" href="https://github.com/romkatv/powerlevel10k?tab=readme-ov-file#installation">其它安装方式</a></p>
+<h4 id="（重新）配置：">（重新）配置：</h4>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">p10k configure<br></code></pre></td></tr></table></figure>
+<p>配置向导根据您的偏好创建 <code>~/.p10k.zsh</code> 。可以通过编辑此文件来完成其他提示自定义。它有大量注释可以帮助您浏览配置选项。</p>
+<p>例如：</p>
+<ol>
+<li>
+<p>配置终端路径显示层数：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># If set to &quot;first&quot; (&quot;last&quot;), remove everything before the first (last) subdirectory that contains</span><br><span class="hljs-comment"># files matching $POWERLEVEL9K_SHORTEN_FOLDER_MARKER. For example, when the current directory is</span><br><span class="hljs-comment"># /foo/bar/git_repo/nested_git_repo/baz, prompt will display git_repo/nested_git_repo/baz (first)</span><br><span class="hljs-comment"># or nested_git_repo/baz (last). This assumes that git_repo and nested_git_repo contain markers</span><br><span class="hljs-comment"># and other directories don&#x27;t.</span><br><span class="hljs-comment">#</span><br><span class="hljs-comment"># Optionally, &quot;first&quot; and &quot;last&quot; can be followed by &quot;:&lt;offset&gt;&quot; where &lt;offset&gt; is an integer.</span><br><span class="hljs-comment"># This moves the truncation point to the right (positive offset) or to the left (negative offset)</span><br><span class="hljs-comment"># relative to the marker. Plain &quot;first&quot; and &quot;last&quot; are equivalent to &quot;first:0&quot; and &quot;last:0&quot;</span><br><span class="hljs-comment"># respectively.</span><br><span class="hljs-built_in">typeset</span> -g POWERLEVEL9K_DIR_TRUNCATE_BEFORE_MARKER=first:-1  <span class="hljs-comment"># default false</span><br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>默认显示全路径，现在配置成了显示倒数两个文件夹。</p>
+</blockquote>
+</li>
+<li>
+<p><a target="_blank" rel="noopener" href="https://github.com/romkatv/powerlevel10k?tab=readme-ov-file#horrific-mess-when-resizing-terminal-window">调整终端窗口大小时出现可怕的混乱</a>。</p>
+</li>
+</ol>
+<h4 id="更新">更新</h4>
+<ol>
+<li>
+<p>更新仓库：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">git -C <span class="hljs-variable">$&#123;ZSH_CUSTOM:-<span class="hljs-variable">$HOME</span>/.oh-my-zsh/custom&#125;</span>/themes/powerlevel10k pull  <span class="hljs-comment"># for Oh My Zsh</span><br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>更新 Powerlevel10k 后重新启动 Zsh。不要使用 <code>source ~/.zshrc</code> 。</p>
+</li>
+</ol>
+<p><a target="_blank" rel="noopener" href="https://github.com/romkatv/powerlevel10k?tab=readme-ov-file#how-do-i-update-powerlevel10k">其它更新方式</a></p>
+<h4 id="卸载">卸载</h4>
+<ol>
+<li>
+<p>从 <code>~/.zshrc</code> 中删除所有对“p10k”的引用。您可能会在顶部看到此片段：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-keyword">if</span> [[ -r <span class="hljs-string">&quot;<span class="hljs-variable">$&#123;XDG_CACHE_HOME:-<span class="hljs-variable">$HOME</span>/.cache&#125;</span>/p10k-instant-prompt-<span class="hljs-variable">$&#123;(%):-%n&#125;</span>.zsh&quot;</span> ]]; <span class="hljs-keyword">then</span><br>  <span class="hljs-built_in">source</span> <span class="hljs-string">&quot;<span class="hljs-variable">$&#123;XDG_CACHE_HOME:-<span class="hljs-variable">$HOME</span>/.cache&#125;</span>/p10k-instant-prompt-<span class="hljs-variable">$&#123;(%):-%n&#125;</span>.zsh&quot;</span><br><span class="hljs-keyword">fi</span><br></code></pre></td></tr></table></figure>
+<p>底部是这样的：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">[[ ! -f ~/.p10k.zsh ]] || <span class="hljs-built_in">source</span> ~/.p10k.zsh<br></code></pre></td></tr></table></figure>
+<p>这些是由<a target="_blank" rel="noopener" href="https://github.com/romkatv/powerlevel10k?tab=readme-ov-file#configuration-wizard">配置向导</a>添加的。删除它们。</p>
+</li>
+<li>
+<p>从 <code>~/.zshrc</code> 、 <code>~/.zpreztorc</code> 和 <code>~/.zimrc</code> 中删除所有对“powerlevel10k”的引用（其中一些文件可能会丢失 - 这是正常的）。这些引用是您在安装 Powerlevel10k 时手动添加的。如果需要提醒，请参阅<a target="_blank" rel="noopener" href="https://github.com/romkatv/powerlevel10k?tab=readme-ov-file#installation">安装说明</a>。</p>
+</li>
+<li>
+<p>验证所有对“p10k”和“powerlevel10k”的引用均已从 <code>~/.zshrc</code> 、 <code>~/.zpreztorc</code> 和 <code>~/.zimrc</code> 中消失：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">grep -E <span class="hljs-string">&#x27;p10k|powerlevel10k&#x27;</span> ~/.zshrc ~/.zpreztorc ~/.zimrc 2&gt;/dev/null<br></code></pre></td></tr></table></figure>
+<p>如果此命令产生输出，则仍然引用“p10k”或“powerlevel10k”。你需要删除它们。</p>
+</li>
+<li>
+<p>删除Powerlevel10k配置文件。该文件由<a target="_blank" rel="noopener" href="https://github.com/romkatv/powerlevel10k?tab=readme-ov-file#configuration-wizard">配置向导</a>创建，可能包含您自己的手动编辑。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">rm</span> -f ~/.p10k.zsh<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>删除Powerlevel10k源文件。这些文件已在您安装 Powerlevel10k 时下载。删除它们的命令取决于您选择的安装方法。如果需要提醒，请参阅<a target="_blank" rel="noopener" href="https://github.com/romkatv/powerlevel10k?tab=readme-ov-file#installation">安装说明</a>。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">rm</span> -rf -- <span class="hljs-variable">$&#123;ZSH_CUSTOM:-<span class="hljs-variable">$HOME</span>/.oh-my-zsh/custom&#125;</span>/themes/powerlevel10k  <span class="hljs-comment"># for Oh My Zsh</span><br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>重新启动 Zsh。不要使用 <code>source ~/.zshrc</code> 。</p>
+</li>
+<li>
+<p>删除 Powerlevel10k 缓存文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">rm</span> -rf -- <span class="hljs-string">&quot;<span class="hljs-variable">$&#123;XDG_CACHE_HOME:-<span class="hljs-variable">$HOME</span>/.cache&#125;</span>&quot;</span>/p10k-*(N) <span class="hljs-string">&quot;<span class="hljs-variable">$&#123;XDG_CACHE_HOME:-<span class="hljs-variable">$HOME</span>/.cache&#125;</span>&quot;</span>/gitstatus<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>完成。</p>
+</li>
+</ol>
+<p><a target="_blank" rel="noopener" href="https://github.com/romkatv/powerlevel10k?tab=readme-ov-file#how-do-i-uninstall-powerlevel10k">其它卸载方式</a></p>
+<h3 id="导出配置文件">导出配置文件</h3>
+<h4 id="bash">bash</h4>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">gedit ~/.bashrc<br></code></pre></td></tr></table></figure>
+<h4 id="zsh-2">zsh</h4>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">gedit ~/.zshrc<br></code></pre></td></tr></table></figure>
+<h4 id="gnome-terminal">gnome-terminal</h4>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 导出</span><br>dconf dump /org/gnome/terminal/legacy/profiles:/ &gt; ~/Documents/gnome-terminal-profiles.dconf<br><span class="hljs-comment"># 导入</span><br>dconf load /org/gnome/terminal/legacy/profiles:/ &lt; ~/Documents/gnome-terminal-profiles.dconf<br></code></pre></td></tr></table></figure>
+<p>报错：</p>
+<ul>
+<li>
+<p>错误：密钥文件不以组开头</p>
+</li>
+<li>
+<p>原因： .dconf 文件的引导行是问题所在：<code>default='...'</code></p>
+</li>
+<li>
+<p>解决：用这个替换引导线似乎使它可以加载：<code>[/]</code></p>
+<p>因此，如果它有帮助，您尝试加载的文件应具有如下所示的格式。请注意标题中的列表项与下面的条目一一对应。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs bash">[/]<br>list=[<span class="hljs-string">&#x27;22cb430e-3fde-42cb-a167-cc35a6b788cc&#x27;</span>, <span class="hljs-string">&#x27;4b1f055e-9bc4-4b58-bb12-eb5657db78fc&#x27;</span>]<br><br>[:22cb430e-3fde-42cb-a167-cc35a6b788cc]<br>audible-bell=<span class="hljs-literal">false</span><br>background-color=<span class="hljs-string">&#x27;rgb(255,255,221)&#x27;</span><br>cursor-shape=<span class="hljs-string">&#x27;ibeam&#x27;</span><br>foreground-color=<span class="hljs-string">&#x27;rgb(0,0,0)&#x27;</span><br>palette=[<span class="hljs-string">&#x27;rgb(46,52,54)&#x27;</span>, <span class="hljs-string">&#x27;rgb(204,0,0)&#x27;</span>, <span class="hljs-string">&#x27;rgb(58,43,143)&#x27;</span>, <span class="hljs-string">&#x27;rgb(196,160,0)&#x27;</span>, <span class="hljs-string">&#x27;rgb(52,101,164)&#x27;</span>, <span class="hljs-string">&#x27;rgb(117,80,123)&#x27;</span>, <span class="hljs-string">&#x27;rgb(6,152,154)&#x27;</span>, <span class="hljs-string">&#x27;rgb(211,215,207)&#x27;</span>, <span class="hljs-string">&#x27;rgb(85,87,83)&#x27;</span>, <span class="hljs-string">&#x27;rgb(239,41,41)&#x27;</span>, <span class="hljs-string">&#x27;rgb(150,52,226)&#x27;</span>, <span class="hljs-string">&#x27;rgb(252,233,79)&#x27;</span>, <span class="hljs-string">&#x27;rgb(114,159,207)&#x27;</span>, <span class="hljs-string">&#x27;rgb(173,127,168)&#x27;</span>, <span class="hljs-string">&#x27;rgb(52,226,226)&#x27;</span>, <span class="hljs-string">&#x27;rgb(238,238,236)&#x27;</span>]<br>use-theme-colors=<span class="hljs-literal">false</span><br>visible-name=<span class="hljs-string">&#x27;light&#x27;</span><br><br>[:4b1f055e-9bc4-4b58-bb12-eb5657db78fc]<br>audible-bell=<span class="hljs-literal">false</span><br>background-color=<span class="hljs-string">&#x27;rgb(0,0,0)&#x27;</span><br>background-transparency-percent=17<br>cursor-shape=<span class="hljs-string">&#x27;ibeam&#x27;</span><br>font=<span class="hljs-string">&#x27;Monospace 12&#x27;</span><br>foreground-color=<span class="hljs-string">&#x27;rgb(172,228,255)&#x27;</span><br>palette=[<span class="hljs-string">&#x27;rgb(46,52,54)&#x27;</span>, <span class="hljs-string">&#x27;rgb(175,95,255)&#x27;</span>, <span class="hljs-string">&#x27;rgb(0,102,255)&#x27;</span>, <span class="hljs-string">&#x27;rgb(196,160,0)&#x27;</span>, <span class="hljs-string">&#x27;rgb(255,7,168)&#x27;</span>, <span class="hljs-string">&#x27;rgb(117,80,123)&#x27;</span>, <span class="hljs-string">&#x27;rgb(6,152,154)&#x27;</span>, <span class="hljs-string">&#x27;rgb(211,215,207)&#x27;</span>, <span class="hljs-string">&#x27;rgb(85,87,83)&#x27;</span>, <span class="hljs-string">&#x27;rgb(235,148,255)&#x27;</span>, <span class="hljs-string">&#x27;rgb(0,229,255)&#x27;</span>, <span class="hljs-string">&#x27;rgb(252,233,79)&#x27;</span>, <span class="hljs-string">&#x27;rgb(114,159,207)&#x27;</span>, <span class="hljs-string">&#x27;rgb(173,127,168)&#x27;</span>, <span class="hljs-string">&#x27;rgb(52,226,226)&#x27;</span>, <span class="hljs-string">&#x27;rgb(238,238,236)&#x27;</span>]<br>use-system-font=<span class="hljs-literal">true</span><br>use-theme-colors=<span class="hljs-literal">false</span><br>use-theme-transparency=<span class="hljs-literal">false</span><br>use-transparent-background=<span class="hljs-literal">true</span><br>visible-name=<span class="hljs-string">&#x27;hi&#x27;</span><br></code></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="Terminator-2">Terminator</h4>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">gedit ~/.config/terminator/config<br></code></pre></td></tr></table></figure>
+<h4 id="Powerlevel10k-2">Powerlevel10k</h4>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">gedit ~/.p10k.zsh<br></code></pre></td></tr></table></figure>
+<h1 id="代码、编译">代码、编译</h1>
+<h2 id="本地库编译">本地库编译</h2>
+<ol>
+<li>
+<p>编译</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># cmake</span><br><span class="hljs-comment"># 指定安装目录。使用该参数可以指定安装目录，使得在执行make install命令时，生成的可执行文件、库文件、头文件等可以被安装到指定的目录下。</span><br>cmake -DCMAKE_INSTALL_PREFIX=/usr/local<br><span class="hljs-comment"># 指定使用的gcc和g++版本</span><br>-DCMAKE_C_COMPILER=gcc-10 -DCMAKE_CXX_COMPILER=g++-10<br><br><span class="hljs-comment"># 建议在make之前先查看CPU的核心数</span><br><span class="hljs-built_in">nproc</span>  <span class="hljs-comment"># 你可以根据你的核心数来调整make指令的参数，比如笔者的CPU核心数为12，则可以执行：</span><br>make -j12<br>make <span class="hljs-comment"># 根据Makefile编译源代码，连接，生成目标文件，可执行文件。</span><br>make install  <span class="hljs-comment"># 将编译成功的可执行文件安装到系统目录中，一般为/usr/local/bin目录。</span><br></code></pre></td></tr></table></figure>
+<p>在<code>CmakeLists.txt</code>里指定第三方库所在的路径，即指定其编译安装后<code>.cmake</code>文件所在的路径，例如：</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs cmake"><span class="hljs-comment"># 指定OpenCVConfig.cmake文件的目录</span><br><span class="hljs-comment"># 注意opencv安装目录下的/share/OpenCV</span><br><span class="hljs-keyword">set</span>(OpenCV_DIR /usr/local/share/OpenCV)  <span class="hljs-comment"># 默认安装在/usr/local/</span><br><span class="hljs-keyword">set</span>(OpenCV_DIR /usr/local/opencv/opencv345/share/OpenCV)  <span class="hljs-comment"># 自定义安装在/usr/local/opencv/opencv345的openv3.4.5</span><br><span class="hljs-keyword">set</span>(OpenCV_DIR /usr/local/opencv/opencv452/lib/cmake/opencv4)<br><span class="hljs-comment"># set(OpenCV_DIR /opt/ros/kinetic/share/OpenCV-3.3.1-dev)</span><br><span class="hljs-comment"># set（OpenCV_DIR  /path/to/opencv/build）</span><br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>卸载</p>
+<ol>
+<li>
+<p>当场卸载</p>
+<p>如果因为反复<code>./configure xx</code>然后<code>make</code>会导致安装路径混乱，<code>sudo make install</code>失败。所以如果路径设错了又已经<code>make</code>完，需要<code>make clean</code>来清除一下。如果想把自己刚刚<code>make install</code>安装的卸载掉，可以在那个目录里直接用<code>sudo make uninstall</code>。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo make uninstall<br>sudo make clean <span class="hljs-comment">#清除上一次make命令生成的文件</span><br>sudo make distclean <span class="hljs-comment">#清除上一次make以及configure命令生成的文件</span><br>sudo <span class="hljs-built_in">rm</span> -r build<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>事后卸载</p>
+<p>找到<code>sudo make install</code>之后产生的这个文件<code>install_manifest.txt</code>，里面有安装的所有东西的路径，删除它们即可。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 参考命令：</span><br><span class="hljs-built_in">cat</span> install_manifest.txt | sudo xargs <span class="hljs-built_in">rm</span><br><span class="hljs-comment"># 或者</span><br>sudo xargs <span class="hljs-built_in">rm</span> &lt; install_manifest.txt<br></code></pre></td></tr></table></figure>
+<p>上述命令只会删除掉文件夹里的文件，会留下空文件夹。所以可以继续对照<code>install_manifest.txt</code>文件，手动删掉多余的空文件夹。</p>
+</li>
+</ol>
+</li>
+</ol>
+<h2 id="代码注释">代码注释</h2>
+<p>python：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 单行注释</span><br><br><span class="hljs-string">&#x27;&#x27;&#x27;</span><br><span class="hljs-string">    使用 3 个单引号分别作为注释的开头和结尾</span><br><span class="hljs-string">    可以一次性注释多行内容</span><br><span class="hljs-string">    这里面的内容全部是注释内容</span><br><span class="hljs-string">&#x27;&#x27;&#x27;</span><br><br><span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    使用 3 个双引号分别作为注释的开头和结尾</span><br><span class="hljs-string">    可以一次性注释多行内容</span><br><span class="hljs-string">    这里面的内容全部是注释内容</span><br><span class="hljs-string">&quot;&quot;&quot;</span><br><br></code></pre></td></tr></table></figure>
+<h2 id="代码中的特殊注释">代码中的特殊注释</h2>
+<p>这些是注释中的标签（tag），有时也被称作“代码标签（codetag）”或“标记（token）”。</p>
+<p>标识：</p>
+<ul>
+<li>TODO：标记代码中需要实现的功能或任务。</li>
+<li>FIXME：标记代码中需要修复的问题或缺陷。</li>
+<li>XXX：如果代码中有该标识，说明标识处代码虽然实现了功能，但是实现的方法有待商榷，代码有问题或具误导性，需引起警惕。希望将来能改进，要改进的地方会在说明中简略说明。</li>
+<li>HACK/BODGE/KLUDGE：标记临时性修复或不优雅的解决方案。英语翻译为砍。如果代码中有该标识，说明标识处代码我们需要根据自己的需求去调整程序代码。</li>
+<li>BUG/DEBUG：标记已知的Bug或错误。</li>
+<li>UNDONE：对之前代码改动的撤销。</li>
+<li>NOTE：提供额外的注释或提示信息，帮助理解代码意图或设计决策。</li>
+</ul>
+<p>格式：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">/*</span><br><span class="hljs-comment">* 1. 使用大写字母</span><br><span class="hljs-comment">* 2. 只用双正斜杠//，而不是三个正斜杠 ///</span><br><span class="hljs-comment">* 3. 在标签后使用半角冒号 :</span><br><span class="hljs-comment">*/</span><br><span class="hljs-comment">//<span class="hljs-doctag">TODO:</span> Need implementation.</span><br><span class="hljs-comment">//<span class="hljs-doctag">FIXME:</span> We need to avoid the problem of duplicating windows when clicking multiple times on this menu item.</span><br></code></pre></td></tr></table></figure>
+<h2 id="编程命名规范">编程命名规范</h2>
+<ol>
+<li>
+<p>匈牙利命名法（将变量类型写进变量名的命名方法）。</p>
+<p>其基本原则是，变量名=属性+类型+对象描述。通过在变量名前面加上相应的小写字母的符号标识作为前缀，标识出变量的作用域，类型等。</p>
+<p>这些符号可以多个同时使用，顺序是先m_（成员变量），再指针，再简单数据类型，再其他。例如：m_lpsStr，表示指向一个字符串的长指针成员变量。</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs txt"># 前缀类型<br>a      数组（Array）<br>b      布尔值（Boolean）<br>by     字节（Byte）<br>c      有符号字符（Char）<br>cb     无符号字符（Char Byte，并没有神马人用的）<br>cr     颜色参考值（Color Ref）<br>cx,cy  坐标差（长度 Short Int）<br>dw     双字（Double Word）<br>fn     函数（Function）<br>h      Handle（句柄）<br>i      整形（Int）<br>l      长整型（Long Int）<br>lp     长指针（Long Pointer）<br>m_     类成员（Class Member）<br>n      短整型（Short Int）<br>np     近程指针（Near Pointer）<br>p      指针（Pointer）<br>s      字符串（String）<br>sz     以 Null 做结尾的字符串型（String with Zero End）<br>w      字（Word）<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>驼峰式命名法，又叫小驼峰式命名法。常用于变量名，函数名。</p>
+<p>要求第一个单词首字母小写，后面其他单词首字母大写。</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs txt">int myAge;<br>char myName[10];<br>float manHeight;<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>帕斯卡命名法，又叫大驼峰式命名法。常用于类名，属性，命名空间等。</p>
+<p>与小驼峰式命名法的最大区别在于，每个单词的第一个字母都要大写。</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs txt">int MyAge;<br>char MyName[10];<br>float ManHeight;<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>下划线命名法。</p>
+<p>下划线命名法并不如大小驼峰式命名法那么备受推崇，但是也是浓墨重彩的一笔。尤其在宏定义和常量中使用比较多，通过下划线来分割全部都是大写的单词。</p>
+<p>该命名规范，也是很简单，要求单词与单词之间通过下划线连接即可。</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs txt">int my_age;<br>char my_name[10];<br>float man_height;<br></code></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="sh脚本一次性启动多个程序（对应多个终端）"><code>.sh</code>脚本一次性启动多个程序（对应多个终端）</h2>
+<p>经常开发ros环境的应该知道，当节点太多难以控制的时候，不如写个脚本直接启动多个节点（对应多个终端）。</p>
+<p>先介绍一下<code>gnome-terminal</code>命令的使用：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs bash">gnome-terminal  <span class="hljs-comment"># 打开一个新的终端</span><br><span class="hljs-comment"># 参数</span><br><span class="hljs-comment"># 基本用法</span><br>--maximize  <span class="hljs-comment"># 打开后自动最大化</span><br>--full-screen  <span class="hljs-comment"># 打开后全屏</span><br>--window  <span class="hljs-comment"># 打开多个终端，多个标签页</span><br>	gnome-terminal --window --window  <span class="hljs-comment">#打开两个</span><br>	gnome-terminal --window --tab --window --tab --tab  <span class="hljs-comment">#打开两个，第一个两个tab，第二个3个tab</span><br>-t  <span class="hljs-comment"># 设置终端的标题。注意，有些版本不支持。</span><br><span class="hljs-comment"># 设置打开的位置和大小（宽度x高度+左侧偏移量+上方偏移量）</span><br>gnome-terminal --geometry=80x25+10+10<br><br><span class="hljs-comment"># 启动后自动执行命令</span><br>-e  <span class="hljs-comment"># 可以出现多次。如果在所有--window前面，表示对所有window和tab起作用，如果在--window或者--tab后面，表示只针对这个tab执行，要注意-e后面只能有一个参数，也就是说如果有空格，需要用引号。</span><br>-x  <span class="hljs-comment"># 只能出现一次，在-x后面的所有内容，均认为是要执行的命令，所以可以出现空格，这些命令是针对所有tab都执行的。</span><br>gnome-terminal -x bash -c <span class="hljs-string">&quot;ls&quot;</span><br>gnome-terminal -e <span class="hljs-string">&#x27;bash -c &quot;ls&quot;&#x27;</span><br><span class="hljs-comment"># 注，运行时会警告：</span><br><span class="hljs-comment"># 参数“-x”弃用并可能在 gnome-terminal 的后续版本中移除。</span><br><span class="hljs-comment"># 参数“-e”弃用并可能在 gnome-terminal 的后续版本中移除</span><br><span class="hljs-comment"># 使用“-- ”以结束选项并将要执行的命令行追加至其后。</span><br><span class="hljs-comment"># 所以，现在可以直接用“--”来替换掉“-x”和“-e”了。</span><br><br><span class="hljs-comment"># 执行完成后保持终端不自动关闭。</span><br><span class="hljs-comment"># 1. 最后加上exec bash的命令，并用分号跟前面的命令隔开。</span><br>gnome-terminal -x bash -c <span class="hljs-string">&quot;ls; exec bash&quot;</span><br>gnome-terminal -e <span class="hljs-string">&#x27;bash -c &quot;ls; exec bash&quot;&#x27;</span><br><span class="hljs-comment"># 2. 修改terminal的配置，在terminal点右键，选择Profiles-&gt;Profile Preferences，然后找到Title and Command，里面有一项When command exits，后面选择为Hold the terminal open，然后就可以了。</span><br><span class="hljs-comment"># 3. 把结果重定向给less，这样less执行完之前，是不会退出的。</span><br>gnome-terminal -x <span class="hljs-built_in">ls</span>|less<br></code></pre></td></tr></table></figure>
+<p>了解上面后我们可以创建属于自己的脚本了：</p>
+<ol>
+<li>
+<p>在ROS工作空间（例如，<code>catkin_ws</code>文件夹）下创建一个脚本文件，例如<code>runROS.sh</code>。</p>
+</li>
+<li>
+<p>写入内容，例如：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-meta">#!/bin/bash</span><br>gnome-terminal --window -- bash -c <span class="hljs-string">&quot;source ./devel/setup.bash &amp;&amp; roslaunch PACKAGE_NAME *.launch; exec bash&quot;</span><br><span class="hljs-built_in">sleep</span> 3s<br>gnome-terminal --window -- bash -c <span class="hljs-string">&quot;source ./devel/setup.bash &amp;&amp; rosrun PACKAGE_NAME NODE_NAME *.yaml; exec bash&quot;</span><br><span class="hljs-built_in">sleep</span> 3s<br>gnome-terminal --window -- bash -c <span class="hljs-string">&quot;rosbag play /yourfolder/*.bag; exec bash&quot;</span><br></code></pre></td></tr></table></figure>
+<p>需要什么节点按照这个模块添加即可。</p>
+<p>对于使用Terminator终端和zsh shell，修改文件内容为：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-meta">#!/bin/zsh</span><br>terminator -e <span class="hljs-string">&quot;zsh -c &#x27;source ./devel/setup.zsh &amp;&amp; roslaunch PACKAGE_NAME *.launch; exec zsh&#x27;&quot;</span><br><span class="hljs-built_in">sleep</span> 3s<br>terminator -e <span class="hljs-string">&quot;zsh -c &#x27;source ./devel/setup.zsh &amp;&amp; rosrun PACKAGE_NAME NODE_NAME *.yaml; exec zsh&#x27;&quot;</span><br><span class="hljs-built_in">sleep</span> 3s<br>terminator -e <span class="hljs-string">&quot;zsh -c &#x27;source ./devel/setup.zsh &amp;&amp; rosbag play /yourfolder/*.bag; exec zsh&#x27;&quot;</span><br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>这里播放<code>rosbag</code>前面需要加上<code>source ./devel/setup.zsh</code>，否则会报错<code>zsh:1: command not found: rosbag</code>。</p>
+</blockquote>
+<blockquote>
+<p>如果<code>exec zsh</code>命令未能在命令运行完成后保持终端窗口打开，可以尝试修改terminal的配置，在terminal点右键，选择Profiles-&gt;Profile Preferences，然后找到Title and Command，里面有一项When command exits，后面选择为Hold the terminal open。</p>
+</blockquote>
+<blockquote>
+<p>因为<code>roscore</code>和<code>roslanuch</code>打开ROS节点后不会自行关闭，需要使用快捷键<code>Ctrl+C</code>手动关闭，所以不会运行到<code>exec zsh</code>这一步。</p>
+<p>而且，使用快捷键<code>Ctrl+C</code>手动关闭ROS节点后，终端会直接退出，也就是关闭窗口（这个BUG？反而能自动关闭终端窗口，减少了自己的操作？）。</p>
+<p>如果<code>Ctrl+C</code>后不想关闭终端，可以在terminal点右键，选择Profiles-&gt;Profile Preferences，然后找到Title and Command，里面有一项When command exits，后面选择为Hold the terminal open。不过即使这样，当前终端也不再能输入命令，只能使用Terminator的功能水平分割/数值分割另起一个终端。</p>
+</blockquote>
+</li>
+<li>
+<p>给脚本文件授予权限：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo <span class="hljs-built_in">chmod</span> 755 runROS.sh<br></code></pre></td></tr></table></figure>
+<p><code>chmod 755</code> 设置用户的权限为：</p>
+<ol>
+<li>文件所有者可读可写可执行。</li>
+<li>与文件所有者同属一个用户组的其他用户可读可执行。</li>
+<li>其它用户组可读可执行。</li>
+</ol>
+</li>
+<li>
+<p>运行脚本文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> catkin_ws<br>./runROS.sh<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>完成。</p>
+</li>
+</ol>
+<p><a href="https://zeyulong.com/posts/c4541b88/#%E8%BF%9B%E9%98%B6%E4%BD%BF%E7%94%A8">进阶使用</a></p>
+<blockquote>
+<p><code>shell</code>脚本在语句报错后默认仍会继续向下执行，解决方法为：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-meta">#!/bin/bash</span><br><span class="hljs-comment"># 增加语句</span><br><span class="hljs-built_in">set</span> -e<br><span class="hljs-comment"># 或，二选一即可</span><br><span class="hljs-built_in">set</span> -o errexit<br><span class="hljs-comment"># 或，使用逻辑与</span><br>python3 main.py &amp;&amp;<br>python3 do.py<br></code></pre></td></tr></table></figure>
+<p>默认情况下，脚本执行后，屏幕只显示运行结果，没有其他内容。如果多个命令连续执行，它们的运行结果就会连续输出。有时会分不清，某一段内容是什么命令产生的。</p>
+<p><code>set -x</code>用来在运行结果之前，先输出执行的那一行命令。执行<code>echo bar</code>之前，该命令会先打印出来，行首以<code>+</code>表示。这对于调试复杂的脚本是很有用的。</p>
+</blockquote>
+<h2 id="C-中输出函数的选择">C++中输出函数的选择</h2>
+<ol>
+<li>
+<p>C++ 中 <code>printf</code> 和 <code>cout</code> 有什么区别？</p>
+<p>在 C++ 中，<code>printf</code> 和 <code>cout</code> 都用于输出，但它们来自不同的库，有不同的用法和特性。下面是一些主要的不同之处：</p>
+<ol>
+<li><strong>来源</strong>：
+<ul>
+<li><code>printf</code> 是 C 语言中的标准输入输出函数，来源于 C 语言的标准库（stdio.h）。在 C++ 中依然可用，但需要包含头文件 <code>&lt;cstdio&gt;</code> 或者 C 风格的 <code>&lt;stdio.h&gt;</code>。</li>
+<li><code>cout</code> 是 C++ 专有的，属于 C++ 标准库中的一个对象，用于输出。<code>cout</code> 是定义在 <code>&lt;iostream&gt;</code> 头文件中的标准输出流对象。</li>
+</ul>
+</li>
+<li><strong>使用语法</strong>：
+<ul>
+<li><code>printf</code> 使用格式化字符串。例如：<code>printf(&quot;%d %s&quot;, 100, &quot;C++&quot;);</code>。</li>
+<li><code>cout</code> 使用流插入运算符(<code>&lt;&lt;</code>)。例如：<code>cout &lt;&lt; 100 &lt;&lt; &quot; C++&quot;;</code>。</li>
+</ul>
+</li>
+<li><strong>类型安全</strong>：
+<ul>
+<li><code>printf</code> 在处理类型时不够安全，因为它依赖于格式化字符串正确地匹配变量的类型；如果不匹配，可能会造成运行时错误或未定义行为。</li>
+<li><code>cout</code> 是类型安全的，编译器会检查插入到<code>cout</code>中的数据类型，确保与预期匹配，减少了错误的可能性。</li>
+</ul>
+</li>
+<li><strong>性能</strong>：
+<ul>
+<li><code>printf</code> 的性能通常情况下比 <code>cout</code> 快，尤其是在格式化字符串操作时，因为 <code>cout</code> 的类型安全和重载运算符使得它的运行效率稍低。</li>
+<li>但是，通过启用 C++ 的 <code>std::ios_base::sync_with_stdio(false);</code> 以及避开使用 <code>std::endl</code>（<code>std::endl</code> 会刷新输出缓冲区），可以提升 <code>cout</code> 的性能，使其与 <code>printf</code> 相近。</li>
+</ul>
+</li>
+<li><strong>灵活性和功能</strong>：
+<ul>
+<li>使用 <code>cout</code> 更灵活，因为它支持对输出格式的更细致控制，例如设置宽度、精度和填充字符等。此外，<code>cout</code> 可以直接打印用户定义的类型，只要为这些类型重载了输出运算符(<code>&lt;&lt;</code>)。</li>
+<li><code>printf</code> 在打印自定义类型时没有直接的方式，因为它需要预定义的格式化串。</li>
+</ul>
+</li>
+<li><strong>可移植性</strong>：
+<ul>
+<li><code>printf</code> 基于 C 语言，因此在许多不同的平台和编译器中使用广泛，具有很高的可移植性。</li>
+<li><code>cout</code> 虽然是 C++ 的一部分，理论上在所有支持 C++ 的平台上都是可用的，但在跨平台编程时，对输出格式的控制可能会遇到不一致性。</li>
+</ul>
+</li>
+</ol>
+<p>综上所述，<code>printf</code> 和 <code>cout</code> 都有各自的用途和优势，选择使用哪个取决于具体的编程需求和个人喜好。在实际编程中，了解它们的差异有助于更好地决策和优化代码。</p>
+</li>
+<li>
+<p>在C++程序开发中，推荐使用<code>printf</code>还是<code>cout</code>？</p>
+<p>在 C++ 程序开发中，通常推荐使用 <code>cout</code> 而不是 <code>printf</code>。这一推荐基于以下几个理由：</p>
+<ol>
+<li><strong>类型安全</strong>：<code>cout</code> 是类型安全的，这意味着编译器会对插入到 <code>cout</code> 的数据类型进行检查，减少了类型不匹配的错误。而 <code>printf</code> 需要开发者手动指定类型，在类型不匹配的情况下可能导致未定义行为或运行时错误。</li>
+<li><strong>易于使用</strong>：使用 <code>cout</code> 需要较少的手工干预来处理不同类型的数据，因为它可以自动调整输出格式，而 <code>printf</code> 请求用户显式地指定格式化字符串。特别是在处理字符串和数字的混合输出时，<code>cout</code> 的语法更为直观和简洁。</li>
+<li><strong>可扩展性</strong>：对于自定义类型，<code>cout</code> 允许开发者通过重载输出运算符 (<code>&lt;&lt;</code>) 来定义自己的输出格式，这提供了良好的可扩展性。而 <code>printf</code> 不能直接支持自定义类型的打印，除非通过某种方式将其转换为内建类型。</li>
+<li><strong>标准一致性</strong>：<code>cout</code> 是 C++ 标准库的一部分，充分利用 <code>cout</code> 能够使程序更加面向对象，更符合 C++ 的编程风格。<code>printf</code> 来自 C 语言标准库，虽然在 C++ 中仍然可用，但并不是 C++ 风格的首选。</li>
+<li><strong>灵活性</strong>：<code>cout</code> 提供了更好的控制输出格式的功能，如设置宽度、填充、精度等，而且这些设置易于读写和维护。</li>
+</ol>
+<p>然而，在某些特定情况下，<code>printf</code> 可能更为有用： - 当您需要更详细地控制输出格式，尤其是在涉及复杂格式时，<code>printf</code> 的格式化字符串可能更易于使用和理解。 - 在性能极致敏感的场景中，经过适当的优化后，<code>printf</code> 在某些情况下可能比 <code>cout</code> 有更好的性能。</p>
+<p>总之，虽然 <code>cout</code> 通常是在 C++ 中处理输出的首选，但确切选择取决于具体的应用场景、性能需求和个人偏好。在决定使用哪一个之前，考虑项目的需求和上下文非常重要。</p>
+</li>
+<li>
+<p>在使用C++语言的ROS平台开发中，推荐使用<code>printf</code>、<code>cout</code>还是<code>ROS_INFO</code>？</p>
+<p>在使用 C++ 语言开发 ROS (Robot Operating System) 平台的应用时，通常推荐使用 <code>ROS_INFO</code> 以及其相关的宏（如 <code>ROS_WARN</code>, <code>ROS_ERROR</code>, <code>ROS_DEBUG</code> 等）来进行消息的输出。这些宏专为 ROS 开发设计，提供了一些优势和特性，特别是在进行机器人软件开发时：</p>
+<ol>
+<li><strong>统一的日志管理</strong>：<code>ROS_INFO</code> 和其他相关宏能够将输出消息统一管理，使得日志记录、查看和分析变得更加容易。ROS 提供的 rqt_console 和 roslaunch 日志文件都可以捕捉这些输出，方便开发者调试和追踪问题。</li>
+<li><strong>级别管理</strong>：不同于 <code>printf</code> 和 <code>cout</code> 只能单纯输出文本，<code>ROS_INFO</code> 等宏允许你按照不同的严重性级别输出消息，如信息、警告、错误、调试等。这有助于开发者在运行时筛选和控制想要查看的输出类型。</li>
+<li><strong>节点识别</strong>：使用 ROS 日志函数，每条日志消息都会自动附带节点名信息。这对于在复杂系统中跟踪消息来源特别有用，尤其是当多个节点同时运行时。</li>
+<li><strong>格式化和类型安全</strong>：<code>ROS_INFO</code> 等宏支持类似 <code>printf</code> 的格式化功能，使得在输出文本时可以包含变量。同时，由于 <code>ROS_INFO</code> 是在 C++ 环境下设计的，因此也可以在一定程度上享受到 C++ 类型安全的好处（尽管其内部实现可能是利用 <code>printf</code> 风格的格式化字符串）。</li>
+<li><strong>条件编译</strong>：<code>ROS_DEBUG</code> 等调试相关的宏，在发布模式下可以通过编译选项完全禁用，从而不会对发布版本的性能造成影响。</li>
+</ol>
+<p>综上所述，虽然在 ROS 平台下开发时 <code>printf</code> 和 <code>cout</code> 依然可用，但 <code>ROS_INFO</code> 和相关的宏提供了更多符合 ROS 开发环境和需求的优势。因此，在大多数情况下，推荐使用 <code>ROS_INFO</code> 及其相关宏进行消息输出和日志记录。</p>
+</li>
+<li>
+<p>在使用C++语言的ROS平台开发中，推荐使用<code>printf</code>、<code>cout</code>、<code>ROS_INFO</code>还是<code>ROS_INFO_STREAM</code>？</p>
+<p>在使用C++语言的ROS（Robot Operating System）平台开发时，选择<code>printf</code>、<code>cout</code>、<code>ROS_INFO</code>还是<code>ROS_INFO_STREAM</code>取决于具体的应用场景和你的偏好。下面是它们各自的特点和适用情况：</p>
+<p><code>printf</code></p>
+<ul>
+<li>来源于C语言，C++也支持。</li>
+<li>用于格式化输出，语法稍显复杂，对类型安全的支持不如C++的IO流。</li>
+<li>适用于快速的调试或者当开发环境更接近C语言时使用。</li>
+</ul>
+<p><code>std::cout</code></p>
+<ul>
+<li>C++标准输入输出流的一部分，使用起来比<code>printf</code>更为方便和安全。</li>
+<li>支持类型安全的输出，可以通过重载<code>&lt;&lt;</code>操作符来扩展对自定义类型的支持。</li>
+<li>适用于C++程序的通用输出，特别是需要输出自定义类型数据时。</li>
+</ul>
+<p><code>ROS_INFO</code> 和 <code>ROS_INFO_STREAM</code></p>
+<ul>
+<li>这是ROS中专门用于日志输出的宏和流。</li>
+<li><code>ROS_INFO</code> 类似于<code>printf</code>，而<code>ROS_INFO_STREAM</code>则类似于<code>std::cout</code>，使用方法根据个人偏好和输出内容的复杂度来选择。</li>
+<li>它们的优势在于：</li>
+<li>集成了ROS的命名空间和节点名，可以更清楚地知道是哪个节点产生的日志。</li>
+<li>可以通过ROS的配置文件来调整日志的级别，方便调试和运行时的日志管理。</li>
+<li>支持网络日志（rosout），使得可以在ROS的不同部分或不同机器上收集和查看日志。</li>
+</ul>
+<p>推荐使用</p>
+<ul>
+<li>对于简单的调试信息，如果你更习惯C++风格，推荐使用<code>ROS_INFO_STREAM</code>；如果你倾向于使用类似C语言的格式化输出，可以选择<code>ROS_INFO</code>。</li>
+<li>对于非ROS系统级的调试或者涉及大量复杂数据类型输出时，<code>std::cout</code>可能更为直接和方便。</li>
+<li>一般建议尽量避免使用<code>printf</code>，除非你有特别的理由，因为它不提供类型安全且在C<ins>中使用<code>std::cout</code>和<code>ROS_INFO_STREAM</code>可以更好地利用C</ins>的特性。</li>
+</ul>
+<p>综上所述，选择哪一种取决于你的具体需求和开发习惯。在ROS开发中，<code>ROS_INFO</code>和<code>ROS_INFO_STREAM</code>因为其与ROS系统的集成，通常会是首选。</p>
+<p><a href="https://zeyulong.com/posts/c4541b88/">ROS消息打印</a></p>
+</li>
+<li>
+<p><code>if</code>语句和<code>switch</code>语句的选择：多个等值判断选择<code>switch</code>，其它情况（区间范围等）选择<code>if</code>。</p>
+</li>
+</ol>
+<h2 id="命名空间">命名空间</h2>
+<p>在C++中， <code>using namespace std;</code>  这条语句的作用是将 <code>std</code> 命名空间中的所有名称导入到当前作用域中，使得我们可以直接使用 <code>std</code> 命名空间中的类型和函数，而无需每次都完整地书写它们的命名空间。</p>
+<p>然而，这种做法也有其缺点。首先，它会导致命名空间污染，即同一个作用域中可能存在多个同名的类型或函数，导致编译器无法区分它们。其次，这种做法可能会导致程序效率降低，因为导入的命名空间中的类型和函数可能会增加编译时间和运行时间。</p>
+<p>因此，有些开发者会选择显式地书写类型和函数的完整名称，例如 <code>std::cout</code> ，而不是使用 <code>using namespace std</code>; 。这种做法可以避免命名空间污染，并且可以确保编译器能够准确地解析类型和函数的名称。同时，这种做法也可以提高程序的可读性，使得代码更加清晰易懂。</p>
+<p>总的来说，是否使用 <code>using namespace std;</code> ，以及是否显式地书写类型和函数的完整名称，取决于开发者的个人喜好和编程习惯。但是，在编写大型项目时，为了避免命名空间污染和保证程序的效率，建议尽量少使用 <code>using namespace std;</code> ，而是显式地书写类型和函数的完整名称。</p>
+<h2 id="C-C-形参和实参">C/C++ 形参和实参</h2>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_73671341/article/details/132818897">参考资料</a></p>
+<p>形参和实参是函数中的两个重要概念。</p>
+<p>形参（形式参数）是在函数定义中出现的参数，它是一个虚拟参数，只有在函数调用时才会接收到传递进来的实际参数。形参可以被看作是一个占位符，在函数定义时并没有实际的数值，只有在函数调用时才会得到实参的数值。形参的主要作用是表示函数需要从外部传递进来的数据。</p>
+<p>实参（实际参数）是在函数中实际出现的参数，它的值可以是常量、变量、表达式、类等。实参的值是确定的，必须在函数调用时提供。实参的主要作用是向函数传递数据，将数据的值传递给形参，在函数体内被使用。</p>
+<p>要注意的是，形参和实参之间的传递方式有两种：值传递和地址传递。值传递是指将实参的值复制给形参，形参在函数内部使用时不会改变实参的值。而地址传递是指将实参的地址传递给形参，形参在函数内部使用时可以通过地址修改实参的值。</p>
+<p>总结起来，形参是函数定义中的参数，是一个虚拟的占位符，用于接收函数调用时传递进来的实参。实参是函数调用时提供的具体数值，用于向函数传递数据。形参和实参之间的传递方式可以是值传递或地址传递。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">exchange1</span><span class="hljs-params">(<span class="hljs-type">int</span> x,<span class="hljs-type">int</span> y)</span></span>;<br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">exchange2</span><span class="hljs-params">(<span class="hljs-type">int</span> &amp;x,<span class="hljs-type">int</span> &amp;y)</span></span>;<br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">exchange3</span><span class="hljs-params">(<span class="hljs-type">int</span> *x,<span class="hljs-type">int</span> *y)</span></span>;<br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br><span class="hljs-type">int</span> a = <span class="hljs-number">7777777</span>,b = <span class="hljs-number">666666</span>;<br><span class="hljs-built_in">exchange1</span>(a,b);<br>cout &lt;&lt; a &lt;&lt; endl &lt;&lt; b &lt;&lt; endl;<br><span class="hljs-built_in">exchange2</span>(a,b);<br>cout &lt;&lt; a &lt;&lt; endl &lt;&lt; b &lt;&lt; endl;<br><span class="hljs-built_in">exchange3</span>(&amp;a,&amp;b);<br>cout &lt;&lt; a &lt;&lt; endl &lt;&lt; b &lt;&lt; endl;<br>&#125;<br><br><span class="hljs-comment">//  exchange1中a和b没有交换的原因是：x和y是函数定义中的形参，代码中吧实参a，b分别赋值给了x，y这两个形参变量。代码中只是替换掉了x和y的值，实参a和b不受影响，交换失败。</span><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">exchange1</span><span class="hljs-params">(<span class="hljs-type">int</span> x,<span class="hljs-type">int</span> y)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-type">int</span> temp;<br>    temp = y;<br>    y = x;<br>    x = temp;<br>&#125;<br><br><span class="hljs-comment">// exchange2中，x和y是a和b的引用，操作x和y交换就等于a和b交换，交换成功。</span><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">exchange2</span><span class="hljs-params">(<span class="hljs-type">int</span> &amp;x,<span class="hljs-type">int</span> &amp;y)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-type">int</span> temp;<br>    temp = y;<br>    y = x;<br>    x = temp;<br>&#125;<br><br><span class="hljs-comment">// exchange3中，x和y两个形参是a和b的指针，也就是存放实参的地址。然后函数里面交换了x和y指向的数据地址，也就是实参a和b，交换成功。</span><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">exchange3</span><span class="hljs-params">(<span class="hljs-type">int</span> *x,<span class="hljs-type">int</span> *y)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-type">int</span> temp;<br>    temp = *y;<br>    *y = *x;<br>    *x = temp;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="逻辑运算符">逻辑运算符</h2>
+<p>在C++中，&quot;或&quot;逻辑可以使用逻辑运算符<code>||</code>来表示，<code>|</code>是按位或运算符。</p>
+<p>&quot;与&quot;逻辑可以使用逻辑运算符<code>&amp;&amp;</code>来表示，<code>&amp;</code>是按位与运算符。</p>
+<p>在C++中，<code>if ( IMU_VERSION == 0)</code>和<code>if ( IMU_VERSION = 0)</code>有着本质的区别。</p>
+<p><code>if ( IMU_VERSION == 0)</code>是一个比较操作，它检查<code>IMU_VERSION</code>是否等于0。如果<code>IMU_VERSION</code>的值为0，那么条件为真，<code>if</code>语句中的代码块将被执行。如果<code>IMU_VERSION</code>的值不为0，那么条件为假，<code>if</code>语句中的代码块将不会被执行。</p>
+<p>而<code>if ( IMU_VERSION = 0)</code>是一个赋值操作。它将<code>IMU_VERSION</code>的值设置为0，然后检查赋值后的<code>IMU_VERSION</code>是否为非零。在这种情况下，由于赋值为0，条件始终为假，因此<code>if</code>语句中的代码块将不会被执行。同时，这也改变了<code>IMU_VERSION</code>的原始值，这可能不是你想要的结果。因此，你应该谨慎使用赋值操作符<code>=</code>在<code>if</code>语句中，除非你确实想在检查条件的同时赋值。</p>
+<h2 id="全局变量">全局变量</h2>
+<p>在C++中，如果你想在多个源文件中共享一个变量，你可以使用<code>extern</code>关键字。你可以在一个源文件中定义一个变量，并在其他源文件中使用<code>extern</code>关键字声明同一个变量。</p>
+<p>首先，在<code>ESVIO/pose_graph/src/pose_graph_node.cpp</code>文件中，你需要将<code>SYSTEM_MODE</code>变量的定义移动到一个头文件中，例如<code>global.h</code>。然后在<code>pose_graph_node.cpp</code>和<code>keyframe.cpp</code>中都包含这个头文件。</p>
+<p><code>global.h</code>文件内容如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">ifndef</span> GLOBAL_H</span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> GLOBAL_H</span><br><br><span class="hljs-keyword">extern</span> <span class="hljs-type">int</span> SYSTEM_MODE;<br><br><span class="hljs-meta">#<span class="hljs-keyword">endif</span> <span class="hljs-comment">// GLOBAL_H</span></span><br></code></pre></td></tr></table></figure>
+<p>然后在<code>ESVIO/pose_graph/src/pose_graph_node.cpp</code>文件中，你需要包含<code>global.h</code>并定义<code>SYSTEM_MODE</code>：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;global.h&quot;</span></span><br><br><span class="hljs-type">int</span> SYSTEM_MODE = <span class="hljs-number">0</span>;  <span class="hljs-comment">// 初始化SYSTEM_MODE</span><br></code></pre></td></tr></table></figure>
+<p>最后，在<code>ESVIO/pose_graph/src/keyframe.cpp</code>文件中，你也需要包含<code>global.h</code>。这样你就可以在<code>keyframe.cpp</code>中使用<code>SYSTEM_MODE</code>变量了：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;global.h&quot;</span></span><br><br><span class="hljs-comment">// 现在你可以在这个文件中使用SYSTEM_MODE变量</span><br></code></pre></td></tr></table></figure>
+<p>注意，<code>extern</code>关键字告诉编译器变量的定义在别的地方，你不能在声明的时候初始化它。变量的定义（也就是初始化）应该在一个源文件中进行，而不是头文件。如果你在多个地方定义了同一个<code>extern</code>变量，那么会导致链接错误。</p>
+<h2 id="Shell脚本自动输入密码">Shell脚本自动输入密码</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;password&quot;</span> | sudo -S <span class="hljs-built_in">command</span>  <span class="hljs-comment"># 可见加上-S参数sudo才会从标准输入中读取密码，不加-S参数以上命令将起不到作用</span><br></code></pre></td></tr></table></figure>
+<h2 id="其它-2">其它</h2>
+<ol>
+<li>
+<p>Python 并没有强制要求你用 <code>Tab</code> 缩进或者用空格缩进，但在PEP8中，建议使用4个空格来缩进。对于任何一个编辑器或者IDE，一般都有配置选项，可以设置把 <code>TAB</code> 键展开为4个空格，以保证代码的兼容性。</p>
+</li>
+<li>
+<p>命令行使用<code>\</code>实现换行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo apt-get install \<br>    ros-<span class="hljs-variable">$1</span>-sophus \<br>    ros-<span class="hljs-variable">$1</span>-pcl-ros<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>报错：<code>SyntaxError: Non-ASCII character '\xe5'</code></p>
+<p>原因：Python默认是以ASCII作为编码方式的，如果在自己的Python源码中包含了中文（或者其他非英语系的语言），此时即使你把自己编写的Python源文件以UTF-8格式保存了，但实际上，这依然是不行的。</p>
+<p>解决：在源代码的第一行加入：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># -*- coding: UTF-8 -*-</span><br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>python引入本地字体：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> matplotlib.font_manager <span class="hljs-keyword">as</span> fm<br>fm.fontManager.addfont(<span class="hljs-string">&#x27;/usr/share/fonts/truetype/Times-New-Roman/times.ttf&#x27;</span>)<br>fm.fontManager.addfont(<span class="hljs-string">&#x27;/usr/share/fonts/truetype/simsun/simsun.ttc&#x27;</span>)<br><br>plt.title(<span class="hljs-string">&#x27;层次聚类树形图&#x27;</span>, fontname=<span class="hljs-string">&quot;simsun&quot;</span>, fontsize=<span class="hljs-number">30</span>)<br>plt.xticks(fontname=<span class="hljs-string">&quot;Times New Roman&quot;</span>, fontsize=<span class="hljs-number">26</span>)<br><br>colorbar = plt.colorbar()<br>colorbar.ax.tick_params(labelsize=<span class="hljs-number">24</span>)  <span class="hljs-comment"># 设置坐标轴标签的字体大小</span><br><span class="hljs-keyword">for</span> l <span class="hljs-keyword">in</span> colorbar.ax.yaxis.get_ticklabels():<br>    l.set_family(<span class="hljs-string">&#x27;simsun&#x27;</span>)<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>idea错误提示File was loaded in the wrong encoding: ‘UTF-8‘解决方法：</p>
+<ol>
+<li>打开乱码文件，在软件右下角将当前页面的编码格式改为GB2312，弹出的提示消息中选择Reload；</li>
+<li>在软件右下角将当前页面的编码格式改为utf-8，弹出的提示消息中选择Convert；</li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/nuyoahso/article/details/114974906">参考链接</a></li>
+</ol>
+</li>
+<li>
+<p>如果你不想运行<code>predict.py</code>文件的<code>main</code>函数第136行以下的代码，你可以使用Python的<code>return</code>语句来提前结束函数的执行。你需要找到第136行的代码，并在其前面添加<code>return</code>语句。这将导致函数在执行到这一行时立即返回，不再执行后续的代码。</p>
+<p>在循环语句里，可以使用<code>continue</code>。</p>
+</li>
+<li>
+<p>syntax error near unexpected token '$'{\r''</p>
+<p>字面意思上看是换行符出现问题，怀疑是Win下编辑过。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 用vim -b 查看，发现每一行多了~M</span><br><span class="hljs-comment"># 解决方法：</span><br>sed -i <span class="hljs-string">&#x27;s/\r//g&#x27;</span> xxx.sh<br></code></pre></td></tr></table></figure>
 </li>
 <li></li>
 </ol>
@@ -1588,6 +1692,10 @@
 <td style="text-align:center">复制/剪切整行</td>
 </tr>
 <tr>
+<td style="text-align:center">Ctrl+Y</td>
+<td style="text-align:center">删除整行</td>
+</tr>
+<tr>
 <td style="text-align:center">Ctrl+Alt+Enter</td>
 <td style="text-align:center">在上一行插入空行</td>
 </tr>
@@ -1610,6 +1718,10 @@
 <tr>
 <td style="text-align:center">Ctrl+Shift+J</td>
 <td style="text-align:center">合并行</td>
+</tr>
+<tr>
+<td style="text-align:center">代码自动提示和补全</td>
+<td style="text-align:center">上下方向键选择，Enter插入</td>
 </tr>
 <tr>
 <td style="text-align:center"><mark>移动定位</mark></td>
@@ -1880,17 +1992,23 @@
 <p>如要开启，将其设为<code>true</code>就可以了：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">conda config --<span class="hljs-built_in">set</span> auto_activate_base <span class="hljs-literal">true</span><br></code></pre></td></tr></table></figure>
 <h3 id="库-包管理">库/包管理</h3>
+<blockquote>
+<p>清华源：<a target="_blank" rel="noopener" href="https://pypi.tuna.tsinghua.edu.cn/simple">https://pypi.tuna.tsinghua.edu.cn/simple</a></p>
+<p>阿里源：<a target="_blank" rel="noopener" href="https://mirrors.aliyun.com/pypi/simple/">https://mirrors.aliyun.com/pypi/simple/</a></p>
+<p>腾讯源：<a target="_blank" rel="noopener" href="http://mirrors.cloud.tencent.com/pypi/simple">http://mirrors.cloud.tencent.com/pypi/simple</a></p>
+<p>豆瓣源：<a target="_blank" rel="noopener" href="http://pypi.douban.com/simple/">http://pypi.douban.com/simple/</a></p>
+</blockquote>
 <ol>
 <li>
 <p>安装包</p>
 <ol>
 <li>
 <p>在线安装</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs bash">conda search qt  <span class="hljs-comment"># 搜索可用版本</span><br><span class="hljs-comment"># 你可以指定所安装软件包的版本号，如果不指定的话，就默认安装最新版本。</span><br>conda install -y pkgs[==version]  <span class="hljs-comment"># 安装库，安装成功一般会出现三个 done 。-y 参数的作用是自动确认，忽略询问。</span><br><span class="hljs-comment"># 通过调用软件的帮助文档来经常是否下载成功。如果失败， 重新下载即可。</span><br><br><span class="hljs-comment"># 或</span><br><span class="hljs-comment"># 在anaconda下用pip装包的原因：尽管在anaconda下我们可以很方便的使用conda install来安装我们需要的依赖，但是anaconda本身只提供部分包，远没有pip提供的包多，有时conda无法安装我们需要的包，我们需要用pip将其装到conda环境里。</span><br>conda install pip  <span class="hljs-comment"># 进入环境后</span><br><span class="hljs-comment"># 首先用下面命令查看我们此时用的pip为哪个环境</span><br><span class="hljs-comment"># 如base环境的pip可能在/root/anaconda3/bin/pip，而其他conda环境的pip，可能在/root/anaconda3/envs/my_env/bin/pip</span><br><span class="hljs-built_in">which</span> -a pip<br>pip -V  <span class="hljs-comment"># pip --version</span><br><span class="hljs-comment"># 搜索可用版本</span><br>pip index versions [your python module name] <span class="hljs-comment"># 或</span><br>pip install package_name==<br>pip install --upgrade pip setuptools wheel  <span class="hljs-comment"># 升级pip工具包</span><br>pip install --upgrade pip  <span class="hljs-comment"># 更新 pip 至最新版</span><br>pip install pkgs[==version]  <span class="hljs-comment"># pip安装的包，conda list结果中的build项目的Channel为pypi</span><br>pip install -r environment.txt  <span class="hljs-comment"># 根据 txt 文件创建使用 pip 安装的环境</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs bash">conda search qt  <span class="hljs-comment"># 搜索可用版本</span><br><span class="hljs-comment"># 你可以指定所安装软件包的版本号，如果不指定的话，就默认安装最新版本。</span><br>conda install -y pkgs[==version]  <span class="hljs-comment"># 安装库，安装成功一般会出现三个 done 。-y 参数的作用是自动确认，忽略询问。</span><br><span class="hljs-comment"># 通过调用软件的帮助文档来经常是否下载成功。如果失败， 重新下载即可。</span><br><br><span class="hljs-comment"># 或</span><br><span class="hljs-comment"># 在anaconda下用pip装包的原因：尽管在anaconda下我们可以很方便的使用conda install来安装我们需要的依赖，但是anaconda本身只提供部分包，远没有pip提供的包多，有时conda无法安装我们需要的包，我们需要用pip将其装到conda环境里。</span><br>conda install pip  <span class="hljs-comment"># 进入环境后</span><br><span class="hljs-comment"># 首先用下面命令查看我们此时用的pip为哪个环境</span><br><span class="hljs-comment"># 如base环境的pip可能在/root/anaconda3/bin/pip，而其他conda环境的pip，可能在/root/anaconda3/envs/my_env/bin/pip</span><br><span class="hljs-built_in">which</span> -a pip<br>pip -V  <span class="hljs-comment"># pip --version</span><br><span class="hljs-comment"># 配置</span><br>pip -v config list<br>pip install --upgrade pip setuptools wheel  <span class="hljs-comment"># 升级pip工具包</span><br>pip install --upgrade pip  <span class="hljs-comment"># 更新 pip 至最新版</span><br>pip config <span class="hljs-built_in">set</span> global.index-url https://pypi.tuna.tsinghua.edu.cn/simple  <span class="hljs-comment"># 永久换源（清华源）</span><br>pip config <span class="hljs-built_in">unset</span> global.index-url  <span class="hljs-comment"># 换回默认源</span><br><span class="hljs-comment"># 搜索可用版本</span><br>pip index versions [your python module name] <span class="hljs-comment"># 或</span><br>pip install package_name==<br>pip install pkgs[==version]  <span class="hljs-comment"># pip安装的包，conda list结果中的build项目的Channel为pypi</span><br>pip install -r environment.txt  <span class="hljs-comment"># 根据 txt 文件创建使用 pip 安装的环境</span><br>pip3 --proxy 127.0.0.1:7890 install package_name<br>pip install xxxx -i https://pypi.tuna.tsinghua.edu.cn/simple  <span class="hljs-comment"># 临时换源（清华源）</span><br>pip install -e path/  <span class="hljs-comment"># 执行path/目录下的setup.py文件</span><br></code></pre></td></tr></table></figure>
 </li>
 <li>
 <p>本地安装</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># https://anaconda.org/这个是Anaconda包下载的地方，利用搜索框进行搜索，然后下载。</span><br>conda install --use-local package.tar.bz2  <span class="hljs-comment"># 安装本地软件包。</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># https://anaconda.org/这个是Anaconda包下载的地方，利用搜索框进行搜索，然后下载。</span><br>conda install --use-local package.tar.bz2  <span class="hljs-comment"># 安装本地软件包。</span><br>pip install path/package_name.whl<br></code></pre></td></tr></table></figure>
 </li>
 <li></li>
 </ol>
@@ -1916,6 +2034,7 @@
 <li></li>
 </ol>
 <h2 id="Git">Git</h2>
+<p>Windows下的Git Bash终端快捷键：</p>
 <table>
 <thead>
 <tr>
@@ -1966,7 +2085,7 @@
 </li>
 <li>
 <p>搜索：</p>
-<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs txt">java stars:&gt;1000  # 目标语言是java且star数大于1k<br></code></pre></td></tr></table></figure>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs txt">java stars:&gt;1000  # 目标语言是java且star数大于1k<br>dvs_msgs language:Python  # 指定编程语言<br></code></pre></td></tr></table></figure>
 </li>
 <li></li>
 </ol>
@@ -1983,7 +2102,41 @@
 </li>
 <li></li>
 </ol>
-<h2 id="浏览器">浏览器</h2>
+<h2 id="Mermaid">Mermaid</h2>
+<p><a target="_blank" rel="noopener" href="https://github.com/mermaid-js/mermaid">GitHub仓库</a></p>
+<p><a target="_blank" rel="noopener" href="https://mermaid.js.org/">官网</a></p>
+<p><a target="_blank" rel="noopener" href="https://mermaid.nodejs.cn/">中文网</a></p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://support.typora.io/Draw-Diagrams-With-Markdown/">Typora支持图表绘制</a>。</p>
+</blockquote>
+<h3 id="通用语法">通用语法</h3>
+<p>流程图的方向定义：</p>
+<ul>
+<li>TB - 从上到下</li>
+<li>TD - 自上而下/与自上而下相同</li>
+<li>BT - 从下到上</li>
+<li>RL - 右到左</li>
+<li>LR - 左到右</li>
+</ul>
+<h3 id="流程图">流程图</h3>
+<p>简单示例：</p>
+<pre><code class=" mermaid">flowchart TD
+    A[Enter Chart Definition] --&gt; |Text| B(Preview)
+    B --- C&#123;decide&#125;
+    C -.-&gt; D([Keep])
+    C ==&gt; E[Edit Definition]
+    E  &lt;--&gt; B
+    D --&gt; F[Save Image and Code]
+    F --&gt; B
+    
+    markdown[&quot;`This **is** _Markdown_`&quot;]
+    newLines[&quot;Line1
+    Line 2
+    Line 3&quot;]
+    markdown --&gt; newLines
+</code></pre>
+<h2 id="Microsoft-Edge">Microsoft Edge</h2>
+<p><a target="_blank" rel="noopener" href="https://support.microsoft.com/zh-cn/microsoft-edge/microsoft-edge-%E4%B8%AD%E7%9A%84%E9%94%AE%E7%9B%98%E5%BF%AB%E6%8D%B7%E6%96%B9%E5%BC%8F-50d3edab-30d9-c7e4-21ce-37fe2713cfad">Microsoft Edge 中的键盘快捷方式</a></p>
 <table>
 <thead>
 <tr>
@@ -1993,12 +2146,80 @@
 </thead>
 <tbody>
 <tr>
+<td style="text-align:center"><mark>窗口</mark></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
 <td style="text-align:center">Ctrl+N</td>
 <td style="text-align:center">新建窗口</td>
 </tr>
 <tr>
 <td style="text-align:center">Ctrl+Shift+N</td>
 <td style="text-align:center">新建无痕窗口</td>
+</tr>
+<tr>
+<td style="text-align:center"><mark>标签页</mark></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">Ctrl+W</td>
+<td style="text-align:center">关闭当前标签页</td>
+</tr>
+<tr>
+<td style="text-align:center">Ctrl+Shift+W</td>
+<td style="text-align:center">关闭所有标签页</td>
+</tr>
+<tr>
+<td style="text-align:center">Ctrl + Shift + K</td>
+<td style="text-align:center">复制当前标签页</td>
+</tr>
+<tr>
+<td style="text-align:center">Ctrl + Tab</td>
+<td style="text-align:center">切换到下一个标签页</td>
+</tr>
+<tr>
+<td style="text-align:center">Ctrl + Shift + Tab</td>
+<td style="text-align:center">切换到上一个标签页</td>
+</tr>
+<tr>
+<td style="text-align:center">Ctrl + 1, 2, ... 8</td>
+<td style="text-align:center">切换到特定标签页</td>
+</tr>
+<tr>
+<td style="text-align:center">Ctrl + 9</td>
+<td style="text-align:center">切换到最后一个标签页</td>
+</tr>
+<tr>
+<td style="text-align:center"><mark>搜索</mark></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">Alt + D/Ctrl + L/F4</td>
+<td style="text-align:center">选择地址栏中的 URL 以进行编辑</td>
+</tr>
+<tr>
+<td style="text-align:center">Ctrl + Shift + L</td>
+<td style="text-align:center">粘贴并搜索或粘贴并访问（不一定非得是URL）</td>
+</tr>
+<tr>
+<td style="text-align:center">Ctrl + E/Ctrl + K</td>
+<td style="text-align:center">在地址栏中打开搜索查询</td>
+</tr>
+<tr>
+<td style="text-align:center">Ctrl+Shift+E</td>
+<td style="text-align:center">在边栏中搜索</td>
+</tr>
+<tr>
+<td style="text-align:center"><mark>其它</mark></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">F5</td>
+<td style="text-align:center">重新加载当前标签页</td>
+</tr>
+<tr>
+<td style="text-align:center">Ctrl+F/F3</td>
+<td style="text-align:center">查找当前标签页</td>
 </tr>
 </tbody>
 </table>
@@ -2125,6 +2346,10 @@
 <td style="text-align:center">Ctrl+Shift+`</td>
 <td style="text-align:center">生成代码格式，也就是使用``进行包围</td>
 </tr>
+<tr>
+<td style="text-align:center">Ctrl+Y</td>
+<td style="text-align:center">重做（与Ctrl+Z撤销相反）</td>
+</tr>
 </tbody>
 </table>
 <h3 id="小贴士-4">小贴士</h3>
@@ -2133,7 +2358,68 @@
 <li>在列表中第一次回车，取消当前列表，第二次回车，创建上级列表（没有上级列表就是正文的回车）。</li>
 </ol>
 <h2 id="vim">vim</h2>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash">按Esc。输入 :wq！，保存并退出。<br>注：ESC”键退出编辑模式，并输入以下命令：<br>:wq 保存后退出vi，若为:wq!则为强制存储后退出<br>:w    保存但不退出<br>:w!   若文件属性为【只读】，强制写入该档案<br>:q     离开vi<br>:q!    若曾经修改过档案，又不想存储，使用！为强制离开不存储档案<br>:e!    将档案还原到最原始状态！<br></code></pre></td></tr></table></figure>
+<p><a target="_blank" rel="noopener" href="https://www.runoob.com/linux/linux-vim.html">参考链接</a></p>
+<h3 id="vim键盘图">vim键盘图</h3>
+<img src="/posts/a8aab215/vi-vim-cheat-sheet-sch.gif" srcset="/img/loading.gif" lazyload class="" title="vim 键盘图">
+<h3 id="vi-vim的使用">vi/vim的使用</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">vim runoob.txt  <span class="hljs-comment"># 开始使用vim编辑文件</span><br></code></pre></td></tr></table></figure>
+<p>基本上 vi/vim 共分为三种模式，<a href="#%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F">命令模式（Command Mode）</a>、<a href="#%E8%BE%93%E5%85%A5%E6%A8%A1%E5%BC%8F">输入模式（Insert Mode）</a>和<a href="#%E5%BA%95%E7%BA%BF%E5%91%BD%E4%BB%A4%E8%A1%8C%E6%A8%A1%E5%BC%8F">底线命令行模式（Command-Line Mode）</a>。</p>
+<img src="/posts/a8aab215/vim-vi-workmodel.png" srcset="/img/loading.gif" lazyload class="" title="vim&#x2F;vi的工作模式">
+<h4 id="命令模式">命令模式</h4>
+<p><strong>用户刚刚启动 vi/vim，便进入了命令模式。</strong></p>
+<p>此状态下敲击键盘动作会被 Vim 识别为命令，而非输入字符，比如我们此时按下 <code>i</code>，并不会输入一个字符，<code>i</code> 被当作了一个命令。</p>
+<p>以下是普通模式常用的几个命令：</p>
+<ul>
+<li><code>i</code>：切换到<a href="#%E8%BE%93%E5%85%A5%E6%A8%A1%E5%BC%8F">输入模式</a>，在光标当前位置开始输入文本。</li>
+<li><code>:</code>：切换到<a href="#%E5%BA%95%E7%BA%BF%E5%91%BD%E4%BB%A4%E8%A1%8C%E6%A8%A1%E5%BC%8F">底线命令行模式</a>，以在最底一行输入命令。</li>
+<li><code>x</code>：删除当前光标所在处的字符。</li>
+<li><code>a</code>：进入插入模式，在光标下一个位置开始输入文本。</li>
+<li><code>o</code>：在当前行的下方插入一个新行，并进入插入模式。</li>
+<li><code>O</code>：在当前行的上方插入一个新行，并进入插入模式。</li>
+<li><code>dd</code>：剪切当前行。</li>
+<li><code>yy</code>：复制当前行。</li>
+<li><code>p</code>（小写）：粘贴剪贴板内容到光标下方。</li>
+<li><code>P</code>（大写）：粘贴剪贴板内容到光标上方。</li>
+<li><code>u</code>：撤销上一次操作。</li>
+<li><code>Ctrl + r</code>：重做上一次撤销的操作。</li>
+</ul>
+<blockquote>
+<p>若想要编辑文本，只需要启动 Vim，进入了命令模式，按下 <code>i</code> 切换到输入模式即可。</p>
+</blockquote>
+<blockquote>
+<p>在其它模式下，可以随时按<code>ESC</code>键回到<a href="#%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F">命令模式</a>。</p>
+</blockquote>
+<p>命令模式只有一些最基本的命令，因此仍要依靠<a href="#%E5%BA%95%E7%BA%BF%E5%91%BD%E4%BB%A4%E8%A1%8C%E6%A8%A1%E5%BC%8F">底线命令行模式</a>输入更多命令。</p>
+<h4 id="输入模式">输入模式</h4>
+<p>在命令模式下按下 <code>i</code> 就进入了输入模式，使用 <code>Esc</code> 键可以返回到普通模式。</p>
+<p>在输入模式中，可以使用以下按键：</p>
+<ul>
+<li>字符按键以及<code>Shift</code>组合：输入字符</li>
+<li><code>ENTER</code>：回车键，换行</li>
+<li><code>BACK SPACE</code>：退格键，删除光标前一个字符</li>
+<li><code>DEL</code>：删除键，删除光标后一个字符</li>
+<li><code>方向键 ↑↓←→</code>：在文本中移动光标</li>
+<li><code>HOME/END</code>：移动光标到行首/行尾</li>
+<li><code>Page Up/Page Down</code>：上/下翻页</li>
+<li><code>Insert</code>：切换光标为输入/替换模式，光标将变成竖线/下划线</li>
+<li><code>ESC</code>：退出<a href="#%E8%BE%93%E5%85%A5%E6%A8%A1%E5%BC%8F">输入模式</a>，切换回<a href="#%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F">命令模式</a></li>
+</ul>
+<h4 id="底线命令行模式">底线命令行模式</h4>
+<p>在命令模式下按下 <code>:</code>（英文冒号）就进入了底线命令模式。</p>
+<p>底线命令模式可以输入单个或多个字符的命令，可用的命令非常多。</p>
+<p>在底线命令模式中，基本的命令有：</p>
+<ul>
+<li><code>:w</code>：保存文件但不退出。</li>
+<li><code>:q</code>：退出 Vim 编辑器。</li>
+<li><code>:wq</code>：保存文件并退出 Vim 编辑器。</li>
+<li><code>:q!</code>：强制退出Vim编辑器，不保存修改。</li>
+<li><code>:w!</code>：若文件属性为【只读】，强制写入该档案</li>
+<li><code>:wq!</code>：强制保存后退出。</li>
+<li><code>:e!</code>：将档案还原到最原始状态！</li>
+</ul>
+<p>按 <code>ESC</code> 键可随时退出<a href="#%E5%BA%95%E7%BA%BF%E5%91%BD%E4%BB%A4%E8%A1%8C%E6%A8%A1%E5%BC%8F">底线命令行模式</a>，切换回<a href="#%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F">命令模式</a></p>
+<h3 id="vi-vim按键说明">vi/vim按键说明</h3>
+<p><a href="vi/vim%E6%8C%89%E9%94%AE%E8%AF%B4%E6%98%8E">vi/vim按键说明</a></p>
 <h2 id="VSCode">VSCode</h2>
 <table>
 <thead>
@@ -2275,6 +2561,7 @@
 <blockquote>
 <p>主阅读界面若有跳转链接如Fig 4，点击后会在分割界面（横向/竖向）跳转，主阅读界面无跳转，避免点击前进后退。可满足看图，公式，表格的需求。但只针对有跳转链接的PDF。</p>
 </blockquote>
+<p>``</p>
 
                 
               </div>

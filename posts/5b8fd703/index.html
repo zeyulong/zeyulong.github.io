@@ -34,7 +34,7 @@
 <meta property="og:image" content="http://zeyulong.com/posts/5b8fd703/feature_branch_diverge_from_master_diagram.png">
 <meta property="og:image" content="http://zeyulong.com/posts/5b8fd703/rebase_result_diagram.png">
 <meta property="article:published_time" content="2024-05-09T03:34:55.000Z">
-<meta property="article:modified_time" content="2024-06-19T02:30:54.198Z">
+<meta property="article:modified_time" content="2024-07-01T09:19:06.087Z">
 <meta property="article:author" content="龙泽雨">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://zeyulong.com/posts/5b8fd703/Git%E6%B5%81%E7%A8%8B-1.png">
@@ -420,7 +420,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2024年6月19日 上午
+                    本文最后更新于 2024年7月1日 下午
                   
                 
               </p>
@@ -435,7 +435,7 @@
 <h2 id="安装Git">安装Git</h2>
 <ul>
 <li>
-<p>Windows：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_41521682/article/details/122764915">参考安装教程（推荐查找此时最新的安装教程）</a></p>
+<p>Windows：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_41521682/article/details/122764915">参考安装教程</a>（推荐查找此时最新的安装教程）</p>
 </li>
 <li>
 <p>Linux：</p>
@@ -903,10 +903,10 @@
 <h3 id="问题与解决">问题与解决</h3>
 <p><mark>问题1：</mark></p>
 <p>情况：<code>.gitignore</code>中已经标明忽略的文件目录下的文件，但<code>git push</code>的时候还会出现在<code>push</code>的目录中，或者用<code>git status</code>查看状态，想要忽略的文件还是显示被追踪状态。原因：因为在git忽略目录中，新建的文件在git中会有缓存，如果某些文件之前已经被纳入了版本管理中（已经被跟踪），就算是在<code>.gitignore</code>中已经声明了忽略路径也是不起作用的。解决：这时候我们就应该先把本地缓存删除，然后再进行git的提交，这样就不会出现忽略的文件了。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">git <span class="hljs-built_in">rm</span> -r --cached .<br><span class="hljs-comment"># git rm --cached .env  # 只删除特定文件的缓存</span><br>git add .<br>git commit -m <span class="hljs-string">&#x27;update .gitignore&#x27;</span><br>git push -u origin master<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">git <span class="hljs-built_in">rm</span> -r --cached .  <span class="hljs-comment"># or</span><br><span class="hljs-comment"># git rm --cached directory/.env  # 只删除特定文件的缓存</span><br>git add .<br>git commit -m <span class="hljs-string">&#x27;update .gitignore&#x27;</span><br>git push -u origin master<br></code></pre></td></tr></table></figure>
 <p><mark>问题2：</mark></p>
 <p>需求：在使用<code>.gitignore</code>文件后如何删除远程仓库中以前上传的此类文件而保留本地文件。在使用git和github的时候，之前没有写<code>.gitignore</code>文件，就上传了一些没有必要的文件，在添加了<code>·</code>文件后，就想删除远程仓库中的文件却想保存本地的文件。</p>
-<p>解决：这时候不可以直接使用<code>git rm directory</code>，这样会删除本地仓库的文件。可以使用<code>git rm -r –cached directory</code>来删除缓冲，然后进行<code>git commit</code>和<code>git push</code>。这样会发现远程仓库中的不必要文件就被删除了，以后可以直接使用<code>git add -A</code>来添加修改的内容，上传的文件就会受到<code>.gitignore</code>文件的内容约束。</p>
+<p>解决：这时候不可以直接使用<code>git rm directory</code>，这样会删除本地仓库的文件。可以使用<code>git rm -r –-cached directory</code>来删除缓冲，然后进行<code>git commit</code>和<code>git push</code>。这样会发现远程仓库中的不必要文件就被删除了，以后可以直接使用<code>git add -A</code>来添加修改的内容，上传的文件就会受到<code>.gitignore</code>文件的内容约束。</p>
 <h2 id="将远程仓库设置为本地目录">将远程仓库设置为本地目录</h2>
 <h3 id="背景知识">背景知识</h3>
 <p>远端仓库实际上储存的是一个裸仓库。裸仓库命名上一般以仓库名+<code>.git</code>，比如<code>repo.git</code>，本地仓库就叫<code>repo</code>。如果你去GitHub上<code>clone</code>一个项目，你会发现地址是以<code>.git</code>结尾的：<a target="_blank" rel="noopener" href="https://github.com/raulmur/ORB_SLAM2.git%E3%80%82">https://github.com/raulmur/ORB_SLAM2.git。</a></p>

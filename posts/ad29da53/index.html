@@ -24,7 +24,7 @@
 <meta property="og:description" content="本文主要分享了Windows、Linux系统的配置与常用软件的安装。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-01-31T16:27:11.000Z">
-<meta property="article:modified_time" content="2024-07-06T01:53:39.924Z">
+<meta property="article:modified_time" content="2024-07-13T02:14:33.892Z">
 <meta property="article:author" content="龙泽雨">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -348,7 +348,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          11k 字
+          12k 字
         
       </span>
     
@@ -359,7 +359,7 @@
         
         
         
-          96 分钟
+          97 分钟
         
       </span>
     
@@ -409,7 +409,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2024年7月6日 上午
+                    本文最后更新于 2024年7月13日 上午
                   
                 
               </p>
@@ -1003,6 +1003,22 @@
 <p>我的电脑触摸板是Synaptics PrecisionTouchpad Filter Driver，因为触摸板模块太新和Ubuntu18.04版本太老，自己尝试了各种方法，无果。结论写在这，Linux系统还是要尽量少折腾。如果有成功的解决方案十分欢迎在下方评论区留言。</p>
 <h2 id="安装声卡驱动">安装声卡驱动</h2>
 <p>我的电脑声卡是Realtek(R) Audio，因为声卡模块太新和Ubuntu18.04版本太老，自己尝试了各种方法，无果。结论写在这，Linux系统还是要尽量少折腾。如果有成功的解决方案十分欢迎在下方评论区留言。</p>
+<h2 id="挂载硬盘">挂载硬盘</h2>
+<ol>
+<li>
+<p>Win+A打开应用程序列表，找到并打开Disk。</p>
+</li>
+<li>
+<p>找到硬盘分区，设置自动挂载。</p>
+</li>
+<li>
+<p>以后，开机后，打开资源管理器-其他位置，点击一下已经检测到但是还没有被挂载的硬盘分区就好了。</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs txt">Windows	/dev/nvme0n1p3<br>Data	/dev/nvme1n1p2<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>完成。</p>
+</li>
+</ol>
 <h2 id="安装鼠标驱动">安装鼠标驱动</h2>
 <p>我使用的鼠标是Logitech G502，但是Logitech的鼠标驱动<a target="_blank" rel="noopener" href="https://support.logi.com/hc/zh-cn/articles/360025298133-Logitech-G-HUB">Logitech G HUB</a>只提供了Windows和Mac版。当然，我相信<a href="#Piper">Piper</a>提供的鼠标驱动不止适用于这款鼠标。</p>
 <h2 id="锁屏不熄屏">锁屏不熄屏</h2>
@@ -1353,6 +1369,9 @@
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/wq_0708/article/details/121105055">ubuntu安装glibc</a></p>
 <p><a target="_blank" rel="noopener" href="https://huaweicloud.csdn.net/63560fe9d3efff3090b595d5.html">ubuntu下安装glibc 2.28（报错及解决办法）</a></p>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/kobe24fgy/article/details/119356149">升级glibc2.27</a></p>
+<h2 id="小贴士">小贴士</h2>
+<h3 id="终端按回车键执行不了命令">终端按回车键执行不了命令</h3>
+<p>看看是不是把数字键锁定了？</p>
 <h1 id="CLion">CLion</h1>
 <h2 id="概述">概述</h2>
 <p>VScode代码编辑器与JetBrains系列等大型IDE的对比：</p>
@@ -1420,6 +1439,13 @@
 <p>插件：</p>
 <blockquote>
 <p>有些插件在安装后可在文件-设置里做进一步配置。</p>
+</blockquote>
+<blockquote>
+<p>手动安装插件：</p>
+<ol>
+<li>在<a target="_blank" rel="noopener" href="https://plugins.jetbrains.com/%E7%9A%84%E6%8F%92%E4%BB%B6%E4%B8%BB%E9%A1%B5-Versions%E4%B8%8B%E8%BD%BD%E7%9B%B8%E5%85%B3%E7%89%88%E6%9C%AC%E7%9A%84%60*.zip%60%E5%8E%8B%E7%BC%A9%E5%8C%85%E3%80%82">https://plugins.jetbrains.com/的插件主页-Versions下载相关版本的`*.zip`压缩包。</a></li>
+<li>打开CLion-设置-插件，点击中间右上角的竖向的3个点-从磁盘安装插件，即可覆盖之前安装的插件版本。</li>
+</ol>
 </blockquote>
 <ul>
 <li>Atom Material Icons：图标美化</li>

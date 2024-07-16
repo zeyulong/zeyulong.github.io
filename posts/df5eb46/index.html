@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://zeyulong.com/posts/df5eb46/PyTorch%E5%8C%85%E7%9A%84%E5%91%BD%E5%90%8D%E8%A7%84%E5%88%99.png">
 <meta property="article:published_time" content="2024-03-05T07:37:06.000Z">
-<meta property="article:modified_time" content="2024-07-03T09:33:57.565Z">
+<meta property="article:modified_time" content="2024-07-12T08:51:43.409Z">
 <meta property="article:author" content="龙泽雨">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://zeyulong.com/posts/df5eb46/PyTorch%E5%8C%85%E7%9A%84%E5%91%BD%E5%90%8D%E8%A7%84%E5%88%99.png">
@@ -350,7 +350,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          6k 字
+          6.2k 字
         
       </span>
     
@@ -361,7 +361,7 @@
         
         
         
-          51 分钟
+          52 分钟
         
       </span>
     
@@ -411,7 +411,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2024年7月3日 下午
+                    本文最后更新于 2024年7月12日 下午
                   
                 
               </p>
@@ -431,13 +431,17 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo apt update  <span class="hljs-comment"># 更新软件包列表，检查可用的软件包更新</span><br>sudo apt upgrade  <span class="hljs-comment"># 安装可用的软件包更新</span><br></code></pre></td></tr></table></figure>
 </li>
 <li>
+<p>安装第三方库。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo apt-get install libgl1-mesa-glx libegl1-mesa libxrandr2 libxrandr2 libxss1 libxcursor1 libxcomposite1 libasound2 libxi6 libxtst6<br></code></pre></td></tr></table></figure>
+</li>
+<li>
 <p>查询系统架构。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">uname</span> -a  <span class="hljs-comment"># 查询系统架构</span><br></code></pre></td></tr></table></figure>
 </li>
 <li>
 <p>安装Conda。</p>
 <p><a target="_blank" rel="noopener" href="https://docs.anaconda.com/anaconda/install/linux/">https://docs.anaconda.com/anaconda/install/linux/</a></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># Step 1.更换终端 Shell</span><br><span class="hljs-comment"># https://stackoverflow.com/questions/40370467/anaconda-not-found-in-zsh</span><br><span class="hljs-built_in">cat</span> /etc/shells  <span class="hljs-comment"># 查看系统安装了的shell</span><br><span class="hljs-built_in">echo</span> <span class="hljs-variable">$SHELL</span>  <span class="hljs-comment"># 当前的shell</span><br>chsh -s /bin/bash  <span class="hljs-comment"># 切换回 bash 终端</span><br><br><span class="hljs-comment"># Step 2.下载安装 Anaconda3</span><br><span class="hljs-comment"># https://www.anaconda.com/</span><br>bash Anaconda3-2023.09-0-Linux-x86_64.sh<br><span class="hljs-comment"># 认真看安装过程提示信息，需要按Enter (回车键)或者输入yes，（如果输入yes时，不小心输多了，就按control和退格键删除）。</span><br><span class="hljs-comment"># 看到 more 就是按空格键翻页查看协议，按 q 退出。</span><br><br><span class="hljs-comment"># 安装软件完成后需要重启</span><br><span class="hljs-built_in">source</span> ~/.bashrc<br><br><span class="hljs-comment"># 检查conda是否安装成功</span><br>conda --<span class="hljs-built_in">help</span>  <span class="hljs-comment"># 调用出来说明安装成功</span><br><br><span class="hljs-comment"># Step 3.更换回终端 Shell</span><br>chsh -s /bin/zsh  <span class="hljs-comment"># 切换回 zsh 终端</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># Step 1.更换终端 Shell</span><br><span class="hljs-comment"># https://stackoverflow.com/questions/40370467/anaconda-not-found-in-zsh</span><br><span class="hljs-built_in">cat</span> /etc/shells  <span class="hljs-comment"># 查看系统安装了的shell</span><br><span class="hljs-built_in">echo</span> <span class="hljs-variable">$SHELL</span>  <span class="hljs-comment"># 当前的shell</span><br>chsh -s /bin/bash  <span class="hljs-comment"># 切换回 bash 终端</span><br><br><span class="hljs-comment"># Step 2.下载安装 Anaconda3</span><br><span class="hljs-comment"># https://www.anaconda.com/</span><br><span class="hljs-comment"># https://repo.anaconda.com/archive/</span><br>curl -O https://repo.anaconda.com/archive/Anaconda3-&lt;INSTALLER_VERSION&gt;-Linux-x86_64.sh<br>bash Anaconda3-2023.09-0-Linux-x86_64.sh<br><span class="hljs-comment"># 认真看安装过程提示信息，需要按Enter (回车键)或者输入yes，（如果输入yes时，不小心输多了，就按control和退格键删除）。</span><br><span class="hljs-comment"># 看到 more 就是按空格键翻页查看协议，按 q 退出。</span><br><span class="hljs-comment"># Anaconda 建议您接受默认安装位置。请勿将 Anaconda/Miniconda 安装路径选择为 /usr 。</span><br><span class="hljs-comment"># 使用 CTRL+C 取消安装。</span><br>You can undo this by running `conda init --reverse <span class="hljs-variable">$SHELL</span>`? [<span class="hljs-built_in">yes</span>|no]<br><span class="hljs-built_in">yes</span><br><br><span class="hljs-comment"># 安装软件完成后需要重启</span><br><span class="hljs-built_in">source</span> ~/.bashrc<br><br><span class="hljs-comment"># 检查conda是否安装成功</span><br>conda --<span class="hljs-built_in">help</span>  <span class="hljs-comment"># 调用出来说明安装成功</span><br><br><span class="hljs-comment"># Step 3.更换回终端 Shell</span><br>chsh -s /bin/zsh  <span class="hljs-comment"># 切换回 zsh 终端</span><br></code></pre></td></tr></table></figure>
 </li>
 <li>
 <p>完成。</p>
@@ -639,13 +643,13 @@
 <p>安装显卡驱动会默认安装对应版本的CUDA，此时会提示已经存在CUDA（Error installing Cuda toolkit: Existing package manager installation of the driver found）。继续安装（continue）</p>
 </li>
 <li>
-<p>是否接受协议。接受</p>
+<p>是否接受协议。接受（accept）</p>
 </li>
 <li>
-<p>出现一系列安装提示。<strong>不安装显卡驱动</strong>（在“Driver”选项处按下Enter，取消X号，表示不选择）；Kernel Objests-nvidia-fs保持默认不勾选</p>
+<p>出现一系列安装提示。<strong>不安装显卡驱动</strong>（在“Driver”选项处按下Enter，取消X号，表示不选择）；Kernel Objests-nvidia-fs保持默认<strong>不勾选</strong>；其它（CUDA Toolkit 11.8、CUDA Demo Suite 11.8和CUDA Documentation 11.8）保持勾选。</p>
 </li>
 <li>
-<p>是否生成/更新动态链接<code>/usr/local/cuda</code>（当你已经有该软链接时，会有此提示）。更新</p>
+<p>是否生成/更新动态链接<code>/usr/local/cuda</code>（当你已经有该软链接时，会有此提示）。更新（Yes）</p>
 <blockquote>
 <p>如果出现动态链接库链接不到的情况，手动建立软连接：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo <span class="hljs-built_in">ln</span> -sf /usr/local/cuda-9.0/targets/x86_64-linux/lib/libcudnn.so.7.4.2 /usr/local/cuda-9.0/targets/x86_64-linux/lib/libcudnn.so.7<br></code></pre></td></tr></table></figure>
@@ -653,7 +657,7 @@
 </li>
 </ol>
 <p>安装好 CUDA Toolkit 后，屏幕上将输出（示例）：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs bash">===========<br>= Summary =<br>===========<br><br>Driver:   Not Selected<br>Toolkit:  Installed <span class="hljs-keyword">in</span> /usr/local/cuda-10.2/<br>Samples:  Installed <span class="hljs-keyword">in</span> /home/lll25655/<br><br>Please make sure that<br> -   PATH includes /usr/local/cuda-10.2/bin<br> -   LD_LIBRARY_PATH includes /usr/local/cuda-10.2/lib64, or, add /usr/local/cuda-10.2/lib64 to /etc/ld.so.conf and run ldconfig as root<br><br>To uninstall the CUDA Toolkit, run cuda-uninstaller <span class="hljs-keyword">in</span> /usr/local/cuda-10.2/bin<br><br>Please see CUDA_Installation_Guide_Linux.pdf <span class="hljs-keyword">in</span> /usr/local/cuda-10.2/doc/pdf <span class="hljs-keyword">for</span> detailed information on setting up CUDA.<br>***WARNING: Incomplete installation! This installation did not install the CUDA Driver. A driver of version at least 440.00 is required <span class="hljs-keyword">for</span> CUDA 10.2 functionality to work.<br>To install the driver using this installer, run the following <span class="hljs-built_in">command</span>, replacing &lt;CudaInstaller&gt; with the name of this run file:<br>    sudo &lt;CudaInstaller&gt;.run --silent --driver<br><br>Logfile is /var/log/cuda-installer.log<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs bash">===========<br>= Summary =<br>===========<br><br>Driver:   Not Selected<br>Toolkit:  Installed <span class="hljs-keyword">in</span> /usr/local/cuda-11.8/<br>Samples:  Installed <span class="hljs-keyword">in</span> /home/lll25655/<br><br>Please make sure that<br> -   PATH includes /usr/local/cuda-11.8/bin<br> -   LD_LIBRARY_PATH includes /usr/local/cuda-11.8/lib64, or, add /usr/local/cuda-11.8/lib64 to /etc/ld.so.conf and run ldconfig as root<br><br>To uninstall the CUDA Toolkit, run cuda-uninstaller <span class="hljs-keyword">in</span> /usr/local/cuda-11.8/bin<br><br>Please see CUDA_Installation_Guide_Linux.pdf <span class="hljs-keyword">in</span> /usr/local/cuda-11.8/doc/pdf <span class="hljs-keyword">for</span> detailed information on setting up CUDA.<br>***WARNING: Incomplete installation! This installation did not install the CUDA Driver. A driver of version at least 520.00 is required <span class="hljs-keyword">for</span> CUDA 11.8 functionality to work.<br>To install the driver using this installer, run the following <span class="hljs-built_in">command</span>, replacing &lt;CudaInstaller&gt; with the name of this run file:<br>    sudo &lt;CudaInstaller&gt;.run --silent --driver<br><br>Logfile is /var/log/cuda-installer.log<br></code></pre></td></tr></table></figure>
 <p>这表示 NVIDIA Driver 和 CUDA Toolkit 已安装完毕。后半段安装信息提示我们修改环境变量的 PATH 和 LD_LIBRARY_PATH.</p>
 </li>
 </ul>
@@ -676,7 +680,7 @@
 </blockquote>
 </li>
 <li>
-<p>检查显卡驱动。</p>
+<p>检查显卡驱动（尤其是使用<code>*.deb</code>方式进行安装的）。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">nvidia-smi<br></code></pre></td></tr></table></figure>
 <p>如果正常，最好。如果报错：Failed to initialize NVML: Driver/library version mismatch，这是因为<code>*.deb</code>自动安装了其它版本号的显卡驱动，而自动卸载了之前的显卡驱动，此时运行：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo dpkg --list | grep nvidia<br><span class="hljs-comment"># 可以看到既有之前的版本号也有新增的，而且之前的那几个包的状态都变成了rc，这意味着这个包刚被remove卸载了，但是还残留着配置文件configurations，其他新增的的包状态都是ii，意味着这个包刚被install安装，而且已经installed装好了。</span><br></code></pre></td></tr></table></figure>
@@ -730,7 +734,7 @@
 <ul>
 <li>
 <p><code>*.deb</code>版本（对应使用<code>*.deb(local)</code>安装的CUDA）：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> DownloadFolder<br><span class="hljs-comment"># sudo dpkg -i libcudnn8_8.0.2.39-1+cuda10.2_amd64.deb </span><br><span class="hljs-comment"># sudo dpkg -i libcudnn8-dev_8.0.2.39-1+cuda10.2_amd64.deb</span><br><span class="hljs-comment"># sudo dpkg -i libcudnn8-doc_8.0.2.39-1+cuda10.2_amd64.deb</span><br>sudo dpkg -i cudnn-local-repo-ubuntu1804-8.9.7.29_1.0-1_amd64.deb  <span class="hljs-comment"># 安装本地仓库，使得通过APT包管理器安装cuDNN相关包成为可能</span><br>sudo <span class="hljs-built_in">cp</span> /var/cudnn-local-repo-ubuntu1804-8.9.7.29/cudnn-local-AE31B5F1-keyring.gpg /usr/share/keyrings/  <span class="hljs-comment"># 根据安装*.deb时的输出提示来。通过导入GPG密钥，系统能够验证从本地仓库安装的软件包是经过NVIDIA官方签名的</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> DownloadFolder<br>wget https://developer.nvidia.com/downloads/compute/cudnn/secure/8.9.7/local_installers/11.x/cudnn-local-repo-ubuntu1804-8.9.7.29_1.0-1_amd64.deb/<br><span class="hljs-comment"># sudo dpkg -i libcudnn8_8.0.2.39-1+cuda10.2_amd64.deb </span><br><span class="hljs-comment"># sudo dpkg -i libcudnn8-dev_8.0.2.39-1+cuda10.2_amd64.deb</span><br><span class="hljs-comment"># sudo dpkg -i libcudnn8-doc_8.0.2.39-1+cuda10.2_amd64.deb</span><br>sudo dpkg -i cudnn-local-repo-ubuntu1804-8.9.7.29_1.0-1_amd64.deb  <span class="hljs-comment"># 安装本地仓库，使得通过APT包管理器安装cuDNN相关包成为可能</span><br>sudo <span class="hljs-built_in">cp</span> /var/cudnn-local-repo-ubuntu1804-8.9.7.29/cudnn-local-AE31B5F1-keyring.gpg /usr/share/keyrings/  <span class="hljs-comment"># 根据安装*.deb时的输出提示来。通过导入GPG密钥，系统能够验证从本地仓库安装的软件包是经过NVIDIA官方签名的</span><br></code></pre></td></tr></table></figure>
 <p>更新和安装软件包：</p>
 <ol>
 <li>
@@ -748,7 +752,7 @@
 </li>
 <li>
 <p>压缩包版本（对应使用<code>*.run</code>安装的CUDA）：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> DownloadFolder  <span class="hljs-comment"># 双击解压.tar.xz文件</span><br><span class="hljs-built_in">cd</span> cudnn-linux-x86_64-8.7.0.84_cuda10-archive<br>sudo <span class="hljs-built_in">cp</span> include/* /usr/local/cuda/include/<br>sudo <span class="hljs-built_in">cp</span> lib/* /usr/local/cuda/lib64/<br>sudo <span class="hljs-built_in">chmod</span> a+r /usr/local/cuda/include/* /usr/local/cuda/lib64/*<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 下载</span><br><span class="hljs-built_in">cd</span> DownloadFolder<br>wget https://developer.nvidia.com/downloads/compute/cudnn/secure/8.9.7/local_installers/11.x/cudnn-linux-x86_64-8.9.7.29_cuda11-archive.tar.xz/<br><br><span class="hljs-comment"># 解压</span><br><span class="hljs-built_in">cd</span> DownloadFolder<br><span class="hljs-comment"># 解压*.tar.xz文件。图形化界面可以直接双击压缩包实现解压</span><br>xz -d -k cudnn-linux-x86_64-8.9.7.29_cuda11-archive.tar.xz  <span class="hljs-comment"># 使用 -k 参数来保留被解压缩的文件。</span><br>tar -xvf cudnn-linux-x86_64-8.9.7.29_cuda11-archive.tar<br><br><span class="hljs-comment"># 复制文件</span><br><span class="hljs-built_in">cd</span> cudnn-linux-x86_64-8.9.7.29_cuda11-archive<br>sudo <span class="hljs-built_in">cp</span> include/* /usr/local/cuda/include/<br>sudo <span class="hljs-built_in">cp</span> lib/* /usr/local/cuda/lib64/<br>sudo <span class="hljs-built_in">chmod</span> a+r /usr/local/cuda/include/* /usr/local/cuda/lib64/*<br></code></pre></td></tr></table></figure>
 </li>
 </ul>
 </li>
@@ -766,6 +770,10 @@
 <p>使用压缩包进行安装的方法没有<code>cudnn_samples_v8</code>这个文件夹，需要自行上网下载，比如：<a target="_blank" rel="noopener" href="https://github.com/johnpzh/cudnn_samples_v8">https://github.com/johnpzh/cudnn_samples_v8</a></p>
 </blockquote>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cp</span> -r /usr/src/cudnn_samples_v8/ yourFloder/cudnn_samples_v8<br><span class="hljs-comment"># -r 或 --recursive：用于复制目录及其所有的子目录和文件，如果要复制目录，需要使用该选项。</span><br><span class="hljs-built_in">cd</span> yourFloder/cudnn_samples_v8/mnistCUDNN<br>make clean  <span class="hljs-comment"># （可选）清除之前编译生成的文件（如果有）</span><br>make<br>./mnistCUDNN  <span class="hljs-comment"># Test passed! 如果cuDNN安装正确，此程序将成功运行，通常会输出识别准确率或其他成功执行的指标</span><br><span class="hljs-comment"># 如果报错ERROR: cudnn failure (CUDNN_STATUS_EXECUTION_FAILED) in mnistCUDNN.cpp:637，可能是因为显卡版本太高，CUDA版本太低，不兼容（运行博客PyTorch章节的测试脚本会有相应的warning）。解决：重装高版本的CUDA。</span><br></code></pre></td></tr></table></figure>
+<blockquote>
+<p><code>make</code>报错<code>test.c:1:10: fatal error: FreeImage.h: No such file or directory</code>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo apt-get install libfreeimage3 libfreeimage-dev<br></code></pre></td></tr></table></figure>
+</blockquote>
 </li>
 </ol>
 </li>

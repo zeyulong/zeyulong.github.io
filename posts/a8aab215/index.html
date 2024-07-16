@@ -26,7 +26,7 @@
 <meta property="og:image" content="http://zeyulong.com/posts/a8aab215/vi-vim-cheat-sheet-sch.gif">
 <meta property="og:image" content="http://zeyulong.com/posts/a8aab215/vim-vi-workmodel.png">
 <meta property="article:published_time" content="2024-03-05T14:33:19.000Z">
-<meta property="article:modified_time" content="2024-07-08T07:24:42.344Z">
+<meta property="article:modified_time" content="2024-07-15T09:09:29.324Z">
 <meta property="article:author" content="龙泽雨">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://zeyulong.com/posts/a8aab215/vi-vim-cheat-sheet-sch.gif">
@@ -351,7 +351,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          23k 字
+          24k 字
         
       </span>
     
@@ -362,7 +362,7 @@
         
         
         
-          191 分钟
+          197 分钟
         
       </span>
     
@@ -412,7 +412,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2024年7月8日 下午
+                    本文最后更新于 2024年7月15日 下午
                   
                 
               </p>
@@ -646,6 +646,7 @@
 <li>直接在当前文件夹窗口打字，可以搜索该目录及子目录下的文件（夹）。按<code>ESC</code>键退出。</li>
 <li><code>Application</code> 键即位置在键盘上右 <code>Ctrl</code> 键左边的那个键，作用相当于单击鼠标右键。</li>
 <li>误按<code>Ctrl+Alt+F7</code>（进入文字界面）黑屏后按<code>Ctrl+Alt+F1</code>回到图形界面。</li>
+<li>直接将&quot;文件管理器&quot;中的文件拖到&quot;终端&quot;中就可以在终端中得到完整的路径名。</li>
 </ol>
 <h1 id="终端Terminal">终端Terminal</h1>
 <h2 id="Linux命令">Linux命令</h2>
@@ -662,16 +663,34 @@
 </ul>
 <p>默认情况下，每个已安装的软件包版本的优先级为 100，未安装的软件包的优先级为 500。同一软件包可能有多个不同优先级的版本。APT 会安装优先级较高的版本，除非安装的版本较新。</p>
 <h3 id="查找查看">查找查看</h3>
+<h4 id="辅助搭配">辅助搭配</h4>
+<blockquote>
+<p>Linux <code>grep</code> (global regular expression) 命令用于查找文件里符合条件的字符串或正则表达式。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">ls</span> -l /usr/local | grep cuda  <span class="hljs-comment"># 查询`/usr/local`路径下的软链接，且要求包括`cuda`字符串。</span><br></code></pre></td></tr></table></figure>
+<p><strong>常用选项：</strong>：</p>
+<ul>
+<li><code>-i</code>：忽略大小写进行匹配。</li>
+<li><code>-v</code>：反向查找，只打印不匹配的行。</li>
+<li><code>-n</code>：显示匹配行的行号。</li>
+<li><code>-r</code>：递归查找子目录中的文件。</li>
+<li><code>-l</code>：只打印匹配的文件名。</li>
+<li><code>-c</code>：只打印匹配的行数。</li>
+</ul>
+</blockquote>
 <h4 id="当前终端">当前终端</h4>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cat</span> /etc/shells  <span class="hljs-comment"># 查看系统安装了的shell</span><br><span class="hljs-comment"># /usr/bin/zsh为软链接，指向/bin/zsh。可能是为了系统兼容性。</span><br><span class="hljs-built_in">echo</span> <span class="hljs-variable">$SHELL</span>  <span class="hljs-comment"># 当前的shell。实际没显示成功，但是确实改成功了？</span><br><span class="hljs-comment"># 切换终端Shell</span><br>chsh -s /bin/bash<br>chsh -s /bin/zsh<br>chsh -s $(<span class="hljs-built_in">which</span> zsh)<br><span class="hljs-comment"># 或</span><br><span class="hljs-built_in">exec</span> bash  <span class="hljs-comment"># 将命令行从zsh切换为bash</span><br><span class="hljs-built_in">exec</span> zsh  <span class="hljs-comment"># 重新运行zsh命令行工具</span><br></code></pre></td></tr></table></figure>
 <h4 id="环境变量">环境变量</h4>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">echo</span> <span class="hljs-variable">$PATH</span><br><span class="hljs-built_in">echo</span> <span class="hljs-variable">$CUDA_HOME</span><br></code></pre></td></tr></table></figure>
+<h4 id="内存">内存</h4>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">free -g  <span class="hljs-comment"># 以 GB 为单位，显示内存使用情况。</span><br><span class="hljs-comment"># -s  根据指定的间隔时间，持续显示内存使用情况。</span><br></code></pre></td></tr></table></figure>
 <h4 id="文件系统和挂载点">文件系统和挂载点</h4>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 推荐，可查看到交换空间</span><br><span class="hljs-built_in">cat</span> /etc/fstab<br><span class="hljs-comment"># 或，信息更全，有硬盘使用率等</span><br><span class="hljs-built_in">df</span> -hT<br></code></pre></td></tr></table></figure>
 <h4 id="文件（夹）大小">文件（夹）大小</h4>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># du 命令需要在root权限下操作，或者在命令行前加sudo命令也可以。但排序是乱的，不好查看。</span><br><span class="hljs-comment"># 使用 sort 命令 的 -k 参数设置对第二列的值进行重排，也就是按照文件（夹）名进行排序</span><br><span class="hljs-built_in">du</span> -ah --max-depth=1  --exclude=./proc --exclude=./tmp --exclude=./lost+found --exclude=./media --exclude=./mnt --exclude=./run | <span class="hljs-built_in">sort</span> -k 2<br><span class="hljs-comment"># 参数：</span><br>-a或 -all 显示目录中个别文件的大小。<br>-h或 --human-readable 以K，M，G为单位，提高信息的可读性。<br>--max-depth=&lt;目录层数&gt; 超过指定层数的目录后，予以忽略。<br>-exclude=&lt;目录或文件&gt; 略过指定的目录或文件。<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># du 命令需要在root权限下操作，或者在命令行前加sudo命令也可以。但排序是乱的，不好查看。</span><br><span class="hljs-comment"># 使用 sort 命令 的 -k 参数设置对第二列的值进行重排，也就是按照文件（夹）名进行排序</span><br>sudo <span class="hljs-built_in">du</span> -ah --max-depth=1  --exclude=./proc --exclude=./tmp --exclude=./lost+found --exclude=./media --exclude=./mnt --exclude=./run | <span class="hljs-built_in">sort</span> -k 2<br><span class="hljs-comment"># 参数：</span><br>-a或 -all 显示目录中个别文件的大小。<br>-h或 --human-readable 以K，M，G为单位，提高信息的可读性。<br>--max-depth=&lt;目录层数&gt; 超过指定层数的目录后，予以忽略。<br>-exclude=&lt;目录或文件&gt; 略过指定的目录或文件。<br><br><span class="hljs-built_in">df</span> -B G  <span class="hljs-comment"># 以GB为单位显示指定磁盘文件的使用情况。如果没有指定文件，则显示所有挂载的文件系统的磁盘使用情况。</span><br><span class="hljs-built_in">df</span> -B M  <span class="hljs-comment"># MB</span><br><br>ll  <span class="hljs-comment"># 文件大小以字节为单位显示，并且在输出中的第 5 列。</span><br></code></pre></td></tr></table></figure>
+<h4 id="文件（夹）修改时间">文件（夹）修改时间</h4>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">ll  <span class="hljs-comment"># ls -l</span><br></code></pre></td></tr></table></figure>
 <h4 id="版本信息">版本信息</h4>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># Linux内核版本</span><br><span class="hljs-built_in">uname</span> -a  <span class="hljs-comment"># 系统架构x64（x86_64、amd64）</span><br><span class="hljs-comment"># 系统架构：x64（x86_64、amd64）、arm64（aarch64）、mips64（mips64el）</span><br><span class="hljs-comment"># cmake</span><br>cmake --version<br><span class="hljs-comment"># conda</span><br>conda --version<br><span class="hljs-comment"># CPU核心数</span><br><span class="hljs-built_in">nproc</span><br><span class="hljs-comment"># CPU占用</span><br>top<br><span class="hljs-comment"># Eigen</span><br>/usr/include/eigen3  <span class="hljs-comment"># Eigen安装路径</span><br>/usr/include/eigen330  <span class="hljs-comment"># Eigen3.3.0安装路径</span><br>/usr/include/eigen340  <span class="hljs-comment"># Eigen3.4.0安装路径</span><br>gedit /usr/include/eigen3/Eigen/src/Core/util/Macros.h<br><span class="hljs-comment"># gcc</span><br>gcc -v<br><span class="hljs-comment"># java</span><br>java -version<br><span class="hljs-comment"># 内存</span><br>free<br><span class="hljs-comment"># NVIDIA</span><br>nvidia-smi<br>watch -n 0.2 nvidia-smi  <span class="hljs-comment"># 每 0.2 秒刷新一次</span><br><span class="hljs-comment"># 显卡型号</span><br>lspci | grep -i nvidia<br><span class="hljs-comment"># Opencv</span><br>/usr/local  <span class="hljs-comment"># opencv3.1.0安装路径</span><br>/usr/local/opencv/opencv320  <span class="hljs-comment"># opencv3.2.0安装路径</span><br>/usr/local/opencv/opencv345  <span class="hljs-comment"># opencv3.4.5安装路径</span><br>pkg-config --modversion opencv  <span class="hljs-comment"># 查询版本</span><br>pkg-config --cflags opencv  <span class="hljs-comment"># 得到opencv的安装路径</span><br><span class="hljs-comment"># -&gt; -I/usr/local/include/opencv -I/usr/local/include</span><br>pkg-config --cflags opencv4  <span class="hljs-comment"># 附加：得到opencv4的安装路径</span><br><span class="hljs-comment"># openssl</span><br>openssl version -a<br><span class="hljs-comment"># Pangolin</span><br>find / -name pangolin<br><span class="hljs-comment"># protoc</span><br>protoc --version<br><span class="hljs-comment"># python</span><br><span class="hljs-built_in">which</span> python<br>ll /usr/bin/python<br>python -V  <span class="hljs-comment"># python --version</span><br>sudo update-alternatives --config python<br>sudo update-alternatives --install /usr/bin/python python /usr/bin/python3 1<br>sudo update-alternatives --install /usr/bin/python python /usr/bin/python2 2<br><span class="hljs-comment"># Qt5.9.9</span><br>qmake -v<br><span class="hljs-comment"># ROS</span><br><span class="hljs-built_in">echo</span> <span class="hljs-variable">$ROS_PACKAGE_PATH</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># Linux内核版本</span><br><span class="hljs-built_in">uname</span> -a  <span class="hljs-comment"># 系统架构x64（x86_64、amd64）</span><br><span class="hljs-comment"># 系统架构：x64（x86_64、amd64）、arm64（aarch64）、mips64（mips64el）</span><br><span class="hljs-comment"># cmake</span><br>cmake --version<br><span class="hljs-comment"># conda</span><br>conda --version<br><span class="hljs-comment"># CPU核心数</span><br><span class="hljs-built_in">nproc</span><br><span class="hljs-comment"># CPU占用</span><br>top<br><span class="hljs-comment"># CUDA</span><br><span class="hljs-built_in">ls</span> -l /usr/local | grep cuda  <span class="hljs-comment"># 检查是否安装了CUDA</span><br>nvcc -V  <span class="hljs-comment"># 查看自己安装的CUDA版本</span><br>lspci | grep -i nvidia  <span class="hljs-comment"># 检查系统是否有支持 CUDA 编程的 GPU</span><br><span class="hljs-comment"># cuDNN</span><br>apt show libcudnn8  <span class="hljs-comment"># 通过查询已安装的libcudnn8包来验证cuDNN的版本</span><br><span class="hljs-comment"># 查看版本（路径可能不一致，有一个命令有输出就行）</span><br><span class="hljs-built_in">cat</span> /usr/include/cudnn_version.h  <br><span class="hljs-built_in">cat</span> /usr/include/cudnn.h<br><span class="hljs-built_in">cat</span> /usr/local/cuda/include/cudnn_version.h | grep CUDNN_MAJOR -A 2<br><span class="hljs-built_in">cat</span> /usr/local/cuda/include/cudnn.h | grep CUDNN_MAJOR -A 2<br><span class="hljs-comment"># Eigen</span><br>/usr/include/eigen3  <span class="hljs-comment"># Eigen安装路径</span><br>/usr/include/eigen330  <span class="hljs-comment"># Eigen3.3.0安装路径</span><br>/usr/include/eigen340  <span class="hljs-comment"># Eigen3.4.0安装路径</span><br>gedit /usr/include/eigen3/Eigen/src/Core/util/Macros.h<br><span class="hljs-comment"># GLIBC_</span><br>ldd --version<br>strings /lib/x86_64-linux-gnu/libm.so.6 |grep GLIBC_  <span class="hljs-comment"># strings /lib64/libc.so.6 |grep GLIBC_</span><br>ll /lib/x86_64-linux-gnu/libm.so.6<br><span class="hljs-comment"># gcc</span><br>gcc -v<br><span class="hljs-comment"># java</span><br>java -version<br><span class="hljs-comment"># 内存</span><br>free<br><span class="hljs-comment"># NVIDIA</span><br>lspci | grep -i nvidia  <span class="hljs-comment"># 查看是否安装NVIDIA显卡</span><br>nvidia-smi  <span class="hljs-comment"># 查看显卡信息</span><br>watch -n 0.2 nvidia-smi  <span class="hljs-comment"># 每 0.2 秒刷新一次</span><br><span class="hljs-comment"># 显卡型号</span><br>lspci | grep -i nvidia<br><span class="hljs-comment"># Opencv</span><br>/usr/local  <span class="hljs-comment"># opencv3.1.0安装路径</span><br>/usr/local/opencv/opencv320  <span class="hljs-comment"># opencv3.2.0安装路径</span><br>/usr/local/opencv/opencv345  <span class="hljs-comment"># opencv3.4.5安装路径</span><br>pkg-config --modversion opencv  <span class="hljs-comment"># 查询版本</span><br>pkg-config --cflags opencv  <span class="hljs-comment"># 得到opencv的安装路径</span><br><span class="hljs-comment"># -&gt; -I/usr/local/include/opencv -I/usr/local/include</span><br>pkg-config --cflags opencv4  <span class="hljs-comment"># 附加：得到opencv4的安装路径</span><br><span class="hljs-comment"># openssl</span><br>openssl version -a<br><span class="hljs-comment"># Pangolin</span><br>find / -name pangolin<br><span class="hljs-comment"># protoc</span><br>protoc --version<br><span class="hljs-comment"># python</span><br><span class="hljs-built_in">which</span> python<br>ll /usr/bin/python<br>python -V  <span class="hljs-comment"># python --version</span><br>sudo update-alternatives --config python<br>sudo update-alternatives --install /usr/bin/python python /usr/bin/python3 1<br>sudo update-alternatives --install /usr/bin/python python /usr/bin/python2 2<br><span class="hljs-comment"># Qt5.9.9</span><br>qmake -v<br><span class="hljs-comment"># ROS</span><br><span class="hljs-built_in">echo</span> <span class="hljs-variable">$ROS_PACKAGE_PATH</span><br></code></pre></td></tr></table></figure>
 <h4 id="用户手册">用户手册</h4>
 <p>Linux man 命令是 &quot;manual&quot; 单词的缩写，用于查看各种命令、函数和配置文件的手册页面。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">man [选项] [节号] 命令/主题<br></code></pre></td></tr></table></figure>
@@ -689,8 +708,15 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 使用rsync命令，原理是同步</span><br><span class="hljs-comment"># 1.</span><br><span class="hljs-comment"># 新建空文件夹</span><br><span class="hljs-comment"># 2.</span><br>rsync -av --delete [空文件夹路径] [要删除的文件夹路径]<br><span class="hljs-comment"># 示例：</span><br>rsync -av --delete /tmp/empty/ /var/log/target/<br><span class="hljs-comment"># 参数说明：</span><br>--delete 删除那些target中有而<span class="hljs-built_in">source</span>没有的文件<br>-a, --archive  归档模式，表示以递归的方式传输文件，并保持所有文件属性不变<br>-v 详细输出模式<br></code></pre></td></tr></table></figure>
 <h3 id="下载">下载</h3>
 <p><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000022301195#GeneratedCaptionsTabForHeroSec">wget 与 curl 命令详解</a></p>
+<blockquote>
+<p>测试网络连接：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">ping www.baidu.com<br></code></pre></td></tr></table></figure>
+</blockquote>
 <h4 id="wget">wget</h4>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo apt install wget<br><br><span class="hljs-comment"># 下载单个文件</span><br>wget [options] &lt;URL&gt;<br>wget -O myfile.zip http://www.example.com/testfile.zip  <span class="hljs-comment"># 如果不指定&quot;-O&quot; 选项，wget默认会以 url 路径最后一个 &quot;/&quot; 的后面全部字符为下载的文件名</span><br><br><span class="hljs-comment"># 断点续传</span><br>wget -c http://www.example.com/testfile.zip  <span class="hljs-comment"># 当下载的文件特别大或者网络原因，文件没有下载完连接就已经被断开，使用 -c 选项可以在网络连接恢复时接着上次的下载任务继续下载，而不需要重头开始下载文件</span><br>wget --tries=40 http://www.example.com/testfile.zip  <span class="hljs-comment"># wget默认重试20次连接下载文件，如果网络一直有问题下载可能失败。如果需要的话，你可以使用--tries增加重试次数。</span><br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>下载超时，尝试添加参数<code>--no-cookie --no-check-certificate</code>。</p>
+</blockquote>
 <h4 id="curl">curl</h4>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 单个文件下载</span><br>curl [ -o 自定义文件名| -O] http://www.example.com/index.html<br><span class="hljs-comment"># -o 自定义文件名：把服务器响应输出到指定文件</span><br><span class="hljs-comment"># -O：与-o选项作用一样，区别在于以 url 路径最后一个&quot;/&quot;之后的部分作为文件名</span><br><span class="hljs-comment"># 如果这两个选项都不写，curl 默认会把服务器响应内容输出到终端</span><br><br><span class="hljs-comment"># 断点续传</span><br>curl -O -C 偏移量 http://www.example.com/testfile.zip<br><span class="hljs-comment"># -C 偏移量：从指定的偏移量处继续下载，偏移量以字节为单位</span><br><span class="hljs-comment"># 如果让curl自动推断出正确的续传位置可以使用 &quot;-&quot; 代替偏移量，例如：</span><br>curl -O -C - http://www.example.com/testfile.zip<br></code></pre></td></tr></table></figure>
 <h3 id="目录（跳转）">目录（跳转）</h3>
@@ -714,6 +740,20 @@
 <p>.tar.gz = .tgz</p>
 </blockquote>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">tar -zcvf FileName.tar.gz DirName  <span class="hljs-comment"># 压缩</span><br>tar -zxvf cmake-3.23.0-rc1.tar.gz  <span class="hljs-comment"># 解压</span><br></code></pre></td></tr></table></figure>
+<ul>
+<li><code>-c</code>: 创建新的归档文件</li>
+<li><code>-z</code>: 使用 gzip 压缩归档文件</li>
+<li><code>-v</code>: 显示详细输出，列出被添加到归档中的文件</li>
+<li><code>-f</code>: 指定归档文件的名称</li>
+</ul>
+<h4 id="tar-xz">tar.xz</h4>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 压缩</span><br>tar -cvf Image.tar Image/<br>xz -z Image.tar  <span class="hljs-comment"># 如果要保留被压缩的文件加上参数 -k ，如果要设置压缩率加入参数 -0 到 -9 调节压缩率。如果不设置，默认压缩等级是6。</span><br><br><span class="hljs-comment"># 解压</span><br><span class="hljs-comment"># 先将Image.tar.xz 解压成 Image.tar</span><br>xz -d Image.tar.xz  <span class="hljs-comment"># 使用 -k 参数来保留被解压缩的文件。</span><br>tar -xvf Image.tar  <span class="hljs-comment"># 再用tar xvf Image.tar来解包</span><br></code></pre></td></tr></table></figure>
+<p>xz的参数：</p>
+<ul>
+<li><code>-z, --compress</code>: 强制压缩</li>
+<li><code>-d, --decompress</code>: 强制解压</li>
+<li><code>-k, --keep</code>: 保留（不删除）输入文件</li>
+</ul>
 <h4 id="pigz">pigz</h4>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 压缩文件（夹）</span><br>tar --use-compress-program=pigz -cvpf  /目录名/文件名.tgz （空格） /boot（压缩的文件或者目录）<br>--use-compress-program=pigz  是指定 （ pigz ）来进行压缩<br>-cvpf   <br>-c    创建压缩文件    <br>-v    显示压缩或解压的过程    <br>-p    保留原始的权限与属性  <br>-f    目标文件名   <br>--exclude=/xx  排除这个目录不压缩<br><br><span class="hljs-comment"># 解压文件（夹）</span><br>tar --use-compress-program=pigz -xvpf 文件.tgz -C  / （这是指定解压到了根目录）（不加默认解压到当前文件夹）<br>--use-compress-program=pigz  是指定 （ pigz ）来进行解压<br>-xvpf  <br>-x    解开压缩文件    <br>-v    显示压缩或解压的过程    <br>-p    保留原始的权限与属性  <br>-f    目标文件名   <br>-C    指定解压到的目录<br></code></pre></td></tr></table></figure>
 <h3 id="设置文件权限">设置文件权限</h3>
@@ -905,12 +945,12 @@
 <td style="text-align:center">Ctrl+Q</td>
 <td style="text-align:center">解冻终端</td>
 </tr>
+<tr>
+<td style="text-align:center">Ctrl+T</td>
+<td style="text-align:center">将光标位置的字符和前一个字符进行位置交换</td>
+</tr>
 </tbody>
 </table>
-<blockquote>
-<p>直接将 文件管理器 中的文件拖到 GNOME 终端 中就可以在终端中得到完整的路径名。</p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo apt upgrade  <span class="hljs-comment"># 安装可用的软件包更新</span><br>`高亮`<br>```高亮```<br><span class="hljs-comment">#! 执行</span><br></code></pre></td></tr></table></figure>
 <h3 id="Terminator">Terminator</h3>
 <p>更方便的终端，区别于默认GNOME终端。</p>
 <h4 id="快捷键-2">快捷键</h4>
@@ -998,7 +1038,9 @@
 <p>还可以设置背景颜色，建议可以设置粗体、下划线或突出。例如，这将在青色背景上显示带有粗体、下划线、粉红色文字的建议:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE=<span class="hljs-string">&quot;fg=#ff00ff,bg=cyan,bold,underline&quot;</span><br></code></pre></td></tr></table></figure>
 </li>
-<li></li>
+<li>
+<p>等等。</p>
+</li>
 </ol>
 </li>
 <li>
@@ -1017,7 +1059,9 @@
 <p>zsh: corrupt history file /home/XXX/.zsh_history</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 解决：</span><br><span class="hljs-built_in">cp</span> .zsh_history zsh_history<br><span class="hljs-built_in">rm</span> -f .zsh_history <br>strings zsh_history .zsh_history<br><span class="hljs-comment"># 或</span><br><span class="hljs-built_in">cd</span> ~<br><span class="hljs-built_in">mv</span> .zsh_history .zsh_history_bad<br>strings .zsh_history_bad &gt; .zsh_history<br><span class="hljs-built_in">fc</span> -R .zsh_history<br></code></pre></td></tr></table></figure>
 </li>
-<li></li>
+<li>
+<p>等等。</p>
+</li>
 </ol>
 <h3 id="Powerlevel10k">Powerlevel10k</h3>
 <blockquote>
@@ -1383,6 +1427,10 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;password&quot;</span> | sudo -S <span class="hljs-built_in">command</span>  <span class="hljs-comment"># 可见加上-S参数sudo才会从标准输入中读取密码，不加-S参数以上命令将起不到作用</span><br></code></pre></td></tr></table></figure>
 <h2 id="其它-2">其它</h2>
 <ol>
+<li>
+<p><code>code</code>单词做代码释义时是不可数名词。</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs txt">不可数名词<br>Computer code is a system or language for expressing information and instructions in a form which can be understood by a computer.<br></code></pre></td></tr></table></figure>
+</li>
 <li>
 <p>Python 并没有强制要求你用 <code>Tab</code> 缩进或者用空格缩进，但在PEP8中，建议使用4个空格来缩进。对于任何一个编辑器或者IDE，一般都有配置选项，可以设置把 <code>TAB</code> 键展开为4个空格，以保证代码的兼容性。</p>
 </li>
@@ -2295,8 +2343,8 @@
 </ol>
 <h2 id="Typora">Typora</h2>
 <h3 id="Markdown语法">Markdown语法</h3>
-<ol>
-<li>语法高亮
+<p><a target="_blank" rel="noopener" href="https://support.typoraio.cn/zh/Markdown-Reference/">https://support.typoraio.cn/zh/Markdown-Reference/</a></p>
+<h4 id="语法高亮">语法高亮</h4>
 <ul>
 <li>Shell: console, shell</li>
 <li>Bash: bash, sh, zsh</li>
@@ -2306,9 +2354,9 @@
 <li>html、htmlbars、yaml、xml、json</li>
 <li>typescript、sql、nginx</li>
 </ul>
-</li>
-<li></li>
-</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo apt upgrade  <span class="hljs-comment"># 安装可用的软件包更新</span><br>`高亮`<br>```高亮```<br><span class="hljs-comment">#! 执行</span><br></code></pre></td></tr></table></figure>
+<h4 id="脚注">脚注</h4>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs markdown">您可以像这样创建脚注[^footnote].<br><br>[<span class="hljs-symbol">^footnote</span>]: <span class="hljs-link">Here is the *text* of the **footnote**.</span><br></code></pre></td></tr></table></figure>
 <h3 id="快捷键-5">快捷键</h3>
 <table>
 <thead>
@@ -2353,6 +2401,10 @@
 <tr>
 <td style="text-align:center">Ctrl+Y</td>
 <td style="text-align:center">重做（与Ctrl+Z撤销相反）</td>
+</tr>
+<tr>
+<td style="text-align:center">Ctrl+Shift+F</td>
+<td style="text-align:center">当前目录下的文件全局搜索</td>
 </tr>
 </tbody>
 </table>

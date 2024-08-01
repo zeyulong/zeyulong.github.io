@@ -26,7 +26,7 @@
 <meta property="og:image" content="http://zeyulong.com/posts/a8aab215/vi-vim-cheat-sheet-sch.gif">
 <meta property="og:image" content="http://zeyulong.com/posts/a8aab215/vim-vi-workmodel.png">
 <meta property="article:published_time" content="2024-03-05T14:33:19.000Z">
-<meta property="article:modified_time" content="2024-07-15T09:09:29.324Z">
+<meta property="article:modified_time" content="2024-08-01T11:12:43.206Z">
 <meta property="article:author" content="龙泽雨">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://zeyulong.com/posts/a8aab215/vi-vim-cheat-sheet-sch.gif">
@@ -362,7 +362,7 @@
         
         
         
-          197 分钟
+          203 分钟
         
       </span>
     
@@ -412,7 +412,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2024年7月15日 下午
+                    本文最后更新于 2024年8月1日 晚上
                   
                 
               </p>
@@ -651,7 +651,7 @@
 <h1 id="终端Terminal">终端Terminal</h1>
 <h2 id="Linux命令">Linux命令</h2>
 <h3 id="软件、库的安装、卸载和升级">软件、库的安装、卸载和升级</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 安装</span><br>sudo apt update	<span class="hljs-comment"># 先更新软件包列表，检查可用的软件包更新</span><br><span class="hljs-comment"># 查看可选的安装版本</span><br>apt-cache search exact_package_name  <span class="hljs-comment"># 你可以使用一个正则表达式来搜索本地 APT 缓存中的包。</span><br>apt-cache policy exact_package_name  <span class="hljs-comment"># 如果你指定了软件包的名称，它将显示该软件包是否已经安装，在哪个版本的仓库中可用，以及它的优先级。</span><br>sudo apt install exact_package_name[=xxx]	<span class="hljs-comment"># 安装软件，例如：sudo apt install libc6-dev=2.27-3ubuntu1.6</span><br><br><span class="hljs-comment"># 卸载（不知名的软件）</span><br>apt list --installed | grep -i possible_package_name  <span class="hljs-comment"># 模糊搜索</span><br>sudo apt remove exact_package_name  <span class="hljs-comment"># 卸载软件</span><br>sudo apt-get purge exact_package_name  <span class="hljs-comment"># 清除配置</span><br><br><span class="hljs-comment"># 升级</span><br><span class="hljs-comment"># apt 可以看作 apt-get 和 apt-cache 命令的子集, 可以为包管理提供必要的命令选项。apt-get 虽然没被弃用，但作为普通用户，还是应该首先使用 apt。</span><br>sudo apt update  <span class="hljs-comment"># 更新软件包列表，检查可用的软件包更新</span><br>apt list --upgradable  <span class="hljs-comment"># 查看可用安装</span><br>sudo apt upgrade  <span class="hljs-comment"># 安装可用的软件包更新</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 安装</span><br>sudo apt update	<span class="hljs-comment"># 先更新软件包列表，检查可用的软件包更新</span><br><span class="hljs-comment"># 查看可选的安装版本</span><br>apt-cache search exact_package_name  <span class="hljs-comment"># 你可以使用一个正则表达式来搜索本地 APT 缓存中的包。</span><br>apt-cache policy exact_package_name  <span class="hljs-comment"># 如果你指定了软件包的名称，它将显示该软件包是否已经安装，在哪个版本的仓库中可用，以及它的优先级。</span><br>sudo apt install exact_package_name[=xxx]	<span class="hljs-comment"># 安装软件，例如：sudo apt install libc6-dev=2.27-3ubuntu1.6</span><br><br><span class="hljs-comment"># 卸载（不知名的软件）</span><br>apt list --installed | grep -i possible_package_name  <span class="hljs-comment"># 模糊搜索</span><br>sudo apt remove exact_package_name  <span class="hljs-comment"># 卸载软件</span><br>sudo apt-get purge exact_package_name  <span class="hljs-comment"># 清除配置</span><br><br><span class="hljs-comment"># 升级</span><br><span class="hljs-comment"># apt 可以看作 apt-get 和 apt-cache 命令的子集, 可以为包管理提供必要的命令选项。apt-get 虽然没被弃用，但作为普通用户，还是应该首先使用 apt。</span><br>sudo apt update  <span class="hljs-comment"># 更新软件包列表，检查可用的软件包更新</span><br>apt list --upgradable  <span class="hljs-comment"># 查看可用安装</span><br>sudo apt upgrade  <span class="hljs-comment"># 安装可用的软件包更新</span><br>sudo apt install exact_package_name  <span class="hljs-comment"># 直接升级特定的包</span><br></code></pre></td></tr></table></figure>
 <p>优先级：</p>
 <ul>
 <li><strong>&lt; 0</strong>：永远不会安装，</li>
@@ -701,9 +701,11 @@
 <h4 id="文件内容">文件内容</h4>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_31267769/article/details/109336193">参考链接</a></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 查看整个文件</span><br><span class="hljs-built_in">cat</span> [filename]  <span class="hljs-comment"># cat /home/user/test.txt</span><br><br><span class="hljs-comment"># 查看开头几行</span><br><span class="hljs-built_in">head</span> -n [rows] [filename]  <span class="hljs-comment"># head -n 20 /home/user/test.txt</span><br><br><span class="hljs-comment"># 查看末尾几行</span><br><span class="hljs-built_in">tail</span> -n [rows] [filename]  <span class="hljs-comment"># tail -n 10 /home/user/test.txt</span><br><br><span class="hljs-comment"># 查看中间几行</span><br><span class="hljs-comment"># 方法一：</span><br><span class="hljs-built_in">cat</span> [filename]| <span class="hljs-built_in">head</span> -n [endRow] | <span class="hljs-built_in">tail</span> -n +[beginRow]<br><span class="hljs-comment"># 查看/home/user/test.txt的10~20行</span><br><span class="hljs-comment"># head -n 20 表示前20行</span><br><span class="hljs-comment"># tail -n 10 表示后10行</span><br><span class="hljs-comment"># tail -n +10 表示第10行之后的</span><br><span class="hljs-built_in">cat</span> /home/user/test.txt| <span class="hljs-built_in">head</span> -n 20 | <span class="hljs-built_in">tail</span> -n +10<br><span class="hljs-comment"># 方法二：</span><br>sed -n <span class="hljs-string">&#x27;[begin],[end]p&#x27;</span> [filename]<br>sed -n <span class="hljs-string">&#x27;10,20p&#x27;</span> /home/user/test.txt<br></code></pre></td></tr></table></figure>
+<h4 id="查找过去编辑的文件">查找过去编辑的文件</h4>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">find . -<span class="hljs-built_in">type</span> f -mmin -10  <span class="hljs-comment"># 查找过去 10 分钟内编辑的所有文件</span><br></code></pre></td></tr></table></figure>
 <h3 id="文件新建、复制、移动、重命名和删除">文件新建、复制、移动、重命名和删除</h3>
 <h4 id="基本">基本</h4>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><code class="hljs bash">gedit ~/.bashrc	 <span class="hljs-comment"># 使用gedit打开文件</span><br><span class="hljs-built_in">touch</span> file1.txt  <span class="hljs-comment"># 新建文件</span><br><br><span class="hljs-comment"># 在指定的目录下，创建一个名为 LINK_NAME 的硬链接或符号链接，指向名为 TARGET 的文件或目录。</span><br><span class="hljs-built_in">ln</span> [OPTION]... [-T] TARGET LINK_NAME<br><br><span class="hljs-comment"># 复制文件或目录cp命令</span><br><span class="hljs-comment"># 示例</span><br><span class="hljs-built_in">cp</span> file.txt /path/to/destination/<br>-a：此选项通常在复制目录时使用，它保留链接、文件属性，并复制目录下的所有内容。其作用等于 dpR 参数组合。<br>-r 或 --recursive：用于复制目录及其所有的子目录和文件，如果要复制目录，需要使用该选项。<br>-i 或 --interactive：在复制前提示确认，如果目标文件已存在，则会询问是否覆盖，回答 y 时目标文件将被覆盖。<br>-p 或 --preserve：保留源文件的权限、所有者和时间戳信息。<br><br><span class="hljs-comment"># Linux `mv`（英文全拼：move file）命令用来为文件或目录改名、或将文件或目录移入其它位置</span><br><span class="hljs-comment"># 注意：需要先执行`Ctrl+H`显示隐藏文件命令，否则，隐藏文件以及隐藏文件夹不会被移动到新目录</span><br><span class="hljs-comment"># 将源文件名 source_file 改为目标文件名 dest_file</span><br><span class="hljs-built_in">mv</span> source_file(文件) dest_file(文件)<br><span class="hljs-comment"># 将文件 source_file 移动到目标目录 dest_directory 中</span><br><span class="hljs-built_in">mv</span> source_file(文件) dest_directory(目录)<br><span class="hljs-comment"># 目录名 dest_directory 已存在，将 source_directory 移动到目录名 dest_directory 中；</span><br><span class="hljs-comment"># 目录名 dest_directory 不存在则 source_directory 改名为目录名 dest_directory</span><br><span class="hljs-built_in">mv</span> source_directory(目录) dest_directory(目录)<br><span class="hljs-comment"># 出错</span><br><span class="hljs-built_in">mv</span> source_directory(目录) dest_file(文件)<br><br><span class="hljs-comment"># 删除文件和文件夹rm命令</span><br><span class="hljs-built_in">rm</span> -rf <span class="hljs-built_in">test</span>/  <span class="hljs-comment"># 删除 test 文件夹，删除文件夹要加 -r 参数</span><br>-i 删除前逐一询问确认。<br>-f 即使原档案属性设为唯读，亦直接删除，无需逐一确认。<br>-r 将目录及以下之档案亦逐一删除。<br><span class="hljs-comment"># 删除当前目录及其子目录中所有.json文件的bash命令：</span><br>find . -name <span class="hljs-string">&quot;*.json&quot;</span> -<span class="hljs-built_in">type</span> f -delete<br><span class="hljs-comment"># find：这是主命令，用于查找文件。</span><br><span class="hljs-comment"># .：这告诉find命令从当前目录开始搜索。</span><br><span class="hljs-comment"># -name &quot;*.json&quot;：这告诉find命令查找所有以.json结尾的文件。</span><br><span class="hljs-comment"># -type f：这告诉find命令只查找文件，不包括目录。</span><br><span class="hljs-comment"># -delete：这告诉find命令删除找到的所有文件。</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><code class="hljs bash">gedit ~/.bashrc	 <span class="hljs-comment"># 使用gedit打开文件</span><br><span class="hljs-built_in">touch</span> file1.txt  <span class="hljs-comment"># 新建文件</span><br><br><span class="hljs-built_in">mkdir</span> [-p] dirName  <span class="hljs-comment"># 创建目录。-p 确保目录名称存在，不存在的就建一个。</span><br><span class="hljs-built_in">mkdir</span> -p runoob2/test  <span class="hljs-comment"># 在工作目录下的 runoob2 目录中，建立一个名为 test 的子目录。若 runoob2 目录原本不存在，则建立一个。（注：本例若不加 -p 参数，且原本 runoob2 目录不存在，则产生错误。）</span><br><br><span class="hljs-comment"># 在指定的目录下，创建一个名为 LINK_NAME 的硬链接或符号链接，指向名为 TARGET 的文件或目录。</span><br><span class="hljs-built_in">ln</span> [OPTION]... [-T] TARGET LINK_NAME<br><br><span class="hljs-comment"># 复制文件或目录cp命令</span><br><span class="hljs-comment"># 示例</span><br><span class="hljs-built_in">cp</span> file.txt /path/to/destination/<br>-a：此选项通常在复制目录时使用，它保留链接、文件属性，并复制目录下的所有内容。其作用等于 dpR 参数组合。<br>-r 或 --recursive：用于复制目录及其所有的子目录和文件，如果要复制目录，需要使用该选项。<br>-i 或 --interactive：在复制前提示确认，如果目标文件已存在，则会询问是否覆盖，回答 y 时目标文件将被覆盖。<br>-p 或 --preserve：保留源文件的权限、所有者和时间戳信息。<br><br><span class="hljs-comment"># Linux `mv`（英文全拼：move file）命令用来为文件或目录改名、或将文件或目录移入其它位置</span><br><span class="hljs-comment"># 注意：需要先执行`Ctrl+H`显示隐藏文件命令，否则，隐藏文件以及隐藏文件夹不会被移动到新目录</span><br><span class="hljs-comment"># 将源文件名 source_file 改为目标文件名 dest_file</span><br><span class="hljs-built_in">mv</span> source_file(文件) dest_file(文件)<br><span class="hljs-comment"># 将文件 source_file 移动到目标目录 dest_directory 中</span><br><span class="hljs-built_in">mv</span> source_file(文件) dest_directory(目录)<br><span class="hljs-comment"># 目录名 dest_directory 已存在，将 source_directory 移动到目录名 dest_directory 中；</span><br><span class="hljs-comment"># 目录名 dest_directory 不存在则 source_directory 改名为目录名 dest_directory</span><br><span class="hljs-built_in">mv</span> source_directory(目录) dest_directory(目录)<br><span class="hljs-comment"># 出错</span><br><span class="hljs-built_in">mv</span> source_directory(目录) dest_file(文件)<br><br><span class="hljs-comment"># 删除文件和文件夹rm命令</span><br><span class="hljs-built_in">rm</span> -rf <span class="hljs-built_in">test</span>/  <span class="hljs-comment"># 删除 test 文件夹，删除文件夹要加 -r 参数</span><br>-i 删除前逐一询问确认。<br>-f 即使原档案属性设为唯读，亦直接删除，无需逐一确认。<br>-r 将目录及以下之档案亦逐一删除。<br><span class="hljs-comment"># 删除当前目录及其子目录中所有.json文件的bash命令：</span><br>find . -name <span class="hljs-string">&quot;*.json&quot;</span> -<span class="hljs-built_in">type</span> f -delete<br><span class="hljs-comment"># find：这是主命令，用于查找文件。</span><br><span class="hljs-comment"># .：这告诉find命令从当前目录开始搜索。</span><br><span class="hljs-comment"># -name &quot;*.json&quot;：这告诉find命令查找所有以.json结尾的文件。</span><br><span class="hljs-comment"># -type f：这告诉find命令只查找文件，不包括目录。</span><br><span class="hljs-comment"># -delete：这告诉find命令删除找到的所有文件。</span><br></code></pre></td></tr></table></figure>
 <h4 id="删除大量文件">删除大量文件</h4>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 使用rsync命令，原理是同步</span><br><span class="hljs-comment"># 1.</span><br><span class="hljs-comment"># 新建空文件夹</span><br><span class="hljs-comment"># 2.</span><br>rsync -av --delete [空文件夹路径] [要删除的文件夹路径]<br><span class="hljs-comment"># 示例：</span><br>rsync -av --delete /tmp/empty/ /var/log/target/<br><span class="hljs-comment"># 参数说明：</span><br>--delete 删除那些target中有而<span class="hljs-built_in">source</span>没有的文件<br>-a, --archive  归档模式，表示以递归的方式传输文件，并保持所有文件属性不变<br>-v 详细输出模式<br></code></pre></td></tr></table></figure>
 <h3 id="下载">下载</h3>
@@ -1465,7 +1467,9 @@
 <p>字面意思上看是换行符出现问题，怀疑是Win下编辑过。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 用vim -b 查看，发现每一行多了~M</span><br><span class="hljs-comment"># 解决方法：</span><br>sed -i <span class="hljs-string">&#x27;s/\r//g&#x27;</span> xxx.sh<br></code></pre></td></tr></table></figure>
 </li>
-<li></li>
+<li>
+<p>变量的定义和使用只在最近的<code>&#123;&#125;</code>内（（主）函数、<code>if</code>、<code>for</code>等）适用。如果想要拓展变量的使用范围，可以在更外处的<code>&#123;&#125;</code>内定义变量（然后在别处赋值）；或者，声明为全局变量。</p>
+</li>
 </ol>
 <h1 id="Windows">Windows</h1>
 <h2 id="快捷键-3">快捷键</h2>
@@ -1564,6 +1568,9 @@
 <ol>
 <li>
 <p>在开始配置之前，请以管理身份运行 <code>Install-Module -Name PSReadLine</code> 将其更新到最新版本。</p>
+<blockquote>
+<p>安装路径：<code>C:\Program Files\WindowsPowerShell\Modules\PSReadLine</code></p>
+</blockquote>
 </li>
 <li>
 <p>利用 <code>Set-PSReadlineKeyHandler</code> 命令可以设置 PowerShell 中所有按键及按键组合的功能。默认情况下，Tab 键的补全是行内补全，我们可以将其调整为带菜单的补全：</p>
@@ -1720,8 +1727,8 @@
 <td style="text-align:center">将文本光标置于方法调用的圆括号之间，按<code>Ctrl+P</code>可以显示有效形参的列表。</td>
 </tr>
 <tr>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
+<td style="text-align:center">Alt+Q</td>
+<td style="text-align:center">显示上下文信息（在函数内部快速查看函数定义）</td>
 </tr>
 <tr>
 <td style="text-align:center"><mark>文本编辑</mark></td>
@@ -1770,6 +1777,14 @@
 <tr>
 <td style="text-align:center">代码自动提示和补全</td>
 <td style="text-align:center">上下方向键选择，Enter插入</td>
+</tr>
+<tr>
+<td style="text-align:center">光标前/后移动一个整词</td>
+<td style="text-align:center">Ctrl+&lt;-/-&gt;</td>
+</tr>
+<tr>
+<td style="text-align:center">连续选中</td>
+<td style="text-align:center">Shift+&lt;-/-&gt;</td>
 </tr>
 <tr>
 <td style="text-align:center"><mark>移动定位</mark></td>
@@ -2222,6 +2237,10 @@
 <td style="text-align:center">关闭所有标签页</td>
 </tr>
 <tr>
+<td style="text-align:center">Ctrl+Shift+A</td>
+<td style="text-align:center">查看最近关闭的标签页</td>
+</tr>
+<tr>
 <td style="text-align:center">Ctrl + Shift + K</td>
 <td style="text-align:center">复制当前标签页</td>
 </tr>
@@ -2477,96 +2496,282 @@
 <h3 id="vi-vim按键说明">vi/vim按键说明</h3>
 <p><a href="vi/vim%E6%8C%89%E9%94%AE%E8%AF%B4%E6%98%8E">vi/vim按键说明</a></p>
 <h2 id="VSCode">VSCode</h2>
+<h3 id="快捷键-6">快捷键</h3>
+<p><a target="_blank" rel="noopener" href="https://code.visualstudio.com/docs">官方文档</a></p>
+<blockquote>
+<p>您可以通过导航到文件 -&gt; 首选项 -&gt; 键盘快捷键(Ctrl+K, Ctrl+S)并在搜索栏中搜索“导航”来更改首选键绑定。<a href=""></a></p>
+</blockquote>
 <table>
 <thead>
 <tr>
 <th style="text-align:center">快捷键</th>
 <th style="text-align:center">作用</th>
+<th style="text-align:center">自定义</th>
 </tr>
 </thead>
 <tbody>
 <tr>
+<td style="text-align:center"><mark>一般</mark></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">打开设置</td>
+<td style="text-align:center">Ctrl+,</td>
+<td style="text-align:center">Ctrl+Alt+S</td>
+</tr>
+<tr>
+<td style="text-align:center">控制台终端显示与隐藏</td>
+<td style="text-align:center">ctrl + ~</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">显示所有符号</td>
+<td style="text-align:center">Ctrl + T</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">全局搜索</td>
+<td style="text-align:center">Ctrl+Shift+F</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">查找</td>
+<td style="text-align:center">Ctrl + F</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">替换</td>
+<td style="text-align:center">Ctrl + H</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">通过文件名查找文件（快速打开最近的文件）</td>
+<td style="text-align:center">Ctrl+E / Ctrl+P</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">打开命令面板（通过搜索界面访问 VS Code 中存在的所有可用命令、快捷方式和功能）</td>
+<td style="text-align:center">Ctrl + Shift + P</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">关闭文件</td>
+<td style="text-align:center">Ctrl+W</td>
+<td style="text-align:center">Ctrl+F4</td>
+</tr>
+<tr>
+<td style="text-align:center">关闭所有文件</td>
+<td style="text-align:center">Ctrl + K, W</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">显示/隐藏侧边栏</td>
+<td style="text-align:center">Ctrl+B</td>
+<td style="text-align:center">Alt+1</td>
+</tr>
+<tr>
+<td style="text-align:center">显示/隐藏终端</td>
+<td style="text-align:center">Ctrl+`</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
 <td style="text-align:center"><mark>移动</mark></td>
+<td style="text-align:center"></td>
 <td style="text-align:center"></td>
 </tr>
 <tr>
 <td style="text-align:center">向上/向下滚动行</td>
 <td style="text-align:center">Ctrl+↑ / ↓</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">快速滚动</td>
+<td style="text-align:center">滚动时按住 Alt 键可以以 5 倍速度滚动；此外，您还可以使用编辑器：快速滚动灵敏度 ( <code>editor.fastScrollSensitivity</code> ) 设置更改滚动倍数。</td>
+<td style="text-align:center"></td>
 </tr>
 <tr>
 <td style="text-align:center">快速回到顶部</td>
 <td style="text-align:center">ctrl + home</td>
+<td style="text-align:center"></td>
 </tr>
 <tr>
 <td style="text-align:center">快速回到底部</td>
 <td style="text-align:center">ctrl + end</td>
+<td style="text-align:center"></td>
 </tr>
 <tr>
 <td style="text-align:center">前进（编辑位置）</td>
 <td style="text-align:center">Ctrl+Shift+-</td>
+<td style="text-align:center"></td>
 </tr>
 <tr>
 <td style="text-align:center">后退（编辑位置）</td>
 <td style="text-align:center">Ctrl+Alt+-</td>
+<td style="text-align:center"></td>
 </tr>
 <tr>
 <td style="text-align:center"><mark>注释与缩进</mark></td>
+<td style="text-align:center"></td>
 <td style="text-align:center"></td>
 </tr>
 <tr>
 <td style="text-align:center">单行注释</td>
 <td style="text-align:center">[ctrl+k,ctrl+c] 或 ctrl+/</td>
+<td style="text-align:center"></td>
 </tr>
 <tr>
 <td style="text-align:center">取消单行注释</td>
 <td style="text-align:center">[ctrl+k,ctrl+u] (按下ctrl不放，再按k + u)</td>
+<td style="text-align:center"></td>
 </tr>
 <tr>
 <td style="text-align:center">多行注释</td>
 <td style="text-align:center">[alt+shift+A]</td>
+<td style="text-align:center"></td>
 </tr>
 <tr>
 <td style="text-align:center">行增加缩进</td>
 <td style="text-align:center">ctrl + [</td>
+<td style="text-align:center"></td>
 </tr>
 <tr>
 <td style="text-align:center">行减少缩进</td>
 <td style="text-align:center">ctrl + ]</td>
+<td style="text-align:center"></td>
 </tr>
 <tr>
 <td style="text-align:center">多行注释</td>
 <td style="text-align:center">/**</td>
-</tr>
-<tr>
-<td style="text-align:center"><mark>一般</mark></td>
 <td style="text-align:center"></td>
 </tr>
 <tr>
-<td style="text-align:center">控制台终端显示与隐藏</td>
-<td style="text-align:center">ctrl + ~</td>
+<td style="text-align:center"><mark>文本编辑</mark></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
 </tr>
 <tr>
-<td style="text-align:center">显示所有符号</td>
-<td style="text-align:center">Ctrl + T</td>
+<td style="text-align:center">向上/下复制行</td>
+<td style="text-align:center">Ctrl+Shift+Alt+↑ / ↓</td>
+<td style="text-align:center">Ctrl+D</td>
 </tr>
 <tr>
-<td style="text-align:center">全局搜索</td>
-<td style="text-align:center">Ctrl+Shift+F</td>
+<td style="text-align:center">向上/下移动行</td>
+<td style="text-align:center">Alt + ↑ / ↓</td>
+<td style="text-align:center"></td>
 </tr>
 <tr>
-<td style="text-align:center">查找</td>
-<td style="text-align:center">Ctrl + F</td>
+<td style="text-align:center">选择当前行</td>
+<td style="text-align:center">Ctrl+L</td>
+<td style="text-align:center"></td>
 </tr>
 <tr>
-<td style="text-align:center">替换</td>
-<td style="text-align:center">Ctrl + H</td>
+<td style="text-align:center">删除整行</td>
+<td style="text-align:center">Ctrl + Shift + K</td>
+<td style="text-align:center">Ctrl+Y</td>
 </tr>
 <tr>
-<td style="text-align:center">通过文件名查找文件</td>
-<td style="text-align:center">Ctrl+P</td>
+<td style="text-align:center">缩小/扩大选区</td>
+<td style="text-align:center">Shift+Alt+&lt;-/-&gt;</td>
+<td style="text-align:center">Ctrl+(Shift)+W</td>
+</tr>
+<tr>
+<td style="text-align:center">代码格式化</td>
+<td style="text-align:center">当前选择的源代码： Ctrl+K Ctrl+F；整个文档格式：Ctrl+Shift+I</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">重命名符号</td>
+<td style="text-align:center">选择一个符号，然后键入 F2</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">光标前/后移动一个整词</td>
+<td style="text-align:center">Ctrl+&lt;-/-&gt;</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">连续选中</td>
+<td style="text-align:center">Shift+&lt;-/-&gt;</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">用语言结构包围代码块</td>
+<td style="text-align:center">（插件：Surround）Ctrl+Shift+T</td>
+<td style="text-align:center">Ctrl+Alt+W</td>
+</tr>
+<tr>
+<td style="text-align:center"><mark>查看</mark></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">查看和跳转符号</td>
+<td style="text-align:center">Ctrl+Shift+O</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">查看用法</td>
+<td style="text-align:center">Ctrl+Shift+F10</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">转到定义</td>
+<td style="text-align:center">选择一个符号，然后键入 F12；Ctrl+单击；Shift+F12，小窗浏览定义</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">查找所有引用</td>
+<td style="text-align:center">Alt+Shift+F12</td>
+<td style="text-align:center">Alt+Shift+7</td>
+</tr>
+<tr>
+<td style="text-align:center">差异跳转</td>
+<td style="text-align:center">F7 和 Shift+F7</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">将文件与剪贴板进行比较</td>
+<td style="text-align:center">Ctrl+K C</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center"><mark>其它</mark></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">更改颜色主题</td>
+<td style="text-align:center">Ctrl+K Ctrl+T</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">聊天，在侧边栏打开聊天</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">Alt+3</td>
 </tr>
 </tbody>
 </table>
+<h3 id="小技巧-2">小技巧</h3>
+<h3 id="用户代码片段">用户代码片段</h3>
+<p>左下角设置-用户代码片段</p>
+<h3 id="生成函数注释">生成函数注释</h3>
+<ul>
+<li>
+<p>函数注释模板插件：</p>
+<ul>
+<li>
+<p>C++: Doxygen Documentation Generator</p>
+</li>
+<li>
+<p>Python: autoDocstring - Python Docstring Generator</p>
+</li>
+</ul>
+</li>
+<li>
+<p>GitHub Copilot: 选中函数，<code>Ctrl+I</code>打开内联聊天，输入<code>/doc in Chinese</code></p>
+</li>
+</ul>
 <h2 id="Zotero">Zotero</h2>
 <table>
 <thead>
@@ -2617,7 +2822,6 @@
 <blockquote>
 <p>主阅读界面若有跳转链接如Fig 4，点击后会在分割界面（横向/竖向）跳转，主阅读界面无跳转，避免点击前进后退。可满足看图，公式，表格的需求。但只针对有跳转链接的PDF。</p>
 </blockquote>
-<p>``</p>
 
                 
               </div>

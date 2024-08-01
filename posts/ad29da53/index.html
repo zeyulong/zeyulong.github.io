@@ -24,7 +24,7 @@
 <meta property="og:description" content="本文主要分享了Windows、Linux系统的配置与常用软件的安装。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-01-31T16:27:11.000Z">
-<meta property="article:modified_time" content="2024-07-13T02:14:33.892Z">
+<meta property="article:modified_time" content="2024-08-01T02:17:40.529Z">
 <meta property="article:author" content="龙泽雨">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -348,7 +348,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          12k 字
+          13k 字
         
       </span>
     
@@ -359,7 +359,7 @@
         
         
         
-          97 分钟
+          107 分钟
         
       </span>
     
@@ -409,7 +409,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2024年7月13日 上午
+                    本文最后更新于 2024年8月1日 上午
                   
                 
               </p>
@@ -444,8 +444,8 @@
 </tr>
 <tr>
 <td style="text-align:center">版本管理</td>
-<td style="text-align:center"><a target="_blank" rel="noopener" href="https://git-scm.com/download/win">Git</a></td>
-<td style="text-align:center"><a target="_blank" rel="noopener" href="https://git-scm.com/download/linux">Git</a></td>
+<td style="text-align:center"><a href="#git">Git</a></td>
+<td style="text-align:center"><a href="#git">Git</a></td>
 <td style="text-align:center"></td>
 </tr>
 <tr>
@@ -1372,8 +1372,9 @@
 <h2 id="小贴士">小贴士</h2>
 <h3 id="终端按回车键执行不了命令">终端按回车键执行不了命令</h3>
 <p>看看是不是把数字键锁定了？</p>
-<h1 id="CLion">CLion</h1>
-<h2 id="概述">概述</h2>
+<h1 id="代码编辑器的选择">代码编辑器的选择</h1>
+<p><a target="_blank" rel="noopener" href="https://survey.stackoverflow.co/2023/#section-most-popular-technologies-integrated-development-environment">2023年Stack Overflow的开发者调查</a></p>
+
 <p>VScode代码编辑器与JetBrains系列等大型IDE的对比：</p>
 <ul>
 <li>大型IDE集成度高，功能丰富齐全。但也因此臃肿，内存占用高（需要电脑配置好一点，否则会带不动，卡）。大多数人（不从事大型项目的开发）其实用不到这么多的功能。但是，大材小用，杀鸡用牛刀，千斤拨四两，不可以吗？</li>
@@ -1383,7 +1384,11 @@
 <li>VScode的远程开发做得好像是最好的？</li>
 <li>更喜欢使用哪个，看自己偏好。</li>
 </ul>
-<h2 id="安装">安装</h2>
+<p>20240718更新：</p>
+<p>JetBrains系列的IDE论各种功能的完善度、准确性、响应速度和丰富性，细节的打磨，更多的功能，更便捷的操作，都要比VScode好。但是！令人无语的是，到目前为止，JetBrains里集成的GitHub Copilot远逊色于VScode（看插件评论区骂声一片），不论是Copilot生成提示的智能性（我怀疑JetBrains里没有用很好的GPT），这也是最重要的。还是各种功能的打磨和完善，比如VScode有更便捷的操作，而在JetBrains里，我遇到了Copilot插件高版本报错和无法自动联系上下文的问题（看插件评论区，这并不是个例）。可能是因为JetBrains更想推自己的大模型JetBrains AI Assistants？</p>
+<p>纵然JetBrains系列的IDE各种功能更好，但是，最重要的还是写代码。我开始倾向于用VScode写代码了，用JetBrains看代码（当VScode受限时）。也许，如果JetBrains还不思进取而VScode还在节节高升的话，我最终会完全转到VScode下了。</p>
+<h1 id="CLion">CLion</h1>
+<h2 id="下载安装">下载安装</h2>
 <ol>
 <li>
 <p>在<a target="_blank" rel="noopener" href="https://www.jetbrains.com/zh-cn/clion/">下载链接</a>下载CLion。</p>
@@ -1566,7 +1571,7 @@
 <li></li>
 </ol>
 <h2 id="使用">使用</h2>
-<p><a href="https://zeyulong.com/posts/a8aab215/">Linux系统下常用的命令及快捷键</a></p>
+<p><a href="https://zeyulong.com/posts/a8aab215/#CLion">常用的命令及快捷键</a></p>
 <h2 id="卸载">卸载</h2>
 <p><a target="_blank" rel="noopener" href="https://www.jetbrains.com/help/clion/uninstall.html">官方卸载说明</a></p>
 <blockquote>
@@ -1690,7 +1695,7 @@
 <h1 id="Mission-Center">Mission Center</h1>
 <p>类似于Windows的任务管理器。</p>
 <p><a target="_blank" rel="noopener" href="https://missioncenter.io/">Mission Center官网</a></p>
-<h2 id="安装-2">安装</h2>
+<h2 id="安装">安装</h2>
 <p><a target="_blank" rel="noopener" href="https://flathub.org/setup/Ubuntu">flathub官方安装教程</a></p>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/jiexijihe945/article/details/137559859">Mission Center安装参考链接</a></p>
 <ol>
@@ -1740,7 +1745,7 @@
 <h1 id="Okular">Okular</h1>
 <p>Linux下使用的PDF阅读器。</p>
 <p><a target="_blank" rel="noopener" href="https://okular.kde.org/">Okular官网</a></p>
-<h2 id="安装-3">安装</h2>
+<h2 id="安装-2">安装</h2>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 首先，通过运行以下命令确保所有系统包都是最新的 apt 终端中的命令。</span><br>sudo apt update<br>sudo apt upgrade<br><span class="hljs-comment"># 默认情况下，Okular 在 Ubuntu 20.04 基础存储库中不可用。 现在运行以下命令以在您的 Ubuntu 系统上启用 Universe 存储库。</span><br>sudo add-apt-repository universe<br><span class="hljs-comment"># 运行以下命令更新包索引并安装 Okular PDF 查看器。</span><br>sudo apt update <br>sudo apt install okular<br><br><span class="hljs-comment"># 或，通过 Snap 安装 Okular</span><br><span class="hljs-comment"># 如果尚未安装 Snapd 软件包，则可以通过运行以下命令来安装它</span><br>sudo apt update<br>sudo apt install snapd<br><span class="hljs-comment"># 要安装 Okular，只需使用以下命令</span><br>sudo snap install okular<br><br><span class="hljs-comment"># 或，在软件中心搜索okular，点击install。</span><br></code></pre></td></tr></table></figure>
 <h2 id="中文配置">中文配置</h2>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_34626094/article/details/112647745">参考链接</a></p>
@@ -1776,12 +1781,12 @@ sudo okular
 <h1 id="Piper">Piper</h1>
 <p>我使用的鼠标是Logitech G502，但是Logitech的鼠标驱动<a target="_blank" rel="noopener" href="https://support.logi.com/hc/zh-cn/articles/360025298133-Logitech-G-HUB">Logitech G HUB</a>只提供了Windows和Mac版。当然，我相信Piper提供的鼠标驱动不止适用于这款鼠标。</p>
 <p><a target="_blank" rel="noopener" href="https://github.com/libratbag/piper">项目地址</a></p>
-<h2 id="安装-4">安装</h2>
+<h2 id="安装-3">安装</h2>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo add-apt-repository ppa:libratbag-piper/piper-libratbag-git<br>sudo apt update<br><span class="hljs-comment"># 对于 &lt; Ubuntu 20.04 版本的系统，需要先添加上面的PPA</span><br>sudo apt install piper<br></code></pre></td></tr></table></figure>
 <h2 id="使用-2">使用</h2>
 <p>Win+A打开应用列表，找到Piper点击即可。</p>
 <h1 id="QQ-Linux版">QQ Linux版</h1>
-<h2 id="下载安装">下载安装</h2>
+<h2 id="下载安装-2">下载安装</h2>
 <p><a target="_blank" rel="noopener" href="https://im.qq.com/linuxqq/download.html">官方下载地址和安装及卸载帮助</a></p>
 <h3 id="如何选择安装包？">如何选择安装包？</h3>
 <p>QQ Linux版 目前支持x64（x86_64、amd64）、arm64（aarch64）、mips64（mips64el）三种架构，每种架构支持Debian系、红帽系、Arch Linux系、其它发行版中的一种或几种（未来可能继续扩充）。每一次发布均会提供架构和发行版的若干种组合支持的安装包，可按下面所述的规则进行选择。</p>
@@ -1961,7 +1966,7 @@ source ~/.bashrc  # source ~/.zshrc
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44375591/article/details/103953590">在Linux环境下安装texlive</a></p>
 <p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/431846297">记录在Linux/Unbuntu下安装latex</a></p>
 <h1 id="TeXstudio">TeXstudio</h1>
-<h2 id="概述-2">概述</h2>
+<h2 id="概述">概述</h2>
 <table>
 <thead>
 <tr>
@@ -2037,22 +2042,116 @@ source ~/.bashrc  # source ~/.zshrc
 <h2 id="更新（Windows）">更新（Windows）</h2>
 <p>TeXstudio更新之前需要先卸载旧版。在卸载之前，可以先复制一份用户配置以免配置文件丢失。对于Windows系统，配置文件一般在 <code>C:\Users\用户名\AppData\Roaming\texstudio</code> 路径下。*nix系统类似。</p>
 <h1 id="ToDesk">ToDesk</h1>
-<h2 id="下载安装-2">下载安装</h2>
+<h2 id="下载安装-3">下载安装</h2>
 <p><a target="_blank" rel="noopener" href="https://www.todesk.com/linux.html">下载链接</a></p>
 <p>（覆盖旧版安装后，临时密码将会变更）</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 安装命令：</span><br>sudo apt-get install ./todesk-v4.7.2.0-amd64.deb<br><span class="hljs-comment"># 启动命令：</span><br>todesk<br><span class="hljs-comment"># 删除服务设置配置:</span><br>sudo <span class="hljs-built_in">rm</span> /opt/todesk/config/config.ini<br><span class="hljs-comment"># 卸载:</span><br>sudo apt-get remove --purge todesk<br><br><span class="hljs-comment"># 如不能正常使用,请执行以下命令初始化.</span><br>sudo systemctl stop todeskd.service<br>sudo <span class="hljs-built_in">mv</span> /opt/todesk/config/config.ini /opt/todesk/config/config.ini.bak<br>sudo systemctl start todeskd.service<br><br><span class="hljs-comment"># 排查错误可执行以下命令看日志:</span><br><span class="hljs-comment"># 查看服务日志：（例如:xxxx_xx_xx.log为2022_08_03.log）</span><br><span class="hljs-built_in">tail</span> -f /var/log/todesk/service_xxxx_xx_xx.log<br><span class="hljs-comment"># 查看客户端日志：（例如:xxxx_xx_xx.log为2022_08_03.log）</span><br><span class="hljs-built_in">tail</span> -f ~/.local/share/todesk/Logs/client_xxxx_xx_xx.log<br></code></pre></td></tr></table></figure>
 <p>默认安装位置：<code>/opt/todesk</code></p>
 <h1 id="VSCode">VSCode</h1>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://code.visualstudio.com/docs/remote/faq#_can-i-run-vs-code-server-on-older-linux-distributions">我可以在旧版 Linux 发行版上运行 VS Code Server 吗？</a></p>
+<p>从 VS Code 版本 1.86.1（2024 年 1 月）开始，提高了远程服务器构建工具链的最低要求。</p>
+<p>VS Code 分发的预构建服务器与基于 [glibc](# 升级GLIBC_) 2.28 或更高版本的 Linux 发行版兼容，例如 Debian 10、RHEL 8 或 Ubuntu 20.04。在 2025 年 2 月之前，VS Code 仍允许用户连接到 VS Code 不支持的操作系统（不提供 glibc &gt;= 2.28 和 libstdc++ &gt;= 3.4.25 的操作系统）。</p>
+<p>这让您和您的公司有时间迁移到较新的 Linux 发行版。当您连接到 VS Code 不支持的操作系统版本时，VS Code 将显示对话框和横幅消息。</p>
+</blockquote>
+<h2 id="下载安装-4">下载安装</h2>
+<p>在<a target="_blank" rel="noopener" href="https://code.visualstudio.com/download">下载链接</a>下载<code>*.deb</code>文件后，双击安装。</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://code.visualstudio.com/docs/supporting/faq#_can-i-run-vs-code-on-older-linux-distributions">我可以在旧版 Linux 发行版上运行 VS Code 吗？</a></p>
+<p>从 VS Code 版本 1.86.1（2024 年 1 月）开始，VS Code 桌面仅与基于 glibc 2.28 或更高版本的 Linux 发行版兼容，例如 Debian 10、RHEL 8 或 Ubuntu 20.04。</p>
+<p>如果您无法升级 Linux 发行版，建议的替代方案是使用我们的<a target="_blank" rel="noopener" href="https://code.visualstudio.com/docs/editor/vscode-web">Web 客户端</a>。如果您想使用桌面版本，则可以从<a target="_blank" rel="noopener" href="https://code.visualstudio.com/updates/v1_85">此处</a>下载 VS Code 版本 1.85。根据您的平台，请确保禁用更新以保留该版本。一个好的建议是使用<a target="_blank" rel="noopener" href="https://code.visualstudio.com/docs/editor/portable">便携式模式</a>进行安装。</p>
+</blockquote>
+<h2 id="升级">升级</h2>
+<p>如果你的VSCode已经通过<code>*.deb</code>安装过了，只需要输入两行代码即可更新已经安装的VSCode：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo apt update  <span class="hljs-comment"># 更新源</span><br>sudo apt install code<br></code></pre></td></tr></table></figure>
 <h2 id="配置-3">配置</h2>
+<h3 id="一般">一般</h3>
+<blockquote>
+<p>打开<code>settings.json</code> ：</p>
+<ul>
+<li>使用 <code>Ctrl+,</code> 或者点击左下角齿轮图标并选择设置。然后在文本编辑器中找到 <code>settings.json</code> 。</li>
+<li>使用 <code>Ctrl+Shift+P</code> 或者点击左下角齿轮图标，选择命令面板。然后输入 <code>settings.json</code> 来搜索，点击<code>Preferences: Open User Settings (JSON)</code> 即可进入<strong>用户</strong>设置 <code>settings.json</code> 文件。</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>修改<code>Preferences: Open User Settings (JSON)</code>: <code>settings.json</code>，将会覆盖掉<code>Preferences: Open Default Settings (JSON)</code>: <code>defaultSettings.json</code>。</p>
+</blockquote>
 <ol>
-<li>字体大小：
+<li>
+<p>字体大小：</p>
 <ol>
 <li>设置（<code>Ctrl+,</code>）-窗口-Zoom Level</li>
 <li>设置（<code>Ctrl+,</code>）-文本编辑器-字体-Font Size</li>
 </ol>
 </li>
-<li>命令行缓冲区（终端）中保留的最大行数：设置-功能-终端（Terminal）-Scrollback：10000</li>
+<li>
+<p>行间距和字体粗细：</p>
+<ol>
+<li>
+<p>打开<code>settings.json</code>。</p>
+</li>
+<li>
+<p>写入：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-attr">&quot;editor.lineHeight&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">30</span>  <span class="hljs-comment">// 控制行高</span><br><span class="hljs-attr">&quot;editor.fontWeight&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">800</span>  <span class="hljs-comment">// 控制字体粗细</span><br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>保存，完成。</p>
+</li>
 </ol>
+</li>
+<li>
+<p>命令行缓冲区（终端）中保留的最大行数：设置-功能-终端（Terminal）-Scrollback：10000</p>
+</li>
+<li>
+<p>配色：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-attr">&quot;workbench.colorCustomizations&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>    <span class="hljs-attr">&quot;editor.selectionHighlightBackground&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;#ec1f08&quot;</span><span class="hljs-punctuation">,</span>  <span class="hljs-comment">// 具有与所选项相关内容的区域的颜色。</span><br>    <span class="hljs-attr">&quot;editor.lineHighlightBackground&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;#000000&quot;</span>  <span class="hljs-comment">// 光标所在行高亮内容的背景颜色。</span><br><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>平滑光标：设置-文本编辑器-光标-Cursor Smooth Caret Animation</p>
+</li>
+<li>
+<p>标签页换行：设置-工作台-编辑管理-Wrap Tabs</p>
+</li>
+<li>
+<p>文件树缩进：设置-Workbench › Tree: Indent</p>
+</li>
+</ol>
+<h3 id="插件配置">插件配置</h3>
+<h4 id="IntelliJ-IDEA-Keybindings">IntelliJ IDEA Keybindings</h4>
+<p>把VSCode的快捷键映射为JetBrains系列的IDE的快捷键配置。</p>
+<h4 id="Todo-Tree">Todo Tree</h4>
+<p>使用 <code>Ctrl+Shift+P</code> 或者点击左下角齿轮图标，选择命令面板。然后输入 <code>settings.json</code> 来搜索，点击<code>Preferences: Open User Settings (JSON)</code> 即可进入<strong>用户</strong>设置 <code>settings.json</code> 文件。</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs json">  <span class="hljs-attr">&quot;todo-tree.general.tags&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-punctuation">[</span><br>      <span class="hljs-string">&quot;BUG&quot;</span><span class="hljs-punctuation">,</span><br><span class="hljs-string">&quot;HACK&quot;</span><span class="hljs-punctuation">,</span><br><span class="hljs-string">&quot;FIXME&quot;</span><span class="hljs-punctuation">,</span><br><span class="hljs-string">&quot;TODO&quot;</span><span class="hljs-punctuation">,</span><br><span class="hljs-string">&quot;XXX&quot;</span><span class="hljs-punctuation">,</span><br><span class="hljs-string">&quot;[ ]&quot;</span><span class="hljs-punctuation">,</span><br><span class="hljs-string">&quot;[x]&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-string">&quot;BUG-LLL25655&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-string">&quot;HACK-LLL25655&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-string">&quot;FIXME-LLL25655&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-string">&quot;TODO-LLL25655&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-string">&quot;XXX-LLL25655&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-string">&quot;NOTE-LLL25655&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-string">&quot;UNDONE-LLL25655&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-string">&quot;DEBUG-LLL25655&quot;</span><br>  <span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span><br>  <span class="hljs-attr">&quot;todo-tree.general.tagGroups&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>      <span class="hljs-attr">&quot;LLL25655&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><br>          <span class="hljs-string">&quot;BUG-LLL25655&quot;</span><span class="hljs-punctuation">,</span><br>          <span class="hljs-string">&quot;HACK-LLL25655&quot;</span><span class="hljs-punctuation">,</span><br>          <span class="hljs-string">&quot;FIXME-LLL25655&quot;</span><span class="hljs-punctuation">,</span><br>          <span class="hljs-string">&quot;TODO-LLL25655&quot;</span><span class="hljs-punctuation">,</span><br>          <span class="hljs-string">&quot;XXX-LLL25655&quot;</span><span class="hljs-punctuation">,</span><br>          <span class="hljs-string">&quot;NOTE-LLL25655&quot;</span><span class="hljs-punctuation">,</span><br>          <span class="hljs-string">&quot;UNDONE-LLL25655&quot;</span><span class="hljs-punctuation">,</span><br>          <span class="hljs-string">&quot;DEBUG-LLL25655&quot;</span><br>      <span class="hljs-punctuation">]</span><br>  <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>  <span class="hljs-attr">&quot;todo-tree.highlights.defaultHighlight&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>      <span class="hljs-attr">&quot;type&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;text&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;foreground&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;red&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;background&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;white&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;opacity&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">50</span><br>  <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br></code></pre></td></tr></table></figure>
+<h3 id="else">else</h3>
+<ul>
+<li>CodeSnap / Polacode：代码截图</li>
+<li>colorize：立即可视化 css/sass/less/postcss/stylus/XML... 文件中的 css 颜色</li>
+<li>ESLint / Prettier ESLint：用于 JavaScript/TypeScript代码的语法检查和格式化</li>
+<li>GitLens — Git supercharged：Git增强</li>
+<li>koroFileHeader：用于生成文件头部注释和函数注释的插件</li>
+<li>Prettier：代码格式化</li>
+</ul>
+<h2 id="使用-4">使用</h2>
+<p><a href="https://zeyulong.com/posts/a8aab215/#VSCode">常用命令及快捷键</a></p>
+<h2 id="ROS">ROS</h2>
+<ul>
+<li>
+<p>插件：</p>
+<ul>
+<li>ROS</li>
+<li>catkin-tools</li>
+</ul>
+</li>
+<li>
+<p>设置Cmake路径：</p>
+<ol>
+<li>打开设置（<code>Ctrl+,</code>）。</li>
+<li>搜索<code>@ext:ms-vscode.cmake-tools</code>。</li>
+<li>找到<code>Cmake: Build Directory</code>。</li>
+<li>输入<code>$&#123;workspaceFolder&#125;/../build-vscode</code>。</li>
+</ol>
+</li>
+</ul>
 <h1 id="微信">微信</h1>
 <ol>
 <li>
@@ -2074,7 +2173,7 @@ source ~/.bashrc  # source ~/.zshrc
 </li>
 </ol>
 <h1 id="Zotero">Zotero</h1>
-<h2 id="下载安装-3">下载安装</h2>
+<h2 id="下载安装-5">下载安装</h2>
 <p><a target="_blank" rel="noopener" href="https://www.zotero.org/"> Zotero官网</a></p>
 <h2 id="插件">插件</h2>
 <h3 id="插件推荐">插件推荐</h3>
@@ -2116,7 +2215,7 @@ source ~/.bashrc  # source ~/.zshrc
 </blockquote>
 <h3 id="配置插件">配置插件</h3>
 <p>编辑-首选项</p>
-<h2 id="使用-4">使用</h2>
+<h2 id="使用-5">使用</h2>
 <p><a href="https://zeyulong.com/posts/a8aab215/">Linux系统下常用的命令及快捷键</a></p>
 <h2 id="更新-2">更新</h2>
 <h3 id="更新Zotero">更新Zotero</h3>

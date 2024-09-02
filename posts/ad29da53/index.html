@@ -24,7 +24,7 @@
 <meta property="og:description" content="本文主要分享了Windows、Linux系统的配置与常用软件的安装。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-01-31T16:27:11.000Z">
-<meta property="article:modified_time" content="2024-08-29T13:25:48.733Z">
+<meta property="article:modified_time" content="2024-09-02T09:29:51.251Z">
 <meta property="article:author" content="龙泽雨">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -348,7 +348,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          15k 字
+          17k 字
         
       </span>
     
@@ -359,7 +359,7 @@
         
         
         
-          125 分钟
+          139 分钟
         
       </span>
     
@@ -409,7 +409,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2024年8月29日 晚上
+                    本文最后更新于 2024年9月2日 下午
                   
                 
               </p>
@@ -1409,6 +1409,9 @@
 <p>纵然JetBrains系列的IDE各种功能更好，但是，最重要的还是写代码。我开始倾向于用VSCode写代码了，用JetBrains看代码（当VSCode受限时）。也许，如果JetBrains还不思进取而VSCode还在节节高升的话，我最终会完全转到VSCode下了。</p>
 <p>20240829更新：</p>
 <p>至少在C++编程方面，VSCode相较于CLion（JetBrains系列的IDE）除了轻量级和可定制性高外的唯一突出的优点就是GitHub Copilot更好用了。实测下来，在代码提示、重构代码、查找用法和静态分析等其它各种方面，CLion是更好用的。而这些方面，可以更好地辅助程序员阅读代码和排错（很重要）。</p>
+<p>20240831更新：</p>
+<p>实测发现，VSCode的“C/C++”插件包括静态代码分析（很重要）在内的各种功能不如“clangd”插件。因此，仅使用“C/C++”插件进行代码的构建，静态代码分析、代码补全等功能交给“clangd”插件。这样也就缩短了与CLion的差距。</p>
+<p>[clangd插件配置](# clangd插件)</p>
 <h1 id="窗口管理器">窗口管理器</h1>
 <blockquote>
 <p><a target="_blank" rel="noopener" href="https://segmentfault.com/q/1010000002409919">建议</a>：大致规划一下工作区，比如工作区1写代码，工作区2看log，工作区3看网页和文档。然后绑定一下三个屏幕的快捷键或者利用 Ctrl+Alt+Up/Down切换工作区。在对应工作区上再使用Alt+Tab切换窗口。</p>
@@ -1625,7 +1628,15 @@
 <li>勾选“在块注释中缩进新行”</li>
 </ul>
 </li>
-<li></li>
+<li>
+<p>设置-高级设置-Clangd-使用基于Clangd的索引器。</p>
+<blockquote>
+<p>感觉还是不勾选好用。不勾选有“写入值”、“读取值”、“动态用法”等分类。勾选后只有“声明”和“未分类”。</p>
+</blockquote>
+</li>
+<li>
+<p>等等。</p>
+</li>
 </ol>
 <h3 id="其它">其它</h3>
 <ol>
@@ -2135,7 +2146,7 @@ source ~/.bashrc  # source ~/.zshrc
 <p>如果你的VSCode已经通过<code>*.deb</code>安装过了，只需要输入两行代码即可更新已经安装的VSCode：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo apt update  <span class="hljs-comment"># 更新源</span><br>sudo apt install code<br></code></pre></td></tr></table></figure>
 <h2 id="配置-3">配置</h2>
-<h3 id="一般">一般</h3>
+<h3 id="通用配置">通用配置</h3>
 <blockquote>
 <p>打开<code>settings.json</code> ：</p>
 <ul>
@@ -2149,7 +2160,7 @@ source ~/.bashrc  # source ~/.zshrc
 </ul>
 </blockquote>
 <blockquote>
-<p>修改<code>Preferences: Open User Settings (JSON)</code>: <code>settings.json</code>，将会覆盖掉<code>Preferences: Open Default Settings (JSON)</code>: <code>defaultSettings.json</code>。</p>
+<p>修改<code>Preferences: Open User Settings (JSON)</code>: <code>settings.json</code>，将会覆盖掉<code>Preferences: Open Default Settings (JSON)</code>: <code>defaultSettings.json</code>。<code>defaultSettings.json</code>里配置了所有可自定义的默认选项。</p>
 </blockquote>
 <ol>
 <li>
@@ -2198,9 +2209,19 @@ source ~/.bashrc  # source ~/.zshrc
 </li>
 <li>
 <p>修改主题配色：</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-attr">&quot;editor.tokenColorCustomizations&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>        <span class="hljs-attr">&quot;[One Dark Pro Darker]&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>          <span class="hljs-attr">&quot;textMateRules&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><br>            <span class="hljs-punctuation">&#123;</span><br>              <span class="hljs-attr">&quot;scope&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">&quot;variable.other.local&quot;</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>  <span class="hljs-comment">// 局部变量</span><br>              <span class="hljs-attr">&quot;settings&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>                <span class="hljs-attr">&quot;foreground&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;#BBBBBB&quot;</span><br>              <span class="hljs-punctuation">&#125;</span><br>            <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>            <span class="hljs-punctuation">&#123;</span><br>                <span class="hljs-attr">&quot;scope&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">&quot;variable.parameter&quot;</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>  <span class="hljs-comment">// 形参</span><br>                <span class="hljs-attr">&quot;settings&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>                  <span class="hljs-attr">&quot;foreground&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;#D19A66&quot;</span><br>                <span class="hljs-punctuation">&#125;</span><br>              <span class="hljs-punctuation">&#125;</span><br>          <span class="hljs-punctuation">]</span><br>        <span class="hljs-punctuation">&#125;</span><br>      <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br></code></pre></td></tr></table></figure>
+<p><a target="_blank" rel="noopener" href="https://code.visualstudio.com/docs/cpp/colorization-cpp">Enhanced colorization</a></p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-attr">&quot;editor.tokenColorCustomizations&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>        <span class="hljs-attr">&quot;[One Dark Pro Darker]&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>            <span class="hljs-comment">// [常用范围列表](https://binaryify.github.io/OneDark-Pro/#/?id=common-scope-list)</span><br>          <span class="hljs-attr">&quot;textMateRules&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><br>            <span class="hljs-punctuation">&#123;</span><br>              <span class="hljs-attr">&quot;scope&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">&quot;variable.other.local&quot;</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>  <span class="hljs-comment">// （C++）局部变量，适用于设置使用C/C++插件的静态分析</span><br>              <span class="hljs-attr">&quot;settings&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>                <span class="hljs-attr">&quot;foreground&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;#BBBBBB&quot;</span><br>              <span class="hljs-punctuation">&#125;</span><br>            <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>            <span class="hljs-punctuation">&#123;</span><br>                <span class="hljs-attr">&quot;scope&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">&quot;variable.parameter&quot;</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>  <span class="hljs-comment">// 形参</span><br>                <span class="hljs-attr">&quot;settings&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>                  <span class="hljs-attr">&quot;foreground&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;#D19A66&quot;</span><br>                <span class="hljs-punctuation">&#125;</span><br>              <span class="hljs-punctuation">&#125;</span><br>          <span class="hljs-punctuation">]</span><br>        <span class="hljs-punctuation">&#125;</span><br>      <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br><span class="hljs-attr">&quot;editor.semanticTokenColorCustomizations&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>        <span class="hljs-attr">&quot;enabled&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">true</span></span><span class="hljs-punctuation">,</span> <span class="hljs-comment">// enable for all themes</span><br>        <span class="hljs-attr">&quot;rules&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>            <span class="hljs-attr">&quot;variable.functionScope&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span>  <span class="hljs-comment">// （C++）局部变量，适用于设置了使用clangd插件的静态分析</span><br>                <span class="hljs-attr">&quot;foreground&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;#BBBBBB&quot;</span><span class="hljs-punctuation">,</span><br>                <span class="hljs-comment">// &quot;fontStyle&quot;: &quot;bold&quot;</span><br>            <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-punctuation">&#125;</span><br>    <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br></code></pre></td></tr></table></figure>
 <blockquote>
-<p>更多配置见主题插件官网。</p>
+<p>C/C++插件与clangd插件对变量类型的定义有所不同，<a target="_blank" rel="noopener" href="https://github.com/clangd/vscode-clangd/issues/239">issuse</a>。</p>
+<p>可以将光标放置在变量上，按Ctrl+Shift+P，输入“Developer: Inspect Editor Tokens and Scopes”查看“semantic token type”和“modifiers”。<a target="_blank" rel="noopener" href="https://medium.com/@danromans/how-to-customize-semantic-token-colorization-with-visual-studio-code-ac3eab96141b">How To Customize Semantic Token Colorization With Visual Studio Code</a></p>
+<p>一些对应关系：</p>
+<ul>
+<li>textMateRules/variable.other.global -&gt; rules/variable.globalScope</li>
+<li>textMateRules/variable.other.local -&gt; rules/variable.functionScope</li>
+<li>textMateRules/keyword.operator.new -&gt; textMateRules/keyword.operator.{new,delete}.cpp</li>
+<li>textMateRules/entity.name.function.operator.member -&gt; textMateRules/{keyword.other.operator.overload,entity.name.operator}.cpp</li>
+<li>textMateRules/entity.name.function.member.static -&gt; rules/function.static</li>
+</ul>
 </blockquote>
 </li>
 <li>
@@ -2228,21 +2249,62 @@ source ~/.bashrc  # source ~/.zshrc
 <p>光标所在行的颜色：</p>
 <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-attr">&quot;workbench.colorCustomizations&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>        <span class="hljs-attr">&quot;editor.lineHighlightBackground&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;#000000&quot;</span><span class="hljs-punctuation">,</span> <br>    <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br></code></pre></td></tr></table></figure>
 </li>
+<li>
+<p>粘滞滚动，即显示上一级对应的代码：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-attr">&quot;editor.stickyScroll.enabled&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">true</span></span><span class="hljs-punctuation">,</span><br></code></pre></td></tr></table></figure>
+</li>
 <li></li>
 </ol>
-<h3 id="C">C++</h3>
-<h4 id="CMake">CMake</h4>
+<h3 id="插件配置">插件配置</h3>
+<h4 id="IntelliJ-IDEA-Keybindings">IntelliJ IDEA Keybindings</h4>
+<p>把VSCode的快捷键映射为JetBrains系列的IDE的快捷键配置。</p>
+<h4 id="Todo-Tree">Todo Tree</h4>
+<p>使用 <code>Ctrl+Shift+P</code> 或者点击左下角齿轮图标，选择命令面板。然后输入 <code>settings.json</code> 来搜索，点击<code>Preferences: Open User Settings (JSON)</code> 即可进入<strong>用户</strong>设置 <code>settings.json</code> 文件。</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs json">  <span class="hljs-attr">&quot;todo-tree.general.tags&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-punctuation">[</span><br>      <span class="hljs-string">&quot;BUG&quot;</span><span class="hljs-punctuation">,</span><br><span class="hljs-string">&quot;HACK&quot;</span><span class="hljs-punctuation">,</span><br><span class="hljs-string">&quot;FIXME&quot;</span><span class="hljs-punctuation">,</span><br><span class="hljs-string">&quot;TODO&quot;</span><span class="hljs-punctuation">,</span><br><span class="hljs-string">&quot;XXX&quot;</span><span class="hljs-punctuation">,</span><br><span class="hljs-string">&quot;[ ]&quot;</span><span class="hljs-punctuation">,</span><br><span class="hljs-string">&quot;[x]&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-string">&quot;BUG-LLL25655&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-string">&quot;HACK-LLL25655&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-string">&quot;FIXME-LLL25655&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-string">&quot;TODO-LLL25655&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-string">&quot;XXX-LLL25655&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-string">&quot;NOTE-LLL25655&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-string">&quot;UNDONE-LLL25655&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-string">&quot;DEBUG-LLL25655&quot;</span><br>  <span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span><br>  <span class="hljs-attr">&quot;todo-tree.general.tagGroups&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>      <span class="hljs-attr">&quot;LLL25655&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><br>          <span class="hljs-string">&quot;BUG-LLL25655&quot;</span><span class="hljs-punctuation">,</span><br>          <span class="hljs-string">&quot;HACK-LLL25655&quot;</span><span class="hljs-punctuation">,</span><br>          <span class="hljs-string">&quot;FIXME-LLL25655&quot;</span><span class="hljs-punctuation">,</span><br>          <span class="hljs-string">&quot;TODO-LLL25655&quot;</span><span class="hljs-punctuation">,</span><br>          <span class="hljs-string">&quot;XXX-LLL25655&quot;</span><span class="hljs-punctuation">,</span><br>          <span class="hljs-string">&quot;NOTE-LLL25655&quot;</span><span class="hljs-punctuation">,</span><br>          <span class="hljs-string">&quot;UNDONE-LLL25655&quot;</span><span class="hljs-punctuation">,</span><br>          <span class="hljs-string">&quot;DEBUG-LLL25655&quot;</span><br>      <span class="hljs-punctuation">]</span><br>  <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>  <span class="hljs-attr">&quot;todo-tree.highlights.defaultHighlight&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>      <span class="hljs-attr">&quot;type&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;text&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;foreground&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;red&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;background&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;white&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;opacity&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">50</span><br>  <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br></code></pre></td></tr></table></figure>
+<h4 id="TODO">TODO</h4>
+<ul>
+<li>Auto Hide: 当用户单击文本编辑器时，自动隐藏侧边栏和终端面板</li>
+<li>Comment Translate: 翻译插件</li>
+<li>CodeSnap / Polacode: 代码截图</li>
+<li>Codeium: 适用于您最喜欢的语言的免费 AI 代码加速插件</li>
+<li>colorize: 立即可视化 css/sass/less/postcss/stylus/XML... 文件中的 css 颜色</li>
+<li>Color Highlight: 突出显示代码中的 CSS 颜色</li>
+<li>Console Ninja: JavaScript console.log 输出和运行时错误就在代码旁边。</li>
+<li>Document This: 自动在 TypeScript 和 JavaScript 文件中生成详细的 JSDoc 注释</li>
+<li>ESLint / Prettier ESLint: 用于 JavaScript/TypeScript代码的语法检查和格式化</li>
+<li>GitLens — Git supercharged: Git增强</li>
+<li>koroFileHeader: 用于生成文件头部注释和函数注释的插件</li>
+<li>Live Server: 启动具有静态和动态页面实时重新加载功能的开发本地服务器</li>
+<li>Peacock: 巧妙地更改工作区的工作区颜色</li>
+<li>Prettier: 代码格式化，支持多种语言，包括 JavaScript、TypeScript、HTML、CSS 等</li>
+<li>Quokka: 一款用于快速 JavaScript / TypeScript 原型设计的开发人员生产力工具。当您键入时，运行时值会更新并显示在 IDE 中代码旁边。</li>
+<li>RegEx Snippets: 无需记住任何内容即可轻松插入流行的正则表达式代码</li>
+</ul>
+<h2 id="C">C++</h2>
+<h3 id="CMake">CMake</h3>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-attr">&quot;cmake.configureOnEdit&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">false</span></span><span class="hljs-punctuation">,</span><br><span class="hljs-attr">&quot;cmake.configureOnOpen&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">false</span></span><span class="hljs-punctuation">,</span><br><span class="hljs-attr">&quot;cmake.buildDirectory&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;$&#123;workspaceFolder&#125;/../build-vscode&quot;</span><span class="hljs-punctuation">,</span><br></code></pre></td></tr></table></figure>
 <ol>
-<li>取消自动CMake：
+<li>
+<p>取消自动CMake：</p>
 <ol>
 <li>设置：Cmake: Configure On Open</li>
 <li>设置：Cmake: Configure On Edit</li>
 </ol>
 </li>
-<li>build目录：设置：Cmake: Build Directory</li>
+<li>
+<p>build目录：设置：Cmake: Build Directory</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs json">$<span class="hljs-punctuation">&#123;</span>workspaceFolder<span class="hljs-punctuation">&#125;</span>/build  <span class="hljs-comment">// 默认</span><br>$<span class="hljs-punctuation">&#123;</span>workspaceFolder<span class="hljs-punctuation">&#125;</span>/../build-vscode<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>等等。</p>
+</li>
 </ol>
-<h4 id="代码分析">代码分析</h4>
+<h3 id="C-C-插件">C/C++插件</h3>
+<blockquote>
+<p>实测发现，VSCode的“C/C++”插件包括静态代码分析（很重要）在内的各种功能不如“clangd”插件。因此，仅使用“C/C++”插件进行代码的构建，静态代码分析、代码补全等功能交给“clangd”插件。</p>
+</blockquote>
 <p><a target="_blank" rel="noopener" href="https://code.visualstudio.com/docs/editor/glob-patterns#_glob-pattern-syntax">glob 语法</a></p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-attr">&quot;C_Cpp.codeAnalysis.clangTidy.enabled&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">true</span></span><span class="hljs-punctuation">,</span><br><span class="hljs-attr">&quot;C_Cpp.codeAnalysis.updateDelay&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1000</span><span class="hljs-punctuation">,</span><br></code></pre></td></tr></table></figure>
 <ol>
 <li>
 <p>设置：C_Cpp › Code Analysis: Run Automatically - ture</p>
@@ -2275,7 +2337,35 @@ source ~/.bashrc  # source ~/.zshrc
 <p>等。</p>
 </li>
 </ol>
-<h4 id="格式化风格">格式化风格</h4>
+<h3 id="clangd插件">clangd插件</h3>
+<blockquote>
+<p>先安装“C/C++”插件再安装“clangd”插件安装完成后，会提示发生冲突提示，请选择“Disable IntelliSense”。</p>
+</blockquote>
+<p>编辑<strong>用户</strong>设置 <code>settings.json</code> 文件：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-attr">&quot;cmake.copyCompileCommands&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span><br><span class="hljs-attr">&quot;C_Cpp.errorSquiggles&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;disabled&quot;</span><span class="hljs-punctuation">,</span><br><span class="hljs-attr">&quot;C_Cpp.intelliSenseEngineFallback&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;disabled&quot;</span><span class="hljs-punctuation">,</span><br><span class="hljs-attr">&quot;C_Cpp.intelliSenseEngine&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;disabled&quot;</span><span class="hljs-punctuation">,</span><br><span class="hljs-attr">&quot;clangd.path&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;/home/lll25655/.config/Code/User/globalStorage/llvm-vs-code-extensions.vscode-clangd/install/18.1.3/clangd_18.1.3/bin/clangd&quot;</span><span class="hljs-punctuation">,</span><br><span class="hljs-attr">&quot;clangd.onConfigChanged&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;restart&quot;</span><span class="hljs-punctuation">,</span><br><span class="hljs-comment">// clangd的运行参数(在终端/命令行(`cd`到clangd可执行文件的路径后)输入 `./clangd --help` 可查看更多)</span><br><span class="hljs-comment">// clangd --version 可查看版本</span><br><span class="hljs-comment">// clangd --help-list-hidden 可查看隐藏参数</span><br><span class="hljs-attr">&quot;clangd.arguments&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><br>    <span class="hljs-comment">// 启用 Clang-Tidy 以提供「静态检查」</span><br>    <span class="hljs-string">&quot;--clang-tidy&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-comment">// compelie_commands.json 文件的目录位置(相对于工作区)，一般情况下，由于 CMake 生成的该文件默认在 build 文件夹中，故设置为 build)</span><br>    <span class="hljs-string">&quot;--compile-commands-dir=build&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-comment">// 建议风格：打包bundled(重载函数只会给出一个建议）；反可以设置为detailed</span><br>    <span class="hljs-string">&quot;--completion-style=detailed&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-comment">// 启用配置文件(YAML格式)</span><br>    <span class="hljs-string">&quot;--enable-config&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-comment">// 默认格式化风格: 谷歌开源项目代码指南（可用的有 LLVM, Google, Chromium, Mozilla, Webkit, Microsoft, GNU 等）</span><br>    <span class="hljs-comment">// 当未找到 .clang-format 文件时默认应用 clang-format 样式</span><br>    <span class="hljs-string">&quot;--fallback-style=Google&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-comment">// 启用这项时，补全函数时，将会给参数提供占位符，键入后按 Tab 可以切换到下一占位符，乃至函数末</span><br>    <span class="hljs-string">&quot;--function-arg-placeholders=true&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-comment">// 输入建议中，已包含头文件的项与还未包含头文件的项会以圆点加以区分</span><br>    <span class="hljs-string">&quot;--header-insertion-decorators&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-comment">// 允许补充头文件</span><br>    <span class="hljs-string">&quot;--header-insertion=never&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-comment">// 让 Clangd 生成更详细的日志</span><br>    <span class="hljs-string">&quot;--log=verbose&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-comment">// pch优化的位置(memory 或 disk，选择memory会增加内存开销，但会提升性能)</span><br>    <span class="hljs-string">&quot;--pch-storage=memory&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-comment">// 输出的 JSON 文件更美观</span><br>    <span class="hljs-string">&quot;--pretty&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-comment">// 建议排序模型</span><br>    <span class="hljs-string">&quot;--ranking-model=heuristics&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-comment">// 同时开启的任务数量</span><br>    <span class="hljs-string">&quot;-j=16&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-comment">// 跨文件重命名变量</span><br>    <span class="hljs-string">&quot;--cross-file-rename&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-comment">// 在后台自动分析文件(基于 complie_commands，我们用CMake生成)</span><br>    <span class="hljs-string">&quot;--background-index&quot;</span><br><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span><br><span class="hljs-comment">// 找不到编译数据库(compile_flags.json 文件)时使用的编译器选项，</span><br><span class="hljs-comment">// 这样的缺陷是不能直接索引同一项目的不同文件，只能分析系统头文件、当前文件和被include的文件</span><br><span class="hljs-attr">&quot;clangd.fallbackFlags&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><br>    <span class="hljs-string">&quot;-pedantic&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-string">&quot;-Wall&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-string">&quot;-Wextra&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-string">&quot;-Wcast-align&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-string">&quot;-Wdouble-promotion&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-string">&quot;-Wformat=2&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-string">&quot;-Wimplicit-fallthrough&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-string">&quot;-Wmisleading-indentation&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-string">&quot;-Wnon-virtual-dtor&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-string">&quot;-Wnull-dereference&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-string">&quot;-Wold-style-cast&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-string">&quot;-Woverloaded-virtual&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-string">&quot;-Wpedantic&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-string">&quot;-Wshadow&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-string">&quot;-Wunused&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-string">&quot;-pthread&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-string">&quot;-fuse-ld=lld&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-string">&quot;-fsanitize=address&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-string">&quot;-fsanitize=undefined&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-string">&quot;-stdlib=libc++&quot;</span><br><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span><br><span class="hljs-comment">// 自动检测 clangd 更新</span><br><span class="hljs-attr">&quot;clangd.checkUpdates&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">true</span></span><span class="hljs-punctuation">,</span><br><span class="hljs-comment">// clangd的snippets有很多的跳转点，不用这个就必须手动触发Intellisense了</span><br><span class="hljs-attr">&quot;editor.suggest.snippetsPreventQuickSuggestions&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">false</span></span><span class="hljs-punctuation">,</span><br></code></pre></td></tr></table></figure>
+<p>创建用户配置文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> ~/.config<br><span class="hljs-built_in">mkdir</span> clangd<br><span class="hljs-built_in">cd</span> clangd<br></code></pre></td></tr></table></figure>
+<p>新建<code>config.yaml</code>文件并写入以下内容：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">Diagnostics:</span><br>  <span class="hljs-attr">ClangTidy:</span><br>    <span class="hljs-attr">Add:</span> [<span class="hljs-string">&quot;*&quot;</span>]<br>    <span class="hljs-attr">Remove:</span><br>      [<br>        <span class="hljs-string">abseil*</span>,<br>        <span class="hljs-string">fuchsia*</span>,<br>        <span class="hljs-string">llvmlib*</span>,<br>        <span class="hljs-string">zircon*</span>,<br>        <span class="hljs-string">altera*</span>,<br>        <span class="hljs-string">google-readability-todo</span>,<br>        <span class="hljs-string">readability-braces-around-statements</span>,<br>        <span class="hljs-string">hicpp-braces-around-statements</span>,<br>        <span class="hljs-string">modernize-use-trailing-return-type</span>,<br>      ]<br><span class="hljs-attr">Index:</span><br>  <span class="hljs-attr">Background:</span> <span class="hljs-string">Build</span><br><span class="hljs-attr">CompileFlags:</span><br>  <span class="hljs-attr">Add:</span> [<span class="hljs-string">--cuda-gpu-arch=sm_86</span>] <span class="hljs-comment"># 这里写你的 GPU 计算能力版本</span><br>  <span class="hljs-attr">Remove:</span><br>    <span class="hljs-bullet">-</span> <span class="hljs-string">-rdc=true</span><br>    <span class="hljs-bullet">-</span> <span class="hljs-string">-gencode</span><br></code></pre></td></tr></table></figure>
+<blockquote>
+<p><code>CompileFlags</code> 下增加和移除的几个选项是为了消除 Clangd 对 CUDA C++ 代码的误报错，具体见：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/682758305">多版本 CUDA 安装切换和 PyTorch 深度学习环境配置</a></p>
+</blockquote>
+<blockquote>
+<p>如果配置完“clangd”插件后，插件工作不正常，可以卸载重装插件，让插件重新加载一遍试试。</p>
+</blockquote>
+<blockquote>
+<p>C/C++插件与Clangd插件对变量类型的定义有所不同，可能会导致主题配色有问题，解决见[通用配置](# 通用配置)第9条。</p>
+</blockquote>
+<blockquote>
+<p>参考链接：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/145430576">使用clangd替代c/c<ins>配置vscode c</ins>项目</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/lee-zq/p/17779315.html">VSCode配置Clang C/C++开发环境 [+clangd代码静态检查配置]</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/tyKuGengty/article/details/120119820">VSCode 配置 C++：VSCode + Clang + Clangd + LLDB + CMake + Git</a></li>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/398790625?utm_psn=1813177954290782208">[万字长文]Visual Studio Code 配置 C/C++ 开发环境的最佳实践(VSCode + Clangd + XMake)</a></li>
+</ul>
+</blockquote>
+<h3 id="格式化风格">格式化风格</h3>
 <ol>
 <li>
 <p>生成 <code>.clang-format</code> 文件:</p>
@@ -2356,24 +2446,6 @@ source ~/.bashrc  # source ~/.zshrc
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/booksyhay/article/details/121105145">VSCode中针对C语言的代码格式化配置</a></p>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/LIZHUOLONG1/article/details/129706721">VSCode C/C++ 格式化配置【最完整准确版本】</a></p>
 </blockquote>
-<h3 id="插件配置">插件配置</h3>
-<h4 id="IntelliJ-IDEA-Keybindings">IntelliJ IDEA Keybindings</h4>
-<p>把VSCode的快捷键映射为JetBrains系列的IDE的快捷键配置。</p>
-<h4 id="Todo-Tree">Todo Tree</h4>
-<p>使用 <code>Ctrl+Shift+P</code> 或者点击左下角齿轮图标，选择命令面板。然后输入 <code>settings.json</code> 来搜索，点击<code>Preferences: Open User Settings (JSON)</code> 即可进入<strong>用户</strong>设置 <code>settings.json</code> 文件。</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs json">  <span class="hljs-attr">&quot;todo-tree.general.tags&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-punctuation">[</span><br>      <span class="hljs-string">&quot;BUG&quot;</span><span class="hljs-punctuation">,</span><br><span class="hljs-string">&quot;HACK&quot;</span><span class="hljs-punctuation">,</span><br><span class="hljs-string">&quot;FIXME&quot;</span><span class="hljs-punctuation">,</span><br><span class="hljs-string">&quot;TODO&quot;</span><span class="hljs-punctuation">,</span><br><span class="hljs-string">&quot;XXX&quot;</span><span class="hljs-punctuation">,</span><br><span class="hljs-string">&quot;[ ]&quot;</span><span class="hljs-punctuation">,</span><br><span class="hljs-string">&quot;[x]&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-string">&quot;BUG-LLL25655&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-string">&quot;HACK-LLL25655&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-string">&quot;FIXME-LLL25655&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-string">&quot;TODO-LLL25655&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-string">&quot;XXX-LLL25655&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-string">&quot;NOTE-LLL25655&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-string">&quot;UNDONE-LLL25655&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-string">&quot;DEBUG-LLL25655&quot;</span><br>  <span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span><br>  <span class="hljs-attr">&quot;todo-tree.general.tagGroups&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>      <span class="hljs-attr">&quot;LLL25655&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><br>          <span class="hljs-string">&quot;BUG-LLL25655&quot;</span><span class="hljs-punctuation">,</span><br>          <span class="hljs-string">&quot;HACK-LLL25655&quot;</span><span class="hljs-punctuation">,</span><br>          <span class="hljs-string">&quot;FIXME-LLL25655&quot;</span><span class="hljs-punctuation">,</span><br>          <span class="hljs-string">&quot;TODO-LLL25655&quot;</span><span class="hljs-punctuation">,</span><br>          <span class="hljs-string">&quot;XXX-LLL25655&quot;</span><span class="hljs-punctuation">,</span><br>          <span class="hljs-string">&quot;NOTE-LLL25655&quot;</span><span class="hljs-punctuation">,</span><br>          <span class="hljs-string">&quot;UNDONE-LLL25655&quot;</span><span class="hljs-punctuation">,</span><br>          <span class="hljs-string">&quot;DEBUG-LLL25655&quot;</span><br>      <span class="hljs-punctuation">]</span><br>  <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>  <span class="hljs-attr">&quot;todo-tree.highlights.defaultHighlight&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>      <span class="hljs-attr">&quot;type&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;text&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;foreground&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;red&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;background&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;white&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;opacity&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">50</span><br>  <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br></code></pre></td></tr></table></figure>
-<h3 id="else">else</h3>
-<ul>
-<li>Comment Translate：翻译插件</li>
-<li>CodeSnap / Polacode：代码截图</li>
-<li>colorize：立即可视化 css/sass/less/postcss/stylus/XML... 文件中的 css 颜色</li>
-<li>ESLint / Prettier ESLint：用于 JavaScript/TypeScript代码的语法检查和格式化</li>
-<li>GitLens — Git supercharged：Git增强</li>
-<li>koroFileHeader：用于生成文件头部注释和函数注释的插件</li>
-<li>Prettier：代码格式化</li>
-</ul>
-<h2 id="使用-4">使用</h2>
-<p><a href="https://zeyulong.com/posts/a8aab215/#VSCode">常用命令及快捷键</a></p>
 <h2 id="ROS">ROS</h2>
 <ul>
 <li>
@@ -2393,6 +2465,8 @@ source ~/.bashrc  # source ~/.zshrc
 </ol>
 </li>
 </ul>
+<h2 id="使用-4">使用</h2>
+<p><a href="https://zeyulong.com/posts/a8aab215/#VSCode">常用命令及快捷键</a></p>
 <h1 id="微信">微信</h1>
 <ol>
 <li>
@@ -2477,7 +2551,7 @@ source ~/.bashrc  # source ~/.zshrc
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># Linux chown（英文全拼：change owner）命令用于设置文件所有者和文件关联组的命令。</span><br><span class="hljs-comment"># -R : 处理指定目录以及其子目录下的所有文件</span><br><span class="hljs-comment"># 你自己系统的Zotero安装路径。</span><br>sudo <span class="hljs-built_in">chown</span> -R <span class="hljs-variable">$USER</span>:<span class="hljs-variable">$USER</span> /usr/bin/zotero<br>sudo <span class="hljs-built_in">chown</span> -R <span class="hljs-variable">$USER</span>:<span class="hljs-variable">$USER</span> /opt/zotero<br></code></pre></td></tr></table></figure>
 <h3 id="更新插件">更新插件</h3>
 <p>工具-附加组件-右上角设置符号-Check for Updates</p>
-<h1 id="TODO">TODO</h1>
+<h1 id="TODO-2">TODO</h1>
 <blockquote>
 <p>CLI（命令行界面）、GUI（图形用户界面）、TUI（基于文本的用户界面）、Terminal（终端）、Console（控制台）。</p>
 </blockquote>

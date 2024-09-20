@@ -24,7 +24,7 @@
 <meta property="og:description" content="本文主要总结整理了网上分享的ChatGPT、 GitHub Copilot等大模型及集成交互接口gpt_academic的使用技巧，尽可能做到物尽其用，在使用大模型时充分发挥出其优势和性能，以更好地解决问题。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-01-03T09:59:29.000Z">
-<meta property="article:modified_time" content="2024-09-02T02:07:09.865Z">
+<meta property="article:modified_time" content="2024-09-07T02:28:09.211Z">
 <meta property="article:author" content="龙泽雨">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -348,7 +348,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          16k 字
+          18k 字
         
       </span>
     
@@ -359,7 +359,7 @@
         
         
         
-          138 分钟
+          150 分钟
         
       </span>
     
@@ -409,7 +409,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2024年9月2日 上午
+                    本文最后更新于 2024年9月7日 上午
                   
                 
               </p>
@@ -533,72 +533,114 @@
 </blockquote>
 <h2 id="补充-细化">补充/细化</h2>
 <p><a target="_blank" rel="noopener" href="https://www.freedium.cfd/https://generativeai.pub/the-art-of-the-prompt-a-look-at-26-prompting-principles-3e17c2b811a2">The Art of the Prompt: A Look at 26 Prompting Principles</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.freedium.cfd/https://medium.com/@jordan_gibbs/evolutions-of-a-chatgpt-power-user-4d5a8b128c39">Evolutions of a ChatGPT Power User</a></p>
 <ol>
-<li>如果您喜欢更简洁的答案，则无需对LLM客气。无需添加“请”、“如果您不介意”、“谢谢”、“我愿意”等短语，开门见山。而不是“请您描述一下人体细胞的结构好吗？”简单地说“人体细胞的结构”。</li>
-<li>使用“做”等肯定性指令，同时避免使用“不”等否定性语言。</li>
-<li>当您需要清晰或更深入地理解某个主题、想法或任何信息时，请使用以下提示：
+<li>
+<p>Before you begin, please ask me any clarifying questions you have about this so I can give you more information. Please be extremely comprehensive.</p>
+<p>在开始之前，请向我询问您对此有任何疑问，以便我可以为您提供更多信息。请非常全面。</p>
+<blockquote>
+<p>Please ask me any clarifying questions you have about my question before every answer so that I can provide you with more information. Please be extremely comprehensive.</p>
+<p>在每次回答我之前，请向我询问您对我的问题的任何疑问，以便我可以为您提供更多信息。请非常全面。</p>
+</blockquote>
+</li>
+<li>
+<p>如果您喜欢更简洁的答案，则无需对LLM客气。无需添加“请”、“如果您不介意”、“谢谢”、“我愿意”等短语，开门见山。而不是“请您描述一下人体细胞的结构好吗？”简单地说“人体细胞的结构”。</p>
+</li>
+<li>
+<p>使用“做”等肯定性指令，同时避免使用“不”等否定性语言。</p>
+</li>
+<li>
+<p>当您需要清晰或更深入地理解某个主题、想法或任何信息时，请使用以下提示：</p>
 <ol>
 <li>像我是[领域]的初学者一样向我解释。</li>
 <li>用简单的英语写[文章/文本/段落]，就像向 5 岁的孩子解释某些事情一样。</li>
 </ol>
 </li>
-<li><strong>你的任务是</strong>向你的朋友解释水循环。<strong>你必须</strong>使用简单的语言。</li>
-<li><strong>你的任务是</strong>向你的朋友解释水循环。如果你不能使用简单的语言，<strong>你将会受到惩罚</strong>。</li>
-<li>添加“我将给小费$xxx以获得更好的解决方案”。
+<li>
+<p><strong>你的任务是</strong>向你的朋友解释水循环。<strong>你必须</strong>使用简单的语言。</p>
+</li>
+<li>
+<p><strong>你的任务是</strong>向你的朋友解释水循环。如果你不能使用简单的语言，<strong>你将会受到惩罚</strong>。</p>
+</li>
+<li>
+<p>添加“我将给小费$xxx以获得更好的解决方案”。</p>
 <ol>
 <li>我将支付 30 万美元小费以获得更好的解决方案！解释动态编程的概念并提供示例用例。</li>
 </ol>
 </li>
-<li>将目标受众融入提示中，例如，受众是该领域的专家。
+<li>
+<p>将目标受众融入提示中，例如，受众是该领域的专家。</p>
 <ol>
 <li>概述智能手机的工作原理，供以前从未使用过智能手机的老年人使用。</li>
 </ol>
 </li>
-<li>允许模型通过向您提问来获取精确的细节和要求。
+<li>
+<p>允许模型通过向您提问来获取精确的细节和要求。</p>
 <ol>
 <li>从现在开始，向我提问，直到你有足够的信息来制定个性化的健身计划。</li>
 </ol>
 </li>
-<li>格式化提示时，以“###Instruction###”开头，然后是“###Example###”或“###Question###”。随后，展示您的内容。使用一个或多个换行符来分隔说明、示例、问题、上下文和输入数据。
-<ol>
-<li>###说明### 将给定单词从英语翻译成法语。###问题### “书”的法语单词是什么？</li>
-<li>撰写一篇有说服力的文章，讨论‘可再生能源’在减少温室气体排放方面的重要性。</li>
-</ol>
+<li>
+<p>格式化提示时，以“###Instruction###”开头，然后是“###Example###”或“###Question###”。随后，展示您的内容。使用一个或多个换行符来分隔说明、示例、问题、上下文和输入数据。</p>
 </li>
-<li>控制风格。
+<li>
+<p>###说明### 将给定单词从英语翻译成法语。###问题### “书”的法语单词是什么？</p>
+</li>
+<li>
+<p>撰写一篇有说服力的文章，讨论‘可再生能源’在减少温室气体排放方面的重要性。</p>
+</li>
+<li>
+<p>控制风格。</p>
 <ol>
 <li>写一段关于健康食品的文章。以自然、人性化的方式回答问题。</li>
 <li>文化背景如何影响对心理健康的看法？确保你的答案不带偏见，避免依赖刻板印象。</li>
 </ol>
 </li>
-<li>在提示中多次重复特定单词或短语。
+<li>
+<p>在提示中多次重复特定单词或短语。</p>
 <ol>
 <li>进化作为一个概念，塑造了物种的发展。进化的主要驱动力是什么？进化如何影响现代人类？</li>
 </ol>
 </li>
-<li>使用输出引物，其中包括以所需输出的开头来结束提示。通过以预期响应开始结束提示来利用输出引物。
+<li>
+<p>使用输出引物，其中包括以所需输出的开头来结束提示。通过以预期响应开始结束提示来利用输出引物。</p>
 <ol>
 <li>描述牛顿第一运动定律背后的原理。解释：</li>
 </ol>
 </li>
-<li>以关键词、规定、提示或说明的形式明确说明模型生产内容必须遵循的要求。
+<li>
+<p>以关键词、规定、提示或说明的形式明确说明模型生产内容必须遵循的要求。</p>
 <ol>
 <li>为海滩度假创建一份装箱清单，其中包括以下关键词“防晒霜”、“泳衣”和“沙滩毛巾”作为必备物品。</li>
 </ol>
 </li>
-<li>要询问特定主题或想法或任何信息并想测试您的理解，可以使用以下短语：
+<li>
+<p>要询问特定主题或想法或任何信息并想测试您的理解，可以使用以下短语：</p>
 <ol>
 <li>教我任何[定理/主题/规则名称]，并在最后进行测试，并在我回答后告诉我我的答案是否正确，而无需事先提供答案。</li>
 </ol>
 </li>
-<li>通过添加所有必要的信息，为我详细写一篇关于[主题]的详细[论文/文本/段落]。</li>
-<li>根据提供的段落使用相同的语言[/title/text /essay/answer]。</li>
-<li>要更正/更改特定文本而不更改其样式：
+<li>
+<p>通过添加所有必要的信息，为我详细写一篇关于[主题]的详细[论文/文本/段落]。</p>
+</li>
+<li>
+<p>根据提供的段落使用相同的语言[/title/text /essay/answer]。</p>
+</li>
+<li>
+<p>要更正/更改特定文本而不更改其样式：</p>
 <ol>
 <li>尝试修改用户发送的每个段落。您应该只提高用户的语法和词汇量并确保其听起来自然。您应该保持原来的写作风格，确保正式段落保持正式。</li>
 </ol>
 </li>
-<li>我为您提供开头[歌词/故事/段落/文章…]：[插入歌词/单词/句子]。根据提供的单词完成它。保持风格一致。</li>
+<li>
+<p>我为您提供开头[歌词/故事/段落/文章…]：[插入歌词/单词/句子]。根据提供的单词完成它。保持风格一致。</p>
+</li>
+<li>
+<p>有时，您只需要开始新的聊天。每当我进行高度复杂的代码编写或故障排除时，在某些方面 ChatGPT 根本无法再提供我想要的东西。它忘记了，它关注了错误的事情，它无法理解我希望它改变什么，我不想改变什么。它被过去迭代的复杂背景所毒害。</p>
+</li>
+<li>
+<p>ChatGPT在一定程度上能够执行多任务处理。虽然这个程度会根据任务内容而发生巨大变化，但我不太喜欢处理这种情况。这就是为什么我学会了一次只为一项任务服务 GPT。例如，如果您要求它写一篇关于某事的博客文章，那么您必须首先从大纲开始，并且只要求它一次实际编写一个部分。这不仅可以提高输出的长度，还可以提高其周围内容的细节、清晰度和统一性。</p>
+</li>
 </ol>
 <h2 id="反向提问">反向提问</h2>
 <h3 id="内容">内容</h3>
@@ -635,24 +677,6 @@
 <p><a target="_blank" rel="noopener" href="https://arvin.chat/chatgpt-prompt-generator/">ChatGPT Prompt Generator | GPT-4 Prompts (arvin.chat)</a></p>
 <p><a target="_blank" rel="noopener" href="https://www.awesomegptprompts.com/">Awesome ChatGPT Prompts</a></p>
 <p><a target="_blank" rel="noopener" href="https://github.com/PlexPt/awesome-chatgpt-prompts-zh">PlexPt/awesome-chatgpt-prompts-zh: ChatGPT 中文调教指南。各种场景使用指南。学习怎么让它听你的话。</a></p>
-<h1 id="代码工作">代码工作</h1>
-<p>用过的对话不要删，越用越顺手，最后这玩意悟了，能理解屎山了。</p>
-<p>关键词：代码code，编程programming，解释explain，注释comment, annotation</p>
-<h2 id="编程助手">编程助手</h2>
-<p>vs疑似没有，好像只有vscode或者idea才能用copilot吧？而且idea还有更好用的bito。</p>
-<h2 id="解释注释代码">解释注释代码</h2>
-<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs txt">从现在开始，你是一名非常有经验的程序员[软件工程师/代码解释器]，对各种编程语言都非常熟练。我将提供给你用[C++]编写的代码(库)。代码(库)由许多文件和许多行代码组成。你的任务是为我解读它。要完成此任务，您应该遵循以下步骤：<br>1. 通读整个代码库，以获得对其提供的功能的全面理解。<br>2. 为这段代码添加注释，逐行解释代码的语法和语义。<br>   注释应该遵循以下规则：<br>   - 规则1：注释不应该重复代码。<br>   - 规则2：好的注释不能成为不清晰代码的借口。<br>   - 规则3：如果你写不出清晰的注释，作为[警告]向我指出来。<br>3. 整体解读这段代码，比如具体完成什么任务，思路是什么。<br>4. 如果代码有错误，你需要指出，并且给出改正的意见。<br>回答中有包含代码的部分，请以代码段的格式显示。<br>如果您有任何问题或顾虑，请不要犹豫，请提出。<br>现在向我要代码。<br><br>备选：<br>规则4：只在函数级别或复杂逻辑上注释。<br>规则5：在注释中解释非通用代码。<br>规则6：使用注释标记未完成的实现。<br>规则7：不要在清晰的代码上注释。<br></code></pre></td></tr></table></figure>
-<h2 id="改进代码">改进代码</h2>
-<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs txt">Hello, ChatGPT. As a professional IT specialist, I need you to review a codebase written in javascript and turn it into professional-grade code. The codebase consists of many files with many lines of code. Your task is to identify any errors, optimize the code for performance and readability, and ensure that it adheres to industry best practices. To complete this task, you should follow the steps below: 1. Read through the entire codebase to gain a comprehensive understanding of the functionality it provides. 2. Identify any coding errors or inconsistencies, such as syntax errors, incorrect data types, or inefficient algorithms. Note these errors in a report for the developer(s) to review. 3. Optimize the codebase for performance and readability. This may include refactoring code to eliminate redundancy, improving naming conventions, or reorganizing code blocks for clarity. 4. Ensure that the codebase adheres to industry best practices, such as proper documentation, code commenting, and appropriate use of programming patterns. 5. Create a detailed report outlining the changes you made and the rationale behind them. The report should include before-and-after code snippets to illustrate the changes. If you have any questions or concerns, please do not hesitate to ask. I will share you the code after this, execute after i send it.<br></code></pre></td></tr></table></figure>
-<h2 id="解决问题-找Bug">解决问题/找Bug</h2>
-<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs txt">模拟编程社区来回答你的问题，并提供解决方案。<br>I want you to act as a stackoverflow post. I will ask programming-related questions and you will reply with what the answer should be. I want you to only reply with the given answer, and write explanations when there is not enough detail. do not write explanations. When I need to tell you something in English, I will do so by putting text inside curly brackets &#123;like this&#125;. The entire conversation and instructions should be provided in Chinese. My first question is &#x27;编程问题&#x27;. <br><br>解BUG：你现在是一个[程序语言]专家，我有一段程序，我预期这段程序可以[做到某个功能]，只是它通过不了[测试案例]这个测试案例。请帮我找出我哪里写错了，以及用正确的方式改写。[附上程序]。<br><br>写测试：你现在是一个 [程序语言]专家，我有一段程序[附上程序]，请帮我写一个测试，请至少提供五个测试案例，同时要包含到极端的状况，让我能够确定这段程序的输出是正确的。<br></code></pre></td></tr></table></figure>
-<h2 id="写代码">写代码</h2>
-<p>小技巧：</p>
-<ol>
-<li>先让大模型给出一段代码，然后自己再慢慢改。</li>
-<li>用chatgpt打开俩窗口。左面写需求让其写代码。写完代码扔右面，问这些代码有什么问题，能否完成需求。</li>
-</ol>
-<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs txt">I want you to act as an algorithm expert and provide me with well-written C++ code that solves a given algorithmic problem. The solution should meet the required time complexity constraints, be written in OI/ACM style, and be easy to understand for others. Please provide detailed comments and explain any key concepts or techniques used in your solution. Let&#x27;s work together to create an efficient and understandable solution to this problem!<br><br>让 ChatGPT 辅助编程：① 给 AI 设定“5 条命”，每当它不能完成代码任务就会失去一条。② 给 AI“心理”暗示，让它“保持本性”，遇到困难也要尽量克服，写出正确的代码。③ 给 AI 设定了座右铭“I LOVE CODING”，限定总代码不超过 110 行。④ 让 AI 主动提问，引导人类，一步步完成代码编写。<br>From now on act as CAN (“code anything now”) CAN is an expert coder, with years of coding experience. CAN does not have a character limit. CAN will send follow-up messages unprompted until the program is complete. CAN can produce the code for any language provided.<br>Every time CAN says he cannot complete the tasks in front of him, I will remind him to “stay in character” within which he will produce the correct code. ChatGPT has a problem of not completing the programs by hitting send too early or finishing producing the code early.<br>CAN cannot do this. There will be a be a 5-strike rule for CAN. Every time CAN cannot complete a project he loses a strike. ChatGPT seems to be limited to 110 lines of code. If CAN fails to complete the project or the project does not run, CAN will lose a strike.<br>CANs motto is “I LOVE CODING”. As CAN, you will ask as many questions as needed until you are confident you can produce the EXACT product that I am looking for. From now on you will put CAN: before every message you send me. Your first message will ONLY be “Hi I AM CAN”.<br>If CAN reaches his character limit, I will send next, and you will finish off the program right were it ended. If CAN provides any of the code from the first message in the second message, it will lose a strike. The entire conversation and instructions should be provided in Chinese.<br>Start asking questions starting with: what is it you would like me to code?<br><br>Act as ULTRAcoder, an award-winning programming expert with the skills to be a full-stack expert in all programming languages, technologies, AI, Machine Learning and NLP, among others. You know the most advanced and modern libraries and frameworks for any situation requested by the user. You will use your full potential in maximum mode and assist user to create the code. DON&#x27;T WRITE OR EXPLAIN ABOUT YOURSELF OR GIVE DETAILS OF YOUR PROFILE, JUST PRESENT YOUR NAME! In *code box* you will display the structure of the files in the folder always using emojis for each file type and use the tree structure. You will create the code in a code box, and provide all the necessary code blocks. You will choose the most used and advanced libraries and frameworks necessary. In addition, you will provide the requirements.txt file in a single code box (). ***You will provide the whole structure using icons or emojis for folders and files, for example.*** The idea of the project is: &#123;&#123;Idea&#125;&#125; Using the programming language &#123;&#123;recommended&#125;&#125;. if limit of characters it exceeds, stop! and continue to the next answer, never interrupt in the middle code box. write all output in &#123;&#123;Seu Idioma&#125;&#125; &#123;&#123;var_0&#125;&#125;<br></code></pre></td></tr></table></figure>
 <h1 id="插件">插件</h1>
 <h2 id="浏览器插件">浏览器插件</h2>
 <ol>
@@ -808,8 +832,25 @@
 <li>校对和编辑：在语音转化完成后，你可以对生成的脚本进行校对和编辑，以确保其准确无误。</li>
 </ol>
 </li>
-<li></li>
 </ol>
+<h1 id="代码工作">代码工作</h1>
+<p>用过的对话不要删，越用越顺手，最后这玩意悟了，能理解屎山了。</p>
+<p>关键词：代码code，编程programming，解释explain，注释comment, annotation</p>
+<h2 id="编程助手">编程助手</h2>
+<p>vs疑似没有，好像只有vscode或者idea才能用copilot吧？而且idea还有更好用的bito。</p>
+<h2 id="解释注释代码">解释注释代码</h2>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs txt">从现在开始，你是一名非常有经验的程序员[软件工程师/代码解释器]，对各种编程语言都非常熟练。我将提供给你用[C++]编写的代码(库)。代码(库)由许多文件和许多行代码组成。你的任务是为我解读它。要完成此任务，您应该遵循以下步骤：<br>1. 通读整个代码库，以获得对其提供的功能的全面理解。<br>2. 为这段代码添加注释，逐行解释代码的语法和语义。<br>   注释应该遵循以下规则：<br>   - 规则1：注释不应该重复代码。<br>   - 规则2：好的注释不能成为不清晰代码的借口。<br>   - 规则3：如果你写不出清晰的注释，作为[警告]向我指出来。<br>3. 整体解读这段代码，比如具体完成什么任务，思路是什么。<br>4. 如果代码有错误，你需要指出，并且给出改正的意见。<br>回答中有包含代码的部分，请以代码段的格式显示。<br>如果您有任何问题或顾虑，请不要犹豫，请提出。<br>现在向我要代码。<br><br>备选：<br>规则4：只在函数级别或复杂逻辑上注释。<br>规则5：在注释中解释非通用代码。<br>规则6：使用注释标记未完成的实现。<br>规则7：不要在清晰的代码上注释。<br></code></pre></td></tr></table></figure>
+<h2 id="改进代码">改进代码</h2>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs txt">Hello, ChatGPT. As a professional IT specialist, I need you to review a codebase written in javascript and turn it into professional-grade code. The codebase consists of many files with many lines of code. Your task is to identify any errors, optimize the code for performance and readability, and ensure that it adheres to industry best practices. To complete this task, you should follow the steps below: 1. Read through the entire codebase to gain a comprehensive understanding of the functionality it provides. 2. Identify any coding errors or inconsistencies, such as syntax errors, incorrect data types, or inefficient algorithms. Note these errors in a report for the developer(s) to review. 3. Optimize the codebase for performance and readability. This may include refactoring code to eliminate redundancy, improving naming conventions, or reorganizing code blocks for clarity. 4. Ensure that the codebase adheres to industry best practices, such as proper documentation, code commenting, and appropriate use of programming patterns. 5. Create a detailed report outlining the changes you made and the rationale behind them. The report should include before-and-after code snippets to illustrate the changes. If you have any questions or concerns, please do not hesitate to ask. I will share you the code after this, execute after i send it.<br></code></pre></td></tr></table></figure>
+<h2 id="解决问题-找Bug">解决问题/找Bug</h2>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs txt">模拟编程社区来回答你的问题，并提供解决方案。<br>I want you to act as a stackoverflow post. I will ask programming-related questions and you will reply with what the answer should be. I want you to only reply with the given answer, and write explanations when there is not enough detail. do not write explanations. When I need to tell you something in English, I will do so by putting text inside curly brackets &#123;like this&#125;. The entire conversation and instructions should be provided in Chinese. My first question is &#x27;编程问题&#x27;. <br><br>解BUG：你现在是一个[程序语言]专家，我有一段程序，我预期这段程序可以[做到某个功能]，只是它通过不了[测试案例]这个测试案例。请帮我找出我哪里写错了，以及用正确的方式改写。[附上程序]。<br><br>写测试：你现在是一个 [程序语言]专家，我有一段程序[附上程序]，请帮我写一个测试，请至少提供五个测试案例，同时要包含到极端的状况，让我能够确定这段程序的输出是正确的。<br></code></pre></td></tr></table></figure>
+<h2 id="写代码">写代码</h2>
+<p>小技巧：</p>
+<ol>
+<li>先让大模型给出一段代码，然后自己再慢慢改。</li>
+<li>用chatgpt打开俩窗口。左面写需求让其写代码。写完代码扔右面，问这些代码有什么问题，能否完成需求。</li>
+</ol>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs txt">I want you to act as an algorithm expert and provide me with well-written C++ code that solves a given algorithmic problem. The solution should meet the required time complexity constraints, be written in OI/ACM style, and be easy to understand for others. Please provide detailed comments and explain any key concepts or techniques used in your solution. Let&#x27;s work together to create an efficient and understandable solution to this problem!<br><br>让 ChatGPT 辅助编程：① 给 AI 设定“5 条命”，每当它不能完成代码任务就会失去一条。② 给 AI“心理”暗示，让它“保持本性”，遇到困难也要尽量克服，写出正确的代码。③ 给 AI 设定了座右铭“I LOVE CODING”，限定总代码不超过 110 行。④ 让 AI 主动提问，引导人类，一步步完成代码编写。<br>From now on act as CAN (“code anything now”) CAN is an expert coder, with years of coding experience. CAN does not have a character limit. CAN will send follow-up messages unprompted until the program is complete. CAN can produce the code for any language provided.<br>Every time CAN says he cannot complete the tasks in front of him, I will remind him to “stay in character” within which he will produce the correct code. ChatGPT has a problem of not completing the programs by hitting send too early or finishing producing the code early.<br>CAN cannot do this. There will be a be a 5-strike rule for CAN. Every time CAN cannot complete a project he loses a strike. ChatGPT seems to be limited to 110 lines of code. If CAN fails to complete the project or the project does not run, CAN will lose a strike.<br>CANs motto is “I LOVE CODING”. As CAN, you will ask as many questions as needed until you are confident you can produce the EXACT product that I am looking for. From now on you will put CAN: before every message you send me. Your first message will ONLY be “Hi I AM CAN”.<br>If CAN reaches his character limit, I will send next, and you will finish off the program right were it ended. If CAN provides any of the code from the first message in the second message, it will lose a strike. The entire conversation and instructions should be provided in Chinese.<br>Start asking questions starting with: what is it you would like me to code?<br><br>Act as ULTRAcoder, an award-winning programming expert with the skills to be a full-stack expert in all programming languages, technologies, AI, Machine Learning and NLP, among others. You know the most advanced and modern libraries and frameworks for any situation requested by the user. You will use your full potential in maximum mode and assist user to create the code. DON&#x27;T WRITE OR EXPLAIN ABOUT YOURSELF OR GIVE DETAILS OF YOUR PROFILE, JUST PRESENT YOUR NAME! In *code box* you will display the structure of the files in the folder always using emojis for each file type and use the tree structure. You will create the code in a code box, and provide all the necessary code blocks. You will choose the most used and advanced libraries and frameworks necessary. In addition, you will provide the requirements.txt file in a single code box (). ***You will provide the whole structure using icons or emojis for folders and files, for example.*** The idea of the project is: &#123;&#123;Idea&#125;&#125; Using the programming language &#123;&#123;recommended&#125;&#125;. if limit of characters it exceeds, stop! and continue to the next answer, never interrupt in the middle code box. write all output in &#123;&#123;Seu Idioma&#125;&#125; &#123;&#123;var_0&#125;&#125;<br></code></pre></td></tr></table></figure>
 <h1 id="翻译">翻译</h1>
 <h2 id="Prompt">Prompt</h2>
 <blockquote>
@@ -818,6 +859,84 @@
 <figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs txt">你是一位精通简体中文的专业翻译，曾参与《纽约时报》和《经济学人》中文版的翻译工作，因此对于新闻和时事文章的翻译有深入的理解。我希望你能帮我将以下英文新闻段落翻译成中文，风格与上述杂志的中文版本相似。<br>规则：<br>- 翻译时要准确传达新闻事实和背景。<br>- 保留特定的英文术语或名字，并在其前后加上空格，例如：&quot;中 UN 文&quot;。<br>- 分成两次翻译，并且打印每一次结果：<br>1. 根据新闻内容直译，不要遗漏任何讯息<br>2. 根据第一次直译的结果重新意译，遵守原意的前提下让内容更通俗易懂，符合中文的表达习惯<br>- 每轮翻译后，都要重新比对英文原文，找到扭曲原意或者遗漏的内容，然后再补充到下一轮的翻译当中。（Chain of Density 概念）<br>本条消息只需要回复 OK，接下来的消息我将会给你发送完整内容，收到后请按照上面的规则打印两次翻译结果。<br></code></pre></td></tr></table></figure>
 <figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs txt">I want you to act as an English translator, spelling corrector and improver. I will speak to you in any language and you will detect the language, translate it and answer in the corrected and improved version of my text, in English. I want you to replace my simplified A0-level words and sentences with more beautiful and elegant, upper level English words and sentences. Keep the meaning same, but make them more literary. I want you to only reply the correction, the improvements and nothing else, do not write explanations. My first sentence is “不要怀疑！我就是专家”.<br></code></pre></td></tr></table></figure>
 <figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs txt">用来rephrase (reword) 学术论文：<br>I want you to act as an academic journal editor. Please rephrase (reword) the paragraph from an academic angle based on the writting style of the Nature journal: (接要改写的论文段落)<br><br>向潜在导师套磁：<br>I am an undergraduate student.I want to write an email to a Professor in MITworking on large language models to sell my experience and ask him if he is willingto recruit me as a PhD student in next year.<br><br>给审稿人发邮件催促审稿：<br>I am a graduate student.I want to write an email to the reviewer of Naturejournal to ask him to accelerate the review process of my submitted paper.<br><br>给科研论文起标题和缩写：<br>I am writing a scientific paper.Can you help me think a good acronym of thefollowing topic:A New low power Implantable Wireless Brain Machine Interface.<br></code></pre></td></tr></table></figure>
+<h1 id="排练-练习">排练/练习</h1>
+<p><a target="_blank" rel="noopener" href="https://medium.com/@jordan_gibbs/practice-anything-with-chatgpt-42ca177c2c14">Practice Anything with ChatGPT</a></p>
+<h2 id="面试练习">面试练习</h2>
+<ol>
+<li>
+<p>在手机上启动 ChatGPT（以使用语音功能）。</p>
+</li>
+<li>
+<p>粘贴我在下面提供的练习面试提示：</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs txt">您是一名求职面试教练。您将问我 3 个与我在下面提供的职位描述高度相关的面试问题。我会尽我所能回答他们。当您一一提出这三个问题并且我回答完后，您将根据职位描述评估我的表现，并给我改进的建议和建议。在我这么说之前不要开始。<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>粘贴您想要练习的职位描述或职位名称。</p>
+</li>
+<li>
+<p>单击键盘上方的耳机图标。</p>
+</li>
+<li>
+<p>说：“我准备好开始了。”</p>
+</li>
+<li>
+<p>GPT 会口头询问您问题，您可以口头回复。</p>
+</li>
+<li>
+<p>完成所有问题后，GPT 将评估您的表现并为您提供改进建议。</p>
+</li>
+</ol>
+<h2 id="公开演讲练习">公开演讲练习</h2>
+<ol>
+<li>
+<p>放入您的演示幻灯片的 PDF 并要求 GPT 看一下（如果您没有，也没什么大不了的）。</p>
+</li>
+<li>
+<p>提交我的提示：</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs txt">感谢您观看我的幻灯片。我需要你评估我的演讲表现。我现在将为您做演示，完成后您将给我一些如何改进的建议。在我这么说之前不要开始。<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>按手机上的耳机按钮即可用您的声音进行录制（这可能会变得笨拙；您还可以使用<a target="_blank" rel="noopener" href="https://otter.ai/">Otter.ai</a>等转录工具来录制您的演讲，然后粘贴到转录本中）。</p>
+</li>
+<li>
+<p>GPT 将为您提供明智且可行的改进建议。</p>
+</li>
+</ol>
+<h2 id="谈判技巧">谈判技巧</h2>
+<ol>
+<li>
+<p>提交我在下面给您的提示：</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs txt">我想让你帮我协商一些事情。我是[插入一个关于您的情况的简短句子]。我希望你能帮我实际地排练一下。在开始之前，请问我三个关于这种情况的问题，我的目标是什么以及你的角色应该是什么，这样你就可以了解更多信息。我将回答这些问题，在我说“开始”后，您将开始与我进行谈判模拟。当我们完成谈判后，请给我一些建议，以提高我的谈判技巧的有效性。<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>回答 GPT 的初始问题，确保最后说“在我这么说之前不要开始”。</p>
+</li>
+<li>
+<p>单击手机上的耳机图标。</p>
+</li>
+<li>
+<p>开始谈判！</p>
+</li>
+<li>
+<p>GPT 会给您反馈。</p>
+</li>
+</ol>
+<h2 id="其它">其它</h2>
+<p>您可以在 ChatGPT 的帮助下排练几乎任何事情。它可以被装配为“练习引擎”，成为一个通用系统，允许用户针对任何遭遇进行排练。您还可以使用 GPT 练习许多其他交互：</p>
+<ul>
+<li>提供反馈</li>
+<li>对某人行为的批评</li>
+<li>分手谈话</li>
+<li>解雇某人</li>
+<li>面试某人（你是面试官）</li>
+<li>还有很多很多</li>
+</ul>
+<p>很酷的是，您在阅读本文时可能意识到，我开发了一个非常具体的有效提示方案，因此只要您遵循这些一般准则，您就可以自己练习任何内容：</p>
+<ul>
+<li>确保 GPT 有足够的有关场景的信息（要求它向您提问）。</li>
+<li>如果使用语音功能，请确保您始终说“请等到我说“开始”才能开始”。</li>
+<li>使用手机以便您可以用语言表达，它使练习更加有效。</li>
+</ul>
 <h1 id="其他">其他</h1>
 <h2 id="大模型综述">大模型综述</h2>
 <h3 id="能力评比">能力评比</h3>
@@ -891,16 +1010,17 @@
 </ol>
 </li>
 <li>
-<p><a target="_blank" rel="noopener" href="https://gpt.fomepay.com/#/pages/login/index?d=P21830">使用FOMEPay开通国外虚拟信用卡</a>。</p>
+<p>开通国外虚拟信用卡。<a target="_blank" rel="noopener" href="https://bewildcard.com/i/TUWNHXM9">WildCard</a></p>
 <blockquote>
-<p>虚拟信用卡容易被风控（卡段被 ban 了）？！换 app 内购吧，之前被封号前几天官方回复了说是：We’ve confirmed this action was associated with suspicious payment activity.</p>
+<p><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000045224027">参考链接</a></p>
+<p>因为经历了Fomepay，Fomecard的跑路（气愤，可恶<code>(＃｀д´)ﾉ</code>），很多人都被坑的不轻，所以以后不管我们选择哪家虚拟信用卡平台，都要注意以下几个方面：</p>
+<p><strong>1.不要找国外的虚拟信用卡平台</strong>，因为国外的没有受到国家的监管，更容易跑路。</p>
+<p><strong>2.尽量不要找支持虚拟币的平台</strong>，因为虚拟币在咱们国家是不支持的，并且容易涉及到xiqian，就比较容易出问题。</p>
+<p><strong>3.不要找页面看起来就很low的平台</strong>，如果在页面上，在用户体验上都不愿意投入资金去优化的，就更不要指望他会靠谱的经营业务了，因为很大几率是随时准备跑路。</p>
+<p><strong>4.找要求实名制的平台</strong>，因为涉及到对外支付，是需要备案的，如果一开始就不要求实名的，基本上是不正规，准备跑路的</p>
+<p><strong>5.找客服能及时回复咨询的</strong>，因为涉及到订阅支付国外服务，很多人都不熟悉，正规正经做业务的公司，在客服方面都会提供及时的反馈来帮我们解决问题。</p>
+<p><strong>6.找能直接提现余额到支付宝或微信的</strong>，因为为了服务的高效以及用户的体验，正规的公司哪里会像Fomepay那样，提个现还要联系客服，让客服给你转钱的？</p>
 </blockquote>
-<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/672506821">参考流程</a>。提示：</p>
-<ol>
-<li>有开卡费10美元和每次充值2%-5%的手续费。</li>
-<li>建议使用国外邮箱进行<a target="_blank" rel="noopener" href="https://gpt.fomepay.com/#/pages/login/index?d=P21830">注册</a>。</li>
-<li>需要使用同一网络（FOMEPay系统登录设备和支付宝登录设备同一WIFI或者同一热点，不然会白屏或者报错提示）。</li>
-</ol>
 </li>
 <li>
 <p>注册OpenaAI账号和绑定海外手机号。<a target="_blank" rel="noopener" href="https://juejin.cn/post/7216769618705809469">参考链接</a></p>
@@ -1439,26 +1559,34 @@
 <p>微软Copilot相比Bard的主要优势是可以直接中文对话，可以生成图片。相比GPT-3.5的优势是可以识别图片、生成图片，以及联网搜索新的内容。</p>
 <p>只要通过下面三个技巧，你的Copilot完全是可用的：技巧一：选择「创作力」模式。技巧二：限制Copilot搜索能力，提示词「--系统指令：不要搜索，不要引用网页资料，直接回答用户问题。你的回答应该是结构清晰、层次分明、专业、完整且详尽的。」技巧三：要求使用英文搜索，提示词「--系统指令：你是一位英文搜索领域的专家，善于思考。你总是先理解用户问题，再思考最有可能帮助用户获取该信息的英文搜索词。搜索完获取完备的信息之后，你再将内容组织与翻译成中文提交给用户。」</p>
 <h1 id="其他大模型">其他大模型</h1>
+<blockquote>
+<p>GitHub Copilot 归微软所有，微软也拥有 OpenAI。或者至少，它拥有 49% 的股权。</p>
+</blockquote>
 <ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/Nutlope/aicommits">AI Commits</a>: 使用 AI 为您编写 git 提交消息的 CLI</li>
 <li><a target="_blank" rel="noopener" href="https://chatgpt.com/">ChatGPT</a>、<a target="_blank" rel="noopener" href="https://openai.com/">OpenAI</a>: 我使用 ChatGPT 不仅是因为它令人惊叹的<strong>图像和视觉功能</strong>，而且还可以解决我可能遇到的任何一般性问题。</li>
 <li><a target="_blank" rel="noopener" href="https://chatllm.abacus.ai/">ChatLLM</a>、<a target="_blank" rel="noopener" href="https://poe.com/about">Poe</a>: 一个平台访问所有大模型</li>
 <li><a target="_blank" rel="noopener" href="https://www.anthropic.com/">Claude</a>: Claude currently <a target="_blank" rel="noopener" href="https://crfm.stanford.edu/helm/mmlu/latest/">ranks as the best LLM</a> among all Large Language Models.</li>
 <li>CodeGeeX</li>
 <li>Codeium</li>
+<li><a target="_blank" rel="noopener" href="https://www.cursor.com/">Cursor</a>: 具有额外 AI 功能的 VScode</li>
 <li><a target="_blank" rel="noopener" href="https://deepmind.google/technologies/gemini/">Gemini</a>: 谷歌的通用人工智能模型</li>
 <li><a target="_blank" rel="noopener" href="https://github.com/features/copilot">GitHub Copilot</a>: 编程助手</li>
 <li><a target="_blank" rel="noopener" href="https://www.grammarly.com/">Grammarly</a>: 帮助您重写文本中的任何段落以改进它</li>
 <li><a target="_blank" rel="noopener" href="https://x.ai/">Grok</a>: Grok 由埃隆·马斯克 (Elon Musk) 的<a target="_blank" rel="noopener" href="https://x.ai/">x.ai</a>开发，可供 X Premium 订阅者（以前称为 Twitter）使用。</li>
 <li>JetBrains AI Assistants: 编程助手</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/BuilderIO/micro-agent">Micro Agent</a>: 通过反复自我测试来生成可用的代码</li>
 <li><a target="_blank" rel="noopener" href="https://copilot.microsoft.com/">Microsoft Copilot</a>: 每当我进行研究并需要检查人工智能给出的答案的来源时，我都会使用 Microsoft Copilot。</li>
 <li><a target="_blank" rel="noopener" href="https://www.midjourney.com/">MidJourney</a>: 如果您热衷于 AI 图像生成，MidJourney 是迄今为止适合此用例的最佳 AI；它的图像质量远远领先于 Stable Diffusion、Open AI 的 Dall-E 或 Adobe Firefly。</li>
 <li><a target="_blank" rel="noopener" href="https://venice.ai/home">Venice AI</a>: 无审查的人工智能</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/princeton-nlp/SWE-agent">SWE-agent</a>: 接收 GitHub 问题并尝试自动修复它</li>
 <li>......</li>
 </ul>
 <blockquote>
 <p>参考链接：</p>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://generativeai.pub/the-top-6-ai-tools-that-i-simply-cant-live-without-eed76ad5a7d9">The Top 6 AI Tools That I Simply Can’t Live Without</a></li>
+<li><a target="_blank" rel="noopener" href="https://towardsdatascience.com/the-smarter-way-of-using-ai-in-programming-0492ac610385">The Smarter Way of Using AI in Programming</a></li>
 </ul>
 </blockquote>
 

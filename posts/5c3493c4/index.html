@@ -24,7 +24,7 @@
 <meta property="og:description" content="本文主要分享了在Linux下Eigen库的安装与版本管理。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-01-10T14:05:21.000Z">
-<meta property="article:modified_time" content="2024-08-30T07:45:18.420Z">
+<meta property="article:modified_time" content="2024-09-05T02:12:19.257Z">
 <meta property="article:author" content="龙泽雨">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -409,7 +409,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2024年8月30日 下午
+                    本文最后更新于 2024年9月5日 上午
                   
                 
               </p>
@@ -426,7 +426,9 @@
 <p>查看当前版本：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">gedit /usr/include/eigen3/Eigen/src/Core/util/Macros.h  <span class="hljs-comment"># 或</span><br>sed -n <span class="hljs-string">&#x27;10,20p&#x27;</span> /usr/include/eigen3/Eigen/src/Core/util/Macros.h  <span class="hljs-comment"># 将Macros.h文件的第10-20行打印到终端</span><br></code></pre></td></tr></table></figure>
 <h2 id="利用源码进行安装">利用源码进行安装</h2>
+<blockquote>
 <p>这里我是在之前已经通过<code>apt-get</code>在<code>/usr/include/eigen3</code>里安装了<code>Eigen3.4.0</code>的基础上安装配置<code>Eigen3.3.0</code>。</p>
+</blockquote>
 <ol>
 <li>
 <p>在<code>/usr/include</code>新建文件夹，等会用来存放Eigen的编译生成的文件：</p>
@@ -456,7 +458,7 @@
 </li>
 </ol>
 <h1 id="版本管理">版本管理</h1>
-<h2 id="CMakeLists-txt文件指定"><code>CMakeLists.txt</code>文件指定</h2>
+<h2 id="CMakeLists-txt文件指定">CMakeLists.txt文件指定</h2>
 <p>这是最简单的一种方法，也方便解决在一个项目中不同包需要的Eigen3版本不同的问题。</p>
 <p>自己花了不短的时间摸索出的-_-，还是对cmake的原理（内部调用关系）认识不足。</p>
 <p>直接在项目的<code>CMakeLists.txt</code>文件中指定你想使用的Eigen版本的路径：</p>
@@ -487,7 +489,7 @@
 </ol>
 <p>如果以上步骤都不能解决问题，你可能需要更深入地检查你的项目配置和环境设置。</p>
 </blockquote>
-<h2 id="替换eigen3文件夹">替换<code>eigen3</code>文件夹</h2>
+<h2 id="替换eigen3文件夹">替换eigen3文件夹</h2>
 <blockquote>
 <p>使用该方法的前提是[利用apt-get进行安装](# 利用apt-get进行安装)了Eigen，也就是在系统目录<code>/usr/include/eigen3</code>下有Eigen的源文件，<code>/usr/share/eigen3/cmake</code>下有Eigen的<code>*.cmake*</code>文件，<code>/usr/share/pkgconfig</code>下有<code>eigen3.pc</code>。</p>
 </blockquote>
@@ -511,6 +513,9 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo gedit /usr/share/pkgconfig/eigen3.pc<br><span class="hljs-comment"># 把Line 7 改为Version: 3.4.0</span><br><span class="hljs-built_in">cd</span> /usr/include<br>sudo <span class="hljs-built_in">mv</span> eigen3 eigen330  <span class="hljs-comment"># 把eigen3重命名为eigen330</span><br>sudo <span class="hljs-built_in">mv</span> eigen340 eigen3  <span class="hljs-comment"># 把eigen340重命名为eigen3</span><br><span class="hljs-comment"># 此时/usr/include目录下有文件夹eigen3(3.4.0)和eigen330</span><br><br><span class="hljs-comment"># 查看当前版本</span><br>gedit /usr/include/eigen3/Eigen/src/Core/util/Macros.h  <span class="hljs-comment"># 或</span><br>sed -n <span class="hljs-string">&#x27;10,20p&#x27;</span> /usr/include/eigen3/Eigen/src/Core/util/Macros.h  <span class="hljs-comment"># 将Macros.h文件的第10-20行打印到终端</span><br></code></pre></td></tr></table></figure>
 <blockquote>
 <p>当然，你也可以使用建立<code>eigen3</code>文件夹的软链接的方式，而不是替换文件夹。效果/目的都是一样的。</p>
+</blockquote>
+<blockquote>
+<p>你也可以把安装在<code>/usr/local/</code>里的Eigen3调用过来，殊途同归。</p>
 </blockquote>
 <h1 id="参考链接">参考链接</h1>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_42265301/article/details/121984300">Eigen3多版本切换</a></p>

@@ -24,7 +24,7 @@
 <meta property="og:description" content="本文主要分享了自己在编译运行论文《Ultimate SLAM? Combining Events, Images, and IMU for Robust Visual SLAM in HDR and High Speed Scenarios》的源代码时的调试记录，下面简称为UltimateSLAM。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-02-07T04:25:36.000Z">
-<meta property="article:modified_time" content="2024-03-21T08:14:28.416Z">
+<meta property="article:modified_time" content="2024-10-16T02:39:08.927Z">
 <meta property="article:author" content="龙泽雨">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -348,7 +348,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          4.2k 字
+          4.3k 字
         
       </span>
     
@@ -409,7 +409,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2024年3月21日 下午
+                    本文最后更新于 2024年10月16日 上午
                   
                 
               </p>
@@ -531,7 +531,7 @@
 <h3 id="使用事件-帧-IMU">使用事件+帧+IMU</h3>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">source</span> ./devel/setup.zsh &amp;&amp; roslaunch ze_vio_ceres ijrr17.launch bag_filename:=dynamic_6dof.bag<br><br><span class="hljs-built_in">source</span> ./devel/setup.zsh &amp;&amp; roslaunch ze_vio_ceres ijrr17.launch bag_filename:=shapes_6dof.bag<br></code></pre></td></tr></table></figure>
 <p>启动时，应该会弹出一个 RVIZ 窗口，显示当前估计的轨迹和点云。</p>
-<p>IMU同步和校准问题引起的运行时系统崩溃（失败，未找到好的解决办法）：更改Opencv或Eigen的版本。</p>
+<p>IMU 同步和校准问题引起的运行时系统崩溃（失败，未找到好的解决办法）：更改Opencv或Eigen的版本。</p>
 <ul>
 <li>
 <p>尝试：</p>
@@ -549,6 +549,10 @@
 <p><a target="_blank" rel="noopener" href="https://github.com/uzh-rpg/rpg_ultimate_slam_open/issues/10">https://github.com/uzh-rpg/rpg_ultimate_slam_open/issues/10</a></p>
 </li>
 </ul>
+<blockquote>
+<p>可以尝试手动播放 rosbag：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">source</span> ./devel/setup.zsh &amp;&amp; roslaunch ze_vio_ceres  live_DAVIS240C.launch camera_name:=DAVIS-IJRR17<br><span class="hljs-built_in">source</span> ./devel/setup.zsh &amp;&amp; rosbag play -r 0.5 dynamic_6dof.bag<br></code></pre></td></tr></table></figure>
+</blockquote>
 <p>恭喜你！你已准备好<a href="Run-Live-Demo.md">实时运行 UltimateSLAM</a>。</p>
 <h1 id="相机校准">相机校准</h1>
 <p>本页提供了执行相机校准的一些指导，即估算你的事件相机的内参，以及事件相机与 IMU 之间的外参校准。</p>

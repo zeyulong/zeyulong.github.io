@@ -26,7 +26,7 @@
 <meta property="og:image" content="http://zeyulong.com/posts/a8aab215/vi-vim-cheat-sheet-sch.gif">
 <meta property="og:image" content="http://zeyulong.com/posts/a8aab215/vim-vi-workmodel.png">
 <meta property="article:published_time" content="2024-03-05T14:33:19.000Z">
-<meta property="article:modified_time" content="2024-09-18T11:52:43.743Z">
+<meta property="article:modified_time" content="2024-10-16T09:08:44.388Z">
 <meta property="article:author" content="龙泽雨">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://zeyulong.com/posts/a8aab215/vi-vim-cheat-sheet-sch.gif">
@@ -351,7 +351,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          40k 字
+          46k 字
         
       </span>
     
@@ -362,7 +362,7 @@
         
         
         
-          336 分钟
+          384 分钟
         
       </span>
     
@@ -412,7 +412,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2024年9月18日 晚上
+                    本文最后更新于 2024年10月16日 下午
                   
                 
               </p>
@@ -690,7 +690,7 @@
 <h4 id="文件系统和挂载点">文件系统和挂载点</h4>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 推荐，可查看到交换空间</span><br><span class="hljs-built_in">cat</span> /etc/fstab<br><span class="hljs-comment"># 或，信息更全，有硬盘使用率等</span><br><span class="hljs-built_in">df</span> -hT<br></code></pre></td></tr></table></figure>
 <h4 id="文件（夹）大小">文件（夹）大小</h4>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># du 命令需要在root权限下操作，或者在命令行前加sudo命令也可以。但排序是乱的，不好查看。</span><br><span class="hljs-comment"># 使用 sort 命令 的 -k 参数设置对第二列的值进行重排，也就是按照文件（夹）名进行排序</span><br>sudo <span class="hljs-built_in">du</span> -ah --max-depth=1  --exclude=./proc --exclude=./tmp --exclude=./lost+found --exclude=./media --exclude=./mnt --exclude=./run | <span class="hljs-built_in">sort</span> -k 2<br><br><span class="hljs-built_in">df</span> -B G  <span class="hljs-comment"># 以GB为单位显示指定磁盘文件的使用情况。如果没有指定文件，则显示所有挂载的文件系统的磁盘使用情况。</span><br><span class="hljs-built_in">df</span> -B M  <span class="hljs-comment"># MB</span><br><span class="hljs-comment"># 加路径为当前路径所在的磁盘空间，不加路径为所有。</span><br><br><span class="hljs-comment"># 上述两个命令的常用参数：</span><br>-a或 -all 显示目录中个别文件的大小。<br>-h或 --human-readable 以K，M，G为单位，提高信息的可读性。<br>--max-depth=&lt;目录层数&gt; 超过指定层数的目录后，予以忽略。<br>-exclude=&lt;目录或文件&gt; 略过指定的目录或文件。<br><br>ll  <span class="hljs-comment"># 文件大小以字节为单位显示，并且在输出中的第 5 列。</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># du 命令需要在root权限下操作，或者在命令行前加sudo命令也可以。但排序是乱的，不好查看。</span><br><span class="hljs-comment"># 使用 sort 命令 的 -k 参数设置对第二列的值进行重排，也就是按照文件（夹）名进行排序</span><br>sudo <span class="hljs-built_in">du</span> -ah --max-depth=1 --exclude=./proc --exclude=./tmp --exclude=./lost+found --exclude=./media --exclude=./mnt --exclude=./run /path/to/your/folder/ | <span class="hljs-built_in">sort</span> -k 2<br><br><span class="hljs-built_in">df</span> -B G /path/to/your/folder/  <span class="hljs-comment"># 以GB为单位显示指定磁盘文件的使用情况。如果没有指定文件，则显示所有挂载的文件系统的磁盘使用情况。</span><br><span class="hljs-built_in">df</span> -B M /path/to/your/folder/  <span class="hljs-comment"># MB</span><br><span class="hljs-comment"># 加路径为当前路径所在的磁盘空间，不加路径为所有。</span><br><br><span class="hljs-comment"># 上述两个命令的常用参数：</span><br>-a或 -all 显示目录中个别文件的大小。<br>-h或 --human-readable 以K，M，G为单位，提高信息的可读性。<br>--max-depth=&lt;目录层数&gt; 超过指定层数的目录后，予以忽略。<br>-exclude=&lt;目录或文件&gt; 略过指定的目录或文件。<br><br>ll  <span class="hljs-comment"># 文件大小以字节为单位显示，并且在输出中的第 5 列。</span><br></code></pre></td></tr></table></figure>
 <h4 id="文件（夹）修改时间">文件（夹）修改时间</h4>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">ll  <span class="hljs-comment"># ls -l</span><br></code></pre></td></tr></table></figure>
 <h4 id="版本信息">版本信息</h4>
@@ -707,11 +707,52 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 查看整个文件</span><br><span class="hljs-built_in">cat</span> [filename]  <span class="hljs-comment"># cat /home/user/test.txt</span><br><br><span class="hljs-comment"># 查看开头几行</span><br><span class="hljs-built_in">head</span> -n [rows] [filename]  <span class="hljs-comment"># head -n 20 /home/user/test.txt</span><br><br><span class="hljs-comment"># 查看末尾几行</span><br><span class="hljs-built_in">tail</span> -n [rows] [filename]  <span class="hljs-comment"># tail -n 10 /home/user/test.txt</span><br><br><span class="hljs-comment"># 查看中间几行</span><br><span class="hljs-comment"># 方法一：</span><br><span class="hljs-built_in">cat</span> [filename]| <span class="hljs-built_in">head</span> -n [endRow] | <span class="hljs-built_in">tail</span> -n +[beginRow]<br><span class="hljs-comment"># 查看/home/user/test.txt的10~20行</span><br><span class="hljs-comment"># head -n 20 表示前20行</span><br><span class="hljs-comment"># tail -n 10 表示后10行</span><br><span class="hljs-comment"># tail -n +10 表示第10行之后的</span><br><span class="hljs-built_in">cat</span> /home/user/test.txt| <span class="hljs-built_in">head</span> -n 20 | <span class="hljs-built_in">tail</span> -n +10<br><span class="hljs-comment"># 方法二：</span><br>sed -n <span class="hljs-string">&#x27;[begin],[end]p&#x27;</span> [filename]<br>sed -n <span class="hljs-string">&#x27;10,20p&#x27;</span> /home/user/test.txt<br></code></pre></td></tr></table></figure>
 <h4 id="查找过去编辑的文件">查找过去编辑的文件</h4>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">find . -<span class="hljs-built_in">type</span> f -mmin -10  <span class="hljs-comment"># 查找过去 10 分钟内编辑的所有文件</span><br></code></pre></td></tr></table></figure>
+<h4 id="历史命令">历史命令</h4>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">history</span> 5  <span class="hljs-comment"># 这将显示您最近执行的五个命令，以便于快速调用和重新运行它们。</span><br><span class="hljs-comment"># 您可以使用感叹号 ( ! ) 后跟命令编号来快速重新执行历史记录中的任何命令。</span><br><span class="hljs-comment"># 例如，如果您想重新运行上面的mkdir newdir命令（命令号 125），您只需键入：</span><br>!125<br></code></pre></td></tr></table></figure>
 <h3 id="文件新建、复制、移动、重命名和删除">文件新建、复制、移动、重命名和删除</h3>
 <h4 id="基本">基本</h4>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><code class="hljs bash">gedit ~/.bashrc	 <span class="hljs-comment"># 使用gedit打开文件</span><br><span class="hljs-built_in">touch</span> file1.txt  <span class="hljs-comment"># 新建文件</span><br><br><span class="hljs-built_in">mkdir</span> [-p] dirName  <span class="hljs-comment"># 创建目录。-p 确保目录名称存在，不存在的就建一个。</span><br><span class="hljs-built_in">mkdir</span> -p runoob2/test  <span class="hljs-comment"># 在工作目录下的 runoob2 目录中，建立一个名为 test 的子目录。若 runoob2 目录原本不存在，则建立一个。（注：本例若不加 -p 参数，且原本 runoob2 目录不存在，则产生错误。）</span><br><br><span class="hljs-comment"># 在指定的目录下，创建一个名为 LINK_NAME 的硬链接或符号链接，指向名为 TARGET 的文件或目录。</span><br><span class="hljs-built_in">ln</span> [OPTION]... [-T] TARGET LINK_NAME<br><br><span class="hljs-comment"># 复制文件或目录cp命令</span><br><span class="hljs-comment"># 示例</span><br><span class="hljs-built_in">cp</span> file.txt /path/to/destination/<br>-a：此选项通常在复制目录时使用，它保留链接、文件属性，并复制目录下的所有内容。其作用等于 dpR 参数组合。<br>-r 或 --recursive：用于复制目录及其所有的子目录和文件，如果要复制目录，需要使用该选项。<br>-i 或 --interactive：在复制前提示确认，如果目标文件已存在，则会询问是否覆盖，回答 y 时目标文件将被覆盖。<br>-p 或 --preserve：保留源文件的权限、所有者和时间戳信息。<br><br><span class="hljs-comment"># Linux `mv`（英文全拼：move file）命令用来为文件或目录改名、或将文件或目录移入其它位置</span><br><span class="hljs-comment"># 注意：需要先执行`Ctrl+H`显示隐藏文件命令，否则，隐藏文件以及隐藏文件夹不会被移动到新目录</span><br><span class="hljs-comment"># 将源文件名 source_file 改为目标文件名 dest_file</span><br><span class="hljs-built_in">mv</span> source_file(文件) dest_file(文件)<br><span class="hljs-comment"># 将文件 source_file 移动到目标目录 dest_directory 中</span><br><span class="hljs-built_in">mv</span> source_file(文件) dest_directory(目录)<br><span class="hljs-comment"># 目录名 dest_directory 已存在，将 source_directory 移动到目录名 dest_directory 中；</span><br><span class="hljs-comment"># 目录名 dest_directory 不存在则 source_directory 改名为目录名 dest_directory</span><br><span class="hljs-built_in">mv</span> source_directory(目录) dest_directory(目录)<br><span class="hljs-comment"># 出错</span><br><span class="hljs-built_in">mv</span> source_directory(目录) dest_file(文件)<br><br><span class="hljs-comment"># 删除文件和文件夹rm命令</span><br><span class="hljs-built_in">rm</span> -rf <span class="hljs-built_in">test</span>/  <span class="hljs-comment"># 删除 test 文件夹，删除文件夹要加 -r 参数</span><br>-i 删除前逐一询问确认。<br>-f 即使原档案属性设为唯读，亦直接删除，无需逐一确认。<br>-r 将目录及以下之档案亦逐一删除。<br><span class="hljs-comment"># 删除当前目录及其子目录中所有.json文件的bash命令：</span><br>find . -name <span class="hljs-string">&quot;*.json&quot;</span> -<span class="hljs-built_in">type</span> f -delete<br><span class="hljs-comment"># find：这是主命令，用于查找文件。</span><br><span class="hljs-comment"># .：这告诉find命令从当前目录开始搜索。</span><br><span class="hljs-comment"># -name &quot;*.json&quot;：这告诉find命令查找所有以.json结尾的文件。</span><br><span class="hljs-comment"># -type f：这告诉find命令只查找文件，不包括目录。</span><br><span class="hljs-comment"># -delete：这告诉find命令删除找到的所有文件。</span><br></code></pre></td></tr></table></figure>
-<h4 id="删除大量文件">删除大量文件</h4>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 使用rsync命令，原理是同步</span><br><span class="hljs-comment"># 1.</span><br><span class="hljs-comment"># 新建空文件夹</span><br><span class="hljs-comment"># 2.</span><br>rsync -av --delete [空文件夹路径] [要删除的文件夹路径]<br><span class="hljs-comment"># 示例：</span><br>rsync -av --delete /tmp/empty/ /var/log/target/<br><span class="hljs-comment"># 参数说明：</span><br>--delete 删除那些target中有而<span class="hljs-built_in">source</span>没有的文件<br>-a, --archive  归档模式，表示以递归的方式传输文件，并保持所有文件属性不变<br>-v 详细输出模式<br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>处理（特别是包含众多小文件的）大文件夹推荐使用[rsync](# rsync)命令。</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><code class="hljs bash">gedit ~/.bashrc	 <span class="hljs-comment"># 使用gedit打开文件</span><br><span class="hljs-built_in">touch</span> file1.txt  <span class="hljs-comment"># 新建文件</span><br><br><span class="hljs-built_in">mkdir</span> [-p] dirName  <span class="hljs-comment"># 创建目录。-p 确保目录名称存在，不存在的就建一个。</span><br><span class="hljs-built_in">mkdir</span> -p runoob2/test  <span class="hljs-comment"># 在工作目录下的 runoob2 目录中，建立一个名为 test 的子目录。若 runoob2 目录原本不存在，则建立一个。（注：本例若不加 -p 参数，且原本 runoob2 目录不存在，则产生错误。）</span><br><span class="hljs-built_in">mkdir</span> -p &#123;dev,<span class="hljs-built_in">test</span>,prod&#125;/&#123;backend,frontend&#125;  <span class="hljs-comment"># 使用大括号&#123;&#125;一次性创建多个目录</span><br><br><span class="hljs-comment"># 在指定的目录下，创建一个名为 LINK_NAME 的硬链接或符号链接，指向名为 TARGET 的文件或目录。</span><br><span class="hljs-built_in">ln</span> [OPTION]... [-T] TARGET LINK_NAME<br><br><span class="hljs-comment"># 复制文件或目录cp命令</span><br><span class="hljs-comment"># 示例</span><br><span class="hljs-built_in">cp</span> file.txt /path/to/destination/<br>-a：此选项通常在复制目录时使用，它保留链接、文件属性，并复制目录下的所有内容。其作用等于 dpR 参数组合。<br>-r 或 --recursive：用于复制目录及其所有的子目录和文件，如果要复制目录，需要使用该选项。<br>-i 或 --interactive：在复制前提示确认，如果目标文件已存在，则会询问是否覆盖，回答 y 时目标文件将被覆盖。<br>-p 或 --preserve：保留源文件的权限、所有者和时间戳信息。<br><br><span class="hljs-comment"># Linux `mv`（英文全拼：move file）命令用来为文件或目录改名、或将文件或目录移入其它位置</span><br><span class="hljs-comment"># 注意：需要先执行`Ctrl+H`显示隐藏文件命令，否则，隐藏文件以及隐藏文件夹不会被移动到新目录</span><br><span class="hljs-comment"># 将源文件名 source_file 改为目标文件名 dest_file</span><br><span class="hljs-built_in">mv</span> source_file(文件) dest_file(文件)<br><span class="hljs-comment"># 将文件 source_file 移动到目标目录 dest_directory 中</span><br><span class="hljs-built_in">mv</span> source_file(文件) dest_directory(目录)<br><span class="hljs-comment"># 目录名 dest_directory 已存在，将 source_directory 移动到目录名 dest_directory 中；</span><br><span class="hljs-comment"># 目录名 dest_directory 不存在则 source_directory 改名为目录名 dest_directory</span><br><span class="hljs-built_in">mv</span> source_directory(目录) dest_directory(目录)<br><span class="hljs-comment"># 出错</span><br><span class="hljs-built_in">mv</span> source_directory(目录) dest_file(文件)<br><br><span class="hljs-comment"># 删除文件和文件夹rm命令</span><br><span class="hljs-built_in">rm</span> -rf <span class="hljs-built_in">test</span>/  <span class="hljs-comment"># 删除 test 文件夹，删除文件夹要加 -r 参数</span><br>-i 删除前逐一询问确认。<br>-f 即使原档案属性设为唯读，亦直接删除，无需逐一确认。<br>-r 将目录及以下之档案亦逐一删除。<br><span class="hljs-comment"># 删除当前目录及其子目录中所有.json文件的bash命令：</span><br>find . -name <span class="hljs-string">&quot;*.json&quot;</span> -<span class="hljs-built_in">type</span> f -delete<br><span class="hljs-comment"># find：这是主命令，用于查找文件。</span><br><span class="hljs-comment"># .：这告诉find命令从当前目录开始搜索。</span><br><span class="hljs-comment"># -name &quot;*.json&quot;：这告诉find命令查找所有以.json结尾的文件。</span><br><span class="hljs-comment"># -type f：这告诉find命令只查找文件，不包括目录。</span><br><span class="hljs-comment"># -delete：这告诉find命令删除找到的所有文件。</span><br></code></pre></td></tr></table></figure>
+<h4 id="rsync">rsync</h4>
+<h5 id="基本语法">基本语法</h5>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo apt-get install rsync<br></code></pre></td></tr></table></figure>
+<ul>
+<li><code>-a</code>, <code>--archive</code>: 归档模式，表示以递归的方式传输文件，并保持所有文件属性不变</li>
+<li><code>--delete</code>: 删除那些target中有而source没有的文件</li>
+<li><code>--exclude</code>: 指定排除不进行同步的文件，比如<code>--exclude=&quot;*.iso&quot;</code>。</li>
+<li><code>-h</code>: 以人类可读的格式输出。</li>
+<li><code>--progress</code>: 显示进度</li>
+<li><code>-v</code>: 详细输出模式</li>
+</ul>
+<h5 id="用法">用法</h5>
+<blockquote>
+<p><code>rsync</code>命令不仅可以传输文件夹，还可以传输单个文件。</p>
+</blockquote>
+<h6 id="复制-移动大文件夹">复制/移动大文件夹</h6>
+<p>本机使用 rsync 命令时，可以作为<code>cp</code>和<code>mv</code>命令的替代方法，将源目录同步到目标目录。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">rsync -ahv --progress <span class="hljs-built_in">source</span>/ destination/  <span class="hljs-comment"># 把source文件夹的内容复制进destination文件夹</span><br>rsync -ahv --progress <span class="hljs-built_in">source</span> destination/  <span class="hljs-comment"># 把source文件夹复制进destination文件夹</span><br>rsync -ahv --progress source1/ source2/ destination/  <span class="hljs-comment"># source1、source2都会被同步到destination目录。</span><br></code></pre></td></tr></table></figure>
+<h6 id="删除大文件夹">删除大文件夹</h6>
+<p>在删除包含许多小文件的大文件夹时，可以考虑使用<code>rsync</code>命令，以提高删除速度。以下是具体步骤：</p>
+<ol>
+<li>使用<code>rsync</code>将文件夹同步为空目录，达到快速删除文件的效果。</li>
+<li>删除空目录。</li>
+</ol>
+<p>具体命令如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">mkdir</span> empty_dir/  <span class="hljs-comment"># 创建一个空目录</span><br>rsync -ahv --progress --delete empty_dir/ /path/to/your/folder/  <span class="hljs-comment"># 将目标文件夹同步为空目录，快速删除文件内容</span><br><span class="hljs-built_in">rmdir</span> /path/to/your/folder/  <span class="hljs-comment"># 删除同步后的空目录</span><br><span class="hljs-built_in">rmdir</span> empty_dir/  <span class="hljs-comment"># 删除创建的空目录</span><br></code></pre></td></tr></table></figure>
+<p>请替换<code>/path/to/your/folder/</code>为你要删除的文件夹的实际路径。</p>
+<h6 id="增量备份">增量备份</h6>
+<p><a target="_blank" rel="noopener" href="https://www.ruanyifeng.com/blog/2020/08/rsync.html">参考链接</a></p>
+<p>rsync 的最大特点就是它可以完成增量备份，也就是默认只复制有变动的文件。</p>
+<p>除了源目录与目标目录直接比较，rsync 还支持使用基准目录，即将源目录与基准目录之间变动的部分，同步到目标目录。</p>
+<p>具体做法是，第一次同步是全量备份，所有文件在基准目录里面同步一份。以后每一次同步都是增量备份，只同步源目录与基准目录之间有变动的部分，将这部分保存在一个新的目标目录。这个新的目标目录之中，也是包含所有文件，但实际上，只有那些变动过的文件是存在于该目录，其他没有变动的文件都是指向基准目录文件的硬链接。</p>
+<p><code>--link-dest</code>参数用来指定同步时的基准目录。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">rsync -a --delete --link-dest /compare/path /source/path /target/path<br></code></pre></td></tr></table></figure>
+<p>上面命令中，<code>--link-dest</code>参数指定基准目录<code>/compare/path</code>，然后源目录<code>/source/path</code>跟基准目录进行比较，找出变动的文件，将它们拷贝到目标目录<code>/target/path</code>。那些没变动的文件则会生成硬链接。这个命令的第一次备份时是全量备份，后面就都是增量备份了。</p>
+<p>下面是一个脚本示例，备份用户的主目录。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-meta">#!/bin/bash</span><br><br><span class="hljs-comment"># A script to perform incremental backups using rsync</span><br><br><span class="hljs-built_in">set</span> -o errexit<br><span class="hljs-built_in">set</span> -o nounset<br><span class="hljs-built_in">set</span> -o pipefail<br><br><span class="hljs-built_in">readonly</span> SOURCE_DIR=<span class="hljs-string">&quot;<span class="hljs-variable">$&#123;HOME&#125;</span>&quot;</span><br><span class="hljs-built_in">readonly</span> BACKUP_DIR=<span class="hljs-string">&quot;/mnt/data/backups&quot;</span><br><span class="hljs-built_in">readonly</span> DATETIME=<span class="hljs-string">&quot;<span class="hljs-subst">$(date &#x27;+%Y-%m-%d_%H:%M:%S&#x27;)</span>&quot;</span><br><span class="hljs-built_in">readonly</span> BACKUP_PATH=<span class="hljs-string">&quot;<span class="hljs-variable">$&#123;BACKUP_DIR&#125;</span>/<span class="hljs-variable">$&#123;DATETIME&#125;</span>&quot;</span><br><span class="hljs-built_in">readonly</span> LATEST_LINK=<span class="hljs-string">&quot;<span class="hljs-variable">$&#123;BACKUP_DIR&#125;</span>/latest&quot;</span><br><br><span class="hljs-built_in">mkdir</span> -p <span class="hljs-string">&quot;<span class="hljs-variable">$&#123;BACKUP_DIR&#125;</span>&quot;</span><br><br>rsync -av --delete \<br>  <span class="hljs-string">&quot;<span class="hljs-variable">$&#123;SOURCE_DIR&#125;</span>/&quot;</span> \<br>  --link-dest <span class="hljs-string">&quot;<span class="hljs-variable">$&#123;LATEST_LINK&#125;</span>&quot;</span> \<br>  --exclude=<span class="hljs-string">&quot;.cache&quot;</span> \<br>  <span class="hljs-string">&quot;<span class="hljs-variable">$&#123;BACKUP_PATH&#125;</span>&quot;</span><br><br><span class="hljs-built_in">rm</span> -rf <span class="hljs-string">&quot;<span class="hljs-variable">$&#123;LATEST_LINK&#125;</span>&quot;</span><br><span class="hljs-built_in">ln</span> -s <span class="hljs-string">&quot;<span class="hljs-variable">$&#123;BACKUP_PATH&#125;</span>&quot;</span> <span class="hljs-string">&quot;<span class="hljs-variable">$&#123;LATEST_LINK&#125;</span>&quot;</span><br></code></pre></td></tr></table></figure>
+<p>上面脚本中，每一次同步都会生成一个新目录<code>$&#123;BACKUP_DIR&#125;/$&#123;DATETIME&#125;</code>，并将软链接<code>$&#123;BACKUP_DIR&#125;/latest</code>指向这个目录。下一次备份时，就将<code>$&#123;BACKUP_DIR&#125;/latest</code>作为基准目录，生成新的备份目录。最后，再将软链接<code>$&#123;BACKUP_DIR&#125;/latest</code>指向新的备份目录。</p>
 <h4 id="mkcd">mkcd</h4>
 <p>将<code>mkdir</code>和<code>cd</code>命令合并为一个<code>mkcd</code>命令：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-function"><span class="hljs-title">mkcd</span></span>() &#123;<br>    <span class="hljs-built_in">mkdir</span> -p <span class="hljs-string">&quot;<span class="hljs-variable">$1</span>&quot;</span> &amp;&amp; <span class="hljs-built_in">cd</span> <span class="hljs-string">&quot;<span class="hljs-variable">$1</span>&quot;</span><br>&#125;<br><br><span class="hljs-comment"># or</span><br><span class="hljs-keyword">function</span> mkcd &#123;<br> <span class="hljs-keyword">if</span> [ ! -n <span class="hljs-string">&quot;<span class="hljs-variable">$1</span>&quot;</span> ]; <span class="hljs-keyword">then</span><br> <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;Enter mkcd followed by a directory name&quot;</span><br> <span class="hljs-keyword">elif</span> [ -d <span class="hljs-variable">$1</span> ]; <span class="hljs-keyword">then</span><br> <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;\`<span class="hljs-variable">$1</span>&#x27; already exists&quot;</span><br> <span class="hljs-keyword">else</span><br> <span class="hljs-built_in">mkdir</span> <span class="hljs-variable">$1</span> &amp;&amp; <span class="hljs-built_in">cd</span> <span class="hljs-variable">$1</span><br> <span class="hljs-keyword">fi</span><br>&#125;<br></code></pre></td></tr></table></figure>
@@ -727,14 +768,14 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">ping www.baidu.com<br></code></pre></td></tr></table></figure>
 </blockquote>
 <h4 id="wget">wget</h4>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo apt install wget<br><br><span class="hljs-comment"># 下载单个文件</span><br>wget [options] &lt;URL&gt;<br>wget -O myfile.zip http://www.example.com/testfile.zip  <span class="hljs-comment"># 如果不指定&quot;-O&quot; 选项，wget默认会以 url 路径最后一个 &quot;/&quot; 的后面全部字符为下载的文件名</span><br><br><span class="hljs-comment"># 断点续传</span><br>wget -c http://www.example.com/testfile.zip  <span class="hljs-comment"># 当下载的文件特别大或者网络原因，文件没有下载完连接就已经被断开，使用 -c 选项可以在网络连接恢复时接着上次的下载任务继续下载，而不需要重头开始下载文件</span><br>wget --tries=40 http://www.example.com/testfile.zip  <span class="hljs-comment"># wget默认重试20次连接下载文件，如果网络一直有问题下载可能失败。如果需要的话，你可以使用--tries增加重试次数。</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo apt install wget<br><br><span class="hljs-comment"># 下载单个文件</span><br>wget [options] &lt;URL&gt;<br>wget -O --show-progress myfile.zip http://www.example.com/testfile.zip  <span class="hljs-comment"># 如果不指定&quot;-O&quot; 选项，wget默认会以 url 路径最后一个 &quot;/&quot; 的后面全部字符为下载的文件名</span><br><br><span class="hljs-comment"># 断点续传</span><br>wget -c http://www.example.com/testfile.zip  <span class="hljs-comment"># 当下载的文件特别大或者网络原因，文件没有下载完连接就已经被断开，使用 -c 选项可以在网络连接恢复时接着上次的下载任务继续下载，而不需要重头开始下载文件</span><br>wget --tries=40 http://www.example.com/testfile.zip  <span class="hljs-comment"># wget默认重试20次连接下载文件，如果网络一直有问题下载可能失败。如果需要的话，你可以使用--tries增加重试次数。</span><br></code></pre></td></tr></table></figure>
 <blockquote>
 <p>下载超时，尝试添加参数<code>--no-cookie --no-check-certificate</code>。</p>
 </blockquote>
 <h4 id="curl">curl</h4>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 单个文件下载</span><br>curl [ -o 自定义文件名| -O] http://www.example.com/index.html<br><span class="hljs-comment"># -o 自定义文件名：把服务器响应输出到指定文件</span><br><span class="hljs-comment"># -O：与-o选项作用一样，区别在于以 url 路径最后一个&quot;/&quot;之后的部分作为文件名</span><br><span class="hljs-comment"># 如果这两个选项都不写，curl 默认会把服务器响应内容输出到终端</span><br><br><span class="hljs-comment"># 断点续传</span><br>curl -O -C 偏移量 http://www.example.com/testfile.zip<br><span class="hljs-comment"># -C 偏移量：从指定的偏移量处继续下载，偏移量以字节为单位</span><br><span class="hljs-comment"># 如果让curl自动推断出正确的续传位置可以使用 &quot;-&quot; 代替偏移量，例如：</span><br>curl -O -C - http://www.example.com/testfile.zip<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 单个文件下载</span><br>curl [ -o 自定义文件名| -O] --progress-bar http://www.example.com/index.html<br><span class="hljs-comment"># -o 自定义文件名：把服务器响应输出到指定文件</span><br><span class="hljs-comment"># -O：与-o选项作用一样，区别在于以 url 路径最后一个&quot;/&quot;之后的部分作为文件名</span><br><span class="hljs-comment"># 如果这两个选项都不写，curl 默认会把服务器响应内容输出到终端</span><br><br><span class="hljs-comment"># 断点续传</span><br>curl -O -C 偏移量 http://www.example.com/testfile.zip<br><span class="hljs-comment"># -C 偏移量：从指定的偏移量处继续下载，偏移量以字节为单位</span><br><span class="hljs-comment"># 如果让curl自动推断出正确的续传位置可以使用 &quot;-&quot; 代替偏移量，例如：</span><br>curl -O -C - http://www.example.com/testfile.zip<br></code></pre></td></tr></table></figure>
 <h3 id="目录（跳转）">目录（跳转）</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">mkdir</span> 新建目录<br><br>./（点斜杠）表示当前工作目录的相对路径<br>.表示当前目录<br>..表示（当前目录的）父目录<br><br><span class="hljs-built_in">pwd</span>  <span class="hljs-comment"># 打印当前所在目录</span><br><br><span class="hljs-built_in">cd</span> <span class="hljs-built_in">dir</span>  <span class="hljs-comment"># 切换到指定目录</span><br><span class="hljs-built_in">cd</span> /  <span class="hljs-comment"># 进入根目录</span><br><span class="hljs-built_in">cd</span> ~  <span class="hljs-comment"># root用户， 相当于 cd /root；普通用户，相当于cd /home/当前用户名，即主目录</span><br><span class="hljs-built_in">cd</span> -  <span class="hljs-comment"># 切换到我们之前所在的目录</span><br><span class="hljs-built_in">cd</span> .  <span class="hljs-comment"># 目前所在目录</span><br><span class="hljs-built_in">cd</span> ..  <span class="hljs-comment"># 返回上一层</span><br><span class="hljs-built_in">cd</span> ../..  <span class="hljs-comment"># 返回上两层</span><br><span class="hljs-built_in">cd</span> ../***  <span class="hljs-comment"># 进入当前目录父目录的**目录</span><br><span class="hljs-built_in">cd</span> ~=<span class="hljs-built_in">cd</span> /root  <span class="hljs-comment"># 进入root的根目录</span><br><br><span class="hljs-comment"># 标记目录</span><br><span class="hljs-comment"># 记录当前目录路径，待会返回需要用到</span><br>cur=`<span class="hljs-built_in">pwd</span>`<br><span class="hljs-comment"># 返回项目</span><br><span class="hljs-built_in">cd</span> <span class="hljs-variable">$cur</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">mkdir</span> 新建目录<br><br>./（点斜杠）表示当前工作目录的相对路径<br>.表示当前目录<br>..表示（当前目录的）父目录<br><br><span class="hljs-built_in">pwd</span>  <span class="hljs-comment"># 打印当前所在目录</span><br><br><span class="hljs-built_in">cd</span> <span class="hljs-built_in">dir</span>  <span class="hljs-comment"># 切换到指定目录</span><br><span class="hljs-built_in">cd</span> /  <span class="hljs-comment"># 进入根目录</span><br><span class="hljs-built_in">cd</span> ~  <span class="hljs-comment"># root用户， 相当于 cd /root；普通用户，相当于cd /home/当前用户名，即主目录</span><br><span class="hljs-built_in">cd</span> -  <span class="hljs-comment"># 切换最开始的目录</span><br><span class="hljs-built_in">cd</span> .  <span class="hljs-comment"># 目前所在目录</span><br><span class="hljs-built_in">cd</span> ..  <span class="hljs-comment"># 返回上一层</span><br><span class="hljs-built_in">cd</span> ../..  <span class="hljs-comment"># 返回上两层</span><br><span class="hljs-built_in">cd</span> ../***  <span class="hljs-comment"># 进入当前目录父目录的**目录</span><br><span class="hljs-built_in">cd</span> ~=<span class="hljs-built_in">cd</span> /root  <span class="hljs-comment"># 进入root的根目录</span><br><br><span class="hljs-comment"># 标记目录</span><br><span class="hljs-comment"># 记录当前目录路径，待会返回需要用到</span><br>cur=`<span class="hljs-built_in">pwd</span>`<br><span class="hljs-comment"># 返回项目</span><br><span class="hljs-built_in">cd</span> <span class="hljs-variable">$cur</span><br></code></pre></td></tr></table></figure>
 <ol>
 <li>
 <p>把目录结构信息保存到文本中，树状图：</p>
@@ -812,6 +853,26 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 查看文件权限</span><br>ll<br></code></pre></td></tr></table></figure>
 <h4 id="root用户把某个文件权限给到普通用户">root用户把某个文件权限给到普通用户</h4>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 先切换到root环境</span><br>su root<br><span class="hljs-comment"># 赋权</span><br><span class="hljs-built_in">chown</span> -R username filepath<br><span class="hljs-comment"># username 指的是 你的普通用户名称</span><br><span class="hljs-comment"># filepath 指的是 你需要赋权给普通用户的文件夹路径</span><br><span class="hljs-comment"># 这样普通用户也就可以操作这个路径下的文件了</span><br></code></pre></td></tr></table></figure>
+<h3 id="硬盘">硬盘</h3>
+<h4 id="挂载硬盘">挂载硬盘</h4>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 挂载 U 盘根目录的内容会直接出现在 /mnt/ 文件夹内，</span><br><span class="hljs-comment"># 而不是 /mnt/ 文件夹内先有一个U盘的名称，名称文件夹内再有内容。</span><br><span class="hljs-comment"># 因此，如有需要，需要提前在 /mnt/ 下使用 sudo  新建文件夹。</span><br>sudo mount /dev/sdX1 /mnt/  <span class="hljs-comment"># mount part</span><br>sudo umount /mnt/  <span class="hljs-comment"># 卸载</span><br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>其中，<code>/dev/sdX1</code>是U盘的设备名，你可以使用<code>lsblk</code>或<code>fdisk -l</code>命令来查找U盘的设备名。</p>
+<p>例如，插入硬盘前后，使用<code>lsblk</code>发现新增：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">sdc      8:32   0   7.3T  0 disk <br>└─sdc1   8:33   0   7.3T  0 part<br></code></pre></td></tr></table></figure>
+</blockquote>
+<h4 id="硬盘类型">硬盘类型</h4>
+<p>在Linux系统上，可以使用以下命令来查看硬盘是机械硬盘（HDD）还是固态硬盘（SSD）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cat</span> /sys/block/sdX/queue/rotational<br></code></pre></td></tr></table></figure>
+<p>将<code>sdX</code>替换为硬盘的设备名，比如<code>sda</code>。如果输出是<code>1</code>，则表示是机械硬盘；如果输出是<code>0</code>，则表示是固态硬盘。</p>
+<p>除了查看<code>/sys/block</code>目录下的信息外，你还可以使用<code>lsblk</code>命令结合<code>-o</code>选项来获取更多详细信息，包括硬盘类型：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">lsblk -d -o name,rota<br></code></pre></td></tr></table></figure>
+<ul>
+<li><code>lsblk</code> 列出所有块设备。</li>
+<li><code>-d</code> 选项只显示磁盘本身，不显示其分区。</li>
+<li><code>-o</code> 选项指定要显示的列，其中<code>name</code>表示设备名，<code>rota</code>表示是否是旋转设备（0表示固态硬盘，1表示机械硬盘）。</li>
+</ul>
+<p>通过这种方式，你可以在一个命令中看到所有硬盘的类型。</p>
 <h3 id="小贴士-2">小贴士</h3>
 <h4 id="Linux顺序执行多行命令">Linux顺序执行多行命令</h4>
 <ul>
@@ -1031,11 +1092,17 @@
 <blockquote>
 <p>选中即复制，鼠标中键粘贴。对于单词，双击即可选中，三击选中一行。</p>
 </blockquote>
+<h4 id="配置">配置</h4>
+<p>修改打开的窗口的默认大小：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">gedit ~/.config/terminator/config<br></code></pre></td></tr></table></figure>
+<p>修改 layouts - default - window0 - size（没有就新增）（对应的是像素值）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs bash">[layouts]<br>  [[default]]<br>    [[[child1]]]<br>      parent = window0<br>      profile = default<br>      <span class="hljs-built_in">type</span> = Terminal<br>    [[[window0]]]<br>      parent = <span class="hljs-string">&quot;&quot;</span><br>      size = 1500, 900<br>      <span class="hljs-built_in">type</span> = Window<br></code></pre></td></tr></table></figure>
+<p>保存，关闭文件。关闭所有终端后，再重新打开就应用更改了。</p>
 <h3 id="zsh">zsh</h3>
 <h4 id="特性">特性</h4>
 <ol>
 <li>色彩高亮：不同的颜色表明当前命令的类型，并且路径有无下划线表示路径是否存在。</li>
-<li>智能补全：在使用cd切换路径时（要先cd后加一个路径，按Tab可后续补充），按下tab会列出当前目录下的目录和文件，如果是bash，它会提示你手动输入，但是zsh中你可以继续按一下tab进入选择模式，继续使用tab选择，或者使用方向键选择目标目录而不需手动输入。</li>
+<li>智能补全：在使用cd切换路径时，按下tab会列出当前目录下的目录和文件，如果是bash，它会提示你手动输入，但是zsh中你可以继续按一下tab进入选择模式，继续使用tab选择，或者使用方向键选择目标目录而不需手动输入。</li>
 <li>按键盘右方向键<code>-&gt;</code>直接确定整个补全提示。<code>Ctrl+-&gt;</code>按整词顺序依次确定。</li>
 <li><code>d</code>命令“回车”后，会列出我们最近进入的目录历史，并且会给这些目录加上序号，只需要输入对应目录的序号，即可重新进入该目录。</li>
 </ol>
@@ -1327,7 +1394,7 @@
 <figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmake"><span class="hljs-keyword">target_compile_definitions</span>(efft-unit-tests PRIVATE EFFT_USE_FFTW3)<br></code></pre></td></tr></table></figure>
 <h4 id="保存cmake输出">保存cmake输出</h4>
 <blockquote>
-<p>ROS: <code>cmake build</code>的输出在<code>catkin_ws/logs/package/build.cmake.log、build.make.log</code>里。</p>
+<p>ROS: <code>cmake build</code>的输出在<code>catkin_ws/logs/your_package_name/build.cmake.log、build.make.log</code>里。</p>
 </blockquote>
 <p><code>cmake</code>命令的输出信息通常在终端中显示，而不是保存在文件中。这些信息包括配置过程中的警告、错误以及其他重要信息。</p>
 <p>然而，你可以将<code>cmake</code>命令的输出重定向到一个文件中。例如，你可以使用以下命令将输出保存到一个名为<code>output.txt</code>的文件中：</p>
@@ -1354,7 +1421,29 @@
 </blockquote>
 <h3 id="卸载-2">卸载</h3>
 <p>如果因为反复<code>./configure xx</code>然后<code>make</code>会导致安装路径混乱，<code>sudo make install</code>失败。所以如果路径设错了又已经<code>make</code>完，需要<code>make clean</code>来清除一下。如果想把自己刚刚<code>make install</code>安装的卸载掉，可以在那个目录里直接用<code>sudo make uninstall</code>。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> package_name/build<br><br><span class="hljs-comment"># 卸载使用make install命令安装到系统路径的文件</span><br><span class="hljs-comment"># `install_manifest.txt`文件里包含了所有安装的文件的路径</span><br><span class="hljs-built_in">cat</span> install_manifest.txt | sudo xargs <span class="hljs-built_in">rm</span>  <span class="hljs-comment"># 或</span><br>sudo xargs <span class="hljs-built_in">rm</span> &lt; install_manifest.txt<br><span class="hljs-comment"># 上述命令只会删除掉文件夹里的文件，会留下空文件夹。所以可以继续对照`install_manifest.txt`文件，手动删掉多余的空文件夹。</span><br><br>sudo make uninstall<br>sudo make clean <span class="hljs-comment">#清除上一次make命令生成的文件</span><br>sudo make distclean <span class="hljs-comment">#清除上一次make以及configure命令生成的文件</span><br>sudo <span class="hljs-built_in">rm</span> -r build<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> package_name/build<br><br><span class="hljs-comment"># 卸载使用make install命令安装到系统路径的文件</span><br><span class="hljs-comment"># `install_manifest.txt`文件里包含了所有安装的文件的路径</span><br><span class="hljs-built_in">cat</span> install_manifest.txt | sudo xargs <span class="hljs-built_in">rm</span>  <span class="hljs-comment"># 或</span><br>sudo xargs <span class="hljs-built_in">rm</span> &lt; install_manifest.txt<br><span class="hljs-comment"># 上述命令只会删除掉文件夹里的文件，会留下空文件夹。所以可以继续对照`install_manifest.txt`文件，手动删掉多余的空文件夹。</span><br><br>sudo make uninstall<br>sudo make clean <span class="hljs-comment">#清除上一次make命令生成的文件</span><br>sudo make distclean <span class="hljs-comment">#清除上一次make以及configure命令生成的文件</span><br><span class="hljs-built_in">cd</span> ..<br>sudo <span class="hljs-built_in">rm</span> -r build<br></code></pre></td></tr></table></figure>
+<blockquote>
+<p><code>make uninstall</code> 是一个常见的 makefile 目标，它的主要作用是删除由 <code>make install</code> 命令安装的文件。</p>
+<p>当你运行 <code>make install</code> 命令时，通常会将一些文件（例如可执行文件、库文件、头文件等）复制到系统的某些目录下（例如 <code>/usr/local/bin</code>、<code>/usr/local/lib</code> 等）。<code>make uninstall</code> 命令就是用来删除这些文件的。</p>
+<p>然而，需要注意的是，并不是所有的 makefile 都提供 <code>make uninstall</code> 目标。如果 makefile 没有提供这个目标，运行 <code>make uninstall</code> 命令将会导致错误。</p>
+<p>在运行 <code>make uninstall</code> 命令之前，你应该查看 makefile 或者相关的文档，以确认这个命令是否可用，以及它会删除哪些文件。</p>
+</blockquote>
+<blockquote>
+<p><code>cat install_manifest.txt | sudo xargs rm</code> 和 <code>sudo make uninstall</code> 都是用来删除由 <code>make install</code> 命令安装的文件的。然而，它们的工作方式有所不同。</p>
+<ul>
+<li><code>cat install_manifest.txt | sudo xargs rm</code>：这个命令会读取 <code>install_manifest.txt</code> 文件，这个文件通常由 <code>make install</code> 命令生成，包含了所有被安装的文件的列表。然后，它会使用 <code>xargs rm</code> 命令删除这些文件。这个命令不依赖于 makefile，只要 <code>install_manifest.txt</code> 文件存在，就可以使用。</li>
+<li><code>sudo make uninstall</code>：这个命令会执行 makefile 中的 <code>uninstall</code> 目标。这个目标通常会删除所有被 <code>make install</code> 命令安装的文件。然而，需要注意的是，并不是所有的 makefile 都提供 <code>uninstall</code> 目标。如果 makefile 没有提供这个目标，运行 <code>sudo make uninstall</code> 命令将会导致错误。</li>
+</ul>
+<p>总的来说，这两个命令的功能是相似的，但是 <code>cat install_manifest.txt | sudo xargs rm</code> 命令更为直接，不依赖于 makefile。而 <code>sudo make uninstall</code> 命令则需要 makefile 提供 <code>uninstall</code> 目标。</p>
+</blockquote>
+<blockquote>
+<p><code>make clean</code> 和 <code>make distclean</code> 是两个常见的 makefile 目标，它们的功能取决于 makefile 的编写者如何定义它们。但是，通常它们的功能如下：</p>
+<ul>
+<li><code>make clean</code>：这个命令通常用于删除所有由 makefile 生成的文件。这通常包括编译产生的对象文件（.o 或 .obj 文件）和编译器生成的中间文件。但是，它通常不会删除配置文件或者 makefile 文件。</li>
+<li><code>make distclean</code>：这个命令通常用于将目录恢复到初始状态。除了删除 <code>make clean</code> 会删除的文件，它还会删除配置文件和 makefile 文件。这个命令通常在你想要重新配置和编译一个项目时使用。</li>
+</ul>
+<p>需要注意的是，这两个命令的具体行为取决于 makefile 的编写者。在使用这些命令之前，你应该查看 makefile 或者相关的文档，以了解这些命令的具体行为。</p>
+</blockquote>
 <h2 id="编程命名规范">编程命名规范</h2>
 <ol>
 <li>
@@ -1394,6 +1483,9 @@
 <li>
 <p>在编程中，<code>i</code>、<code>j</code>和<code>k</code>通常用作循环变量，特别是在嵌套循环中。<code>idx</code>和<code>jdx</code>是对这些传统变量名的扩展，其中<code>idx</code>可能表示&quot;index&quot;，<code>jdx</code>可能表示第二个索引。</p>
 <p>然而，更具描述性的变量名可能会使代码更易于理解。例如，如果<code>idx</code>遍历的是当前帧的目标检测框，那么你可能会选择名为<code>curBoxIdx</code>的变量名。同样，如果<code>jdx</code>遍历的是前一帧的目标检测框，那么你可能会选择名为<code>prevBoxIdx</code>的变量名。</p>
+</li>
+<li>
+<p>在我们的系统中，所有环境变量都使用大写字母命名。所以当我们声明局部变量时，应该使用小写字母来声明，以避免环境和局部变量名发生冲突。</p>
 </li>
 <li>
 <p>等等。</p>
@@ -1753,6 +1845,25 @@
 <p>在这个例子中，<code>T</code>是一个类型模板参数，<code>N</code>是一个非类型模板参数。你可以用任何类型替换<code>T</code>，用任何整数替换<code>N</code>，来创建不同的<code>Array</code>类：</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c++">Array&lt;<span class="hljs-type">int</span>, <span class="hljs-number">10</span>&gt; intArray;<br>Array&lt;<span class="hljs-type">double</span>, <span class="hljs-number">20</span>&gt; doubleArray;<br></code></pre></td></tr></table></figure>
 <p>模板类与一般的类的主要区别在于，模板类可以处理多种类型的数据，而一般的类只能处理特定类型的数据。模板类提供了一种机制，使得你可以在类定义时不指定具体的类型，而是在使用类时指定类型。这使得你的代码更加灵活，可以处理多种类型的数据。</p>
+<h3 id="成员初始化列表">成员初始化列表</h3>
+<p><strong>成员初始化列表</strong>（Member Initializer List）是C++中一个重要的特性，它允许在构造函数中初始化类的成员变量。这个特性不仅可以提高代码的清晰度和执行效率，还是某些情况下初始化成员变量的唯一方法。</p>
+<p>在C++中，构造函数可以包含一个初始化列表，用于在进入构造函数体之前初始化成员变量。初始化列表以冒号（<em>:</em>）开头，后面跟着用逗号（<em>,</em>）分隔的初始化表达式。例如：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Example</span> &#123;<br>    <span class="hljs-keyword">public</span>:<br>    	<span class="hljs-comment">// 含有两个参数的构造函数</span><br>    	<span class="hljs-built_in">Example</span>(<span class="hljs-type">int</span> x, <span class="hljs-type">int</span> y) : <span class="hljs-built_in">x_</span>(x), <span class="hljs-built_in">y_</span>(y) &#123;&#125;  <span class="hljs-comment">// 用接收到的 int 类型的变量 x 的值来初始化 x_ 。</span><br>    <span class="hljs-keyword">private</span>:<br>    	<span class="hljs-type">int</span> x_;<br>    	<span class="hljs-type">int</span> y_;<br>&#125;;<br></code></pre></td></tr></table></figure>
+<p>在这个例子中，*x_<em>和</em>y_*是通过成员初始化列表进行初始化的，而不是在构造函数体内赋值。</p>
+<p>有几种情况下必须使用成员初始化列表：</p>
+<ol>
+<li><strong>const成员变量</strong>：const成员变量必须在声明时初始化，不能在构造函数体内赋值。</li>
+<li><strong>引用成员变量</strong>：引用成员同样需要在声明时初始化。</li>
+<li><strong>没有默认构造函数的类类型成员</strong>：如果类成员本身是一个对象，并且这个对象没有无参的构造函数，那么必须通过成员初始化列表来调用其有参构造函数。</li>
+<li><strong>继承中的基类成员</strong>：如果需要在子类中初始化基类的私有成员，也需要在成员初始化列表中显式调用基类的构造函数。</li>
+</ol>
+<p>使用成员初始化列表初始化类成员比在构造函数体内赋值有几个优势：</p>
+<ul>
+<li><strong>性能</strong>：对于类类型的成员变量，使用成员初始化列表可以避免调用默认构造函数后再赋值，减少了一次不必要的构造和析构过程，提高了效率。</li>
+<li><strong>顺序</strong>：成员变量的初始化顺序与它们在类定义中的声明顺序一致，与初始化列表中的顺序无关。这有助于避免一些因初始化顺序不当导致的错误。</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">A</span> &#123;<br>    <span class="hljs-keyword">private</span>:<br>    	<span class="hljs-type">const</span> <span class="hljs-type">int</span> a; <span class="hljs-comment">// const成员</span><br>    <span class="hljs-keyword">public</span>:<br>    	<span class="hljs-built_in">A</span>() : <span class="hljs-built_in">a</span>(<span class="hljs-number">10</span>) &#123;&#125; <span class="hljs-comment">// 使用成员初始化列表进行初始化</span><br>&#125;;<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">B</span> &#123;<br>    <span class="hljs-keyword">private</span>:<br>    	<span class="hljs-type">int</span> &amp;b; <span class="hljs-comment">// 引用成员</span><br>    <span class="hljs-keyword">public</span>:<br>    	<span class="hljs-built_in">B</span>(<span class="hljs-type">int</span> &amp;b_ref) : <span class="hljs-built_in">b</span>(b_ref) &#123;&#125; <span class="hljs-comment">// 使用成员初始化列表进行初始化</span><br>&#125;;<br></code></pre></td></tr></table></figure>
+<p>在这个示例中，类<em>A</em>的成员<em>a</em>是一个const成员，类<em>B</em>的成员<em>b</em>是一个引用成员。它们都通过成员初始化列表进行了初始化。</p>
 <h3 id="其它-2">其它</h3>
 <ol>
 <li>
@@ -1766,7 +1877,9 @@
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">FeatureTracker::incrementTrackID</span><span class="hljs-params">()</span> </span>&#123;<br>    trackIDCounter_++;<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>在这个例子中，<code>incrementTrackID</code>函数将<code>trackIDCounter_</code>的值增加1。你可以在类的任何成员函数中更改<code>trackIDCounter_</code>的值，只要这个函数有权限访问这个成员变量（即，这个函数不是<code>const</code>的）。</p>
 </li>
-<li></li>
+<li>
+<p>等等。</p>
+</li>
 </ol>
 <h2 id="结构体">结构体</h2>
 <h3 id="概述">概述</h3>
@@ -1829,6 +1942,15 @@
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><br><span class="hljs-comment">// 定义一个结构体</span><br><span class="hljs-keyword">struct</span> <span class="hljs-title class_">Point</span> &#123;<br>    <span class="hljs-type">int</span> x;<br>    <span class="hljs-type">int</span> y;<br>&#125;;<br><br><span class="hljs-comment">// 将结构体作为输入参数的函数</span><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">printPoint</span><span class="hljs-params">(Point p)</span> </span>&#123;<br>    std::cout &lt;&lt; <span class="hljs-string">&quot;Point: (&quot;</span> &lt;&lt; p.x &lt;&lt; <span class="hljs-string">&quot;, &quot;</span> &lt;&lt; p.y &lt;&lt; <span class="hljs-string">&quot;)&quot;</span> &lt;&lt; std::endl;<br>&#125;<br><br><span class="hljs-comment">// 将结构体作为输出参数的函数</span><br><span class="hljs-function">Point <span class="hljs-title">getPoint</span><span class="hljs-params">()</span> </span>&#123;<br>    Point p;<br>    p.x = <span class="hljs-number">10</span>;<br>    p.y = <span class="hljs-number">20</span>;<br>    <span class="hljs-keyword">return</span> p;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    Point p1 = &#123;<span class="hljs-number">1</span>, <span class="hljs-number">2</span>&#125;;<br>    <span class="hljs-built_in">printPoint</span>(p1);  <span class="hljs-comment">// 输出: Point: (1, 2)</span><br><br>    Point p2 = <span class="hljs-built_in">getPoint</span>();<br>    <span class="hljs-built_in">printPoint</span>(p2);  <span class="hljs-comment">// 输出: Point: (10, 20)</span><br><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>在这个例子中，<code>printPoint</code>函数接收一个<code>Point</code>类型的参数，<code>getPoint</code>函数返回一个<code>Point</code>类型的值。在<code>main</code>函数中，我们创建了两个<code>Point</code>类型的变量<code>p1</code>和<code>p2</code>，并使用<code>printPoint</code>函数打印它们的值。</p>
 <h2 id="vector">vector</h2>
+<h3 id="添加元素">添加元素</h3>
+<p>如果<code>vector</code>变量的大小没有预先定义，你需要先调用<code>resize</code>函数来设置它们的大小，然后再使用索引来赋值。或者，你可以使用<code>push_back</code>或<code>emplace_back</code>来添加元素。</p>
+<p>以下是使用resize和索引赋值的示例：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs c++">nextPts.<span class="hljs-built_in">resize</span>(prevPts.<span class="hljs-built_in">size</span>());<br>status.<span class="hljs-built_in">resize</span>(prevPts.<span class="hljs-built_in">size</span>());<br><br><span class="hljs-keyword">for</span> (<span class="hljs-type">size_t</span> i = <span class="hljs-number">0</span>; i &lt; prevPts.<span class="hljs-built_in">size</span>(); ++i) &#123;<br>    <span class="hljs-comment">// ...</span><br>    nextPts[i] = prevPts[i] + flow_at_point;<br>    <span class="hljs-comment">// ...</span><br>    status[i] = <span class="hljs-number">0</span>;<br>    <span class="hljs-comment">// ...</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<p>以下是使用<code>push_back</code>添加元素的示例：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">for</span> (<span class="hljs-type">size_t</span> i = <span class="hljs-number">0</span>; i &lt; prevPts.<span class="hljs-built_in">size</span>(); ++i) &#123;<br>    <span class="hljs-comment">// ...</span><br>    nextPts.<span class="hljs-built_in">push_back</span>(prevPts[i] + flow_at_point);<br>    <span class="hljs-comment">// ...</span><br>    status.<span class="hljs-built_in">push_back</span>(<span class="hljs-number">0</span>);<br>    <span class="hljs-comment">// ...</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<p>如果你知道<code>vector</code>的最终大小，那么使用<code>resize</code>函数来预先设置大小，然后使用索引来赋值，通常会更快。这是因为<code>resize</code>函数会一次性分配足够的内存，而不需要在每次添加元素时重新分配和复制内存。此外，使用索引来赋值可以直接访问和修改<code>vector</code>中的元素，而不需要调用<code>push_back</code>或<code>emplace_back</code>函数。</p>
+<p>如果你不知道<code>vector</code>的最终大小，或者<code>vector</code>的大小可能会动态变化，那么使用<code>push_back</code>或<code>emplace_back</code>来添加元素可能会更方便。这是因为<code>push_back</code>和<code>emplace_back</code>函数可以在不知道<code>vector</code>最终大小的情况下动态添加元素。但是，你需要注意的是，如果<code>vector</code>的大小增长很快，<code>push_back</code>和<code>emplace_back</code>函数可能需要多次重新分配和复制内存，这可能会影响性能。</p>
+<p>总的来说，如果你知道<code>vector</code>的最终大小，推荐使用<code>resize</code>和索引赋值。如果你不知道<code>vector</code>的最终大小，或者<code>vector</code>的大小可能会动态变化，推荐使用<code>push_back</code>或<code>emplace_back</code>。</p>
 <h3 id="clear与容量">clear与容量</h3>
 <h4 id="clear">clear</h4>
 <p>在C++中，你可以使用<code>vector</code>的<code>clear</code>方法来清空<code>vector</code>中的所有元素。以下是一个例子：</p>
@@ -1854,11 +1976,38 @@
 <ol>
 <li><code>std::vector</code>的赋值操作符（<code>=</code>）执行的是内容的复制，而不是地址的复制。</li>
 </ol>
+<h2 id="mutex">mutex</h2>
+<p>互斥量（mutex），它是一种同步原语，用于保护共享数据免受多个线程同时访问。在多线程环境中，如果多个线程试图<strong>同时访问和修改</strong>同一块数据，可能会导致数据不一致和未定义的行为。为了防止这种情况，我们可以使用互斥量来确保在任何时候只有一个线程能够访问该数据。</p>
+<blockquote>
+<p>比如在回调函数中被持续赋值，在其它函数中被修改。</p>
+</blockquote>
+<blockquote>
+<p>即使变量在其他函数中只被读取，也需要保护它，因为在多线程环境中，一个线程可能在另一个线程正在写入变量的同时读取该变量，这可能会导致读取到的数据是不一致或者无效的。这种情况被称为“读-写冲突”。</p>
+</blockquote>
+<p>一个或多个共享资源（例如，一个全局变量或一个在多个线程之间共享的数据结构），当一个线程想要访问这个共享资源时，它需要首先锁定（lock）互斥量。如果互斥量已经被另一个线程锁定，那么这个线程将会被阻塞，直到互斥量被解锁（unlock）。当线程完成对共享资源的访问后，它需要解锁互斥量，以便其他线程可以锁定互斥量并访问共享资源。</p>
+<h3 id="lock">lock</h3>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c++">std::mutex m_buf_event;<br>m_buf_event.<span class="hljs-built_in">lock</span>();<br><span class="hljs-comment">// ... do some work ...</span><br>m_buf_event.<span class="hljs-built_in">unlock</span>();<br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>你需要手动调用<code>lock()</code>和<code>unlock()</code>来锁定和解锁互斥量。这种方式的问题是，如果在<code>lock()</code>和<code>unlock()</code>之间的代码抛出了异常，那么<code>unlock()</code>可能永远不会被调用，从而导致死锁。</p>
+</blockquote>
+<p>示例：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs c++">std::mutex m_buf_event;<br><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">eventLeft_callback</span><span class="hljs-params">(<span class="hljs-type">const</span> dvs_msgs::EventArray &amp;event_msg)</span></span>&#123;<br>    m_buf_event.<span class="hljs-built_in">lock</span>();<br>    <span class="hljs-keyword">if</span> (!events_left_buf.<span class="hljs-built_in">empty</span>())<br>      events_left_buf.<span class="hljs-built_in">pop</span>();<br>    events_left_buf.<span class="hljs-built_in">push</span>(event_msg);<br>    m_buf_event.<span class="hljs-built_in">unlock</span>();<br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="lock-guard">lock_guard</h3>
+<p>在C++中，<code>std::lock_guard</code>对象的作用域是由其所在的代码块（即最近的大括号<code>&#123;&#125;</code>内的区域）决定的。当<code>std::lock_guard</code>对象在代码块内创建时，它会自动锁定传递给它的互斥量。当<code>std::lock_guard</code>对象超出其作用域（即离开其所在的代码块）时，它的析构函数会被调用，从而自动解锁互斥量。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c++">std::mutex m_buf_event;<br>&#123;<br>  <span class="hljs-function">std::lock_guard&lt;mutex&gt; <span class="hljs-title">lock</span><span class="hljs-params">(m_buf_event)</span></span>;<br>  <span class="hljs-comment">// ... do some work ...</span><br>&#125; <span class="hljs-comment">// mutex is automatically unlocked here</span><br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>使用了<code>std::lock_guard</code>，这是一个RAII（Resource Acquisition Is Initialization）机制的互斥包装器，它在构造时提供一个已锁定的互斥，并在析构时解锁互斥。这意味着当<code>std::lock_guard</code>对象超出其作用域并被销毁时，互斥量会自动被解锁，即使在<code>lock_guard</code>的作用域内的代码抛出了异常。这样可以避免死锁，并使代码更安全、更易于理解。</p>
+</blockquote>
+<p>示例：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs c++">mutex evt_buf_mutex;<br>mutex events_storage_mutex;<br><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">callback_events</span><span class="hljs-params">(<span class="hljs-type">const</span> dvs_msgs::EventArray::ConstPtr &amp;msg)</span> </span>&#123;<br>  <span class="hljs-comment">// We first lock the event buffers, to avoid any collision</span><br>  &#123;<br>    <span class="hljs-function">lock_guard&lt;mutex&gt; <span class="hljs-title">lock</span><span class="hljs-params">(evt_buf_mutex)</span></span>;<br><br>    <span class="hljs-comment">// We then append the received events at the back of the current buffer</span><br>    evt_buffers[buffer_used].<span class="hljs-built_in">insert</span>(evt_buffers[buffer_used].<span class="hljs-built_in">end</span>(),<br>                                    <span class="hljs-built_in">begin</span>(msg-&gt;events), <span class="hljs-built_in">end</span>(msg-&gt;events));<br>  &#125;<br>  <br>  <span class="hljs-comment">// Add new events to events_storage</span><br>  &#123;<br>    <span class="hljs-function">lock_guard&lt;mutex&gt; <span class="hljs-title">storage_lock</span><span class="hljs-params">(events_storage_mutex)</span></span>;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">const</span> dvs_msgs::Event &amp;event : msg-&gt;events) &#123;<br>      events_storage.<span class="hljs-built_in">push_back</span>(event);<br>      <span class="hljs-comment">// If the size of events_storage exceeds accumulation_number, we remove</span><br>      <span class="hljs-comment">// the oldest event</span><br>      <span class="hljs-keyword">if</span> (events_storage.<span class="hljs-built_in">size</span>() &gt; accumulation_number) &#123;<br>        events_storage.<span class="hljs-built_in">pop_front</span>();<br>      &#125;<br>    &#125;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 <h2 id="Eigen">Eigen</h2>
 <h3 id="Matrix类与Array类">Matrix类与Array类</h3>
 <p>相对于Matrix类提供的线性代数（矩阵）运算，Array类提供了更为一般的数组功能。Array类为元素级的操作提供了有效途径，比如点加（每个元素加值）或两个数据相应元素的点乘。</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c++">Eigen::Matrix&lt;<span class="hljs-type">float</span>, N, N&gt; FFT;<br>(FFT.<span class="hljs-built_in">array</span>().<span class="hljs-built_in">arg</span>()).<span class="hljs-built_in">matrix</span>();  <span class="hljs-comment">// 将FFT矩阵转换为数组，然后调用arg()函数计算每个元素的相位（即复数的角度），最后再将结果转换回矩阵。</span><br></code></pre></td></tr></table></figure>
 <h2 id="OpenCV">OpenCV</h2>
+<blockquote>
+<p>在 OpenCV 中，<code>cv::Mat::at</code>函数的参数顺序是<code>(row, column)</code>，对应于<code>(y, x)</code>，而不是通常的<code>(x, y)</code>。这是因为在图像处理中，我们通常将图像视为一个二维数组，其中第一个维度是行（对应于y坐标），第二个维度是列（对应于x坐标）。</p>
+</blockquote>
 <h3 id="OpenCV的数据类型">OpenCV的数据类型</h3>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/ai_faker/article/details/118183702">参考链接</a></p>
 <p>S = 有符号整型 U = 无符号整型 F = 浮点型</p>
@@ -1870,6 +2019,18 @@
 <p>CV_32F - 32位浮点数（-FLT_MAX…FLT_MAX，INF，NAN）</p>
 <p>CV_64F - 64位浮点数（-DBL_MAX…DBL_MAX，INF，NAN）</p>
 <p>而后面的C1、C2、C3是什么意思呢？这里的1、2、3代表的是通道数，比如RGB就是3通道，颜色表示最大为255，所以可以用CV_8UC3这个数据类型来表示；灰度图就是C1，只有一个通道；而带alph通道的PNG图像就是C4，是4通道图片。</p>
+<h3 id="负值处理">负值处理</h3>
+<p><code>cv::Mat</code>矩阵可以存储负值并进行运算，但这取决于你选择的数据类型。OpenCV中的<code>cv::Mat</code>可以存储多种类型的数据，包括有符号整数和浮点数。</p>
+<p>例如，如果你选择<code>CV_32F</code>（32位浮点数）或<code>CV_64F</code>（64位浮点数）作为你的数据类型，那么你的<code>cv::Mat</code>矩阵就可以存储负值，并且可以进行各种运算，如加法、减法、乘法等。</p>
+<p>以下是一个简单的例子：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function">cv::Mat <span class="hljs-title">mat</span><span class="hljs-params">(<span class="hljs-number">3</span>, <span class="hljs-number">3</span>, CV_32F, cv::Scalar(<span class="hljs-number">-1</span>))</span></span>; <span class="hljs-comment">// Creates a 3x3 matrix filled with -1</span><br>mat.<span class="hljs-built_in">at</span>&lt;<span class="hljs-type">float</span>&gt;(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>) = <span class="hljs-number">-5</span>; <span class="hljs-comment">// Sets the value at the first row and first column to -5</span><br>std::cout &lt;&lt; mat &lt;&lt; std::endl; <span class="hljs-comment">// Prints the matrix</span><br></code></pre></td></tr></table></figure>
+<p>在这个例子中，我们创建了一个3x3的矩阵，所有元素的初始值都是-1，然后我们将第一行第一列的元素值设置为-5。</p>
+<p>当你使用OpenCV的<code>imshow</code>函数来可视化一个<code>cv::Mat</code>矩阵时，负值的处理方式取决于矩阵的数据类型。</p>
+<p>如果你的<code>cv::Mat</code>矩阵的数据类型是无符号整数（如<code>CV_8U</code>），那么它不能存储负值，任何负值都会被视为零。</p>
+<p>如果你的<code>cv::Mat</code>矩阵的数据类型是有符号整数（如<code>CV_8S</code>，<code>CV_16S</code>）或浮点数（如<code>CV_32F</code>，<code>CV_64F</code>），那么它可以存储负值。在可视化这样的矩阵时，你需要先将矩阵的值规范化到0-255的范围内。你可以使用OpenCV的<code>normalize</code>函数来实现这一点。</p>
+<p>以下是一个例子：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function">cv::Mat <span class="hljs-title">mat</span><span class="hljs-params">(<span class="hljs-number">3</span>, <span class="hljs-number">3</span>, CV_32F, cv::Scalar(<span class="hljs-number">-1</span>))</span></span>; <span class="hljs-comment">// Creates a 3x3 matrix filled with -1</span><br>cv::<span class="hljs-built_in">normalize</span>(mat, mat, <span class="hljs-number">0</span>, <span class="hljs-number">255</span>, cv::NORM_MINMAX, CV_8U); <span class="hljs-comment">// Normalize the values to 0-255</span><br>cv::<span class="hljs-built_in">imshow</span>(<span class="hljs-string">&quot;Normalized Image&quot;</span>, mat); <span class="hljs-comment">// Display the normalized image</span><br>cv::<span class="hljs-built_in">waitKey</span>(<span class="hljs-number">0</span>); <span class="hljs-comment">// Wait for a key press</span><br></code></pre></td></tr></table></figure>
+<p>在这个例子中，我们首先创建了一个3x3的矩阵，所有元素的初始值都是-1。然后我们使用<code>cv::normalize</code>函数将矩阵的值规范化到0-255的范围内，并将数据类型转换为<code>CV_8U</code>。最后，我们使用<code>cv::imshow</code>函数显示规范化后的图像。</p>
 <h3 id="访问cv-Mat对象中特定位置的像素值">访问<code>cv::Mat</code>对象中特定位置的像素值</h3>
 <p>在OpenCV中，有几种方法可以访问<code>cv::Mat</code>对象中特定位置的像素值。以下是一些常见的方法：</p>
 <ol>
@@ -1913,6 +2074,17 @@
 <li><strong>联合（Union）</strong>：联合是一种特殊的数据类型，它可以存储不同类型的数据，但一次只能存储其中一种类型的数据。</li>
 </ol>
 <p>选择哪种方式取决于你的具体需求和使用场景。</p>
+<h2 id="Python">Python</h2>
+<h3 id="if-name-main">if <strong>name</strong> == &quot;<strong>main</strong>&quot;:</h3>
+<p>在Python中，<code>if __name__ == &quot;__main__&quot;:</code> 是一个常见的模式。这行代码的作用是检查当前的模块是被直接运行还是被导入为一个模块。</p>
+<p>当Python解释器读取一个源文件时，它会首先定义一些特殊的变量。其中一个就是 <code>__name__</code>。如果该文件被直接运行，那么 <code>__name__</code> 的值会被设置为 <code>&quot;__main__&quot;</code>。如果该文件被其他Python文件导入，那么 <code>__name__</code> 的值则会被设置为该文件的名字。</p>
+<p>因此，<code>if __name__ == &quot;__main__&quot;:</code> 这行代码的意思是，&quot;如果这个文件被直接运行，那么执行以下的代码&quot;。这个模式常常被用来在一个Python文件中编写一些测试代码，这些测试代码只有在文件被直接运行时才会执行，而在文件被导入时不会执行。</p>
+<h3 id="读取文件">读取文件</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> rosbag<br>bag_data = rosbag.Bag(rosbag_file, <span class="hljs-string">&quot;r&quot;</span>)<br>bag_data.close()<br></code></pre></td></tr></table></figure>
+<p>在Python中，使用<code>with</code>语句打开文件时，当<code>with</code>语句的代码块执行完毕后，文件会自动关闭。所以，你不需要显式地调用<code>file.close</code>。</p>
+<p>这是因为<code>with</code>语句创建了一个上下文，当离开这个上下文时，Python会自动清理相关的资源。在这个例子中，相关的资源就是打开的文件。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> yaml<br><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><br><span class="hljs-comment"># 打开并读取YAML文件</span><br><span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;myFolder/cam_to_cam.yaml&#x27;</span>, <span class="hljs-string">&#x27;r&#x27;</span>) <span class="hljs-keyword">as</span> file:<br>    data = yaml.safe_load(file)<br><br><span class="hljs-comment"># 从YAML数据中获取矩阵</span><br>T_10 = np.array(data[<span class="hljs-string">&#x27;extrinsics&#x27;</span>][<span class="hljs-string">&#x27;T_10&#x27;</span>])<br></code></pre></td></tr></table></figure>
+<p>在<code>data = yaml.safe_load(file)</code>这行代码执行完毕后，<code>file</code>会自动关闭，无需手动关闭。</p>
 <h2 id="内存泄漏">内存泄漏</h2>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_45498383/article/details/138488477">参考链接</a></p>
 <h3 id="什么是内存泄漏？">什么是内存泄漏？</h3>
@@ -2010,7 +2182,36 @@
 <p><code>++i</code>是前置递增运算符。它首先将<code>i</code>的值增加1，然后返回新的<code>i</code>值。例如：</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-type">int</span> i = <span class="hljs-number">5</span>;<br><span class="hljs-type">int</span> j = ++i;  <span class="hljs-comment">// j现在是6，i现在也是6</span><br></code></pre></td></tr></table></figure>
 </li>
-<li></li>
+<li>
+<p>在C++中，<code>#include &lt;filename&gt;</code>和<code>#include &quot;filename&quot;</code>的主要区别在于编译器搜索头文件的方式。</p>
+<ul>
+<li><code>#include &lt;filename&gt;</code>：编译器在标准库路径中搜索头文件。这通常用于包含标准库的头文件，如<code>&lt;iostream&gt;</code>、<code>&lt;vector&gt;</code>、<code>&lt;mutex&gt;</code>等。</li>
+<li><code>#include &quot;filename&quot;</code>：编译器首先在当前文件的目录中搜索头文件，如果在当前目录中找不到，编译器会在标准库路径中搜索。这通常用于包含用户自定义的头文件。</li>
+</ul>
+</li>
+<li>
+<p><code>variable</code>的生命周期取决于它在哪里声明和定义。如果它在<code>while</code>循环外部定义，那么它将在包含该循环的函数或作用域结束时被销毁。如果它在<code>while</code>循环内部定义，那么它将在每次循环结束时被销毁，并在下一次循环开始时重新创建。</p>
+</li>
+<li>
+<p>把函数的输入参数行想成是对输入参数的定义，把函数的调用行想成是对输入参数的赋值，函数内部就是变量赋值后的进一步操作。</p>
+</li>
+<li>
+<p>变量<code>l</code>（包括函数的输入参数）被定义为<code>const</code>，这意味着它的值在初始化后不能被修改。<strong>这是一种良好的编程实践</strong>，可以防止在后续的代码中意外修改<code>l</code>的值。</p>
+<p>然而，如果你确定在后续的代码中不会修改<code>l</code>的值，那么将<code>l</code>定义为<code>const</code>并不是必须的。在这种情况下，将<code>l</code>定义为<code>const</code>主要是为了提高代码的可读性和可维护性，它可以让其他阅读你代码的人知道<code>l</code>的值在初始化后不应该被修改。</p>
+<p>总的来说，是否将<code>l</code>定义为<code>const</code>取决于你的编程风格和项目的编码规范。如果你的项目鼓励使用<code>const</code>来增强代码的可读性和可维护性，那么将<code>l</code>定义为<code>const</code>是一个好的选择。</p>
+</li>
+<li>
+<p>命令行参数：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> sys<br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br>    npy_file = sys.argv[<span class="hljs-number">1</span>] <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(sys.argv) &gt; <span class="hljs-number">1</span> <span class="hljs-keyword">else</span> __file__<br></code></pre></td></tr></table></figure>
+<p><code>sys.argv</code> 是一个包含命令行参数的列表，其中 <code>sys.argv[0]</code> 是脚本的名称，<code>sys.argv[1]</code> 是第一个参数，<code>sys.argv[2]</code> 是第二个参数，以此类推。</p>
+</li>
+<li>
+<p>初始化 ROS 工作空间：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">alias</span> initROS=<span class="hljs-string">&quot;mkdir -p catkin_ws/src &amp;&amp; cd catkin_ws &amp;&amp; catkin config --init --mkdirs --extend /opt/ros/melodic --merge-devel --cmake-args -DCMAKE_BUILD_TYPE=Release &amp;&amp; cd src &amp;&amp; catkin_init_workspace &amp;&amp; cd .. &amp;&amp; catkin build&quot;</span><br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>等等。</p>
+</li>
 </ol>
 <h1 id="Windows">Windows</h1>
 <h2 id="快捷键-3">快捷键</h2>
@@ -2334,7 +2535,7 @@
 </tr>
 <tr>
 <td style="text-align:center">ALT+F1</td>
-<td style="text-align:center">查找文件所在目录位置</td>
+<td style="text-align:center">导航，查找文件所在目录位置</td>
 </tr>
 <tr>
 <td style="text-align:center">CTRL+F</td>
@@ -2351,6 +2552,18 @@
 <tr>
 <td style="text-align:center">Ctrl+Shift+E</td>
 <td style="text-align:center">最近的位置，支持键盘直接输入模糊搜索。</td>
+</tr>
+<tr>
+<td style="text-align:center">Alt + 1</td>
+<td style="text-align:center">打开/关闭项目树</td>
+</tr>
+<tr>
+<td style="text-align:center">Alt + Shift + 1</td>
+<td style="text-align:center">在项目树定位打开的文件的位置</td>
+</tr>
+<tr>
+<td style="text-align:center">Ctrl + Tab</td>
+<td style="text-align:center">跳转标签页</td>
 </tr>
 <tr>
 <td style="text-align:center"><mark>查看</mark></td>
@@ -2704,7 +2917,7 @@
 <ol>
 <li>
 <p>在线安装</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs bash">conda search qt  <span class="hljs-comment"># 搜索可用版本</span><br><span class="hljs-comment"># 你可以指定所安装软件包的版本号，如果不指定的话，就默认安装最新版本。</span><br>conda install -y pkgs[==version]  <span class="hljs-comment"># 安装库，安装成功一般会出现三个 done 。-y 参数的作用是自动确认，忽略询问。</span><br><span class="hljs-comment"># 通过调用软件的帮助文档来经常是否下载成功。如果失败， 重新下载即可。</span><br><br><span class="hljs-comment"># 或</span><br><span class="hljs-comment"># 在anaconda下用pip装包的原因：尽管在anaconda下我们可以很方便的使用conda install来安装我们需要的依赖，但是anaconda本身只提供部分包，远没有pip提供的包多，有时conda无法安装我们需要的包，我们需要用pip将其装到conda环境里。</span><br>conda install pip  <span class="hljs-comment"># 进入环境后</span><br><span class="hljs-comment"># 首先用下面命令查看我们此时用的pip为哪个环境</span><br><span class="hljs-comment"># 如base环境的pip可能在/root/anaconda3/bin/pip，而其他conda环境的pip，可能在/root/anaconda3/envs/my_env/bin/pip</span><br><span class="hljs-built_in">which</span> -a pip<br>pip -V  <span class="hljs-comment"># pip --version</span><br><span class="hljs-comment"># 配置</span><br>pip -v config list<br>pip install --upgrade pip setuptools wheel  <span class="hljs-comment"># 升级pip工具包</span><br>pip install --upgrade pip  <span class="hljs-comment"># 更新 pip 至最新版</span><br>pip config <span class="hljs-built_in">set</span> global.index-url https://pypi.tuna.tsinghua.edu.cn/simple  <span class="hljs-comment"># 永久换源（清华源）</span><br><span class="hljs-comment"># Writing to /home/xxx/.config/pip/pip.conf</span><br><span class="hljs-comment"># global.index-url=&#x27;https://pypi.tuna.tsinghua.edu.cn/simple&#x27;</span><br>pip config <span class="hljs-built_in">unset</span> global.index-url  <span class="hljs-comment"># 换回默认源</span><br><span class="hljs-comment"># 搜索可用版本</span><br>pip index versions [your python module name] <span class="hljs-comment"># 或</span><br>pip install package_name==<br>pip install pkgs[==version]  <span class="hljs-comment"># pip安装的包，conda list结果中的build项目的Channel为pypi</span><br>pip install -r environment.txt  <span class="hljs-comment"># 根据 txt 文件创建使用 pip 安装的环境</span><br>pip3 --proxy 127.0.0.1:7890 install package_name<br>pip install xxxx -i https://pypi.tuna.tsinghua.edu.cn/simple  <span class="hljs-comment"># 临时换源（清华源）</span><br>pip install -e path/  <span class="hljs-comment"># 执行path/目录下的setup.py文件</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs bash">conda search qt  <span class="hljs-comment"># 搜索可用版本</span><br><span class="hljs-comment"># 你可以指定所安装软件包的版本号，如果不指定的话，就默认安装最新版本。</span><br>conda install -y pkgs[==version]  <span class="hljs-comment"># 安装库，安装成功一般会出现三个 done 。-y 参数的作用是自动确认，忽略询问。</span><br><span class="hljs-comment"># 通过调用软件的帮助文档来经常是否下载成功。如果失败， 重新下载即可。</span><br><br><span class="hljs-comment"># 或</span><br><span class="hljs-comment"># 在anaconda下用pip装包的原因：尽管在anaconda下我们可以很方便的使用conda install来安装我们需要的依赖，但是anaconda本身只提供部分包，远没有pip提供的包多，有时conda无法安装我们需要的包，我们需要用pip将其装到conda环境里。</span><br>conda install pip  <span class="hljs-comment"># 进入环境后</span><br><span class="hljs-comment"># 首先用下面命令查看我们此时用的pip为哪个环境</span><br><span class="hljs-comment"># 如base环境的pip可能在/root/anaconda3/bin/pip，而其他conda环境的pip，可能在/root/anaconda3/envs/my_env/bin/pip</span><br><span class="hljs-built_in">which</span> -a pip<br>pip -V  <span class="hljs-comment"># pip --version</span><br><span class="hljs-comment"># 配置</span><br>pip -v config list<br>pip install --upgrade pip setuptools wheel  <span class="hljs-comment"># 升级pip工具包</span><br>pip install --upgrade pip  <span class="hljs-comment"># 更新 pip 至最新版</span><br>pip config <span class="hljs-built_in">set</span> global.index-url https://pypi.tuna.tsinghua.edu.cn/simple  <span class="hljs-comment"># 永久换源（清华源）</span><br><span class="hljs-comment"># Writing to /home/xxx/.config/pip/pip.conf</span><br><span class="hljs-comment"># global.index-url=&#x27;https://pypi.tuna.tsinghua.edu.cn/simple&#x27;</span><br>pip config <span class="hljs-built_in">unset</span> global.index-url  <span class="hljs-comment"># 换回默认源</span><br><span class="hljs-comment"># 搜索可用版本</span><br>pip index versions [your python module name] <span class="hljs-comment"># 或</span><br>pip install package_name==<br>pip install pkgs[==version]  <span class="hljs-comment"># pip安装的包，conda list结果中的build项目的Channel为pypi</span><br>pip install -r environment.txt  <span class="hljs-comment"># 根据 txt 文件创建使用 pip 安装的环境</span><br>pip3 --proxy 127.0.0.1:7890 install package_name<br>pip install xxxx -i https://pypi.tuna.tsinghua.edu.cn/simple  <span class="hljs-comment"># 临时换源（清华源）</span><br>pip install geometry_msgs --extra-index-url https://rospypi.github.io/simple  <span class="hljs-comment"># 临时添加额外的源</span><br>pip install -e path/  <span class="hljs-comment"># 执行path/目录下的setup.py文件</span><br></code></pre></td></tr></table></figure>
 </li>
 <li>
 <p>本地安装</p>
@@ -3201,6 +3414,11 @@
 <td style="text-align:center"></td>
 </tr>
 <tr>
+<td style="text-align:center">跳转标签页</td>
+<td style="text-align:center">Ctrl + Tab</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
 <td style="text-align:center">关闭文件</td>
 <td style="text-align:center">Ctrl+W</td>
 <td style="text-align:center">Ctrl+F4</td>
@@ -3219,6 +3437,11 @@
 <td style="text-align:center">显示/隐藏终端</td>
 <td style="text-align:center">Ctrl+`</td>
 <td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">打开文件所在文件夹</td>
+<td style="text-align:center">Ctrl + Alt + R</td>
+<td style="text-align:center">Alt + F1，when editorFocus</td>
 </tr>
 <tr>
 <td style="text-align:center"><mark>移动</mark></td>
@@ -3248,12 +3471,12 @@
 <tr>
 <td style="text-align:center">前进（编辑位置）</td>
 <td style="text-align:center">Ctrl+Shift+-</td>
-<td style="text-align:center"></td>
+<td style="text-align:center">Alt + Shift + -&gt;</td>
 </tr>
 <tr>
 <td style="text-align:center">后退（编辑位置）</td>
 <td style="text-align:center">Ctrl+Alt+-</td>
-<td style="text-align:center"></td>
+<td style="text-align:center">Alt + Shift + &lt;-</td>
 </tr>
 <tr>
 <td style="text-align:center">转到行/列</td>
@@ -3308,7 +3531,7 @@
 <tr>
 <td style="text-align:center">向上/下移动行</td>
 <td style="text-align:center">Alt + ↑ / ↓</td>
-<td style="text-align:center">Ctrl+Shift+Alt+↑ / ↓</td>
+<td style="text-align:center">Ctrl+Shift+↑ / ↓</td>
 </tr>
 <tr>
 <td style="text-align:center">选择当前行</td>
@@ -3552,6 +3775,15 @@
 <p><a target="_blank" rel="noopener" href="https://marketplace.visualstudio.com/items?itemName=wmaurer.change-case">change-case</a>：快速更改当前选择或当前单词的大小写（camelCase、CONSTANT_CASE、snake_case 等）</p>
 <p>选中单词，按下<code>Ctrl+Shift+P</code>搜索<code>Change Case Commands</code>...</p>
 <p>当然，可以按<code>Ctrl+K S</code>搜索<code>Change Case</code>为特定命令设置快捷键。</p>
+<h4 id="多代码库编码的工作空间">多代码库编码的工作空间</h4>
+<p><a target="_blank" rel="noopener" href="https://freedium.cfd/https://medium.com/coding-beauty/vscode-tips-tricks-8cef04b81589">10 amazing VS Code tips and tricks for rapid coding</a></p>
+<blockquote>
+<p>想象一下必须在 3 个打开的 VS Code 窗口中来回切换的痛苦；到处打开终端，在错误的代码库中搜索错误的文件，将 Alt + Tab 序列与其他打开的应用程序混合在一起，以及每次切换应用程序时都会造成的精神混乱和延迟。</p>
+</blockquote>
+<p>每个文件夹都是 VS Code 的一个工作区，因此您可以使用文件 &gt; 将文件夹添加到工作区...轻松添加更多文件夹。</p>
+<p>一切完成后，您将拥有所需的所有文件夹，并且可以在“文件资源管理器”窗格中轻松访问其中的文件。</p>
+<p>当您使用 Ctrl + P 或 Ctrl + Shift + F 搜索文件时，它将应用于所有文件夹中的每个文件。</p>
+<p>您还可以使用任何文件夹作为工作目录快速创建新终端。</p>
 <h2 id="Zotero">Zotero</h2>
 <table>
 <thead>
@@ -3611,7 +3843,7 @@
 <li>在<strong>两种</strong>不同的介质上：您应该将数据存储在两种不同形式的介质上。这在今天意味着与 2000 年代末有所不同。我稍后会详细讨论这一点。</li>
 <li><strong>一份</strong>异地副本：您应该在异地远程位置保存一份数据副本，最好距离其他两份副本几英里远。</li>
 </ul>
-<p>如果您想保护您的个人信息、照片、工作文件或其他重要数据，3-2-1 备份策略是您的最佳选择。它可以帮助您避免出现容易受到人为错误、<a target="_blank" rel="noopener" href="https://www.backblaze.com/blog/backblaze-drive-stats-for-q1-2024/">硬盘驱动器崩溃</a>、盗窃、自然灾害或<a target="_blank" rel="noopener" href="https://www.backblaze.com/blog/category/cloud-storage/ransomware/">勒索软件</a>影响的单点故障。</p>
+<p>如果您想保护您的个人信息、照片、工作文件或其他重要数据，3-2-1 备份策略是您的最佳选择。它可以帮助您避免出现容易受到人为错误、<a target="_blank" rel="noopener" href="https://www.backblaze.com/blog/backblaze-drive-stats-for-q1-2024/">硬盘驱动器崩溃</a>、盗窃、自然灾害或<a target="_blank" rel="noopener" href="https://www.backblaze.com/blog/category/cloud-storage/ransomware/">勒索软件</a>影响的单点故障。``</p>
 
                 
               </div>

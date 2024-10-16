@@ -34,7 +34,7 @@
 <meta property="og:image" content="http://zeyulong.com/posts/5b8fd703/feature_branch_diverge_from_master_diagram.png">
 <meta property="og:image" content="http://zeyulong.com/posts/5b8fd703/rebase_result_diagram.png">
 <meta property="article:published_time" content="2024-05-09T03:34:55.000Z">
-<meta property="article:modified_time" content="2024-09-09T08:16:18.906Z">
+<meta property="article:modified_time" content="2024-09-20T12:04:13.514Z">
 <meta property="article:author" content="龙泽雨">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://zeyulong.com/posts/5b8fd703/Git%E6%B5%81%E7%A8%8B-1.png">
@@ -370,7 +370,7 @@
         
         
         
-          160 分钟
+          161 分钟
         
       </span>
     
@@ -420,7 +420,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2024年9月9日 下午
+                    本文最后更新于 2024年9月20日 晚上
                   
                 
               </p>
@@ -867,6 +867,9 @@
 <li>Git Commit Message Helper：标准化提交信息。设置-其它设置-GitCommitMessageHelper</li>
 </ul>
 <h2 id="提交时指定忽略的文件（夹）">提交时指定忽略的文件（夹）</h2>
+<blockquote>
+<p>在新增文件（夹）时，如果其中有想要忽略的文件（夹），最好先更新<code>.gitignore</code>文件，再新增。避免新增的文件被直接提交到缓冲区，就需要手动删除想要忽略的文件（夹）的缓存了。</p>
+</blockquote>
 <h3 id="基本方法">基本方法</h3>
 <blockquote>
 <p>一般来说每个Git项目中都需要一个<code>.gitignore</code>文件，这个文件的作用就是告诉Git哪些文件不需要添加到版本管理中。实际项目中，很多文件都是不需要版本管理的，比如Python的<code>.pyc</code>文件和一些包含密码的配置文件等等。这个文件的内容是一些规则，Git会根据这些规则来判断是否将文件添加到版本控制中。</p>

@@ -32,7 +32,7 @@
 <meta property="og:image" content="http://zeyulong.com/posts/c4541b88/%E8%8A%82%E7%82%B9%E5%88%86%E7%BB%84%E7%BB%93%E6%9E%9C.png">
 <meta property="og:image" content="http://zeyulong.com/posts/c4541b88/rosconsole%E7%95%8C%E9%9D%A2.png">
 <meta property="article:published_time" content="2024-03-05T03:00:35.000Z">
-<meta property="article:modified_time" content="2024-09-18T09:35:39.876Z">
+<meta property="article:modified_time" content="2024-10-16T11:36:42.701Z">
 <meta property="article:author" content="龙泽雨">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://zeyulong.com/posts/c4541b88/rosgraph_dv.png">
@@ -357,7 +357,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          20k 字
+          21k 字
         
       </span>
     
@@ -368,7 +368,7 @@
         
         
         
-          165 分钟
+          172 分钟
         
       </span>
     
@@ -418,7 +418,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2024年9月18日 下午
+                    本文最后更新于 2024年10月16日 晚上
                   
                 
               </p>
@@ -615,6 +615,7 @@
 </ul>
 <h4 id="查看">查看</h4>
 <h5 id="rqt">rqt</h5>
+<h6 id="界面介绍">界面介绍</h6>
 <p>打开rqt：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">rqt<br></code></pre></td></tr></table></figure>
 <p>工具在工具栏-Plugins里：</p>
@@ -642,6 +643,36 @@
 <ul>
 <li>Image View：可视化发布的主题</li>
 <li>Plot：根据主题绘制曲线</li>
+</ul>
+</li>
+</ul>
+<h6 id="launch文件编写">launch文件编写</h6>
+<ul>
+<li>
+<p>可视化单个图像主题：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">launch</span>&gt;</span><br>  <span class="hljs-comment">&lt;!-- Display --&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">node</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;image_view&quot;</span> <span class="hljs-attr">pkg</span>=<span class="hljs-string">&quot;rqt_image_view&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;rqt_image_view&quot;</span> <span class="hljs-attr">args</span>=<span class="hljs-string">&quot;/package_name/image_topic&quot;</span>/&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">launch</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<p><code>args</code>参数指定了<code>rqt_image_view</code>界面打开时默认显示的主题，其它主题可以在界面的下拉菜单中进行切换。</p>
+</li>
+<li>
+<p>可视化多个图像主题：</p>
+<ul>
+<li>
+<p>方法一：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">launch</span>&gt;</span><br>  <span class="hljs-comment">&lt;!-- Display --&gt;</span><br>  <span class="hljs-comment">&lt;!-- Node for first image --&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">node</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;image_view_1&quot;</span> <span class="hljs-attr">pkg</span>=<span class="hljs-string">&quot;rqt_image_view&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;rqt_image_view&quot;</span> <span class="hljs-attr">args</span>=<span class="hljs-string">&quot;/package_name/image_topic_1&quot;</span>/&gt;</span><br>  <br>  <span class="hljs-comment">&lt;!-- Node for second image --&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">node</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;image_view_2&quot;</span> <span class="hljs-attr">pkg</span>=<span class="hljs-string">&quot;rqt_image_view&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;rqt_image_view&quot;</span> <span class="hljs-attr">args</span>=<span class="hljs-string">&quot;/package_name/image_topic_2&quot;</span>/&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">launch</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<p>这样会打开两个<code>rqt_image_view</code>界面分别进行显示。</p>
+</li>
+<li>
+<p>方法二：</p>
+<p>首先，编写<code>*.lanuch</code>文件的内容为：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">launch</span>&gt;</span><br>  <span class="hljs-comment">&lt;!-- Display --&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">node</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;rqt_gui&quot;</span> <span class="hljs-attr">pkg</span>=<span class="hljs-string">&quot;rqt_gui&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;rqt_gui&quot;</span>/&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">launch</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<p>运行<code>*.launch</code>文件后打开的界面是<code>rqt</code>主界面（默认是 工具栏-Plugins-Topic-Topic Monitor）。菜单栏-Plugins-Visualization-Image View，然后为第一个<code>Image View</code>窗口选择合适的主题。同理，添加第二个<code>Image View</code>窗口和选择主题。（可选）关闭``rqt<code>主界面窗口，只留下</code>Image View<code>窗口。调整</code>Image View<code>窗口的位置和大小。最后，菜单栏-Perspectives-Export导出</code>*.perspectives`配置文件。</p>
+<p>将<code>*.perspectives</code>配置文件放置在项目文件夹中，修改<code>*.launch</code>文件：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">launch</span>&gt;</span><br>  <span class="hljs-comment">&lt;!-- Display --&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">node</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;rqt_gui&quot;</span> <span class="hljs-attr">pkg</span>=<span class="hljs-string">&quot;rqt_gui&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;rqt_gui&quot;</span> <span class="hljs-attr">args</span>=<span class="hljs-string">&quot;--perspective-file $(find package_name)/launch/visualization.perspective&quot;</span>/&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">launch</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<p>这样，再次运行<code>*.launch</code>文件时，打开的就是修改好的界面。</p>
+<blockquote>
+<p>修改界面后，没找到可以直接保存修改的地方。需要重新导出再覆盖源<code>*.perspective</code>文件。</p>
+</blockquote>
+</li>
 </ul>
 </li>
 </ul>
@@ -903,7 +934,8 @@
 <p>此外，还有自定义的通信格式文件，包括消息（<code>.msg</code>）、服务（<code>.srv</code>）以及动作（<code>.action</code>）。</p>
 </li>
 </ol>
-<h2 id="launch文件"><code>.launch</code>文件</h2>
+<h2 id="roslaunch">roslaunch</h2>
+<h3 id="launch-文件">launch 文件</h3>
 <p>在<code>.launch</code>文件中根据XML的编写方式可以实现多种功能，可使用的标签如下所示：</p>
 <ul>
 <li><code>&lt;launch&gt;</code>指<code>roslaunch</code>语句的开始和结束。</li>
@@ -952,7 +984,10 @@
 <p><code>&lt;group&gt;</code>是对指定节点进行分组的标签。选项有<code>ns</code>。这是命名空间（name space），是组的名称，属于该组的节点和消息都包含在由<code>ns</code>指定的名称中。</p>
 <p>再次打开rqt结果如下图所示：</p>
 <img src="/posts/c4541b88/%E8%8A%82%E7%82%B9%E5%88%86%E7%BB%84%E7%BB%93%E6%9E%9C.png" srcset="/img/loading.gif" lazyload class="" title="节点分组结果">
-<h2 id="CMakeLists-txt-和-package-xml"><code>CMakeLists.txt</code> 和 <code>package.xml</code></h2>
+<h3 id="命令行参数">命令行参数</h3>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs launch">&lt;launch&gt;<br>    &lt;arg name=&quot;auto_trigger&quot; default=&quot;true&quot;/&gt;<br>    &lt;arg name=&quot;camera_name&quot; default=&quot;DAVIS-evo&quot; /&gt;<br>    &lt;arg name=&quot;bootstrap_image_topic&quot; default=&quot;/events/image_raw&quot; /&gt;<br>    <br>    &lt;param name=&quot;camera_name&quot; value=&quot;$(arg camera_name)&quot; /&gt;<br>    &lt;param name=&quot;calib_file&quot; value=&quot;$(find dvs_tracking)/parameters/calib/$(arg camera_name).yaml&quot; /&gt;<br>&lt;/launch&gt;<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">source</span> ./devel/setup.zsh &amp;&amp;  roslaunch dvs_tracking [launch-file] bootstrap_image_topic:=/dvs/image_raw auto_trigger:=<span class="hljs-literal">true</span> camera_name:=DAVIS-ijrr<br></code></pre></td></tr></table></figure>
+<h2 id="CMakeLists-txt-和-package-xml">CMakeLists.txt 和 package.xml</h2>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/gwplovekimi/article/details/104328348">参考链接</a></p>
 <h2 id="话题通信机制、消息队列与多话题回调机制">话题通信机制、消息队列与多话题回调机制</h2>
 <ol>
@@ -1103,7 +1138,7 @@
 <p>查询：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 查看频率</span><br>rostopic hz /topic  <span class="hljs-comment"># 与rosbag包的播放倍率有关。</span><br><span class="hljs-comment"># 列出当下项目文件中所有通信的主题</span><br>rostopic list<br><span class="hljs-comment"># 查看通过指定topic话题相互通信的双方的信息</span><br>rostopic info topic_name<br></code></pre></td></tr></table></figure>
 <p>编辑：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 更改消息频率（配合下方record录制功能录制outtopic的bag包）</span><br>rosrun topic_tools throttle messages &lt;intopic&gt; &lt;msgs_per_sec&gt; [outtopic]  <span class="hljs-comment"># outtopic不输入默认为intopic</span><br><span class="hljs-comment"># 例如，将/dvs/image_raw变为4.0Hz的/color。</span><br>rosrun topic_tools throttle messages /dvs/image_raw 4.0 /color<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 更改消息频率（配合下方record录制功能录制outtopic的bag包）</span><br>rosrun topic_tools throttle messages &lt;intopic&gt; &lt;msgs_per_sec&gt; [outtopic]  <span class="hljs-comment"># outtopic不输入默认为intopic</span><br><span class="hljs-comment"># 例如，将/dvs/image_raw变为4.0Hz的/color。</span><br>rosrun topic_tools throttle messages /dvs/image_raw 4.0 /color<br><br>rosbag play MH_01_easy.bag /old/topic:=/new/topic  <span class="hljs-comment"># 替换 topic name</span><br></code></pre></td></tr></table></figure>
 <p>录制：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 订阅主题并写入一个包文件，其中包含在这些主题上发布的所有消息的内容。</span><br><span class="hljs-comment"># 默认路径：如果您不指定路径，rosbag record 将在当前用户的主目录（通常是 /home/username）下创建一个 .bag 文件。文件名将包含时间戳作为后缀。</span><br><span class="hljs-comment"># 指定路径：在特定路径下打开终端；或者使用 -o 参数指定路径</span><br><span class="hljs-comment"># -o yourfolder/xxx -&gt; yourfolder/xxx_time.bag</span><br><span class="hljs-comment"># -o yourfolder/xxx/ -&gt; yourfolder/xxx/_time.bag</span><br>rosbag record TOPIC1 [TOPIC2 TOPIC3 ...]<br><span class="hljs-comment"># 参数：</span><br>-h, --<span class="hljs-built_in">help</span> 显示此帮助消息并退出<br>-a, --all 记录所有主题<br>-e, --regex 使用正则表达式匹配主题<br>-p, --publish 在记录开始时发布一条消息<br>-x EXCLUDE_REGEX, --exclude=EXCLUDE_REGEX 排除与以下正则表达式匹配的主题（从 -a 或正则表达式中减去）<br>-q, --quiet 抑制控制台输出<br>-o PREFIX，--output-prefix=PREFIX 将 PREFIX 添加到包名称的开头（名称将始终以日期戳结束）<br>-O NAME, --output-name=NAME 记录到名为 NAME.bag 的包中<br>--<span class="hljs-built_in">split</span> 当达到最大大小或持续时间时分割bag包<br>    --max-splits=MAX_SPLITS 最多保留N个包文件，当达到最多擦除最旧的一个以保持常数文件数量<br>    --size=SIZE 记录一个包的最大尺寸为SIZEMB。 （默认：无穷）<br>    --duration=DURATION 记录一个包的最大持续时间DURATION，以秒为单位，除非附加“m”或“h”<br>-b 大小，--buffsize=大小 使用 SIZE MB 的内部缓冲区（默认值：256，0 =无穷）<br>--chunksize=SIZE 高级用法。 记录到 SIZE KB 的块（默认值：768）<br>-l NUM, --<span class="hljs-built_in">limit</span>=NUM 每个主题仅记录 NUM 条消息<br>--node=NODE 记录特定节点订阅的所有主题<br>-j, --bz2 使用 BZ2 压缩<br>--lz4 使用LZ4压缩<br>--tcpnodelay 订阅时使用 TCP_NODELAY 传输提示主题<br>--udp 订阅主题时使用 UDP 传输提示<br></code></pre></td></tr></table></figure>
 <p>编写<code>*.launch</code>文件：</p>
@@ -1112,6 +1147,7 @@
 <p>清理文件系统资源（例如日志文件）。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">Usage: rosclean &lt;<span class="hljs-built_in">command</span>&gt;<br><br>Commands:<br>  rosclean check        Check usage of <span class="hljs-built_in">log</span> files 报告 ROS 日志文件的磁盘使用情况。<br>  rosclean purge        Remove <span class="hljs-built_in">log</span> files 小心使用。这将从磁盘中删除文件！将删除与存储 ROS 相关日志文件相关的目录。系统会要求您确认每次删除，并且验证 rosclean purge 执行的命令是否正确非常重要。否则您可能会丢失重要文件。<br></code></pre></td></tr></table></figure>
 <h2 id="时间戳">时间戳</h2>
+<h3 id="知识-2">知识</h3>
 <p>在ROS（机器人操作系统）中，时间戳（Timestamp）是一个重要的概念，用于在消息传递和数据同步中跟踪和标记事件的时间。ROS使用一种称为<code>ROS::Time</code>的数据结构来表示时间戳，通常与ROS消息一起使用。以下是有关ROS时间戳的一些关键信息：</p>
 <ul>
 <li>
@@ -1157,6 +1193,19 @@
 </ul>
 </li>
 </ol>
+<h3 id="使用仿真时间">使用仿真时间</h3>
+<p>你可以通过设置<code>/use_sim_time</code>参数为<code>true</code>并在播放rosbag时使用<code>--clock</code>选项来让ROS使用rosbag的时间，而不是真实时间。这种方法通常用于回放rosbag时的仿真。</p>
+<p>首先，你需要在启动你的节点之前，设置<code>/use_sim_time</code>参数为<code>true</code>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">rosparam <span class="hljs-built_in">set</span> /use_sim_time <span class="hljs-literal">true</span><br></code></pre></td></tr></table></figure>
+<p>或者，在<code>*.launch</code>文件中指定：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">launch</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">rosparam</span> <span class="hljs-attr">param</span>=<span class="hljs-string">&quot;/use_sim_time&quot;</span>&gt;</span>true<span class="hljs-tag">&lt;/<span class="hljs-name">rosparam</span>&gt;</span><br><br>  <span class="hljs-tag">&lt;<span class="hljs-name">node</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;name&quot;</span> <span class="hljs-attr">pkg</span>=<span class="hljs-string">&quot;pkg&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;type&quot;</span> <span class="hljs-attr">output</span>=<span class="hljs-string">&quot;screen&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">param</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;topic&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;string&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;/topic&quot;</span>/&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">node</span>&gt;</span><br>    <br><span class="hljs-tag">&lt;/<span class="hljs-name">launch</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>不执行上述操作，时间戳就还是现实时间，不是 rosbag 的时间戳。</p>
+</blockquote>
+<p>然后，当你播放rosbag时，需要添加<code>--clock</code>选项：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">rosbag play --clock your_rosbag.bag<br></code></pre></td></tr></table></figure>
+<p>这样，ROS的时间就会同步到rosbag的时间。然后，你可以在你的代码中使用<code>ros::Time::now()</code>来获取当前的rosbag时间，而不是真实时间。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c++">cv_bridge::CvImage optical_flow_msg;<br>optical_flow_msg.header.stamp = ros::Time::<span class="hljs-built_in">now</span>();<br></code></pre></td></tr></table></figure>
 <h2 id="消息打印">消息打印</h2>
 <h3 id="基本用法">基本用法</h3>
 <p>ROS的Log等级跟平常的一样：DEBUG、INFO、WARN、ERROR、FATAL。</p>
@@ -1454,6 +1503,12 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> rosbag<br><span class="hljs-keyword">import</span> rospy<br><span class="hljs-keyword">from</span> std_msgs.msg <span class="hljs-keyword">import</span> Int32, String<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">play_rosbags</span>(<span class="hljs-params">input_bags</span>):<br>    pub_dict = &#123;&#125;<br>    msg_list = []<br>    <span class="hljs-keyword">for</span> input_bag <span class="hljs-keyword">in</span> input_bags:<br>        <span class="hljs-keyword">for</span> topic, msg, t <span class="hljs-keyword">in</span> rosbag.Bag(input_bag).read_messages():<br>            <span class="hljs-keyword">if</span> topic <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> pub_dict:<br>                pub_dict[topic] = rospy.Publisher(topic, <span class="hljs-built_in">type</span>(msg), queue_size=<span class="hljs-number">10</span>)<br>            msg_list.append((topic, msg, t))<br>    msg_list.sort(key=<span class="hljs-keyword">lambda</span> x: x[<span class="hljs-number">2</span>])<br>    <span class="hljs-keyword">for</span> topic, msg, t <span class="hljs-keyword">in</span> msg_list:<br>        pub_dict[topic].publish(msg)<br>        rospy.sleep(t - rospy.Time.now())<br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br>    rospy.init_node(<span class="hljs-string">&#x27;rosbag_player&#x27;</span>, anonymous=<span class="hljs-literal">True</span>)<br>    input_bags = [<span class="hljs-string">&#x27;input1.bag&#x27;</span>, <span class="hljs-string">&#x27;input2.bag&#x27;</span>, <span class="hljs-string">&#x27;input3.bag&#x27;</span>]  <span class="hljs-comment"># 你的输入rosbag文件列表</span><br>    play_rosbags(input_bags)<br></code></pre></td></tr></table></figure>
 <p>这段代码首先定义了一个函数<code>play_rosbags</code>，它接受一个输入rosbag文件列表。然后，它打开每个输入rosbag文件，读取其中的所有消息，并将它们添加到一个列表中。然后，它按照时间戳对所有的消息进行排序，并将排序后的消息发布到相应的主题。</p>
 <p>注意，这个函数假设所有输入rosbag文件的时间戳都是正确的，即它们都是相对于同一个时间原点的。如果这不是你的情况，你可能需要在发布每个消息之前调整它的时间戳。</p>
+<h2 id="运行多个launch文件">运行多个launch文件</h2>
+<p>你可以在一个ROS launch文件中使用<code>&lt;include&gt;</code>标签来启动另一个launch文件。这样，你只需要使用一个<code>roslaunch</code>命令就可以启动两个launch文件。</p>
+<p>以下是如何在launch文件中使用<code>&lt;include&gt;</code>标签的示例：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">launch</span>&gt;</span><br>  <span class="hljs-comment">&lt;!-- Include another launch file --&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">include</span> <span class="hljs-attr">file</span>=<span class="hljs-string">&quot;$(find your_package_name)/launch/your_other_launch_file.launch&quot;</span>/&gt;</span><br>  <br>  <span class="hljs-comment">&lt;!-- Other nodes --&gt;</span><br>  <span class="hljs-comment">&lt;!-- ... --&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">launch</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<p>在这个例子中，我们使用<code>&lt;include&gt;</code>标签来包含另一个launch文件。<code>file</code>属性是要包含的launch文件的路径。你可以使用<code>$(find your_package_name)</code>来获取你的包的路径。</p>
+<p>请注意，被包含的launch文件必须在同一个ROS工作空间中，或者在ROS_PACKAGE_PATH环境变量指定的路径中。</p>
 <h1 id="问题与解决">问题与解决</h1>
 <h2 id="新建的工作空间不在当前路径下-删除工作空间">新建的工作空间不在当前路径下/删除工作空间</h2>
 <p>问题描述：使用<code>catkin config --init</code>初始化工作空间时，显示的<code>Workspace</code>的路径不在当前目录下，而是其上级（或以上）路径，</p>

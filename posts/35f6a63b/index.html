@@ -26,7 +26,7 @@
 <meta property="og:image" content="http://zeyulong.com/posts/35f6a63b/%E5%AF%B9%E9%BD%90%E7%B1%BB%E5%9E%8B.png">
 <meta property="og:image" content="http://zeyulong.com/posts/35f6a63b/%E4%BD%8D%E5%A7%BF%E6%8A%95%E5%BD%B1.png">
 <meta property="article:published_time" content="2024-04-29T13:00:10.000Z">
-<meta property="article:modified_time" content="2024-05-06T02:58:34.051Z">
+<meta property="article:modified_time" content="2024-10-15T02:41:38.524Z">
 <meta property="article:author" content="龙泽雨">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://zeyulong.com/posts/35f6a63b/%E5%AF%B9%E9%BD%90%E7%B1%BB%E5%9E%8B.png">
@@ -412,7 +412,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2024年5月6日 上午
+                    本文最后更新于 2024年10月15日 上午
                   
                 
               </p>
@@ -595,6 +595,7 @@
 <li><code>--align</code> 或 <code>-a</code> = SE(3) Umeyama 对齐（旋转、平移）</li>
 <li><code>--align --correct_scale</code> 或 <code>-as</code> = Sim(3) Umeyama 对齐（旋转、平移、缩放）</li>
 <li><code>--correct_scale</code> 或 <code>-s</code> = 仅比例校正。不加<code>-s</code>表示默认尺度对齐参数为1.0，即不进行尺度对齐。</li>
+<li><code>--n_to_align N_TO_ALIGN</code>: the number of poses to use for Umeyama alignment, counted from the start (default: all)</li>
 </ul>
 <img src="/posts/35f6a63b/%E5%AF%B9%E9%BD%90%E7%B1%BB%E5%9E%8B.png" srcset="/img/loading.gif" lazyload class="" title="对齐类型">
 <blockquote>
@@ -656,7 +657,7 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">evo_ape tum reference.txt estimate.txt --align<br></code></pre></td></tr></table></figure>
 <p>将 <code>--help</code> 附加到命令以查看所有可用选项。</p>
 <ul>
-<li><code>-r full</code>表示同时考虑旋转和平移误差得到的ape,无单位（unit-less）</li>
+<li><code>-r(--pose_relation) full</code>表示同时考虑旋转和平移误差得到的ape,无单位（unit-less）</li>
 <li>（默认）<code>-r trans_part</code>表示考虑平移部分得到的ape，单位为m</li>
 <li><code>-r rot_part</code>表示考虑旋转部分得到的ape，衡量旋转精度，无单位（unit-less）</li>
 <li><code>-r angle_deg</code>表示考虑旋转角得到的ape，单位°（deg）</li>
@@ -665,7 +666,7 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">evo_ape kitti KITTI_00_gt.txt KITTI_00_ORB.txt -r full -va --plot --plot_mode xz --save_results results/ORB.zip  <span class="hljs-comment"># 命令的含义为：计算考虑平移和旋转部分误差的ape,进行平移和旋转对齐,以详细模式显示，保存画图并保存计算结果。</span><br></code></pre></td></tr></table></figure>
 <h2 id="evo-rpe">evo_rpe</h2>
 <p>相对位姿误差不是直接比较绝对位姿，而是比较运动（“位姿增量”）。该指标提供了有关局部精度（即漂移）的见解。例如，可以评估每米的平移或旋转漂移：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">evo_rpe tum reference.txt estimate.txt --pose_relation angle_deg --delta 1 --delta_unit m<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">evo_rpe tum reference.txt estimate.txt -r angle_deg --delta 1 --delta_unit m<br></code></pre></td></tr></table></figure>
 <blockquote>
 <p>除非指定 <code>--all_pairs</code> ，否则相对姿势对是连续的。然后，使用重叠的相对姿势对。</p>
 <p>当在命令中加上<code>--all_pairs</code>，则计算rpe时使用位置数据中所有的对而不是仅连续对，此时，可以通过<code>-t</code>/<code>--delta_tol</code>控制<code>–-all_pairs</code>模式下的相对增量的容差（relative delta tolerance）。需要注意<code>--all_pairs</code>下不能使用<code>–-plot</code>函数。</p>
@@ -761,9 +762,9 @@
 <h1 id="自定义配置文件">自定义配置文件</h1>
 <p>有时，将实验参数存储在专用文件中而不是每次都手动将它们作为命令行参数键入是有用的。 evo 的大多数命令行工具都可以使用 <code>-c</code> 或 <code>--config</code> 参数加载 <code>.json</code> 配置文件。</p>
 <p>假设您针对相对位姿误差运行此命令：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">evo_rpe tum groundtruth.txt estimate.txt --pose_relation angle_deg --delta 1 --delta_unit m --verbose --plot<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">evo_rpe tum groundtruth.txt estimate.txt -r angle_deg --delta 1 --delta_unit m --verbose --plot<br></code></pre></td></tr></table></figure>
 <p><code>evo_config generate</code> 可以将任意命令行参数转换为 <code>--out</code> 指定的 <code>.json</code> 文件：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">evo_config generate --pose_relation angle_deg --delta 1 --delta_unit m --verbose --plot --out rpe_config.json<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">evo_config generate -r angle_deg --delta 1 --delta_unit m --verbose --plot --out rpe_config.json<br></code></pre></td></tr></table></figure>
 <p>这将输出一个包含以下内容的文件 <code>rpe_config.json</code> ：</p>
 <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><br>    <span class="hljs-attr">&quot;delta&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1.0</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;delta_unit&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;m&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;plot&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">true</span></span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;pose_relation&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;angle_deg&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;verbose&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">true</span></span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
 <p>下次您想使用这些参数运行 <code>evo_rpe</code> 时，您只需调用：</p>

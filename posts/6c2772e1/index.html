@@ -5,7 +5,7 @@
 
 
 
-<head>
+<head><!-- hexo injector head_begin start --><progress id="content_progress" value="0"></progress><!-- hexo injector head_begin end -->
   <meta charset="UTF-8">
   <link rel="apple-touch-icon" sizes="76x76" href="/img/theme/TamakoAvatar-2-zip.jpeg">
   <link rel="icon" href="/img/theme/TamakoAvatar-2-zip.jpeg">
@@ -16,23 +16,31 @@
   <meta name="author" content="龙泽雨">
   <meta name="keywords" content="">
   
-    <meta name="description" content="寻找一个有趣的灵魂">
-<meta property="og:type" content="website">
-<meta property="og:title" content="归档">
-<meta property="og:url" content="http://zeyulong.com/archives/index.html">
+    <meta name="description" content="本文主要分享了在 Linux 下 Pangolin 的安装与版本管理。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Pangolin的安装与卸载">
+<meta property="og:url" content="http://zeyulong.com/posts/6c2772e1/index.html">
 <meta property="og:site_name" content="龙泽雨的博客">
-<meta property="og:description" content="寻找一个有趣的灵魂">
+<meta property="og:description" content="本文主要分享了在 Linux 下 Pangolin 的安装与版本管理。">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-10-16T10:45:11.000Z">
+<meta property="article:modified_time" content="2024-10-16T10:49:50.751Z">
 <meta property="article:author" content="龙泽雨">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>归档 - 龙泽雨的博客</title>
+  <title>Pangolin的安装与卸载 - 龙泽雨的博客</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
 
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
 
 
 
@@ -312,9 +320,62 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle">归档</span>
+            <span id="subtitle">Pangolin的安装与卸载</span>
           
         </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        龙泽雨
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-10-16 18:45" pubdate>
+          2024年10月16日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          207 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          2 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
 
         
       </div>
@@ -330,100 +391,241 @@
 
   <main>
     
-      <div class="container nopadding-x-md">
-        <div id="board"
-          >
-          
-          <div class="container">
-            <div class="row">
-              <div class="col-12 col-md-10 m-auto">
-                
-
-<div class="list-group">
-  <p class="h4">共计 32 篇文章</p>
-  <hr>
-  
-  
-    
       
-      <p class="h5">2024</p>
-    
-    <a href="/posts/6c2772e1/" class="list-group-item list-group-item-action">
-      <time>10-16</time>
-      <div class="list-group-item-title">Pangolin的安装与卸载</div>
-    </a>
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Pangolin的安装与卸载</h1>
+            
+              <p id="updated-time" class="note note-info" style="">
+                
+                  
+                    本文最后更新于 2024年10月16日 晚上
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <p>本文主要分享了在 Linux 下 Pangolin 的安装与版本管理。</p>
+<span id="more"></span>
+<h1 id="安装依赖项">安装依赖项</h1>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo apt-get install libglew-dev<br>sudo apt install cmake<br>sudo apt-get install libboost-dev libboost-thread-dev libboost-filesystem-dev<br></code></pre></td></tr></table></figure>
+<h1 id="编译安装">编译安装</h1>
+<ol>
+<li>
+<p>下载解压：<a target="_blank" rel="noopener" href="https://github.com/stevenlovegrove/Pangolin/releases/tag/v0.6">https://github.com/stevenlovegrove/Pangolin/releases/tag/v0.6</a></p>
+</li>
+<li>
+<p>编译安装：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> Pangolin-0.6<br><span class="hljs-built_in">mkdir</span> build<br><span class="hljs-built_in">cd</span> build<br>cmake ..<br>make -j<br>sudo make install<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>测试：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> Pangolin-0.6/build/examples/HelloPangolin<br>./HelloPangolin<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>完成。</p>
+</li>
+</ol>
+<h1 id="卸载">卸载</h1>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> Pangolin-0.6/build<br><br><span class="hljs-comment"># 卸载使用make install命令安装到系统路径的文件</span><br><span class="hljs-comment"># `install_manifest.txt`文件里包含了所有安装的文件的路径</span><br><span class="hljs-built_in">cat</span> install_manifest.txt | sudo xargs <span class="hljs-built_in">rm</span>  <span class="hljs-comment"># 或</span><br>sudo xargs <span class="hljs-built_in">rm</span> &lt; install_manifest.txt<br><span class="hljs-comment"># 上述命令只会删除掉文件夹里的文件，会留下空文件夹。所以可以继续对照`install_manifest.txt`文件，手动删掉多余的空文件夹。</span><br><br>sudo make uninstall<br>sudo make clean <span class="hljs-comment">#清除上一次make命令生成的文件</span><br>sudo make distclean <span class="hljs-comment">#清除上一次make以及configure命令生成的文件</span><br><span class="hljs-built_in">cd</span> ..<br>sudo <span class="hljs-built_in">rm</span> -r build<br></code></pre></td></tr></table></figure>
+<h1 id="参考链接">参考链接</h1>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_70026476/article/details/127226531">SLAM学习笔记（2）——Pangolin下载</a></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
   
     
-    <a href="/posts/3135da56/" class="list-group-item list-group-item-action">
-      <time>06-04</time>
-      <div class="list-group-item-title">邮箱命名规则</div>
-    </a>
+      <span class="category-chain">
+        
+  <a href="/categories/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7%E5%BA%93/" class="category-chain-item">软件工具库</a>
   
-    
-    <a href="/posts/874d7da/" class="list-group-item list-group-item-action">
-      <time>05-11</time>
-      <div class="list-group-item-title">Latex的语法和使用</div>
-    </a>
   
+
+      </span>
     
-    <a href="/posts/5b8fd703/" class="list-group-item list-group-item-action">
-      <time>05-09</time>
-      <div class="list-group-item-title">Git的配置与使用</div>
-    </a>
   
-    
-    <a href="/posts/35f6a63b/" class="list-group-item list-group-item-action">
-      <time>04-29</time>
-      <div class="list-group-item-title">evo工具的安装与使用</div>
-    </a>
+</span>
+
+    </div>
   
-    
-    <a href="/posts/e3cf771c/" class="list-group-item list-group-item-action">
-      <time>04-24</time>
-      <div class="list-group-item-title">有意思的图表</div>
-    </a>
-  
-    
-    <a href="/posts/9d7fd48f/" class="list-group-item list-group-item-action">
-      <time>04-20</time>
-      <div class="list-group-item-title">事件相机的选型、标定和使用</div>
-    </a>
-  
-    
-    <a href="/posts/c3a050a5/" class="list-group-item list-group-item-action">
-      <time>03-26</time>
-      <div class="list-group-item-title">ESVIO编译运行调试记录</div>
-    </a>
-  
-    
-    <a href="/posts/a8aab215/" class="list-group-item list-group-item-action">
-      <time>03-05</time>
-      <div class="list-group-item-title">常用的命令及快捷键</div>
-    </a>
-  
-    
-    <a href="/posts/df5eb46/" class="list-group-item list-group-item-action">
-      <time>03-05</time>
-      <div class="list-group-item-title">Anaconda、CUDA、cuDNN和PyTorch包的安装</div>
-    </a>
   
 </div>
 
 
-  <nav aria-label="navigation">
-    <span class="pagination" id="pagination">
-      <span class="page-number current">1</span><a class="page-number" href="/archives/page/2/#board">2</a><a class="page-number" href="/archives/page/3/#board">3</a><a class="page-number" href="/archives/page/4/#board">4</a><a class="extend next" rel="next" href="/archives/page/2/#board"><i class="iconfont icon-arrowright"></i></a>
-    </span>
-  </nav>
+              
+  
 
-
-
-
-              </div>
-            </div>
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Pangolin的安装与卸载</div>
+      <div>http://zeyulong.com/posts/6c2772e1/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>龙泽雨</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年10月16日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
           </div>
         </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/3135da56/" title="邮箱命名规则">
+                        <span class="hidden-mobile">邮箱命名规则</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="waline"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#waline', function() {
+      Fluid.utils.createCssLink('https://cdn.staticfile.org/waline/2.15.5/waline.min.css')
+      Fluid.utils.createScript('https://cdn.staticfile.org/waline/2.15.5/waline.min.js', function() {
+        var options = Object.assign(
+          {"serverURL":"https://www.zeyulong.cn/","path":"window.location.pathname","meta":["nick","mail","link"],"requiredMeta":["nick"],"lang":"zh-CN","emoji":["https://cdn.jsdelivr.net/gh/walinejs/emojis/weibo"],"dark":"html[data-user-color-scheme=\"dark\"]","wordLimit":0,"pageSize":10,"reaction":true,"locale":{"placeholder":"花径不曾缘客扫，蓬门今始为君开。"}},
+          {
+            el: '#waline',
+            path: window.location.pathname
+          }
+        )
+        Waline.init(options);
+        Fluid.utils.waitElementVisible('#waline .vcontent', () => {
+          var imgSelector = '#waline .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
       </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
     
 
     
@@ -527,6 +729,99 @@
 
 
 
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
 
   <script defer src="/js/leancloud.js" ></script>
 

@@ -7,8 +7,8 @@
 
 <head><!-- hexo injector head_begin start --><progress id="content_progress" value="0"></progress><!-- hexo injector head_begin end -->
   <meta charset="UTF-8">
-  <link rel="apple-touch-icon" sizes="76x76" href="/img/theme/TamakoAvatar-2-zip.jpeg">
-  <link rel="icon" href="/img/theme/TamakoAvatar-2-zip.jpeg">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/theme/TamakoAvatar-new-zip.png">
+  <link rel="icon" href="/img/theme/TamakoAvatar-new-zip.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
@@ -32,7 +32,7 @@
 <meta property="og:image" content="http://zeyulong.com/posts/c4541b88/%E8%8A%82%E7%82%B9%E5%88%86%E7%BB%84%E7%BB%93%E6%9E%9C.png">
 <meta property="og:image" content="http://zeyulong.com/posts/c4541b88/rosconsole%E7%95%8C%E9%9D%A2.png">
 <meta property="article:published_time" content="2024-03-05T03:00:35.000Z">
-<meta property="article:modified_time" content="2024-10-16T11:36:42.701Z">
+<meta property="article:modified_time" content="2024-10-24T12:59:06.061Z">
 <meta property="article:author" content="龙泽雨">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://zeyulong.com/posts/c4541b88/rosgraph_dv.png">
@@ -368,7 +368,7 @@
         
         
         
-          172 分钟
+          176 分钟
         
       </span>
     
@@ -418,7 +418,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2024年10月16日 晚上
+                    本文最后更新于 2024年10月24日 晚上
                   
                 
               </p>
@@ -1129,20 +1129,27 @@
 <h2 id="创建和运行动作服务器与客户端节点">创建和运行动作服务器与客户端节点</h2>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/gwplovekimi/article/details/104370771">参考链接</a></p>
 <h2 id="rosbag">rosbag</h2>
+<h3 id="查询">查询</h3>
 <p>获取当前工作目录下bag文件的信息：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs bash">rosbag info BagFileName.bag<br><span class="hljs-comment"># 以yaml格式显示bag文件的信息</span><br>rosbag info -y BagFileName.bag<br><span class="hljs-comment"># 基于yaml信息表示形式，提取bag文件的某类信息</span><br><span class="hljs-comment"># 可提取的信息类型为：消息的类型types、话题相关信息topics、bag文件存放路径path、ROS的版本信息vision、录制持续时长duration、录制开始时间start/停止时间end、bag文件大小（以byte为单位）、录制消息总数量messages、文件的压缩格式compression、是否添加至索引列表indexed。</span><br>rosbag info -y -k info_type BagFileName.bag<br>rosmsg show geometry_msgs/PoseStamped   <span class="hljs-comment"># 主题消息的各数据类型</span><br></code></pre></td></tr></table></figure>
-<p>回放：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs bash">rosbag info BagFileName.bag<br><span class="hljs-comment"># 以yaml格式显示bag文件的信息</span><br>rosbag info -y BagFileName.bag<br><span class="hljs-comment"># 基于yaml信息表示形式，提取bag文件的某类信息</span><br><span class="hljs-comment"># 可提取的信息类型为：消息的类型types、话题相关信息topics、bag文件存放路径path、ROS的版本信息vision、录制持续时长duration、录制开始时间start/停止时间end、bag文件大小（以byte为单位）、录制消息总数量messages、文件的压缩格式compression、是否添加至索引列表indexed。</span><br>rosbag info -y -k info_type BagFileName.bag<br>rosmsg show geometry_msgs/PoseStamped   <span class="hljs-comment"># 主题消息的各数据类型</span><br><br><span class="hljs-comment"># 查看频率</span><br>rostopic hz /topic  <span class="hljs-comment"># 与rosbag包的播放倍率有关。</span><br><span class="hljs-comment"># 列出当下项目文件中所有通信的主题</span><br>rostopic list<br><span class="hljs-comment"># 查看通过指定topic话题相互通信的双方的信息</span><br>rostopic info topic_name<br></code></pre></td></tr></table></figure>
+<h3 id="回放">回放</h3>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs bash">rosbag play record.bag  <span class="hljs-comment"># 在回放过程中按空格暂停</span><br><span class="hljs-comment"># -r 指定播放速度 2倍速播放： rosbag play -r 2 xx.bag</span><br><span class="hljs-comment"># -l 表示loop，循环播放。</span><br><span class="hljs-comment"># -s参数用于指定从几秒开始: 从10秒开始播放：rosbag play -s 10 xx.bag</span><br><span class="hljs-comment"># -u参数表示仅播放包的前几秒信息: 仅播放前十秒：rosbag play -u 10 xx.bag</span><br><span class="hljs-comment"># 从120s开始播放，只播放20s，就是播放120s~140s的时间段：rosbag play xx.bag -s 120 -u 20</span><br>rosbag play record.bag -r 0.1 -l<br></code></pre></td></tr></table></figure>
-<p>可视化bag文件：</p>
+<h3 id="可视化">可视化</h3>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 使用rqt_bag</span><br>roscore<br>rqt_bag BagFileName.bag<br><span class="hljs-comment"># 使用rviz</span><br>roscore<br>rosbag play record.bag<br>rosrun rviz rviz<br><span class="hljs-comment"># 点击rviz左下角的Add，添加想可视化的数据类型</span><br></code></pre></td></tr></table></figure>
-<p>查询：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 查看频率</span><br>rostopic hz /topic  <span class="hljs-comment"># 与rosbag包的播放倍率有关。</span><br><span class="hljs-comment"># 列出当下项目文件中所有通信的主题</span><br>rostopic list<br><span class="hljs-comment"># 查看通过指定topic话题相互通信的双方的信息</span><br>rostopic info topic_name<br></code></pre></td></tr></table></figure>
-<p>编辑：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 更改消息频率（配合下方record录制功能录制outtopic的bag包）</span><br>rosrun topic_tools throttle messages &lt;intopic&gt; &lt;msgs_per_sec&gt; [outtopic]  <span class="hljs-comment"># outtopic不输入默认为intopic</span><br><span class="hljs-comment"># 例如，将/dvs/image_raw变为4.0Hz的/color。</span><br>rosrun topic_tools throttle messages /dvs/image_raw 4.0 /color<br><br>rosbag play MH_01_easy.bag /old/topic:=/new/topic  <span class="hljs-comment"># 替换 topic name</span><br></code></pre></td></tr></table></figure>
-<p>录制：</p>
+<h3 id="编辑">编辑</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 更改消息频率（配合下方record录制功能录制outtopic的bag包）</span><br>rosrun topic_tools throttle messages &lt;intopic&gt; &lt;msgs_per_sec&gt; [outtopic]  <span class="hljs-comment"># outtopic不输入默认为intopic</span><br><span class="hljs-comment"># 例如，将/dvs/image_raw变为4.0Hz的/color。</span><br>rosrun topic_tools throttle messages /dvs/image_raw 4.0 /color<br><br>rosbag play MH_01_easy.bag /old/topic:=/new/topic  <span class="hljs-comment"># 替换 topic name</span><br><br><span class="hljs-comment"># 合并 rosbag 文件</span><br>rosbag merge file1.bag file2.bag -o merged.bag<br><span class="hljs-comment"># https://pypi.org/project/rosbag-merge/</span><br></code></pre></td></tr></table></figure>
+<h3 id="录制">录制</h3>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 订阅主题并写入一个包文件，其中包含在这些主题上发布的所有消息的内容。</span><br><span class="hljs-comment"># 默认路径：如果您不指定路径，rosbag record 将在当前用户的主目录（通常是 /home/username）下创建一个 .bag 文件。文件名将包含时间戳作为后缀。</span><br><span class="hljs-comment"># 指定路径：在特定路径下打开终端；或者使用 -o 参数指定路径</span><br><span class="hljs-comment"># -o yourfolder/xxx -&gt; yourfolder/xxx_time.bag</span><br><span class="hljs-comment"># -o yourfolder/xxx/ -&gt; yourfolder/xxx/_time.bag</span><br>rosbag record TOPIC1 [TOPIC2 TOPIC3 ...]<br><span class="hljs-comment"># 参数：</span><br>-h, --<span class="hljs-built_in">help</span> 显示此帮助消息并退出<br>-a, --all 记录所有主题<br>-e, --regex 使用正则表达式匹配主题<br>-p, --publish 在记录开始时发布一条消息<br>-x EXCLUDE_REGEX, --exclude=EXCLUDE_REGEX 排除与以下正则表达式匹配的主题（从 -a 或正则表达式中减去）<br>-q, --quiet 抑制控制台输出<br>-o PREFIX，--output-prefix=PREFIX 将 PREFIX 添加到包名称的开头（名称将始终以日期戳结束）<br>-O NAME, --output-name=NAME 记录到名为 NAME.bag 的包中<br>--<span class="hljs-built_in">split</span> 当达到最大大小或持续时间时分割bag包<br>    --max-splits=MAX_SPLITS 最多保留N个包文件，当达到最多擦除最旧的一个以保持常数文件数量<br>    --size=SIZE 记录一个包的最大尺寸为SIZEMB。 （默认：无穷）<br>    --duration=DURATION 记录一个包的最大持续时间DURATION，以秒为单位，除非附加“m”或“h”<br>-b 大小，--buffsize=大小 使用 SIZE MB 的内部缓冲区（默认值：256，0 =无穷）<br>--chunksize=SIZE 高级用法。 记录到 SIZE KB 的块（默认值：768）<br>-l NUM, --<span class="hljs-built_in">limit</span>=NUM 每个主题仅记录 NUM 条消息<br>--node=NODE 记录特定节点订阅的所有主题<br>-j, --bz2 使用 BZ2 压缩<br>--lz4 使用LZ4压缩<br>--tcpnodelay 订阅时使用 TCP_NODELAY 传输提示主题<br>--udp 订阅主题时使用 UDP 传输提示<br></code></pre></td></tr></table></figure>
-<p>编写<code>*.launch</code>文件：</p>
+<h3 id="编写-launch文件">编写<code>*.launch</code>文件</h3>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-string">&lt;launch&gt;</span><br>    <span class="hljs-string">&lt;node</span> <span class="hljs-string">pkg=&quot;rosbag&quot;</span> <span class="hljs-string">type=&quot;record&quot;</span> <span class="hljs-string">name=&quot;bag_record&quot;</span> <span class="hljs-string">args=&quot;/davis_left/events</span> <span class="hljs-string">/davis_left/image_raw</span> <span class="hljs-string">/davis_left/imu</span> <span class="hljs-string">-o</span> <span class="hljs-string">/yourfolder/record&quot;/&gt;</span><br><span class="hljs-string">&lt;/launch&gt;</span><br></code></pre></td></tr></table></figure>
+<h3 id="修复">修复</h3>
+<p><code>rosbag reindex</code> 是一个命令行工具，用于修复损坏的包文件（或 ROS 版本 0.11 之前记录的包文件）。如果由于任何原因未完全关闭包，则索引信息可能会损坏。使用该工具重新读取消息数据并重建索引。</p>
+<p>每个包文件的备份（扩展名 <code>.orig.bag</code> ）是在包重新索引之前创建的。如果备份文件已经存在（并且 <code>-f</code> 选项未指定），那么该工具将不会重新索引该文件。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs bash">rosbag reindex &lt;bag-files&gt;<br>rosbag reindex -h  <span class="hljs-comment"># 显示用法并退出。</span><br><br>rosbag reindex *.bag  <span class="hljs-comment"># 重新索引给定的包文件。</span><br>rosbag reindex -f *.bag  <span class="hljs-comment"># 强制覆盖备份文件（如果存在）。</span><br>rosbag reindex --output-dir=reindexed *.bag  <span class="hljs-comment"># 指定写入目录</span><br>rosbag reindex -q *.bag  <span class="hljs-comment"># 抑制非关键消息</span><br></code></pre></td></tr></table></figure>
+<p><code>rosbag fix </code>修复bag文件中的消息，使其可以在当前系统中播放。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">rosbag fix &lt;in-bag&gt; &lt;out-bag&gt; [rules.bmr]<br>rosbag fix -h  <span class="hljs-comment"># 显示用法并退出。</span><br><br>rosbag fix old.bag repaired.bag myrules.bmr  <span class="hljs-comment"># 使用注册的规则（以及可选的本地定义的规则）修复包。</span><br>rosbag fix -n old.bag repaired.bag  <span class="hljs-comment"># 不要通过插件加载规则文件。</span><br></code></pre></td></tr></table></figure>
+<p>在使用<code>rosbag record /topic</code>来保存bag包的时候，往往会生成以<code>.bag.active</code>为后缀的文件。如果程序没有正常退出（手动按下<code>Ctrl+C</code>），那么就不会生成<code>.bag</code>文件。而只有将<code>.bag.active</code>恢复成正常的以<code>.bag</code>为后缀的包，才能正常进行<code>rosbag play</code>等操作。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">rosbag reindex file.bag.active  <span class="hljs-comment"># 生成了备份文件 file.bag.orig.active</span><br>rosbag fix file.bag.active file.bag<br><span class="hljs-built_in">rm</span> file.bag.active file.bag.orig.active  <span class="hljs-comment"># 可选</span><br></code></pre></td></tr></table></figure>
 <h2 id="rosclean">rosclean</h2>
 <p>清理文件系统资源（例如日志文件）。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">Usage: rosclean &lt;<span class="hljs-built_in">command</span>&gt;<br><br>Commands:<br>  rosclean check        Check usage of <span class="hljs-built_in">log</span> files 报告 ROS 日志文件的磁盘使用情况。<br>  rosclean purge        Remove <span class="hljs-built_in">log</span> files 小心使用。这将从磁盘中删除文件！将删除与存储 ROS 相关日志文件相关的目录。系统会要求您确认每次删除，并且验证 rosclean purge 执行的命令是否正确非常重要。否则您可能会丢失重要文件。<br></code></pre></td></tr></table></figure>
@@ -1544,6 +1551,7 @@
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_25458977/article/details/103963286">catkin_make 只编译一个包</a></p>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_44365861/article/details/107482177">ros 编译如何选择某些文件或包不编译</a></p>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_39258979/article/details/123767491">ROS入门21讲笔记（四）自定义话题消息类型和使用</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/bohaijun_123/article/details/78003747">ros中bag包的恢复</a></p>
 
                 
               </div>

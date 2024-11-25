@@ -7,8 +7,8 @@
 
 <head><!-- hexo injector head_begin start --><progress id="content_progress" value="0"></progress><!-- hexo injector head_begin end -->
   <meta charset="UTF-8">
-  <link rel="apple-touch-icon" sizes="76x76" href="/img/theme/TamakoAvatar-2-zip.jpeg">
-  <link rel="icon" href="/img/theme/TamakoAvatar-2-zip.jpeg">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/theme/TamakoAvatar-new-zip.png">
+  <link rel="icon" href="/img/theme/TamakoAvatar-new-zip.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
@@ -24,7 +24,7 @@
 <meta property="og:description" content="本文主要分享了Windows、Linux系统的配置与常用软件的安装。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-01-31T16:27:11.000Z">
-<meta property="article:modified_time" content="2024-10-17T13:00:30.800Z">
+<meta property="article:modified_time" content="2024-11-25T07:53:57.511Z">
 <meta property="article:author" content="龙泽雨">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -348,7 +348,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          18k 字
+          19k 字
         
       </span>
     
@@ -359,7 +359,7 @@
         
         
         
-          154 分钟
+          160 分钟
         
       </span>
     
@@ -409,7 +409,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2024年10月17日 晚上
+                    本文最后更新于 2024年11月25日 下午
                   
                 
               </p>
@@ -1864,6 +1864,20 @@
 <li>单击窗口右上角“修改”，单击右下角“确定”。</li>
 <li>同样的操作，将“Shift+Ctrl+Alt+V”的功能改为“选择性粘贴”。</li>
 </ol>
+<h3 id="使用-2">使用</h3>
+<h4 id="条件格式">条件格式</h4>
+<p>标注最大值：</p>
+<ol>
+<li>文件-条件格式-管理-添加：
+<ul>
+<li>单元格的值</li>
+<li>等于</li>
+<li><code>=MAX($A1:$D12)</code></li>
+<li>使用的样式：好（可新建样式）</li>
+</ul>
+</li>
+<li>确定。</li>
+</ol>
 <h1 id="Okular">Okular</h1>
 <p>Linux下使用的PDF阅读器。</p>
 <p><a target="_blank" rel="noopener" href="https://okular.kde.org/">Okular官网</a></p>
@@ -1905,8 +1919,48 @@ sudo okular
 <p><a target="_blank" rel="noopener" href="https://github.com/libratbag/piper">项目地址</a></p>
 <h2 id="安装-3">安装</h2>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo add-apt-repository ppa:libratbag-piper/piper-libratbag-git<br>sudo apt update<br><span class="hljs-comment"># 对于 &lt; Ubuntu 20.04 版本的系统，需要先添加上面的PPA</span><br>sudo apt install piper<br></code></pre></td></tr></table></figure>
-<h2 id="使用-2">使用</h2>
+<h2 id="使用-3">使用</h2>
 <p>Win+A打开应用列表，找到Piper点击即可。</p>
+<h1 id="Powershell">Powershell</h1>
+<h2 id="更新">更新</h2>
+<p><a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/powershell/scripting/install/installing-powershell?view=powershell-7.4">官方文档</a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash">winget <span class="hljs-built_in">source</span> remove winget  <span class="hljs-comment"># 删除由 Microsoft 维护的官方源</span><br>winget <span class="hljs-built_in">source</span> add winget https://mirrors.ustc.edu.cn/winget-source  <span class="hljs-comment"># 添加中科大开源软件镜像源</span><br>winget <span class="hljs-built_in">source</span> list  <span class="hljs-comment"># 换源进行验证和查看</span><br><span class="hljs-comment"># 如果要恢复使用 Microsoft 官方源，可以使用以下命令进行重置</span><br>winget <span class="hljs-built_in">source</span> reset winget<br><br>winget install --<span class="hljs-built_in">id</span> Microsoft.Powershell --<span class="hljs-built_in">source</span> winget<br><span class="hljs-variable">$PSVersionTable</span>  <span class="hljs-comment"># 查看版本</span><br></code></pre></td></tr></table></figure>
+<p>安装程序在 Windows“开始”菜单中创建一个快捷方式。</p>
+<ul>
+<li>默认情况下，包安装位置为 <code>$env:ProgramFiles\PowerShell\&lt;version&gt;</code></li>
+<li>可以通过“开始”菜单或 <code>$env:ProgramFiles\PowerShell\&lt;version&gt;\pwsh.exe</code> 启动 PowerShell</li>
+</ul>
+<h2 id="配置-4">配置</h2>
+<h3 id="自动补全">自动补全</h3>
+<p>PowerShell 命令自动补全：按 Tab 键。</p>
+<p><a target="_blank" rel="noopener" href="https://sspai.com/post/73019">https://sspai.com/post/73019</a></p>
+<ol>
+<li>
+<p>以管理身份运行 PowerShell：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs bash">set-executionpolicy remotesigned<br><br>Install-Module -Name PSReadLine<br><span class="hljs-comment"># or</span><br>powershell.exe -noprofile -<span class="hljs-built_in">command</span> <span class="hljs-string">&quot;Install-Module PSReadLine -Force -AllowPrerelease -SkipPublisherCheck&quot;</span><br><span class="hljs-comment"># or</span><br>pwsh.exe -noprofile -<span class="hljs-built_in">command</span> <span class="hljs-string">&quot;Install-Module PSReadLine -Force -AllowPrerelease -SkipPublisherCheck&quot;</span>  <span class="hljs-comment"># PowerShell 7</span><br><br>Import-Module <span class="hljs-string">&#x27;C:\Program Files\WindowsPowerShell\Modules\PSReadline\2.3.6\PSReadline.psd1’</span><br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>安装路径：<code>C:\Program Files\WindowsPowerShell\Modules\PSReadLine</code></p>
+</blockquote>
+</li>
+<li>
+<p>利用 <code>Set-PSReadlineKeyHandler</code> 命令可以设置 PowerShell 中所有按键及按键组合的功能。默认情况下，Tab 键的补全是行内补全，我们可以将其调整为带菜单的补全：</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmd"><span class="hljs-built_in">Set</span>-PSReadlineKeyHandler -Chord Tab -Function MenuComplete<br></code></pre></td></tr></table></figure>
+<p>Tab 键此时会弹出所有的可能选项，上下左右按键可切换候选，Esc 键取消补全。</p>
+</li>
+<li>
+<p>根据历史输入提供建议。重启PowerShell（以管理员身份），使用命令 <code>Set-PSReadLineOption -PredictionSource History</code> 打开，默认为行内补全，按键盘右箭头接受补全建议。（可选，不推荐）如果需要用列表形式补全的话，添加 <code>-PredictionViewStyle ListView</code> 参数即可。</p>
+</li>
+</ol>
+<h3 id="Anaconda-Powershell-Prompt">Anaconda Powershell Prompt</h3>
+<ol>
+<li>开始菜单-找到“Anaconda Powershell Prompt”-右键：打开文件位置-属性
+<ol>
+<li>（如果更新了 Powershell 7）目标：<code>&quot;C:\Program Files\PowerShell\7\pwsh.exe&quot; -ExecutionPolicy ByPass -NoExit -Command &quot;&amp; 'C:\LLL25655\softwares\installed\anaconda3\shell\condabin\conda-hook.ps1' ; conda activate 'C:\LLL25655\softwares\installed\anaconda3' &quot;</code></li>
+<li>快捷键：Ctrl+Alt+T</li>
+</ol>
+</li>
+<li>如果修改后<code>conda activate envs</code>失效，可以尝试在终端输入<code>conda init powershell</code>后重启终端。</li>
+</ol>
 <h1 id="QQ-Linux版">QQ Linux版</h1>
 <h2 id="下载安装-2">下载安装</h2>
 <p><a target="_blank" rel="noopener" href="https://im.qq.com/linuxqq/download.html">官方下载地址和安装及卸载帮助</a></p>
@@ -1965,7 +2019,7 @@ sudo okular
 <h3 id="如何卸载？">如何卸载？</h3>
 <p>请尽量使用你安装时使用的对应方式来卸载QQ Linux版（参考你所使用的系统安装包管理器说明）。同样需要root权限才能完成卸载。以下是一些例子：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo rpm -e linuxqq<br>sudo dpkg -r linuxqq<br></code></pre></td></tr></table></figure>
-<h2 id="更新">更新</h2>
+<h2 id="更新-2">更新</h2>
 <p>下载最新版的安装包，如<code>.deb</code>，双击安装即可覆盖。</p>
 <h1 id="Texlive">Texlive</h1>
 <h2 id="安装配置">安装配置</h2>
@@ -2132,7 +2186,7 @@ source ~/.bashrc  # source ~/.zshrc
 </tbody>
 </table>
 <p>表格摘自：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/435589701">说一说 TeXstudio</a></p>
-<h2 id="配置-4">配置</h2>
+<h2 id="配置-5">配置</h2>
 <ol>
 <li>
 <p>选项-设置，勾选左下角的“显示高级选项”。</p>
@@ -2159,7 +2213,7 @@ source ~/.bashrc  # source ~/.zshrc
 <p>（可选）实时预览：选项-设置-内置PDF查看器-勾选“有变更时自动重新编译文档”。</p>
 </li>
 </ol>
-<h2 id="使用-3">使用</h2>
+<h2 id="使用-4">使用</h2>
 <p><a href="https://zeyulong.com/posts/a8aab215/#TeXstudio">TeXstudio快捷键和使用技巧</a></p>
 <h2 id="更新（Windows）">更新（Windows）</h2>
 <p>TeXstudio更新之前需要先卸载旧版。在卸载之前，可以先复制一份用户配置以免配置文件丢失。对于Windows系统，配置文件一般在 <code>C:\Users\用户名\AppData\Roaming\texstudio</code> 路径下。*nix系统类似。</p>
@@ -2192,7 +2246,7 @@ source ~/.bashrc  # source ~/.zshrc
 <h2 id="升级">升级</h2>
 <p>如果你的VSCode已经通过<code>*.deb</code>安装过了，只需要输入两行代码即可更新已经安装的VSCode：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo apt update  <span class="hljs-comment"># 更新源</span><br>sudo apt install code<br></code></pre></td></tr></table></figure>
-<h2 id="配置-5">配置</h2>
+<h2 id="配置-6">配置</h2>
 <h3 id="通用配置">通用配置</h3>
 <blockquote>
 <p>打开<code>settings.json</code> ：</p>
@@ -2601,7 +2655,7 @@ source ~/.bashrc  # source ~/.zshrc
 </ol>
 </li>
 </ul>
-<h2 id="使用-4">使用</h2>
+<h2 id="使用-5">使用</h2>
 <p><a href="https://zeyulong.com/posts/a8aab215/#VSCode">常用命令及快捷键</a></p>
 <h1 id="微信">微信</h1>
 <ol>
@@ -2622,6 +2676,64 @@ source ~/.bashrc  # source ~/.zshrc
 <li>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_38656841/article/details/100568125">输入不显示解决方法</a>。</p>
 </li>
+</ol>
+<h1 id="Windows-Terminal">Windows Terminal</h1>
+<h2 id="安装-4">安装</h2>
+<ol>
+<li>
+<p>更新 winget</p>
+<ol>
+<li>
+<p>下载<a target="_blank" rel="noopener" href="https://github.com/microsoft/winget-cli/releases">最新版</a>的<code>*.msixbundle</code>文件。</p>
+</li>
+<li>
+<p>打开 PoweerShell，执行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">Add-AppxPackage .\Microsoft.DesktopAppInstaller_&lt;versionNumber&gt;.msixbundle<br></code></pre></td></tr></table></figure>
+<p>如果报错“Microsoft.UI.Xaml.2.8”，则下载最新版的<a target="_blank" rel="noopener" href="https://github.com/microsoft/microsoft-ui-xaml/releases?q=ui.xaml&amp;expanded=true">Microsoft.UI.Xaml</a>，双击安装。</p>
+</li>
+<li>
+<p>完成。</p>
+</li>
+</ol>
+</li>
+<li>
+<p>安装 WindowsTerminal</p>
+<ol>
+<li>
+<p>下载<a target="_blank" rel="noopener" href="https://github.com/microsoft/terminal/releases">最新版</a>的<code>*.msixbundle</code>文件。</p>
+</li>
+<li>
+<p>打开 PowerShell，执行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># <span class="hljs-doctag">NOTE:</span> If you are using PowerShell 7+, please run</span><br><span class="hljs-comment"># Import-Module Appx -UseWindowsPowerShell</span><br><span class="hljs-comment"># before using Add-AppxPackage.</span><br><br>Add-AppxPackage Microsoft.WindowsTerminal_&lt;versionNumber&gt;.msixbundle<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>完成。</p>
+</li>
+</ol>
+</li>
+<li>
+<p>完成。</p>
+</li>
+</ol>
+<h2 id="配置-7">配置</h2>
+<ol>
+<li>通过开始菜单-终端或文件夹右键-在终端打开。</li>
+<li>点击左上角下三角-设置，配置你的风格。</li>
+<li>添加配置文件-复制配置文件：Windows PowerShell</li>
+<li>开始菜单-找到“Anaconda Powershell Prompt”-右键：打开文件位置-属性，按照“快捷方式”的内容填入终端。示例：
+<ol>
+<li>名称：Anaconda Powershell Prompt</li>
+<li>命令行：<code>%windir%\System32\WindowsPowerShell\v1.0\powershell.exe -ExecutionPolicy ByPass -NoExit -Command &quot;&amp; 'C:\LLL25655\softwares\installed\anaconda3\shell\condabin\conda-hook.ps1' ; conda activate 'C:\LLL25655\softwares\installed\anaconda3' &quot;</code>
+<ol>
+<li>如果安装了PowerShell 7，可以设置为<code>&quot;C:\Program Files\PowerShell\7\pwsh.exe&quot; -ExecutionPolicy ByPass -NoExit -Command &quot;&amp; 'C:\LLL25655\softwares\installed\anaconda3\shell\condabin\conda-hook.ps1' ; conda activate 'C:\LLL25655\softwares\installed\anaconda3' &quot;</code></li>
+</ol>
+</li>
+<li>启动目录（保持不变）：<code>%USERPROFILE%</code></li>
+<li>图标：<code>%SystemDrive%\LLL25655\softwares\installed\anaconda3\Menu\Iconleak-Atrous-PSConsole.ico</code></li>
+<li>其它选项保持不变。</li>
+</ol>
+</li>
+<li>完成。</li>
 </ol>
 <h1 id="Zotero">Zotero</h1>
 <h2 id="下载安装-5">下载安装</h2>
@@ -2666,9 +2778,9 @@ source ~/.bashrc  # source ~/.zshrc
 </blockquote>
 <h3 id="配置插件">配置插件</h3>
 <p>编辑-首选项</p>
-<h2 id="使用-5">使用</h2>
+<h2 id="使用-6">使用</h2>
 <p><a href="https://zeyulong.com/posts/a8aab215/">Linux系统下常用的命令及快捷键</a></p>
-<h2 id="更新-2">更新</h2>
+<h2 id="更新-3">更新</h2>
 <h3 id="更新Zotero">更新Zotero</h3>
 <p><a target="_blank" rel="noopener" href="https://mlog.club/article/2872394">参考链接</a></p>
 <p>帮助-检查更新-自动更新。</p>

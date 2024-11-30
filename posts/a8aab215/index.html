@@ -26,7 +26,7 @@
 <meta property="og:image" content="http://zeyulong.com/posts/a8aab215/vi-vim-cheat-sheet-sch.gif">
 <meta property="og:image" content="http://zeyulong.com/posts/a8aab215/vim-vi-workmodel.png">
 <meta property="article:published_time" content="2024-03-05T14:33:19.000Z">
-<meta property="article:modified_time" content="2024-11-25T08:05:26.989Z">
+<meta property="article:modified_time" content="2024-11-29T07:03:42.153Z">
 <meta property="article:author" content="龙泽雨">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://zeyulong.com/posts/a8aab215/vi-vim-cheat-sheet-sch.gif">
@@ -351,7 +351,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          52k 字
+          54k 字
         
       </span>
     
@@ -362,7 +362,7 @@
         
         
         
-          434 分钟
+          450 分钟
         
       </span>
     
@@ -412,7 +412,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2024年11月25日 下午
+                    本文最后更新于 2024年11月29日 下午
                   
                 
               </p>
@@ -979,6 +979,8 @@
 <li><code>number</code> : 时间长度，后面可接 s、m、h 或 d。其中 s 为秒，m 为 分钟，h 为小时，d 为日数</li>
 </ul>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">sleep</span> 5m  <span class="hljs-comment"># 休眠5分钟</span><br></code></pre></td></tr></table></figure>
+<h3 id="后台运行">后台运行</h3>
+<p>有时，您需要执行一个即使在您注销终端会话后也会继续运行的命令。<code>nohup</code>（无挂起）命令允许您在后台运行进程而不会中断。例如，使用<code>nohup long_running_command &amp;</code>在后台启动命令，即使在关闭终端后也能保持其运行。此功能对于执行需要在没有持续监督的情况下持续存在的冗长任务或脚本特别有价值。</p>
 <h3 id="小贴士-2">小贴士</h3>
 <h4 id="Linux顺序执行多行命令">Linux顺序执行多行命令</h4>
 <ul>
@@ -1131,6 +1133,10 @@
 <tr>
 <td style="text-align:center">Ctrl+T</td>
 <td style="text-align:center">将光标位置的字符和前一个字符进行位置交换</td>
+</tr>
+<tr>
+<td style="text-align:center">Ctrl+R</td>
+<td style="text-align:center">以交互方式搜索命令历史记录</td>
 </tr>
 </tbody>
 </table>
@@ -1638,6 +1644,9 @@
 </ul>
 </li>
 <li>
+<p>使用动词来命名函数是一种常见的做法。例如，我们不命名我们的函数：<code>dateFormatting</code>，我们将其命名为：<code>formatDate</code>。</p>
+</li>
+<li>
 <p>等等。</p>
 </li>
 </ol>
@@ -1646,6 +1655,64 @@
 <p>然而，这种做法也有其缺点。首先，它会导致命名空间污染，即同一个作用域中可能存在多个同名的类型或函数，导致编译器无法区分它们。其次，这种做法可能会导致程序效率降低，因为导入的命名空间中的类型和函数可能会增加编译时间和运行时间。</p>
 <p>因此，有些开发者会选择显式地书写类型和函数的完整名称，例如 <code>std::cout</code> ，而不是使用 <code>using namespace std</code>; 。这种做法可以避免命名空间污染，并且可以确保编译器能够准确地解析类型和函数的名称。同时，这种做法也可以提高程序的可读性，使得代码更加清晰易懂。</p>
 <p>总的来说，是否使用 <code>using namespace std;</code> ，以及是否显式地书写类型和函数的完整名称，取决于开发者的个人喜好和编程习惯。但是，在编写大型项目时，为了避免命名空间污染和保证程序的效率，建议尽量少使用 <code>using namespace std;</code> ，而是显式地书写类型和函数的完整名称。</p>
+<h2 id="编写更简洁的代码">编写更简洁的代码</h2>
+<p><a target="_blank" rel="noopener" href="https://blog.devgenius.io/10-practices-i-try-to-follow-for-cleaner-code-f8f938f847c9">10 Practices I Try to Follow for Cleaner Code</a></p>
+<p><a target="_blank" rel="noopener" href="https://levelup.gitconnected.com/become-a-better-coder-10-tips-fa81f732a624">Become a Better Coder: 10 Tips</a></p>
+<p><a target="_blank" rel="noopener" href="https://levelup.gitconnected.com/write-clean-functions-i-will-show-you-how-5f562dde77ad">Write Clean Functions - I Will Show You How</a></p>
+<ol>
+<li>
+<p>使用有意义的名字。像<code>transactionHistory</code>这样的变量或者像这样的方法 <code>validateSufficientBalanceForRefund</code> 清楚地传达他们的目的。</p>
+</li>
+<li>
+<p>遵循单一职责原则（SRP）。通过将不同的职责委托给不同的类，每个类都有一个更改的理由，从而简化了维护并提高了可读性和可测试性。</p>
+</li>
+<li>
+<p>缩短方法。函数应该只具有比其名称低一级的代码。将长方法分解为更小、更集中的方法可以使代码更不容易出错并且更易于维护。它还简化了调试并提高了清晰度。样式指南通常建议将方法保持在 20-30 行左右。如果某个方法超出了此范围，则通常表明该算法过于复杂或该方法试图执行的操作过多。</p>
+<ol>
+<li>函数应该是可重用的。而且函数越大，可重用的可能性就越小。这也与为什么一个函数应该只做一件事相关。如果它只做一件事，那么它很可能会很小。<strong>即，将一个长函数分解为多个分管各个小功能的短函数组成。</strong></li>
+</ol>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs json">public static double calculateTotalRevenue(double<span class="hljs-punctuation">[</span><span class="hljs-punctuation">]</span> prices<span class="hljs-punctuation">,</span> int<span class="hljs-punctuation">[</span><span class="hljs-punctuation">]</span> quantities) <span class="hljs-punctuation">&#123;</span><br>    if (prices.length != quantities.length) <span class="hljs-punctuation">&#123;</span><br>        throw new IllegalArgumentException(<span class="hljs-string">&quot;Prices and quantities arrays must have the same length&quot;</span>);<br>    <span class="hljs-punctuation">&#125;</span><br><br>    double totalRevenue = <span class="hljs-number">0.0</span>;<br><br>    for (int i = <span class="hljs-number">0</span>; i &lt; prices.length; i++) <span class="hljs-punctuation">&#123;</span><br>        double price = prices<span class="hljs-punctuation">[</span>i<span class="hljs-punctuation">]</span>;<br>        int quantity = quantities<span class="hljs-punctuation">[</span>i<span class="hljs-punctuation">]</span>;<br>        double productRevenue = price * quantity;<br><br>        if (quantity &gt;= <span class="hljs-number">100</span>) <span class="hljs-punctuation">&#123;</span><br>            productRevenue *= <span class="hljs-number">0.85</span>;<br>        <span class="hljs-punctuation">&#125;</span> else if (quantity &gt;= <span class="hljs-number">50</span>) <span class="hljs-punctuation">&#123;</span><br>            productRevenue *= <span class="hljs-number">0.90</span>;<br>        <span class="hljs-punctuation">&#125;</span> else if (quantity &gt;= <span class="hljs-number">10</span>) <span class="hljs-punctuation">&#123;</span><br>            productRevenue *= <span class="hljs-number">0.95</span>;<br>        <span class="hljs-punctuation">&#125;</span><br><br>        totalRevenue += productRevenue;<br>    <span class="hljs-punctuation">&#125;</span><br><br>    return totalRevenue;<br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+<p>让我们以一种每个方法只有一个抽象级别的方式增强我们的代码：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs json">public static double calculateTotalRevenue(double<span class="hljs-punctuation">[</span><span class="hljs-punctuation">]</span> prices<span class="hljs-punctuation">,</span> int<span class="hljs-punctuation">[</span><span class="hljs-punctuation">]</span> quantities) <span class="hljs-punctuation">&#123;</span><br>    if (prices.length != quantities.length) <span class="hljs-punctuation">&#123;</span><br>        throw new IllegalArgumentException(<span class="hljs-string">&quot;Prices and quantities arrays must have the same length&quot;</span>);<br>    <span class="hljs-punctuation">&#125;</span><br><br>    double totalRevenue = <span class="hljs-number">0.0</span>;<br><br>    for (int i = <span class="hljs-number">0</span>; i &lt; prices.length; i++) <span class="hljs-punctuation">&#123;</span><br>        double productRevenue = calculateProductRevenue(prices<span class="hljs-punctuation">[</span>i<span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span> quantities<span class="hljs-punctuation">[</span>i<span class="hljs-punctuation">]</span>);<br>totalRevenue += productRevenue;<br><span class="hljs-punctuation">&#125;</span><br><br>return totalRevenue;<br><span class="hljs-punctuation">&#125;</span><br><br>private static double calculateProductRevenue(double price<span class="hljs-punctuation">,</span> int quantity) <span class="hljs-punctuation">&#123;</span><br>    double productRevenue = price * quantity;<br>    return applyQuantityDiscount(productRevenue<span class="hljs-punctuation">,</span> quantity);<br><span class="hljs-punctuation">&#125;</span><br><br>private static double applyQuantityDiscount(double revenue<span class="hljs-punctuation">,</span> int quantity) <span class="hljs-punctuation">&#123;</span><br>    if (quantity &gt;= <span class="hljs-number">100</span>) <span class="hljs-punctuation">&#123;</span><br>        return revenue * <span class="hljs-number">0.85</span>;<br>    <span class="hljs-punctuation">&#125;</span> else if (quantity &gt;= <span class="hljs-number">50</span>) <span class="hljs-punctuation">&#123;</span><br>        return revenue * <span class="hljs-number">0.90</span>;<br>    <span class="hljs-punctuation">&#125;</span> else if (quantity &gt;= <span class="hljs-number">10</span>) <span class="hljs-punctuation">&#123;</span><br>        return revenue * <span class="hljs-number">0.95</span>;<br>    <span class="hljs-punctuation">&#125;</span><br>return revenue;<br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>以有意义的方式使用注释。过度使用注释或添加只是重申代码正在执行的操作的注释是多余的，并且不会增加任何价值。此外，过时或不正确的注释可能会误导开发人员并造成混乱。另外，如果逻辑已修改，请不要忘记更新注释。</p>
+</li>
+<li>
+<p>一致的格式。一致的格式极大地提高了可读性和团队合作。有许多工具可以帮助制定缩进和间距的编码标准。另外，在任何 IDE 中，这都只是一个快捷方式。</p>
+</li>
+<li>
+<p>提供有意义的报错消息。通过捕获特定的异常并提供有意义的错误消息，调试和理解错误变得更加容易。此外，使用记录器记录异常，而不是打印堆栈跟踪，而是将错误集成到集中式日志记录系统中，使它们更易于管理和监控。</p>
+</li>
+<li>
+<p>让你的代码保持在界限内。将代码保持在边缘线内可以轻松快速扫描。 IDE 通常会提供指导原则，通常为每行 80 或 100 个字符（数量可自定义），以帮助遵循此实践。例如，IntelliJ IDEA 甚至提供了边距的可视化表示。此外，将长行分成更小的部分还可以促进更好的编码实践，例如将逻辑封装到命名良好的方法和类中。这简化了代码审查和协作，因为团队成员可以快速掌握代码的结构和意图，而无需排长队。</p>
+</li>
+<li>
+<p>编写有意义的测试用例。有效的测试清晰、简洁，并专注于验证代码的特定行为，包括正常条件、边界情况和潜在错误。它们应该易于其他开发人员理解，明确正在测试的内容和原因。</p>
+</li>
+<li>
+<p>审查你的代码。定期的代码审查对于确保质量、一致性和可维护性至关重要。代码审查对于知识共享和预先识别潜在问题的重要性怎么强调都不为过。永远不要懒惰这样做。更重要的是，始终对那些花时间审查和评论您的代码的人做出回应。确认他们的反馈，以表明他们的声音被听到并且他们的意见受到赞赏。这可以培养团队文化并加强关系。</p>
+</li>
+<li>
+<p>不断改进你的方法。了解何时优先考虑清晰性而非简洁性、简单性而非复杂性以及特殊性而非通用性对于编写有效的代码和成为专业的团队成员至关重要。确保您的代码像您希望其他人的代码一样易于理解。</p>
+</li>
+<li>
+<p>开闭原则 (OCP) 规定类、方法或函数必须对扩展开放，但不能对修改开放。这意味着定义的任何类、方法或函数都可以轻松地重用或扩展用于多个实例，而无需更改其代码。举个例子，我们有一个名为地址的类。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Address</span>:<br> <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, country</span>):<br>  self.country = country<br><br> <span class="hljs-keyword">def</span> <span class="hljs-title function_">get_capital</span>(<span class="hljs-params">self</span>):<br>  <span class="hljs-keyword">if</span> self.country == <span class="hljs-string">&#x27;canada&#x27;</span>:<br>   <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;ottawa&quot;</span><br>  <span class="hljs-keyword">if</span> self.country == <span class="hljs-string">&#x27;america&#x27;</span>:<br>   <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;Washington D.C&quot;</span><br>  <span class="hljs-keyword">if</span> self.country == <span class="hljs-string">&#x27;united Kingdom&#x27;</span>:<br>   <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;London&quot;</span><br><br>address = Address(<span class="hljs-string">&#x27;united Kingdom&#x27;</span>)<br><span class="hljs-built_in">print</span>(address.get_capital())<br></code></pre></td></tr></table></figure>
+<p>这不符合 OCP，因为每当有一个新的国家时，我们就需要编写一个新的<code>if</code>语句来补充它。现在这可能看起来很简单，但想象一下我们有 100 个或更多的国家/地区需要考虑。那看起来怎么样？这就是 OCP 发挥作用的地方。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs python">capitals = &#123;<br>    <span class="hljs-string">&#x27;canada&#x27;</span>: <span class="hljs-string">&quot;Ottawa&quot;</span>,<br>    <span class="hljs-string">&#x27;america&#x27;</span>: <span class="hljs-string">&quot;Washington D.C&quot;</span>,<br>    <span class="hljs-string">&#x27;united Kingdom&#x27;</span>: <span class="hljs-string">&quot;London&quot;</span><br>&#125;<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Address</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, country</span>):<br>        self.country = country<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">get_capital</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-keyword">return</span> capitals.get(self.country, <span class="hljs-string">&quot;Capital not found&quot;</span>)<br><br>address = Address(<span class="hljs-string">&#x27;united Kingdom&#x27;</span>)<br><span class="hljs-built_in">print</span>(address.get_capital())<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>避免使用幻数(Magic Numbers)；避免对文件路径或 URL 进行硬编码；请改用配置文件或环境变量。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># good</span><br>NUM_OF_ORDERS = <span class="hljs-number">50</span><br>SELECT TOP NUM_OF_ORDERS * FROM orders<br><br><span class="hljs-keyword">import</span> os<br>file_path = os.getenv(<span class="hljs-string">&quot;FILE_PATH&quot;</span>)<br><br><span class="hljs-comment"># bad</span><br>SELECT TOP <span class="hljs-number">50</span> * FROM orders<br><br>file_path = <span class="hljs-string">&quot;/path/to/file.txt&quot;</span><br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>避免深层嵌套。限制循环、条件或函数内的嵌套级别以提高可读性。</p>
+</li>
+<li>
+<p>函数的理想参数数量为零。然后我们有一个和两个参数函数。应避免构造具有三个参数的函数。超过三个参数需要特殊的理由——即使这样，也不应该使用这样的函数。如果您有超过 3 个参数，将它们分组到一个对象中可能是一个解决方案。</p>
+</li>
+</ol>
 <h2 id="代码注释">代码注释</h2>
 <h3 id="一般注释">一般注释</h3>
 <h4 id="C">C++</h4>
@@ -1656,13 +1723,13 @@
 <p>这些是注释中的标签（tag），有时也被称作“代码标签（codetag）”或“标记（token）”。</p>
 <p>标识：</p>
 <ul>
-<li>TODO：标记代码中需要实现的功能或任务。</li>
-<li>FIXME：标记代码中需要修复的问题或缺陷。</li>
-<li>XXX：如果代码中有该标识，说明标识处代码虽然实现了功能，但是实现的方法有待商榷，代码有问题或具误导性，需引起警惕。希望将来能改进，要改进的地方会在说明中简略说明。</li>
-<li>HACK/BODGE/KLUDGE：标记临时性修复或不优雅的解决方案。英语翻译为砍。如果代码中有该标识，说明标识处代码我们需要根据自己的需求去调整程序代码。</li>
-<li>BUG/DEBUG：标记已知的Bug或错误。</li>
-<li>UNDONE：对之前代码改动的撤销。</li>
-<li>NOTE：提供额外的注释或提示信息，帮助理解代码意图或设计决策。</li>
+<li><code>TODO</code>：标记代码中需要实现的功能或任务。</li>
+<li><code>FIXME</code>：标记代码中需要修复的问题或缺陷。</li>
+<li><code>XXX</code>：如果代码中有该标识，说明标识处代码虽然实现了功能，但是实现的方法有待商榷，代码有问题或具误导性，需引起警惕。希望将来能改进，要改进的地方会在说明中简略说明。</li>
+<li><code>HACK</code>/<code>BODGE</code>/<code>KLUDGE</code>：标记临时性修复或不优雅的解决方案。英语翻译为砍。如果代码中有该标识，说明标识处代码我们需要根据自己的需求去调整程序代码。</li>
+<li><code>BUG</code>/<code>DEBUG</code>：标记已知的Bug或错误。</li>
+<li><code>UNDONE</code>：对之前代码改动的撤销。</li>
+<li><code>NOTE</code>：提供额外的注释或提示信息，帮助理解代码意图或设计决策。</li>
 </ul>
 <p>格式：</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">/*</span><br><span class="hljs-comment">* 1. 使用大写字母</span><br><span class="hljs-comment">* 2. 只用双正斜杠//，而不是三个正斜杠 ///</span><br><span class="hljs-comment">* 3. 在标签后使用半角冒号 :</span><br><span class="hljs-comment">*/</span><br><span class="hljs-comment">//<span class="hljs-doctag">TODO:</span> Need implementation.</span><br><span class="hljs-comment">//<span class="hljs-doctag">FIXME:</span> We need to avoid the problem of duplicating windows when clicking multiple times on this menu item.</span><br></code></pre></td></tr></table></figure>
@@ -2435,6 +2502,11 @@
 <td style="text-align:center">可以将应用窗口最小化。若是当前窗口处于最大化状态，则按住 Win 键不放，连续按两下 ↓ 键即可将窗口最小化。</td>
 <td style="text-align:center"></td>
 </tr>
+<tr>
+<td style="text-align:center">Win+V</td>
+<td style="text-align:center">查看剪切板历史</td>
+<td style="text-align:center"></td>
+</tr>
 </tbody>
 </table>
 <blockquote>
@@ -2489,6 +2561,68 @@
 <p>等等。</p>
 </li>
 </ol>
+<h2 id="命令">命令</h2>
+<h3 id="复制文件（夹）">复制文件（夹）</h3>
+<h4 id="robocopy">robocopy</h4>
+<blockquote>
+<p>发现如果直接在桌面拖动文件夹进行复制，如果被复制的文件夹内有不正常的文件，整个复制过程就不会被执行。因此，使用命令行执行复制操作。原意是查看是哪个文件破坏了整个复制过程，结果发现可以直接跳过不正常的文件。</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">robocopy &lt;<span class="hljs-built_in">source</span>&gt; &lt;destination&gt; [&lt;file&gt;[ ...]] [&lt;options&gt;]<br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>最好以管理员方式启动终端？以保证复制过程没有文件权限问题。</p>
+</blockquote>
+<blockquote>
+<p>无论文件夹路径最后加不加<code>\</code>，都是将 source 文件夹下的内容复制进 destination 文件夹，而不是复制进 source 文件夹本身。所以要提前新件号 destination 文件夹。</p>
+</blockquote>
+<p><a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/robocopy">官方文档</a></p>
+<ul>
+<li><code>source</code>: 指定源目录的路径。</li>
+<li><code>destination</code>: 指定目标目录的路径。</li>
+<li><code>file</code>: 指定要复制的一个或多个文件。支持通配符（ *<strong><strong>或</strong>?</strong> ）。如果不指定此参数，则使用<code>*.*</code>作为默认值。</li>
+<li><code>options</code>:指定与<strong>robocopy</strong>命令一起使用的选项，包括<strong>copy</strong> 、 <strong>file</strong> 、 <strong>retry</strong> 、 <strong>logging</strong>和<strong>job</strong>选项。
+<ul>
+<li><code>/s</code>: 复制子目录。此选项自动排除空目录。</li>
+<li><code>/e</code>: 复制子目录。此选项自动包含空目录。</li>
+<li><code>/v</code>: 生成详细输出，并显示所有跳过的文件。</li>
+<li><code>/mt:&lt;n&gt;</code>: 创建具有n 个线程的多线程副本。 n必须是 1 到 128 之间的整数。n的默认值为 8。为了获得更好的性能，请使用/log选项重定向输出。（慎用，如果遇到复制错误的文件，会卡在那里重复尝试）</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">robocopy <span class="hljs-string">&quot;C:\source_folder&quot;</span> <span class="hljs-string">&quot;D:\destination_folder&quot;</span> /e /v<br></code></pre></td></tr></table></figure>
+<h4 id="复制大量小文件">复制大量小文件</h4>
+<p>如果你要复制的文件夹内包含大量小文件，可以考虑以下几种方法来提高复制效率：</p>
+<ol>
+<li>
+<p>使用 <a href="#robocopy">robocopy</a> 的多线程选项</p>
+<p><code>robocopy</code> 支持多线程复制，可以显著提高复制大量小文件的速度。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">robocopy <span class="hljs-string">&quot;C:\source_folder&quot;</span> <span class="hljs-string">&quot;D:\destination_folder&quot;</span> /e /mt:16<br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>就算不用多线程也很快。</p>
+</blockquote>
+</li>
+<li>
+<p>压缩文件夹再复制</p>
+<p>将文件夹压缩成一个压缩文件（如 <code>.zip</code>），然后复制压缩文件，最后在目标位置解压。这种方法可以减少文件系统的开销。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">Compress-Archive -Path <span class="hljs-string">&quot;C:\source_folder&quot;</span> -DestinationPath <span class="hljs-string">&quot;C:\source_folder.zip&quot;</span>  <span class="hljs-comment"># 使用 PowerShell 压缩文件夹</span><br>copy <span class="hljs-string">&quot;C:\source_folder.zip&quot;</span> <span class="hljs-string">&quot;D:\destination_folder.zip&quot;</span>  <span class="hljs-comment"># 复制压缩文件</span><br>Expand-Archive -Path <span class="hljs-string">&quot;D:\destination_folder.zip&quot;</span> -DestinationPath <span class="hljs-string">&quot;D:\destination_folder&quot;</span>  <span class="hljs-comment"># 使用 PowerShell 解压文件夹</span><br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>使用第三方工具</p>
+<p>一些第三方工具如 <code>FastCopy</code> 或 <code>TeraCopy</code> 专门优化了文件复制过程，特别是对于大量小文件的复制。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 下载并安装 FastCopy。</span><br><span class="hljs-comment"># 使用命令行进行复制</span><br>fastcopy.exe /cmd=diff /auto_close <span class="hljs-string">&quot;C:\source_folder&quot;</span> /to=<span class="hljs-string">&quot;D:\destination_folder&quot;</span><br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>使用 <a href="#rsync">rsync</a>（适用于 Windows Subsystem for Linux）</p>
+<p>如果你在 Windows 上安装了 WSL，可以使用 <code>rsync</code>，它在处理大量小文件时表现良好。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">rsync -av --progress /mnt/c/source_folder /mnt/d/destination_folder<br></code></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>选择适合你的方法来提高复制大量小文件的效率。</p>
+<h3 id="shutdown">shutdown</h3>
+<p><a target="_blank" rel="noopener" href="https://learn.microsoft.com/de-de/windows-server/administration/windows-commands/shutdown">https://learn.microsoft.com/de-de/windows-server/administration/windows-commands/shutdown</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.xitongzhijia.net/xtjc/20220717/246783.html">Win11怎么设置自动关机？Win11使用shut down命令自动关机的方法</a></p>
+<p>允许您一次关闭或重新启动一台本地计算机或远程计算机。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">shutdown -<span class="hljs-built_in">help</span>  <span class="hljs-comment"># 显示用法</span><br>shutdown -s -t 3600  <span class="hljs-comment"># 3600秒后关机</span><br>shutdown -r -t 3600  <span class="hljs-comment"># 3600秒后重启</span><br>shutdown -h  <span class="hljs-comment"># 休眠</span><br>shutdown -a  <span class="hljs-comment"># 取消关机，或者取消重启</span><br></code></pre></td></tr></table></figure>
+<p>还可以按 Win+R 快捷键后，在“打开”处输入<code>at 16:00 shutdown -s</code>。</p>
 <h2 id="小贴士-3">小贴士</h2>
 <h3 id="文件（夹）命名">文件（夹）命名</h3>
 <h4 id="命名规范">命名规范</h4>
@@ -2640,61 +2774,6 @@
 <li><strong>社区健康文件</strong>: 包括 <a target="_blank" rel="noopener" href="http://CONTRIBUTING.md">CONTRIBUTING.md</a>、CODE_OF_CONDUCT.md 等文件，帮助社区成员了解项目的贡献指南和行为守则。</li>
 </ul>
 <p>这些文件和配置帮助项目维护者和贡献者更好地协作和管理项目。</p>
-<h3 id="复制文件（夹）">复制文件（夹）</h3>
-<h4 id="robocopy">robocopy</h4>
-<blockquote>
-<p>发现如果直接在桌面拖动文件夹进行复制，如果被复制的文件夹内有不正常的文件，整个复制过程就不会被执行。因此，使用命令行执行复制操作。原意是查看是哪个文件破坏了整个复制过程，结果发现可以直接跳过不正常的文件。</p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">robocopy &lt;<span class="hljs-built_in">source</span>&gt; &lt;destination&gt; [&lt;file&gt;[ ...]] [&lt;options&gt;]<br></code></pre></td></tr></table></figure>
-<blockquote>
-<p>最好以管理员方式启动终端？以保证复制过程没有文件权限问题。</p>
-</blockquote>
-<blockquote>
-<p>无论文件夹路径最后加不加<code>\</code>，都是将 source 文件夹下的内容复制进 destination 文件夹，而不是复制进 source 文件夹本身。所以要提前新件号 destination 文件夹。</p>
-</blockquote>
-<p><a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/robocopy">官方文档</a></p>
-<ul>
-<li><code>source</code>: 指定源目录的路径。</li>
-<li><code>destination</code>: 指定目标目录的路径。</li>
-<li><code>file</code>: 指定要复制的一个或多个文件。支持通配符（ *<strong><strong>或</strong>?</strong> ）。如果不指定此参数，则使用<code>*.*</code>作为默认值。</li>
-<li><code>options</code>:指定与<strong>robocopy</strong>命令一起使用的选项，包括<strong>copy</strong> 、 <strong>file</strong> 、 <strong>retry</strong> 、 <strong>logging</strong>和<strong>job</strong>选项。
-<ul>
-<li><code>/s</code>: 复制子目录。此选项自动排除空目录。</li>
-<li><code>/e</code>: 复制子目录。此选项自动包含空目录。</li>
-<li><code>/v</code>: 生成详细输出，并显示所有跳过的文件。</li>
-<li><code>/mt:&lt;n&gt;</code>: 创建具有n 个线程的多线程副本。 n必须是 1 到 128 之间的整数。n的默认值为 8。为了获得更好的性能，请使用/log选项重定向输出。（慎用，如果遇到复制错误的文件，会卡在那里重复尝试）</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">robocopy <span class="hljs-string">&quot;C:\source_folder&quot;</span> <span class="hljs-string">&quot;D:\destination_folder&quot;</span> /e /v<br></code></pre></td></tr></table></figure>
-<h4 id="复制大量小文件">复制大量小文件</h4>
-<p>如果你要复制的文件夹内包含大量小文件，可以考虑以下几种方法来提高复制效率：</p>
-<ol>
-<li>
-<p>使用 <a href="#robocopy">robocopy</a> 的多线程选项</p>
-<p><code>robocopy</code> 支持多线程复制，可以显著提高复制大量小文件的速度。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">robocopy <span class="hljs-string">&quot;C:\source_folder&quot;</span> <span class="hljs-string">&quot;D:\destination_folder&quot;</span> /e /mt:16<br></code></pre></td></tr></table></figure>
-<blockquote>
-<p>就算不用多线程也很快。</p>
-</blockquote>
-</li>
-<li>
-<p>压缩文件夹再复制</p>
-<p>将文件夹压缩成一个压缩文件（如 <code>.zip</code>），然后复制压缩文件，最后在目标位置解压。这种方法可以减少文件系统的开销。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">Compress-Archive -Path <span class="hljs-string">&quot;C:\source_folder&quot;</span> -DestinationPath <span class="hljs-string">&quot;C:\source_folder.zip&quot;</span>  <span class="hljs-comment"># 使用 PowerShell 压缩文件夹</span><br>copy <span class="hljs-string">&quot;C:\source_folder.zip&quot;</span> <span class="hljs-string">&quot;D:\destination_folder.zip&quot;</span>  <span class="hljs-comment"># 复制压缩文件</span><br>Expand-Archive -Path <span class="hljs-string">&quot;D:\destination_folder.zip&quot;</span> -DestinationPath <span class="hljs-string">&quot;D:\destination_folder&quot;</span>  <span class="hljs-comment"># 使用 PowerShell 解压文件夹</span><br></code></pre></td></tr></table></figure>
-</li>
-<li>
-<p>使用第三方工具</p>
-<p>一些第三方工具如 <code>FastCopy</code> 或 <code>TeraCopy</code> 专门优化了文件复制过程，特别是对于大量小文件的复制。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 下载并安装 FastCopy。</span><br><span class="hljs-comment"># 使用命令行进行复制</span><br>fastcopy.exe /cmd=diff /auto_close <span class="hljs-string">&quot;C:\source_folder&quot;</span> /to=<span class="hljs-string">&quot;D:\destination_folder&quot;</span><br></code></pre></td></tr></table></figure>
-</li>
-<li>
-<p>使用 <a href="#rsync">rsync</a>（适用于 Windows Subsystem for Linux）</p>
-</li>
-</ol>
-<p>如果你在 Windows 上安装了 WSL，可以使用 <code>rsync</code>，它在处理大量小文件时表现良好。</p>
-   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">rsync -av --progress /mnt/c/source_folder /mnt/d/destination_folder<br></code></pre></td></tr></table></figure>
-<p>选择适合你的方法来提高复制大量小文件的效率。</p>
 <h3 id="中英文版本的简称">中英文版本的简称</h3>
 <p>当描述一个文件是中文版本时，通常使用的语言代码有几种不同的形式，主要取决于具体的语境和标准。最常见的是“zh”，这是ISO 639-1标准下的代码，用于表示中文。然而，如果需要指明具体是简体中文还是繁体中文，人们可能会使用“zh-CN”（中国大陆使用的简体中文）和“zh-TW”（台湾地区使用的繁体中文）。这些是基于IETF语言标签（由ISO 639和ISO 3166国家代码组合而成），广泛用于网站和软件本地化中。</p>
 <p>对于英文版本，通常使用的语言代码为“en”，这同样遵循ISO 639-1标准。如需进一步区分不同地区的英语，例如美国英语和英国英语，则分别使用“en-US”和“en-GB”。</p>
@@ -2776,9 +2855,6 @@
 </ul>
 </li>
 </ul>
-</li>
-<li>
-<p>剪切板历史：Win+V</p>
 </li>
 <li>
 <p>导入环境变量：搜索“环境变量”——新建。</p>

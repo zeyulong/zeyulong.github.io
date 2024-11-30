@@ -24,7 +24,7 @@
 <meta property="og:description" content="本文主要分享了Windows、Linux系统的配置与常用软件的安装。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-01-31T16:27:11.000Z">
-<meta property="article:modified_time" content="2024-11-25T07:53:57.511Z">
+<meta property="article:modified_time" content="2024-11-28T12:09:13.055Z">
 <meta property="article:author" content="龙泽雨">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -348,7 +348,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          19k 字
+          20k 字
         
       </span>
     
@@ -359,7 +359,7 @@
         
         
         
-          160 分钟
+          164 分钟
         
       </span>
     
@@ -409,7 +409,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2024年11月25日 下午
+                    本文最后更新于 2024年11月28日 晚上
                   
                 
               </p>
@@ -2800,18 +2800,32 @@ source ~/.bashrc  # source ~/.zshrc
 <h3 id="更新插件">更新插件</h3>
 <p>工具-附加组件-右上角设置符号-Check for Updates</p>
 <h1 id="TODO-2">TODO</h1>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/540920867">10 款更先进的开源命令行工具</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/ibraheemdev/modern-unix">https://github.com/ibraheemdev/modern-unix</a></p>
 <blockquote>
 <p>CLI（命令行界面）、GUI（图形用户界面）、TUI（基于文本的用户界面）、Terminal（终端）、Console（控制台）。</p>
 </blockquote>
 <ul>
-<li><a target="_blank" rel="noopener" href="https://github.com/sharkdp/bat">bat</a>工具是著名的 cat 程序的克隆，支持语法突出显示和 git 集成。</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/sharkdp/bat">bat</a>(<code>cat</code>替代)：默认带自动翻页、行号、语法高亮、Git 集成等功能的升级版文件查看工具。</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/ClementTsang/bottom">bottom</a>(<code>top</code>替代)：图形化实时监控进程和系统资源的工具。支持实时展示 CPU、内存、硬盘、网络、进程、温度等指标。</li>
 <li><a target="_blank" rel="noopener" href="https://github.com/aristocratos/bpytop">bpy top</a>：CLI。资源监视器，显示处理器、内存、磁盘、网络和进程的使用情况和统计信息。</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/Canop/broot">broot</a>(<code>tree</code>替代)：查看和导航目录<code>tree</code>新方法。</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/dandavison/delta">delta</a>：<code>git</code>和<code>diff</code>输出的查看器。</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/muesli/duf">duf</a>(<code>df</code>替代)：通过彩色表格的方式展示磁盘使用情况的工具。不仅对设备进行了分类，还支持结果排序。</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/bootandy/dust">dust</a>(<code>du</code>替代)：能够一目了然地展示目录和文件大小的命令行工具。使用时无需加额外的参数，即可展示当前目录下的文件和目录的大小、包含的子目录列表（树状）以及占用空间的百分比（条形图）。</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/ogham/exa">exa</a>(<code>ls</code>替代)：更加人性化地显示目录下文件的工具。它通过不同颜色展示来区别文件类型，还支持以树状的方式展示文件层级、展示 Git 状态等方便的功能。</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/eza-community/eza">eza</a>(<code>ls</code>替代)：<code>ls</code>的现代、维护替代品，构建于<a target="_blank" rel="noopener" href="https://github.com/ogham/exa">exa</a>之上。</li>
 <li><a target="_blank" rel="noopener" href="https://github.com/junegunn/fzf">fzf</a>: 命令行模糊查找器。适用于任何类型的列表；文件、命令历史记录、进程、主机名、书签、git 提交等。它实现了“模糊”匹配算法，因此您可以快速输入省略字符的模式，但仍然可以获得您想要的结果。</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/httpie/cli">httpie</a>(<code>curl</code>替代)：全能但不臃肿的命令行 HTTP 客户端。使用起来极其方便，支持请求、会话、下载、JSON 等功能。</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/sharkdp/hyperfine">hyperfine</a>(<code>time</code>替代)：强大的命令行基准测试工具。支持任意 shell 命令、多次运行的统计分析和结果导出。</li>
 <li><a target="_blank" rel="noopener" href="https://github.com/jesseduffield/lazygit">lazygit</a>：TUI。Lazygit 为 git 操作提供了可视化界面，使得仓库管理更加直观。</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/lsd-rs/lsd">lsd</a>(<code>ls</code>替代)：下一代文件列表命令。向后兼容<code>ls</code>。</li>
 <li><a target="_blank" rel="noopener" href="https://github.com/knqyf263/pet">pet</a>：CLI。一个命令行片段管理器。它旨在帮助您记住并快速访问那些不经常使用但对工作流程至关重要的复杂命令。</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/BurntSushi/ripgrep">ripgrep</a>(<code>grep</code>替代)：超快的文本搜索工具。不仅快还更加人性化，比如自动忽略 .gitignore 中的文件、自动递归搜索、自动高亮展示匹配的结果。</li>
 <li>terminalizer：记录终端会话并将其导出为动画 GIF</li>
 <li><a target="_blank" rel="noopener" href="https://github.com/tmux/tmux">tmux</a>：CLI。终端多路复用器，用于有效管理多个终端会话。</li>
 <li><a target="_blank" rel="noopener" href="https://github.com/sxyazi/yazi">Yazi</a>：用 Rust 编写的基于异步 I/O 的超快终端文件管理器</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/ajeetdsouza/zoxide">zoxide</a>(<code>cd</code>替代)：更聪明的<code>cd</code>命令。能够记住你最常使用的目录，从而让目录跳转更加方便和快捷。</li>
 </ul>
 <h1 id="参考链接-4">参考链接</h1>
 <ul>

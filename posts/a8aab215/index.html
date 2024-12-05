@@ -26,7 +26,7 @@
 <meta property="og:image" content="http://zeyulong.com/posts/a8aab215/vi-vim-cheat-sheet-sch.gif">
 <meta property="og:image" content="http://zeyulong.com/posts/a8aab215/vim-vi-workmodel.png">
 <meta property="article:published_time" content="2024-03-05T14:33:19.000Z">
-<meta property="article:modified_time" content="2024-11-29T07:03:42.153Z">
+<meta property="article:modified_time" content="2024-12-04T08:10:37.949Z">
 <meta property="article:author" content="龙泽雨">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://zeyulong.com/posts/a8aab215/vi-vim-cheat-sheet-sch.gif">
@@ -351,7 +351,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          54k 字
+          55k 字
         
       </span>
     
@@ -362,7 +362,7 @@
         
         
         
-          450 分钟
+          455 分钟
         
       </span>
     
@@ -412,7 +412,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2024年11月29日 下午
+                    本文最后更新于 2024年12月4日 下午
                   
                 
               </p>
@@ -1719,6 +1719,9 @@
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">// 一般注释</span><br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * @brief 多行注释</span><br><span class="hljs-comment"> * @param</span><br><span class="hljs-comment"> * @return</span><br><span class="hljs-comment"> */</span><br></code></pre></td></tr></table></figure>
 <h4 id="python">python</h4>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 单行注释</span><br><br><span class="hljs-string">&#x27;&#x27;&#x27;</span><br><span class="hljs-string">    使用 3 个单引号分别作为注释的开头和结尾</span><br><span class="hljs-string">    可以一次性注释多行内容</span><br><span class="hljs-string">    这里面的内容全部是注释内容</span><br><span class="hljs-string">&#x27;&#x27;&#x27;</span><br><br><span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    使用 3 个双引号分别作为注释的开头和结尾</span><br><span class="hljs-string">    可以一次性注释多行内容</span><br><span class="hljs-string">    这里面的内容全部是注释内容</span><br><span class="hljs-string">&quot;&quot;&quot;</span><br><br></code></pre></td></tr></table></figure>
+<h3 id="函数注释">函数注释</h3>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/aspiration2016/p/8433122.html">C/C++注释规范</a></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">/**</span><br><span class="hljs-comment">* @brief 打开文件 \n</span><br><span class="hljs-comment">* 文件打开成功后，必须使用::CloseFile函数关闭</span><br><span class="hljs-comment">* @param[in] fileName    文件名</span><br><span class="hljs-comment">* @param[in] fileMode    文件模式，可以由以下几个模块组合而成：</span><br><span class="hljs-comment">*     -r读取</span><br><span class="hljs-comment">*     -w 可写</span><br><span class="hljs-comment">*     -a 添加</span><br><span class="hljs-comment">*     -t 文本模式(不能与b联用)</span><br><span class="hljs-comment">*     -b 二进制模式(不能与t联用)</span><br><span class="hljs-comment">* @return 返回文件编号</span><br><span class="hljs-comment">*  --1表示打开文件失败(生成时:.-1)</span><br><span class="hljs-comment">* @note文件打开成功后，必须使用::CloseFile函数关闭</span><br><span class="hljs-comment">* @par 示例:</span><br><span class="hljs-comment">* @code</span><br><span class="hljs-comment">*        //用文本只读方式打开文件</span><br><span class="hljs-comment">*        int ret = OpenFile(&quot;test.txt&quot;, &quot;a&quot;);</span><br><span class="hljs-comment">* @endcode</span><br><span class="hljs-comment">* @see 指定参考信息。函数::ReadFile::CloseFile (“::”是指定有连接功能,可以看文档里的CloseFile变成绿,点击它可以跳转到CloseFile.)</span><br><span class="hljs-comment">* @deprecated 由于特殊的原因，这个函数可能会在将来的版本中取消</span><br><span class="hljs-comment">* @bug 调试Bug说明</span><br><span class="hljs-comment">* @warning 警告说明 (warning) 定义一些关于这个函数必须知道的事情</span><br><span class="hljs-comment">* @remarks 备注说明 (remarks) 定义一些关于这个函数的备注信息</span><br><span class="hljs-comment">* @todo 将要完成的工作 (todo) 说明哪些事情将在不久以后完成</span><br><span class="hljs-comment">* @example 使用例子说明 (example) 例子说明</span><br><span class="hljs-comment">*/</span><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">OpenFile</span><span class="hljs-params">(<span class="hljs-type">const</span> <span class="hljs-type">char</span>* fileName, <span class="hljs-type">const</span> <span class="hljs-type">char</span>* fileMode)</span></span>;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment">* @brief 关闭文件</span><br><span class="hljs-comment">* @param [in] file    文件</span><br><span class="hljs-comment">*</span><br><span class="hljs-comment">* @retval 返回值 0     成功</span><br><span class="hljs-comment">* @retval -1    失败</span><br><span class="hljs-comment">* @pre file 必须使用OpenFile的返回值</span><br><span class="hljs-comment">*/</span>                <br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">CloseFile</span><span class="hljs-params">(<span class="hljs-type">int</span> file)</span></span>;<br></code></pre></td></tr></table></figure>
 <h3 id="特殊注释">特殊注释</h3>
 <p>这些是注释中的标签（tag），有时也被称作“代码标签（codetag）”或“标记（token）”。</p>
 <p>标识：</p>
@@ -2346,6 +2349,22 @@
 <li>定期代码审查：定期进行代码审查可以帮助识别潜在的内存泄漏问题。</li>
 <li>自动化测试：编写测试用例，尤其是针对资源管理的单元测试，可以在开发过程中早期发现和解决内存泄漏问题。</li>
 </ul>
+<h2 id="MATLAB转C">MATLAB转C++</h2>
+<p><a target="_blank" rel="noopener" href="https://www.zhihu.com/">https://www.zhihu.com/</a></p>
+<p>MATLAB做完之后，只要自己封装的函数参数足够简介，用自动生成的C++代码足够应用在工程了，与手写没什么区别。</p>
+<p>是滴，我现在很多函数都是MATLAB写好然后转化成C代码直接调用，但是这种调用每次程序启动时会比较慢，你有什么解决的方法吗？</p>
+<p>我感觉还好，可以试试指定变量类型，能用整数就不用double转换，能定点就改定点，如果是编译成库，尽量静态，是不是会好一点？</p>
+<p>得分情况，如果程序里有涉及大矩阵运算，或者是信号处理的程序，MATLAB肯定比咱们自己写的C快，但如果涉及大量复杂循环过程，且很多过程没法矩阵化，那MATLAB速度确实比不上C。不过对于快速验证来说，MATLAB要比C方便很多。</p>
+<p>请问MATLAB转C或C++有啥快速方法吗？还是需要一句一句转？</p>
+<p>有一条指令，在MATLAB的command里面输入</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">mcc -w cpplib:funcname -T<br><span class="hljs-built_in">link</span>:lib funcname.m -C<br></code></pre></td></tr></table></figure>
+<p>具体可以网上搜一下。</p>
+<h2 id="静态代码分析">静态代码分析</h2>
+<p><a target="_blank" rel="noopener" href="https://www.zhihu.com/">https://www.zhihu.com/</a></p>
+<p>想问一下，有没有能够获取C++中各个方法之间的调用依赖关系的开源软件？</p>
+<p>可以尝试Understand。</p>
+<p>可以调试的话，直接GDB断点，明明白白。</p>
+<p>Source Insight？没Understand好用。</p>
 <h2 id="其它-4">其它</h2>
 <ol>
 <li>
@@ -2621,8 +2640,10 @@
 <p><a target="_blank" rel="noopener" href="https://learn.microsoft.com/de-de/windows-server/administration/windows-commands/shutdown">https://learn.microsoft.com/de-de/windows-server/administration/windows-commands/shutdown</a></p>
 <p><a target="_blank" rel="noopener" href="https://www.xitongzhijia.net/xtjc/20220717/246783.html">Win11怎么设置自动关机？Win11使用shut down命令自动关机的方法</a></p>
 <p>允许您一次关闭或重新启动一台本地计算机或远程计算机。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">shutdown -<span class="hljs-built_in">help</span>  <span class="hljs-comment"># 显示用法</span><br>shutdown -s -t 3600  <span class="hljs-comment"># 3600秒后关机</span><br>shutdown -r -t 3600  <span class="hljs-comment"># 3600秒后重启</span><br>shutdown -h  <span class="hljs-comment"># 休眠</span><br>shutdown -a  <span class="hljs-comment"># 取消关机，或者取消重启</span><br></code></pre></td></tr></table></figure>
-<p>还可以按 Win+R 快捷键后，在“打开”处输入<code>at 16:00 shutdown -s</code>。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash">shutdown -<span class="hljs-built_in">help</span>  <span class="hljs-comment"># 显示用法</span><br>shutdown -i  <span class="hljs-comment">#  显示图形用户界面(GUI)</span><br>shutdown -s -t 3600  <span class="hljs-comment"># 3600秒后关机</span><br>shutdown -r -t 3600  <span class="hljs-comment"># 3600秒后重启</span><br>shutdown -h  <span class="hljs-comment"># 休眠</span><br>shutdown -a  <span class="hljs-comment"># 取消关机，或者取消重启</span><br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>还可以按 Win+R 快捷键后，在“打开”处输入<code>at 16:00 shutdown -s</code>。(TODO)</p>
+</blockquote>
 <h2 id="小贴士-3">小贴士</h2>
 <h3 id="文件（夹）命名">文件（夹）命名</h3>
 <h4 id="命名规范">命名规范</h4>

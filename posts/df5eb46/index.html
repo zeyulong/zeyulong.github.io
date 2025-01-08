@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://zeyulong.com/posts/df5eb46/PyTorch%E5%8C%85%E7%9A%84%E5%91%BD%E5%90%8D%E8%A7%84%E5%88%99.png">
 <meta property="article:published_time" content="2024-03-05T07:37:06.000Z">
-<meta property="article:modified_time" content="2024-07-12T08:51:43.409Z">
+<meta property="article:modified_time" content="2024-12-20T13:12:30.493Z">
 <meta property="article:author" content="龙泽雨">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://zeyulong.com/posts/df5eb46/PyTorch%E5%8C%85%E7%9A%84%E5%91%BD%E5%90%8D%E8%A7%84%E5%88%99.png">
@@ -350,7 +350,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          6.2k 字
+          6.3k 字
         
       </span>
     
@@ -361,7 +361,7 @@
         
         
         
-          52 分钟
+          53 分钟
         
       </span>
     
@@ -411,7 +411,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2024年7月12日 下午
+                    本文最后更新于 2024年12月20日 晚上
                   
                 
               </p>
@@ -460,7 +460,7 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">lspci | grep -i nvidia  <span class="hljs-comment"># 查看是否安装NVIDIA显卡</span><br>nvidia-smi  <span class="hljs-comment"># 查看显卡信息</span><br></code></pre></td></tr></table></figure>
 <h2 id="安装驱动">安装驱动</h2>
 <h3 id="图形界面（推荐）">图形界面（推荐）</h3>
-<p>打开应用程序界面，选择“软件和更新（softwares and updates）”-附加驱动，在此处选择“使用NVIDIA driver metapackage来自nvidia-driver-版本号(专有)”。</p>
+<p>打开应用程序界面，选择“软件和更新（softwares and updates）”-附加驱动，在此处选择“使用NVIDIA driver metapackage来自nvidia-driver-版本号(专有)”。安装完成后重启。</p>
 <blockquote>
 <p>一般安装版本号最大的那个。</p>
 </blockquote>
@@ -717,7 +717,7 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># uninstall cuda</span><br><span class="hljs-comment"># 第一行命令不要忘记要加上perl命令，要不然会报错</span><br>sudo perl /usr/local/cuda-X.Y/bin/uninstall_cuda_X.Y.pl <br><br><span class="hljs-comment"># 删除文件夹</span><br>sudo <span class="hljs-built_in">rm</span> -rf /usr/local/cuda-X.Y<br><br><span class="hljs-comment">#uninstall driver</span><br>sudo /usr/bin/nvidia-uninstall<br>sudo apt-get remove --purge nvidia-*<br><span class="hljs-comment"># 记得重装nvidia driver</span><br></code></pre></td></tr></table></figure>
 <h2 id="CUDA多版本共存">CUDA多版本共存</h2>
 <p>需要使用<code>*.run</code>版本安装的CUDA，通过改变软链接的方式切换CUDA版本。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo <span class="hljs-built_in">rm</span> -rf /usr/local/cuda  <span class="hljs-comment"># 删除软链接，注意是 /usr/local/cuda 而不是 /usr/local/cuda/,前者仅删除软链接，而后者会删除软链接所指向的目录的所有内容，操作请小心</span><br>sudo <span class="hljs-built_in">ln</span> -s cuda_path /usr/local/cuda  <span class="hljs-comment"># 创建名为 /usr/local/cuda 的软链接，其指向 cuda_path 所指定的 cuda 安装目录，比如：/usr/local/cuda-11.8</span><br><br><span class="hljs-comment"># 修改安装CUDA第5步在`~/.bashrc`增加的3行`export`语句</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo <span class="hljs-built_in">rm</span> -rf /usr/local/cuda  <span class="hljs-comment"># 删除软链接，注意是 /usr/local/cuda 而不是 /usr/local/cuda/,前者仅删除软链接，而后者会删除软链接所指向的目录的所有内容，操作请小心</span><br>sudo <span class="hljs-built_in">ln</span> -s cuda_path /usr/local/cuda  <span class="hljs-comment"># 创建名为 /usr/local/cuda 的软链接，其指向 cuda_path 所指定的 cuda 安装目录，比如：/usr/local/cuda-11.8</span><br><span class="hljs-built_in">ls</span> -l /usr/local | grep cuda  <span class="hljs-comment"># 查看软链接指向</span><br><br><span class="hljs-comment"># 修改安装CUDA第5步在`~/.bashrc`增加的3行`export`语句</span><br></code></pre></td></tr></table></figure>
 <h1 id="cuDNN">cuDNN</h1>
 <h2 id="查询-3">查询</h2>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash">apt show libcudnn8  <span class="hljs-comment"># 通过查询已安装的libcudnn8包来验证cuDNN的版本</span><br><span class="hljs-comment"># 查看版本（路径可能不一致，有一个命令有输出就行）</span><br><span class="hljs-built_in">cat</span> /usr/include/cudnn_version.h  <br><span class="hljs-built_in">cat</span> /usr/include/cudnn.h<br><span class="hljs-built_in">cat</span> /usr/local/cuda/include/cudnn_version.h | grep CUDNN_MAJOR -A 2<br><span class="hljs-built_in">cat</span> /usr/local/cuda/include/cudnn.h | grep CUDNN_MAJOR -A 2<br></code></pre></td></tr></table></figure>
@@ -752,7 +752,7 @@
 </li>
 <li>
 <p>压缩包版本（对应使用<code>*.run</code>安装的CUDA）：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 下载</span><br><span class="hljs-built_in">cd</span> DownloadFolder<br>wget https://developer.nvidia.com/downloads/compute/cudnn/secure/8.9.7/local_installers/11.x/cudnn-linux-x86_64-8.9.7.29_cuda11-archive.tar.xz/<br><br><span class="hljs-comment"># 解压</span><br><span class="hljs-built_in">cd</span> DownloadFolder<br><span class="hljs-comment"># 解压*.tar.xz文件。图形化界面可以直接双击压缩包实现解压</span><br>xz -d -k cudnn-linux-x86_64-8.9.7.29_cuda11-archive.tar.xz  <span class="hljs-comment"># 使用 -k 参数来保留被解压缩的文件。</span><br>tar -xvf cudnn-linux-x86_64-8.9.7.29_cuda11-archive.tar<br><br><span class="hljs-comment"># 复制文件</span><br><span class="hljs-built_in">cd</span> cudnn-linux-x86_64-8.9.7.29_cuda11-archive<br>sudo <span class="hljs-built_in">cp</span> include/* /usr/local/cuda/include/<br>sudo <span class="hljs-built_in">cp</span> lib/* /usr/local/cuda/lib64/<br>sudo <span class="hljs-built_in">chmod</span> a+r /usr/local/cuda/include/* /usr/local/cuda/lib64/*<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 下载</span><br><span class="hljs-built_in">cd</span> DownloadFolder<br>wget https://developer.nvidia.com/downloads/compute/cudnn/secure/8.9.7/local_installers/11.x/cudnn-linux-x86_64-8.9.7.29_cuda11-archive.tar.xz/<br><br><span class="hljs-comment"># 解压</span><br><span class="hljs-built_in">cd</span> DownloadFolder<br><span class="hljs-comment"># 解压*.tar.xz文件。图形化界面可以直接双击压缩包实现解压</span><br>xz -d -k cudnn-linux-x86_64-8.9.7.29_cuda11-archive.tar.xz  <span class="hljs-comment"># 使用 -k 参数来保留被解压缩的文件。</span><br>tar -xvf cudnn-linux-x86_64-8.9.7.29_cuda11-archive.tar<br><br><span class="hljs-comment"># 复制文件</span><br><span class="hljs-built_in">ls</span> -l /usr/local | grep cuda  <span class="hljs-comment"># 查看软链接指向</span><br><span class="hljs-built_in">cd</span> cudnn-linux-x86_64-8.9.7.29_cuda11-archive<br>sudo <span class="hljs-built_in">cp</span> include/* /usr/local/cuda/include/<br>sudo <span class="hljs-built_in">cp</span> lib/* /usr/local/cuda/lib64/<br>sudo <span class="hljs-built_in">chmod</span> a+r /usr/local/cuda/include/* /usr/local/cuda/lib64/*<br></code></pre></td></tr></table></figure>
 </li>
 </ul>
 </li>

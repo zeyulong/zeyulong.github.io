@@ -26,7 +26,7 @@
 <meta property="og:image" content="http://zeyulong.com/posts/a8aab215/vi-vim-cheat-sheet-sch.gif">
 <meta property="og:image" content="http://zeyulong.com/posts/a8aab215/vim-vi-workmodel.png">
 <meta property="article:published_time" content="2024-03-05T14:33:19.000Z">
-<meta property="article:modified_time" content="2024-12-04T08:10:37.949Z">
+<meta property="article:modified_time" content="2025-01-08T02:42:26.358Z">
 <meta property="article:author" content="龙泽雨">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://zeyulong.com/posts/a8aab215/vi-vim-cheat-sheet-sch.gif">
@@ -351,7 +351,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          55k 字
+          30k 字
         
       </span>
     
@@ -362,7 +362,7 @@
         
         
         
-          455 分钟
+          247 分钟
         
       </span>
     
@@ -412,7 +412,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2024年12月4日 下午
+                    本文最后更新于 2025年1月8日 上午
                   
                 
               </p>
@@ -643,17 +643,8 @@
 <li>
 <p>字体安装路径：<code>/usr/share/fonts</code></p>
 </li>
-<li></li>
 </ol>
-<h2 id="小贴士">小贴士</h2>
-<ol>
-<li>直接在当前文件夹窗口打字，可以搜索该目录及子目录下的文件（夹）。按<code>ESC</code>键退出。</li>
-<li><code>Application</code> 键即位置在键盘上右 <code>Ctrl</code> 键左边的那个键，作用相当于单击鼠标右键。</li>
-<li>误按<code>Ctrl+Alt+F7</code>（进入文字界面）黑屏后按<code>Ctrl+Alt+F1</code>回到图形界面。</li>
-<li>直接将&quot;文件管理器&quot;中的文件拖到&quot;终端&quot;中就可以在终端中得到完整的路径名。</li>
-</ol>
-<h1 id="终端Terminal">终端Terminal</h1>
-<h2 id="Linux命令">Linux命令</h2>
+<h2 id="命令">命令</h2>
 <h3 id="软件、库的安装、卸载和升级">软件、库的安装、卸载和升级</h3>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 安装</span><br>sudo apt update	<span class="hljs-comment"># 先更新软件包列表，检查可用的软件包更新</span><br><span class="hljs-comment"># 查看可选的安装版本</span><br>apt-cache search exact_package_name  <span class="hljs-comment"># 你可以使用一个正则表达式来搜索本地 APT 缓存中的包。</span><br>apt-cache policy exact_package_name  <span class="hljs-comment"># 如果你指定了软件包的名称，它将显示该软件包是否已经安装，在哪个版本的仓库中可用，以及它的优先级。</span><br>sudo apt install exact_package_name[=xxx]	<span class="hljs-comment"># 安装软件，例如：sudo apt install libc6-dev=2.27-3ubuntu1.6</span><br><br><span class="hljs-comment"># 卸载（不知名的软件）</span><br>apt list --installed | grep -i possible_package_name  <span class="hljs-comment"># 模糊搜索</span><br>sudo apt remove exact_package_name  <span class="hljs-comment"># 卸载软件</span><br>sudo apt-get purge exact_package_name  <span class="hljs-comment"># 清除配置</span><br><br><span class="hljs-comment"># 升级</span><br><span class="hljs-comment"># apt 可以看作 apt-get 和 apt-cache 命令的子集, 可以为包管理提供必要的命令选项。apt-get 虽然没被弃用，但作为普通用户，还是应该首先使用 apt。</span><br>sudo apt update  <span class="hljs-comment"># 更新软件包列表，检查可用的软件包更新</span><br>apt list --upgradable  <span class="hljs-comment"># 查看可用安装</span><br>sudo apt upgrade  <span class="hljs-comment"># 安装可用的软件包更新</span><br>sudo apt install exact_package_name  <span class="hljs-comment"># 直接升级特定的包</span><br></code></pre></td></tr></table></figure>
 <p>优先级：</p>
@@ -927,7 +918,7 @@
 <li><code>-o</code> 选项指定要显示的列，其中<code>name</code>表示设备名，<code>rota</code>表示是否是旋转设备（0表示固态硬盘，1表示机械硬盘）。</li>
 </ul>
 <p>通过这种方式，你可以在一个命令中看到所有硬盘的类型。</p>
-<h3 id="xdotool">xdotool</h3>
+<h3 id="模拟鼠标键盘">模拟鼠标键盘</h3>
 <p><a target="_blank" rel="noopener" href="https://github.com/jordansissel/xdotool">https://github.com/jordansissel/xdotool</a></p>
 <p>作用：<code>xdotool</code>允许您以编程方式（或手动）模拟键盘输入和鼠标活动、移动窗口和调整窗口大小等。</p>
 <p>用户文档：<a target="_blank" rel="noopener" href="https://github.com/jordansissel/xdotool/blob/master/xdotool.pod">https://github.com/jordansissel/xdotool/blob/master/xdotool.pod</a></p>
@@ -981,7 +972,27 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">sleep</span> 5m  <span class="hljs-comment"># 休眠5分钟</span><br></code></pre></td></tr></table></figure>
 <h3 id="后台运行">后台运行</h3>
 <p>有时，您需要执行一个即使在您注销终端会话后也会继续运行的命令。<code>nohup</code>（无挂起）命令允许您在后台运行进程而不会中断。例如，使用<code>nohup long_running_command &amp;</code>在后台启动命令，即使在关闭终端后也能保持其运行。此功能对于执行需要在没有持续监督的情况下持续存在的冗长任务或脚本特别有价值。</p>
-<h3 id="小贴士-2">小贴士</h3>
+<h3 id="并行运行">并行运行</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">command1 &amp; command2 &amp; command3<br>parallel ::: command1 command2 command3<br></code></pre></td></tr></table></figure>
+<h3 id="定时关机">定时关机</h3>
+<p><a target="_blank" rel="noopener" href="https://www.runoob.com/linux/linux-comm-shutdown.html">https://www.runoob.com/linux/linux-comm-shutdown.html</a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">shutdown [-t seconds] [-rkhncfF] time [message]<br></code></pre></td></tr></table></figure>
+<p><strong>参数说明</strong>：</p>
+<ul>
+<li>-t seconds : 设定在几秒钟之后进行关机程序。</li>
+<li>-k : 并不会真的关机，只是将警告讯息传送给所有使用者。</li>
+<li>-r : 关机后重新开机。</li>
+<li>-h : 关机后停机。</li>
+<li>-n : 不采用正常程序来关机，用强迫的方式杀掉所有执行中的程序后自行关机。</li>
+<li>-c : 取消目前已经进行中的关机动作。</li>
+<li>-f : 关机时，不做 fsck 动作(检查 Linux 档系统)。</li>
+<li>-F : 关机时，强迫进行 fsck 动作。</li>
+<li>time : 设定关机的时间。</li>
+<li>message : 传送给所有使用者的警告讯息。</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo shutdown -h now  <span class="hljs-comment"># 立即关机</span><br>sudo shutdown -h 10  <span class="hljs-comment"># 指定 10 分钟后关机</span><br>sudo shutdown -r now  <span class="hljs-comment"># 重新启动计算机</span><br>sudo shutdown -c  <span class="hljs-comment"># 取消定时关机</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo apt-get install at<br><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;sudo shutdown -h now&quot;</span> | at 23:00  <span class="hljs-comment"># 在晚上 11 点关机</span><br></code></pre></td></tr></table></figure>
+<h3 id="小贴士">小贴士</h3>
 <h4 id="Linux顺序执行多行命令">Linux顺序执行多行命令</h4>
 <ul>
 <li>分号<code>;</code>
@@ -1039,6 +1050,19 @@
 <p><code>timeout</code>是用来控制程序运行的时间，运行指定的命令。如果在指定时间后仍在运行，则杀死该进程。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">timeout</span> 5s ping www.baidu.com  <span class="hljs-comment"># 5分钟之后终止ping操作</span><br> s : 秒 (默认)<br> m : 分钟<br> h : 小时<br> d : 天<br></code></pre></td></tr></table></figure>
 </li>
+<li>
+<p>等等。</p>
+</li>
+</ol>
+<h2 id="小贴士-2">小贴士</h2>
+<ol>
+<li>直接在当前文件夹窗口打字，可以搜索该目录及子目录下的文件（夹）。按<code>ESC</code>键退出。</li>
+<li><code>Application</code> 键即位置在键盘上右 <code>Ctrl</code> 键左边的那个键，作用相当于单击鼠标右键。</li>
+<li>误按<code>Ctrl+Alt+F7</code>（进入文字界面）黑屏后按<code>Ctrl+Alt+F1</code>回到图形界面。</li>
+<li>直接将&quot;文件管理器&quot;中的文件拖到&quot;终端&quot;中就可以在终端中得到完整的路径名。</li>
+</ol>
+<h1 id="终端Terminal">终端Terminal</h1>
+<ol start="6">
 <li></li>
 </ol>
 <h2 id="命令行解释器Shell">命令行解释器Shell</h2>
@@ -1137,6 +1161,10 @@
 <tr>
 <td style="text-align:center">Ctrl+R</td>
 <td style="text-align:center">以交互方式搜索命令历史记录</td>
+</tr>
+<tr>
+<td style="text-align:center">Ctrl+PGUP/PGDN</td>
+<td style="text-align:center">切换到上/下一个标签页</td>
 </tr>
 </tbody>
 </table>
@@ -1482,979 +1510,6 @@
 <p>使用云存储服务。你可以使用云存储服务（如Dropbox、Google Drive、OneDrive等）来自动同步文件。将文件放在云存储的同步文件夹中，云存储服务会自动同步文件到云端和其他设备。</p>
 </li>
 </ol>
-<h1 id="代码-编译">代码/编译</h1>
-<h2 id="编译与卸载">编译与卸载</h2>
-<p><a href="https://zeyulong.com/posts/c4541b88/#%E4%BB%A3%E7%A0%81%E7%BC%96%E8%AF%91%E5%92%8C%E8%BF%90%E8%A1%8C">ROS编译与运行</a></p>
-<h3 id="编写CmakeLists-txt">编写<code>CmakeLists.txt</code></h3>
-<h4 id="在CmakeLists-txt里指定第三方库所在的路径">在<code>CmakeLists.txt</code>里指定第三方库所在的路径</h4>
-<p>在<code>CmakeLists.txt</code>里指定第三方库所在的路径，即指定其编译安装后<code>.cmake</code>文件所在的路径，例如：</p>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs cmake"><span class="hljs-comment"># 指定OpenCVConfig.cmake文件的目录</span><br><span class="hljs-comment"># 注意opencv安装目录下的/share/OpenCV</span><br><span class="hljs-keyword">set</span>(OpenCV_DIR /usr/local/share/OpenCV)  <span class="hljs-comment"># 默认安装在/usr/local/</span><br><span class="hljs-keyword">set</span>(OpenCV_DIR /usr/local/opencv/opencv345/share/OpenCV)  <span class="hljs-comment"># 自定义安装在/usr/local/opencv/opencv345的openv3.4.5</span><br><span class="hljs-keyword">set</span>(OpenCV_DIR /usr/local/opencv/opencv452/lib/cmake/opencv4)<br><span class="hljs-comment"># set(OpenCV_DIR /opt/ros/kinetic/share/OpenCV-3.3.1-dev)</span><br><span class="hljs-comment"># set（OpenCV_DIR  /path/to/opencv/build）</span><br><span class="hljs-keyword">find_package</span>(OpenCV REQUIRED)<br></code></pre></td></tr></table></figure>
-<blockquote>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmake"><span class="hljs-keyword">find_library</span>(flowfilter_gpu_LIBS NAMES flowfilter_gpu PATHS /usr/local/<span class="hljs-keyword">include</span>)<br></code></pre></td></tr></table></figure>
-</blockquote>
-<blockquote>
-<p>首先，<code>set(OpenCV_DIR /usr/local/opencv/opencv345/share/OpenCV)</code>这行代码设置了一个变量<code>OpenCV_DIR</code>，它指向OpenCV库的安装位置。在这个例子中，OpenCV库被安装在<code>/usr/local/opencv/opencv345/share/OpenCV</code>这个路径下。<code>OpenCV_DIR</code>这个变量通常用于指定OpenCV的cmake配置文件的位置，这个文件包含了OpenCV库的版本信息、编译选项等信息。</p>
-<p>然后，<code>find_package(OpenCV REQUIRED)</code>这行代码告诉CMake去查找OpenCV库。<code>REQUIRED</code>关键字表示如果CMake不能找到OpenCV库，那么CMake应该停止配置过程并显示错误信息。如果CMake成功找到了OpenCV库，那么它将设置一些变量，例如<code>OpenCV_INCLUDE_DIRS</code>和<code>OpenCV_LIBS</code>，这些变量分别包含了OpenCV的头文件路径和库文件路径，可以在后续的<code>target_include_directories</code>和<code>target_link_libraries</code>命令中使用。</p>
-</blockquote>
-<blockquote>
-<p>如果没有设置<code>OpenCV_DIR</code>，<code>find_package</code>命令会在默认的路径下查找OpenCV库。这些默认的路径包括：</p>
-<ul>
-<li>CMake的模块路径（<code>CMAKE_MODULE_PATH</code>）</li>
-<li>CMake的安装前缀（<code>CMAKE_PREFIX_PATH</code>）</li>
-<li>系统的环境变量路径</li>
-</ul>
-<p>具体来说，<code>find_package</code>会查找名为<code>OpenCVConfig.cmake</code>或<code>opencv-config.cmake</code>的文件，这个文件通常位于OpenCV库的安装目录中。</p>
-<p>如果你的OpenCV库安装在非标准的位置，或者你有多个版本的OpenCV库并且想要选择一个特定的版本，那么你可以通过设置<code>OpenCV_DIR</code>来指定OpenCV库的路径。如果没有设置<code>OpenCV_DIR</code>，CMake可能会找到错误的版本或者找不到OpenCV库。</p>
-</blockquote>
-<blockquote>
-<p><code>OpenCV_DIR</code>和<code>OpenCV_INCLUDE_DIR</code>是两个不同的变量，它们在CMake中的作用也不同。</p>
-<ul>
-<li>
-<p><code>OpenCV_DIR</code>是用于指定OpenCV的cmake配置文件位置的变量。<code>find_package</code>命令会使用<code>OpenCV_DIR</code>变量的值作为查找OpenCV配置文件的起始路径。如果<code>OpenCV_DIR</code>被设置，<code>find_package</code>就会直接在这个路径下查找配置文件，而不会在其他路径下查找。</p>
-</li>
-<li>
-<p><code>OpenCV_INCLUDE_DIR</code>通常是<code>find_package</code>命令找到OpenCV库后设置的一个变量，它包含了OpenCV的头文件路径。这个变量通常用于<code>target_include_directories</code>命令，以便你的项目可以找到OpenCV的头文件。</p>
-</li>
-</ul>
-<p>如果你设置了<code>OpenCV_INCLUDE_DIR</code>，而不是<code>OpenCV_DIR</code>，然后调用<code>find_package(OpenCV REQUIRED)</code>，那么<code>find_package</code>命令可能无法找到正确的OpenCV库，因为它不知道在哪里查找OpenCV的配置文件。在这种情况下，<code>find_package</code>命令可能会找到错误的OpenCV版本，或者找不到OpenCV库。<strong><code>find_package</code>命令找到的结果会覆盖你设置的<code>OpenCV_INCLUDE_DIR</code>变量。</strong></p>
-<p>总的来说，如果你想要指定OpenCV库的位置，你应该设置<code>OpenCV_DIR</code>，而不是<code>OpenCV_INCLUDE_DIR</code>。</p>
-</blockquote>
-<h4 id="（在ROS中）编译第三方开源软件需要下载的问题">（在ROS中）编译第三方开源软件需要下载的问题</h4>
-<blockquote>
-<p>注意<code>CmakeList.txt</code>里有没有指定具体版本。在<code>package.xml</code>里也可以看到指定的版本。</p>
-</blockquote>
-<blockquote>
-<p>其实就类似于在系统中<code>cmake</code>、<code>make</code>和<code>make install</code>的步骤，只不过这里的第三方库是安装在了ROS工作区里被相互调用，<code>catkin clean</code>后也就删除掉了，而没有安装在系统环境里。也方便使用指定版本的第三方库。</p>
-</blockquote>
-  <figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs cmake"><span class="hljs-comment"># URL https://github.com/gflags/gflags/archive/v2.2.1.zip</span><br><span class="hljs-comment"># GIT_REPOSITORY  https://github.com/jbeder/yaml-cpp</span><br><span class="hljs-comment"># GIT_TAG $&#123;YAML_CPP_TAG&#125;</span><br><span class="hljs-comment"># DOWNLOAD_COMMAND rm -f SuiteSparse-$&#123;VERSION&#125;.tar.gz &amp;&amp; wget --retry-connrefused --waitretry=1 --timeout=40 --tries 3 https://github.com/ethz-asl/thirdparty_library_binaries/raw/master/SuiteSparse-$&#123;VERSION&#125;.tar.gz</span><br>DOWNLOAD_COMMAND <span class="hljs-string">&quot;&quot;</span><br>URL <span class="hljs-string">&quot;/yourfolder/gflags-2.2.1.zip&quot;</span>  <span class="hljs-comment"># 使用存档时，它将自动解压缩，除非设置了 DOWNLOAD_NO_EXTRACT 选项来阻止它。</span><br><span class="hljs-comment"># 默认解压路径为catkin_ws/build/xxx/xxx_src-prefix/src/xxx_src</span><br>URL_MD5 <span class="hljs-number">4628</span>df9eeae10ae5f0c486f1ac982fce  <span class="hljs-comment"># （可选，仅用作文件验证）与URL搭配。随便输入一个MD5码，编译时会报错当前压缩包正确的MD5码。</span><br>UPDATE_COMMAND <span class="hljs-string">&quot;&quot;</span>  <span class="hljs-comment"># 与URL搭配。使用自定义命令覆盖下载方法的更新步骤。</span><br>DOWNLOAD_NO_EXTRACT <span class="hljs-keyword">TRUE</span>  <span class="hljs-comment"># 允许通过为此选项传递一个布尔真值来禁用下载步骤的提取部分。</span><br><span class="hljs-comment"># 如果希望控制下载的归档文件的位置及其名称，可以使用以下选项</span><br><span class="hljs-keyword">set</span>(CMAKE_CURRENT_BINARY_DIR /yourfolder)  <span class="hljs-comment"># 放在主程序中，而不包含在ExternalProject_Add()</span><br>DOWNLOAD_DIR <span class="hljs-variable">$&#123;CMAKE_CURRENT_BINARY_DIR&#125;</span><br>DOWNLOAD_NAME jsoncpp_1.<span class="hljs-number">8.4</span>.tar.gz<br></code></pre></td></tr></table></figure>
-<p>或者，将<code>src</code>（这个文件是原本解压下载的第三方源码source的地方，具体名称要看<code>CMakeLists.txt</code>中SOURCE_DIR的设置）中的各个第三方源码都解压好，放到src对应的文件夹中。例如<code>catkin_ws/build/xxx/xxx_src-prefix/src/xxx.tar.gz</code>。</p>
-<h3 id="cmake">cmake</h3>
-<h4 id="一般流程">一般流程</h4>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> package_name<br><span class="hljs-built_in">mkdir</span> build<br><span class="hljs-built_in">cd</span> build<br>cmake ..<br></code></pre></td></tr></table></figure>
-<blockquote>
-<p>我个人推荐把第三方库安装在<code>/usr/local</code>文件夹下进行管理。例如，在<code>/usr/local</code>文件夹下新建文件夹<code>eigen3</code>，后在<code>eigen3</code>文件夹下新建文件夹<code>eigen330</code>、<code>eigen340</code>。</p>
-</blockquote>
-<h4 id="定义编译参数">定义编译参数</h4>
-<p>可在<code>cmake</code>命令后加参数：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 指定安装目录。使用该参数可以指定安装目录，使得在执行make install命令时，生成的可执行文件、库文件、头文件等可以被安装到指定的目录下。</span><br>cmake -DCMAKE_INSTALL_PREFIX=/usr/local/package_name ..<br><span class="hljs-comment"># 指定使用的gcc和g++版本</span><br>-DCMAKE_C_COMPILER=gcc-10 -DCMAKE_CXX_COMPILER=g++-10<br></code></pre></td></tr></table></figure>
-<p>也可以在<code>CMakeLists.txt</code>文件中定义，例如，启用参数<code>EFFT_USE_FFTW3</code>：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">cmake DEFFT_USE_FFTW3 ..<br></code></pre></td></tr></table></figure>
-<p>或，在<code>CMakeLists.txt</code>文件中：</p>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmake"><span class="hljs-keyword">target_compile_definitions</span>(efft-unit-tests PRIVATE EFFT_USE_FFTW3)<br></code></pre></td></tr></table></figure>
-<h4 id="保存cmake输出">保存cmake输出</h4>
-<blockquote>
-<p>ROS: <code>cmake build</code>的输出在<code>catkin_ws/logs/your_package_name/build.cmake.log、build.make.log</code>里。</p>
-</blockquote>
-<p><code>cmake</code>命令的输出信息通常在终端中显示，而不是保存在文件中。这些信息包括配置过程中的警告、错误以及其他重要信息。</p>
-<p>然而，你可以将<code>cmake</code>命令的输出重定向到一个文件中。例如，你可以使用以下命令将输出保存到一个名为<code>output.txt</code>的文件中：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">cmake .. &gt; output.txt<br></code></pre></td></tr></table></figure>
-<p>在这个命令中，<code>&gt;</code>操作符将<code>cmake</code>命令的输出重定向到<code>output.txt</code>文件中。如果<code>output.txt</code>文件已经存在，这个命令将覆盖它的内容。如果你想要追加输出到文件中，而不是覆盖它，你可以使用<code>&gt;&gt;</code>操作符，如下所示：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">cmake .. &gt;&gt; output.txt<br></code></pre></td></tr></table></figure>
-<p>请注意，这些命令只会捕获标准输出，而不会捕获错误输出。如果你也想要捕获错误输出，你可以使用<code>2&gt;&amp;1</code>，如下所示：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">cmake .. &gt; output.txt 2&gt;&amp;1<br></code></pre></td></tr></table></figure>
-<p>在这个命令中，<code>2&gt;&amp;1</code>将错误输出重定向到标准输出，然后<code>&gt;</code>操作符将标准输出重定向到<code>output.txt</code>文件中。这样，<code>output.txt</code>文件将包含所有的输出，包括错误信息。</p>
-<h3 id="make">make</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 建议在make之前先查看CPU的核心数</span><br><span class="hljs-built_in">nproc</span>  <span class="hljs-comment"># 你可以根据你的核心数来调整make指令的参数，比如笔者的CPU核心数为12，则可以执行：</span><br>make -j12<br>make <span class="hljs-comment"># 根据Makefile编译源代码，连接，生成目标文件，可执行文件。</span><br>make install  <span class="hljs-comment"># 将编译成功的可执行文件安装到系统目录中，一般为/usr/local/bin目录。</span><br></code></pre></td></tr></table></figure>
-<blockquote>
-<p><code>cmake --install .</code>与<code>make install</code>的区别：</p>
-<p><code>cmake --install .</code>和<code>make install</code>都是用来安装编译好的程序的命令，但它们在使用的构建系统和工作方式上有所不同。</p>
-<ul>
-<li>
-<p><code>make install</code>是GNU Make的命令，它依赖于Makefile中的<code>install</code>目标。这个<code>install</code>目标通常会将编译好的二进制文件、库文件、头文件等复制到系统的指定位置，如<code>/usr/local/bin</code>、<code>/usr/local/lib</code>等。这个命令通常在使用GNU Autotools或者手写Makefile的项目中使用。</p>
-</li>
-<li>
-<p><code>cmake --install .</code>是CMake的命令，它会执行CMakeLists.txt文件中定义的安装规则。这个命令在CMake 3.15及以后的版本中可用，它是<code>cmake -P cmake_install.cmake</code>的一个更简洁的替代。这个命令的好处是它不依赖于特定的构建系统，可以在任何CMake支持的构建系统中使用。</p>
-</li>
-</ul>
-<p>总的来说，这两个命令的功能是类似的，但<code>cmake --install .</code>更加通用，不依赖于特定的构建系统。</p>
-</blockquote>
-<h3 id="卸载-2">卸载</h3>
-<p>如果因为反复<code>./configure xx</code>然后<code>make</code>会导致安装路径混乱，<code>sudo make install</code>失败。所以如果路径设错了又已经<code>make</code>完，需要<code>make clean</code>来清除一下。如果想把自己刚刚<code>make install</code>安装的卸载掉，可以在那个目录里直接用<code>sudo make uninstall</code>。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> package_name/build<br><br><span class="hljs-comment"># 卸载使用make install命令安装到系统路径的文件</span><br><span class="hljs-comment"># `install_manifest.txt`文件里包含了所有安装的文件的路径</span><br><span class="hljs-built_in">cat</span> install_manifest.txt | sudo xargs <span class="hljs-built_in">rm</span>  <span class="hljs-comment"># 或</span><br>sudo xargs <span class="hljs-built_in">rm</span> &lt; install_manifest.txt<br><span class="hljs-comment"># 上述命令只会删除掉文件夹里的文件，会留下空文件夹。所以可以继续对照`install_manifest.txt`文件，手动删掉多余的空文件夹。</span><br><br>sudo make uninstall<br>sudo make clean <span class="hljs-comment">#清除上一次make命令生成的文件</span><br>sudo make distclean <span class="hljs-comment">#清除上一次make以及configure命令生成的文件</span><br><span class="hljs-built_in">cd</span> ..<br>sudo <span class="hljs-built_in">rm</span> -r build<br></code></pre></td></tr></table></figure>
-<blockquote>
-<p><code>make uninstall</code> 是一个常见的 makefile 目标，它的主要作用是删除由 <code>make install</code> 命令安装的文件。</p>
-<p>当你运行 <code>make install</code> 命令时，通常会将一些文件（例如可执行文件、库文件、头文件等）复制到系统的某些目录下（例如 <code>/usr/local/bin</code>、<code>/usr/local/lib</code> 等）。<code>make uninstall</code> 命令就是用来删除这些文件的。</p>
-<p>然而，需要注意的是，并不是所有的 makefile 都提供 <code>make uninstall</code> 目标。如果 makefile 没有提供这个目标，运行 <code>make uninstall</code> 命令将会导致错误。</p>
-<p>在运行 <code>make uninstall</code> 命令之前，你应该查看 makefile 或者相关的文档，以确认这个命令是否可用，以及它会删除哪些文件。</p>
-</blockquote>
-<blockquote>
-<p><code>cat install_manifest.txt | sudo xargs rm</code> 和 <code>sudo make uninstall</code> 都是用来删除由 <code>make install</code> 命令安装的文件的。然而，它们的工作方式有所不同。</p>
-<ul>
-<li><code>cat install_manifest.txt | sudo xargs rm</code>：这个命令会读取 <code>install_manifest.txt</code> 文件，这个文件通常由 <code>make install</code> 命令生成，包含了所有被安装的文件的列表。然后，它会使用 <code>xargs rm</code> 命令删除这些文件。这个命令不依赖于 makefile，只要 <code>install_manifest.txt</code> 文件存在，就可以使用。</li>
-<li><code>sudo make uninstall</code>：这个命令会执行 makefile 中的 <code>uninstall</code> 目标。这个目标通常会删除所有被 <code>make install</code> 命令安装的文件。然而，需要注意的是，并不是所有的 makefile 都提供 <code>uninstall</code> 目标。如果 makefile 没有提供这个目标，运行 <code>sudo make uninstall</code> 命令将会导致错误。</li>
-</ul>
-<p>总的来说，这两个命令的功能是相似的，但是 <code>cat install_manifest.txt | sudo xargs rm</code> 命令更为直接，不依赖于 makefile。而 <code>sudo make uninstall</code> 命令则需要 makefile 提供 <code>uninstall</code> 目标。</p>
-</blockquote>
-<blockquote>
-<p><code>make clean</code> 和 <code>make distclean</code> 是两个常见的 makefile 目标，它们的功能取决于 makefile 的编写者如何定义它们。但是，通常它们的功能如下：</p>
-<ul>
-<li><code>make clean</code>：这个命令通常用于删除所有由 makefile 生成的文件。这通常包括编译产生的对象文件（.o 或 .obj 文件）和编译器生成的中间文件。但是，它通常不会删除配置文件或者 makefile 文件。</li>
-<li><code>make distclean</code>：这个命令通常用于将目录恢复到初始状态。除了删除 <code>make clean</code> 会删除的文件，它还会删除配置文件和 makefile 文件。这个命令通常在你想要重新配置和编译一个项目时使用。</li>
-</ul>
-<p>需要注意的是，这两个命令的具体行为取决于 makefile 的编写者。在使用这些命令之前，你应该查看 makefile 或者相关的文档，以了解这些命令的具体行为。</p>
-</blockquote>
-<h2 id="编程命名规范">编程命名规范</h2>
-<ol>
-<li>
-<p>匈牙利命名法（将变量类型写进变量名的命名方法）。</p>
-<p>其基本原则是，变量名=属性+类型+对象描述。通过在变量名前面加上相应的小写字母的符号标识作为前缀，标识出变量的作用域，类型等。</p>
-<p>这些符号可以多个同时使用，顺序是先m_（成员变量），再指针，再简单数据类型，再其他。例如：m_lpsStr，表示指向一个字符串的长指针成员变量。</p>
-<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs txt"># 前缀类型<br>a      数组（Array）<br>b      布尔值（Boolean）<br>by     字节（Byte）<br>c      有符号字符（Char）<br>cb     无符号字符（Char Byte，并没有神马人用的）<br>cr     颜色参考值（Color Ref）<br>cx,cy  坐标差（长度 Short Int）<br>dw     双字（Double Word）<br>fn     函数（Function）<br>h      Handle（句柄）<br>i      整形（Int）<br>l      长整型（Long Int）<br>lp     长指针（Long Pointer）<br>m_     类成员（Class Member）<br>n      短整型（Short Int）<br>np     近程指针（Near Pointer）<br>p      指针（Pointer）<br>s      字符串（String）<br>sz     以 Null 做结尾的字符串型（String with Zero End）<br>w      字（Word）<br></code></pre></td></tr></table></figure>
-</li>
-<li>
-<p>驼峰式命名法，又叫小驼峰式命名法。<strong>常用于变量名，函数名。</strong></p>
-<p>要求第一个单词首字母小写，后面其他单词首字母大写。</p>
-<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs txt">int myAge;<br>char myName[10];<br>float manHeight;<br></code></pre></td></tr></table></figure>
-</li>
-<li>
-<p>帕斯卡命名法，又叫大驼峰式命名法。<strong>常用于类名，属性，命名空间等。</strong></p>
-<p>与小驼峰式命名法的最大区别在于，每个单词的第一个字母都要大写。</p>
-<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs txt">int MyAge;<br>char MyName[10];<br>float ManHeight;<br></code></pre></td></tr></table></figure>
-</li>
-<li>
-<p>下划线命名法。</p>
-<p>下划线命名法并不如大小驼峰式命名法那么备受推崇，但是也是浓墨重彩的一笔。尤其在<strong>宏定义和常量</strong>中使用比较多，通过下划线来分割全部都是大写的单词。还有<strong>变量名太长的变量</strong>。</p>
-<p>该命名规范，也是很简单，要求单词与单词之间通过下划线连接即可。</p>
-<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs txt">int my_age;<br>char my_name[10];<br>float man_height;<br></code></pre></td></tr></table></figure>
-</li>
-<li>
-<p>在C++编程中，变量名后加<code>_</code>的命名方式通常用于表示<strong>类的私有数据成员</strong>。这是一种命名约定，用于区分类的数据成员和局部变量，以提高代码的可读性。例如，<code>fftwInput_</code>、<code>fftwOutput_</code>和<code>plan_</code>都是类的私有数据成员，它们的名字都以<code>_</code>结尾。</p>
-<blockquote>
-<p>一般来说，类的数据成员应该被定义为私有（private），这是面向对象编程中的封装原则。通过将数据成员设为私有，可以防止外部代码直接访问或修改这些数据，从而保护类的内部状态的完整性。</p>
-<p>然而，有时候，你可能会选择将某些数据成员设为公有（public）。这通常在数据成员是类的公开接口的一部分，或者类本身就是一个简单的数据结构时发生。</p>
-<p>至于是否在公有数据成员的名称后加<code>_</code>，这完全取决于你的命名约定。在某些命名约定中，可能会在所有数据成员的名称后加<code>_</code>，无论它们是公有的还是私有的。在其他命名约定中，可能只在私有数据成员的名称后加<code>_</code>。</p>
-<p>总的来说，关键是选择一种命名约定，并在整个代码库中一致地遵循它，以提高代码的可读性和一致性。</p>
-</blockquote>
-<blockquote>
-<p>变量名称前加下划线：这通常用于表示私有成员变量或者类的内部变量。然而，根据C++标准，名称以一个下划线开头的变量可能被保留给编译器的实现，所以一般不推荐这种做法。</p>
-</blockquote>
-</li>
-<li>
-<p>在编程中，<code>i</code>、<code>j</code>和<code>k</code>通常用作循环变量，特别是在嵌套循环中。<code>idx</code>和<code>jdx</code>是对这些传统变量名的扩展，其中<code>idx</code>可能表示&quot;index&quot;，<code>jdx</code>可能表示第二个索引。</p>
-<p>然而，更具描述性的变量名可能会使代码更易于理解。例如，如果<code>idx</code>遍历的是当前帧的目标检测框，那么你可能会选择名为<code>curBoxIdx</code>的变量名。同样，如果<code>jdx</code>遍历的是前一帧的目标检测框，那么你可能会选择名为<code>prevBoxIdx</code>的变量名。</p>
-</li>
-<li>
-<p>在我们的系统中，所有环境变量都使用大写字母命名。所以当我们声明局部变量时，应该使用小写字母来声明，以避免环境和局部变量名发生冲突。</p>
-</li>
-<li>
-<p>在命名变量时，使用后缀<code>dir</code>和<code>path</code>有助于区分变量的用途：</p>
-<ul>
-<li><strong><code>dir</code></strong>：通常用于表示一个目录（文件夹）。例如，<code>dataset_dir</code>表示数据集所在的目录。</li>
-<li><strong><code>path</code></strong>：通常用于表示一个具体的文件路径或目录路径。它可以是一个文件的完整路径，也可以是一个目录的路径。例如，<code>dataset_path</code>表示数据集的完整路径。</li>
-</ul>
-</li>
-<li>
-<p>使用动词来命名函数是一种常见的做法。例如，我们不命名我们的函数：<code>dateFormatting</code>，我们将其命名为：<code>formatDate</code>。</p>
-</li>
-<li>
-<p>等等。</p>
-</li>
-</ol>
-<h2 id="命名空间">命名空间</h2>
-<p>在C++中， <code>using namespace std;</code>  这条语句的作用是将 <code>std</code> 命名空间中的所有名称导入到当前作用域中，使得我们可以直接使用 <code>std</code> 命名空间中的类型和函数，而无需每次都完整地书写它们的命名空间。</p>
-<p>然而，这种做法也有其缺点。首先，它会导致命名空间污染，即同一个作用域中可能存在多个同名的类型或函数，导致编译器无法区分它们。其次，这种做法可能会导致程序效率降低，因为导入的命名空间中的类型和函数可能会增加编译时间和运行时间。</p>
-<p>因此，有些开发者会选择显式地书写类型和函数的完整名称，例如 <code>std::cout</code> ，而不是使用 <code>using namespace std</code>; 。这种做法可以避免命名空间污染，并且可以确保编译器能够准确地解析类型和函数的名称。同时，这种做法也可以提高程序的可读性，使得代码更加清晰易懂。</p>
-<p>总的来说，是否使用 <code>using namespace std;</code> ，以及是否显式地书写类型和函数的完整名称，取决于开发者的个人喜好和编程习惯。但是，在编写大型项目时，为了避免命名空间污染和保证程序的效率，建议尽量少使用 <code>using namespace std;</code> ，而是显式地书写类型和函数的完整名称。</p>
-<h2 id="编写更简洁的代码">编写更简洁的代码</h2>
-<p><a target="_blank" rel="noopener" href="https://blog.devgenius.io/10-practices-i-try-to-follow-for-cleaner-code-f8f938f847c9">10 Practices I Try to Follow for Cleaner Code</a></p>
-<p><a target="_blank" rel="noopener" href="https://levelup.gitconnected.com/become-a-better-coder-10-tips-fa81f732a624">Become a Better Coder: 10 Tips</a></p>
-<p><a target="_blank" rel="noopener" href="https://levelup.gitconnected.com/write-clean-functions-i-will-show-you-how-5f562dde77ad">Write Clean Functions - I Will Show You How</a></p>
-<ol>
-<li>
-<p>使用有意义的名字。像<code>transactionHistory</code>这样的变量或者像这样的方法 <code>validateSufficientBalanceForRefund</code> 清楚地传达他们的目的。</p>
-</li>
-<li>
-<p>遵循单一职责原则（SRP）。通过将不同的职责委托给不同的类，每个类都有一个更改的理由，从而简化了维护并提高了可读性和可测试性。</p>
-</li>
-<li>
-<p>缩短方法。函数应该只具有比其名称低一级的代码。将长方法分解为更小、更集中的方法可以使代码更不容易出错并且更易于维护。它还简化了调试并提高了清晰度。样式指南通常建议将方法保持在 20-30 行左右。如果某个方法超出了此范围，则通常表明该算法过于复杂或该方法试图执行的操作过多。</p>
-<ol>
-<li>函数应该是可重用的。而且函数越大，可重用的可能性就越小。这也与为什么一个函数应该只做一件事相关。如果它只做一件事，那么它很可能会很小。<strong>即，将一个长函数分解为多个分管各个小功能的短函数组成。</strong></li>
-</ol>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs json">public static double calculateTotalRevenue(double<span class="hljs-punctuation">[</span><span class="hljs-punctuation">]</span> prices<span class="hljs-punctuation">,</span> int<span class="hljs-punctuation">[</span><span class="hljs-punctuation">]</span> quantities) <span class="hljs-punctuation">&#123;</span><br>    if (prices.length != quantities.length) <span class="hljs-punctuation">&#123;</span><br>        throw new IllegalArgumentException(<span class="hljs-string">&quot;Prices and quantities arrays must have the same length&quot;</span>);<br>    <span class="hljs-punctuation">&#125;</span><br><br>    double totalRevenue = <span class="hljs-number">0.0</span>;<br><br>    for (int i = <span class="hljs-number">0</span>; i &lt; prices.length; i++) <span class="hljs-punctuation">&#123;</span><br>        double price = prices<span class="hljs-punctuation">[</span>i<span class="hljs-punctuation">]</span>;<br>        int quantity = quantities<span class="hljs-punctuation">[</span>i<span class="hljs-punctuation">]</span>;<br>        double productRevenue = price * quantity;<br><br>        if (quantity &gt;= <span class="hljs-number">100</span>) <span class="hljs-punctuation">&#123;</span><br>            productRevenue *= <span class="hljs-number">0.85</span>;<br>        <span class="hljs-punctuation">&#125;</span> else if (quantity &gt;= <span class="hljs-number">50</span>) <span class="hljs-punctuation">&#123;</span><br>            productRevenue *= <span class="hljs-number">0.90</span>;<br>        <span class="hljs-punctuation">&#125;</span> else if (quantity &gt;= <span class="hljs-number">10</span>) <span class="hljs-punctuation">&#123;</span><br>            productRevenue *= <span class="hljs-number">0.95</span>;<br>        <span class="hljs-punctuation">&#125;</span><br><br>        totalRevenue += productRevenue;<br>    <span class="hljs-punctuation">&#125;</span><br><br>    return totalRevenue;<br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
-<p>让我们以一种每个方法只有一个抽象级别的方式增强我们的代码：</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs json">public static double calculateTotalRevenue(double<span class="hljs-punctuation">[</span><span class="hljs-punctuation">]</span> prices<span class="hljs-punctuation">,</span> int<span class="hljs-punctuation">[</span><span class="hljs-punctuation">]</span> quantities) <span class="hljs-punctuation">&#123;</span><br>    if (prices.length != quantities.length) <span class="hljs-punctuation">&#123;</span><br>        throw new IllegalArgumentException(<span class="hljs-string">&quot;Prices and quantities arrays must have the same length&quot;</span>);<br>    <span class="hljs-punctuation">&#125;</span><br><br>    double totalRevenue = <span class="hljs-number">0.0</span>;<br><br>    for (int i = <span class="hljs-number">0</span>; i &lt; prices.length; i++) <span class="hljs-punctuation">&#123;</span><br>        double productRevenue = calculateProductRevenue(prices<span class="hljs-punctuation">[</span>i<span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span> quantities<span class="hljs-punctuation">[</span>i<span class="hljs-punctuation">]</span>);<br>totalRevenue += productRevenue;<br><span class="hljs-punctuation">&#125;</span><br><br>return totalRevenue;<br><span class="hljs-punctuation">&#125;</span><br><br>private static double calculateProductRevenue(double price<span class="hljs-punctuation">,</span> int quantity) <span class="hljs-punctuation">&#123;</span><br>    double productRevenue = price * quantity;<br>    return applyQuantityDiscount(productRevenue<span class="hljs-punctuation">,</span> quantity);<br><span class="hljs-punctuation">&#125;</span><br><br>private static double applyQuantityDiscount(double revenue<span class="hljs-punctuation">,</span> int quantity) <span class="hljs-punctuation">&#123;</span><br>    if (quantity &gt;= <span class="hljs-number">100</span>) <span class="hljs-punctuation">&#123;</span><br>        return revenue * <span class="hljs-number">0.85</span>;<br>    <span class="hljs-punctuation">&#125;</span> else if (quantity &gt;= <span class="hljs-number">50</span>) <span class="hljs-punctuation">&#123;</span><br>        return revenue * <span class="hljs-number">0.90</span>;<br>    <span class="hljs-punctuation">&#125;</span> else if (quantity &gt;= <span class="hljs-number">10</span>) <span class="hljs-punctuation">&#123;</span><br>        return revenue * <span class="hljs-number">0.95</span>;<br>    <span class="hljs-punctuation">&#125;</span><br>return revenue;<br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
-</li>
-<li>
-<p>以有意义的方式使用注释。过度使用注释或添加只是重申代码正在执行的操作的注释是多余的，并且不会增加任何价值。此外，过时或不正确的注释可能会误导开发人员并造成混乱。另外，如果逻辑已修改，请不要忘记更新注释。</p>
-</li>
-<li>
-<p>一致的格式。一致的格式极大地提高了可读性和团队合作。有许多工具可以帮助制定缩进和间距的编码标准。另外，在任何 IDE 中，这都只是一个快捷方式。</p>
-</li>
-<li>
-<p>提供有意义的报错消息。通过捕获特定的异常并提供有意义的错误消息，调试和理解错误变得更加容易。此外，使用记录器记录异常，而不是打印堆栈跟踪，而是将错误集成到集中式日志记录系统中，使它们更易于管理和监控。</p>
-</li>
-<li>
-<p>让你的代码保持在界限内。将代码保持在边缘线内可以轻松快速扫描。 IDE 通常会提供指导原则，通常为每行 80 或 100 个字符（数量可自定义），以帮助遵循此实践。例如，IntelliJ IDEA 甚至提供了边距的可视化表示。此外，将长行分成更小的部分还可以促进更好的编码实践，例如将逻辑封装到命名良好的方法和类中。这简化了代码审查和协作，因为团队成员可以快速掌握代码的结构和意图，而无需排长队。</p>
-</li>
-<li>
-<p>编写有意义的测试用例。有效的测试清晰、简洁，并专注于验证代码的特定行为，包括正常条件、边界情况和潜在错误。它们应该易于其他开发人员理解，明确正在测试的内容和原因。</p>
-</li>
-<li>
-<p>审查你的代码。定期的代码审查对于确保质量、一致性和可维护性至关重要。代码审查对于知识共享和预先识别潜在问题的重要性怎么强调都不为过。永远不要懒惰这样做。更重要的是，始终对那些花时间审查和评论您的代码的人做出回应。确认他们的反馈，以表明他们的声音被听到并且他们的意见受到赞赏。这可以培养团队文化并加强关系。</p>
-</li>
-<li>
-<p>不断改进你的方法。了解何时优先考虑清晰性而非简洁性、简单性而非复杂性以及特殊性而非通用性对于编写有效的代码和成为专业的团队成员至关重要。确保您的代码像您希望其他人的代码一样易于理解。</p>
-</li>
-<li>
-<p>开闭原则 (OCP) 规定类、方法或函数必须对扩展开放，但不能对修改开放。这意味着定义的任何类、方法或函数都可以轻松地重用或扩展用于多个实例，而无需更改其代码。举个例子，我们有一个名为地址的类。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Address</span>:<br> <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, country</span>):<br>  self.country = country<br><br> <span class="hljs-keyword">def</span> <span class="hljs-title function_">get_capital</span>(<span class="hljs-params">self</span>):<br>  <span class="hljs-keyword">if</span> self.country == <span class="hljs-string">&#x27;canada&#x27;</span>:<br>   <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;ottawa&quot;</span><br>  <span class="hljs-keyword">if</span> self.country == <span class="hljs-string">&#x27;america&#x27;</span>:<br>   <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;Washington D.C&quot;</span><br>  <span class="hljs-keyword">if</span> self.country == <span class="hljs-string">&#x27;united Kingdom&#x27;</span>:<br>   <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;London&quot;</span><br><br>address = Address(<span class="hljs-string">&#x27;united Kingdom&#x27;</span>)<br><span class="hljs-built_in">print</span>(address.get_capital())<br></code></pre></td></tr></table></figure>
-<p>这不符合 OCP，因为每当有一个新的国家时，我们就需要编写一个新的<code>if</code>语句来补充它。现在这可能看起来很简单，但想象一下我们有 100 个或更多的国家/地区需要考虑。那看起来怎么样？这就是 OCP 发挥作用的地方。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs python">capitals = &#123;<br>    <span class="hljs-string">&#x27;canada&#x27;</span>: <span class="hljs-string">&quot;Ottawa&quot;</span>,<br>    <span class="hljs-string">&#x27;america&#x27;</span>: <span class="hljs-string">&quot;Washington D.C&quot;</span>,<br>    <span class="hljs-string">&#x27;united Kingdom&#x27;</span>: <span class="hljs-string">&quot;London&quot;</span><br>&#125;<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Address</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, country</span>):<br>        self.country = country<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">get_capital</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-keyword">return</span> capitals.get(self.country, <span class="hljs-string">&quot;Capital not found&quot;</span>)<br><br>address = Address(<span class="hljs-string">&#x27;united Kingdom&#x27;</span>)<br><span class="hljs-built_in">print</span>(address.get_capital())<br></code></pre></td></tr></table></figure>
-</li>
-<li>
-<p>避免使用幻数(Magic Numbers)；避免对文件路径或 URL 进行硬编码；请改用配置文件或环境变量。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># good</span><br>NUM_OF_ORDERS = <span class="hljs-number">50</span><br>SELECT TOP NUM_OF_ORDERS * FROM orders<br><br><span class="hljs-keyword">import</span> os<br>file_path = os.getenv(<span class="hljs-string">&quot;FILE_PATH&quot;</span>)<br><br><span class="hljs-comment"># bad</span><br>SELECT TOP <span class="hljs-number">50</span> * FROM orders<br><br>file_path = <span class="hljs-string">&quot;/path/to/file.txt&quot;</span><br></code></pre></td></tr></table></figure>
-</li>
-<li>
-<p>避免深层嵌套。限制循环、条件或函数内的嵌套级别以提高可读性。</p>
-</li>
-<li>
-<p>函数的理想参数数量为零。然后我们有一个和两个参数函数。应避免构造具有三个参数的函数。超过三个参数需要特殊的理由——即使这样，也不应该使用这样的函数。如果您有超过 3 个参数，将它们分组到一个对象中可能是一个解决方案。</p>
-</li>
-</ol>
-<h2 id="代码注释">代码注释</h2>
-<h3 id="一般注释">一般注释</h3>
-<h4 id="C">C++</h4>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">// 一般注释</span><br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * @brief 多行注释</span><br><span class="hljs-comment"> * @param</span><br><span class="hljs-comment"> * @return</span><br><span class="hljs-comment"> */</span><br></code></pre></td></tr></table></figure>
-<h4 id="python">python</h4>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 单行注释</span><br><br><span class="hljs-string">&#x27;&#x27;&#x27;</span><br><span class="hljs-string">    使用 3 个单引号分别作为注释的开头和结尾</span><br><span class="hljs-string">    可以一次性注释多行内容</span><br><span class="hljs-string">    这里面的内容全部是注释内容</span><br><span class="hljs-string">&#x27;&#x27;&#x27;</span><br><br><span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    使用 3 个双引号分别作为注释的开头和结尾</span><br><span class="hljs-string">    可以一次性注释多行内容</span><br><span class="hljs-string">    这里面的内容全部是注释内容</span><br><span class="hljs-string">&quot;&quot;&quot;</span><br><br></code></pre></td></tr></table></figure>
-<h3 id="函数注释">函数注释</h3>
-<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/aspiration2016/p/8433122.html">C/C++注释规范</a></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">/**</span><br><span class="hljs-comment">* @brief 打开文件 \n</span><br><span class="hljs-comment">* 文件打开成功后，必须使用::CloseFile函数关闭</span><br><span class="hljs-comment">* @param[in] fileName    文件名</span><br><span class="hljs-comment">* @param[in] fileMode    文件模式，可以由以下几个模块组合而成：</span><br><span class="hljs-comment">*     -r读取</span><br><span class="hljs-comment">*     -w 可写</span><br><span class="hljs-comment">*     -a 添加</span><br><span class="hljs-comment">*     -t 文本模式(不能与b联用)</span><br><span class="hljs-comment">*     -b 二进制模式(不能与t联用)</span><br><span class="hljs-comment">* @return 返回文件编号</span><br><span class="hljs-comment">*  --1表示打开文件失败(生成时:.-1)</span><br><span class="hljs-comment">* @note文件打开成功后，必须使用::CloseFile函数关闭</span><br><span class="hljs-comment">* @par 示例:</span><br><span class="hljs-comment">* @code</span><br><span class="hljs-comment">*        //用文本只读方式打开文件</span><br><span class="hljs-comment">*        int ret = OpenFile(&quot;test.txt&quot;, &quot;a&quot;);</span><br><span class="hljs-comment">* @endcode</span><br><span class="hljs-comment">* @see 指定参考信息。函数::ReadFile::CloseFile (“::”是指定有连接功能,可以看文档里的CloseFile变成绿,点击它可以跳转到CloseFile.)</span><br><span class="hljs-comment">* @deprecated 由于特殊的原因，这个函数可能会在将来的版本中取消</span><br><span class="hljs-comment">* @bug 调试Bug说明</span><br><span class="hljs-comment">* @warning 警告说明 (warning) 定义一些关于这个函数必须知道的事情</span><br><span class="hljs-comment">* @remarks 备注说明 (remarks) 定义一些关于这个函数的备注信息</span><br><span class="hljs-comment">* @todo 将要完成的工作 (todo) 说明哪些事情将在不久以后完成</span><br><span class="hljs-comment">* @example 使用例子说明 (example) 例子说明</span><br><span class="hljs-comment">*/</span><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">OpenFile</span><span class="hljs-params">(<span class="hljs-type">const</span> <span class="hljs-type">char</span>* fileName, <span class="hljs-type">const</span> <span class="hljs-type">char</span>* fileMode)</span></span>;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment">* @brief 关闭文件</span><br><span class="hljs-comment">* @param [in] file    文件</span><br><span class="hljs-comment">*</span><br><span class="hljs-comment">* @retval 返回值 0     成功</span><br><span class="hljs-comment">* @retval -1    失败</span><br><span class="hljs-comment">* @pre file 必须使用OpenFile的返回值</span><br><span class="hljs-comment">*/</span>                <br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">CloseFile</span><span class="hljs-params">(<span class="hljs-type">int</span> file)</span></span>;<br></code></pre></td></tr></table></figure>
-<h3 id="特殊注释">特殊注释</h3>
-<p>这些是注释中的标签（tag），有时也被称作“代码标签（codetag）”或“标记（token）”。</p>
-<p>标识：</p>
-<ul>
-<li><code>TODO</code>：标记代码中需要实现的功能或任务。</li>
-<li><code>FIXME</code>：标记代码中需要修复的问题或缺陷。</li>
-<li><code>XXX</code>：如果代码中有该标识，说明标识处代码虽然实现了功能，但是实现的方法有待商榷，代码有问题或具误导性，需引起警惕。希望将来能改进，要改进的地方会在说明中简略说明。</li>
-<li><code>HACK</code>/<code>BODGE</code>/<code>KLUDGE</code>：标记临时性修复或不优雅的解决方案。英语翻译为砍。如果代码中有该标识，说明标识处代码我们需要根据自己的需求去调整程序代码。</li>
-<li><code>BUG</code>/<code>DEBUG</code>：标记已知的Bug或错误。</li>
-<li><code>UNDONE</code>：对之前代码改动的撤销。</li>
-<li><code>NOTE</code>：提供额外的注释或提示信息，帮助理解代码意图或设计决策。</li>
-</ul>
-<p>格式：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">/*</span><br><span class="hljs-comment">* 1. 使用大写字母</span><br><span class="hljs-comment">* 2. 只用双正斜杠//，而不是三个正斜杠 ///</span><br><span class="hljs-comment">* 3. 在标签后使用半角冒号 :</span><br><span class="hljs-comment">*/</span><br><span class="hljs-comment">//<span class="hljs-doctag">TODO:</span> Need implementation.</span><br><span class="hljs-comment">//<span class="hljs-doctag">FIXME:</span> We need to avoid the problem of duplicating windows when clicking multiple times on this menu item.</span><br></code></pre></td></tr></table></figure>
-<h2 id="C-数据类型">C++数据类型</h2>
-<h3 id="C-形参和实参">C++形参和实参</h3>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_73671341/article/details/132818897">参考资料</a></p>
-<p>形参和实参是函数中的两个重要概念。</p>
-<p>形参（形式参数）是在函数定义中出现的参数，它是一个虚拟参数，只有在函数调用时才会接收到传递进来的实际参数。形参可以被看作是一个占位符，在函数定义时并没有实际的数值，只有在函数调用时才会得到实参的数值。形参的主要作用是表示函数需要从外部传递进来的数据。</p>
-<p>实参（实际参数）是在函数中实际出现的参数，它的值可以是常量、变量、表达式、类等。实参的值是确定的，必须在函数调用时提供。实参的主要作用是向函数传递数据，将数据的值传递给形参，在函数体内被使用。</p>
-<p>要注意的是，形参和实参之间的传递方式有两种：值传递和地址传递。值传递是指将实参的值复制给形参，形参在函数内部使用时不会改变实参的值。而地址传递是指将实参的地址传递给形参，形参在函数内部使用时可以通过地址修改实参的值。</p>
-<p>总结起来，形参是函数定义中的参数，是一个虚拟的占位符，用于接收函数调用时传递进来的实参。实参是函数调用时提供的具体数值，用于向函数传递数据。形参和实参之间的传递方式可以是值传递或地址传递。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">exchange1</span><span class="hljs-params">(<span class="hljs-type">int</span> x,<span class="hljs-type">int</span> y)</span></span>;<br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">exchange2</span><span class="hljs-params">(<span class="hljs-type">int</span> &amp;x,<span class="hljs-type">int</span> &amp;y)</span></span>;<br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">exchange3</span><span class="hljs-params">(<span class="hljs-type">int</span> *x,<span class="hljs-type">int</span> *y)</span></span>;<br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br><span class="hljs-type">int</span> a = <span class="hljs-number">7777777</span>,b = <span class="hljs-number">666666</span>;<br><span class="hljs-built_in">exchange1</span>(a,b);<br>cout &lt;&lt; a &lt;&lt; endl &lt;&lt; b &lt;&lt; endl;<br><span class="hljs-built_in">exchange2</span>(a,b);<br>cout &lt;&lt; a &lt;&lt; endl &lt;&lt; b &lt;&lt; endl;<br><span class="hljs-built_in">exchange3</span>(&amp;a,&amp;b);<br>cout &lt;&lt; a &lt;&lt; endl &lt;&lt; b &lt;&lt; endl;<br>&#125;<br><br><span class="hljs-comment">//  exchange1中a和b没有交换的原因是：x和y是函数定义中的形参，代码中吧实参a，b分别赋值给了x，y这两个形参变量。代码中只是替换掉了x和y的值，实参a和b不受影响，交换失败。</span><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">exchange1</span><span class="hljs-params">(<span class="hljs-type">int</span> x,<span class="hljs-type">int</span> y)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-type">int</span> temp;<br>    temp = y;<br>    y = x;<br>    x = temp;<br>&#125;<br><br><span class="hljs-comment">// exchange2中，x和y是a和b的引用，操作x和y交换就等于a和b交换，交换成功。</span><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">exchange2</span><span class="hljs-params">(<span class="hljs-type">int</span> &amp;x,<span class="hljs-type">int</span> &amp;y)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-type">int</span> temp;<br>    temp = y;<br>    y = x;<br>    x = temp;<br>&#125;<br><br><span class="hljs-comment">// exchange3中，x和y两个形参是a和b的指针，也就是存放实参的地址。然后函数里面交换了x和y指向的数据地址，也就是实参a和b，交换成功。</span><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">exchange3</span><span class="hljs-params">(<span class="hljs-type">int</span> *x,<span class="hljs-type">int</span> *y)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-type">int</span> temp;<br>    temp = *y;<br>    *y = *x;<br>    *x = temp;<br>&#125;<br></code></pre></td></tr></table></figure>
-<h3 id="C-修饰符类型">C++修饰符类型</h3>
-<p><a target="_blank" rel="noopener" href="https://www.runoob.com/cplusplus/cpp-modifier-types.html">参考链接</a></p>
-<p>C++ 允许在 <strong>char、int 和 double</strong> 数据类型前放置修饰符。</p>
-<p>修饰符是用于改变变量类型的行为的关键字，它更能满足各种情境的需求。</p>
-<p>下面列出了数据类型修饰符：</p>
-<ul>
-<li>signed：表示变量可以存储负数。对于整型变量来说，signed 可以省略，因为整型变量默认为有符号类型。</li>
-<li>unsigned：表示变量不能存储负数。对于整型变量来说，unsigned 可以将变量范围扩大一倍。</li>
-<li>short：表示变量的范围比 int 更小。short int 可以缩写为 short。</li>
-<li>long：表示变量的范围比 int 更大。long int 可以缩写为 long。</li>
-<li>long long：表示变量的范围比 long 更大。C++11 中新增的数据类型修饰符。</li>
-<li>float：表示单精度浮点数。</li>
-<li>double：表示双精度浮点数。</li>
-<li>bool：表示布尔类型，只有 true 和 false 两个值。</li>
-<li>char：表示字符类型。</li>
-<li>wchar_t：表示宽字符类型，可以存储 Unicode 字符。</li>
-</ul>
-<p>修饰符 <strong>signed、unsigned、long 和 short</strong> 可应用于整型，<strong>signed</strong> 和 <strong>unsigned</strong> 可应用于字符型，<strong>long</strong> 可应用于双精度型。</p>
-<p>这些修饰符也可以组合使用，修饰符 <strong>signed</strong> 和 <strong>unsigned</strong> 也可以作为 <strong>long</strong> 或 <strong>short</strong> 修饰符的前缀。例如：<strong>unsigned long int</strong>。</p>
-<p>C++ 允许使用速记符号来声明<strong>无符号短整数</strong>或<strong>无符号长整数</strong>。您可以不写 int，只写单词 <strong>unsigned、short</strong> 或 <strong>long</strong>，<strong>int</strong> 是隐含的。</p>
-<h3 id="C-中的类型限定符">C++中的类型限定符</h3>
-<p><a target="_blank" rel="noopener" href="https://www.runoob.com/cplusplus/cpp-modifier-types.html">参考链接</a></p>
-<p>类型限定符提供了变量的额外信息，用于在定义变量或函数时改变它们的默认行为的关键字。</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">限定符</th>
-<th style="text-align:center">含义</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">const</td>
-<td style="text-align:center"><strong>const</strong> 定义常量，表示该变量的值不能被修改。</td>
-</tr>
-<tr>
-<td style="text-align:center">volatile</td>
-<td style="text-align:center">修饰符 <strong>volatile</strong> 告诉该变量的值可能会被程序以外的因素改变，如硬件或其他线程。。</td>
-</tr>
-<tr>
-<td style="text-align:center">restrict</td>
-<td style="text-align:center">由 <strong>restrict</strong> 修饰的指针是唯一一种访问它所指向的对象的方式。只有 C99 增加了新的类型限定符 restrict。</td>
-</tr>
-<tr>
-<td style="text-align:center">mutable</td>
-<td style="text-align:center">表示类中的成员变量可以在 const 成员函数中被修改。</td>
-</tr>
-<tr>
-<td style="text-align:center">static</td>
-<td style="text-align:center">用于定义静态变量，表示该变量的作用域仅限于当前文件或当前函数内，不会被其他文件或函数访问。</td>
-</tr>
-<tr>
-<td style="text-align:center">register</td>
-<td style="text-align:center">用于定义寄存器变量，表示该变量被频繁使用，可以存储在CPU的寄存器中，以提高程序的运行效率。</td>
-</tr>
-</tbody>
-</table>
-<h2 id="逻辑运算符">逻辑运算符</h2>
-<p>在C++中，&quot;或&quot;逻辑可以使用逻辑运算符<code>||</code>来表示，<code>|</code>是按位或运算符。</p>
-<p>&quot;与&quot;逻辑可以使用逻辑运算符<code>&amp;&amp;</code>来表示，<code>&amp;</code>是按位与运算符。</p>
-<p>在C++中，<code>if ( IMU_VERSION == 0)</code>和<code>if ( IMU_VERSION = 0)</code>有着本质的区别。</p>
-<p><code>if ( IMU_VERSION == 0)</code>是一个比较操作，它检查<code>IMU_VERSION</code>是否等于0。如果<code>IMU_VERSION</code>的值为0，那么条件为真，<code>if</code>语句中的代码块将被执行。如果<code>IMU_VERSION</code>的值不为0，那么条件为假，<code>if</code>语句中的代码块将不会被执行。</p>
-<p>而<code>if ( IMU_VERSION = 0)</code>是一个赋值操作。它将<code>IMU_VERSION</code>的值设置为0，然后检查赋值后的<code>IMU_VERSION</code>是否为非零。在这种情况下，由于赋值为0，条件始终为假，因此<code>if</code>语句中的代码块将不会被执行。同时，这也改变了<code>IMU_VERSION</code>的原始值，这可能不是你想要的结果。因此，你应该谨慎使用赋值操作符<code>=</code>在<code>if</code>语句中，除非你确实想在检查条件的同时赋值。</p>
-<h2 id="C-函数">C++函数</h2>
-<h3 id="普通函数、类的普通成员函数和类的静态成员函数之间的区别">普通函数、类的普通成员函数和类的静态成员函数之间的区别</h3>
-<p>在C++中，普通函数、类的普通成员函数和类的静态成员函数之间有以下几点主要区别：</p>
-<ol>
-<li><strong>普通函数</strong>：属于全局函数，不受具体类和对象的限制，可以直接调用。
-<ul>
-<li>普通函数不属于任何类，它只能访问全局变量和其参数。它不能访问类的成员变量和成员函数（除非有一个类的对象或指针作为参数传入）。</li>
-</ul>
-</li>
-<li><strong>类的普通成员函数</strong>：类的普通成员函数属于类的实例（对象），它可以访问类的所有成员（包括私有成员、保护成员和公有成员）。每个对象都有自己的成员函数副本。普通成员函数必须通过对象来调用。
-<ul>
-<li>本质上是一个包含指向具体对象<code>this</code>指针的普通函数，即C++类的普通成员函数都隐式包含一个指向当前对象的<code>this</code>指针。</li>
-</ul>
-</li>
-<li><strong>类的静态成员函数</strong>：类的静态成员函数属于类本身，而不属于类的任何对象。它只能访问类的静态成员变量和静态成员函数，不能访问类的非静态成员变量和非静态成员函数。静态成员函数可以通过类名直接调用，也可以通过对象调用。
-<ul>
-<li>静态成员函数在某种程度上类似于全局函数，因为它们不依赖于类的任何特定对象，而是属于类本身。这意味着你可以在不创建类的对象的情况下调用静态成员函数。</li>
-<li>然而，静态成员函数并不完全等同于全局函数。静态成员函数仍然是类的一部分，它可以访问类的静态成员（包括私有静态成员），而全局函数则不能。</li>
-<li>静态成员函数没有<code>this</code>指针。<code>this</code>指针是一个指向调用成员函数的特定对象的指针。因为静态成员函数不依赖于任何特定对象，所以它没有<code>this</code>指针。这也意味着静态成员函数不能访问类的非静态成员变量或非静态成员函数。</li>
-</ul>
-</li>
-</ol>
-<blockquote>
-<p>如果成员函数想作为回调函数来使用，如创建线程等，一般只能将它定义为静态成员函数才行。</p>
-<p>在C++中，回调函数通常需要是全局函数或静态成员函数，因为它们具有固定的函数签名，可以被用作函数指针。非静态成员函数不能直接用作回调函数，因为它们有一个隐含的<code>this</code>参数，这会改变它们的函数签名。</p>
-<p>然而，有一些方法可以让你使用非静态成员函数作为回调函数。例如，你可以使用<code>std::bind</code>或<code>lambda</code>表达式来捕获<code>this</code>指针，然后调用非静态成员函数。这种方法在C++11及以后的版本中可用。</p>
-</blockquote>
-<p>以下是一个简单的例子来说明这三种函数的区别：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">MyClass</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-type">int</span> x; <span class="hljs-comment">// 普通成员变量</span><br>    <span class="hljs-type">static</span> <span class="hljs-type">int</span> y; <span class="hljs-comment">// 静态成员变量。只被初始化一次，下次执行初始化语句会直接跳过。</span><br><br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">func</span><span class="hljs-params">()</span> </span>&#123; <span class="hljs-comment">// 普通成员函数</span><br>        x = <span class="hljs-number">1</span>; <span class="hljs-comment">// 可以访问普通成员变量</span><br>        y = <span class="hljs-number">2</span>; <span class="hljs-comment">// 可以访问静态成员变量</span><br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-type">static</span> <span class="hljs-type">void</span> <span class="hljs-title">staticFunc</span><span class="hljs-params">()</span> </span>&#123; <span class="hljs-comment">// 静态成员函数</span><br>        <span class="hljs-comment">// x = 3; // 错误：不能访问普通成员变量</span><br>        y = <span class="hljs-number">4</span>; <span class="hljs-comment">// 可以访问静态成员变量</span><br>    &#125;<br>&#125;;<br><br><span class="hljs-type">int</span> MyClass::y = <span class="hljs-number">0</span>; <span class="hljs-comment">// 初始化静态成员变量</span><br><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">globalFunc</span><span class="hljs-params">(MyClass&amp; obj)</span> </span>&#123; <span class="hljs-comment">// 普通函数</span><br>    <span class="hljs-comment">// obj.x = 5; // 可以通过对象访问其成员变量</span><br>    <span class="hljs-comment">// MyClass::y = 6; // 可以访问静态成员变量</span><br>&#125;<br></code></pre></td></tr></table></figure>
-<h3 id="类的构造函数和析构函数的调用时机">类的构造函数和析构函数的调用时机</h3>
-<p>在C++中，类的构造函数和析构函数的调用时机如下：</p>
-<ol>
-<li>
-<p><strong>构造函数</strong>：当创建类的对象时，会自动调用类的构造函数。构造函数的主要任务是初始化对象的数据成员。构造函数的名称与类名相同，没有返回类型。构造函数可以有参数，可以被重载。</p>
-<ul>
-<li>当创建一个类的对象时，例如<code>MyClass obj;</code>，会调用默认构造函数（无参数的构造函数）。</li>
-<li>当以参数方式创建一个类的对象时，例如<code>MyClass obj(1, 2);</code>，会调用相应的参数构造函数。</li>
-<li>当一个对象作为另一个对象的初始化参数时，例如<code>MyClass obj1 = obj2;</code>或<code>MyClass obj1(obj2);</code>，会调用拷贝构造函数。</li>
-</ul>
-</li>
-<li>
-<p><strong>析构函数</strong>：在C++中，当类的对象需要在其生命周期结束时执行某些操作（如释放资源、关闭文件、断开网络连接等）时，就需要定义析构函数。当一个对象的生命周期结束时（例如，对象离开其作用域，或者使用<code>delete</code>删除动态分配的对象），会自动调用其析构函数。析构函数的主要任务是执行清理工作，例如释放对象可能拥有的资源。析构函数的名称是类名前加上波浪号<code>~</code>，没有返回类型，也不能有任何参数，因此不能被重载。</p>
-<blockquote>
-<ul>
-<li>一个局部变量，那么当它的定义域（例如一个函数或一个代码块）结束时，它的析构函数会被调用。</li>
-<li>一个全局变量或者静态变量，那么当程序结束时，它的析构函数会被调用。</li>
-</ul>
-</blockquote>
-<blockquote>
-<p>而有的对象不会被析构函数自动释放，因此就不能使用空的析构函数，而是在析构函数内定义释放规则。</p>
-<p>以下是一个例子，该例子中的类<code>FileWrapper</code>封装了一个文件指针，需要在析构函数中关闭文件：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;cstdio&gt;</span></span><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">FileWrapper</span> &#123;<br><span class="hljs-keyword">private</span>:<br>    FILE* file_;<br><br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-built_in">FileWrapper</span>(<span class="hljs-type">const</span> <span class="hljs-type">char</span>* filename, <span class="hljs-type">const</span> <span class="hljs-type">char</span>* mode) &#123;<br>        file_ = std::<span class="hljs-built_in">fopen</span>(filename, mode);<br>        <span class="hljs-keyword">if</span> (file_ == <span class="hljs-literal">nullptr</span>) &#123;<br>            <span class="hljs-keyword">throw</span> std::<span class="hljs-built_in">runtime_error</span>(<span class="hljs-string">&quot;Failed to open file.&quot;</span>);<br>        &#125;<br>    &#125;<br><br>    ~<span class="hljs-built_in">FileWrapper</span>() &#123;<br>        <span class="hljs-keyword">if</span> (file_ != <span class="hljs-literal">nullptr</span>) &#123;<br>            std::<span class="hljs-built_in">fclose</span>(file_);  <span class="hljs-comment">// 关闭文件</span><br>        &#125;<br>    &#125;<br><br>    <span class="hljs-comment">// 其他成员函数...</span><br>&#125;;<br></code></pre></td></tr></table></figure>
-<p>在这个例子中，<code>FileWrapper</code>的构造函数打开一个文件，并将文件指针存储在<code>file_</code>中。然后，<code>FileWrapper</code>的析构函数在<code>file_</code>不为<code>nullptr</code>时关闭文件。这样，无论<code>FileWrapper</code>对象何时被销毁（例如，离开作用域或被<code>delete</code>删除），都会自动关闭文件，防止资源泄漏。</p>
-<p>如果<code>FileWrapper</code>使用空的析构函数，那么文件将不会被关闭，可能会导致资源泄漏和其他问题。</p>
-</blockquote>
-</li>
-</ol>
-<p>以下是一个简单的例子：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">MyClass</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-built_in">MyClass</span>() &#123;<br>        <span class="hljs-comment">// 构造函数</span><br>        std::cout &lt;&lt; <span class="hljs-string">&quot;Constructor called!&quot;</span> &lt;&lt; std::endl;<br>    &#125;<br><br>    ~<span class="hljs-built_in">MyClass</span>() &#123;<br>        <span class="hljs-comment">// 析构函数</span><br>        std::cout &lt;&lt; <span class="hljs-string">&quot;Destructor called!&quot;</span> &lt;&lt; std::endl;<br>    &#125;<br>&#125;;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    MyClass obj; <span class="hljs-comment">// 创建对象，调用构造函数</span><br>    <span class="hljs-comment">// 当obj离开作用域时，调用析构函数</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
-<p>在这个例子中，当<code>MyClass obj;</code>执行时，会调用<code>MyClass</code>的构造函数。当<code>obj</code>离开其作用域（即<code>main</code>函数结束时），会调用<code>MyClass</code>的析构函数。</p>
-<h3 id="输出函数的选择">输出函数的选择</h3>
-<ol>
-<li>
-<p>C++ 中 <code>printf</code> 和 <code>cout</code> 有什么区别？</p>
-<p>在 C++ 中，<code>printf</code> 和 <code>cout</code> 都用于输出，但它们来自不同的库，有不同的用法和特性。下面是一些主要的不同之处：</p>
-<ol>
-<li><strong>来源</strong>：
-<ul>
-<li><code>printf</code> 是 C 语言中的标准输入输出函数，来源于 C 语言的标准库（stdio.h）。在 C++ 中依然可用，但需要包含头文件 <code>&lt;cstdio&gt;</code> 或者 C 风格的 <code>&lt;stdio.h&gt;</code>。</li>
-<li><code>cout</code> 是 C++ 专有的，属于 C++ 标准库中的一个对象，用于输出。<code>cout</code> 是定义在 <code>&lt;iostream&gt;</code> 头文件中的标准输出流对象。</li>
-</ul>
-</li>
-<li><strong>使用语法</strong>：
-<ul>
-<li><code>printf</code> 使用格式化字符串。例如：<code>printf(&quot;%d %s&quot;, 100, &quot;C++&quot;);</code>。</li>
-<li><code>cout</code> 使用流插入运算符(<code>&lt;&lt;</code>)。例如：<code>cout &lt;&lt; 100 &lt;&lt; &quot; C++&quot;;</code>。</li>
-</ul>
-</li>
-<li><strong>类型安全</strong>：
-<ul>
-<li><code>printf</code> 在处理类型时不够安全，因为它依赖于格式化字符串正确地匹配变量的类型；如果不匹配，可能会造成运行时错误或未定义行为。</li>
-<li><code>cout</code> 是类型安全的，编译器会检查插入到<code>cout</code>中的数据类型，确保与预期匹配，减少了错误的可能性。</li>
-</ul>
-</li>
-<li><strong>性能</strong>：
-<ul>
-<li><code>printf</code> 的性能通常情况下比 <code>cout</code> 快，尤其是在格式化字符串操作时，因为 <code>cout</code> 的类型安全和重载运算符使得它的运行效率稍低。</li>
-<li>但是，通过启用 C++ 的 <code>std::ios_base::sync_with_stdio(false);</code> 以及避开使用 <code>std::endl</code>（<code>std::endl</code> 会刷新输出缓冲区），可以提升 <code>cout</code> 的性能，使其与 <code>printf</code> 相近。</li>
-</ul>
-</li>
-<li><strong>灵活性和功能</strong>：
-<ul>
-<li>使用 <code>cout</code> 更灵活，因为它支持对输出格式的更细致控制，例如设置宽度、精度和填充字符等。此外，<code>cout</code> 可以直接打印用户定义的类型，只要为这些类型重载了输出运算符(<code>&lt;&lt;</code>)。</li>
-<li><code>printf</code> 在打印自定义类型时没有直接的方式，因为它需要预定义的格式化串。</li>
-</ul>
-</li>
-<li><strong>可移植性</strong>：
-<ul>
-<li><code>printf</code> 基于 C 语言，因此在许多不同的平台和编译器中使用广泛，具有很高的可移植性。</li>
-<li><code>cout</code> 虽然是 C++ 的一部分，理论上在所有支持 C++ 的平台上都是可用的，但在跨平台编程时，对输出格式的控制可能会遇到不一致性。</li>
-</ul>
-</li>
-</ol>
-<p>综上所述，<code>printf</code> 和 <code>cout</code> 都有各自的用途和优势，选择使用哪个取决于具体的编程需求和个人喜好。在实际编程中，了解它们的差异有助于更好地决策和优化代码。</p>
-</li>
-<li>
-<p>在C++程序开发中，推荐使用<code>printf</code>还是<code>cout</code>？</p>
-<p>在 C++ 程序开发中，通常推荐使用 <code>cout</code> 而不是 <code>printf</code>。这一推荐基于以下几个理由：</p>
-<ol>
-<li><strong>类型安全</strong>：<code>cout</code> 是类型安全的，这意味着编译器会对插入到 <code>cout</code> 的数据类型进行检查，减少了类型不匹配的错误。而 <code>printf</code> 需要开发者手动指定类型，在类型不匹配的情况下可能导致未定义行为或运行时错误。</li>
-<li><strong>易于使用</strong>：使用 <code>cout</code> 需要较少的手工干预来处理不同类型的数据，因为它可以自动调整输出格式，而 <code>printf</code> 请求用户显式地指定格式化字符串。特别是在处理字符串和数字的混合输出时，<code>cout</code> 的语法更为直观和简洁。</li>
-<li><strong>可扩展性</strong>：对于自定义类型，<code>cout</code> 允许开发者通过重载输出运算符 (<code>&lt;&lt;</code>) 来定义自己的输出格式，这提供了良好的可扩展性。而 <code>printf</code> 不能直接支持自定义类型的打印，除非通过某种方式将其转换为内建类型。</li>
-<li><strong>标准一致性</strong>：<code>cout</code> 是 C++ 标准库的一部分，充分利用 <code>cout</code> 能够使程序更加面向对象，更符合 C++ 的编程风格。<code>printf</code> 来自 C 语言标准库，虽然在 C++ 中仍然可用，但并不是 C++ 风格的首选。</li>
-<li><strong>灵活性</strong>：<code>cout</code> 提供了更好的控制输出格式的功能，如设置宽度、填充、精度等，而且这些设置易于读写和维护。</li>
-</ol>
-<p>然而，在某些特定情况下，<code>printf</code> 可能更为有用： - 当您需要更详细地控制输出格式，尤其是在涉及复杂格式时，<code>printf</code> 的格式化字符串可能更易于使用和理解。 - 在性能极致敏感的场景中，经过适当的优化后，<code>printf</code> 在某些情况下可能比 <code>cout</code> 有更好的性能。</p>
-<p>总之，虽然 <code>cout</code> 通常是在 C++ 中处理输出的首选，但确切选择取决于具体的应用场景、性能需求和个人偏好。在决定使用哪一个之前，考虑项目的需求和上下文非常重要。</p>
-</li>
-<li>
-<p>在使用C++语言的ROS平台开发中，推荐使用<code>printf</code>、<code>cout</code>还是<code>ROS_INFO</code>？</p>
-<p>在使用 C++ 语言开发 ROS (Robot Operating System) 平台的应用时，通常推荐使用 <code>ROS_INFO</code> 以及其相关的宏（如 <code>ROS_WARN</code>, <code>ROS_ERROR</code>, <code>ROS_DEBUG</code> 等）来进行消息的输出。这些宏专为 ROS 开发设计，提供了一些优势和特性，特别是在进行机器人软件开发时：</p>
-<ol>
-<li><strong>统一的日志管理</strong>：<code>ROS_INFO</code> 和其他相关宏能够将输出消息统一管理，使得日志记录、查看和分析变得更加容易。ROS 提供的 rqt_console 和 roslaunch 日志文件都可以捕捉这些输出，方便开发者调试和追踪问题。</li>
-<li><strong>级别管理</strong>：不同于 <code>printf</code> 和 <code>cout</code> 只能单纯输出文本，<code>ROS_INFO</code> 等宏允许你按照不同的严重性级别输出消息，如信息、警告、错误、调试等。这有助于开发者在运行时筛选和控制想要查看的输出类型。</li>
-<li><strong>节点识别</strong>：使用 ROS 日志函数，每条日志消息都会自动附带节点名信息。这对于在复杂系统中跟踪消息来源特别有用，尤其是当多个节点同时运行时。</li>
-<li><strong>格式化和类型安全</strong>：<code>ROS_INFO</code> 等宏支持类似 <code>printf</code> 的格式化功能，使得在输出文本时可以包含变量。同时，由于 <code>ROS_INFO</code> 是在 C++ 环境下设计的，因此也可以在一定程度上享受到 C++ 类型安全的好处（尽管其内部实现可能是利用 <code>printf</code> 风格的格式化字符串）。</li>
-<li><strong>条件编译</strong>：<code>ROS_DEBUG</code> 等调试相关的宏，在发布模式下可以通过编译选项完全禁用，从而不会对发布版本的性能造成影响。</li>
-</ol>
-<p>综上所述，虽然在 ROS 平台下开发时 <code>printf</code> 和 <code>cout</code> 依然可用，但 <code>ROS_INFO</code> 和相关的宏提供了更多符合 ROS 开发环境和需求的优势。因此，在大多数情况下，推荐使用 <code>ROS_INFO</code> 及其相关宏进行消息输出和日志记录。</p>
-</li>
-<li>
-<p>在使用C++语言的ROS平台开发中，推荐使用<code>printf</code>、<code>cout</code>、<code>ROS_INFO</code>还是<code>ROS_INFO_STREAM</code>？</p>
-<p>在使用C++语言的ROS（Robot Operating System）平台开发时，选择<code>printf</code>、<code>cout</code>、<code>ROS_INFO</code>还是<code>ROS_INFO_STREAM</code>取决于具体的应用场景和你的偏好。下面是它们各自的特点和适用情况：</p>
-<p><code>printf</code></p>
-<ul>
-<li>来源于C语言，C++也支持。</li>
-<li>用于格式化输出，语法稍显复杂，对类型安全的支持不如C++的IO流。</li>
-<li>适用于快速的调试或者当开发环境更接近C语言时使用。</li>
-</ul>
-<p><code>std::cout</code></p>
-<ul>
-<li>C++标准输入输出流的一部分，使用起来比<code>printf</code>更为方便和安全。</li>
-<li>支持类型安全的输出，可以通过重载<code>&lt;&lt;</code>操作符来扩展对自定义类型的支持。</li>
-<li>适用于C++程序的通用输出，特别是需要输出自定义类型数据时。</li>
-</ul>
-<p><code>ROS_INFO</code> 和 <code>ROS_INFO_STREAM</code></p>
-<ul>
-<li>这是ROS中专门用于日志输出的宏和流。</li>
-<li><code>ROS_INFO</code> 类似于<code>printf</code>，而<code>ROS_INFO_STREAM</code>则类似于<code>std::cout</code>，使用方法根据个人偏好和输出内容的复杂度来选择。</li>
-<li>它们的优势在于：</li>
-<li>集成了ROS的命名空间和节点名，可以更清楚地知道是哪个节点产生的日志。</li>
-<li>可以通过ROS的配置文件来调整日志的级别，方便调试和运行时的日志管理。</li>
-<li>支持网络日志（rosout），使得可以在ROS的不同部分或不同机器上收集和查看日志。</li>
-</ul>
-<p>推荐使用</p>
-<ul>
-<li>对于简单的调试信息，如果你更习惯C++风格，推荐使用<code>ROS_INFO_STREAM</code>；如果你倾向于使用类似C语言的格式化输出，可以选择<code>ROS_INFO</code>。</li>
-<li>对于非ROS系统级的调试或者涉及大量复杂数据类型输出时，<code>std::cout</code>可能更为直接和方便。</li>
-<li>一般建议尽量避免使用<code>printf</code>，除非你有特别的理由，因为它不提供类型安全且在C<ins>中使用<code>std::cout</code>和<code>ROS_INFO_STREAM</code>可以更好地利用C</ins>的特性。</li>
-</ul>
-<p>综上所述，选择哪一种取决于你的具体需求和开发习惯。在ROS开发中，<code>ROS_INFO</code>和<code>ROS_INFO_STREAM</code>因为其与ROS系统的集成，通常会是首选。</p>
-<p><a href="https://zeyulong.com/posts/c4541b88/#%E6%B6%88%E6%81%AF%E6%89%93%E5%8D%B0">ROS消息打印</a></p>
-</li>
-</ol>
-<h2 id="C-小技巧">C++小技巧</h2>
-<h3 id="模板参数必须在编译时是已知的常量">模板参数必须在编译时是已知的常量</h3>
-<p>在C++中，模板参数必须在编译时是已知的常量。这意味着你不能使用运行时从配置文件中读取的值作为模板参数。</p>
-<p>一种可能的解决方案是使用预处理器宏来定义<code>N_dim</code>。你可以在编译时通过编译器的命令行参数来设置这个宏。例如：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">define</span> N 512  <span class="hljs-comment">// 默认值。</span></span><br><span class="hljs-keyword">template</span> &lt;<span class="hljs-type">unsigned</span> <span class="hljs-type">int</span> N&gt;<br>eFFT&lt;N&gt; efft;  <span class="hljs-comment">// 模板类</span><br></code></pre></td></tr></table></figure>
-<blockquote>
-<p>预处理器宏（如<code>#define N 512</code>）在它被定义的文件以及<code>#include</code>该文件的所有文件中都是可见的。如果你在一个文件中定义了<code>N</code>，然后在另一个文件中想要使用它，你需要确保第二个文件<code>#include</code>了定义<code>N</code>的文件。</p>
-</blockquote>
-<p>然后在编译时，你可以使用<code>-D</code>选项来设置<code>N_dim</code>的值：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">g++ -DN_dim=1024 -o my_program my_program.cpp<br></code></pre></td></tr></table></figure>
-<p>另一种解决方案是使用一个固定大小的<code>eFFT</code>对象，然后在运行时根据需要使用其中的一部分。这可能需要你修改<code>eFFT</code>类的实现，使其能够处理不同大小的输入。</p>
-<h3 id="重复定义问题">重复定义问题</h3>
-<p>你的问题是在多个源文件中都包含了<code>parameters.h</code>，并且在这个头文件中定义了<code>eFFT_SIZE</code>。这导致了<code>eFFT_SIZE</code>的多重定义。</p>
-<p>解决这个问题的一种方法是在<code>parameters.h</code>中只声明<code>eFFT_SIZE</code>，然后在一个源文件（例如<code>parameters.cpp</code>）中定义它。这样，<code>eFFT_SIZE</code>就只在一个地方定义了。</p>
-<p>首先，你需要在<code>parameters.h</code>中将<code>eFFT_SIZE</code>的定义改为声明：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">extern const unsigned int eFFT_SIZE;<br></code></pre></td></tr></table></figure>
-<p>然后，在<code>parameters.cpp</code>中定义<code>eFFT_SIZE</code>：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">const unsigned int eFFT_SIZE = 128;<br></code></pre></td></tr></table></figure>
-<p>这样，<code>eFFT_SIZE</code>就只在<code>parameters.cpp</code>中定义了一次，而在其他源文件中，它只是一个外部链接的声明。这应该可以解决你的问题。d</p>
-<h3 id="函数多个返回值">函数多个返回值</h3>
-<p>在C++中，有几种方法可以实现函数的多个返回值：</p>
-<ol>
-<li>
-<p><strong>使用引用参数（Reference Parameters）/指针</strong>：你可以通过引用参数来修改函数外部的变量，从而实现多个返回值。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">getValues</span><span class="hljs-params">(<span class="hljs-type">int</span>&amp; x, <span class="hljs-type">int</span>&amp; y)</span> </span>&#123;<br>    x = <span class="hljs-number">5</span>;<br>    y = <span class="hljs-number">10</span>;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-type">int</span> a, b;<br>    <span class="hljs-built_in">getValues</span>(a, b);<br>    <span class="hljs-comment">// Now a == 5 and b == 10</span><br>&#125;<br></code></pre></td></tr></table></figure>
-</li>
-<li>
-<p><strong>使用std::pair或std::tuple</strong>：如果你的函数需要返回两个或更多的值，你可以使用<code>std::pair</code>或<code>std::tuple</code>。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function">std::pair&lt;<span class="hljs-type">int</span>, <span class="hljs-type">int</span>&gt; <span class="hljs-title">getValues</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-keyword">return</span> std::<span class="hljs-built_in">make_pair</span>(<span class="hljs-number">5</span>, <span class="hljs-number">10</span>);<br>&#125;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    std::pair&lt;<span class="hljs-type">int</span>, <span class="hljs-type">int</span>&gt; values = <span class="hljs-built_in">getValues</span>();<br>    <span class="hljs-comment">// Now values.first == 5 and values.second == 10</span><br>&#125;<br></code></pre></td></tr></table></figure>
-</li>
-<li>
-<p><strong>使用结构体（Structs）或类（Classes）</strong>：如果你的函数需要返回多个相关的值，你可以定义一个结构体或类来存储这些值。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">struct</span> <span class="hljs-title class_">Values</span> &#123;<br>    <span class="hljs-type">int</span> x;<br>    <span class="hljs-type">int</span> y;<br>&#125;;<br><br><span class="hljs-function">Values <span class="hljs-title">getValues</span><span class="hljs-params">()</span> </span>&#123;<br>    Values values;<br>    values.x = <span class="hljs-number">5</span>;<br>    values.y = <span class="hljs-number">10</span>;<br>    <span class="hljs-keyword">return</span> values;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    Values values = <span class="hljs-built_in">getValues</span>();<br>    <span class="hljs-comment">// Now values.x == 5 and values.y == 10</span><br>&#125;<br></code></pre></td></tr></table></figure>
-</li>
-<li>
-<p>使用数组。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span> </span><br><br><span class="hljs-comment">// 将较大的元素存储在arr[0]中 </span><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">findGreaterSmaller</span><span class="hljs-params">(<span class="hljs-type">int</span> a, <span class="hljs-type">int</span> b, <span class="hljs-type">int</span> arr[])</span> </span><br><span class="hljs-function"></span>&#123; <br>    <span class="hljs-comment">// Store the greater element at </span><br>    <span class="hljs-comment">// 0th index of the array </span><br>    <span class="hljs-keyword">if</span> (a &gt; b) &#123; <br>        arr[<span class="hljs-number">0</span>] = a; <br>        arr[<span class="hljs-number">1</span>] = b; <br>    &#125; <br>    <span class="hljs-keyword">else</span> &#123; <br>        arr[<span class="hljs-number">0</span>] = b; <br>        arr[<span class="hljs-number">1</span>] = a; <br>    &#125; <br>&#125; <br><br><span class="hljs-comment">// Driver code </span><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span><br><span class="hljs-function"></span>&#123; <br>    <span class="hljs-type">int</span> x, y; <br>    <span class="hljs-type">int</span> arr[<span class="hljs-number">2</span>]; <br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;输入两个数字: \n&quot;</span>); <br>    <span class="hljs-built_in">scanf</span>(<span class="hljs-string">&quot;%d%d&quot;</span>, &amp;x, &amp;y); <br>    <span class="hljs-built_in">findGreaterSmaller</span>(x, y, arr); <br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;\n最大值为：%d，最小值为：%d&quot;</span>, <br>           arr[<span class="hljs-number">0</span>], arr[<span class="hljs-number">1</span>]); <br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>; <br>&#125;<br></code></pre></td></tr></table></figure>
-</li>
-<li>
-<p>选择哪种方法取决于你的具体需求和编程风格。</p>
-</li>
-</ol>
-<h3 id="多个源文件中共享一个变量-全局变量">多个源文件中共享一个变量/全局变量</h3>
-<p>在C++中，如果你想在多个源文件中共享一个变量，你可以使用<code>extern</code>关键字。你可以在一个源文件中定义一个变量，并在其他源文件中使用<code>extern</code>关键字声明同一个变量。</p>
-<p>首先，在<code>ESVIO/pose_graph/src/pose_graph_node.cpp</code>文件中，你需要将<code>SYSTEM_MODE</code>变量的定义移动到一个头文件中，例如<code>global.h</code>。然后在<code>pose_graph_node.cpp</code>和<code>keyframe.cpp</code>中都包含这个头文件。</p>
-<p><code>global.h</code>文件内容如下：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">ifndef</span> GLOBAL_H</span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> GLOBAL_H</span><br><br><span class="hljs-keyword">extern</span> <span class="hljs-type">int</span> SYSTEM_MODE;<br><br><span class="hljs-meta">#<span class="hljs-keyword">endif</span> <span class="hljs-comment">// GLOBAL_H</span></span><br></code></pre></td></tr></table></figure>
-<p>然后在<code>ESVIO/pose_graph/src/pose_graph_node.cpp</code>文件中，你需要包含<code>global.h</code>并定义<code>SYSTEM_MODE</code>：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;global.h&quot;</span></span><br><br><span class="hljs-type">int</span> SYSTEM_MODE = <span class="hljs-number">0</span>;  <span class="hljs-comment">// 初始化SYSTEM_MODE</span><br></code></pre></td></tr></table></figure>
-<p>最后，在<code>ESVIO/pose_graph/src/keyframe.cpp</code>文件中，你也需要包含<code>global.h</code>。这样你就可以在<code>keyframe.cpp</code>中使用<code>SYSTEM_MODE</code>变量了：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;global.h&quot;</span></span><br><br><span class="hljs-comment">// 现在你可以在这个文件中使用SYSTEM_MODE变量</span><br></code></pre></td></tr></table></figure>
-<p>注意，<code>extern</code>关键字告诉编译器变量的定义在别的地方，你不能在声明的时候初始化它。变量的定义（也就是初始化）应该在一个源文件中进行，而不是头文件。如果你在多个地方定义了同一个<code>extern</code>变量，那么会导致链接错误。</p>
-<h3 id="程序计时">程序计时</h3>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">pragma</span> once</span><br><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;ctime&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;cstdlib&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;chrono&gt;</span></span><br><br><span class="hljs-comment">// TicToc类，记录时间</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">TicToc</span><br>&#123;<br>  <span class="hljs-keyword">public</span>:<br>    <span class="hljs-built_in">TicToc</span>()<br>    &#123;<br>        <span class="hljs-built_in">tic</span>();<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">tic</span><span class="hljs-params">()</span></span><br><span class="hljs-function">    </span>&#123;<br>        start = std::chrono::system_clock::<span class="hljs-built_in">now</span>();<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-type">double</span> <span class="hljs-title">toc</span><span class="hljs-params">()</span></span><br><span class="hljs-function">    </span>&#123;<br>        end = std::chrono::system_clock::<span class="hljs-built_in">now</span>();<br>        std::chrono::duration&lt;<span class="hljs-type">double</span>&gt; elapsed_seconds = end - start;<br>        <span class="hljs-keyword">return</span> elapsed_seconds.<span class="hljs-built_in">count</span>() * <span class="hljs-number">1000</span>;<br>    &#125;<br><br>  <span class="hljs-keyword">private</span>:<br>    std::chrono::time_point&lt;std::chrono::system_clock&gt; start, end;<br>&#125;;<br><br></code></pre></td></tr></table></figure>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;tic_toc.h&quot;</span></span><br><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">some_function_to_test</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-comment">// 这里放置你要测试的代码</span><br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">1000000</span>; ++i)<br>    &#123;<br>        <span class="hljs-comment">// 模拟一些工作</span><br>    &#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-type">const</span> <span class="hljs-type">int</span> num_iterations = <span class="hljs-number">100</span>; <span class="hljs-comment">// 测试次数</span><br>    <span class="hljs-type">double</span> total_time = <span class="hljs-number">0.0</span>;<br><br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; num_iterations; ++i)<br>    &#123;<br>        TicToc timer;<br>        <span class="hljs-built_in">some_function_to_test</span>();<br>        <span class="hljs-type">double</span> elapsed_time = timer.<span class="hljs-built_in">toc</span>();<br>        total_time += elapsed_time;<br>    &#125;<br><br>    <span class="hljs-type">double</span> average_time = total_time / num_iterations;<br>    std::cout &lt;&lt; <span class="hljs-string">&quot;Average execution time: &quot;</span> &lt;&lt; average_time &lt;&lt; <span class="hljs-string">&quot; ms&quot;</span> &lt;&lt; std::endl;<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
-<h2 id="类与对象">类与对象</h2>
-<h3 id="为什么要定义类与对象，什么时候定义类与对象？">为什么要定义类与对象，什么时候定义类与对象？</h3>
-<p>在面向对象的编程语言中，类（Class）是一种定义新类型的方式，它封装了数据和操作数据的方法。对象（Object）则是类的实例，它包含了类定义的数据和方法。</p>
-<p>定义类和对象的目的主要有以下几点：</p>
-<ol>
-<li><strong>封装</strong>：类可以将数据和操作数据的方法封装在一起，隐藏内部实现细节，提高代码的安全性和可维护性。</li>
-<li><strong>继承</strong>：类可以继承其他类的属性和方法，实现代码的复用。</li>
-<li><strong>多态</strong>：通过接口或者虚函数，不同的类对象可以执行相同的操作，但表现出不同的行为，提高代码的灵活性。</li>
-</ol>
-<p>何时定义类和对象主要取决于你的需求。以下是一些可能需要定义类和对象的情况：</p>
-<ol>
-<li>当你需要创建一个复杂的数据结构，这个数据结构包含多个相关的数据和操作这些数据的方法时，你可以定义一个类来封装这些数据和方法。</li>
-<li>当你需要创建多个具有相同属性和行为的对象时，你可以定义一个类，然后创建这个类的多个对象。</li>
-<li>当你需要实现面向对象的设计模式（如工厂模式、单例模式等）时，你需要定义类和对象。</li>
-</ol>
-<h3 id="怎么用类与对象">怎么用类与对象</h3>
-<blockquote>
-<p>尽量实现，提供类所需要的输入数据，所有操作在类内部封装和实现，在外部直接输出结果。</p>
-</blockquote>
-<p>这个想法是面向对象编程（OOP）的核心原则之一，称为封装（Encapsulation）。封装是将数据（变量）和操作数据的函数（方法）捆绑在一起形成一个对象（即类的实例），并规定了外部对这些数据和函数的访问方式。</p>
-<p>封装有以下几个优点：</p>
-<ol>
-<li><strong>提高安全性</strong>：通过隐藏对象的内部状态，只允许通过对象的方法来访问和修改，可以防止外部代码随意修改对象的内部状态，提高了代码的安全性。</li>
-<li><strong>简化接口</strong>：对象的用户只需要知道对象提供了哪些方法，而不需要知道这些方法是如何实现的。这使得代码更易于理解和使用。</li>
-<li><strong>提高可维护性</strong>：由于对象的内部实现被封装起来，所以在不影响对象的用户的情况下，可以更容易地改变对象的内部实现。</li>
-</ol>
-<p>面向对象编程（OOP）的核心原则主要有以下四个：</p>
-<ol>
-<li><strong>封装（Encapsulation）</strong>：封装是将对象的状态（属性）和行为（方法）捆绑在一起，同时隐藏对象的内部实现细节，只提供有限的接口供外部访问。这样可以保护对象的内部状态，提高代码的安全性和可维护性。</li>
-<li><strong>继承（Inheritance）</strong>：继承是子类可以继承父类的属性和方法，实现代码的复用。子类可以扩展和修改父类的行为，提供更具体的功能。</li>
-<li><strong>多态（Polymorphism）</strong>：多态是指不同的对象可以对同一消息做出不同的响应。在运行时，根据对象的实际类型来调用相应的方法，提高了代码的灵活性。</li>
-<li><strong>抽象（Abstraction）</strong>：抽象是将复杂的系统简化为更简单的模型。通过定义抽象的类和接口，隐藏具体的实现细节，让程序员只关注有用的信息。</li>
-</ol>
-<p>这四个原则是面向对象编程的基础，它们使得代码更易于理解、维护和扩展。</p>
-<h3 id="模板类">模板类</h3>
-<p>模板类是C++中一种特殊的类，它可以用于创建处理不同数据类型的类的蓝图。模板类的定义以关键字<code>template</code>开始，后面跟一个或多个模板参数。</p>
-<p>例如，你可以定义一个模板类<code>Array</code>，它可以用于创建处理不同类型元素的数组：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> T, <span class="hljs-type">int</span> N&gt;<br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Array</span> &#123;<br>    T elements[N];<br>    <span class="hljs-comment">// ...</span><br>&#125;;<br></code></pre></td></tr></table></figure>
-<p>在这个例子中，<code>T</code>是一个类型模板参数，<code>N</code>是一个非类型模板参数。你可以用任何类型替换<code>T</code>，用任何整数替换<code>N</code>，来创建不同的<code>Array</code>类：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c++">Array&lt;<span class="hljs-type">int</span>, <span class="hljs-number">10</span>&gt; intArray;<br>Array&lt;<span class="hljs-type">double</span>, <span class="hljs-number">20</span>&gt; doubleArray;<br></code></pre></td></tr></table></figure>
-<p>模板类与一般的类的主要区别在于，模板类可以处理多种类型的数据，而一般的类只能处理特定类型的数据。模板类提供了一种机制，使得你可以在类定义时不指定具体的类型，而是在使用类时指定类型。这使得你的代码更加灵活，可以处理多种类型的数据。</p>
-<h3 id="成员初始化列表">成员初始化列表</h3>
-<p><strong>成员初始化列表</strong>（Member Initializer List）是C++中一个重要的特性，它允许在构造函数中初始化类的成员变量。这个特性不仅可以提高代码的清晰度和执行效率，还是某些情况下初始化成员变量的唯一方法。</p>
-<p>在C++中，构造函数可以包含一个初始化列表，用于在进入构造函数体之前初始化成员变量。初始化列表以冒号（<em>:</em>）开头，后面跟着用逗号（<em>,</em>）分隔的初始化表达式。例如：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Example</span> &#123;<br>    <span class="hljs-keyword">public</span>:<br>    	<span class="hljs-comment">// 含有两个参数的构造函数</span><br>    	<span class="hljs-built_in">Example</span>(<span class="hljs-type">int</span> x, <span class="hljs-type">int</span> y) : <span class="hljs-built_in">x_</span>(x), <span class="hljs-built_in">y_</span>(y) &#123;&#125;  <span class="hljs-comment">// 用接收到的 int 类型的变量 x 的值来初始化 x_ 。</span><br>    <span class="hljs-keyword">private</span>:<br>    	<span class="hljs-type">int</span> x_;<br>    	<span class="hljs-type">int</span> y_;<br>&#125;;<br></code></pre></td></tr></table></figure>
-<p>在这个例子中，*x_<em>和</em>y_*是通过成员初始化列表进行初始化的，而不是在构造函数体内赋值。</p>
-<p>有几种情况下必须使用成员初始化列表：</p>
-<ol>
-<li><strong>const成员变量</strong>：const成员变量必须在声明时初始化，不能在构造函数体内赋值。</li>
-<li><strong>引用成员变量</strong>：引用成员同样需要在声明时初始化。</li>
-<li><strong>没有默认构造函数的类类型成员</strong>：如果类成员本身是一个对象，并且这个对象没有无参的构造函数，那么必须通过成员初始化列表来调用其有参构造函数。</li>
-<li><strong>继承中的基类成员</strong>：如果需要在子类中初始化基类的私有成员，也需要在成员初始化列表中显式调用基类的构造函数。</li>
-</ol>
-<p>使用成员初始化列表初始化类成员比在构造函数体内赋值有几个优势：</p>
-<ul>
-<li><strong>性能</strong>：对于类类型的成员变量，使用成员初始化列表可以避免调用默认构造函数后再赋值，减少了一次不必要的构造和析构过程，提高了效率。</li>
-<li><strong>顺序</strong>：成员变量的初始化顺序与它们在类定义中的声明顺序一致，与初始化列表中的顺序无关。这有助于避免一些因初始化顺序不当导致的错误。</li>
-</ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">A</span> &#123;<br>    <span class="hljs-keyword">private</span>:<br>    	<span class="hljs-type">const</span> <span class="hljs-type">int</span> a; <span class="hljs-comment">// const成员</span><br>    <span class="hljs-keyword">public</span>:<br>    	<span class="hljs-built_in">A</span>() : <span class="hljs-built_in">a</span>(<span class="hljs-number">10</span>) &#123;&#125; <span class="hljs-comment">// 使用成员初始化列表进行初始化</span><br>&#125;;<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">B</span> &#123;<br>    <span class="hljs-keyword">private</span>:<br>    	<span class="hljs-type">int</span> &amp;b; <span class="hljs-comment">// 引用成员</span><br>    <span class="hljs-keyword">public</span>:<br>    	<span class="hljs-built_in">B</span>(<span class="hljs-type">int</span> &amp;b_ref) : <span class="hljs-built_in">b</span>(b_ref) &#123;&#125; <span class="hljs-comment">// 使用成员初始化列表进行初始化</span><br>&#125;;<br></code></pre></td></tr></table></figure>
-<p>在这个示例中，类<em>A</em>的成员<em>a</em>是一个const成员，类<em>B</em>的成员<em>b</em>是一个引用成员。它们都通过成员初始化列表进行了初始化。</p>
-<h3 id="其它-2">其它</h3>
-<ol>
-<li>
-<p>在C++中，如果一个类没有明确指定访问修饰符（<code>public</code>、<code>protected</code>或<code>private</code>），那么默认的访问级别是<code>private</code>。这意味着，如果你没有在类定义中看到任何访问修饰符，那么该类的所有成员都是私有的。</p>
-</li>
-<li>
-<p>初始赋值：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">FeatureTracker</span><br>&#123;<br>  <span class="hljs-keyword">private</span>:<br>    <span class="hljs-type">int</span> trackIDCounter_ = <span class="hljs-number">1</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
-<p><code>trackIDCounter_ = 1;</code>是对成员变量<code>trackIDCounter_</code>的初始赋值。这意味着，当创建这个类的对象时，<code>trackIDCounter_</code>的初始值将被设置为1。</p>
-<p>在类的成员函数中，你可以更改这个成员变量的值。例如，你可以在一个成员函数中增加<code>trackIDCounter_</code>的值：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">FeatureTracker::incrementTrackID</span><span class="hljs-params">()</span> </span>&#123;<br>    trackIDCounter_++;<br>&#125;<br></code></pre></td></tr></table></figure>
-<p>在这个例子中，<code>incrementTrackID</code>函数将<code>trackIDCounter_</code>的值增加1。你可以在类的任何成员函数中更改<code>trackIDCounter_</code>的值，只要这个函数有权限访问这个成员变量（即，这个函数不是<code>const</code>的）。</p>
-</li>
-<li>
-<p>等等。</p>
-</li>
-</ol>
-<h2 id="结构体">结构体</h2>
-<h3 id="概述">概述</h3>
-<blockquote>
-<p>定义一个结构体类型就类似于定义了一个变量类型，结构体的用法类似于变量，只不过一个结构体里可以包含多个变量类型。</p>
-</blockquote>
-<p>结构体（<code>struct</code>）在C++中是一种复合数据类型，它可以包含多个不同类型的数据成员。你可以将结构体看作是一个“自定义的数据类型”，这个数据类型可以包含多个其他的数据类型。</p>
-<p>例如，你可以定义一个<code>BoundingBox</code>结构体来表示一个目标检测框，这个结构体包含了<code>x</code>、<code>y</code>、<code>w</code>、<code>h</code>四个整型数据成员。然后，你就可以像使用其他数据类型一样使用这个<code>BoundingBox</code>结构体，例如创建<code>BoundingBox</code>类型的变量，将<code>BoundingBox</code>类型的变量作为函数的参数，等等。</p>
-<p>将一组相关的变量定义为结构体（<code>struct</code>）有以下几个好处：</p>
-<ol>
-<li>
-<p><strong>组织性</strong>：结构体可以将一组相关的数据组织在一起，使代码更加清晰和易于理解。</p>
-</li>
-<li>
-<p><strong>代码复用</strong>：你可以多次使用同一个结构体，这有助于减少代码重复。</p>
-<p>如果你需要在其他地方使用相同的一组变量，你可能需要再次声明和初始化这些变量，这就是代码重复。但是，如果你将这些变量定义为一个结构体，你就可以在需要的地方创建这个结构体的实例，而不需要重复声明和初始化这些变量。这就是代码复用。以下是一个例子：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">struct</span> <span class="hljs-title class_">BoundingBox</span> &#123;<br>    <span class="hljs-type">int</span> x;<br>    <span class="hljs-type">int</span> y;<br>    <span class="hljs-type">int</span> w;<br>    <span class="hljs-type">int</span> h;<br>&#125;;<br><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">processBoundingBox</span><span class="hljs-params">(BoundingBox box)</span> </span>&#123;<br>    <span class="hljs-comment">// 在这个函数中处理目标检测框</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    BoundingBox box1 = &#123;<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>&#125;;<br>    <span class="hljs-built_in">processBoundingBox</span>(box1);<br><br>    BoundingBox box2 = &#123;<span class="hljs-number">5</span>, <span class="hljs-number">6</span>, <span class="hljs-number">7</span>, <span class="hljs-number">8</span>&#125;;<br>    <span class="hljs-built_in">processBoundingBox</span>(box2);<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
-<p>在这个例子中，我们定义了一个<code>BoundingBox</code>结构体，并在<code>processBoundingBox</code>函数中使用它。在<code>main</code>函数中，我们创建了两个<code>BoundingBox</code>的实例<code>box1</code>和<code>box2</code>，并将它们传递给<code>processBoundingBox</code>函数进行处理。这样，我们就复用了<code>BoundingBox</code>结构体的定义，而不需要在每个需要使用目标检测框的地方都声明和初始化<code>x</code>、<code>y</code>、<code>w</code>、<code>h</code>这四个变量。</p>
-</li>
-<li>
-<p><strong>易于维护</strong>：如果你需要修改这组数据，只需要在一个地方（即结构体定义）进行修改，而不是在代码的多个地方。</p>
-<p>当你需要修改或更新代码时，结构体可以使这个过程更加简单和直接。举个例子，假设你有一个关于目标检测框的结构体：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">struct</span> <span class="hljs-title class_">BoundingBox</span> &#123;<br>    <span class="hljs-type">int</span> x;<br>    <span class="hljs-type">int</span> y;<br>    <span class="hljs-type">int</span> w;<br>    <span class="hljs-type">int</span> h;<br>&#125;;<br></code></pre></td></tr></table></figure>
-<p>现在，你想要添加一个新的属性，比如目标检测框的颜色。如果你没有使用结构体，你可能需要在代码的多个地方添加新的变量，并且需要确保这些变量在所有的函数和方法中都被正确地更新和使用。</p>
-<p>但是，如果你使用了结构体，你只需要在结构体的定义中添加新的属性：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">struct</span> <span class="hljs-title class_">BoundingBox</span> &#123;<br>    <span class="hljs-type">int</span> x;<br>    <span class="hljs-type">int</span> y;<br>    <span class="hljs-type">int</span> w;<br>    <span class="hljs-type">int</span> h;<br>    std::string color;<br>&#125;;<br></code></pre></td></tr></table></figure>
-<p>这样，所有使用<code>BoundingBox</code>的地方都会自动获得新的<code>color</code>属性，你只需要在适当的地方更新和使用这个新的属性即可。这就是结构体使代码&quot;易于维护&quot;的一个例子。</p>
-</li>
-<li>
-<p><strong>封装</strong>：结构体可以封装数据和操作，使得数据和操作紧密相关，提高代码的可读性和可维护性。</p>
-</li>
-</ol>
-<h3 id="使用-2">使用</h3>
-<h4 id="定义">定义</h4>
-<p>在C++中，<code>struct</code>可以包含各种类型的成员，包括基本类型（如<code>int</code>、<code>double</code>等）、类对象、数组、<code>vector</code>等。以下是一个例子：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;vector&gt;</span></span><br><br><span class="hljs-keyword">struct</span> <span class="hljs-title class_">MyStruct</span> &#123;<br>    <span class="hljs-type">int</span> id;<br>    std::vector&lt;<span class="hljs-type">int</span>&gt; values;<br>&#125;;<br></code></pre></td></tr></table></figure>
-<p>在这个例子中，<code>MyStruct</code>包含一个<code>int</code>类型的成员<code>id</code>和一个<code>vector&lt;int&gt;</code>类型的成员<code>values</code>。</p>
-<p>你可以定义一个结构体来表示单个目标检测框，然后使用<code>vector</code>来存储多个这样的目标检测框。这样做的好处是，你可以很容易地添加、删除和遍历目标检测框，而且代码的可读性和可维护性也会提高。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">struct</span> <span class="hljs-title class_">BoundingBox</span> &#123;<br>    <span class="hljs-type">int</span> class_id;<br>    <span class="hljs-type">float</span> class_confidence;<br>    <span class="hljs-type">int</span> x;<br>    <span class="hljs-type">int</span> y;<br>    <span class="hljs-type">int</span> w;<br>    <span class="hljs-type">int</span> h;<br>&#125;;<br><br>vector&lt;BoundingBox&gt; boxes_left;<br>vector&lt;BoundingBox&gt; boxes_right;<br></code></pre></td></tr></table></figure>
-<p>在这个例子中，<code>BoundingBox</code>是一个结构体，它表示一个目标检测框。<code>boxes_left</code>和<code>boxes_right</code>是两个<code>vector</code>，它们分别存储左目和右目的目标检测框。</p>
-<p>当你需要添加一个新的目标检测框时，你可以创建一个<code>BoundingBox</code>的实例，设置它的属性，然后将它添加到<code>boxes_left</code>或<code>boxes_right</code>中。当你需要遍历所有的目标检测框时，你可以遍历<code>boxes_left</code>或<code>boxes_right</code>，并对每个<code>BoundingBox</code>实例进行操作。</p>
-<h4 id="赋值与引用">赋值与引用</h4>
-<p>在C++中，你可以通过<code>.</code>操作符来引用<code>struct</code>中的成员。如果你的<code>struct</code>中有一个<code>vector</code>成员，你可以像下面这样引用它：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;vector&gt;</span></span><br><br><span class="hljs-keyword">struct</span> <span class="hljs-title class_">MyStruct</span> &#123;<br>    <span class="hljs-type">int</span> id;<br>    std::vector&lt;<span class="hljs-type">int</span>&gt; values;<br>&#125;;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    MyStruct s;<br>    s.values.<span class="hljs-built_in">push_back</span>(<span class="hljs-number">1</span>);  <span class="hljs-comment">// 向vector中添加一个元素</span><br>    <span class="hljs-type">int</span> firstValue = s.values[<span class="hljs-number">0</span>];  <span class="hljs-comment">// 访问vector中的第一个元素</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
-<p>在这个例子中，<code>MyStruct</code>是一个结构体，它有一个<code>vector&lt;int&gt;</code>类型的成员<code>values</code>。在<code>main</code>函数中，我们创建了一个<code>MyStruct</code>类型的变量<code>s</code>，然后通过<code>.</code>操作符来访问和操作它的<code>values</code>成员。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">struct</span> <span class="hljs-title class_">BoundingBox</span> &#123;<br>    <span class="hljs-type">int</span> class_id;<br>    <span class="hljs-type">float</span> class_confidence;<br>    <span class="hljs-type">int</span> x;<br>    <span class="hljs-type">int</span> y;<br>    <span class="hljs-type">int</span> w;<br>    <span class="hljs-type">int</span> h;<br>&#125;;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    vector&lt;BoundingBox&gt; boxes_left;<br>	<br>    <span class="hljs-comment">// 赋值</span><br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; detection_left.detections.<span class="hljs-built_in">size</span>(); i++) &#123;<br>        BoundingBox box;<br>        box.x = detection_left.detections[i].x * scale;<br>        box.y = detection_left.detections[i].y * scale;<br>        box.w = detection_left.detections[i].w * scale;<br>        box.h = detection_left.detections[i].h * scale;<br>        box.class_id = detection_left.detections[i].class_id;<br>        box.class_confidence = detection_left.detections[i].class_confidence;<br><br>        boxes_left.<span class="hljs-built_in">push_back</span>(box);<br>    &#125;<br>    <br>    <span class="hljs-comment">// 索引</span><br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; boxes_left.<span class="hljs-built_in">size</span>(); i++) &#123;<br>        <span class="hljs-type">int</span> x = boxes_left[i].x;<br>        <span class="hljs-type">int</span> y = boxes_left[i].y;<br>        <span class="hljs-type">int</span> w = boxes_left[i].w;<br>        <span class="hljs-type">int</span> h = boxes_left[i].h;<br>        <span class="hljs-type">int</span> class_id = boxes_left[i].class_id;<br>        <span class="hljs-type">float</span> class_confidence = boxes_left[i].class_confidence;<br><br>    <span class="hljs-comment">// 在这里处理x, y, w, h, class_id, class_confidence</span><br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-<p>在这个例子中，我们首先创建了一个<code>BoundingBox</code>的实例<code>box</code>，然后设置了<code>box</code>的属性，最后将<code>box</code>添加到<code>boxes_left</code>中。这个过程在循环中重复，直到处理完所有的目标检测框。</p>
-<p>我们使用了<code>boxes_left[i]</code>来访问<code>boxes_left</code>中的第<code>i</code>个元素，然后使用<code>.</code>操作符来访问这个元素的数据成员。这个过程在循环中重复，直到处理完<code>boxes_left</code>中的所有元素。</p>
-<p>在C++中，你可以使用<code>vector</code>的<code>clear</code>方法来清空<code>vector</code>中的所有元素。以下是一个例子：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c++">boxes_left.<span class="hljs-built_in">clear</span>();<br></code></pre></td></tr></table></figure>
-<p>在这个例子中，<code>boxes_left.clear()</code>将清空<code>boxes_left</code>中的所有元素。这个操作将使<code>boxes_left</code>的大小变为0，但不会改变它的容量。如果你希望同时清空<code>vector</code>的元素和容量，你可以使用<code>swap</code>方法：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-built_in">vector</span>&lt;BoundingBox&gt;().<span class="hljs-built_in">swap</span>(boxes_left);<br></code></pre></td></tr></table></figure>
-<p>在这个例子中，<code>vector&lt;BoundingBox&gt;().swap(boxes_left)</code>将创建一个新的空<code>vector</code>，然后与<code>boxes_left</code>交换。这个操作将使<code>boxes_left</code>的大小和容量都变为0。</p>
-<h4 id="清空-初始化">清空/初始化</h4>
-<p>在C++中，你可以使用构造函数或者赋值运算符来初始化或清空一个结构体的值。以下是一个例子：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">struct</span> <span class="hljs-title class_">BoundingBox</span> &#123;<br>    <span class="hljs-type">int</span> x;<br>    <span class="hljs-type">int</span> y;<br>    <span class="hljs-type">int</span> w;<br>    <span class="hljs-type">int</span> h;<br><br>    <span class="hljs-comment">// 构造函数，用于初始化结构体的值</span><br>    <span class="hljs-built_in">BoundingBox</span>() : <span class="hljs-built_in">x</span>(<span class="hljs-number">0</span>), <span class="hljs-built_in">y</span>(<span class="hljs-number">0</span>), <span class="hljs-built_in">w</span>(<span class="hljs-number">0</span>), <span class="hljs-built_in">h</span>(<span class="hljs-number">0</span>) &#123;&#125;<br><br>    <span class="hljs-comment">// 一个方法，用于清空结构体的值</span><br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">clear</span><span class="hljs-params">()</span> </span>&#123;<br>        x = <span class="hljs-number">0</span>;<br>        y = <span class="hljs-number">0</span>;<br>        w = <span class="hljs-number">0</span>;<br>        h = <span class="hljs-number">0</span>;<br>    &#125;<br>&#125;;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    BoundingBox box;<br><br>    <span class="hljs-comment">// 使用构造函数初始化结构体的值</span><br>    box = <span class="hljs-built_in">BoundingBox</span>();<br><br>    <span class="hljs-comment">// 使用方法清空结构体的值</span><br>    box.<span class="hljs-built_in">clear</span>();<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
-<p>在这个例子中，<code>BoundingBox</code>结构体有一个构造函数，它将所有的数据成员初始化为0。<code>clear</code>方法将所有的数据成员设置为0。在<code>main</code>函数中，我们创建了一个<code>BoundingBox</code>类型的变量<code>box</code>，然后使用构造函数和<code>clear</code>方法来初始化和清空<code>box</code>的值。</p>
-<h4 id="作为函数的参数">作为函数的参数</h4>
-<p>在C++中，你可以将结构体作为函数的输入参数或输出参数。以下是一个例子：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><br><span class="hljs-comment">// 定义一个结构体</span><br><span class="hljs-keyword">struct</span> <span class="hljs-title class_">Point</span> &#123;<br>    <span class="hljs-type">int</span> x;<br>    <span class="hljs-type">int</span> y;<br>&#125;;<br><br><span class="hljs-comment">// 将结构体作为输入参数的函数</span><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">printPoint</span><span class="hljs-params">(Point p)</span> </span>&#123;<br>    std::cout &lt;&lt; <span class="hljs-string">&quot;Point: (&quot;</span> &lt;&lt; p.x &lt;&lt; <span class="hljs-string">&quot;, &quot;</span> &lt;&lt; p.y &lt;&lt; <span class="hljs-string">&quot;)&quot;</span> &lt;&lt; std::endl;<br>&#125;<br><br><span class="hljs-comment">// 将结构体作为输出参数的函数</span><br><span class="hljs-function">Point <span class="hljs-title">getPoint</span><span class="hljs-params">()</span> </span>&#123;<br>    Point p;<br>    p.x = <span class="hljs-number">10</span>;<br>    p.y = <span class="hljs-number">20</span>;<br>    <span class="hljs-keyword">return</span> p;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    Point p1 = &#123;<span class="hljs-number">1</span>, <span class="hljs-number">2</span>&#125;;<br>    <span class="hljs-built_in">printPoint</span>(p1);  <span class="hljs-comment">// 输出: Point: (1, 2)</span><br><br>    Point p2 = <span class="hljs-built_in">getPoint</span>();<br>    <span class="hljs-built_in">printPoint</span>(p2);  <span class="hljs-comment">// 输出: Point: (10, 20)</span><br><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
-<p>在这个例子中，<code>printPoint</code>函数接收一个<code>Point</code>类型的参数，<code>getPoint</code>函数返回一个<code>Point</code>类型的值。在<code>main</code>函数中，我们创建了两个<code>Point</code>类型的变量<code>p1</code>和<code>p2</code>，并使用<code>printPoint</code>函数打印它们的值。</p>
-<h2 id="vector">vector</h2>
-<h3 id="添加元素">添加元素</h3>
-<p>如果<code>vector</code>变量的大小没有预先定义，你需要先调用<code>resize</code>函数来设置它们的大小，然后再使用索引来赋值。或者，你可以使用<code>push_back</code>或<code>emplace_back</code>来添加元素。</p>
-<p>以下是使用resize和索引赋值的示例：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs c++">nextPts.<span class="hljs-built_in">resize</span>(prevPts.<span class="hljs-built_in">size</span>());<br>status.<span class="hljs-built_in">resize</span>(prevPts.<span class="hljs-built_in">size</span>());<br><br><span class="hljs-keyword">for</span> (<span class="hljs-type">size_t</span> i = <span class="hljs-number">0</span>; i &lt; prevPts.<span class="hljs-built_in">size</span>(); ++i) &#123;<br>    <span class="hljs-comment">// ...</span><br>    nextPts[i] = prevPts[i] + flow_at_point;<br>    <span class="hljs-comment">// ...</span><br>    status[i] = <span class="hljs-number">0</span>;<br>    <span class="hljs-comment">// ...</span><br>&#125;<br></code></pre></td></tr></table></figure>
-<p>以下是使用<code>push_back</code>添加元素的示例：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">for</span> (<span class="hljs-type">size_t</span> i = <span class="hljs-number">0</span>; i &lt; prevPts.<span class="hljs-built_in">size</span>(); ++i) &#123;<br>    <span class="hljs-comment">// ...</span><br>    nextPts.<span class="hljs-built_in">push_back</span>(prevPts[i] + flow_at_point);<br>    <span class="hljs-comment">// ...</span><br>    status.<span class="hljs-built_in">push_back</span>(<span class="hljs-number">0</span>);<br>    <span class="hljs-comment">// ...</span><br>&#125;<br></code></pre></td></tr></table></figure>
-<p>如果你知道<code>vector</code>的最终大小，那么使用<code>resize</code>函数来预先设置大小，然后使用索引来赋值，通常会更快。这是因为<code>resize</code>函数会一次性分配足够的内存，而不需要在每次添加元素时重新分配和复制内存。此外，使用索引来赋值可以直接访问和修改<code>vector</code>中的元素，而不需要调用<code>push_back</code>或<code>emplace_back</code>函数。</p>
-<p>如果你不知道<code>vector</code>的最终大小，或者<code>vector</code>的大小可能会动态变化，那么使用<code>push_back</code>或<code>emplace_back</code>来添加元素可能会更方便。这是因为<code>push_back</code>和<code>emplace_back</code>函数可以在不知道<code>vector</code>最终大小的情况下动态添加元素。但是，你需要注意的是，如果<code>vector</code>的大小增长很快，<code>push_back</code>和<code>emplace_back</code>函数可能需要多次重新分配和复制内存，这可能会影响性能。</p>
-<p>总的来说，如果你知道<code>vector</code>的最终大小，推荐使用<code>resize</code>和索引赋值。如果你不知道<code>vector</code>的最终大小，或者<code>vector</code>的大小可能会动态变化，推荐使用<code>push_back</code>或<code>emplace_back</code>。</p>
-<h3 id="clear与容量">clear与容量</h3>
-<h4 id="clear">clear</h4>
-<p>在C++中，你可以使用<code>vector</code>的<code>clear</code>方法来清空<code>vector</code>中的所有元素。以下是一个例子：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c++">curBoxesLeft_.<span class="hljs-built_in">clear</span>();<br></code></pre></td></tr></table></figure>
-<p>在这个例子中，<code>curBoxesLeft_.clear()</code>将清空<code>curBoxesLeft_</code>中的所有元素。这个操作将使<code>curBoxesLeft_</code>的大小变为0，<strong>但不会改变它的容量</strong>。如果你希望同时清空<code>vector</code>的元素和容量，你可以使用<code>swap</code>方法：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-built_in">vector</span>&lt;BoundingBox&gt;().<span class="hljs-built_in">swap</span>(curBoxesLeft_);<br></code></pre></td></tr></table></figure>
-<p>在这个例子中，<code>vector&lt;BoundingBox&gt;().swap(curBoxesLeft_)</code>将创建一个新的空<code>vector</code>，然后与<code>curBoxesLeft_</code>交换。这个操作将使<code>curBoxesLeft_</code>的大小和容量都变为0。</p>
-<p>然后，你可以使用<code>push_back</code>或<code>emplace_back</code>方法向<code>curBoxesLeft_</code>添加新的目标检测框。例如：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c++">BoundingBox newBox;<br><span class="hljs-comment">// ... 设置newBox的属性...</span><br>curBoxesLeft_.<span class="hljs-built_in">push_back</span>(newBox);<br></code></pre></td></tr></table></figure>
-<p>在这个例子中，我们首先创建了一个新的<code>BoundingBox</code>对象<code>newBox</code>，然后将其添加到<code>curBoxesLeft_</code>中。</p>
-<blockquote>
-<p>在C++中，<code>vector</code>的<code>clear</code>方法会移除<code>vector</code>中的所有元素，但不会释放内存。如果<code>vector</code>是空的（即，没有赋过值），那么<code>clear</code>操作实际上什么也不会做，但这并不会导致问题。</p>
-<p>以下是一个例子：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c++">std::vector&lt;<span class="hljs-type">int</span>&gt; v;<br>v.<span class="hljs-built_in">clear</span>();  <span class="hljs-comment">// 这是安全的，即使v是空的</span><br></code></pre></td></tr></table></figure>
-<p>在这个例子中，我们创建了一个空的<code>vector</code>，然后对其执行了<code>clear</code>操作。这不会导致错误或异常。</p>
-</blockquote>
-<h4 id="容量">容量</h4>
-<p>在C++中，<code>vector</code>的容量（capacity）是指<code>vector</code>在不重新分配内存的情况下可以存储的元素的最大数量。这个值通常大于或等于<code>vector</code>的大小（size），<code>vector</code>的大小是指它当前实际包含的元素的数量。</p>
-<p>当你向<code>vector</code>添加元素时，如果<code>vector</code>的大小超过了它的容量，那么<code>vector</code>会重新分配内存，以便能够存储更多的元素。这个过程可能会消耗一些时间，因此，如果你知道<code>vector</code>将需要存储大量的元素，你可以使用<code>reserve</code>方法来预先分配足够的内存，这样可以提高代码的性能。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs c++">vector&lt;<span class="hljs-type">int</span>&gt; v;<br><br>cout &lt;&lt; <span class="hljs-string">&quot;Size: &quot;</span> &lt;&lt; v.<span class="hljs-built_in">size</span>() &lt;&lt; endl;  <span class="hljs-comment">// 输出：Size: 0</span><br>cout &lt;&lt; <span class="hljs-string">&quot;Capacity: &quot;</span> &lt;&lt; v.<span class="hljs-built_in">capacity</span>() &lt;&lt; endl;  <span class="hljs-comment">// 输出：Capacity: 0</span><br><br>v.<span class="hljs-built_in">push_back</span>(<span class="hljs-number">1</span>);<br><br>cout &lt;&lt; <span class="hljs-string">&quot;Size: &quot;</span> &lt;&lt; v.<span class="hljs-built_in">size</span>() &lt;&lt; endl;  <span class="hljs-comment">// 输出：Size: 1</span><br>cout &lt;&lt; <span class="hljs-string">&quot;Capacity: &quot;</span> &lt;&lt; v.<span class="hljs-built_in">capacity</span>() &lt;&lt; endl;  <span class="hljs-comment">// 输出：Capacity: 1 或更大的数</span><br><br>v.<span class="hljs-built_in">reserve</span>(<span class="hljs-number">100</span>);<br><br>cout &lt;&lt; <span class="hljs-string">&quot;Size: &quot;</span> &lt;&lt; v.<span class="hljs-built_in">size</span>() &lt;&lt; endl;  <span class="hljs-comment">// 输出：Size: 1</span><br>cout &lt;&lt; <span class="hljs-string">&quot;Capacity: &quot;</span> &lt;&lt; v.<span class="hljs-built_in">capacity</span>() &lt;&lt; endl;  <span class="hljs-comment">// 输出：Capacity: 100</span><br></code></pre></td></tr></table></figure>
-<p>在这个例子中，我们首先创建了一个空的<code>vector</code>，然后添加了一个元素，然后预先分配了足够的内存来存储100个元素。你可以看到，<code>vector</code>的大小和容量在这个过程中是如何变化的。</p>
-<h3 id="其它-3">其它</h3>
-<ol>
-<li><code>std::vector</code>的赋值操作符（<code>=</code>）执行的是内容的复制，而不是地址的复制。</li>
-</ol>
-<h2 id="mutex">mutex</h2>
-<p>互斥量（mutex），它是一种同步原语，用于保护共享数据免受多个线程同时访问。在多线程环境中，如果多个线程试图<strong>同时访问和修改</strong>同一块数据，可能会导致数据不一致和未定义的行为。为了防止这种情况，我们可以使用互斥量来确保在任何时候只有一个线程能够访问该数据。</p>
-<blockquote>
-<p>比如在回调函数中被持续赋值，在其它函数中被修改。</p>
-</blockquote>
-<blockquote>
-<p>即使变量在其他函数中只被读取，也需要保护它，因为在多线程环境中，一个线程可能在另一个线程正在写入变量的同时读取该变量，这可能会导致读取到的数据是不一致或者无效的。这种情况被称为“读-写冲突”。</p>
-</blockquote>
-<p>一个或多个共享资源（例如，一个全局变量或一个在多个线程之间共享的数据结构），当一个线程想要访问这个共享资源时，它需要首先锁定（lock）互斥量。如果互斥量已经被另一个线程锁定，那么这个线程将会被阻塞，直到互斥量被解锁（unlock）。当线程完成对共享资源的访问后，它需要解锁互斥量，以便其他线程可以锁定互斥量并访问共享资源。</p>
-<h3 id="lock">lock</h3>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c++">std::mutex m_buf_event;<br>m_buf_event.<span class="hljs-built_in">lock</span>();<br><span class="hljs-comment">// ... do some work ...</span><br>m_buf_event.<span class="hljs-built_in">unlock</span>();<br></code></pre></td></tr></table></figure>
-<blockquote>
-<p>你需要手动调用<code>lock()</code>和<code>unlock()</code>来锁定和解锁互斥量。这种方式的问题是，如果在<code>lock()</code>和<code>unlock()</code>之间的代码抛出了异常，那么<code>unlock()</code>可能永远不会被调用，从而导致死锁。</p>
-</blockquote>
-<p>示例：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs c++">std::mutex m_buf_event;<br><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">eventLeft_callback</span><span class="hljs-params">(<span class="hljs-type">const</span> dvs_msgs::EventArray &amp;event_msg)</span></span>&#123;<br>    m_buf_event.<span class="hljs-built_in">lock</span>();<br>    <span class="hljs-keyword">if</span> (!events_left_buf.<span class="hljs-built_in">empty</span>())<br>      events_left_buf.<span class="hljs-built_in">pop</span>();<br>    events_left_buf.<span class="hljs-built_in">push</span>(event_msg);<br>    m_buf_event.<span class="hljs-built_in">unlock</span>();<br>&#125;<br></code></pre></td></tr></table></figure>
-<h3 id="lock-guard">lock_guard</h3>
-<p>在C++中，<code>std::lock_guard</code>对象的作用域是由其所在的代码块（即最近的大括号<code>&#123;&#125;</code>内的区域）决定的。当<code>std::lock_guard</code>对象在代码块内创建时，它会自动锁定传递给它的互斥量。当<code>std::lock_guard</code>对象超出其作用域（即离开其所在的代码块）时，它的析构函数会被调用，从而自动解锁互斥量。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c++">std::mutex m_buf_event;<br>&#123;<br>  <span class="hljs-function">std::lock_guard&lt;mutex&gt; <span class="hljs-title">lock</span><span class="hljs-params">(m_buf_event)</span></span>;<br>  <span class="hljs-comment">// ... do some work ...</span><br>&#125; <span class="hljs-comment">// mutex is automatically unlocked here</span><br></code></pre></td></tr></table></figure>
-<blockquote>
-<p>使用了<code>std::lock_guard</code>，这是一个RAII（Resource Acquisition Is Initialization）机制的互斥包装器，它在构造时提供一个已锁定的互斥，并在析构时解锁互斥。这意味着当<code>std::lock_guard</code>对象超出其作用域并被销毁时，互斥量会自动被解锁，即使在<code>lock_guard</code>的作用域内的代码抛出了异常。这样可以避免死锁，并使代码更安全、更易于理解。</p>
-</blockquote>
-<p>示例：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs c++">mutex evt_buf_mutex;<br>mutex events_storage_mutex;<br><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">callback_events</span><span class="hljs-params">(<span class="hljs-type">const</span> dvs_msgs::EventArray::ConstPtr &amp;msg)</span> </span>&#123;<br>  <span class="hljs-comment">// We first lock the event buffers, to avoid any collision</span><br>  &#123;<br>    <span class="hljs-function">lock_guard&lt;mutex&gt; <span class="hljs-title">lock</span><span class="hljs-params">(evt_buf_mutex)</span></span>;<br><br>    <span class="hljs-comment">// We then append the received events at the back of the current buffer</span><br>    evt_buffers[buffer_used].<span class="hljs-built_in">insert</span>(evt_buffers[buffer_used].<span class="hljs-built_in">end</span>(),<br>                                    <span class="hljs-built_in">begin</span>(msg-&gt;events), <span class="hljs-built_in">end</span>(msg-&gt;events));<br>  &#125;<br>  <br>  <span class="hljs-comment">// Add new events to events_storage</span><br>  &#123;<br>    <span class="hljs-function">lock_guard&lt;mutex&gt; <span class="hljs-title">storage_lock</span><span class="hljs-params">(events_storage_mutex)</span></span>;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">const</span> dvs_msgs::Event &amp;event : msg-&gt;events) &#123;<br>      events_storage.<span class="hljs-built_in">push_back</span>(event);<br>      <span class="hljs-comment">// If the size of events_storage exceeds accumulation_number, we remove</span><br>      <span class="hljs-comment">// the oldest event</span><br>      <span class="hljs-keyword">if</span> (events_storage.<span class="hljs-built_in">size</span>() &gt; accumulation_number) &#123;<br>        events_storage.<span class="hljs-built_in">pop_front</span>();<br>      &#125;<br>    &#125;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-<h2 id="Eigen">Eigen</h2>
-<h3 id="Matrix类与Array类">Matrix类与Array类</h3>
-<p>相对于Matrix类提供的线性代数（矩阵）运算，Array类提供了更为一般的数组功能。Array类为元素级的操作提供了有效途径，比如点加（每个元素加值）或两个数据相应元素的点乘。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c++">Eigen::Matrix&lt;<span class="hljs-type">float</span>, N, N&gt; FFT;<br>(FFT.<span class="hljs-built_in">array</span>().<span class="hljs-built_in">arg</span>()).<span class="hljs-built_in">matrix</span>();  <span class="hljs-comment">// 将FFT矩阵转换为数组，然后调用arg()函数计算每个元素的相位（即复数的角度），最后再将结果转换回矩阵。</span><br></code></pre></td></tr></table></figure>
-<h2 id="OpenCV">OpenCV</h2>
-<blockquote>
-<p>在 OpenCV 中，<code>cv::Mat::at</code>函数的参数顺序是<code>(row, column)</code>，对应于<code>(y, x)</code>，而不是通常的<code>(x, y)</code>。这是因为在图像处理中，我们通常将图像视为一个二维数组，其中第一个维度是行（对应于y坐标），第二个维度是列（对应于x坐标）。</p>
-</blockquote>
-<h3 id="OpenCV的数据类型">OpenCV的数据类型</h3>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/ai_faker/article/details/118183702">参考链接</a></p>
-<p>S = 有符号整型 U = 无符号整型 F = 浮点型</p>
-<p>CV_8U - 8位无符号整数（0…255）</p>
-<p>CV_8S - 8位有符号整数（-128…127）</p>
-<p>CV_16U - 16位无符号整数（0…65535）</p>
-<p>CV_16S - 16位有符号整数（-32768…32767）</p>
-<p>CV_32S - 32位有符号整数（-2147483648…2147483647）</p>
-<p>CV_32F - 32位浮点数（-FLT_MAX…FLT_MAX，INF，NAN）</p>
-<p>CV_64F - 64位浮点数（-DBL_MAX…DBL_MAX，INF，NAN）</p>
-<p>而后面的C1、C2、C3是什么意思呢？这里的1、2、3代表的是通道数，比如RGB就是3通道，颜色表示最大为255，所以可以用CV_8UC3这个数据类型来表示；灰度图就是C1，只有一个通道；而带alph通道的PNG图像就是C4，是4通道图片。</p>
-<h3 id="负值处理">负值处理</h3>
-<p><code>cv::Mat</code>矩阵可以存储负值并进行运算，但这取决于你选择的数据类型。OpenCV中的<code>cv::Mat</code>可以存储多种类型的数据，包括有符号整数和浮点数。</p>
-<p>例如，如果你选择<code>CV_32F</code>（32位浮点数）或<code>CV_64F</code>（64位浮点数）作为你的数据类型，那么你的<code>cv::Mat</code>矩阵就可以存储负值，并且可以进行各种运算，如加法、减法、乘法等。</p>
-<p>以下是一个简单的例子：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function">cv::Mat <span class="hljs-title">mat</span><span class="hljs-params">(<span class="hljs-number">3</span>, <span class="hljs-number">3</span>, CV_32F, cv::Scalar(<span class="hljs-number">-1</span>))</span></span>; <span class="hljs-comment">// Creates a 3x3 matrix filled with -1</span><br>mat.<span class="hljs-built_in">at</span>&lt;<span class="hljs-type">float</span>&gt;(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>) = <span class="hljs-number">-5</span>; <span class="hljs-comment">// Sets the value at the first row and first column to -5</span><br>std::cout &lt;&lt; mat &lt;&lt; std::endl; <span class="hljs-comment">// Prints the matrix</span><br></code></pre></td></tr></table></figure>
-<p>在这个例子中，我们创建了一个3x3的矩阵，所有元素的初始值都是-1，然后我们将第一行第一列的元素值设置为-5。</p>
-<p>当你使用OpenCV的<code>imshow</code>函数来可视化一个<code>cv::Mat</code>矩阵时，负值的处理方式取决于矩阵的数据类型。</p>
-<p>如果你的<code>cv::Mat</code>矩阵的数据类型是无符号整数（如<code>CV_8U</code>），那么它不能存储负值，任何负值都会被视为零。</p>
-<p>如果你的<code>cv::Mat</code>矩阵的数据类型是有符号整数（如<code>CV_8S</code>，<code>CV_16S</code>）或浮点数（如<code>CV_32F</code>，<code>CV_64F</code>），那么它可以存储负值。在可视化这样的矩阵时，你需要先将矩阵的值规范化到0-255的范围内。你可以使用OpenCV的<code>normalize</code>函数来实现这一点。</p>
-<p>以下是一个例子：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function">cv::Mat <span class="hljs-title">mat</span><span class="hljs-params">(<span class="hljs-number">3</span>, <span class="hljs-number">3</span>, CV_32F, cv::Scalar(<span class="hljs-number">-1</span>))</span></span>; <span class="hljs-comment">// Creates a 3x3 matrix filled with -1</span><br>cv::<span class="hljs-built_in">normalize</span>(mat, mat, <span class="hljs-number">0</span>, <span class="hljs-number">255</span>, cv::NORM_MINMAX, CV_8U); <span class="hljs-comment">// Normalize the values to 0-255</span><br>cv::<span class="hljs-built_in">imshow</span>(<span class="hljs-string">&quot;Normalized Image&quot;</span>, mat); <span class="hljs-comment">// Display the normalized image</span><br>cv::<span class="hljs-built_in">waitKey</span>(<span class="hljs-number">0</span>); <span class="hljs-comment">// Wait for a key press</span><br></code></pre></td></tr></table></figure>
-<p>在这个例子中，我们首先创建了一个3x3的矩阵，所有元素的初始值都是-1。然后我们使用<code>cv::normalize</code>函数将矩阵的值规范化到0-255的范围内，并将数据类型转换为<code>CV_8U</code>。最后，我们使用<code>cv::imshow</code>函数显示规范化后的图像。</p>
-<h3 id="访问cv-Mat对象中特定位置的像素值">访问<code>cv::Mat</code>对象中特定位置的像素值</h3>
-<p>在OpenCV中，有几种方法可以访问<code>cv::Mat</code>对象中特定位置的像素值。以下是一些常见的方法：</p>
-<ol>
-<li>
-<p>使用<code>at</code>函数：这是最直接的方法，你可以使用模板参数来指定像素的数据类型。例如，如果你的图像是一个8位单通道图像，你可以这样访问像素值：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-type">unsigned</span> <span class="hljs-type">char</span> pixel_value = cur_event_mat_left_fft.<span class="hljs-built_in">at</span>&lt;<span class="hljs-type">unsigned</span> <span class="hljs-type">char</span>&gt;(e_left.y, e_left.x);<br></code></pre></td></tr></table></figure>
-<blockquote>
-<p>在你的代码中，你使用了<code>cur_event_mat_left_fft.at&lt;char&gt;(i, j)</code>来访问像素值。这里的<code>char</code>是一个有符号的8位整数，范围是-128到127。如果一个像素的真实值是255（在<code>unsigned char</code>中表示为255），在<code>char</code>中它会被表示为-1。</p>
-<p>为了解决这个问题，你应该使用<code>unsigned char</code>来访问<code>cv::Mat</code>的数据。</p>
-</blockquote>
-</li>
-<li>
-<p>使用<code>ptr</code>函数：这个函数返回一个指向图像某一行的指针，然后你可以像操作普通数组一样操作这个指针。这个方法通常比<code>at</code>函数快，但是也更容易出错，因为你需要自己管理指针。例如：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-type">unsigned</span> <span class="hljs-type">char</span>* row_ptr = cur_event_mat_left_fft.<span class="hljs-built_in">ptr</span>&lt;<span class="hljs-type">unsigned</span> <span class="hljs-type">char</span>&gt;(e_left.y);<br><span class="hljs-type">unsigned</span> <span class="hljs-type">char</span> pixel_value = row_ptr[e_left.x];<br></code></pre></td></tr></table></figure>
-</li>
-<li>
-<p>使用迭代器：你也可以使用C++的迭代器来访问<code>cv::Mat</code>中的像素。这个方法比较安全，但是通常比<code>at</code>和<code>ptr</code>函数慢。例如：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c++">cv::Mat_&lt;<span class="hljs-type">unsigned</span> <span class="hljs-type">char</span>&gt;::iterator it = cur_event_mat_left_fft.<span class="hljs-built_in">begin</span>&lt;<span class="hljs-type">unsigned</span> <span class="hljs-type">char</span>&gt;() + e_left.y * cur_event_mat_left_fft.cols + e_left.x;<br><span class="hljs-type">unsigned</span> <span class="hljs-type">char</span> pixel_value = *it;<br></code></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>以上三种方法都可以用来访问和修改像素值。你可以根据你的需要选择最适合你的方法。</p>
-<h3 id="赋值">赋值</h3>
-<p>在OpenCV中，<code>cv::Mat</code>的赋值操作符（<code>=</code>）实际上是创建了一个新的头部，但是数据是共享的。这意味着，如果你有两个<code>cv::Mat</code>对象<code>A</code>和<code>B</code>，并且你执行了<code>A = B;</code>，那么<code>A</code>和<code>B</code>将共享相同的数据。如果你修改了<code>A</code>中的数据，<code>B</code>中的数据也会被修改。</p>
-<p>这是因为<code>cv::Mat</code>使用了引用计数机制来管理数据。当你创建一个新的<code>cv::Mat</code>对象并赋值给另一个<code>cv::Mat</code>对象时，它们都会指向同一个数据，而且这个数据的引用计数会增加。当一个<code>cv::Mat</code>对象被销毁时，它会减少数据的引用计数。只有当引用计数变为0时，数据才会被释放。</p>
-<p>如果你希望创建一个<code>cv::Mat</code>的真正副本，你可以使用<code>clone</code>或<code>copyTo</code>方法。例如，<code>cv::Mat B = A.clone();</code>将创建一个新的<code>cv::Mat</code>对象<code>B</code>，它包含了<code>A</code>的一个副本。在这种情况下，<code>A</code>和<code>B</code>不会共享数据。</p>
-<h3 id="clone和copyTo">clone和copyTo</h3>
-<p>在OpenCV中，<code>clone</code>和<code>copyTo</code>函数都可以用来复制<code>cv::Mat</code>对象，但它们的使用方式和行为有一些不同。</p>
-<p><code>clone</code>函数创建一个新的<code>cv::Mat</code>对象，并复制源对象的所有数据。它不需要一个已经存在的目标对象，因为它会创建一个新的对象。例如：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c++">cv::Mat src;<br><span class="hljs-comment">// ... 填充src...</span><br>cv::Mat dst = src.<span class="hljs-built_in">clone</span>();<br></code></pre></td></tr></table></figure>
-<p><code>copyTo</code>函数将源对象的数据复制到目标对象。如果目标对象已经存在，它的大小和类型必须与源对象匹配，否则它会被重新分配。<code>copyTo</code>还有一个可选的参数，允许你指定一个掩码，只有掩码中非零的元素才会被复制。例如：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c++">cv::Mat src, dst;<br><span class="hljs-comment">// ... 填充src...</span><br>src.<span class="hljs-built_in">copyTo</span>(dst);<br></code></pre></td></tr></table></figure>
-<p>总的来说，如果你只需要复制一个<code>cv::Mat</code>对象，并且不需要使用掩码，那么<code>clone</code>可能是更简单的选择。如果你需要使用掩码，或者你已经有一个目标对象并希望复制数据到这个对象，那么<code>copyTo</code>可能是更好的选择。</p>
-<h2 id="组织管理一组变量或函数">组织管理一组变量或函数</h2>
-<p>在C++中，除了结构体（<code>struct</code>），还有以下几种方式可以组织和管理一组变量或函数：</p>
-<ol>
-<li><strong>类（Class）</strong>：类是C++中的一个核心概念，它可以包含变量（称为成员变量）和函数（称为成员函数）。类提供了封装、继承和多态等面向对象编程的特性。</li>
-<li><strong>命名空间（Namespace）</strong>：命名空间可以用来组织一组相关的变量和函数，以避免命名冲突。</li>
-<li><strong>数组（Array）和向量（Vector）</strong>：如果你有一组相同类型的变量，你可以使用数组或向量来存储它们。</li>
-<li><strong>函数（Function）</strong>：如果你有一组相关的操作，你可以将它们封装在一个函数中。</li>
-<li><strong>枚举（Enum）</strong>：如果你有一组相关的常量，你可以使用枚举来定义它们。</li>
-<li><strong>联合（Union）</strong>：联合是一种特殊的数据类型，它可以存储不同类型的数据，但一次只能存储其中一种类型的数据。</li>
-</ol>
-<p>选择哪种方式取决于你的具体需求和使用场景。</p>
-<h2 id="Python">Python</h2>
-<h3 id="if-name-main">if <strong>name</strong> == &quot;<strong>main</strong>&quot;:</h3>
-<p>在Python中，<code>if __name__ == &quot;__main__&quot;:</code> 是一个常见的模式。这行代码的作用是检查当前的模块是被直接运行还是被导入为一个模块。</p>
-<p>当Python解释器读取一个源文件时，它会首先定义一些特殊的变量。其中一个就是 <code>__name__</code>。如果该文件被直接运行，那么 <code>__name__</code> 的值会被设置为 <code>&quot;__main__&quot;</code>。如果该文件被其他Python文件导入，那么 <code>__name__</code> 的值则会被设置为该文件的名字。</p>
-<p>因此，<code>if __name__ == &quot;__main__&quot;:</code> 这行代码的意思是，&quot;如果这个文件被直接运行，那么执行以下的代码&quot;。这个模式常常被用来在一个Python文件中编写一些测试代码，这些测试代码只有在文件被直接运行时才会执行，而在文件被导入时不会执行。</p>
-<h3 id="读取文件">读取文件</h3>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> rosbag<br>bag_data = rosbag.Bag(rosbag_file, <span class="hljs-string">&quot;r&quot;</span>)<br>bag_data.close()<br></code></pre></td></tr></table></figure>
-<p>在Python中，使用<code>with</code>语句打开文件时，当<code>with</code>语句的代码块执行完毕后，文件会自动关闭。所以，你不需要显式地调用<code>file.close</code>。</p>
-<p>这是因为<code>with</code>语句创建了一个上下文，当离开这个上下文时，Python会自动清理相关的资源。在这个例子中，相关的资源就是打开的文件。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> yaml<br><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><br><span class="hljs-comment"># 打开并读取YAML文件</span><br><span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;myFolder/cam_to_cam.yaml&#x27;</span>, <span class="hljs-string">&#x27;r&#x27;</span>) <span class="hljs-keyword">as</span> file:<br>    data = yaml.safe_load(file)<br><br><span class="hljs-comment"># 从YAML数据中获取矩阵</span><br>T_10 = np.array(data[<span class="hljs-string">&#x27;extrinsics&#x27;</span>][<span class="hljs-string">&#x27;T_10&#x27;</span>])<br></code></pre></td></tr></table></figure>
-<p>在<code>data = yaml.safe_load(file)</code>这行代码执行完毕后，<code>file</code>会自动关闭，无需手动关闭。</p>
-<h3 id="读取参数">读取参数</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># python run.py file.rosbag /ground_truth/odometry /pose_graph/odometry</span><br><br>import sys<br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br>    <span class="hljs-comment"># 从命令行参数获取rosbag的路径和指定的topics</span><br>    rosbag_file = sys.argv[1]<br>    gt_topic_name = (<br>        sys.argv[2] <span class="hljs-keyword">if</span> len(sys.argv) &gt; 2 <span class="hljs-keyword">else</span> <span class="hljs-string">&quot;/ground_truth/odometry&quot;</span><br>    )<br>    est_topic_name = (<br>        sys.argv[3] <span class="hljs-keyword">if</span> len(sys.argv) &gt; 3 <span class="hljs-keyword">else</span> <span class="hljs-string">&quot;/pose_graph/odometry&quot;</span><br>    )<br></code></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># python run.py file.rosbag /ground_truth/odometry /pose_graph/odometry --start_offset 0.5 --end_offset 0.5</span><br><br><span class="hljs-keyword">import</span> argparse<br><span class="hljs-keyword">import</span> os<br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br>    parser = argparse.ArgumentParser(description=<span class="hljs-string">&quot;Filter ROS bag messages based on timestamp ranges.&quot;</span>)<br>    parser.add_argument(<span class="hljs-string">&quot;input_bag_path&quot;</span>, <span class="hljs-built_in">help</span>=<span class="hljs-string">&quot;Path to the input ROS bag file.&quot;</span>)<br>    parser.add_argument(<span class="hljs-string">&quot;gt_topic_name&quot;</span>, <span class="hljs-built_in">help</span>=<span class="hljs-string">&quot;Ground truth topic name.&quot;</span>, default=<span class="hljs-string">&quot;/ground_truth/odometry&quot;</span>)<br>    parser.add_argument(<span class="hljs-string">&quot;est_topic_name&quot;</span>, <span class="hljs-built_in">help</span>=<span class="hljs-string">&quot;Estimated topic name.&quot;</span>, default=<span class="hljs-string">&quot;/pose_graph/odometry&quot;</span>)<br>    parser.add_argument(<span class="hljs-string">&quot;--start_offset&quot;</span>, <span class="hljs-built_in">type</span>=<span class="hljs-built_in">float</span>, default=<span class="hljs-number">0.0</span>, <span class="hljs-built_in">help</span>=<span class="hljs-string">&quot;Offset to add to the start time (in seconds).&quot;</span>)<br>    parser.add_argument(<span class="hljs-string">&quot;--end_offset&quot;</span>, <span class="hljs-built_in">type</span>=<span class="hljs-built_in">float</span>, default=<span class="hljs-number">0.0</span>, <span class="hljs-built_in">help</span>=<span class="hljs-string">&quot;Offset to subtract from the end time (in seconds).&quot;</span>)<br>    args = parser.parse_args()<br><br>    output_bag_path = os.path.splitext(args.input_bag_path)[<span class="hljs-number">0</span>] + <span class="hljs-string">&quot;_alignment.bag&quot;</span><br><br>    filter_bag(args.input_bag_path, args.gt_topic_name, args.est_topic_name, output_bag_path, args.start_offset, args.end_offset)<br>    <br></code></pre></td></tr></table></figure>
-<h2 id="内存泄漏">内存泄漏</h2>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_45498383/article/details/138488477">参考链接</a></p>
-<h3 id="什么是内存泄漏？">什么是内存泄漏？</h3>
-<p>内存泄漏是指程序中已分配的内存未能（在离开其作用域、程序运行结束后）成功释放，导致可用内存逐渐减少的现象。在程序运行过程中，如果反复发生内存泄漏，最终可能会导致系统可用内存耗尽，从而影响程序的性能或导致程序崩溃。内存泄漏在长时间运行的程序中尤其危险，例如服务器或持续运行的后台任务。</p>
-<h3 id="内存泄漏的原因">内存泄漏的原因</h3>
-<p>内存泄漏通常发生在以下几种情况：</p>
-<ul>
-<li>
-<p>未释放动态分配的内存：当使用如 <code>malloc</code>, <code>calloc</code>, <code>realloc</code> 和 <code>new</code> 等函数分配内存后，未使用对应的 free 或 delete 来释放内存。</p>
-</li>
-<li>
-<p>资源占用：除了内存外，程序可能申请其他系统资源（如文件句柄、数据库连接等），未正确释放这些资源也会导致类似内存泄漏的问题。</p>
-</li>
-<li>
-<p>数据结构错误：例如，链表、树等数据结构若未正确处理其元素的删除操作，可能导致部分节点成为不可达的，从而造成内存泄漏。</p>
-</li>
-</ul>
-<h3 id="如何判断内存泄漏？">如何判断内存泄漏？</h3>
-<p>判断和诊断内存泄漏通常需要以下几个步骤或工具：</p>
-<ol>
-<li>代码审查：通过审查代码来寻找可能未释放内存的地方。特别关注那些有动态内存分配的函数或模块。</li>
-<li>运行时工具：
-<ul>
-<li>Valgrind：这是一个编程工具，用于内存调试、内存泄漏检测等。在 Linux 环境下，使用 Valgrind 运行程序可以帮助检测内存泄漏。</li>
-<li>Visual Studio：在 Windows 环境下，Visual Studio IDE 提供了内置的内存泄漏检测工具。</li>
-<li>Sanitizers：如 AddressSanitizer，这是一种快速的内存错误检测工具，可以集成到 GCC 或 Clang 编译器中，用于检测内存泄漏和其他内存相关错误。</li>
-</ul>
-</li>
-<li>性能监控工具：使用系统或第三方性能监控工具来观察程序的内存使用情况，查看内存使用是否随时间持续增加。</li>
-<li>日志和追踪：在代码中添加日志输出，特别是在分配和释放资源的地方，可以帮助追踪内存的使用和释放。</li>
-</ol>
-<h3 id="如何防止内存泄漏？">如何防止内存泄漏？</h3>
-<ul>
-<li>使用智能指针：在 C++中使用 <code>std::unique_ptr</code>, <code>std::shared_ptr</code> 等智能指针可以自动管理内存，大大减少内存泄漏的风险。</li>
-<li>资源获取即初始化（RAII, Resource Acquisition Is Initialization）：这是一种编程范式。资源的获取即是初始化，资源的释放即是销毁。确保在对象的生命周期内资源被正确管理。通过在对象的构造函数中分配资源，并在析构函数中释放资源，可以保证资源总是被正确管理。</li>
-<li>定期代码审查：定期进行代码审查可以帮助识别潜在的内存泄漏问题。</li>
-<li>自动化测试：编写测试用例，尤其是针对资源管理的单元测试，可以在开发过程中早期发现和解决内存泄漏问题。</li>
-</ul>
-<h2 id="MATLAB转C">MATLAB转C++</h2>
-<p><a target="_blank" rel="noopener" href="https://www.zhihu.com/">https://www.zhihu.com/</a></p>
-<p>MATLAB做完之后，只要自己封装的函数参数足够简介，用自动生成的C++代码足够应用在工程了，与手写没什么区别。</p>
-<p>是滴，我现在很多函数都是MATLAB写好然后转化成C代码直接调用，但是这种调用每次程序启动时会比较慢，你有什么解决的方法吗？</p>
-<p>我感觉还好，可以试试指定变量类型，能用整数就不用double转换，能定点就改定点，如果是编译成库，尽量静态，是不是会好一点？</p>
-<p>得分情况，如果程序里有涉及大矩阵运算，或者是信号处理的程序，MATLAB肯定比咱们自己写的C快，但如果涉及大量复杂循环过程，且很多过程没法矩阵化，那MATLAB速度确实比不上C。不过对于快速验证来说，MATLAB要比C方便很多。</p>
-<p>请问MATLAB转C或C++有啥快速方法吗？还是需要一句一句转？</p>
-<p>有一条指令，在MATLAB的command里面输入</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">mcc -w cpplib:funcname -T<br><span class="hljs-built_in">link</span>:lib funcname.m -C<br></code></pre></td></tr></table></figure>
-<p>具体可以网上搜一下。</p>
-<h2 id="静态代码分析">静态代码分析</h2>
-<p><a target="_blank" rel="noopener" href="https://www.zhihu.com/">https://www.zhihu.com/</a></p>
-<p>想问一下，有没有能够获取C++中各个方法之间的调用依赖关系的开源软件？</p>
-<p>可以尝试Understand。</p>
-<p>可以调试的话，直接GDB断点，明明白白。</p>
-<p>Source Insight？没Understand好用。</p>
-<h2 id="其它-4">其它</h2>
-<ol>
-<li>
-<p><code>code</code>单词做代码释义时是不可数名词。</p>
-<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs txt">不可数名词<br>Computer code is a system or language for expressing information and instructions in a form which can be understood by a computer.<br></code></pre></td></tr></table></figure>
-</li>
-<li>
-<p>Python 并没有强制要求你用 <code>Tab</code> 缩进或者用空格缩进，但在PEP8中，建议使用4个空格来缩进。对于任何一个编辑器或者IDE，一般都有配置选项，可以设置把 <code>TAB</code> 键展开为4个空格，以保证代码的兼容性。</p>
-</li>
-<li>
-<p>命令行使用<code>\</code>实现换行：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo apt-get install \<br>    ros-<span class="hljs-variable">$1</span>-sophus \<br>    ros-<span class="hljs-variable">$1</span>-pcl-ros<br></code></pre></td></tr></table></figure>
-</li>
-<li>
-<p>报错：<code>SyntaxError: Non-ASCII character '\xe5'</code></p>
-<p>原因：Python默认是以ASCII作为编码方式的，如果在自己的Python源码中包含了中文（或者其他非英语系的语言），此时即使你把自己编写的Python源文件以UTF-8格式保存了，但实际上，这依然是不行的。</p>
-<p>解决：在源代码的第一行加入：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># -*- coding: UTF-8 -*-</span><br></code></pre></td></tr></table></figure>
-</li>
-<li>
-<p>python引入本地字体：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> matplotlib.font_manager <span class="hljs-keyword">as</span> fm<br>fm.fontManager.addfont(<span class="hljs-string">&#x27;/usr/share/fonts/truetype/Times-New-Roman/times.ttf&#x27;</span>)<br>fm.fontManager.addfont(<span class="hljs-string">&#x27;/usr/share/fonts/truetype/simsun/simsun.ttc&#x27;</span>)<br><br>plt.title(<span class="hljs-string">&#x27;层次聚类树形图&#x27;</span>, fontname=<span class="hljs-string">&quot;simsun&quot;</span>, fontsize=<span class="hljs-number">30</span>)<br>plt.xticks(fontname=<span class="hljs-string">&quot;Times New Roman&quot;</span>, fontsize=<span class="hljs-number">26</span>)<br><br>colorbar = plt.colorbar()<br>colorbar.ax.tick_params(labelsize=<span class="hljs-number">24</span>)  <span class="hljs-comment"># 设置坐标轴标签的字体大小</span><br><span class="hljs-keyword">for</span> l <span class="hljs-keyword">in</span> colorbar.ax.yaxis.get_ticklabels():<br>    l.set_family(<span class="hljs-string">&#x27;simsun&#x27;</span>)<br></code></pre></td></tr></table></figure>
-</li>
-<li>
-<p>idea错误提示File was loaded in the wrong encoding: ‘UTF-8‘解决方法：</p>
-<ol>
-<li>打开乱码文件，在软件右下角将当前页面的编码格式改为GB2312，弹出的提示消息中选择Reload；</li>
-<li>在软件右下角将当前页面的编码格式改为utf-8，弹出的提示消息中选择Convert；</li>
-<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/nuyoahso/article/details/114974906">参考链接</a></li>
-</ol>
-</li>
-<li>
-<p>如果你不想运行<code>predict.py</code>文件的<code>main</code>函数第136行以下的代码，你可以使用Python的<code>return</code>语句来提前结束函数的执行。你需要找到第136行的代码，并在其前面添加<code>return</code>语句。这将导致函数在执行到这一行时立即返回，不再执行后续的代码。</p>
-<p>在循环语句里，可以使用<code>continue</code>。</p>
-</li>
-<li>
-<p>syntax error near unexpected token '$'{\r''</p>
-<p>字面意思上看是换行符出现问题，怀疑是Win下编辑过。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 用vim -b 查看，发现每一行多了~M</span><br><span class="hljs-comment"># 解决方法：</span><br>sed -i <span class="hljs-string">&#x27;s/\r//g&#x27;</span> xxx.sh<br></code></pre></td></tr></table></figure>
-</li>
-<li>
-<p>变量的定义和使用只在最近的<code>&#123;&#125;</code>内（（主）函数、<code>if</code>、<code>for</code>等）适用。如果想要拓展变量的使用范围，可以在更外处的<code>&#123;&#125;</code>内定义变量（然后在别处赋值）；或者，声明为全局变量。</p>
-</li>
-<li>
-<p>在C++中，函数的默认参数值通常在函数声明中给出，也就是在<code>.h</code>头文件中（而不用在函数定义的<code>*.cpp</code>文件中再给出默认值）。这样，任何包含这个头文件的代码都可以看到这些默认值，并且可以选择是否提供自己的参数值。</p>
-</li>
-<li>
-<p>一般来说，如果有 3 个或更多<code>if-else</code>分支，则应该考虑使用<code>switch</code>。如果有10个或更多条件分支，您应该考虑使用<code>config</code>变量或文件，并为该<code>config</code>编写特定的函数来进行映射。如果映射逻辑复杂但使用频繁，可以考虑创建专用的规则引擎或DSL来处理。</p>
-<blockquote>
-<p><code>if</code>语句和<code>switch</code>语句的选择：多个等值判断选择<code>switch</code>，其它情况（区间范围等）选择<code>if</code>。</p>
-</blockquote>
-</li>
-<li>
-<p>在C++中，<code>i++</code>和<code>++i</code>都会增加<code>i</code>的值，但它们的主要区别在于它们的返回值和执行顺序。</p>
-<p><code>i++</code>是后置递增运算符。它首先返回<code>i</code>的当前值，然后再将<code>i</code>的值增加1。例如：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-type">int</span> i = <span class="hljs-number">5</span>;<br><span class="hljs-type">int</span> j = i++;  <span class="hljs-comment">// j现在是5，i现在是6</span><br></code></pre></td></tr></table></figure>
-<p><code>++i</code>是前置递增运算符。它首先将<code>i</code>的值增加1，然后返回新的<code>i</code>值。例如：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-type">int</span> i = <span class="hljs-number">5</span>;<br><span class="hljs-type">int</span> j = ++i;  <span class="hljs-comment">// j现在是6，i现在也是6</span><br></code></pre></td></tr></table></figure>
-</li>
-<li>
-<p>在C++中，<code>#include &lt;filename&gt;</code>和<code>#include &quot;filename&quot;</code>的主要区别在于编译器搜索头文件的方式。</p>
-<ul>
-<li><code>#include &lt;filename&gt;</code>：编译器在标准库路径中搜索头文件。这通常用于包含标准库的头文件，如<code>&lt;iostream&gt;</code>、<code>&lt;vector&gt;</code>、<code>&lt;mutex&gt;</code>等。</li>
-<li><code>#include &quot;filename&quot;</code>：编译器首先在当前文件的目录中搜索头文件，如果在当前目录中找不到，编译器会在标准库路径中搜索。这通常用于包含用户自定义的头文件。</li>
-</ul>
-</li>
-<li>
-<p><code>variable</code>的生命周期取决于它在哪里声明和定义。如果它在<code>while</code>循环外部定义，那么它将在包含该循环的函数或作用域结束时被销毁。如果它在<code>while</code>循环内部定义，那么它将在每次循环结束时被销毁，并在下一次循环开始时重新创建。</p>
-</li>
-<li>
-<p>把函数的输入参数行想成是对输入参数的定义，把函数的调用行想成是对输入参数的赋值，函数内部就是变量赋值后的进一步操作。</p>
-</li>
-<li>
-<p>变量<code>l</code>（包括函数的输入参数）被定义为<code>const</code>，这意味着它的值在初始化后不能被修改。<strong>这是一种良好的编程实践</strong>，可以防止在后续的代码中意外修改<code>l</code>的值。</p>
-<p>然而，如果你确定在后续的代码中不会修改<code>l</code>的值，那么将<code>l</code>定义为<code>const</code>并不是必须的。在这种情况下，将<code>l</code>定义为<code>const</code>主要是为了提高代码的可读性和可维护性，它可以让其他阅读你代码的人知道<code>l</code>的值在初始化后不应该被修改。</p>
-<p>总的来说，是否将<code>l</code>定义为<code>const</code>取决于你的编程风格和项目的编码规范。如果你的项目鼓励使用<code>const</code>来增强代码的可读性和可维护性，那么将<code>l</code>定义为<code>const</code>是一个好的选择。</p>
-</li>
-<li>
-<p>命令行参数：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> sys<br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br>    npy_file = sys.argv[<span class="hljs-number">1</span>] <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(sys.argv) &gt; <span class="hljs-number">1</span> <span class="hljs-keyword">else</span> __file__<br></code></pre></td></tr></table></figure>
-<p><code>sys.argv</code> 是一个包含命令行参数的列表，其中 <code>sys.argv[0]</code> 是脚本的名称，<code>sys.argv[1]</code> 是第一个参数，<code>sys.argv[2]</code> 是第二个参数，以此类推。</p>
-</li>
-<li>
-<p>初始化 ROS 工作空间：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">alias</span> initROS=<span class="hljs-string">&quot;mkdir -p catkin_ws/src &amp;&amp; cd catkin_ws &amp;&amp; catkin config --init --mkdirs --extend /opt/ros/melodic --merge-devel --cmake-args -DCMAKE_BUILD_TYPE=Release &amp;&amp; cd src &amp;&amp; catkin_init_workspace &amp;&amp; cd .. &amp;&amp; catkin build&quot;</span><br></code></pre></td></tr></table></figure>
-</li>
-<li>
-<p>等等。</p>
-</li>
-</ol>
 <h1 id="Windows">Windows</h1>
 <h2 id="快捷键-3">快捷键</h2>
 <table>
@@ -2580,7 +1635,7 @@
 <p>等等。</p>
 </li>
 </ol>
-<h2 id="命令">命令</h2>
+<h2 id="命令-2">命令</h2>
 <h3 id="复制文件（夹）">复制文件（夹）</h3>
 <h4 id="robocopy">robocopy</h4>
 <blockquote>
@@ -2636,7 +1691,7 @@
 </li>
 </ol>
 <p>选择适合你的方法来提高复制大量小文件的效率。</p>
-<h3 id="shutdown">shutdown</h3>
+<h3 id="定时关机-2">定时关机</h3>
 <p><a target="_blank" rel="noopener" href="https://learn.microsoft.com/de-de/windows-server/administration/windows-commands/shutdown">https://learn.microsoft.com/de-de/windows-server/administration/windows-commands/shutdown</a></p>
 <p><a target="_blank" rel="noopener" href="https://www.xitongzhijia.net/xtjc/20220717/246783.html">Win11怎么设置自动关机？Win11使用shut down命令自动关机的方法</a></p>
 <p>允许您一次关闭或重新启动一台本地计算机或远程计算机。</p>
@@ -2846,7 +1901,7 @@
 <li><strong>一致性</strong>：使用统一的符号和术语。</li>
 </ul>
 <p>在绘制流程图时，使用这些形状按照规则确保你的图表不仅标准化而且功能性强，能够清楚地传达流程信息。</p>
-<h3 id="其它-5">其它</h3>
+<h3 id="其它-2">其它</h3>
 <ol>
 <li>
 <p>Anaconda Prompt与Anaconda PowerShell Prompt与系统cmd与powershell的区别：</p>
@@ -3264,7 +2319,7 @@
 <li>在项目视图的 Scratches and Consoles | Scratches 目录中，将临时文件从源目录拖到项目中的目标目录。</li>
 <li>在项目视图的 Scratches and Consoles | Scratches 目录中选择一个临时文件，按下 Ctrl+X，然后选择项目中的目标目录，按下 Ctrl+V。</li>
 </ol>
-<h4 id="其它-6">其它</h4>
+<h4 id="其它-3">其它</h4>
 <ol>
 <li>右键标签页-向下拆分/向右拆分：方便看大型内容。</li>
 </ol>
@@ -3324,7 +2379,7 @@
 <li></li>
 </ol>
 <h3 id="环境移植">环境移植</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 方法一：克隆环境</span><br>conda create -n 新环境名 --<span class="hljs-built_in">clone</span> 旧环境名  <span class="hljs-comment"># 克隆环境</span><br><br><span class="hljs-comment"># 方法二：导出环境</span><br>conda <span class="hljs-built_in">env</span> <span class="hljs-built_in">export</span> &gt; environment.yml  <span class="hljs-comment"># 导出使用 conda 安装的环境，在当前目录下生成一个名为 enviroment.yml 的文件</span><br>conda <span class="hljs-built_in">env</span> create -f environment.yml  <span class="hljs-comment"># 根据 yml 文件创建使用 conda 安装的环境</span><br><span class="hljs-comment"># 在用 conda 的时候发现有些module还是未安装，上网找了下原因，原来以上只会导出conda命令直接安装的包，而我的包大多是用pip安装在Anaconda的lib和site-package里了。因此还要用导出pip的方法：</span><br>pip freeze &gt; environment.txt  <span class="hljs-comment"># 导出使用 pip 安装的环境，在当前目录下生成一个名为 environment.txt 的文件</span><br>pip install -r environment.txt  <span class="hljs-comment"># 根据 txt 文件创建使用 pip 安装的环境</span><br><br><span class="hljs-comment"># 方法三：利用conda pack进行环境拷贝</span><br><span class="hljs-comment"># conda-pack包安装</span><br><span class="hljs-comment"># 利用conda进行conda-pack包安装</span><br>conda install -c conda-forge conda-pack<br><span class="hljs-comment"># 利用pip进行conda-pack包安装</span><br>pip install conda-pack<br>	<br><span class="hljs-comment"># 环境打包</span><br><span class="hljs-comment"># 打包环境，生成environment.tar.gz</span><br>conda pack -n enviroment<br><span class="hljs-comment"># 打包环境，生成defined_name.tar.gz</span><br>conda pack -n my_env -o defined_name.tar.gz<br><span class="hljs-comment"># 打包环境，使生成的environment.tar.gz置于[path]下</span><br>conda pack -p [path]<br>	<br><span class="hljs-comment"># 环境移植</span><br><span class="hljs-comment"># 首先要在conda安装目录下的envs文件夹下新建一个文件夹，这个文件夹的名称就是环境的名称，即在[path of conda]/envs/下</span><br><span class="hljs-comment"># 定位到conda下的envs文件夹下</span><br><span class="hljs-built_in">cd</span> envs<br><span class="hljs-comment"># 新建用于环境的</span><br><span class="hljs-built_in">mkdir</span> enviroment<br><span class="hljs-comment"># 将打包的环境重新恢复</span><br>tar -xzf enviromen.tar.gz -C enviroment<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 方法一：克隆环境</span><br>conda create -n 新环境名 --<span class="hljs-built_in">clone</span> 旧环境名  <span class="hljs-comment"># 克隆环境</span><br><br><span class="hljs-comment"># 方法二：导出环境</span><br>conda <span class="hljs-built_in">env</span> <span class="hljs-built_in">export</span> &gt; environment.yml  <span class="hljs-comment"># 导出使用 conda 安装的环境，在当前目录下生成一个名为 enviroment.yml 的文件</span><br>conda <span class="hljs-built_in">env</span> create -f environment.yml  <span class="hljs-comment"># 根据 yml 文件创建使用 conda 安装的环境</span><br><span class="hljs-comment"># 如果创建环境中途遇到了报错，希望继续创建，可以：</span><br>conda activate environment_name  <span class="hljs-comment"># 激活已经部分创建的环境</span><br>conda <span class="hljs-built_in">env</span> update --file environment.yml --prune  <span class="hljs-comment"># 继续安装剩余的依赖。--prune选项会移除不在environment.yml文件中的包。</span><br><span class="hljs-comment"># 在用 conda 的时候发现有些module还是未安装，上网找了下原因，原来以上只会导出conda命令直接安装的包，而我的包大多是用pip安装在Anaconda的lib和site-package里了。因此还要用导出pip的方法：</span><br>pip freeze &gt; environment.txt  <span class="hljs-comment"># 导出使用 pip 安装的环境，在当前目录下生成一个名为 environment.txt 的文件</span><br>pip install -r environment.txt  <span class="hljs-comment"># 根据 txt 文件创建使用 pip 安装的环境</span><br><br><span class="hljs-comment"># 方法三：利用conda pack进行环境拷贝</span><br><span class="hljs-comment"># conda-pack包安装</span><br><span class="hljs-comment"># 利用conda进行conda-pack包安装</span><br>conda install -c conda-forge conda-pack<br><span class="hljs-comment"># 利用pip进行conda-pack包安装</span><br>pip install conda-pack<br>	<br><span class="hljs-comment"># 环境打包</span><br><span class="hljs-comment"># 打包环境，生成environment.tar.gz</span><br>conda pack -n enviroment<br><span class="hljs-comment"># 打包环境，生成defined_name.tar.gz</span><br>conda pack -n my_env -o defined_name.tar.gz<br><span class="hljs-comment"># 打包环境，使生成的environment.tar.gz置于[path]下</span><br>conda pack -p [path]<br>	<br><span class="hljs-comment"># 环境移植</span><br><span class="hljs-comment"># 首先要在conda安装目录下的envs文件夹下新建一个文件夹，这个文件夹的名称就是环境的名称，即在[path of conda]/envs/下</span><br><span class="hljs-comment"># 定位到conda下的envs文件夹下</span><br><span class="hljs-built_in">cd</span> envs<br><span class="hljs-comment"># 新建用于环境的</span><br><span class="hljs-built_in">mkdir</span> enviroment<br><span class="hljs-comment"># 将打包的环境重新恢复</span><br>tar -xzf enviromen.tar.gz -C enviroment<br></code></pre></td></tr></table></figure>
 <h3 id="报错-2">报错</h3>
 <p>在 shell 脚本中执行<code>conda activate</code>时报错:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">CondaError: Run <span class="hljs-string">&#x27;conda init&#x27;</span> before <span class="hljs-string">&#x27;conda activate&#x27;</span><br></code></pre></td></tr></table></figure>
@@ -4292,7 +3347,7 @@
 <li>按住<code>Shift</code>和<code>Alt</code>键（在 macOS 上是<code>Shift</code>和<code>Option</code>键）。</li>
 <li>同时拖动鼠标（鼠标分别点击开始和结束位置）以选择所需的矩形区域。</li>
 </ol>
-<h4 id="其它-7">其它</h4>
+<h4 id="其它-4">其它</h4>
 <ol>
 <li>在“资源管理器”视图中查看当前文件并输入 F2 或者 Enter 选择文件名文本：
 <ul>
@@ -4354,7 +3409,7 @@
 <blockquote>
 <p>主阅读界面若有跳转链接如Fig 4，点击后会在分割界面（横向/竖向）跳转，主阅读界面无跳转，避免点击前进后退。可满足看图，公式，表格的需求。但只针对有跳转链接的PDF。</p>
 </blockquote>
-<h1 id="其它-8">其它</h1>
+<h1 id="其它-5">其它</h1>
 <h2 id="3-2-1备份规则">3-2-1备份规则</h2>
 <p><a target="_blank" rel="noopener" href="https://www.backblaze.com/blog/the-3-2-1-backup-strategy/">3-2-1 备份策略</a></p>
 <p>3-2-1 备份规则是一种简单、有效的策略，可确保数据安全。它建议您将数据的三份副本保存在两个不同的介质上，其中一份副本保存在异地。让我们来分解一下：</p>

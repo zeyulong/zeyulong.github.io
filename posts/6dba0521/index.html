@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://zeyulong.com/posts/6dba0521/gcc%E5%91%BD%E4%BB%A4%E8%AF%AD%E6%B3%95.png">
 <meta property="article:published_time" content="2024-01-10T14:05:45.000Z">
-<meta property="article:modified_time" content="2024-07-04T02:03:14.865Z">
+<meta property="article:modified_time" content="2024-12-19T12:37:34.205Z">
 <meta property="article:author" content="龙泽雨">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://zeyulong.com/posts/6dba0521/gcc%E5%91%BD%E4%BB%A4%E8%AF%AD%E6%B3%95.png">
@@ -411,7 +411,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2024年7月4日 上午
+                    本文最后更新于 2024年12月19日 晚上
                   
                 
               </p>
@@ -488,7 +488,7 @@
 <h2 id="对应使用命令行安装的方法">对应使用命令行安装的方法</h2>
 <p>在安装好多个版本后，使用 <code>update-alternatives</code> 命令为每个 GCC 版本设置优先级。Ubuntu 系统会默认使用优先级最高的版本，如果有需要，可以随时更改。</p>
 <img src="/posts/6dba0521/gcc%E5%91%BD%E4%BB%A4%E8%AF%AD%E6%B3%95.png" srcset="/img/loading.gif" lazyload class="" title="gcc命令语法">
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># gcc</span><br><span class="hljs-comment"># 将版本7加入候选中，其中50、100为优先级</span><br>sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-7 50<br><span class="hljs-comment"># 将版本10加入候选中</span><br>sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-10 100<br><span class="hljs-comment"># 通过下面的指令来选择不同的gcc的版本</span><br>sudo update-alternatives --config gcc<br><span class="hljs-comment"># 删除选项操作</span><br>sudo update-alternatives --remove gcc /usr/bin/gcc-4.8<br><br><span class="hljs-comment"># g++</span><br><span class="hljs-comment"># 将版本7加入候选中，其中50、100为优先级</span><br>sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-7 50<br><span class="hljs-comment"># 将版本10加入候选中</span><br>sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-10 100<br><span class="hljs-comment"># 通过下面的指令来选择不同的g++的版本</span><br>sudo update-alternatives --config g++<br><span class="hljs-comment"># 删除选项操作</span><br>sudo update-alternatives --remove g++ /usr/bin/g++-4.8<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># gcc</span><br><span class="hljs-comment"># 通过下面的指令来选择不同的gcc的版本/查看各版本的优先级</span><br>sudo update-alternatives --config gcc<br><span class="hljs-comment"># 将版本7加入候选中，其中50、100为优先级</span><br>sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-7 50<br><span class="hljs-comment"># 将版本10加入候选中</span><br>sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-10 100<br><span class="hljs-comment"># 删除选项操作</span><br>sudo update-alternatives --remove gcc /usr/bin/gcc-4.8<br><br><span class="hljs-comment"># g++</span><br><span class="hljs-comment"># 通过下面的指令来选择不同的g++的版本/查看各版本的优先级</span><br>sudo update-alternatives --config g++<br><span class="hljs-comment"># 将版本7加入候选中，其中50、100为优先级</span><br>sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-7 50<br><span class="hljs-comment"># 将版本10加入候选中</span><br>sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-10 100<br><span class="hljs-comment"># 删除选项操作</span><br>sudo update-alternatives --remove g++ /usr/bin/g++-4.8<br></code></pre></td></tr></table></figure>
 <blockquote>
 <p>当切换使用了其他版本的gcc时，请务必保持g<ins>的版本和gcc版本的一致性，否则用cmake配置出来的项目遇到c</ins>代码还是会用之前版本的gcc。</p>
 </blockquote>

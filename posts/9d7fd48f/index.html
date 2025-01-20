@@ -61,7 +61,7 @@
 <meta property="og:image" content="http://zeyulong.com/posts/9d7fd48f/record-ui.png">
 <meta property="og:image" content="http://zeyulong.com/posts/9d7fd48f/%E5%8F%8C%E7%9B%AE%E7%A1%AC%E4%BB%B6%E8%BF%9E%E6%8E%A5.jpg">
 <meta property="article:published_time" content="2024-04-20T02:22:09.000Z">
-<meta property="article:modified_time" content="2025-01-06T03:32:26.956Z">
+<meta property="article:modified_time" content="2025-01-17T03:02:26.725Z">
 <meta property="article:author" content="龙泽雨">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://zeyulong.com/posts/9d7fd48f/%E4%BA%A7%E5%93%81%E7%BB%86%E8%8A%82-1.png">
@@ -397,7 +397,7 @@
         
         
         
-          156 分钟
+          161 分钟
         
       </span>
     
@@ -447,7 +447,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2025年1月6日 中午
+                    本文最后更新于 2025年1月17日 上午
                   
                 
               </p>
@@ -1968,6 +1968,106 @@ camera resolution [width,height] 相机分辨率[宽度，高度]</p>
 <li><a target="_blank" rel="noopener" href="https://docs.inivation.com/hardware/hardware-advanced-usage/external-camera-sync.html">https://docs.inivation.com/hardware/hardware-advanced-usage/external-camera-sync.html</a></li>
 <li><a target="_blank" rel="noopener" href="https://docs.inivation.com/software/dv/gui/calibrate-event-camera.html">https://docs.inivation.com/software/dv/gui/calibrate-event-camera.html</a></li>
 <li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=rBT5O5TEOV4">https://www.youtube.com/watch?v=rBT5O5TEOV4</a> （35:09多相机校准）</li>
+</ul>
+<h1 id="Prophesee-EVK4">Prophesee/EVK4</h1>
+<h2 id="驱动安装与可视化">驱动安装与可视化</h2>
+<p><a target="_blank" rel="noopener" href="https://docs.prophesee.ai/stable/index.html">支持文档</a></p>
+<blockquote>
+<p>最好看自己支持的版本的文档，例如，<a target="_blank" rel="noopener" href="https://docs.prophesee.ai/3.1.2/">3.1.2版</a>。</p>
+</blockquote>
+<h3 id="SDK-Metavision-Studio">SDK/Metavision Studio</h3>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://docs.prophesee.ai/3.1.2/metavision_studio/index.html#chapter-metavision-studio">Metavision Studio</a> 是一个具有图形用户界面的应用程序，允许可视化和记录流式传输的数据 Prophesee 兼容的基于事件的视觉系统。它是作为 预构建的 Ubuntu 软件包包括 Prophesee 相机插件，因此您无需任何额外安装即可使用它。</p>
+<p>如果您想部署我们的完整 SDK（Python 和 C++ API 以及相关代码示例）， 遵循具体指南： <a target="_blank" rel="noopener" href="https://docs.prophesee.ai/3.1.2/installation/linux.html#chapter-installation-linux">SDK安装</a> （请注意，完整的 SDK 安装还包含 Metavision Studio 应用程序）。</p>
+<p>安装我们的开源项目<a target="_blank" rel="noopener" href="https://github.com/prophesee-ai/openeb">OpenEB</a> 请遵循具体指南：<a target="_blank" rel="noopener" href="https://docs.prophesee.ai/3.1.2/installation/linux_open_from_source.html#chapter-installation-linux-open-from-source">安装 OpenEB</a> 。</p>
+</blockquote>
+<ol>
+<li>
+<p><a target="_blank" rel="noopener" href="https://docs.prophesee.ai/stable/installation/index.html#chapter-installation-os-support">查看</a>自己的操作系统和相机共同支持的SDK版本。</p>
+<blockquote>
+<p>对于EVK4和Ubuntu18.04，我选择了SDK 3.1。因此，下面的步骤以3.1版本为例，仅供参考。以<a target="_blank" rel="noopener" href="https://docs.prophesee.ai/stable/index.html">官方文档</a>为准。</p>
+</blockquote>
+</li>
+<li>
+<p><a target="_blank" rel="noopener" href="https://support.prophesee.ai/portal/en/kb/prophesee-1/metavision-sdk/download-center">注册后获得邀请链接，获取</a>对应版本的APT存储库配置文件<code>metavision.list</code>。</p>
+</li>
+<li>
+<p><a target="_blank" rel="noopener" href="https://docs.prophesee.ai/3.1.2/installation/linux_studio.html">安装 Metavision Studio</a>：</p>
+<ol>
+<li>
+<p>清理您可能早期安装的 Prophesee 软件的源列表和首选项目录：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> /etc/apt/sources.list.d<br>sudo <span class="hljs-built_in">rm</span> prophesee.list essentials.list metavision.list designer.list<br>sudo <span class="hljs-built_in">rm</span> /etc/apt/preferences.d/prophesee<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>将<a target="_blank" rel="noopener" href="https://www.prophesee.ai/metavision-intelligence-sdk-download-3-1">注册过程</a>中提供的新<code>metavision.list</code>文件复制到文件夹<code>/etc/apt/sources.list.d</code>将 Prophesee 的服务器添加到 APT 存储库列表中：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo <span class="hljs-built_in">cp</span> metavision.list /etc/apt/sources.list.d<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>更新存储库和包的列表：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo apt update<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>安装 Metavision Studio：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo apt -y install metavision-studio<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>完成。</p>
+</li>
+</ol>
+</li>
+<li>
+<p><a target="_blank" rel="noopener" href="https://docs.prophesee.ai/3.1.2/metavision_studio/index.html#chapter-metavision-studio">使用 Metavision Studio</a>：</p>
+<ol>
+<li>打开 Metavision Studio：
+<ul>
+<li>在操作系统的命令行提示符中键入<code>metavision_studio</code>。</li>
+<li>Win+A快捷键打开应用菜单列表，选择<code>metavision_studio</code>。</li>
+</ul>
+</li>
+<li>调整物镜的光圈和焦距以使图像变得清晰。</li>
+<li>为了减少背景噪音，您可以打开偏差设置并调整bias_fo，同时跟踪事件发生率和 显示屏以查看噪声如何受到影响。要获取有关偏差的更多信息，请参阅 <a target="_blank" rel="noopener" href="https://docs.prophesee.ai/3.1.2/hw/manuals/biases.html#chapter-biases">传感器偏置页面</a>。</li>
+</ol>
+</li>
+<li>
+<p><a target="_blank" rel="noopener" href="https://docs.prophesee.ai/3.1.2/installation/linux.html">安装 SDK</a>：</p>
+<ol>
+<li>...</li>
+</ol>
+</li>
+<li>
+<p>完成。</p>
+</li>
+</ol>
+<h3 id="OpenEB">OpenEB</h3>
+<ol>
+<li>
+<p>在<a target="_blank" rel="noopener" href="https://github.com/prophesee-ai/openeb/releases">release</a>页面找到支持自己相机和操作系统的最新的版本，后下载和解压源码。</p>
+<blockquote>
+<p>对于EVK4和Ubuntu18.04，我选择了<a target="_blank" rel="noopener" href="https://github.com/prophesee-ai/openeb/releases/tag/3.1.2">v3.1.2</a>。</p>
+</blockquote>
+<blockquote>
+<p>不同版本的编译过程可能存在不同，详见源码内的<code>README.md</code>，因此，以下内容仅供参考。</p>
+</blockquote>
+</li>
+<li>
+<p>安装依赖库：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo apt update<br>sudo apt -y install apt-utils build-essential software-properties-common wget unzip curl git cmake<br>sudo apt -y install libopencv-dev googletest libgtest-dev libboost-all-dev libusb-1.0-0-dev<br>sudo apt -y install libglew-dev libglfw3-dev libcanberra-gtk-module ffmpeg<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>配置Python环境：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo apt -y install python3-pip python3-distutils<br><span class="hljs-comment"># we support Python 3.6 and 3.7 on Ubuntu 18.04 and Python 3.7 and 3.8 on Ubuntu 20.04</span><br>sudo apt -y install python3.X-dev  <span class="hljs-comment"># where X is 6, 7 or 8 depending on your Python version (3.6, 3.7 or 3.8)</span><br>python3 -V  <span class="hljs-comment"># 查看当前版本</span><br><br>python3 -m pip install pip --upgrade<br>python3 -m pip install <span class="hljs-string">&quot;opencv-python&gt;=4.5.5.64&quot;</span> <span class="hljs-string">&quot;sk-video==1.1.10&quot;</span> <span class="hljs-string">&quot;fire==0.4.0&quot;</span> <span class="hljs-string">&quot;numpy&lt;=1.21&quot;</span> pandas scipy h5py <br>python3 -m pip install jupyter jupyterlab matplotlib <span class="hljs-string">&quot;ipywidgets==7.6.5&quot;</span> pytest command_runner<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>...</p>
+</li>
+<li>
+<p>完成。</p>
+</li>
+</ol>
+<h3 id="ROS支持">ROS支持</h3>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/prophesee-ai/prophesee_ros_wrapper">https://github.com/prophesee-ai/prophesee_ros_wrapper</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/prophesee-ai/prophesee_ros_stereo_driver">https://github.com/prophesee-ai/prophesee_ros_stereo_driver</a></li>
 </ul>
 
                 

@@ -24,7 +24,7 @@
 <meta property="og:description" content="本文主要分享了编程过程中积累的知识点。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-01-08T02:37:36.000Z">
-<meta property="article:modified_time" content="2025-02-19T03:39:11.830Z">
+<meta property="article:modified_time" content="2025-03-12T12:00:08.135Z">
 <meta property="article:author" content="龙泽雨">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -348,7 +348,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          24k 字
+          25k 字
         
       </span>
     
@@ -359,7 +359,7 @@
         
         
         
-          205 分钟
+          207 分钟
         
       </span>
     
@@ -409,7 +409,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2025年2月19日 中午
+                    本文最后更新于 2025年3月12日 晚上
                   
                 
               </p>
@@ -440,20 +440,54 @@
 <p>修饰符是用于改变变量类型的行为的关键字，它更能满足各种情境的需求。</p>
 <p>下面列出了数据类型修饰符：</p>
 <ul>
-<li>signed：表示变量可以存储负数。对于整型变量来说，signed 可以省略，因为整型变量默认为有符号类型。</li>
-<li>unsigned：表示变量不能存储负数。对于整型变量来说，unsigned 可以将变量范围扩大一倍。</li>
-<li>short：表示变量的范围比 int 更小。short int 可以缩写为 short。</li>
-<li>long：表示变量的范围比 int 更大。long int 可以缩写为 long。</li>
-<li>long long：表示变量的范围比 long 更大。C++11 中新增的数据类型修饰符。</li>
-<li>float：表示单精度浮点数。</li>
-<li>double：表示双精度浮点数。</li>
-<li>bool：表示布尔类型，只有 true 和 false 两个值。</li>
-<li>char：表示字符类型。</li>
-<li>wchar_t：表示宽字符类型，可以存储 Unicode 字符。</li>
+<li>
+<p>signed：表示变量可以存储负数。对于整型变量来说，signed 可以省略，因为整型变量默认为有符号类型。</p>
+</li>
+<li>
+<p>unsigned：表示变量不能存储负数。对于整型变量来说，unsigned 可以将变量范围扩大一倍。</p>
+</li>
+<li>
+<p>short：表示变量的范围比 int 更小。short int 可以缩写为 short。通常为16位，表示带符号的短整数，范围约为 -32,768 到 32,767。</p>
+</li>
+<li>
+<p>int：通常为32位，表示带符号的整数，范围约为 -2,147,483,648 到 2,147,483,647。</p>
+</li>
+<li>
+<p>long：表示变量的范围比 int 更大。long int 可以缩写为 long。通常为32位，表示带符号的长整数，范围约为 -2,147,483,648 到 2,147,483,647。</p>
+</li>
+<li>
+<p>long long：表示变量的范围比 long 更大。C++11 中新增的数据类型修饰符。通常为64位，表示带符号的长长整数，范围约为 -9,223,372,036,854,775,808 到 9,223,372,036,854,775,807。</p>
+<blockquote>
+<p>这些整数数据类型可以是带符号的或无符号的，区别在于它们能够表示的范围和可用的位数。无符号整数仅可以表示非负数（包括零），因此它们的范围是从0到正的最大值。例如，<code>unsigned int</code>、<code>unsigned short</code>、<code>unsigned long</code> 和 <code>unsigned long long</code> 是无符号整数类型。</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/hongsejiaozhu/article/details/132148735">C++ 中 int、short、long和long long 分别是几位？有符号无符号有什么区别？</a></p>
+</blockquote>
+</li>
+<li>
+<p>float：表示单精度浮点数。</p>
+</li>
+<li>
+<p>double：表示双精度浮点数。</p>
+</li>
+<li>
+<p>bool：表示布尔类型，只有 true 和 false 两个值。</p>
+</li>
+<li>
+<p>char：表示字符类型。</p>
+</li>
+<li>
+<p>wchar_t：表示宽字符类型，可以存储 Unicode 字符。</p>
+</li>
 </ul>
 <p>修饰符 <strong>signed、unsigned、long 和 short</strong> 可应用于整型，<strong>signed</strong> 和 <strong>unsigned</strong> 可应用于字符型，<strong>long</strong> 可应用于双精度型。</p>
 <p>这些修饰符也可以组合使用，修饰符 <strong>signed</strong> 和 <strong>unsigned</strong> 也可以作为 <strong>long</strong> 或 <strong>short</strong> 修饰符的前缀。例如：<strong>unsigned long int</strong>。</p>
 <p>C++ 允许使用速记符号来声明<strong>无符号短整数</strong>或<strong>无符号长整数</strong>。您可以不写 int，只写单词 <strong>unsigned、short</strong> 或 <strong>long</strong>，<strong>int</strong> 是隐含的。</p>
+<blockquote>
+<p><code>uint8_t\uint_16_t\uint32_t\uint64_t</code>这些数据类型中都带有<code>_t</code>, <code>_t</code> 表示这些数据类型是通过typedef定义的，而不是新的数据类型。</p>
+<p><code>#include &lt;cstdint&gt;</code></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">ifndef</span> __int8_t_defined  </span><br><span class="hljs-meta"># <span class="hljs-keyword">define</span> __int8_t_defined  </span><br><span class="hljs-keyword">typedef</span> <span class="hljs-type">signed</span> <span class="hljs-type">char</span>             <span class="hljs-type">int8_t</span>;   <br><span class="hljs-keyword">typedef</span> <span class="hljs-type">short</span> <span class="hljs-type">int</span>               <span class="hljs-type">int16_t</span>;  <br><span class="hljs-keyword">typedef</span> <span class="hljs-type">int</span>                     <span class="hljs-type">int32_t</span>;  <br><span class="hljs-meta"># <span class="hljs-keyword">if</span> __WORDSIZE == 64  </span><br><span class="hljs-keyword">typedef</span> <span class="hljs-type">long</span> <span class="hljs-type">int</span>                <span class="hljs-type">int64_t</span>;  <br><span class="hljs-meta"># <span class="hljs-keyword">else</span>  </span><br>__extension__  <br><span class="hljs-keyword">typedef</span> <span class="hljs-type">long</span> <span class="hljs-type">long</span> <span class="hljs-type">int</span>           <span class="hljs-type">int64_t</span>;  <br><span class="hljs-meta"># <span class="hljs-keyword">endif</span>  </span><br><span class="hljs-meta">#<span class="hljs-keyword">endif</span>  </span><br>  <br>  <br><span class="hljs-keyword">typedef</span> <span class="hljs-type">unsigned</span> <span class="hljs-type">char</span>           <span class="hljs-type">uint8_t</span>;  <br><span class="hljs-keyword">typedef</span> <span class="hljs-type">unsigned</span> <span class="hljs-type">short</span> <span class="hljs-type">int</span>      <span class="hljs-type">uint16_t</span>;  <br><span class="hljs-meta">#<span class="hljs-keyword">ifndef</span> __uint32_t_defined  </span><br><span class="hljs-keyword">typedef</span> <span class="hljs-type">unsigned</span> <span class="hljs-type">int</span>            <span class="hljs-type">uint32_t</span>;  <br><span class="hljs-meta"># <span class="hljs-keyword">define</span> __uint32_t_defined  </span><br><span class="hljs-meta">#<span class="hljs-keyword">endif</span>  </span><br><span class="hljs-meta">#<span class="hljs-keyword">if</span> __WORDSIZE == 64  </span><br><span class="hljs-keyword">typedef</span> <span class="hljs-type">unsigned</span> <span class="hljs-type">long</span> <span class="hljs-type">int</span>       <span class="hljs-type">uint64_t</span>;  <br><span class="hljs-meta">#<span class="hljs-keyword">else</span>  </span><br>__extension__  <br><span class="hljs-keyword">typedef</span> <span class="hljs-type">unsigned</span> <span class="hljs-type">long</span> <span class="hljs-type">long</span> <span class="hljs-type">int</span>  <span class="hljs-type">uint64_t</span>;  <br><span class="hljs-meta">#<span class="hljs-keyword">endif</span>  </span><br></code></pre></td></tr></table></figure>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/mary19920410/article/details/71518130">浅析C语言之uint8_t / uint16_t / uint32_t /uint64_t</a></p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;cstddef&gt;</span></span><br><br>std::<span class="hljs-type">size_t</span>  <span class="hljs-comment">// 是C++标准库中定义的一种无符号整数类型，通常用于表示对象的大小或数组的索引。`std::size_t` 的大小（即位宽）取决于具体平台的实现。</span><br>std::<span class="hljs-type">ptrdiff_t</span>  <span class="hljs-comment">// 有符号整数类型。表示两个指针之间的差值，可以表示为负数。</span><br>    <br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;cstdint&gt;</span></span><br>std::<span class="hljs-type">intptr_t</span> std::<span class="hljs-type">uintptr_t</span> <span class="hljs-comment">// 分别是有符号和无符号整数类型。用于存储指针的整数类型，确保可以存储转换后的指针值。</span><br>    <br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;ios&gt;</span></span><br>std::streamsize  <span class="hljs-comment">// 有符号整数类型。表示流中的字符数量或流的大小，常用于I/O操作。</span><br>    <br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;chrono&gt;</span></span><br>std::chrono::duration std::chrono::time_point <span class="hljs-comment">// 表示时间间隔和时间点的类型，用于时间处理和计时操作。</span><br></code></pre></td></tr></table></figure>
 <h2 id="C-中的类型限定符">C++中的类型限定符</h2>
 <p><a target="_blank" rel="noopener" href="https://www.runoob.com/cplusplus/cpp-modifier-types.html">参考链接</a></p>
 <p>类型限定符提供了变量的额外信息，用于在定义变量或函数时改变它们的默认行为的关键字。</p>
@@ -708,6 +742,10 @@
 </tr>
 </tbody>
 </table>
+<blockquote>
+<p>求指数：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;cmath&gt;</span></span><br><br>result = std::<span class="hljs-built_in">pow</span>(base, exponent);<br></code></pre></td></tr></table></figure>
+</blockquote>
 <h2 id="关系运算符">关系运算符</h2>
 <p>假设变量 A 的值为 10，变量 B 的值为 20，则：</p>
 <table>
@@ -910,9 +948,18 @@
 <p>在面向对象的编程语言中，类（Class）是一种定义新类型的方式，它封装了数据和操作数据的方法。对象（Object）则是类的实例，它包含了类定义的数据和方法。</p>
 <p>定义类和对象的目的主要有以下几点：</p>
 <ol>
-<li><strong>封装</strong>：类可以将数据和操作数据的方法封装在一起，隐藏内部实现细节，提高代码的安全性和可维护性。</li>
-<li><strong>继承</strong>：类可以继承其他类的属性和方法，实现代码的复用。</li>
-<li><strong>多态</strong>：通过接口或者虚函数，不同的类对象可以执行相同的操作，但表现出不同的行为，提高代码的灵活性。</li>
+<li>
+<p><strong>封装</strong>：类可以将数据和操作数据的方法封装在一起，隐藏内部实现细节，提高代码的安全性和可维护性。</p>
+</li>
+<li>
+<p><strong>继承</strong>：类可以继承其他类的属性和方法，实现代码的复用。</p>
+</li>
+<li>
+<p><strong>多态</strong>：通过接口或者虚函数，不同的类对象可以执行相同的操作，但表现出不同的行为，提高代码的灵活性。</p>
+<blockquote>
+<p>多态是在不同继承关系的类对象，去调用同一函数，产生了不同的行为。比如Student继承了Person。Person对象买票全价，Student对象买票半价。</p>
+</blockquote>
+</li>
 </ol>
 <p>何时定义类和对象主要取决于你的需求。以下是一些可能需要定义类和对象的情况：</p>
 <ol>
@@ -1633,17 +1680,6 @@
 <li>
 <p>在C<ins>中，如果你在当前的作用域（例如全局作用域、类作用域或命名空间作用域）定义了一个自定义的<code>reverse</code>函数，并且在代码中调用<code>reverse</code>函数时没有明确指定命名空间，那么程序会优先使用你自定义的<code>reverse</code>函数，而不是标准库中的<code>std::reverse</code>函数。这是因为在C</ins>中，名称查找会首先在当前作用域和更近的作用域中查找匹配的名称。</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;algorithm&gt;</span> <span class="hljs-comment">// 包含 std::reverse</span></span><br><br><span class="hljs-comment">// 自定义的 reverse 函数</span><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">reverse</span><span class="hljs-params">(<span class="hljs-type">int</span>* arr, <span class="hljs-type">int</span> size)</span> </span>&#123;<br>    std::cout &lt;&lt; <span class="hljs-string">&quot;Calling custom reverse function.&quot;</span> &lt;&lt; std::endl;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; size / <span class="hljs-number">2</span>; ++i) &#123;<br>        std::<span class="hljs-built_in">swap</span>(arr[i], arr[size - <span class="hljs-number">1</span> - i]);<br>    &#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-type">int</span> arr[] = &#123;<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>&#125;;<br>    <span class="hljs-type">int</span> size = <span class="hljs-built_in">sizeof</span>(arr) / <span class="hljs-built_in">sizeof</span>(arr[<span class="hljs-number">0</span>]);<br><br>    <span class="hljs-comment">// 调用自定义的 reverse 函数</span><br>    <span class="hljs-built_in">reverse</span>(arr, size);<br><br>    <span class="hljs-comment">// 输出反转后的结果</span><br>    std::cout &lt;&lt; <span class="hljs-string">&quot;Reversed array: &quot;</span>;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; size; ++i) &#123;<br>        std::cout &lt;&lt; arr[i] &lt;&lt; <span class="hljs-string">&quot; &quot;</span>;<br>    &#125;<br>    std::cout &lt;&lt; std::endl;<br><br>    <span class="hljs-comment">// 如果你想使用标准库的 std::reverse 函数，需要显式地使用命名空间</span><br>    std::<span class="hljs-built_in">reverse</span>(arr, arr + size);<br><br>    <span class="hljs-comment">// 输出再次反转后的结果</span><br>    std::cout &lt;&lt; <span class="hljs-string">&quot;Reversed array using std::reverse: &quot;</span>;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; size; ++i) &#123;<br>        std::cout &lt;&lt; arr[i] &lt;&lt; <span class="hljs-string">&quot; &quot;</span>;<br>    &#125;<br>    std::cout &lt;&lt; std::endl;<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
-</li>
-<li>
-<p>C++数据类型：</p>
-<ul>
-<li><code>short</code>: 通常为16位，表示带符号的短整数，范围约为 -32,768 到 32,767。</li>
-<li><code>int</code>: 通常为32位，表示带符号的整数，范围约为 -2,147,483,648 到 2,147,483,647。</li>
-<li><code>long</code>: 通常为32位，表示带符号的长整数，范围约为 -2,147,483,648 到 2,147,483,647。</li>
-<li><code>long long</code>: 通常为64位，表示带符号的长长整数，范围约为 -9,223,372,036,854,775,808 到 9,223,372,036,854,775,807。</li>
-</ul>
-<p>这些整数数据类型可以是带符号的或无符号的，区别在于它们能够表示的范围和可用的位数。无符号整数仅可以表示非负数（包括零），因此它们的范围是从0到正的最大值。例如，<code>unsigned int</code>、<code>unsigned short</code>、<code>unsigned long</code> 和 <code>unsigned long long</code> 是无符号整数类型。</p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/hongsejiaozhu/article/details/132148735">C++ 中 int、short、long和long long 分别是几位？有符号无符号有什么区别？</a></p>
 </li>
 <li>
 <p><code>switch</code>语句：</p>

@@ -34,7 +34,7 @@
 <meta property="og:image" content="http://zeyulong.com/posts/5b8fd703/feature_branch_diverge_from_master_diagram.png">
 <meta property="og:image" content="http://zeyulong.com/posts/5b8fd703/rebase_result_diagram.png">
 <meta property="article:published_time" content="2024-05-09T03:34:55.000Z">
-<meta property="article:modified_time" content="2025-04-07T09:58:31.158Z">
+<meta property="article:modified_time" content="2025-04-26T13:11:26.869Z">
 <meta property="article:author" content="龙泽雨">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://zeyulong.com/posts/5b8fd703/Git%E6%B5%81%E7%A8%8B-1.png">
@@ -359,7 +359,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          19k 字
+          20k 字
         
       </span>
     
@@ -370,7 +370,7 @@
         
         
         
-          163 分钟
+          164 分钟
         
       </span>
     
@@ -420,7 +420,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2025年4月7日 下午
+                    本文最后更新于 2025年4月26日 晚上
                   
                 
               </p>
@@ -475,6 +475,35 @@
 </li>
 <li>
 <p>大功告成。</p>
+</li>
+</ol>
+<h3 id="ping测试">ping测试</h3>
+<p>在终端测试：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">ping github.com<br></code></pre></td></tr></table></figure>
+<p>如果请求超时，则，例如，在Windows下：</p>
+<ol>
+<li>
+<p><a target="_blank" rel="noopener" href="https://www.ipaddress.com/">IP地址查询网站</a>。查询下列两个网站的IP并记录下来：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="http://github.com">github.com</a></li>
+<li><a target="_blank" rel="noopener" href="http://github.global.ssl.fastly.net">github.global.ssl.fastly.net</a></li>
+</ul>
+<p>例如，得到：</p>
+<ul>
+<li>140.82.114.3</li>
+<li>151.101.1.194</li>
+</ul>
+</li>
+<li>
+<p>使用文本编辑器打开<code>C:\Windows\System32\drivers\etc\</code>下的<code>host</code>文件，在最后添加：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs host">140.82.114.3 github.com<br>151.101.1.194 github.global.ssl.fastly.net<br></code></pre></td></tr></table></figure>
+<p>保存。</p>
+<blockquote>
+<p>如果不能修改，右击<code>host</code>文件-属性-安全-编辑-权限：修改“√”-确定。</p>
+</blockquote>
+</li>
+<li>
+<p>完成。</p>
 </li>
 </ol>
 <h2 id="绑定GitHub账户">绑定GitHub账户</h2>

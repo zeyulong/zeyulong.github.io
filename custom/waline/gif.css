@@ -1,0 +1,13 @@
+/* 添加图片为输入区域背景 */
+#wl-edit {
+    background: url("/img/walinebg.webp") 100% 100% no-repeat;
+    background-size: contain !important;
+    background-repeat: no-repeat !important;
+    background-position: right bottom !important; 
+}
+
+#waline-wrap textarea:focus {
+    background: url("/img/walinebg.webp") 100% 100% no-repeat;
+    background-position-y: 78px !important;
+    transition: all 0.25s ease-in-out 0s;
+}

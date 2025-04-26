@@ -1,0 +1,1254 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" >
+
+
+
+<head><!-- hexo injector head_begin start --><progress id="content_progress" value="0"></progress><!-- hexo injector head_begin end -->
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/theme/TamakoAvatar-new-zip.png">
+  <link rel="icon" href="/img/theme/TamakoAvatar-new-zip.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#000000">
+  <meta name="author" content="龙泽雨">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="本文主要分享了备份与还原Linux系统的方法。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux系统备份与还原">
+<meta property="og:url" content="http://zeyulong.com/posts/73f02fc4/index.html">
+<meta property="og:site_name" content="龙泽雨的博客">
+<meta property="og:description" content="本文主要分享了备份与还原Linux系统的方法。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-11-29T08:44:27.000Z">
+<meta property="article:modified_time" content="2024-12-02T02:19:35.780Z">
+<meta property="article:author" content="龙泽雨">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>Linux系统备份与还原 - 龙泽雨的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/custom/Markdown/macpanel.css">
+<link rel="stylesheet" href="/custom/Fonts/CodeFont.css">
+<link rel="stylesheet" href="/custom/Fonts/inlinecode-bg-color.css">
+<link rel="stylesheet" href="/custom/live2d/font-awesome.min.css">
+<link rel="stylesheet" href="/custom/LoadingBar/pace-theme-corner-indicator.css">
+<link rel="stylesheet" href="/custom/ReadingProgress/ReadingProgress.css">
+<link rel="stylesheet" href="/custom/SelectBackgroundColor/SelectBackgroundColor.css">
+<link rel="stylesheet" href="/custom/waline/gif.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"zeyulong.com","root":"/","version":"1.9.7","typing":{"enable":false,"typeSpeed":100,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"8gUBTaCjmaSbnf4genwggan3-MdYXbMMI","app_key":"2WRxjgxRXIWRBo8EA4205Wfm","server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<!-- hexo injector head_end start --><link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@200;300;400;500;600;700;900&display=swap" rel="stylesheet"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.0.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Happy every day!</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-steam"></i>
+                <span>摸鱼</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/2048" target="_self">
+                    
+                    <span>2048</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/bcbk/1" target="_self">
+                    
+                    <span>别踩白块-1</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/bcbk/2" target="_self">
+                    
+                    <span>别踩白块-2</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/dblk" target="_self">
+                    
+                    <span>躲避绿块</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/dr" target="_self">
+                    
+                    <span>恐龙快跑</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://mario-kart-3-js.vercel.app/" target="_self">
+                    
+                    <span>马里奥赛车</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/mf" target="_self">
+                    
+                    <span>魔方</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/cat" target="_self">
+                    
+                    <span>圈小猫</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/sl" target="_self">
+                    
+                    <span>扫雷</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/txz" target="_self">
+                    
+                    <span>推箱子</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/wzq" target="_self">
+                    
+                    <span>五子棋</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/theme/GirlWithCat-cut.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle">Linux系统备份与还原</span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        龙泽雨
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-11-29 16:44" pubdate>
+          2024年11月29日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          5k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          42 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Linux系统备份与还原</h1>
+            
+              <p id="updated-time" class="note note-info" style="">
+                
+                  
+                    本文最后更新于 2024年12月2日 上午
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <p>本文主要分享了备份与还原Linux系统的方法。</p>
+<span id="more"></span>
+<h1 id="命令行">命令行</h1>
+<h2 id="备份">备份</h2>
+<h3 id="直接备份">直接备份</h3>
+<h4 id="实现过程">实现过程</h4>
+<blockquote>
+<p>Linux秉承一切皆文件的思想，系统备份就相当于把整个<code>/</code>（根目录）所有文件打包压缩保存。</p>
+</blockquote>
+<ol>
+<li>
+<p>备份前先切换到root用户，避免权限问题。</p>
+<blockquote>
+<p><code>sudo</code>命令可以以最高权限执行命令，而root账户下所有命令都有最高权限，也就是相当于所有命令都默认加了<code>sudo</code>。</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 首次进入root需要先设置密码</span><br><span class="hljs-comment"># 获取root权限</span><br>sudo passwd<br>su root<br><br><span class="hljs-comment"># 不是首次进入的情况下</span><br><span class="hljs-comment"># 切换到root用户</span><br>sudo su<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>切换到<code>/</code>（根目录）。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> /<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>查看文件系统和挂载点，注意截图保存，方便系统还原。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 推荐，可查看到交换空间</span><br><span class="hljs-built_in">cat</span> /etc/fstab<br><span class="hljs-comment"># 或，信息更全，有硬盘使用率等</span><br><span class="hljs-built_in">df</span> -hT<br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>自己当时创建Linux双系统时分配的分区：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">efi</th>
+<th style="text-align:center">逻辑分区</th>
+<th style="text-align:center">空间起始位置</th>
+<th style="text-align:center">用于“EFI系统分区”</th>
+<th style="text-align:center"></th>
+<th style="text-align:center">2*1024MB</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">swap</td>
+<td style="text-align:center">逻辑分区</td>
+<td style="text-align:center">空间起始位置</td>
+<td style="text-align:center">用于&quot;swap&quot;或&quot;交换空间&quot;</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">48*1024MB</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>/</code></td>
+<td style="text-align:center">主分区</td>
+<td style="text-align:center">空间起始位置</td>
+<td style="text-align:center">用于“ext4日志文件系统”</td>
+<td style="text-align:center">挂载点为<code>/</code></td>
+<td style="text-align:center">100*1024MB</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>/home</code></td>
+<td style="text-align:center">逻辑分区</td>
+<td style="text-align:center">空间起始位置</td>
+<td style="text-align:center">用于&quot;ext4日志文件系统&quot;</td>
+<td style="text-align:center">挂载点为<code>/home</code></td>
+<td style="text-align:center">(500-100-48)*1024MB</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+</li>
+<li>
+<p>压缩前预先查看预计大小（仅供参考）。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># du 命令需要在root权限下操作，或者在命令行前加sudo命令也可以。但排序是乱的，不好查看。</span><br><span class="hljs-comment"># 使用 sort 命令 的 -k 参数设置对第二列的值进行重排，也就是按照文件（夹）名进行排序</span><br><span class="hljs-built_in">du</span> -ah --max-depth=1  --exclude=./proc --exclude=./tmp --exclude=./lost+found --exclude=./media --exclude=./mnt --exclude=./run | <span class="hljs-built_in">sort</span> -k 2<br></code></pre></td></tr></table></figure>
+<p>参数：</p>
+<ul>
+<li><code>-a</code>或<code>-all</code>：显示目录中个别文件的大小。</li>
+<li><code>-h</code>或<code>--human-readable</code>：以K，M，G为单位，提高信息的可读性。</li>
+<li><code>--max-depth=&lt;目录层数&gt;</code>：超过指定层数的目录后，予以忽略。</li>
+<li><code>--exclude=&lt;目录或文件&gt;</code>：略过指定的目录或文件。</li>
+</ul>
+</li>
+<li>
+<p>备份系统。</p>
+<blockquote>
+<p>用来备份的U盘最好是是NTFS类型的，因为备份文件多会超过4GB。</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> /<br><span class="hljs-comment"># 使用 tar 打包，并使用 gzip 压缩（使用 -z 参数）</span><br>tar -cvpzf /media/Disk/myDisk/ubuntu_backup@`<span class="hljs-built_in">date</span> +%Y-%m-%d`.tar.gz --exclude=/proc --exclude=/tmp --exclude=/lost+found --exclude=/media --exclude=/mnt --exclude=/run -P /<br><span class="hljs-comment"># 如果安装了 pigz，可以使用 pigz 加速压缩</span><br>tar --use-compress-program=pigz -cvpf /media/Disk/myDisk/ubuntu_backup@`<span class="hljs-built_in">date</span> +%Y-%m-%d`.tar.gz --exclude=/proc --exclude=/tmp --exclude=/lost+found --exclude=/media --exclude=/mnt --exclude=/run -P /<br></code></pre></td></tr></table></figure>
+<ol>
+<li>
+<p><code>tar</code>命令参数：</p>
+<ul>
+<li><code>-c</code>：新建一个备份文档。</li>
+<li><code>-v</code>：显示详细信息。</li>
+<li><code>-p</code>：保存权限，并应用到所有文件。</li>
+<li><code>-z</code>：用gzip压缩备份文档，减小空间。</li>
+<li><code>-f</code>：指定压缩包名称（带路径），只能做最后一个参数。</li>
+<li><code>-–exclude</code>：排除指定目录，不进行备份。</li>
+<li><code>-P</code>：文件名使用绝对名称，不移除文件名称前的“/”号。</li>
+</ul>
+</li>
+<li>
+<p>备份文档的存放路径为：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">/media/Disk/myDisk/ubuntu_backup@`<span class="hljs-built_in">date</span> +%Y-%m+%d`.tar.gz<br></code></pre></td></tr></table></figure>
+<p>移动硬盘名字叫myDisk，挂载在<code>/media/Disk</code>目录下，<code>ubuntu_backup@date +%Y-%m+%d.tar.gz</code>是备份文件的名字，这里用了一个shell命令<code>date +%Y-%m+%d</code>用于获取当前时间。然后<code>.tar.gz</code>是说明这个文件是用<code>tar</code>命令进行打包，gzip进行压缩的。所以要根据你自己情况换为你自己的备份文件目录和文件名。<code>.tar.gz</code>这个档案文件本身必须排除在外，否则你可能会得到一些超出常理的结果。</p>
+</li>
+<li>
+<p>实际可不备份的文件夹：</p>
+<ul>
+<li><code>/proc</code>：一个虚拟文件系统，系统运行的每一个进程都会自动在这个目录下面创建一个进程目录。既然是系统自动创建，也就没必要备份的必要了。当系统关机后，所有的内容都将丢失。显示的占用内存无限大，不能备份进去。</li>
+<li><code>/tmp</code>：一个临时文件夹，系统的一些临时文件会放在这里。</li>
+<li><code>/lost+found</code>：系统发生错误时（比如非法关机），可以在这里找回一些丢失文件。</li>
+<li><code>/media</code>：多媒体挂载点，像U盘、移动硬盘、Windons分区等都会自动挂载到这个目录下。</li>
+<li><code>/mnt</code>：临时挂载点，你可以自己挂载一些文件系统到这里。</li>
+<li><code>/run</code>：系统从启动以来产生的一些信息文件。</li>
+</ul>
+</li>
+<li>
+<p>可额外单独备份：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">tar -cvpzf /media/Disk/my_Disk/ubuntu_home_backup@`<span class="hljs-built_in">date</span> +%Y-%m-%d`.tar.gz /home  <span class="hljs-comment"># 用户家目录，存放用户个人文件和应用程序。</span><br>tar -cvpzf /media/Disk/myDisk/ubuntu_boot_backup@`<span class="hljs-built_in">date</span> +%Y-%m-%d`.tar.gz /boot  <span class="hljs-comment"># 和系统启动相关的文件，像grub相关文件都放在这里，这个目录很重要！</span><br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>等等。</p>
+</li>
+</ol>
+</li>
+<li>
+<p>完成。</p>
+</li>
+</ol>
+<h4 id="备份过程中会遇到的错误和警告信息：">备份过程中会遇到的错误和警告信息：</h4>
+<ol>
+<li>
+<p>有可能备份到最后系统会提示如下，这个警告可以忽略，没什么影响的。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">tar: Exiting with failure status due to previous errors <br></code></pre></td></tr></table></figure>
+<p>这个问题其实不影响程序的执行，产生的原因是<code>tar</code>在压缩的过程中自动帮我们去掉了路径前的“/”，也就是<code>tar</code>压缩后的包是按照相对路径压缩的。可以使用<code>-P</code>参数来指定按照绝对路径打包。</p>
+</li>
+<li>
+<p>这个“socket ignored”产生的原因是压缩的过程中文件正在使用，无需理会，不影响压缩。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">tar: /dev/shm: file changed as we <span class="hljs-built_in">read</span> it <br><span class="hljs-comment"># 或</span><br>tar: /run/udev/control: socket ignored <br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>这个问题不用理会，与虚拟文件系统有关，不影响压缩。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">tar: /run/user/1000/gvfs: Cannot <span class="hljs-built_in">stat</span>: Permission denied <br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>等等。</p>
+</li>
+</ol>
+<h3 id="以LiveCD方式备份">以LiveCD方式备份</h3>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/51827233">Ubuntu系统备份</a></p>
+<h3 id="备份系统并还原到另一块硬盘上（硬盘大小均可不一致）">备份系统并还原到另一块硬盘上（硬盘大小均可不一致）</h3>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/51827233">Ubuntu系统备份</a></p>
+<h2 id="还原">还原</h2>
+<h3 id="系统出问题了，但是还可以进入终端">系统出问题了，但是还可以进入终端</h3>
+<p>直接解压备份文件进行还原。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo su<br><span class="hljs-built_in">cd</span> /<br><span class="hljs-comment"># 使用 tar 解打包，并使用 gzip 解压缩（使用 -z 参数）</span><br>tar -xvpzf /media/Disk/myDisk/ubuntu_boot_backup@2016-6-6.tar.gz -C /<br><span class="hljs-comment"># 或 使用 pigz 加速解压</span><br>tar --use-compress-program=pigz -xvpf /media/Disk/myDisk/ubuntu_boot_backup@2016-6-6.tar.gz -C /<br><span class="hljs-comment"># 还原系统后一定要把你之前没有备份的目录手动创建</span><br><span class="hljs-built_in">mkdir</span> proc tmp lost+found media mnt run<br><span class="hljs-comment"># 当你重启电脑，你会发现一切东西恢复到你创建备份时的样子了！</span><br></code></pre></td></tr></table></figure>
+<h3 id="连系统都不能登录了">连系统都不能登录了</h3>
+<p>使用LiveCD（U盘启动盘）进行还原。</p>
+<p>操作之前请确保你已经有一个制作好的Ubuntu的U盘启动盘。</p>
+<p>进入系统后，打开终端还是先切换到root。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo su<br><span class="hljs-built_in">cd</span> /<br><span class="hljs-built_in">mkdir</span> /mnt/sys<br>mount /dev/sdaX /mnt/sys<br>tar -xvpzf /media/myDisk/ubuntu_boot_backup@2016-6-6.tar.gz -C /mnt/sys<br><span class="hljs-comment"># 还原系统后一定要把你之前没有备份的目录手动创建</span><br><span class="hljs-built_in">mkdir</span> proc tmp lost+found media mnt run<br><span class="hljs-comment"># 当你重启电脑，你会发现一切东西恢复到你创建备份时的样子了！</span><br></code></pre></td></tr></table></figure>
+<p>注意：</p>
+<ol>
+<li>
+<p>先创建一个临时目录用于挂载你的/根目录分区，sdaX代表你的/根目录分区，如果不知道就用<code>fdisk -l</code>查看一下。另外如果你的移动硬盘没有被自动挂载，你也需要手动创建一个临时目录进行挂载。</p>
+</li>
+<li>
+<p>因为<code>tar</code>还原是只会覆盖相同的文件，但是这种方法只是恢复备份时的文件，就是说如果某些文件丢失或损坏了，这样可以恢复修复这些文件，但不能删除自备份到恢复前这期间所生成的其它文件，说白了就是假如你备份系统时有1234这四个文件，如果三天后，由于某些原因变成了1234’5（4改变了），你恢复后，就会变成12345，其中4’恢复成备份时的文件，5保留。所以要是想彻底还原成备份时候的样子最好彻底删除根目录下的所有文件，然后再还原，这样就可以还原成备份时的样子了。</p>
+</li>
+<li>
+<p>删除整个文件系统，比如运行命令<code>rm -fr /*</code>，那么你还原系统后一定要把你之前没有备份的目录手动创建，不然重启系统是有问题的。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">mkdir</span> proc tmp lost+found media mnt run<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>从启动盘解压之后，进入系统在文件管理器里点击自动挂载的Windows磁盘无法打开，提示权限不足？在启动盘还原之后把<code>media</code>目录下挂载的文件夹删掉，系统重启以后会自动生成有权限的文件夹。</p>
+</li>
+<li>
+<p>还有一个稍微复杂点的LiveCD方式还原。<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/51827233">Ubuntu系统备份</a></p>
+</li>
+</ol>
+<h2 id="处理一些额外（报错）的操作">处理一些额外（报错）的操作</h2>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_42741525/article/details/116700375">Ubuntu备份系统并重装到新的机器上</a></p>
+<h1 id="Systemback">Systemback</h1>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/576420693">Systemback Ubuntu18.04 制作系统ISO镜像并物理机还原（20, 22皆可用）</a></p>
+<h2 id="备份-2">备份</h2>
+<h3 id="实现过程-2">实现过程</h3>
+<ol>
+<li>
+<p>Systemback安装。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 1）在18.04上添加Ubuntu 16.04 PPA</span><br>sudo add-apt-repository <span class="hljs-string">&quot;deb http://ppa.launchpad.net/nemh/systemback/ubuntu xenial main&quot;</span><br><span class="hljs-comment"># 暂时忽略掉没有公钥的报错</span><br><br><span class="hljs-comment"># 2）导入此PPA的GPG签名密钥</span><br><span class="hljs-comment"># 可以在链接: https://launchpad.net/~nemh/+archive/ubuntu/systemback</span><br><span class="hljs-comment"># 查到找到验证密钥</span><br>sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 382003C2C8B7B4AB813E915B14E4942973C62A1B<br><br><span class="hljs-comment"># 3）更新包列表并安装Systemback：</span><br>sudo apt update<br>sudo apt install systemback<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>ISO文件制作</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 注意是以管理员身份启动 Systemback ，防止运行过程中的权限问题</span><br>sudo systemback<br><span class="hljs-comment"># 提示选择用户，输入系统密码并进入应用。</span><br></code></pre></td></tr></table></figure>
+<ol>
+<li>
+<p>先选择最左侧的小圆点，在右上角存储文件夹处更改文件存储位置。</p>
+</li>
+<li>
+<p>点击“Live system create”。</p>
+</li>
+<li>
+<p>选择工作目录，Working directory指的是systemback生成系统镜像的位置，程序运行时产生的临时文件都会被保存在这里，所以要保证有足够大的空间。</p>
+<blockquote>
+<p>选择写入的目录文件夹不可以是FAT、exFAT、FAT32或者NTFS等格式，且必须是可写的Linux文件系统。这时我才恍然大悟，因为自己的U盘是格式化为NTFS格式的，怪不得选择不了。</p>
+</blockquote>
+</li>
+<li>
+<p>输入文件系统名称。</p>
+</li>
+<li>
+<p>勾选“Include the user data files”，这样自己主文件夹内的文件都会被包含在系统镜像中。</p>
+</li>
+<li>
+<p>点击“Create new”。</p>
+</li>
+<li>
+<p>该操作将会生成一个<code>.sblive</code>文件，制作完成后能在右上角看到结果文件。</p>
+</li>
+<li>
+<p>如果文件小于4GB，可以选中Created Live images里的文件，点击Convert to ISO，借助该软件生成对应的.iso系统镜像文件。如果生成的<code>.sblive</code>文件大于4GB，可以通过下面两种步骤分别生成系统启动盘和对应的<code>.iso</code>系统镜像文件。</p>
+<ol>
+<li>
+<p>小步骤。</p>
+<ol>
+<li>创建好大于4GB的<code>.sblive</code>文件之后，插入有足够空间的U盘，点击绿色的刷新按钮，会在左下方的Write target看到插入的U盘，选中之后，点击右下方的Write to target，将image写入U盘中。等待写入完成，系统启动盘就做好了。待解决的问题：听说使用Write to Target向U盘中写入33GB的<code>.sblive</code>时失败了。</li>
+</ol>
+</li>
+<li>
+<p>大步骤。</p>
+<ol>
+<li>
+<p>解压<code>.sblive</code>文件。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">mkdir</span> sblive<br><span class="hljs-comment"># 【systemback_live.sblive】需要更改为前面设置的名称[也可以直接到home目录下寻找对应的.sblive文件]</span><br>tar -xf /home/systemback_live.sblive -C sblive<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>重命名syslinux至isolinux。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">mv</span> sblive/syslinux/syslinux.cfg sblive/syslinux/isolinux.cfg<br><span class="hljs-built_in">mv</span> sblive/syslinux sblive/isolinux<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>安装cdtools。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo apt install aria2<br><br>aria2c -s 10 https://nchc.dl.sourceforge.net/project/cdrtools/alpha/cdrtools-3.02a07.tar.gz<br><br>tar -xvf cdrtools-3.02a07.tar.gz<br><span class="hljs-built_in">cd</span> cdrtools-3.02<br>make<br>sudo make install<br></code></pre></td></tr></table></figure>
+<p>可能的报错：请问为什么我解压之后使用make编译，提示找不到文件或目录：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">[root@localhost cdrtools-3.02]<span class="hljs-comment"># make</span><br>RULES/rules.top:47: RULES/ldummy.lnk: No such file or directory<br></code></pre></td></tr></table></figure>
+<p>解决：make前下载libtool。</p>
+</li>
+<li>
+<p>生成ISO文件。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> ~/<br>/opt/schily/bin/mkisofs -iso-level 3 -r -V sblive -cache-inodes -J -l -b isolinux/isolinux.bin -no-emul-boot -boot-load-size 4 -boot-info-table -c isolinux/boot.cat -o sblive.iso sblive<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>上一步完成后，将会生成一个iso文件。</p>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>
+<p>完成。</p>
+</li>
+</ol>
+</li>
+<li>
+<p>系统还原点创建。</p>
+<ol>
+<li>
+<p>先选择最左侧的小圆点，在右上角存储文件夹处更改还原点文件存储位置。还原点操作-&gt;创建新的。</p>
+</li>
+<li>
+<p>把还原点文件夹打包移动到移动硬盘里：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 要用 sudo ，不然权限不够 ，打包不了</span><br>sudo tar --use-compress-program=pigz -cvpf  /目录名/文件名.tgz （空格） /boot（压缩的文件或者目录）<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>移动后，删除原目录打包的<code>.tgz</code>文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 要加 sudo ，不然删不掉</span><br>sudo <span class="hljs-built_in">rm</span> S01_2023-10-25,20.08.18.tgz <br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>完成。</p>
+</li>
+</ol>
+</li>
+<li>
+<p>完成。</p>
+</li>
+</ol>
+<h3 id="可能的报错">可能的报错</h3>
+<ol>
+<li>
+<p>生成<code>.sblive</code>文件袋过程中如果遇到拷贝错误，可以将对应的路径文件“exclude”。如果<code>~/</code>下面有swap分区文件，也需要exclude或者删除掉。删除方法为<code>sudo swapoff xxx</code>，然后再<code>sudo rm -rf xxx</code>。</p>
+</li>
+<li>
+<p>在备份过程中可能提示：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">The restore point creation is aborted!<br>There has been critical changes <span class="hljs-keyword">in</span> the file system during this operation<br></code></pre></td></tr></table></figure>
+<p>这并不一定是由于系统发生了严重的更改，只要是在复制文件的过程中出现错误都会出现这个信息。详细的错误信息可以通过：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">systemback-sustart<br></code></pre></td></tr></table></figure>
+<p>这个指令去调试，看看具体哪一个文件复制出了问题。极有可能的是权限问题。也可以通过这个指令去调试：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">DBGLEV=3 systemback-sustart<br></code></pre></td></tr></table></figure>
+<p>当错误出现后会在<code>/tmp</code>文件夹下创建一个systemback的错误信息文件。可以方便的通过这个文件去找到错误的原因。如果依旧不能解决问题，可以考虑两个措施：</p>
+<ol>
+<li>
+<p>将U盘格式化为FAT，重试。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 图形界面操作</span><br>1. 将U盘插入带有Linux系统的主机中，右键选择格式化。<br>2. 格式化类型选择Ext4。<br>3. 格式化成Ext4后，我们的Systemback就可以识别到我们的U盘了。<br><br><span class="hljs-comment"># 命令行操作</span><br>sudo fdisk -l<br><span class="hljs-comment"># 找到U盘的盘符，一般是(/dev/sdx)，(其中&quot;sdx&quot;可以是&quot;sdb&quot;或&quot;sdc&quot;等)</span><br><span class="hljs-comment"># 假设我们查到盘符是/dev/sdb，那么运行：</span><br>sudo mkfs.vfat /dev/sdb -I<br><span class="hljs-comment"># U盘即可被格式化</span><br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>格式化后依旧不行，就尝试重启电脑。</p>
+</li>
+</ol>
+</li>
+<li>
+<p>等等。</p>
+</li>
+</ol>
+<h2 id="还原-2">还原</h2>
+<h3 id="ISO文件还原">ISO文件还原</h3>
+<h4 id="实现过程-3">实现过程</h4>
+<ol>
+<li>
+<p>有了iso文件就可以使用U盘或移动固态制作系统盘，然后进行系统安装啦。确保使用的系统盘具有两倍以上的iso文件空间。可以使用rufus及其他软件进行系统盘制作。或者使用Ventoy做一个系统盘，直接把iso文件复制粘贴到U盘里面就可以进行安装。推荐Ventoy。</p>
+</li>
+<li>
+<p>系统盘弄好后，就依照正常安装Ubuntu系统的方式去安装即可，只不过具体的安装界面稍微有些不一样。大概有4个选项：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">Boot Live system<br>Boot system installer<br>Boot Live <span class="hljs-keyword">in</span> safe graphics mode<br>Boot Live <span class="hljs-keyword">in</span> debug mode<br></code></pre></td></tr></table></figure>
+<p>第一个选项将会进行U盘中的系统，第二个选项将直接进行系统安装。**选择第二个选项。**如果直接使用第二个选项进行系统安装时失败了，可以选择第一个选项，进入系统之后再进行安装（可以查看报错原因，知道为什么报错！）。</p>
+<p>最后几步有的需要root权限，Ubuntu直接在命令前加个sudo就行了。</p>
+</li>
+<li>
+<p>进入U盘中的系统之后，Ctrl+Alt+T打开终端，输入<code>systemback-sustart</code>即可进行系统安装。我当时使用的U盘空间不够（32G的U盘装26G的系统），就出现了下面的报错，更换为64G的U盘后就能够顺利安装成功了。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">An error occurred <span class="hljs-keyword">while</span> mounting the following partition/image:<br>/cdrom/casper/fLlesystem.squashfs<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>设置用户名。进行系统安装时，需要输入系统的用户信息，推荐输入原系统的用户名和密码。安装好的系统将会使用这里输入的用户名替换掉一些系统文件中的路径，比如说<code>~/.bashrc</code>中设置的工作空间路径。如果输入原系统的用户名和密码，系统是可以直接运行之前配置好的一些环境的；如果输入新的用户名，可能需要重新创建工作空间并进行编译。备份的系统会保留之前系统的一系列文件，为此工作空间中的路径也还是原来的用户名的。</p>
+</li>
+<li>
+<p>设置分区。之后需要选择挂载的磁盘空间，也就是进行Ubuntu系统分区，只不过这里的分区操作和常规的Ubuntu系统安装流程不一样。</p>
+<p><a target="_blank" rel="noopener" href="https://community.bwbot.org/topic/232/%E8%93%9D%E9%B2%B8ros%E9%95%9C%E5%83%8F%E5%8F%91%E5%B8%83">蓝鲸ROS镜像发布</a></p>
+<ol>
+<li>
+<p>原始的分区<code>/dev/sda</code>是电脑的硬盘，<code>/dev/sdb</code>是插入的启动盘。把原来的分区删掉，修改分区。</p>
+</li>
+<li>
+<p>我一般设置三个分区swap、/、/boot：swap为交换分区（8-16G都可），/为根目录（必须设置）、/boot为引导区（物理机必须设置，200MB即可，如果有/boot/efi，优先选择）。不同的电脑，该步骤出现的可选选项不同！看着来即可。</p>
+<p>一般设置4个区间即可，&quot;/&quot;(ext4)， &quot;/home&quot;(ext4), &quot;swap&quot;, &quot;boot/efi&quot;。其中：</p>
+<ul>
+<li>先分配&quot;swap&quot;，大小与内存相当即可。</li>
+<li>再分配&quot;boot/efi&quot;，大小200m即可。</li>
+<li>最后分配&quot;/&quot;和&quot;/home&quot;，文件系统都选ext4即可，&quot;/&quot;与&quot;/home&quot;的大小比一般是1:10到3:10，看个人需求而定。</li>
+</ul>
+<blockquote>
+<p>经验而谈，先把4个区间按大小划分好，再设置区间的挂载点/文件系统。因为我当时是一个一个地划分大小并设置文件系统，当做到第二个时，第一个分区的文件系统就会恢复成&quot;无&quot;了(不知道为什么)。</p>
+</blockquote>
+</li>
+<li>
+<p>注意一定要挂载<code>/boot/efi</code>，这样下面的Install GRUB 2 bootloader才会出现EFI的选项。</p>
+</li>
+<li>
+<p>另外，记得勾选上左侧的&quot;Transfer user configuration and data files&quot;，检查&quot;安装grub2引导程序&quot;选项并非&quot;禁用&quot;，并选择'Install GRUB2 bootloader'为前面设置的/boot分区的分区号。对于虚拟机，这里的/boot分区（grub）可以不设置，并选择“AUTO”。</p>
+</li>
+<li>
+<p>点击Next等待系统安装即可，安装完毕之后会提示重启电脑。</p>
+</li>
+</ol>
+</li>
+<li>
+<p>完成。</p>
+</li>
+</ol>
+<h4 id="可能的报错-2">可能的报错</h4>
+<ol>
+<li>
+<p>在恢复过程中出现了已中断，并显示文件系统发生严重改变。</p>
+<p>解决办法：进入systemback，选择修复系统进行给grub2修复（测试可完成，并自动安装grub2，添加windowsboot项）。修复好引导项后，在U盘系统中将本机的/目录复制到硬盘上需要安装系统的位置，对于出错的文件忽略就行，复制命令如例：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cp</span> -r ./* /media/***/SB@/<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>将做好的启动盘插入新电脑中，选择从U盘启动。发现无法正确进入系统安装界面。</p>
+<p>只有(hd0,msdos6)被识别出了文件系统。一般情况下，通过执行下述命令即可正常启动系统：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">grub rescue&gt; <span class="hljs-built_in">set</span> root=(hd0,msdos6)<br>grub rescue&gt; <span class="hljs-built_in">set</span> prefix=(hd0,msdos6)/boot/grub<br>grub rescue&gt; insmod normal<br>grub rescue&gt; normal<br></code></pre></td></tr></table></figure>
+<p>然而，在执行insmod normal之后会报错提示在(hd0,msdos6)/boot/grub/路径下找不到i386-pc/normal.mod。查看启动盘里面的文件，确实没有这个文件。使用这种方式制作的启动盘无法正确引导系统安装。</p>
+<p>推测：systemback自带的Convert to ISO和Write to target除了写入image之外，还写入了系统引导的相关文件。对于大于4GB的image，用Write to target制作的启动盘，插入电脑时挂载了SBLIVE和SBROOT两个分区。而使用其他方式制作的启动盘，插入电脑时只挂载了sblive一个分区，可能确实丢失了系统引导项。</p>
+</li>
+<li>
+<p>上述方式做出的系统镜像，在单Ubuntu系统中能够成功地安装并运行。听说在Windows10下安装双系统失败了，不插着镜像启动盘无法进入系统。</p>
+</li>
+</ol>
+<h3 id="系统还原点还原">系统还原点还原</h3>
+<blockquote>
+<p>使用系统还原不会还原你自己的文件、音乐、电子邮件或者其他任何类型的私人文件。</p>
+</blockquote>
+<ol>
+<li>
+<p>把移动硬盘里的还原点<code>.tgz</code>复制到<code>/home/Systemback</code>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo <span class="hljs-built_in">cp</span> S01_2023-10-25,20.08.18.tgz /home/Systemback <br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>解包：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo tar --use-compress-program=pigz -xvpf S01_2023-10-25,20.08.18.tgz<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>打开Systemback：</p>
+<ol>
+<li>
+<p>勾选还原点（以时间作为标记）后面的方框对钩，然后点击系统还原。</p>
+</li>
+<li>
+<p>依据自己需求配置，一般默认即可，点击下一步。</p>
+</li>
+<li>
+<p>点击开始，还原结束后即可得到还原点时候的系统。</p>
+</li>
+<li>
+<p>还原结束后重启。</p>
+</li>
+</ol>
+</li>
+<li>
+<p>完成。</p>
+</li>
+</ol>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/" class="category-chain-item">技术分享</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Linux系统备份与还原</div>
+      <div>http://zeyulong.com/posts/73f02fc4/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>龙泽雨</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年11月29日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/posts/2c867817/" title="Docker的安装与使用">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Docker的安装与使用</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/2f2c4461/" title="Office排版与技巧">
+                        <span class="hidden-mobile">Office排版与技巧</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="waline"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#waline', function() {
+      Fluid.utils.createCssLink('https://cdn.staticfile.org/waline/2.15.5/waline.min.css')
+      Fluid.utils.createScript('https://cdn.staticfile.org/waline/2.15.5/waline.min.js', function() {
+        var options = Object.assign(
+          {"serverURL":"https://www.zeyulong.cn/","path":"window.location.pathname","meta":["nick","mail","link"],"requiredMeta":["nick"],"lang":"zh-CN","emoji":["https://cdn.jsdelivr.net/gh/walinejs/emojis/weibo"],"dark":"html[data-user-color-scheme=\"dark\"]","wordLimit":0,"pageSize":10,"reaction":true,"locale":{"placeholder":"花径不曾缘客扫，蓬门今始为君开。"}},
+          {
+            el: '#waline',
+            path: window.location.pathname
+          }
+        )
+        Waline.init(options);
+        Fluid.utils.waitElementVisible('#waline .vcontent', () => {
+          var imgSelector = '#waline .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> <div style="font-size: 0.85rem"> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/custom/RunTime/RunTime.js"></script> </div> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  
+<script src="/custom/live2d/live2d-widget/autoload.js"></script>
+<script src="/custom/live2d/jquery.min.js"></script>
+<script src="/custom/LabelPage/LabelPage.js"></script>
+<script src="/custom/LoadingBar/pace.min.js"></script>
+<script src="/custom/ReadingProgress/ReadingProgress.js"></script>
+<script src="/custom/typing-effect/typing-effect.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  <canvas
+    class="fireworks"
+    style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 32767"
+></canvas>
+<script type="text/javascript" src="/custom/fireworks/anime.min.js"></script> 
+<script type="text/javascript" src="/custom/fireworks/fireworks.js"></script>
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

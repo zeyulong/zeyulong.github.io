@@ -1,0 +1,1980 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" >
+
+
+
+<head><!-- hexo injector head_begin start --><progress id="content_progress" value="0"></progress><!-- hexo injector head_begin end -->
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/theme/TamakoAvatar-new-zip.png">
+  <link rel="icon" href="/img/theme/TamakoAvatar-new-zip.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#000000">
+  <meta name="author" content="龙泽雨">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="本文主要积累了平时使用到的ROS知识。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ROS知识积累">
+<meta property="og:url" content="http://zeyulong.com/posts/c4541b88/index.html">
+<meta property="og:site_name" content="龙泽雨的博客">
+<meta property="og:description" content="本文主要积累了平时使用到的ROS知识。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://zeyulong.com/posts/c4541b88/rosgraph_dv.png">
+<meta property="og:image" content="http://zeyulong.com/posts/c4541b88/ROS%E8%AE%A1%E7%AE%97%E5%9B%BE%E7%BA%A7.png">
+<meta property="og:image" content="http://zeyulong.com/posts/c4541b88/ROS%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B.png">
+<meta property="og:image" content="http://zeyulong.com/posts/c4541b88/%E6%B6%88%E6%81%AF%E9%80%9A%E4%BF%A1%E6%9C%BA%E5%88%B6.webp">
+<meta property="og:image" content="http://zeyulong.com/posts/c4541b88/%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F.webp">
+<meta property="og:image" content="http://zeyulong.com/posts/c4541b88/%E4%BF%AE%E6%94%B9%E8%8A%82%E7%82%B9%E5%90%8D%E7%A7%B0.png">
+<meta property="og:image" content="http://zeyulong.com/posts/c4541b88/%E8%8A%82%E7%82%B9%E5%88%86%E7%BB%84%E7%BB%93%E6%9E%9C.png">
+<meta property="og:image" content="http://zeyulong.com/posts/c4541b88/rosconsole%E7%95%8C%E9%9D%A2.png">
+<meta property="article:published_time" content="2024-03-05T03:00:35.000Z">
+<meta property="article:modified_time" content="2025-03-01T02:25:09.946Z">
+<meta property="article:author" content="龙泽雨">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://zeyulong.com/posts/c4541b88/rosgraph_dv.png">
+  
+  
+  
+  <title>ROS知识积累 - 龙泽雨的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/custom/Markdown/macpanel.css">
+<link rel="stylesheet" href="/custom/Fonts/CodeFont.css">
+<link rel="stylesheet" href="/custom/Fonts/inlinecode-bg-color.css">
+<link rel="stylesheet" href="/custom/live2d/font-awesome.min.css">
+<link rel="stylesheet" href="/custom/LoadingBar/pace-theme-corner-indicator.css">
+<link rel="stylesheet" href="/custom/ReadingProgress/ReadingProgress.css">
+<link rel="stylesheet" href="/custom/SelectBackgroundColor/SelectBackgroundColor.css">
+<link rel="stylesheet" href="/custom/waline/gif.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"zeyulong.com","root":"/","version":"1.9.7","typing":{"enable":false,"typeSpeed":100,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"8gUBTaCjmaSbnf4genwggan3-MdYXbMMI","app_key":"2WRxjgxRXIWRBo8EA4205Wfm","server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<!-- hexo injector head_end start --><link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@200;300;400;500;600;700;900&display=swap" rel="stylesheet"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.0.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Happy every day!</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-steam"></i>
+                <span>摸鱼</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/2048" target="_self">
+                    
+                    <span>2048</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/bcbk/1" target="_self">
+                    
+                    <span>别踩白块-1</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/bcbk/2" target="_self">
+                    
+                    <span>别踩白块-2</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/dblk" target="_self">
+                    
+                    <span>躲避绿块</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/dr" target="_self">
+                    
+                    <span>恐龙快跑</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://mario-kart-3-js.vercel.app/" target="_self">
+                    
+                    <span>马里奥赛车</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/mf" target="_self">
+                    
+                    <span>魔方</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/cat" target="_self">
+                    
+                    <span>圈小猫</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/sl" target="_self">
+                    
+                    <span>扫雷</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/txz" target="_self">
+                    
+                    <span>推箱子</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/wzq" target="_self">
+                    
+                    <span>五子棋</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/theme/GirlWithCat-cut.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle">ROS知识积累</span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        龙泽雨
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-03-05 11:00" pubdate>
+          2024年3月5日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          21k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          177 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">ROS知识积累</h1>
+            
+              <p id="updated-time" class="note note-info" style="">
+                
+                  
+                    本文最后更新于 2025年3月1日 上午
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <p>本文主要积累了平时使用到的ROS知识。</p>
+<span id="more"></span>
+<h1 id="代码编译和运行">代码编译和运行</h1>
+<h2 id="示范">示范</h2>
+<ol>
+<li>
+<p>新建工作区</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> youfolder/<br><span class="hljs-built_in">mkdir</span> -p catkin_ws/src  <span class="hljs-comment"># catkin_ws可改名</span><br><br><span class="hljs-built_in">cd</span> catkin_ws<br>catkin config --init --mkdirs --extend /opt/ros/melodic --merge-devel --cmake-args -DCMAKE_BUILD_TYPE=Release<br><br><span class="hljs-built_in">cd</span> src<br>catkin_init_workspace  <span class="hljs-comment"># 创建顶层CMakeLists.txt文件，CLion利用此文件打开项目</span><br><br><span class="hljs-built_in">cd</span> ..<br>catkin build  <span class="hljs-comment"># 编译生成完整工作区</span><br></code></pre></td></tr></table></figure>
+<p>此时，<code>./catkin_ws</code>文件夹下有<code>build</code>、<code>devel</code>、<code>logs</code>和<code>src</code>四个文件夹。</p>
+</li>
+<li>
+<p>编译代码</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> src<br><span class="hljs-comment"># 把代码总放在src文件夹下</span><br>git <span class="hljs-built_in">clone</span> https://github.com/HKUST-Aerial-Robotics/VINS-Fusion.git<br><br><span class="hljs-built_in">cd</span> ../  <span class="hljs-comment"># 退回到catkin_ws文件夹</span><br>catkin build  <span class="hljs-comment"># 或 catkin_make。相当于cmake+make</span><br><span class="hljs-comment"># 编译完成后，在代码运行前，须使用source命令刷新一下工作空间的环境。否则会出现找不到“package XXX not found” 的问题。</span><br><span class="hljs-built_in">source</span> ./catkin_ws/devel/setup.bash<br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>加速编译：</p>
+<ol>
+<li>
+<p><code>catkin build</code>命令会自动执行多线程，使用最快的编译速度。</p>
+</li>
+<li>
+<p><code>catkin_make -j2 -l2</code> :</p>
+<ul>
+<li>-j2，j 是 job 的意思，代表允许 2 个编译命令同时进行，一般是以 CPU的核心数目的两倍为。</li>
+<li>-l2，l 是 load-average 的意思，代表系统加载的任务数，数目一般与-j的数目保持一致。</li>
+</ul>
+<p>注意，此处不仅限于2，可以是2，4，8，这取决于你是几核CPU。</p>
+</li>
+</ol>
+</blockquote>
+<blockquote>
+<p>如果编译报错：</p>
+<p><code>catkin clean</code>相当于<code>rm -r $&#123;build&#125; $&#123;devel&#125;</code>，但是避免了<code>rm -r</code>这种危险的操作！</p>
+</blockquote>
+</li>
+<li>
+<p>添加环境变量（可选）</p>
+<p>代码编译完成，后面需要运行ros命令，为了避免每次打开新的shell都需要source，我们将其添加到bash配置文件中。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 方法一，使用gedit</span><br><span class="hljs-built_in">echo</span> “<span class="hljs-built_in">source</span> youfolder/catkin_ws/devel/setup.bash” &gt;&gt; ~/.bashrc<br>gedit ~/.bashrc  <span class="hljs-comment"># 注：用gedit打开文件，查看是否加入</span><br><br><span class="hljs-comment"># 方法二，使用vim</span><br>sudo  vi ~/.bashrc  <span class="hljs-comment"># 注：打开.bashrc文件</span><br><span class="hljs-comment"># 最后一行添加：</span><br><span class="hljs-built_in">source</span> youfolder/catkin_ws/devel/setup.bash	<br><span class="hljs-comment"># 注：点击键盘“E”，进入编辑（edit）模式，用“delete”键删除添加的路径</span><br></code></pre></td></tr></table></figure>
+<p>注，<a href="https://zeyulong.com/posts/a8aab215/#vim">vim按键</a>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash">按Esc。输入 :wq！，保存并退出。<br>注：ESC”键退出编辑模式，并输入以下命令：<br>:wq 保存后退出vi，若为:wq!则为强制存储后退出<br>:w    保存但不退出<br>:w!   若文件属性为【只读】，强制写入该档案<br>:q     离开vi<br>:q!    若曾经修改过档案，又不想存储，使用！为强制离开不存储档案<br>:e!    将档案还原到最原始状态！<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>运行代码</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 示例</span><br><span class="hljs-comment"># 分别新建三个终端各自按顺序执行</span><br>roslaunch vins vins_rviz.launch<br>rosrun vins vins_node ~/catkin_ws/src/VINS-Fusion/config/euroc/euroc_mono_imu_config.yaml <br>rosbag play ~/SLAM/test_data/MH_04_difficult.bag<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>完成。</p>
+</li>
+</ol>
+<h2 id="知识">知识</h2>
+<h3 id="编译">编译</h3>
+<h4 id="命令">命令</h4>
+<p>catkin是由ROS社区开发的元编译系统（meta-buildsystem），最初目的是用于编译ROS社区中多个相互依赖的CMake工程。主要有几个阶段：</p>
+<ol>
+<li>
+<p><code>catkin_make</code>。刚开始是以<code>catkin_make</code>为代表的命令行工具，主要是封装一系列的<code>cmake</code>命令。<code>catkin_make</code>相当于：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">mkdir</span> build<br><span class="hljs-built_in">cd</span> build<br>cmake ../src -DCATKIN_DEVEL_SPACE=../devel -DCMAKE_INSTALL_PREFIX=../install<br>make -j&lt;number of cores&gt; -l&lt;number of cores&gt; [optional target, e.g. install]<br></code></pre></td></tr></table></figure>
+<p>但是<code>catkin_make</code>自身有些缺陷。比如，没有编译时的错误隔离。</p>
+</li>
+<li>
+<p><code>catkin_make_isolated</code>。后来<code>catkin_make_isolated</code>解决了隔离的问题，但是编译速度还是慢，因为不支持并行编译。</p>
+</li>
+<li>
+<p><code>catkin tools</code>（推荐使用）。再后来<code>catkin tools</code>独立出来，推出一系列<code>python</code>编写的编译命令。其中<code>catkin build</code>支持隔离和并行编译。简单来说，如果ros的工作空间 (workspace) 中只有一个ros包（ros package)，那么catkin_make和catkin build区别不大；如果一个caktin workspace里有多个ros包，那么catkin build显然是更好的编译工具。因为catkin_make只是几行Cmake和make指令的简写，不管里面有几个包都一起编译了。但是catkin_build会将工作空间里所有的包同时单独（isolated）编译，编译过程互不影响。</p>
+<blockquote>
+<p>在编译生成的文件夹中，<code>catkin_make</code>会生成一个与<code>src</code>文件夹中各文件（夹）层级相同的ros包，而<code>catkin build</code>会生成各自单独的ros包？</p>
+</blockquote>
+</li>
+</ol>
+<h4 id="catkin-make">catkin_make</h4>
+<ul>
+<li>
+<p>编译指定的包：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">catkin_make -DCATKIN_WHITELIST_PACKAGES=<span class="hljs-string">&quot;package1;package2&quot;</span>  <span class="hljs-comment"># 不会自动编译依赖包，也就是说需要手动添加依赖包。or</span><br>catkin_make --only-pkg-with-deps &lt;target_package&gt;<br>catkin_make -DCATKIN_WHITELIST_PACKAGES=<span class="hljs-string">&quot;&quot;</span> <span class="hljs-comment"># 如果想要再回到那种catkin_make 编译所有包的状态</span><br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>不编译指定包。在包的根目录（<code>CMakeLists.txt</code>、<code>package.xml</code>的同级目录）下添加名为<code>CATKIN_IGNORE</code>的空文件即可。如果有好几个包放在一个文件夹下，再在这个文件夹添加名为<code>CATKIN_IGNORE</code>的文件，则这个文件夹下所有的包都不会被编译。</p>
+<blockquote>
+<p>如果您现在运行 <code>catkin_make</code> （或任何其他 <code>catkin</code> 变体），它应该忽略该目录（以及所有子目录）中的任何包。请注意，如果您在添加 <code>CATKIN_IGNORE</code> 之前已经构建了工作区，catkin 仍可能会拾取 pkg，因为它随后会使用 <code>build</code> 目录中的一些信息。只需删除 <code>build/</code> 和 <code>devel/</code> 并重建即可解决此问题。</p>
+</blockquote>
+</li>
+</ul>
+<h4 id="catkin-tools">catkin tools</h4>
+<ul>
+<li>
+<p><code>cmake build</code>。</p>
+<ul>
+<li>
+<p><code>cmake build</code>的输出在<code>catkin_ws/logs/package/build.cmake.log、build.make.log</code>里。</p>
+</li>
+<li>
+<p>在使用<code>cmake build</code>进行编译时，会先调用<code>package.xml</code>，检测所有的依赖库都编译好了，再编译源码。如果有依赖库编译报错，源码编译就会被Abandoned。所以，当依赖库报错时，可以先不编译整个项目的源码，而是先指定<code>cmake build</code>编译报错的依赖库。等依赖库的报错解决了，再编译整个项目。</p>
+</li>
+<li>
+<p>不<code>catkin clean</code>直接<code>cmake build</code>只会编译修改过的包？检查到没有修改的包就跳过。</p>
+</li>
+<li>
+<p>跳过包。假设您按照 roslib 构建了每个包，但该包有一个构建错误。修复错误后，您可以再次运行相同的构建命令，但构建动词提供了在这种情况下节省时间的选项。如果从头重新开始，roslib 的依赖项的任何产品都不会被重新构建，但是底层构建系统仍然需要一些时间来验证每个包。但是，可以通过直接跳转到给定的包来跳过这些检查。 您可以使用 <code>--start-with</code> 选项在解决问题后从中断的地方继续构建。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> /tmp/ros_tutorials_ws         <span class="hljs-comment"># Navigate to workspace</span><br>catkin build --start-with roslib <span class="hljs-comment"># Build roslib and its dependents</span><br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>编译单个包。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> /tmp/ros_tutorials_ws      <span class="hljs-comment"># Navigate to workspace</span><br>catkin build roslib  <span class="hljs-comment"># Build roslib</span><br></code></pre></td></tr></table></figure>
+<p>如果您只对在工作区中构建单个包感兴趣，您还可以使用 <code>--no-deps</code> 选项和包名称。这将跳过包的所有依赖项，构建给定的包，然后退出。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">catkin build roslib --no-deps <span class="hljs-comment"># Build roslib only</span><br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>不编译指定包。</p>
+<ul>
+<li>
+<p>在包的根目录（<code>CMakeLists.txt</code>、<code>package.xml</code>的同级目录）下添加名为<code>CATKIN_IGNORE</code>的空文件即可。如果有好几个包放在一个文件夹下，再在这个文件夹添加名为<code>CATKIN_IGNORE</code>的文件，则这个文件夹下所有的包都不会被编译。</p>
+<blockquote>
+<p>如果您现在运行 <code>catkin_make</code> （或任何其他 <code>catkin</code> 变体），它应该忽略该目录（以及所有子目录）中的任何包。请注意，如果您在添加 <code>CATKIN_IGNORE</code> 之前已经构建了工作区，catkin 仍可能会拾取 pkg，因为它随后会使用 <code>build</code> 目录中的一些信息。只需删除 <code>build/</code> 和 <code>devel/</code> 并重建即可解决此问题。</p>
+</blockquote>
+</li>
+<li>
+<p>配置参数：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">catkin config --skiplist baz  <span class="hljs-comment"># 要设置跳过列表，可以调用该命令</span><br>catkin config --no-skiplist  <span class="hljs-comment"># 要清除跳过列表，您可以使用 --no-skiplist 选项</span><br><br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>请注意，您仍然可以通过将其名称显式传递给 <code>catkin build</code> 来在跳过列表和构建列表上构建包。</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><code>catkin clean</code>。相当于<code>rm -r $&#123;build&#125; $&#123;devel&#125;</code>，但是避免了<code>rm -r</code>这种危险的操作！</p>
+</li>
+<li>
+<p><code>catkin init</code>可以初始化workspace，而且初始化后，在workspace下的任何一个子目录里使用catkin工具，都相当于在workspace文件夹下使用，它会自动感知workspace。</p>
+</li>
+<li>
+<p><code>catkin config</code>可以查看workspace的结构和参数。</p>
+</li>
+<li>
+<p><code>catkin config --merge-devel</code>可以使得每个包编译得到的devel产物都在同一个devel文件夹里，当然也可以用<code>catkin config --isolate-devel</code>使得各个包的devel分开。</p>
+</li>
+<li>
+<p><code>catkin list</code>可以查看工作空间中有哪些ros包。</p>
+</li>
+<li>
+<p>可以通过运行以下命令获取参数的详尽列表:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">source</span> ./devel/setup.zsh &amp;&amp; rosrun ze_vio_ceres ze_vio_ceres_node --<span class="hljs-built_in">help</span><br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>指定使用到的gcc和g++版本：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">catkin build --cmake-args -DCMAKE_C_COMPILER=gcc-10 -DCMAKE_CXX_COMPILER=g++-10<br></code></pre></td></tr></table></figure>
+</li>
+<li></li>
+</ul>
+<h4 id="编译第三方开源软件需要下载的问题">编译第三方开源软件需要下载的问题</h4>
+<blockquote>
+<p>注意<code>CmakeList.txt</code>里有没有指定具体版本。在<code>package.xml</code>里也可以看到指定的版本。</p>
+</blockquote>
+<blockquote>
+<p>其实就类似于在系统中<code>cmake</code>、<code>make</code>和<code>make install</code>的步骤，只不过这里的第三方库是安装在了ROS工作区里被相互调用，<code>catkin clean</code>后也就删除掉了，而没有安装在系统环境里。也方便使用指定版本的第三方库。</p>
+</blockquote>
+  <figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs cmake"><span class="hljs-comment"># URL https://github.com/gflags/gflags/archive/v2.2.1.zip</span><br><span class="hljs-comment"># GIT_REPOSITORY  https://github.com/jbeder/yaml-cpp</span><br><span class="hljs-comment"># GIT_TAG $&#123;YAML_CPP_TAG&#125;</span><br><span class="hljs-comment"># DOWNLOAD_COMMAND rm -f SuiteSparse-$&#123;VERSION&#125;.tar.gz &amp;&amp; wget --retry-connrefused --waitretry=1 --timeout=40 --tries 3 https://github.com/ethz-asl/thirdparty_library_binaries/raw/master/SuiteSparse-$&#123;VERSION&#125;.tar.gz</span><br>DOWNLOAD_COMMAND <span class="hljs-string">&quot;&quot;</span><br>URL <span class="hljs-string">&quot;/yourfolder/gflags-2.2.1.zip&quot;</span>  <span class="hljs-comment"># 使用存档时，它将自动解压缩，除非设置了 DOWNLOAD_NO_EXTRACT 选项来阻止它。</span><br><span class="hljs-comment"># 默认解压路径为catkin_ws/build/xxx/xxx_src-prefix/src/xxx_src</span><br>URL_MD5 <span class="hljs-number">4628</span>df9eeae10ae5f0c486f1ac982fce  <span class="hljs-comment"># （可选，仅用作文件验证）与URL搭配。随便输入一个MD5码，编译时会报错当前压缩包正确的MD5码。</span><br>UPDATE_COMMAND <span class="hljs-string">&quot;&quot;</span>  <span class="hljs-comment"># 与URL搭配。使用自定义命令覆盖下载方法的更新步骤。</span><br>DOWNLOAD_NO_EXTRACT <span class="hljs-keyword">TRUE</span>  <span class="hljs-comment"># 允许通过为此选项传递一个布尔真值来禁用下载步骤的提取部分。</span><br><span class="hljs-comment"># 如果希望控制下载的归档文件的位置及其名称，可以使用以下选项</span><br><span class="hljs-keyword">set</span>(CMAKE_CURRENT_BINARY_DIR /yourfolder)  <span class="hljs-comment"># 放在主程序中，而不包含在ExternalProject_Add()</span><br>DOWNLOAD_DIR <span class="hljs-variable">$&#123;CMAKE_CURRENT_BINARY_DIR&#125;</span><br>DOWNLOAD_NAME jsoncpp_1.<span class="hljs-number">8.4</span>.tar.gz<br></code></pre></td></tr></table></figure>
+<p>或者，将<code>src</code>（这个文件是原本解压下载的第三方源码source的地方，具体名称要看<code>CMakeLists.txt</code>中SOURCE_DIR的设置）中的各个第三方源码都解压好，放到src对应的文件夹中。例如<code>catkin_ws/build/xxx/xxx_src-prefix/src/xxx.tar.gz</code>。</p>
+<h3 id="运行">运行</h3>
+<h4 id="运行节点">运行节点</h4>
+<ul>
+<li>
+<p><code>roscore</code>是运行ROS主节点的命令。也可以在另一台位于同一个网络内的计算机上运行它。但是，除了支持多<code>roscore</code>的某些特殊情况，<code>roscore</code>在一个网络中只能运行一个。</p>
+</li>
+<li>
+<p><code>rosrun</code>是ROS的基本运行命令。它用于在功能包中运行一个节点。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">rosrun PACKAGE_NAME NODE_NAME<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>如果<code>rosrun</code>是执行一个节点的命令，那么<code>roslaunch</code>是运行多个节点的概念。该命令允许运行多个确定的节点。其他功能还包括一些专为执行具有诸多选项的节点的ROS命令，比如包括更改功能包参数或节点名称、配置节点命名空间、设置ROS_ROOT和ROS_PACKAGE_PATH以及更改环境变量等。<code>roslaunch</code>使用<code>*.launch</code>文件来设置可执行节点，它基于可扩展标记语言（XML），并提供XML标记形式的多种选项。启动时会检查系统是否已经启动了<code>roscore</code>，如果没有，会自动启动。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">roslaunch PACKAGE_NAME LAUNCH_NAME<br></code></pre></td></tr></table></figure>
+<ul>
+<li>
+<p>当用<code>roslaunch</code>命令运行多个节点时，运行中的节点的输出（INFO、ERROR等）不会显示在终端屏幕上，这会使调试变得困难。如果此时添加了<code>--screen</code>选项，终端上运行的所有节点的输出将显示在终端屏幕上。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">roslaunch my_first_ros_pkg union.launch --screen<br></code></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li>
+<p>运行<code>rosbag play</code>命令需要提前启动<code>roscore</code>。</p>
+</li>
+<li>
+<p><code>rosbag play</code>命令可以放在<code>roscore</code>或<code>roslaunch</code>命令最后运行。程序读取不到数据就等着呗。</p>
+</li>
+</ul>
+<h4 id="查看">查看</h4>
+<h5 id="rqt">rqt</h5>
+<h6 id="界面介绍">界面介绍</h6>
+<p>打开rqt：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">rqt<br></code></pre></td></tr></table></figure>
+<p>工具在工具栏-Plugins里：</p>
+<ul>
+<li>
+<p>Introspection</p>
+<ul>
+<li>Node Graph：节点图</li>
+<li>Package Fraph</li>
+<li>Process Monitor</li>
+</ul>
+</li>
+<li>
+<p>Logging</p>
+<ul>
+<li>Console：序号、消息内容、消息等级、节点、时间戳、主题和代码所在位置</li>
+<li>Logger level：设置消息显示级别</li>
+</ul>
+</li>
+<li>
+<p>Topic-Topic Monitor：包含主题、数据类型、带宽、频率、值</p>
+</li>
+<li>
+<p>Visualization</p>
+<ul>
+<li>Image View：可视化发布的主题</li>
+<li>Plot：根据主题绘制曲线</li>
+</ul>
+</li>
+</ul>
+<h6 id="launch文件编写">launch文件编写</h6>
+<ul>
+<li>
+<p>可视化单个图像主题：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">launch</span>&gt;</span><br>  <span class="hljs-comment">&lt;!-- Display --&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">node</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;image_view&quot;</span> <span class="hljs-attr">pkg</span>=<span class="hljs-string">&quot;rqt_image_view&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;rqt_image_view&quot;</span> <span class="hljs-attr">args</span>=<span class="hljs-string">&quot;/package_name/image_topic&quot;</span>/&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">launch</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<p><code>args</code>参数指定了<code>rqt_image_view</code>界面打开时默认显示的主题，其它主题可以在界面的下拉菜单中进行切换。</p>
+</li>
+<li>
+<p>可视化多个图像主题：</p>
+<ul>
+<li>
+<p>方法一：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">launch</span>&gt;</span><br>  <span class="hljs-comment">&lt;!-- Display --&gt;</span><br>  <span class="hljs-comment">&lt;!-- Node for first image --&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">node</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;image_view_1&quot;</span> <span class="hljs-attr">pkg</span>=<span class="hljs-string">&quot;rqt_image_view&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;rqt_image_view&quot;</span> <span class="hljs-attr">args</span>=<span class="hljs-string">&quot;/package_name/image_topic_1&quot;</span>/&gt;</span><br>  <br>  <span class="hljs-comment">&lt;!-- Node for second image --&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">node</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;image_view_2&quot;</span> <span class="hljs-attr">pkg</span>=<span class="hljs-string">&quot;rqt_image_view&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;rqt_image_view&quot;</span> <span class="hljs-attr">args</span>=<span class="hljs-string">&quot;/package_name/image_topic_2&quot;</span>/&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">launch</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<p>这样会打开两个<code>rqt_image_view</code>界面分别进行显示。</p>
+</li>
+<li>
+<p>方法二：</p>
+<p>首先，编写<code>*.lanuch</code>文件的内容为：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">launch</span>&gt;</span><br>  <span class="hljs-comment">&lt;!-- Display --&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">node</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;rqt_gui&quot;</span> <span class="hljs-attr">pkg</span>=<span class="hljs-string">&quot;rqt_gui&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;rqt_gui&quot;</span>/&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">launch</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<p>运行<code>*.launch</code>文件后打开的界面是<code>rqt</code>主界面（默认是 工具栏-Plugins-Topic-Topic Monitor）。菜单栏-Plugins-Visualization-Image View，然后为第一个<code>Image View</code>窗口选择合适的主题。同理，添加第二个<code>Image View</code>窗口和选择主题。（可选）关闭``rqt<code>主界面窗口，只留下</code>Image View<code>窗口。调整</code>Image View<code>窗口的位置和大小。最后，菜单栏-Perspectives-Export导出</code>*.perspectives`配置文件。</p>
+<p>将<code>*.perspectives</code>配置文件放置在项目文件夹中，修改<code>*.launch</code>文件：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">launch</span>&gt;</span><br>  <span class="hljs-comment">&lt;!-- Display --&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">node</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;rqt_gui&quot;</span> <span class="hljs-attr">pkg</span>=<span class="hljs-string">&quot;rqt_gui&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;rqt_gui&quot;</span> <span class="hljs-attr">args</span>=<span class="hljs-string">&quot;--perspective-file $(find package_name)/launch/visualization.perspective&quot;</span>/&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">launch</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<p>这样，再次运行<code>*.launch</code>文件时，打开的就是修改好的界面。</p>
+<blockquote>
+<p>修改界面后，没找到可以直接保存修改的地方。需要重新导出再覆盖源<code>*.perspective</code>文件。</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<h5 id="命令行">命令行</h5>
+<p><a target="_blank" rel="noopener" href="https://wiki.ros.org/cn/ROS/Tutorials/UnderstandingTopics">官方文档</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_45590473/article/details/121364421">详细的Rostopic命令系列（包括消息发布等实例操作）</a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 查看ros的默认路径</span><br><span class="hljs-built_in">echo</span> <span class="hljs-variable">$ROS_PACKAGE_PATH</span><br><br><span class="hljs-comment"># 设置消息级别</span><br>rqt_logger_level  <span class="hljs-comment"># rosrun rqt_logger_level rqt_logger_level</span><br><span class="hljs-comment"># 查看节点的日志输出</span><br>rqt_console  <span class="hljs-comment"># rosrun rqt_console rqt_console</span><br><br><span class="hljs-comment"># 列出系统当前的节点</span><br>rosnode list<br><br><span class="hljs-comment"># 列出系统当前的参数</span><br>rosparam list<br>rostopic list -v  <span class="hljs-comment"># 通过将“-v”选项添加到rostopic list命令，可以分开发布话题和订阅话题，并将每个话题的消息类型一起显示。</span><br><span class="hljs-comment"># 在线修改系统参数</span><br>rosparam <span class="hljs-built_in">set</span> /node param  <span class="hljs-comment"># https://blog.csdn.net/gwplovekimi/article/details/104373136</span><br>rosparam <span class="hljs-built_in">set</span>	<span class="hljs-built_in">set</span> parameter<br>rosparam get	get parameter<br>rosparam load	load parameters from file<br>rosparam dump	dump parameters to file<br>rosparam delete	delete parameter<br>rosparam list	list parameter names<br><br><span class="hljs-comment"># 查看所有活动话题</span><br>rostopic list<br><span class="hljs-comment"># 查看特定话题的消息类型</span><br>rostopic info /topic_name  <span class="hljs-comment"># 显示有关该话题的详细信息，包括消息类型和发布者/订阅者的数量</span><br><span class="hljs-comment"># 查看某个话题的消息</span><br>rostopic <span class="hljs-built_in">echo</span> /topic_name<br>rostopic <span class="hljs-built_in">echo</span> /topic_name/channels[5]/values  <span class="hljs-comment"># sensor_msgs::ChannelFloat32</span><br>rostopic <span class="hljs-built_in">echo</span> --c /topic_name  <span class="hljs-comment"># 发送完一条信息后自动清屏发送并自动发送下条数据</span><br>rostopic <span class="hljs-built_in">echo</span> /topic_name --noarr --nostr  <span class="hljs-comment"># 排除数组（--noarr）、排除字符串（--nostr）</span><br>rostopic <span class="hljs-built_in">echo</span> /topic_name &gt;fiel_name.txt  <span class="hljs-comment"># 如果 topic内容太多，终端无法完全显示，则可以保存至本地文件中，再查看。</span><br>rostopic <span class="hljs-built_in">type</span> /topic_name | rosmsg show  <span class="hljs-comment"># 查看特定话题的消息字段和数据类型</span><br><br><span class="hljs-comment"># 查看传感器发布频率</span><br>rqt  <span class="hljs-comment"># 顶部工具栏-plugins-topic monitor</span><br>rostopic hz /topic_name<br><br><span class="hljs-comment"># 把数据发布到当前某个正在广播的话题上</span><br>rostopic pub [topic] [msg_type] [args]<br></code></pre></td></tr></table></figure>
+<h3 id="调试">调试</h3>
+<p><a href="https://zeyulong.com/posts/ad29da53/#CLion%E8%B0%83%E8%AF%95ROS%E9%A1%B9%E7%9B%AE">CLion调试ROS项目</a></p>
+<h4 id="GitHub-Copilot">GitHub Copilot</h4>
+<ol>
+<li>
+<p>我希望能够对ROS程序进行断点调试，但是，程序读取的文件来自rosbag包。那么，如何保证在程序遇到断点暂停时，rosbag包也停止播放？</p>
+<blockquote>
+<p>在ROS中，rosbag包的播放和程序的执行是两个独立的进程，它们之间没有直接的通信机制来同步它们的运行状态。因此，当你在程序中设置断点并使程序暂停时，rosbag包将继续播放，这可能会导致你错过一些重要的数据。</p>
+<p>一种可能的解决方案是使用ROS的服务（Service）来控制rosbag的播放。你可以创建一个服务，当你的程序达到断点并暂停时，这个服务会发送一个请求给rosbag，告诉它暂停播放。当你的程序继续运行时，这个服务再次发送请求，告诉rosbag继续播放。</p>
+<p>然而，这需要你修改rosbag的源代码，使其能够响应这些服务请求。这可能需要一些ROS编程的经验，并且可能不适用于所有情况。</p>
+<p>另一种解决方案是手动控制rosbag的播放。你可以在程序达到断点并暂停时，手动暂停rosbag的播放。然后，在程序继续运行时，再手动让rosbag继续播放。这种方法的缺点是需要人工干预，但它不需要修改任何代码。</p>
+<p>最后，你也可以考虑使用一些可视化工具，如rqt_bag，它提供了一个图形界面，可以让你更容易地控制rosbag的播放。你可以在程序达到断点并暂停时，使用这个工具来暂停rosbag的播放。然后，在程序继续运行时，再使用这个工具让rosbag继续播放。</p>
+</blockquote>
+</li>
+<li>
+<p>对于调试需要读取rosbag包播放的数据来运行的ROS程序，你有哪些推荐的调试方法？</p>
+<blockquote>
+<p>对于需要读取rosbag包播放数据来运行的ROS程序，以下是一些推荐的调试方法：</p>
+<ol>
+<li>
+<p><strong>使用ROS的rqt工具</strong>：rqt提供了一种可视化的方式来查看和理解ROS系统的运行情况。你可以使用rqt_graph来查看节点和主题的连接情况，使用rqt_plot来绘制主题数据，使用rqt_console来查看节点的日志输出等。</p>
+</li>
+<li>
+<p><strong>使用ROS的rostopic和rosnode命令</strong>：这些命令可以帮助你查看当前运行的节点和主题，以及主题的数据。例如，你可以使用<code>rostopic echo /topic_name</code>来查看某个主题的数据，使用<code>rosnode info /node_name</code>来查看某个节点的详细信息。</p>
+</li>
+<li>
+<p><strong>使用GDB或其他调试工具</strong>：如果你的ROS程序是用C<ins>编写的，你可以使用GDB或其他C</ins>调试工具来进行断点调试。你可以在程序的关键位置设置断点，然后逐步执行程序，查看变量的值，理解程序的运行流程。</p>
+</li>
+<li>
+<p><strong>使用print或ROS_INFO输出调试信息</strong>：在程序的关键位置输出一些调试信息，可以帮助你理解程序的运行情况。例如，你可以输出某个变量的值，或者输出一些提示信息来表示程序运行到了某个位置。</p>
+</li>
+<li>
+<p><strong>控制rosbag的播放</strong>：你可以使用rosbag的命令行工具来控制rosbag的播放。例如，你可以使用<code>rosbag play --pause bagfile.bag</code>来暂停播放，然后在需要的时候使用<code>rosbag play --resume bagfile.bag</code>来恢复播放。这样，你可以在程序的关键位置暂停rosbag的播放，然后逐步执行程序，查看程序处理单个数据的情况。</p>
+</li>
+<li>
+<p><strong>使用rviz进行可视化</strong>：rviz是ROS的一个3D可视化工具，可以用来可视化传感器数据、机器人的状态、计划的路径等。通过rviz，你可以更直观地理解程序的运行情况。</p>
+</li>
+</ol>
+<p>以上就是一些推荐的调试方法，具体使用哪种方法，需要根据你的程序的具体情况和你的需求来决定。</p>
+</blockquote>
+</li>
+</ol>
+<h1 id="ROS知识">ROS知识</h1>
+<h2 id="消息通信术语">消息通信术语</h2>
+<p>可视化：</p>
+<p>状态图（graph）。节点、话题、发布者和订阅者之间关系可以通过状态图（graph）直观地表示。它是当前正在运行的消息通信的图形表示。但不能为一次性服务创建状态图。执行它是通过运行rqt_graph功能包的rqt_graph节点完成的。有两种执行命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">rqt_graph  <span class="hljs-comment"># 或</span><br>rosrun rqt_graph rqt_graph  <span class="hljs-comment"># 或</span><br>rqt  <span class="hljs-comment"># 执行rqt时，在菜单中选择[Plugins]→[Introspection]→[Node Graph]</span><br></code></pre></td></tr></table></figure>
+<p>以VINS-Fusion项目为例：</p>
+<img src="/posts/c4541b88/rosgraph_dv.png" srcset="/img/loading.gif" lazyload class="" title="rosgraph_dv">
+<blockquote>
+<p>圆圈表示节点，正方形表示话题。</p>
+</blockquote>
+<blockquote>
+<p>简单来说，在ROS操作系统中，节点、话题、消息、发布者和订阅者之间的关系为：</p>
+<ul>
+<li>一个节点既可以作为发布者（节点）对外发布（多个）话题，也可以作为订阅者（节点）订阅来自其他（多个）节点的（多个）话题。</li>
+<li>ROS中最小的进程单元就是节点（node），节点之间通过主题（topic）传递消息数据（message）。</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>每个节点并行运行，有消息就订阅和发布，以互相通信。</p>
+</blockquote>
+<p>计算图是ROS处理数据的一种点对点的网络形式。ROS会创建一个连接到所有进程的网络。在系统中的任何节点都可以访问此网络，并通过该网络与其他节点进行交互，获取其他节点发布的信息，并将自身数据发布到网络上。如下图所示：</p>
+<img src="/posts/c4541b88/ROS%E8%AE%A1%E7%AE%97%E5%9B%BE%E7%BA%A7.png" srcset="/img/loading.gif" lazyload class="" title="ROS计算图级">
+<ul>
+<li>
+<p>节点（Node）是各自独立的可执行的文件。</p>
+<ul>
+<li>如果需要一个可以与其他节点进行交互的进程，则需要创建一个节点，并将此节点连接到ROS网络。</li>
+<li>在通常情况下，系统包含能够实现不同功能的多个节点。每个节点具备特定的单一的功能。</li>
+</ul>
+</li>
+<li>
+<p>主节点/节点管理器（Master）负责节点到节点的连接和消息通信。</p>
+<ul>
+<li><code>roscore</code>是它的运行命令，当运行主节点时，可以注册每个节点的名字，并根据需要获取信息。</li>
+<li>没有主节点，就不能在节点之间建立访问和消息交流（如话题和服务）。</li>
+<li>节点只有在需要注册自己的信息或向其他节点发送请求信息时才能访问主节点并获取信息。通常情况下，不检查彼此的连接状态。</li>
+</ul>
+</li>
+<li>
+<p>参数服务器（Parameter Server）能够使数据通过关键词存储在一个系统的核心位置。</p>
+<ul>
+<li>通过使用参数，就能在运行时配置节点或改变节点的工作任务。</li>
+</ul>
+</li>
+<li>
+<p>消息（Message）。</p>
+<ul>
+<li>
+<p>节点通过消息完成彼此间的通信。消息包含了一个节点发送到其他节点的信息数据。同时也可以基于标准消息开发自定义消息。话题、服务和动作都使用消息。</p>
+</li>
+<li>
+<p>消息可以是简单的数据结构，如整数（integer）、浮点（floating point）和布尔值（boolean），或者是像“geometry_msgs/PoseStamped”一样消息包含消息的简单的数据结构，或者也可以是像 “float32[ ] ranges”或“Point32[10] points”之类的消息数组结构。另外，ROS中常用的头（header、std_msgs/Header）也可以作为消息来使用。这些消息由两种类型组成：字段类型（fieldtype）和字段名称(fieldname）。下图为ROS的基本数据类型：</p>
+<img src="/posts/c4541b88/ROS%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B.png" srcset="/img/loading.gif" lazyload class="" title="ROS的基本数据类型">
+</li>
+<li>
+<p>msg文件是用于话题的消息文件，扩展名为<code>.msg</code>；srv文件是服务使用的消息文件，扩展名为<code>.srv</code>；action消息文件是动作中使用的消息文件，它使用<code>.action</code>扩展名。</p>
+</li>
+</ul>
+</li>
+<li>
+<p>话题（topic）是节点间用来传输数据的总线。</p>
+<ul>
+<li>每个消息都必须有一个名称来被ROS网络路由。每一条消息都要发布到相应的话题。</li>
+<li>当一个节点发送数据时，称为该节点正在向话题发布消息。节点可以通过订阅某个话题，接收来自其他节点的消息。</li>
+<li>一个节点可以订阅某个话题而不需要该节点同时发布该话题。这就保证了消息的发布者和订阅者之间的解耦，发布者和订阅者间完全无需知晓对方的存在。同一个话题可以有多个发布者与订阅者。</li>
+</ul>
+</li>
+<li>
+<p>服务（Service）。</p>
+<ul>
+<li>在发布话题时，正在发送的数据能够以多对多的方式交互。但当需要从某个节点获得一个请求或答应时，就不能通过话题来实现了。在这种情况下，服务能够运行两个节点间直接进行交互。</li>
+<li>此外，服务必须有唯一的名称。当一个节点提供某个服务时，所有的节点都可以通过使用ROS客户端库编写的代码与其进行通信。</li>
+<li>一个服务被分成服务服务器和服务客户端，其中服务服务器只在有请求（request）的时候才响应（response），而服务客户端会在发送请求后接收响应。与话题不同，服务是一次性消息通信。因此，当服务的请求和响应完成时，两个连接的节点将被断开。</li>
+</ul>
+</li>
+<li>
+<p>动作（Action）。</p>
+<ul>
+<li>是在需要像服务那样的双向请求的情况下，使用的消息通信方式，不同于服务之处是在处理请求之后需要很长的响应，并且需要中途反馈值。</li>
+<li>动作文件也非常类似于服务，目标（goal）和结果（result）对应于请求和响应。此外，还添加了对应于中途的反馈（feedback）。它由一个设置动作目标（goal）的动作客户端（action client）和一个动作服务器（action server），动作服务器根据目标执行动作，并发送反馈和结果。</li>
+<li>动作客户端和动作服务器之间进行异步双向消息通信。</li>
+</ul>
+</li>
+<li>
+<p>消息记录包（bag）是一种用于保存和回放ROS消息数据的文件格式。</p>
+<ul>
+<li>ROS提供了可以将bag文件可视化的图形工具：rqt_bag和PlotJuggler。</li>
+</ul>
+</li>
+</ul>
+<img src="/posts/c4541b88/%E6%B6%88%E6%81%AF%E9%80%9A%E4%BF%A1%E6%9C%BA%E5%88%B6.webp" srcset="/img/loading.gif" lazyload class="" title="消息通信机制">
+<h2 id="节点名称（name）">节点名称（name）</h2>
+<h4 id="一般规则">一般规则</h4>
+<p>ROS服务中使用的节点、话题、消息以及ROS中使用的参数都具有唯一的名称（name）：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-type">int</span> argc, <span class="hljs-type">char</span> **argv)</span> <span class="hljs-comment">// 节点主函数</span></span><br><span class="hljs-function"></span>&#123;<br>ros::<span class="hljs-built_in">init</span>(argc, argv, <span class="hljs-string">&quot;node1&quot;</span>); <span class="hljs-comment">// 初始化节点</span><br>ros::NodeHandle nh; <span class="hljs-comment">// 声明节点句柄</span><br><span class="hljs-comment">// 声明发布者，话题名 = bar</span><br>ros::Publisher node1_pub = nh.<span class="hljs-built_in">advertise</span>&lt;std_msg::Int32&gt;(<span class="hljs-string">&quot;bar&quot;</span>, <span class="hljs-number">10</span>);<br></code></pre></td></tr></table></figure>
+<p>其中，节点的名称是<code>/node1</code>。如果用一个没有任何字符的相对形式的bar来声明一个发布者，这个话题将和<code>/bar</code>具有相同的名字。如果以如下所示使用斜杠（/）字符用作全局形式，话题名也是<code>/bar</code>。所以下面两句是等价的：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c++">ros::Publisher node1_pub = nh.<span class="hljs-built_in">advertise</span>&lt;std_msg::Int32&gt;(<span class="hljs-string">&quot;bar&quot;</span>, <span class="hljs-number">10</span>);<br>ros::Publisher node1_pub = nh.<span class="hljs-built_in">advertise</span>&lt;std_msg::Int32&gt;(“/bar”, <span class="hljs-number">10</span>);<br></code></pre></td></tr></table></figure>
+<p>但是，如果使用波浪号（~）字符将其声明为私有，则话题名称将变为<code>/node1/bar</code>：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c++">ros::Publisher node1_pub = nh.<span class="hljs-built_in">advertise</span>&lt;std_msg::Int32&gt;(“~bar”, <span class="hljs-number">10</span>);<br></code></pre></td></tr></table></figure>
+<p>简单地两次执行相同节点将导致之前执行的节点因ROS的性质而终止，因为ROS必须具有唯一的名称。用户可以在运行时更改节点的名称，而不需要运行额外的程序或更改源代码。例如，当有前、左、右，三个摄像头，且当多次执行同名的节点时，由于节点名重复，该节点将被重复执行，因此节点会被停止。为了避免这种情况，可以采取用同一个名称运行多个不同的节点的方法。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">rosrun camera_package camera_node __name:=front _device:=/dev/video0<br>rosrun camera_package camera_node __name:=left _device:=/dev/video1<br>rosrun camera_package camera_node __name:=right _device:=/dev/video2<br>rosrun rqt_imgae_view rqt_imgae_view<br></code></pre></td></tr></table></figure>
+<p>其中。name选项使用了两个下划线（<code>__</code>）。选项<code>__ns</code>、<code>__name</code>、<code>__log</code>、<code>__ip</code>、<code>__hostname</code>和<code>__master</code>是运行节点时使用的特殊选项。我们在话题名称选项中使用了一个下划线（<code>_</code>），如果它是private名称，则在现有名称前加上一个下划线。</p>
+<h4 id="命名规则">命名规则</h4>
+<p>包资源名称具有严格的命名规则，因为它们经常在自动生成的代码中使用。因此，ROS 包不能包含下划线以外的特殊字符，并且它们必须以字母字符开头。有效的名称具有以下特征：</p>
+<ul>
+<li>第一个字符是字母字符 ([a-z|A-Z])</li>
+<li>后续字符可以是字母数字 ([0-9|a-z|A-Z])、下划线 ( _ ) 或正斜杠 ( / )</li>
+<li>最多有一个正斜杠 ('/')</li>
+</ul>
+<h2 id="坐标变换（TF）">坐标变换（TF）</h2>
+<p>ROS中的坐标转换TF在描述组成机器人的每个部分、障碍物和外部物体时是最有用的概念之一。这些可以被描述为位置（position）和方向（direction），统称为姿态（pose）。在此，位置由x、y、z这3个矢量表示，而方向是用四元数（quaternion）x、y、z、w表示。四元数并不直观，因为它们没有使用我们在日常生活中使用的三元数的角度表达方式：滚动角（roll）、俯仰角（pitch）和偏航角（yaw）。但这种四元数方式不存在滚动、俯仰和偏航矢量的欧拉（Euler）方式具有的万向节死锁（gimbal lock）问题或速度问题，因此在机器人工程中人们更喜欢用四元数（quaternion）的形式。因为同样的原因，ROS中也大量使用四元数。当然，考虑到方便，它也提供将欧拉值转换成四元数的功能。</p>
+<p>TF中的消息采用以下格式：Header用于记录转换的时间，并使用名为child_frame_id的消息来表示下位的坐标。并且为了表达坐标的转换值，使用transformTranslation.x / transform.translation.y / transform.translation.z / transform.rotation.x / transform.rotation.y / transform.rotation.z / transform.rotation.w 的数据形式描述对方的位置和方向。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs msg">Header header  #记录转换的时间<br>string child_frame_id   #表示下位的坐标<br>Transform transform   #表达坐标的转换值<br></code></pre></td></tr></table></figure>
+<h2 id="文件系统">文件系统</h2>
+<img src="/posts/c4541b88/%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F.webp" srcset="/img/loading.gif" lazyload class="" title="文件系统">
+<p>如上图所示，首先是最顶层的catkin工作空间，它是整个ROS工程中层次最高的概念。工作空间也就是管理和组织ROS工程项目文件的地方。其下主要的一级目录有四个：</p>
+<ul>
+<li><code>./src/</code>：源空间，存放功能包（package）。功能包是ROS文件系统中组织程序文件的基本单元，也就是catkin编译的基本单元。一个 package 下必须包含 <code>CMakeLists.txt</code> 和 <code>package.xml</code> 两个文件。</li>
+<li><code>./build/</code>：编译空间。存放CMake和catkin的缓存信息、配置信息和其他中间文件。</li>
+<li><code>./devel/</code>：开发空间。存放编译后生成的目标文件，包括头文件、动态&amp;静态链接库、可执行文件（<code>./catkin_ws/devel/lib/package_name</code>）等。</li>
+<li><code>./install/</code>：安装空间。开发完成后的安装包。</li>
+</ul>
+<blockquote>
+<p>其中，</p>
+<ul>
+<li>最顶层的工作空间（可以任意命名，如<code>catkin_ws</code>）和 <code>src</code> （必须为<code>src</code>）文件夹是需要自己创建；</li>
+<li><code>build</code> 和 <code>devel</code> 文件夹由 <code>catkin build</code>或<code>catkin_make</code> 命令自动创建；</li>
+<li><code>install</code> 文件夹由 <code>catkin_make install</code> 命令自动创建。</li>
+</ul>
+</blockquote>
+<p>对<code>src</code>文件夹中内容的详解：</p>
+<ol>
+<li>
+<p><code>./include/</code></p>
+<ul>
+<li>项目程序的头文件（夹）（<code>.h</code>文件）。</li>
+</ul>
+</li>
+<li>
+<p><code>./src/</code></p>
+<ul>
+<li>项目源程序文件（夹）（<code>.c</code>/<code>.cpp</code>文件等）。</li>
+</ul>
+</li>
+<li>
+<p><code>./dependencies.yaml</code></p>
+<ul>
+<li>该<code>dependencies.yaml</code>文件列出了一个源代码项目在构建和运行时所依赖的外部库。这些库通过<code>catkin</code>构建系统进行管理，通常用于ROS（Robot Operating System）项目。每一个依赖项提供了三个关键信息：类型、URL和版本。在这个文件中，所有依赖项都是从Git仓库中获取的，且均指定为<code>master</code>分支。</li>
+<li>这个文件主要用于配置项目的依赖管理系统，确保所有所需的外部库均能被正确拉取并集成到项目中。这对于确保代码的一致性和可复现性是非常重要的。</li>
+</ul>
+</li>
+<li>
+<p><code>CMakeLists.txt</code></p>
+<ul>
+<li>ROS 构建系统的catkin基本上使用了CMake，因此在功能包目录的<code>CMakeLists.txt</code>文件中描述着构建环境。</li>
+</ul>
+</li>
+<li>
+<p><code>.launch</code></p>
+<ul>
+<li>这是一个ROS（Robot Operating System）的启动配置文件，用于启动ROS节点。</li>
+</ul>
+</li>
+<li>
+<p><code>package.xml</code></p>
+<ul>
+<li>此文件是一个ROS（Robot Operating System）软件包的清单文件，用于定义包的基本信息和依赖关系。包含功能包信息的XML文件，描述功能包名称、作者、许可证和依赖包。</li>
+<li>这个文件主要被ROS用来理解如何构建和维护程序包，并且定义了必要的信息，使得包可以在ROS生态中被正确找到和编译。</li>
+</ul>
+</li>
+<li>
+<p><code>./config/</code></p>
+<ul>
+<li>存放配置文件（<code>.yaml</code>等）。</li>
+</ul>
+</li>
+<li>
+<p><code>.yaml</code></p>
+<ul>
+<li>项目参数配置文件。</li>
+</ul>
+</li>
+<li>
+<p><code>.cfg</code></p>
+<ul>
+<li>一个配置脚本。例如：这个脚本使用 <code>dynamic_reconfigure</code> 功能，来允许实时修改运行中ROS节点的参数。</li>
+<li>在最后，脚本执行 <code>generate</code> 函数来创建一个用于动态配置的服务，该服务可以在ROS运行时动态调整上述参数。</li>
+</ul>
+</li>
+<li>
+<p><code>.perspective</code></p>
+<ul>
+<li>这是一个JSON格式的配置文件，用于定义一个名为<code>ESVO</code>的软件项目中的<code>esvo_time_surface</code>插件的窗口布局和行为。基于文档结构，这看起来像是为图形用户界面（GUI），如<code>rqt</code>插件制定的配置。<code>rqt</code>是一个基于Qt的软件框架，它使得为机器人操作系统（ROS）创建丰富的图形界面变得简单。</li>
+<li>总的来说，这个配置文件为ESVO项目中的<code>esvo_time_surface.perspective</code>插件提供了窗口布局、插件状态和用户界面元素的详细信息。</li>
+</ul>
+</li>
+<li>
+<p><code>.rviz</code></p>
+<ul>
+<li><code>.rviz</code>文件是一个用于配置 ROS (Robot Operating System) 可视化工具 RViz 的视图配置文件。RViz 是一个用来对机器人传感器数据、导航状态以及其他信息进行三维可视化的工具。这个文件定义了RViz中的一系列面板、显示项、视图以及工具的属性和设置。</li>
+</ul>
+</li>
+<li>
+<p><code>./scripts/</code></p>
+<ul>
+<li>存放脚本文件（比如Python文件<code>.py</code>，shell文件<code>.sh</code>）。</li>
+</ul>
+</li>
+<li>
+<p>此外，还有自定义的通信格式文件，包括消息（<code>.msg</code>）、服务（<code>.srv</code>）以及动作（<code>.action</code>）。</p>
+</li>
+</ol>
+<h2 id="roslaunch">roslaunch</h2>
+<h3 id="launch-文件">launch 文件</h3>
+<p>在<code>.launch</code>文件中根据XML的编写方式可以实现多种功能，可使用的标签如下所示：</p>
+<ul>
+<li><code>&lt;launch&gt;</code>指<code>roslaunch</code>语句的开始和结束。</li>
+<li><code>&lt;node&gt;</code>这是对于节点运行的标签。您可以更改功能包、节点名称和执行名称。</li>
+<li><code>&lt;machine&gt;</code>可以设置运行该节点的PC的名称、address、ros-root和ros-package-path。</li>
+<li><code>&lt;include&gt;</code>您可以加载属于同一个功能包或不同的功能包的另一个launch,并将其作为一个launch文件来运行。</li>
+<li><code>&lt;remap&gt;</code>可以更改节点名称、话题名称等等，在节点中用到的ROS变量的名称。</li>
+<li><code>&lt;env&gt;</code>设置环境变量，如路径和P（很少使用）。</li>
+<li><code>&lt;param&gt;</code>设置参数名称、类型、值等。</li>
+<li><code>&lt;rosparam&gt;</code>可以像<code>rosparam</code>命令一样，查看和修改<code>load</code>、<code>dump</code>和<code>delete</code>等参数信息。</li>
+<li><code>&lt;group&gt;</code>用于分组正在运行的节点。</li>
+<li><code>&lt;test&gt;</code>用于测试节点。类以于<code>&lt;node&gt;</code>，但是有可以用于测试的选项。</li>
+<li><code>&lt;arg&gt;</code>可以在launch文件中定义一个变量，以便在像下面这样运行时更改参数。</li>
+</ul>
+<p>例如，<code>.launch</code>文件的内容如下所示：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">launch</span>&gt;</span><br>   <span class="hljs-tag">&lt;<span class="hljs-name">node</span> <span class="hljs-attr">pkg</span>=<span class="hljs-string">&quot;my_first_ros_pkg&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;topic_publisher&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;topic_publisher1&quot;</span>/&gt;</span><br>   <span class="hljs-tag">&lt;<span class="hljs-name">node</span> <span class="hljs-attr">pkg</span>=<span class="hljs-string">&quot;my_first_ros_pkg&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;topic_subscriber&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;topic_subscriber1&quot;</span>/&gt;</span><br>   <span class="hljs-tag">&lt;<span class="hljs-name">node</span> <span class="hljs-attr">pkg</span>=<span class="hljs-string">&quot;my_first_ros_pkg&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;topic_publisher&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;topic_publisher2&quot;</span>/&gt;</span><br>   <span class="hljs-tag">&lt;<span class="hljs-name">node</span> <span class="hljs-attr">pkg</span>=<span class="hljs-string">&quot;my_first_ros_pkg&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;topic_subscriber&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;topic_subscriber2&quot;</span>/&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">launch</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<ul>
+<li>在<code>&lt;launch&gt;</code>标签中，描述了使用<code>roslaunch</code>命令运行节点所需的标签。</li>
+<li><code>&lt;node&gt;</code>描述了roslaunch运行的节点。选项包括：
+<ul>
+<li><code>pkg</code>：功能包的名称。
+<ul>
+<li>节点的包名称是在ROS的<code>package.xml</code>文件中定义的。每个ROS包都有一个<code>package.xml</code>文件，它包含了包的元数据，如包的名称、版本、维护者、依赖关系等。</li>
+</ul>
+</li>
+<li><code>type</code>：实际运行的节点的名称（节点名）。
+<ul>
+<li>这是节点的类型，也就是节点的可执行文件的名称。</li>
+<li>节点的可执行文件名称是在ROS包的<code>CMakeLists.txt</code>文件中定义的。在<code>CMakeLists.txt</code>文件中，<code>add_executable()</code>函数用于创建一个可执行文件，<code>target_link_libraries()</code>函数用于链接必要的库。</li>
+</ul>
+</li>
+<li><code>name</code>：这是节点的名称，它在ROS系统中必须是唯一的。
+<ul>
+<li>一般与在主程序中<code>在ros::init(argc, argv, &quot;node_name&quot;);</code>初始化定义的节点名称相同。</li>
+<li>与上述<code>type</code>对应的节点被运行时，起的名称（运行名）。一般情况下使用与<code>type</code>相同的名称，但可以根据需要，在运行时更改名称。在上面的示例代码中，<code>topic_publisher</code>节点已被重命名为<code>topic_publisher1</code>和<code>topic_publisher2</code>，而<code>topic_subscriber</code>节点已被重命名为<code>topic_subscriber1</code>和<code>topic_subscriber2</code>。可以由此避免两次执行相同节点导致之前执行的节点因ROS的性质而终止。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>打开rqt如下图所示：</p>
+<img src="/posts/c4541b88/%E4%BF%AE%E6%94%B9%E8%8A%82%E7%82%B9%E5%90%8D%E7%A7%B0.png" srcset="/img/loading.gif" lazyload class="" title="修改节点名称">
+<p>两个订阅者都在订阅两个发布者的消息。这是因为我们只是改变了节点的名字，而没有改变要订阅的消息的名字。</p>
+<p>修改前面所创建的<code>.launch</code>文件如下：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">launch</span>&gt;</span><br>   <span class="hljs-tag">&lt;<span class="hljs-name">group</span> <span class="hljs-attr">ns</span>=<span class="hljs-string">&quot;ns1&quot;</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">node</span> <span class="hljs-attr">pkg</span>=<span class="hljs-string">&quot;my_first_ros_pkg&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;topic_publisher&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;topic_publisher&quot;</span>/&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">node</span> <span class="hljs-attr">pkg</span>=<span class="hljs-string">&quot;my_first_ros_pkg&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;topic_subscriber&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;topic_subscriber&quot;</span>/&gt;</span><br>   <span class="hljs-tag">&lt;/<span class="hljs-name">group</span>&gt;</span><br> <br>   <span class="hljs-tag">&lt;<span class="hljs-name">group</span> <span class="hljs-attr">ns</span>=<span class="hljs-string">&quot;ns2&quot;</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">node</span> <span class="hljs-attr">pkg</span>=<span class="hljs-string">&quot;my_first_ros_pkg&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;topic_publisher&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;topic_publisher&quot;</span>/&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">node</span> <span class="hljs-attr">pkg</span>=<span class="hljs-string">&quot;my_first_ros_pkg&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;topic_subscriber&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;topic_subscriber&quot;</span>/&gt;</span><br>   <span class="hljs-tag">&lt;/<span class="hljs-name">group</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">launch</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<p><code>&lt;group&gt;</code>是对指定节点进行分组的标签。选项有<code>ns</code>。这是命名空间（name space），是组的名称，属于该组的节点和消息都包含在由<code>ns</code>指定的名称中。</p>
+<p>再次打开rqt结果如下图所示：</p>
+<img src="/posts/c4541b88/%E8%8A%82%E7%82%B9%E5%88%86%E7%BB%84%E7%BB%93%E6%9E%9C.png" srcset="/img/loading.gif" lazyload class="" title="节点分组结果">
+<h3 id="命令行参数">命令行参数</h3>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs launch">&lt;launch&gt;<br>    &lt;arg name=&quot;auto_trigger&quot; default=&quot;true&quot;/&gt;<br>    &lt;arg name=&quot;camera_name&quot; default=&quot;DAVIS-evo&quot; /&gt;<br>    &lt;arg name=&quot;bootstrap_image_topic&quot; default=&quot;/events/image_raw&quot; /&gt;<br>    <br>    &lt;param name=&quot;camera_name&quot; value=&quot;$(arg camera_name)&quot; /&gt;<br>    &lt;param name=&quot;calib_file&quot; value=&quot;$(find dvs_tracking)/parameters/calib/$(arg camera_name).yaml&quot; /&gt;<br>&lt;/launch&gt;<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">source</span> ./devel/setup.zsh &amp;&amp;  roslaunch dvs_tracking [launch-file] bootstrap_image_topic:=/dvs/image_raw auto_trigger:=<span class="hljs-literal">true</span> camera_name:=DAVIS-ijrr<br></code></pre></td></tr></table></figure>
+<h2 id="CMakeLists-txt-和-package-xml">CMakeLists.txt 和 package.xml</h2>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/gwplovekimi/article/details/104328348">参考链接</a></p>
+<h2 id="话题通信机制、消息队列与多话题回调机制">话题通信机制、消息队列与多话题回调机制</h2>
+<ol>
+<li>
+<p>话题通信机制简介：</p>
+<ol>
+<li>首先，发布节点把消息发布，消息进入Publisher的消息队列，同时通知订阅了该话题消息的Subscriber来取消息。</li>
+<li>其次，Subscriber来Publisher的消息队列里取消息，但取走的也是最老的消息，因为毕竟这是先入先出的队列。</li>
+<li>最后，被取走的消息存放入了Subscriber的消息队列中，等待被Callback执行。如果Callback执行很慢，消息越堆越多，最老的消息会逐渐被顶替。</li>
+</ol>
+</li>
+<li>
+<p>消息队列分析：</p>
+<p>Publisher和Subscriber设置消息队列，都可以从两点进行分析：</p>
+<ul>
+<li>话题通信属于异步通信，队列可以存储一定量的历史数据。</li>
+<li>网络传输异常的时候，队列可以预先进行缓存。</li>
+</ul>
+<ol>
+<li>为什么需要设置Publisher的消息队列？
+<ul>
+<li>话题通信属于异步通信，publisher节点发布消息，有多个Subscriber节点进行订阅，因此需要有一个地方对消息进行缓存。</li>
+<li>网络传输差、延时突然高的时候，可以把消息放在Publisher的队列中进行暂存。</li>
+</ul>
+</li>
+<li>为什么要设置Subscriber消息队列？
+<ul>
+<li>Subscriber消息队列提供一边处理数据一边缓存新消息的机制。Publisher和Subscriber不一定在同一台主机上，但是网络的性能时好时坏，如果Subscriber没有消息队列。如果没有Subscriber消息队列，那么程序每次运行Callback函数前都要先通过网络取回消息，然后才能处理，当网络很差的时候就会造成系统的阻塞。</li>
+</ul>
+</li>
+</ol>
+</li>
+<li>
+<p>使用技巧：</p>
+<ul>
+<li>当queue_size=0，即ROS消息队列为0时，表示为无限队列长度，内存使用量可以无限增长，因此不推荐使用。</li>
+<li>当两个queue_size=1时，那么系统不会缓存数据，自然处理的就是最新的消息。</li>
+<li>当queue_size设置为10或者更多时候，用户更不容易错过发布的消息，适用于与人交互的用户界面的数据展示。</li>
+</ul>
+</li>
+<li>
+<p>多话题回调机制：</p>
+<p>主要涉及到两个函数的使用：<code>ros::spin()</code>和<code>ros::spinOnce()</code>。</p>
+<ol>
+<li>
+<p><code>ros::spin()</code>。</p>
+<ul>
+<li>对于<code>spin</code>函数，一旦进入<code>spin</code>函数，它就不会返回了，也不继续往后执行了，相当于它在自己的函数里面死循环了（直到<code>Ctrl+C</code>　或者程序终止的时候才退出）。</li>
+<li>主要的工作，就是不断的检查回调函数队列里面是否有<code>callback</code>函数存在，如果有的话，它就会马上去执行<code>callback</code>函数。如果没有的话，它就会阻塞，不会占用CPU。</li>
+</ul>
+<p><code>ros::spin()</code>可以看作<code>r.sleep()=0</code>的<code>ros::spinOnce()</code>，即：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">while</span>(ros::<span class="hljs-built_in">ok</span>())<br>&#123;<br>    ros::<span class="hljs-built_in">spinOnce</span>();<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>其他方面都可当作<code>spinOnce()</code>来理解。</p>
+</li>
+<li>
+<p><code>ros::spinOnce()</code>。</p>
+<ul>
+<li><code>spinOnce</code>函数执行一次后，接着执行主函数下面的语句。不像<code>spin</code>函数，进入到自己的内部循环，不往下执行。即可以根据自己的需求设置接收频率。</li>
+<li>每次调用<code>ros::spinOnce()</code>都会执行与消息队列中缓存的信息数量相同次数的回调函数，只要回调函数执行够快的话，就能清空队列。</li>
+<li>当多个subscriber都需要调用回调函数时，则按顺序依次执行各个subscriber的回调函数。例如，订阅的消息队列长度分别为5和3，那么以0.1hz即10s的间隔调用ros::spinOnce()时，两个Topic的消息队列都满了，这时一共会调用8次回调函数，且前6次为交替调用。就是说这些回调函数都是串行执行的。</li>
+<li><code>ros::spinOnce()</code>可以配合其它函数，一起放在<code>while</code>循环中处理。也就是说，当程序中除了响应回调函数还有其他重复性工作的时候，那就在循环中做那些工作，然后调用<code>ros::spinOnce()</code>。</li>
+</ul>
+<p><code>spinOnce()</code>的主要用法是：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function">ros::Rate <span class="hljs-title">r</span><span class="hljs-params">(rate)</span></span>;  <span class="hljs-comment">// 设置执行频率。</span><br><span class="hljs-keyword">while</span> (ros::<span class="hljs-built_in">ok</span>())<br>&#123;<br>ros::<span class="hljs-built_in">spinOnce</span>();                <br>r.<span class="hljs-built_in">sleep</span>();  <span class="hljs-comment">// 配合执行频率，sleep一段时间，然后进入下一个循环。</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>有一点要注意，在回调函数里执行的时间也是会算在<code>r.sleep()</code>中的，如果在回调函数中执行的时间大于<code>r.sleep()</code>需要延时的时间，那么回调函数就一直执行下去。</p>
+</blockquote>
+</li>
+<li>
+<p><code>ros::MultiThreadedSpinner</code>。</p>
+<p><code>MultiThreadedSpinner</code>的用法是：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function">ros::MultiThreadedSpinner <span class="hljs-title">spinner</span><span class="hljs-params">(<span class="hljs-number">4</span>)</span></span>; <span class="hljs-comment">// 数字表示调用的线程数  </span><br>spinner.<span class="hljs-built_in">spin</span>(); <span class="hljs-comment">// spin() will not return until the node has been shutdown</span><br></code></pre></td></tr></table></figure>
+<p>通过<code>MultiThreadedSpinner</code>调用的回调函数就不再是串行执行的了，而是多线程并行执行。</p>
+</li>
+<li>
+<p>总结：</p>
+<ol>
+<li><code>spinOnce()</code>/<code>spin()</code>调用时是串行执行所有的回调函数，并且是各个话题按顺序执行的，执行的次数与调用<code>spinOnce()</code><strong>当时</strong>消息队列的元素个数相同。</li>
+<li><code>MultiThreadedSpinner</code>调用的回调函数就不再是串行执行的了，而是多线程并行执行。</li>
+</ol>
+</li>
+<li>
+<p>注意事项：</p>
+<p>在单话题回调时，必然只存在一个消息队列。但若是多话题回调，又该如何呢？</p>
+<ol>
+<li>多个话题的订阅器是否共享一个消息队列？在默认情况下，所有的回调函数都会被分配到一个全局队列中，然后由spin()或其它函数进行处理。也就是说，多话题的订阅的消息是共享一个全局消息队列的。根据上文<code>spinOnce()</code>的描述，在执行<code>spinOnce()</code>时会处理当时在全局队列中所有的消息。若当时队列中存在多个话题消息，那么就会处理多个话题的回调函数。但由于是单线程的，因此处理的过程是串行的。</li>
+<li>若它们共享一个消息队列，那为什么每个订阅器在初始化时都可以设置队列长度？各个订阅器设置的队列长度是指该订阅话题在整个全局队列中所占的长度。也就是说，全局队列的长度至少不会小于所有话题订阅器设置的队列之和。</li>
+<li>是否可以自定义设置多个消息队列？可以自定义设置消息队列，<code>roscpp</code>中提供了相应函数和类。详情可参照[官方文档](<a target="_blank" rel="noopener" href="https://wiki.ros.org/roscpp/Overview/Callbacks">https://wiki.ros.org/roscpp/Overview/Callbacks</a> and Spinning)。</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>
+<p>注意事项：</p>
+<ul>
+<li>在执行回调函数时，消息队列并不会被锁定住，会继续更新。</li>
+<li>当回调函数处理时长小于数据发布的时间间隔，数据可以完整地传输。</li>
+<li>同一平台上，发布与订阅节点之间存在延迟时间：大概为0.2ms。</li>
+<li>先运行订阅者节点，后运行发布者节点也会存在数据丢失，说明：订阅者与发布者刚建立连接时需要大致0.5s的时间。</li>
+<li>数据发布到缓存到订阅者队列的时间是很短的，大约为0.5ms，如果对数据实时性要求比较高或只想要处理当前最新的消息时，发布者和订阅者的队列长度均需要设置为1。</li>
+<li>回调函数处理数据时间过长，subscriber队列数据堆积，并可能导致数据丢失。每次执行回调函数时，会从subscriber队列选取最老的数据。</li>
+<li>如果我们想完整的接收所有的消息，那就要设置合适的队列长度了。比如消息发送频率为10hz，接收频率为5hz，那订阅队列就至少为2（5x2=10）。</li>
+</ul>
+</li>
+</ol>
+<h2 id="发布者节点和订阅者节点的创建和运行">发布者节点和订阅者节点的创建和运行</h2>
+<blockquote>
+<p>订阅：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">ros::Subscriber 订阅者 = n.subscribe(订阅的主题, 信息队列大小, 回调函数);  <span class="hljs-comment"># 声明</span><br>void 回调函数()  <span class="hljs-comment"># 定义</span><br></code></pre></td></tr></table></figure>
+<p>发布：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">ros::Publisher 发布者;  <span class="hljs-comment"># 声明</span><br>发布者 = n.advertise&lt;消息类型&gt;(发布主题, 信息队列大小);<br>发布者.publish(要发布的消息);  <span class="hljs-comment"># 定义</span><br></code></pre></td></tr></table></figure>
+</blockquote>
+<h3 id="函数语法">函数语法</h3>
+<p>订阅函数：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c++">Subscriber ros::NodeHandle::<span class="hljs-built_in">subscribe</span>    (    <span class="hljs-type">const</span> std::string &amp; topic,<br>                                              <span class="hljs-type">uint32_t</span>     queue_size,<br>                                              <span class="hljs-built_in">void</span>(*)(M)     fp,<br>                                              <span class="hljs-type">const</span> TransportHints &amp;     transport_hints = <span class="hljs-built_in">TransportHints</span>() <br>                                         )  <br></code></pre></td></tr></table></figure>
+<p>其中的参数：</p>
+<ul>
+<li><code>topic</code> 为订阅的节点名，字符串类型。</li>
+<li><code>queue_size</code> 为待处理信息队列大小。</li>
+<li><code>fp</code> 当消息传入时，可以调用的函数指针，即回调函数。而其中<code>M</code>是回调函数的不同类型，例如<code>const boost::shared_ptr&lt;M const&gt;&amp; or const M&amp;</code>。这样的话，我们还可以使用<code>boost::bind()</code>调用回调函数。</li>
+</ul>
+<p>常见的用法：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">callback</span><span class="hljs-params">(<span class="hljs-type">const</span> std_msgs::Empty::ConstPtr&amp; message)</span></span><br><span class="hljs-function"></span>&#123;<br>&#125;<br><br>ros::Subscriber sub = handle.<span class="hljs-built_in">subscribe</span>(<span class="hljs-string">&quot;my_topic&quot;</span>, <span class="hljs-number">1</span>, callback);<br></code></pre></td></tr></table></figure>
+<p>当我们要使用一个<code>class</code>里面的回调函数（而不是，例如，使用的是直接定义在<code>main()</code>外的回调函数），我们需要调用第四个参数来声明使用到的类。例如我们有一个<code>class</code>：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Listener</span><br>&#123;<br><span class="hljs-keyword">public</span>:<br>　　<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">callback</span><span class="hljs-params">(<span class="hljs-type">const</span> std_msgs::String::ConstPtr&amp; msg)</span></span>;<br>&#125;;<br></code></pre></td></tr></table></figure>
+<p>如果想要调用这个<code>class</code>里的回调函数，可以使用第四个参数，如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c++">Listener listener;<br>ros::Subscriber sub = n.<span class="hljs-built_in">subscribe</span>(<span class="hljs-string">&quot;chatter&quot;</span>, <span class="hljs-number">1000</span>, &amp;Listener::callback, &amp;listener);<br></code></pre></td></tr></table></figure>
+<p>如果订阅的函数也在class里面（例如，在类的构造函数里），可以直接使用出参数<code>this</code>：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Listener</span><br>&#123;<br><span class="hljs-keyword">public</span>:<br>　　<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">callback</span><span class="hljs-params">(<span class="hljs-type">const</span> std_msgs::String::ConstPtr&amp; msg)</span></span>&#123;&#125;<br><br>　　<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">TestObject</span><span class="hljs-params">(ros::NodeHandle n)</span></span><br><span class="hljs-function">　　</span>&#123;<br>　　　　<br>ros::Subscriber sub = n.<span class="hljs-built_in">subscribe</span>(<span class="hljs-string">&quot;chatter&quot;</span>, <span class="hljs-number">1000</span>, &amp;Listener::callback, <span class="hljs-keyword">this</span>);<br>　　&#125;<br><br>&#125;; <br></code></pre></td></tr></table></figure>
+<h3 id="创建">创建</h3>
+<p><code>topic_publisher.cpp</code>文件：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;ros/ros.h&quot;</span> <span class="hljs-comment">// ROS默认头文件</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;my_first_ros_pkg/MsgTutorial.h&quot;</span> <span class="hljs-comment">// MsgTutorial消息头文件（构建后自动生成）</span></span><br><span class="hljs-comment">//千米已经定义了这个消息，相当于引用这个消息</span><br> <br> <br> <br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-type">int</span> argc, <span class="hljs-type">char</span> **argv)</span> <span class="hljs-comment">// 节点主函数</span></span><br><span class="hljs-function"></span>&#123;<br>    ros::<span class="hljs-built_in">init</span>(argc, argv, <span class="hljs-string">&quot;topic_publisher&quot;</span>); <span class="hljs-comment">// 初始化节点名称</span><br> <br>    ros::NodeHandle nh; <span class="hljs-comment">// 声明一个节点句柄来与ROS系统进行通信</span><br> <br> <br>    <span class="hljs-comment">// 声明发布者，创建一个使用my_first_ros_pkg功能包的MsgTutorial 消息文件的</span><br>    <span class="hljs-comment">// 发布者ros_tutorial_pub。话题名称是&quot;ros_tutorial_msg&quot;，</span><br>    <span class="hljs-comment">// 消息文件发布者队列（queue）的大小设置为100</span><br>    ros::Publisher ros_tutorial_pub =nh.<span class="hljs-built_in">advertise</span>&lt;my_first_ros_pkg::MsgTutorial&gt;(<span class="hljs-string">&quot;ros_tutorial_msg&quot;</span>, <span class="hljs-number">100</span>);<span class="hljs-comment">//话题名称将在订阅者中重现</span><br> <br>    <span class="hljs-comment">// 设定循环周期。&quot;10&quot;是指10Hz，是以0.1秒间隔重复</span><br>    <span class="hljs-function">ros::Rate <span class="hljs-title">loop_rate</span><span class="hljs-params">(<span class="hljs-number">10</span>)</span></span>;<br> <br> <br>    my_first_ros_pkg::MsgTutorial msg; <span class="hljs-comment">// 以MsgTutorial消息文件格式声明一个 叫做msg的消息</span><br>    <span class="hljs-type">int</span> count = <span class="hljs-number">0</span>; <span class="hljs-comment">// 声明要在消息中使用的变量</span><br>    <span class="hljs-keyword">while</span> (ros::<span class="hljs-built_in">ok</span>())<br>    &#123;<br>        <span class="hljs-comment">//消息文件中的两个元素</span><br>        msg.stamp = ros::Time::<span class="hljs-built_in">now</span>(); <span class="hljs-comment">// 把当前时间传给msg的下级消息stamp</span><br>        msg.data = count; <span class="hljs-comment">// 将变量count的值传给下级消息data</span><br>        <br><span class="hljs-comment">//屏幕上显示的内容仅仅是使用ROS专用的ROS_INFO()函数将信息显示在屏幕上，这个函数与常见编程语言中使用的printf()函数类似。</span><br>        <span class="hljs-built_in">ROS_INFO</span>(<span class="hljs-string">&quot;send msg = %d&quot;</span>, msg.stamp.sec); <span class="hljs-comment">// 显示stamp.sec消息</span><br>        <span class="hljs-built_in">ROS_INFO</span>(<span class="hljs-string">&quot;send msg = %d&quot;</span>, msg.stamp.nsec); <span class="hljs-comment">// 显示stamp.nsec消息</span><br>        <span class="hljs-built_in">ROS_INFO</span>(<span class="hljs-string">&quot;send msg = %d&quot;</span>, msg.data); <span class="hljs-comment">// 显示data消息</span><br>        ros_tutorial_pub.<span class="hljs-built_in">publish</span>(msg); <span class="hljs-comment">// 发布消息。</span><br>        loop_rate.<span class="hljs-built_in">sleep</span>(); <span class="hljs-comment">// 按照上面定义的循环周期进行暂歇</span><br>        ++count; <span class="hljs-comment">// 变量count增加1</span><br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p><code>topic_subscriber.cpp</code>文件：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;ros/ros.h&quot;</span> <span class="hljs-comment">// ROS默认头文件</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;my_first_ros_pkg/MsgTutorial.h&quot;</span> <span class="hljs-comment">// MsgTutorial消息头文件（ 构建后自动生成）</span></span><br><span class="hljs-comment">//千米已经定义了这个消息，相当于引用这个消息</span><br> <br> <br><span class="hljs-comment">// 这是一个消息后台函数，</span><br><span class="hljs-comment">// 此函数在收到一个下面设置的名为ros_tutorial_msg的话题时候被调用。(在发布者中定义了）)</span><br><span class="hljs-comment">// 输入的消息是从my_first_ros_pkg功能包接收MsgTutorial消息。</span><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">msgCallback</span><span class="hljs-params">(<span class="hljs-type">const</span> my_first_ros_pkg::MsgTutorial::ConstPtr&amp; msg)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-built_in">ROS_INFO</span>(<span class="hljs-string">&quot;recieve msg = %d&quot;</span>, msg-&gt;stamp.sec); <span class="hljs-comment">// 显示stamp.sec消息</span><br>    <span class="hljs-built_in">ROS_INFO</span>(<span class="hljs-string">&quot;recieve msg = %d&quot;</span>, msg-&gt;stamp.nsec); <span class="hljs-comment">// 显示stamp.nsec消息</span><br>    <span class="hljs-built_in">ROS_INFO</span>(<span class="hljs-string">&quot;recieve msg = %d&quot;</span>, msg-&gt;data); <span class="hljs-comment">// 显示data消息</span><br>&#125;<br> <br> <br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-type">int</span> argc, <span class="hljs-type">char</span> **argv)</span> <span class="hljs-comment">// 节点主函数</span></span><br><span class="hljs-function"></span>&#123;<br>    ros::<span class="hljs-built_in">init</span>(argc, argv, <span class="hljs-string">&quot;topic_subscriber&quot;</span>); <span class="hljs-comment">// 初始化节点名称</span><br>    ros::NodeHandle nh; <span class="hljs-comment">// 声明用于ROS系统和通信的节点句柄</span><br> <br>    <span class="hljs-comment">// 声明订阅者，创建一个订阅者ros_tutorial_sub，</span><br>    <span class="hljs-comment">// 它利用my_first_ros_pkg功能包的的MsgTutorial消息文件。</span><br>    <span class="hljs-comment">// 话题名称是&quot;ros_tutorial_msg&quot;，订阅者队列（queue)的大小设为100。</span><br>    ros::Subscriber ros_tutorial_sub = nh.<span class="hljs-built_in">subscribe</span>(<span class="hljs-string">&quot;ros_tutorial_msg&quot;</span>, <span class="hljs-number">100</span>, msgCallback);<br> <br>    <span class="hljs-comment">// 用于调用后台函数，等待接收消息。在接收到消息时执行后台函数。</span><br>    ros::<span class="hljs-built_in">spin</span>();<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="运行-2">运行</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 运行发布者</span><br>roscore<br>rosrun my_first_ros_pkg topic_publisher  <span class="hljs-comment"># my_first_ros_pkg为cmake创建的包名。</span><br><br><span class="hljs-comment"># 查看ROS网络当前正在使用的话题列表</span><br>rostopic list<br><span class="hljs-comment"># 使用rostopic命令获取topic_publisher发布的话题</span><br>rostopic <span class="hljs-built_in">echo</span> /ros_tutorial_msg<br><br><span class="hljs-comment"># 运行订阅者</span><br>rosrun my_first_ros_pkg topic_subscriber<br><br><span class="hljs-comment"># 查看运行中的节点的通信状态</span><br>rqt_graph  <span class="hljs-comment"># 或</span><br>rosrun rqt_graph rqt_graph  <span class="hljs-comment"># 或</span><br>rqt  <span class="hljs-comment"># 执行rqt时，在菜单中选择[Plugins]→[Introspection]→[Node Graph]。</span><br></code></pre></td></tr></table></figure>
+<h2 id="创建和运行服务服务器与客户端节点">创建和运行服务服务器与客户端节点</h2>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/gwplovekimi/article/details/104356409">参考链接</a></p>
+<h2 id="创建和运行动作服务器与客户端节点">创建和运行动作服务器与客户端节点</h2>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/gwplovekimi/article/details/104370771">参考链接</a></p>
+<h2 id="rosbag">rosbag</h2>
+<h3 id="查询">查询</h3>
+<p>获取当前工作目录下bag文件的信息：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs bash">rosbag info BagFileName.bag<br><span class="hljs-comment"># 以yaml格式显示bag文件的信息</span><br>rosbag info -y BagFileName.bag<br><span class="hljs-comment"># 基于yaml信息表示形式，提取bag文件的某类信息</span><br><span class="hljs-comment"># 可提取的信息类型为：消息的类型types、话题相关信息topics、bag文件存放路径path、ROS的版本信息vision、录制持续时长duration、录制开始时间start/停止时间end、bag文件大小（以byte为单位）、录制消息总数量messages、文件的压缩格式compression、是否添加至索引列表indexed。</span><br>rosbag info -y -k info_type BagFileName.bag<br>rosmsg show geometry_msgs/PoseStamped   <span class="hljs-comment"># 主题消息的各数据类型</span><br><br><span class="hljs-comment"># 查看频率</span><br>rostopic hz /topic  <span class="hljs-comment"># 与rosbag包的播放倍率有关。</span><br><span class="hljs-comment"># 列出当下项目文件中所有通信的主题</span><br>rostopic list<br><span class="hljs-comment"># 查看通过指定topic话题相互通信的双方的信息</span><br>rostopic info topic_name<br></code></pre></td></tr></table></figure>
+<h3 id="回放">回放</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs bash">rosbag play record.bag  <span class="hljs-comment"># 在回放过程中按空格暂停</span><br><span class="hljs-comment"># -r 指定播放速度 2倍速播放： rosbag play -r 2 xx.bag</span><br><span class="hljs-comment"># -l 表示loop，循环播放。</span><br><span class="hljs-comment"># -s参数用于指定从几秒开始: 从10秒开始播放：rosbag play -s 10 xx.bag</span><br><span class="hljs-comment"># -u参数表示仅播放包的前几秒信息: 仅播放前十秒：rosbag play -u 10 xx.bag</span><br><span class="hljs-comment"># 从120s开始播放，只播放20s，就是播放120s~140s的时间段：rosbag play xx.bag -s 120 -u 20</span><br>rosbag play record.bag -r 0.1 -l<br></code></pre></td></tr></table></figure>
+<h3 id="可视化">可视化</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 使用rqt_bag</span><br>roscore<br>rqt_bag BagFileName.bag<br><span class="hljs-comment"># 使用rviz</span><br>roscore<br>rosbag play record.bag<br>rosrun rviz rviz<br><span class="hljs-comment"># 点击rviz左下角的Add，添加想可视化的数据类型</span><br></code></pre></td></tr></table></figure>
+<h3 id="编辑">编辑</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 更改消息频率（配合下方record录制功能录制outtopic的bag包）</span><br>rosrun topic_tools throttle messages &lt;intopic&gt; &lt;msgs_per_sec&gt; [outtopic]  <span class="hljs-comment"># outtopic不输入默认为intopic</span><br><span class="hljs-comment"># 例如，将/dvs/image_raw变为4.0Hz的/color。</span><br>rosrun topic_tools throttle messages /dvs/image_raw 4.0 /color<br><br>rosbag play MH_01_easy.bag /old/topic:=/new/topic  <span class="hljs-comment"># 替换 topic name</span><br><br><span class="hljs-comment"># 合并 rosbag 文件</span><br>rosbag merge file1.bag file2.bag -o merged.bag<br><span class="hljs-comment"># https://pypi.org/project/rosbag-merge/</span><br></code></pre></td></tr></table></figure>
+<h3 id="录制">录制</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 订阅主题并写入一个包文件，其中包含在这些主题上发布的所有消息的内容。</span><br><span class="hljs-comment"># 默认路径：如果您不指定路径，rosbag record 将在当前用户的主目录（通常是 /home/username）下创建一个 .bag 文件。文件名将包含时间戳作为后缀。</span><br><span class="hljs-comment"># 指定路径：在特定路径下打开终端；或者使用 -o 参数指定路径</span><br><span class="hljs-comment"># -o yourfolder/xxx -&gt; yourfolder/xxx_time.bag</span><br><span class="hljs-comment"># -o yourfolder/xxx/ -&gt; yourfolder/xxx/_time.bag</span><br>rosbag record TOPIC1 [TOPIC2 TOPIC3 ...]<br><span class="hljs-comment"># 参数：</span><br>-h, --<span class="hljs-built_in">help</span> 显示此帮助消息并退出<br>-a, --all 记录所有主题<br>-e, --regex 使用正则表达式匹配主题<br>-p, --publish 在记录开始时发布一条消息<br>-x EXCLUDE_REGEX, --exclude=EXCLUDE_REGEX 排除与以下正则表达式匹配的主题（从 -a 或正则表达式中减去）<br>-q, --quiet 抑制控制台输出<br>-o PREFIX，--output-prefix=PREFIX 将 PREFIX 添加到包名称的开头（名称将始终以日期戳结束）<br>-O NAME, --output-name=NAME 记录到名为 NAME.bag 的包中<br>--<span class="hljs-built_in">split</span> 当达到最大大小或持续时间时分割bag包<br>    --max-splits=MAX_SPLITS 最多保留N个包文件，当达到最多擦除最旧的一个以保持常数文件数量<br>    --size=SIZE 记录一个包的最大尺寸为SIZEMB。 （默认：无穷）<br>    --duration=DURATION 记录一个包的最大持续时间DURATION，以秒为单位，除非附加“m”或“h”<br>-b 大小，--buffsize=大小 使用 SIZE MB 的内部缓冲区（默认值：256，0 =无穷）<br>--chunksize=SIZE 高级用法。 记录到 SIZE KB 的块（默认值：768）<br>-l NUM, --<span class="hljs-built_in">limit</span>=NUM 每个主题仅记录 NUM 条消息<br>--node=NODE 记录特定节点订阅的所有主题<br>-j, --bz2 使用 BZ2 压缩<br>--lz4 使用LZ4压缩<br>--tcpnodelay 订阅时使用 TCP_NODELAY 传输提示主题<br>--udp 订阅主题时使用 UDP 传输提示<br></code></pre></td></tr></table></figure>
+<h3 id="编写-launch文件">编写<code>*.launch</code>文件</h3>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-string">&lt;launch&gt;</span><br>    <span class="hljs-string">&lt;node</span> <span class="hljs-string">pkg=&quot;rosbag&quot;</span> <span class="hljs-string">type=&quot;record&quot;</span> <span class="hljs-string">name=&quot;bag_record&quot;</span> <span class="hljs-string">args=&quot;/davis_left/events</span> <span class="hljs-string">/davis_left/image_raw</span> <span class="hljs-string">/davis_left/imu</span> <span class="hljs-string">-o</span> <span class="hljs-string">/yourfolder/record&quot;/&gt;</span><br><span class="hljs-string">&lt;/launch&gt;</span><br></code></pre></td></tr></table></figure>
+<h3 id="修复">修复</h3>
+<p><code>rosbag reindex</code> 是一个命令行工具，用于修复损坏的包文件（或 ROS 版本 0.11 之前记录的包文件）。如果由于任何原因未完全关闭包，则索引信息可能会损坏。使用该工具重新读取消息数据并重建索引。</p>
+<p>每个包文件的备份（扩展名 <code>.orig.bag</code> ）是在包重新索引之前创建的。如果备份文件已经存在（并且 <code>-f</code> 选项未指定），那么该工具将不会重新索引该文件。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs bash">rosbag reindex &lt;bag-files&gt;<br>rosbag reindex -h  <span class="hljs-comment"># 显示用法并退出。</span><br><br>rosbag reindex *.bag  <span class="hljs-comment"># 重新索引给定的包文件。</span><br>rosbag reindex -f *.bag  <span class="hljs-comment"># 强制覆盖备份文件（如果存在）。</span><br>rosbag reindex --output-dir=reindexed *.bag  <span class="hljs-comment"># 指定写入目录</span><br>rosbag reindex -q *.bag  <span class="hljs-comment"># 抑制非关键消息</span><br></code></pre></td></tr></table></figure>
+<p><code>rosbag fix </code>修复bag文件中的消息，使其可以在当前系统中播放。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">rosbag fix &lt;in-bag&gt; &lt;out-bag&gt; [rules.bmr]<br>rosbag fix -h  <span class="hljs-comment"># 显示用法并退出。</span><br><br>rosbag fix old.bag repaired.bag myrules.bmr  <span class="hljs-comment"># 使用注册的规则（以及可选的本地定义的规则）修复包。</span><br>rosbag fix -n old.bag repaired.bag  <span class="hljs-comment"># 不要通过插件加载规则文件。</span><br></code></pre></td></tr></table></figure>
+<p>在使用<code>rosbag record /topic</code>来保存bag包的时候，往往会生成以<code>.bag.active</code>为后缀的文件。如果程序没有正常退出（手动按下<code>Ctrl+C</code>），那么就不会生成<code>.bag</code>文件。而只有将<code>.bag.active</code>恢复成正常的以<code>.bag</code>为后缀的包，才能正常进行<code>rosbag play</code>等操作。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">rosbag reindex file.bag.active  <span class="hljs-comment"># 生成了备份文件 file.bag.orig.active</span><br>rosbag fix file.bag.active file.bag<br><span class="hljs-built_in">rm</span> file.bag.active file.bag.orig.active  <span class="hljs-comment"># 可选</span><br></code></pre></td></tr></table></figure>
+<h2 id="rosclean">rosclean</h2>
+<p>清理文件系统资源（例如日志文件）。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">Usage: rosclean &lt;<span class="hljs-built_in">command</span>&gt;<br><br>Commands:<br>  rosclean check        Check usage of <span class="hljs-built_in">log</span> files 报告 ROS 日志文件的磁盘使用情况。<br>  rosclean purge        Remove <span class="hljs-built_in">log</span> files 小心使用。这将从磁盘中删除文件！将删除与存储 ROS 相关日志文件相关的目录。系统会要求您确认每次删除，并且验证 rosclean purge 执行的命令是否正确非常重要。否则您可能会丢失重要文件。<br></code></pre></td></tr></table></figure>
+<h2 id="时间戳">时间戳</h2>
+<h3 id="知识-2">知识</h3>
+<p>在ROS（机器人操作系统）中，时间戳（Timestamp）是一个重要的概念，用于在消息传递和数据同步中跟踪和标记事件的时间。ROS使用一种称为<code>ROS::Time</code>的数据结构来表示时间戳，通常与ROS消息一起使用。以下是有关ROS时间戳的一些关键信息：</p>
+<ul>
+<li>
+<p>数据结构</p>
+<p><code>ROS::Time</code> 是ROS中表示时间戳的数据结构。它包括两个成员变量：<code>sec</code>（秒）和<code>nsec</code>（纳秒）。这两个成员变量的组合提供了一个精确的时间戳，精度为纳秒级。例如，<code>ros::Time(1633895107, 123456789)</code> 表示的时间戳为1633895107秒 + 123456789纳秒。</p>
+</li>
+<li>
+<p>时钟来源</p>
+<p>在roscpp（C++）和rospy（Python）中，可以使用相应的API来获取当前时间、计算时间差、比较时间戳等。例如在C++中，<code>ros::Time::now()</code> 获取当前时间戳，在<code>Python中，rospy.get_rostime()</code>获取当前时间戳。</p>
+<p>时间信息的来源有两种，系统时间和仿真时间，分别被称为Wall Time和ROS Time，可以通过参数<code>use_sim_time</code>来进行选择，当<code>use_sim_time</code>为<code>true</code>时选择使用仿真时间，反之使用系统时间。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 设置参数use_sim_time:</span><br><span class="hljs-comment"># 通过节点设置:</span><br><span class="hljs-comment"># 使用仿真时间</span><br>rosparam <span class="hljs-built_in">set</span> use_sim_time <span class="hljs-literal">true</span><br><span class="hljs-comment"># 使用系统时间</span><br>rosparam <span class="hljs-built_in">set</span> use_sim_time <span class="hljs-literal">false</span><br><br><span class="hljs-comment"># launch文件设置：</span><br>&lt;param name=<span class="hljs-string">&quot;use_sim_time&quot;</span> value=<span class="hljs-string">&quot;false&quot;</span> /&gt;<br></code></pre></td></tr></table></figure>
+<p>系统时间直接通过访问本地时钟来获得，而仿真时间则需要订阅<code>/clock</code>话题的消息获得，每当接收到该话题的消息，时间才会更新，在没有接收到该话题的第一个消息时，当前时间为0，<code>/clock</code>是通过仿真时间服务器发布的，通常为<code>ros_bag</code>节点或仿真器。</p>
+<p>此外，ROS的绝对时间戳<code>ROS::WallTime</code>，它不可以被人为修改，不同话题或服务数据的<code>ROS::Time</code>时间戳会和绝对时间戳<code>ROS::WallTime</code>有一个差值，如果需要满足较高精度的对齐，需要进行时间补偿。</p>
+</li>
+<li>
+<p>应用</p>
+<p>在ROS中，每个消息类型通常一般都包含一个时间戳字段，例如<code>Header</code>消息类型包括<code>stamp</code>字段，用于存储时间戳。这允许节点记录和传递消息的时间信息。使用ROS时间戳，可以实现多个节点之间的数据同步。</p>
+</li>
+</ul>
+<ol>
+<li>
+<p>为什么有时候<code>ros:time::now()</code>输出值为0？</p>
+<p>ROS设置了一个模拟时钟的节点，使用模拟时钟的时候，<code>now()</code>返回时间0直到第一条消息在<code>/clock</code>已经收到，所以当客户端不知道时钟时间时<code>ros:time::now()</code>输出为0。</p>
+</li>
+<li>
+<p><code>ros:time::now()</code>输出的值是什么？</p>
+<p><code>ros:time::now()</code>输出的值与参数<code>use_sim_time</code>有关。</p>
+<ul>
+<li>
+<p><code>use_sim_time</code>为<code>false</code>时，<code>ros:time::now()</code>输出系统时间；</p>
+</li>
+<li>
+<p><code>use_sim_time</code>为<code>true</code>时，<code>ros:time::now()</code>输出输出仿真时间，如果回放<code>bag</code>则是<code>bag</code>的时间。</p>
+</li>
+</ul>
+</li>
+<li>
+<p>如何直接使用系统时间？</p>
+<p>使用<code>ros::WallTime::now() </code>。播放<code>rosbag</code>时，若参数<code>/use_sim_time</code>为<code>true</code>，则此时：</p>
+<ul>
+<li><code>ros::WallTime::now()</code>为当前的真实时间，也就是墙上的挂钟时间，一直在走。</li>
+<li><code>ros::Time::now()</code>为<code>rosbag</code>当时的时间，是由<code>bag</code>中<code>/clock</code>获取的。是仿真时间。</li>
+</ul>
+</li>
+</ol>
+<h3 id="使用仿真时间">使用仿真时间</h3>
+<p>你可以通过设置<code>/use_sim_time</code>参数为<code>true</code>并在播放rosbag时使用<code>--clock</code>选项来让ROS使用rosbag的时间，而不是真实时间。这种方法通常用于回放rosbag时的仿真。</p>
+<p>首先，你需要在启动你的节点之前，设置<code>/use_sim_time</code>参数为<code>true</code>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">rosparam <span class="hljs-built_in">set</span> /use_sim_time <span class="hljs-literal">true</span><br></code></pre></td></tr></table></figure>
+<p>或者，在<code>*.launch</code>文件中指定：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">launch</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">rosparam</span> <span class="hljs-attr">param</span>=<span class="hljs-string">&quot;/use_sim_time&quot;</span>&gt;</span>true<span class="hljs-tag">&lt;/<span class="hljs-name">rosparam</span>&gt;</span><br><br>  <span class="hljs-tag">&lt;<span class="hljs-name">node</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;name&quot;</span> <span class="hljs-attr">pkg</span>=<span class="hljs-string">&quot;pkg&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;type&quot;</span> <span class="hljs-attr">output</span>=<span class="hljs-string">&quot;screen&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">param</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;topic&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;string&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;/topic&quot;</span>/&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">node</span>&gt;</span><br>    <br><span class="hljs-tag">&lt;/<span class="hljs-name">launch</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>不执行上述操作，时间戳就还是现实时间，不是 rosbag 的时间戳。</p>
+</blockquote>
+<p>然后，当你播放rosbag时，需要添加<code>--clock</code>选项：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">rosbag play --clock your_rosbag.bag<br></code></pre></td></tr></table></figure>
+<p>这样，ROS的时间就会同步到rosbag的时间。然后，你可以在你的代码中使用<code>ros::Time::now()</code>来获取当前的rosbag时间，而不是真实时间。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c++">cv_bridge::CvImage optical_flow_msg;<br>optical_flow_msg.header.stamp = ros::Time::<span class="hljs-built_in">now</span>();<br></code></pre></td></tr></table></figure>
+<h2 id="消息打印">消息打印</h2>
+<h3 id="基本用法">基本用法</h3>
+<p>ROS的Log等级跟平常的一样：DEBUG、INFO、WARN、ERROR、FATAL。</p>
+<p>引入头文件：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;ros/console.h&gt;</span></span><br></code></pre></td></tr></table></figure>
+<ol>
+<li>
+<p>类似C语言风格（类比<code>printf</code> ）</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-built_in">ROS_INFO</span>(<span class="hljs-string">&quot;position=(%0.2f,%0.2f) direction=%0.2f&quot;</span>, msg.x, msg.y, msg.theta);<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>类似C++语言风格（类比 <code>std::cout</code>）（推荐使用）</p>
+<ul>
+<li>
+<p>输出多个变量和设置小数点位数</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-built_in">ROS_INFO_STREAM</span>( std::<span class="hljs-built_in">setprecision</span> (<span class="hljs-number">2</span>) &lt;&lt; std::fixed&lt;&lt; <span class="hljs-string">&quot; position=(&quot;</span> &lt;&lt; msg.x &lt;&lt; <span class="hljs-string">&quot; ,&quot;</span> &lt;&lt; msg.y &lt;&lt; <span class="hljs-string">&quot;)&quot;</span> &lt;&lt; <span class="hljs-string">&quot;direction=&quot;</span> &lt;&lt; msg.theta );<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>为调试信息命名</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-built_in">ROS_INFO_STREAM_NAMED</span>( “named_msg”, “INFO named message.” );  <span class="hljs-comment">// 为这段信息命名，可以更容易知道这段信息来自哪段代码</span><br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>打印一次与定时打印</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-built_in">ROS_INFO_STREAM_ONCE</span>(recv head1 : -&gt; &lt;&lt; std::hex &lt;&lt; <span class="hljs-built_in">static_cast</span>&lt;<span class="hljs-type">int</span>&gt;((<span class="hljs-type">int</span>)buffer_data[<span class="hljs-number">0</span>]));  <span class="hljs-comment">// 放在回调函数中确认数据有接收到，但是又不想一直刷屏可以用这个</span><br><br><span class="hljs-comment">// ROS_[_STREAM]_ONCE[_NAMED]</span><br><span class="hljs-built_in">ROS_INFO_STREAM_THROTTLE</span>(<span class="hljs-number">0.5</span>, <span class="hljs-string">&quot;Message print every 0.5s&quot;</span>);  <span class="hljs-comment">// 定时刷屏有时候回调的频率比较高，可以设置慢一点的打印。每0.5s打印一次。</span><br></code></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ol>
+<p>示例：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;ros/ros.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;ros/console.h&gt;</span></span><br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">( <span class="hljs-type">int</span> argc, <span class="hljs-type">char</span> **argv )</span></span><br><span class="hljs-function"></span>&#123;<br>  ros::<span class="hljs-built_in">init</span>( argc, argv, <span class="hljs-string">&quot;rosdebug&quot;</span> );<br>  ros::NodeHandle n;<br>  <span class="hljs-function">ros::Rate <span class="hljs-title">rate</span><span class="hljs-params">( <span class="hljs-number">1</span> )</span></span>;<br><br>  <span class="hljs-keyword">while</span>( ros::<span class="hljs-built_in">ok</span>() ) &#123;<br>    <span class="hljs-built_in">ROS_INFO_STREAM_ONCE</span>(<span class="hljs-string">&quot;loop start&quot;</span>);<br>    <span class="hljs-built_in">ROS_DEBUG_STREAM</span>( <span class="hljs-string">&quot;DEBUG message.&quot;</span> );<br>    <span class="hljs-built_in">ROS_INFO_STREAM</span> ( <span class="hljs-string">&quot;INFO message.&quot;</span>  );<br>    <span class="hljs-built_in">ROS_WARN_STREAM</span> ( <span class="hljs-string">&quot;WARN message.&quot;</span>  );<br>    <span class="hljs-built_in">ROS_ERROR_STREAM</span>( <span class="hljs-string">&quot;ERROR message.&quot;</span> );<br>    <span class="hljs-built_in">ROS_FATAL_STREAM</span>( <span class="hljs-string">&quot;FATAL message.&quot;</span> );<br>    <span class="hljs-built_in">ROS_INFO_STREAM_NAMED</span>( <span class="hljs-string">&quot;named_msg&quot;</span>, <span class="hljs-string">&quot;INFO named message.&quot;</span> );<br>    <span class="hljs-built_in">ROS_INFO_STREAM_THROTTLE</span>( <span class="hljs-number">2</span>, <span class="hljs-string">&quot;INFO throttle message.&quot;</span> );<br>    ros::<span class="hljs-built_in">spinOnce</span>();<br>    rate.<span class="hljs-built_in">sleep</span>();<br>  &#125;<br>  <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="时间戳-2">时间戳</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 取消仿真时间</span><br>rosparam <span class="hljs-built_in">set</span> use_sim_time <span class="hljs-literal">false</span><br><span class="hljs-comment"># 设置使用仿真时间</span><br>rosparam <span class="hljs-built_in">set</span> use_sim_time <span class="hljs-literal">true</span><br></code></pre></td></tr></table></figure>
+<p>输出：</p>
+<p>当<code>use_sim_time false</code>时，输出时间戳为系统时间：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">[INFO] [1648006025.447472]: Hello world!<br></code></pre></td></tr></table></figure>
+<p>当设置<code>use_sim_time true</code>时执行程序：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">[INFO] [1648006222.430755, 0.000000]: Hello world!<br></code></pre></td></tr></table></figure>
+<p>输出信息：第一个为系统时间戳，第二个为消息的输出的时候时钟源的时间，当ros系统设置了<code>use_sim_time</code>为<code>true</code>的时候，这个为播放的bag包的时间，没有bag数据包播放时仿真时间为0，会卡住。</p>
+<p>如果设置了ros时钟仿真参数，发布一个时间的<code>clock</code>话题，就可以控制ros系统的时间。找个bag数据包，播放一下，使用仿真时间加 <code>—clock</code>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bahs">rosbag play filename.bag --clock<br></code></pre></td></tr></table></figure>
+<p>程序继续运行输出如下，时间戳多了仿真时间一项：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">[INFO] [1648006373.102147, 1647073793.956939]: Hello world!<br></code></pre></td></tr></table></figure>
+<p>但是当发布<code>clock</code>话题的节点没有运行，会出现什么反应？其他所有节点线程遇到延时，执行<code>rospy.sleep</code>、<code>rate.sleep</code>等函数时，会一直卡住，<code>while</code>循环不跳出。一直等待 ，直到时钟初始化。</p>
+<p>另外，你无法直接分辨是哪天，这都是从1970-01-01 00:00:00 UTC开始算起的时间，单位为秒。国内北京时间UTC+8.0所以时间戳是从1970-01-01 08:00:00开始。</p>
+<p>要想看懂时间戳，下面就轮到<code>rqt_console</code>登场了。</p>
+<h3 id="使用rosconsole和设置显示级别">使用rosconsole和设置显示级别</h3>
+<p>ROS的调试信息可以用<code>rosconsole</code>查看和设置，用法如下：</p>
+<ol>
+<li>
+<p>查看节点：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">rosnode list<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>查看节点的log（例如，节点名为<code>rosdebugtest</code>）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash">rosconsole list rosdebugtest<br><span class="hljs-comment"># 输出为：</span><br>ros<br>ros.roscpp<br>ros.roscpp.roscpp_internal<br>ros.roscpp.superdebug<br>ros.rosdebugtest<br>ros.rosdebugtest.named_msg<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>查看log显示级别：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># Usage: rosconsole get</span><br>rosconsole get rosdebugtest ros.rosdebugtest.named_msg<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>动态设置log的显示级别：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># Usage:rosconsole set &lt;node&gt; &lt;logger&gt; &lt;level&gt;</span><br>rosconsole <span class="hljs-built_in">set</span> rosdebugtest ros.rosdebugtest debug<br></code></pre></td></tr></table></figure>
+<p>或者用图形化界面设置，启动rqt_logger_level</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">rosrun rqt_logger_level rqt_logger_level<br></code></pre></td></tr></table></figure>
+<p>找到相应的<code>node</code>名，选择<code>loggers</code>，等级调整，默认为<code>Inf</code>。</p>
+</li>
+<li>
+<p>在编译时设置源代码的调试级别：</p>
+<p>由于编译时默认显示的是INFO级别，因此调试时为了看到Debug信息，需要在编译是设置调试级别。</p>
+<p>在 <code>ros::init( argc, argv, “rosdebugtest” );</code>后加入这一句就行了：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c++">ros::console::<span class="hljs-built_in">set_logger_level</span>(ROSCONSOLE_DEFAULT_NAME,ros::console::levels::Debug);<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>设置ros默认输出级别：</p>
+<p>更改文件<code>$ROS_ROOT/config/rosconsole.config</code>，文件内容如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># Set the default ros output to warning and higher</span><br>log4j.logger.ros=WARN<br><span class="hljs-comment"># Override my package to output everything</span><br>log4j.logger.ros.my_package_name=DEBUG<br></code></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>打开rosconsole界面：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">rqt_console<br></code></pre></td></tr></table></figure>
+<img src="/posts/c4541b88/rosconsole%E7%95%8C%E9%9D%A2.png" srcset="/img/loading.gif" lazyload class="" title="rosconsole界面">
+<ul>
+<li>中间的<code>Stamp</code>列显示的就是转换过后的时间戳。</li>
+<li>第一行从左到右如图，很清晰，最后一列<code>Location</code>可以定位到来自于哪个文件多少行，双击每条消息任意位置可以查看消息的所有详细信息。</li>
+<li>第二行是配置过滤哪些消息，可根据等级，消息内容，时间范围，节点以及话题来滤除。</li>
+<li>第三行是配置高亮哪些消息，可根据等级，消息内容，时间范围，节点以及话题来设置。</li>
+</ul>
+<p>对于大型项目日志查看和分析很有用了。</p>
+<h2 id="RViz官方用户手册"><a target="_blank" rel="noopener" href="https://docs.ros.org/en/indigo/api/rviz/html/user_guide/index.html">RViz官方用户手册</a></h2>
+<h1 id="小技巧">小技巧</h1>
+<h2 id="sh脚本一次性启动多个程序（对应多个终端）"><code>.sh</code>脚本一次性启动多个程序（对应多个终端）</h2>
+<p>经常开发ros环境的应该知道，当需要运行的节点太多太乱的时候，不如写个脚本直接启动多个节点（对应多个终端）。</p>
+<h3 id="基础知识">基础知识</h3>
+<p>先介绍一下<code>gnome-terminal</code>命令的使用：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs bash">gnome-terminal  <span class="hljs-comment"># 打开一个新的终端</span><br><span class="hljs-comment"># 参数</span><br><span class="hljs-comment"># 基本用法</span><br>--maximize  <span class="hljs-comment"># 打开后自动最大化</span><br>--full-screen  <span class="hljs-comment"># 打开后全屏</span><br>--window  <span class="hljs-comment"># 打开多个终端，多个标签页</span><br>	gnome-terminal --window --window  <span class="hljs-comment">#打开两个</span><br>	gnome-terminal --window --tab --window --tab --tab  <span class="hljs-comment">#打开两个，第一个两个tab，第二个3个tab</span><br>-t  <span class="hljs-comment"># 设置终端的标题。注意，有些版本不支持。</span><br><span class="hljs-comment"># 设置打开的位置和大小（宽度x高度+左侧偏移量+上方偏移量）</span><br>gnome-terminal --geometry=80x25+10+10<br><br><span class="hljs-comment"># 启动后自动执行命令</span><br>-e  <span class="hljs-comment"># 可以出现多次。如果在所有--window前面，表示对所有window和tab起作用，如果在--window或者--tab后面，表示只针对这个tab执行，要注意-e后面只能有一个参数，也就是说如果有空格，需要用引号。</span><br>-x  <span class="hljs-comment"># 只能出现一次，在-x后面的所有内容，均认为是要执行的命令，所以可以出现空格，这些命令是针对所有tab都执行的。</span><br>gnome-terminal -x bash -c <span class="hljs-string">&quot;ls&quot;</span><br>gnome-terminal -e <span class="hljs-string">&#x27;bash -c &quot;ls&quot;&#x27;</span><br><span class="hljs-comment"># 注，运行时会警告：</span><br><span class="hljs-comment"># 参数“-x”弃用并可能在 gnome-terminal 的后续版本中移除。</span><br><span class="hljs-comment"># 参数“-e”弃用并可能在 gnome-terminal 的后续版本中移除</span><br><span class="hljs-comment"># 使用“-- ”以结束选项并将要执行的命令行追加至其后。</span><br><span class="hljs-comment"># 所以，现在可以直接用“--”来替换掉“-x”和“-e”了。</span><br><br><span class="hljs-comment"># 执行完成后保持终端不自动关闭。</span><br><span class="hljs-comment"># 1. 最后加上exec bash的命令，并用分号跟前面的命令隔开。</span><br>gnome-terminal -x bash -c <span class="hljs-string">&quot;ls; exec bash&quot;</span><br>gnome-terminal -e <span class="hljs-string">&#x27;bash -c &quot;ls; exec bash&quot;&#x27;</span><br><span class="hljs-comment"># 2. 修改terminal的配置，在terminal点右键，选择Profiles-&gt;Profile Preferences，然后找到Title and Command，里面有一项When command exits，后面选择为Hold the terminal open，然后就可以了。</span><br><span class="hljs-comment"># 3. 把结果重定向给less，这样less执行完之前，是不会退出的。</span><br>gnome-terminal -x <span class="hljs-built_in">ls</span>|less<br></code></pre></td></tr></table></figure>
+<h3 id="基本使用">基本使用</h3>
+<p>了解上面后我们可以创建属于自己的脚本了：</p>
+<ol>
+<li>
+<p>在ROS工作空间（例如，<code>catkin_ws</code>文件夹）下创建一个脚本文件，例如<code>runROS.sh</code>。</p>
+</li>
+<li>
+<p>写入内容，例如：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs sh"><span class="hljs-meta">#!/bin/bash</span><br>gnome-terminal --window -- bash -c <span class="hljs-string">&quot;source ./devel/setup.bash &amp;&amp; roslaunch PACKAGE_NAME *.launch; exec bash&quot;</span><br><span class="hljs-built_in">sleep</span> 3s<br>gnome-terminal --window -- bash -c <span class="hljs-string">&quot;source ./devel/setup.bash &amp;&amp; rosrun PACKAGE_NAME NODE_NAME *.yaml; exec bash&quot;</span><br><span class="hljs-built_in">sleep</span> 3s<br>gnome-terminal --window -- bash -c <span class="hljs-string">&quot;rosbag play /yourfolder/*.bag; exec bash&quot;</span><br></code></pre></td></tr></table></figure>
+<p>需要什么节点按照这个模块添加即可。</p>
+</li>
+<li>
+<p>给脚本文件授予权限：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo <span class="hljs-built_in">chmod</span> 755 runROS.sh<br></code></pre></td></tr></table></figure>
+<p><code>chmod 755</code> 设置用户的权限为：</p>
+<ol>
+<li>文件所有者可读可写可执行。</li>
+<li>与文件所有者同属一个用户组的其他用户可读可执行。</li>
+<li>其它用户组可读可执行。</li>
+</ol>
+</li>
+<li>
+<p>运行脚本文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> catkin_ws<br>./runROS.sh<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>完成。</p>
+</li>
+</ol>
+<h3 id="进阶使用">进阶使用</h3>
+<h4 id="打开多标签页而不是多终端">打开多标签页而不是多终端</h4>
+<p>修改<code>runROS.sh</code>文件内容为：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-meta">#!/bin/bash</span><br>gnome-terminal --window -e <span class="hljs-string">&quot;bash -c &#x27;source ./devel/setup.bash &amp;&amp; roslaunch PACKAGE_NAME *.launch; exec bash&#x27;&quot;</span> \<br>               --tab -e <span class="hljs-string">&quot;bash -c &#x27;sleep 3s; source ./devel/setup.bash &amp;&amp; rosrun PACKAGE_NAME NODE_NAME *.yaml; exec bash&#x27;&quot;</span> \<br>               -tab -e <span class="hljs-string">&quot;bash -c &#x27;sleep 6s; rosbag play /yourfolder/*.bag; exec bash&#x27;&quot;</span><br></code></pre></td></tr></table></figure>
+<blockquote>
+<p><code>--</code>经测试好像不支持<code>--tab</code>，脚本执行没有按照预期来，这里还是要使用<code>-x</code>或<code>-e</code>。</p>
+</blockquote>
+<blockquote>
+<p>命令行使用<code>\</code>实现换行，方便排版。</p>
+</blockquote>
+<h4 id="Terminator终端和zsh-shell">Terminator终端和zsh shell</h4>
+<p>修改<code>runROS.sh</code>文件内容为：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs sh"><span class="hljs-meta">#!/bin/zsh</span><br>terminator -e <span class="hljs-string">&quot;zsh -c &#x27;source ./devel/setup.zsh &amp;&amp; roslaunch PACKAGE_NAME *.launch; exec zsh&#x27;&quot;</span><br><span class="hljs-built_in">sleep</span> 3s<br>terminator -e <span class="hljs-string">&quot;zsh -c &#x27;source ./devel/setup.zsh &amp;&amp; rosrun PACKAGE_NAME NODE_NAME *.yaml; exec zsh&#x27;&quot;</span><br><span class="hljs-built_in">sleep</span> 3s<br>terminator -e <span class="hljs-string">&quot;zsh -c &#x27;source ./devel/setup.zsh &amp;&amp; rosbag play /yourfolder/*.bag; exec zsh&#x27;&quot;</span><br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>这里播放<code>rosbag</code>前面需要加上<code>source ./devel/setup.zsh</code>，否则会报错<code>zsh:1: command not found: rosbag</code>。</p>
+</blockquote>
+<blockquote>
+<p>如果<code>exec zsh</code>命令未能在命令运行完成后保持终端窗口打开，可以尝试修改terminal的配置，在terminal点右键，选择Profiles-&gt;Profile Preferences，然后找到Title and Command，里面有一项When command exits，后面选择为Hold the terminal open。</p>
+</blockquote>
+<blockquote>
+<p>因为<code>roscore</code>和<code>roslanuch</code>打开ROS节点后不会自行关闭，需要使用快捷键<code>Ctrl+C</code>手动关闭，所以不会运行到<code>exec zsh</code>这一步。</p>
+<p>而且，使用快捷键<code>Ctrl+C</code>手动关闭ROS节点后，终端会直接退出，也就是关闭窗口（这个BUG？反而能自动关闭终端窗口，减少了自己的操作？）。</p>
+<p>如果<code>Ctrl+C</code>后不想关闭终端，可以在terminal点右键，选择Profiles-&gt;Profile Preferences，然后找到Title and Command，里面有一项When command exits，后面选择为Hold the terminal open。不过即使这样，当前终端也不再能输入命令，只能使用Terminator的功能：水平分割/数值分割来另起一个终端。</p>
+</blockquote>
+<h4 id="提高脚本的扩展性">提高脚本的扩展性</h4>
+<p><a target="_blank" rel="noopener" href="https://www.runoob.com/linux/linux-shell.html">Shell脚本语法教程</a></p>
+<p>主要解决播放不同rosbag包的需求，<code>runROS.sh</code>文件的内容修改如下：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs sh"><span class="hljs-meta">#!/bin/zsh</span><br><br><span class="hljs-keyword">case</span> <span class="hljs-string">&quot;<span class="hljs-variable">$1</span>&quot;</span> <span class="hljs-keyword">in</span><br>   1) bag_name=<span class="hljs-string">&quot;dynamic_6dof&quot;</span><br>   ;;<br>   2) bag_name=<span class="hljs-string">&quot;boxes_6dof&quot;</span><br>   ;;<br>   *) bag_name=<span class="hljs-string">&quot;dynamic_6dof&quot;</span><br>   ;;<br><span class="hljs-keyword">esac</span><br><br><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;<span class="hljs-variable">$&#123;bag_name&#125;</span>&quot;</span><br><br>terminator -e <span class="hljs-string">&quot;zsh -c &#x27;source ./devel/setup.zsh &amp;&amp; roslaunch vins vins_rviz.launch; exec zsh&#x27;&quot;</span><br><span class="hljs-built_in">sleep</span> 3s<br>terminator -e <span class="hljs-string">&quot;zsh -c &#x27;source ./devel/setup.zsh &amp;&amp; rosrun vins vins_node ./src/VINS-Fusion/config/rpg_davis/rpg_davis_VINS.yaml; exec zsh&#x27;&quot;</span><br><span class="hljs-built_in">sleep</span> 3s<br>terminator -e <span class="hljs-string">&quot;zsh -c &#x27;source ./devel/setup.zsh &amp;&amp; rosbag play -r 0.5 /Dataset/rpg_davis/<span class="hljs-variable">$&#123;bag_name&#125;</span>/<span class="hljs-variable">$&#123;bag_name&#125;</span>.bag; exec zsh&#x27;&quot;</span><br></code></pre></td></tr></table></figure>
+<p>对程序简单地说明：</p>
+<ul>
+<li>当执行命令<code>./runROS.sh 1</code>时，会播放<code>dynamic_6dof.bag</code>；</li>
+<li>当执行命令<code>./runROS.sh 2</code>时，会播放<code>boxes_6dof.bag</code>。</li>
+</ul>
+<p>以此类推，可以只编写使用一个脚本文件，通过输入不同的（简单的）参数，来实现运行不同的配置文件。</p>
+<h4 id="Terminator终端实现多标签页">Terminator终端实现多标签页</h4>
+<p>以下是gpt-4的回答：</p>
+<p>要在 Terminator 终端中实现您的需求，我们依旧会利用一个 shell 脚本。不过，值得注意的是，Terminator 的命令行界面（CLI）可能没有提供直接的方式来新建一个标签页并在其中运行特定命令。但我们仍然可以通过一些创造性的方法来尝试实现这一需求，比如使用 Terminator 的布局功能或发送按键事件来模拟用户操作。下面提供一个基于布局功能的基础脚本示例，并解释如果可能的话如何利用它来达到目的。</p>
+<h5 id="使用-Terminator-的布局功能">使用 Terminator 的布局功能</h5>
+<p>首先，你需要创建一个 Terminator 配置，其中预定义了一个具有两个标签页的布局。然而，Terminator 配置通常不允许直接在创建标签页时指定要运行的命令。作为替代，我们可以创建一个脚本，一开始就与预期的标签页中要运行的命令相对应，然后将这些脚本设置为在 Terminator 布局中的对应标签页自动运行。</p>
+<p>下面是一个简化的例子，假设你已经有了一个包括两个标签页的 Terminator 布局（我们这里称之为 mylayout），以及如何编写一个 shell 脚本来间接实现你的需求：</p>
+<p>步骤 1: 创建脚本来运行你的命令</p>
+<p><code>run_first_command.sh</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-meta">#!/bin/bash</span><br><span class="hljs-comment"># 使用 zsh 运行你的 ROS 命令</span><br>zsh -c <span class="hljs-string">&quot;source ./devel/setup.zsh &amp;&amp; roslaunch PACKAGE_NAME *.launch&quot;</span><br></code></pre></td></tr></table></figure>
+<p><code>run_second_command.sh</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-meta">#!/bin/bash</span><br><span class="hljs-comment"># 稍等3秒</span><br><span class="hljs-built_in">sleep</span> 3<br><span class="hljs-comment"># 然后运行第二个 ROS 命令</span><br>zsh -c <span class="hljs-string">&quot;source ./devel/setup.zsh &amp;&amp; rosbag play /yourfolder/*.bag&quot;</span><br></code></pre></td></tr></table></figure>
+<p>为这两个脚本文件设置执行权限：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">chmod</span> +x run_first_command.sh run_second_command.sh<br></code></pre></td></tr></table></figure>
+<p>步骤 2: 配置 Terminator 布局</p>
+<p>你需要手动编辑 Terminator 的配置文件，通常位于 <code>~/.config/terminator/config</code>（如果还没有此文件，首次运行 Terminator 会创建）。你要编辑这个文件，加入一个自定义布局，其配置两个终端分别运行这两个脚本。请参考 Terminator 的官方文档 来学习如何配置布局。</p>
+<p>步骤 3: 编写 shell 脚本启动 Terminator</p>
+<p>假设你已经按照步骤 2 创建好了名为 mylayout 的 Terminator 布局，接下来，你可以编写一个简单的 shell 脚本来启动这个布局：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-meta">#!/bin/bash</span><br>terminator -l mylayout<br></code></pre></td></tr></table></figure>
+<p>这其中，<code>-l</code> 参数指定了要启动的布局名称。</p>
+<p>总结：这个解决方案需要几个步骤和一些手动配置，而且不如在原生的 shell 脚本中那样直接和灵活。不过，它提供了一种可行的方式来实现你的需求——在 Terminator 中启动一个布局，该布局包含了运行特定命令的多个标签页。根据你的 Terminator 版本和配置情况，详细步骤可能会有所不同，因此建议查阅最新的 Terminator 文档以获得最准确的指导。</p>
+<h5 id="发送按键事件来模拟用户操作">发送按键事件来模拟用户操作</h5>
+<p>要通过发送按键事件来模拟用户操作，实现在 Terminator 终端新建一个标签页并在其中运行命令的需求，你可以使用 xdotool。xdotool 是一个模拟键盘输入和鼠标活动的工具，可以用来实现自动化的交互操作。请注意，这种方法依赖于具体的窗口管理器和终端行为，可能需要根据你的系统环境微调。</p>
+<p>首先，你需要安装 xdotool（如果尚未安装）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo apt-get update &amp;&amp; sudo apt-get install xdotool<br></code></pre></td></tr></table></figure>
+<p>接下来，你可以编写一个脚本来完成这个任务。这个脚本将做以下几件事：</p>
+<p>打开一个 Terminator 窗口。等待一小段时间，确保 Terminator 启动完成。使用 xdotool 发送按键事件来在 Terminator 中新建一个标签页。在新标签页中执行你的命令。</p>
+<p>下面是这样一个脚本的示例：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-meta">#!/bin/bash</span><br><br><span class="hljs-comment"># 启动 Terminator</span><br>terminator &amp;<br><br><span class="hljs-comment"># 获取 Terminator 窗口的窗口ID，这里假设 Terminator 是最近打开的窗口</span><br><span class="hljs-comment"># 请根据您的系统和环境调整 sleep 时间和可能的窗口搜索逻辑</span><br><span class="hljs-built_in">sleep</span> 2<br>window_id=$(xdotool seros:time::now()详解<span class="hljs-built_in">arch</span> --onlyvisible --class terminator | <span class="hljs-built_in">head</span> -1)<br><br><span class="hljs-comment"># 确保找到了 Terminator 窗口</span><br><span class="hljs-keyword">if</span> [ -z <span class="hljs-string">&quot;<span class="hljs-variable">$window_id</span>&quot;</span> ]; <span class="hljs-keyword">then</span><br>    <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;Terminator window not found.&quot;</span><br>    <span class="hljs-built_in">exit</span> 1<br><span class="hljs-keyword">fi</span><br><br><span class="hljs-comment"># 将焦点移至 Terminator 窗口</span><br>xdotool windowactivate --<span class="hljs-built_in">sync</span> <span class="hljs-variable">$window_id</span><br><br><span class="hljs-comment"># 新建一个标签页</span><br><span class="hljs-comment"># 请根据您的 Terminator 快捷键设置调整这里的键位组合</span><br><span class="hljs-comment"># 例如，默认使用 Ctrl+Shift+T 来新建标签页</span><br>xdotool key --clearmodifiers ctrl+<span class="hljs-built_in">shift</span>+t<br><br><span class="hljs-comment"># 为了确保标签页创建成功，可能需要短暂等待</span><br><span class="hljs-built_in">sleep</span> 1<br><br><span class="hljs-comment"># 在新标签页中执行命令</span><br><span class="hljs-comment"># 注意：Terminator 默认可能不会直接执行通过 xdotool 发送的命令字符串</span><br><span class="hljs-comment"># 你可能需要通过一个临时脚本来实现自动执行命令</span><br><span class="hljs-comment"># 在 HOME 目录下创建临时脚本执行第一个命令</span><br><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;source ./devel/setup.zsh &amp;&amp; roslaunch PACKAGE_NAME *.launch&quot;</span> &gt; ~/temp_cmd_1.sh<br><span class="hljs-built_in">chmod</span> +x ~/temp_cmd_1.sh<br>xdotool <span class="hljs-built_in">type</span> --clearmodifiers <span class="hljs-string">&quot;<span class="hljs-variable">$HOME</span>/temp_cmd_1.sh&quot;</span><br>xdotool key Return<br><br><span class="hljs-comment"># 等待一段时间，然后再次创建新标签页并执行第二个命令</span><br><span class="hljs-built_in">sleep</span> 3<br>xdotool key --clearmodifiers ctrl+<span class="hljs-built_in">shift</span>+t<br><span class="hljs-built_in">sleep</span> 1<br><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;source ./devel/sros:time::now()详解etup.zsh &amp;&amp; rosbag play /yourfolder/*.bag&quot;</span> &gt; ~/temp_cmd_2.sh<br><span class="hljs-built_in">chmod</span> +x ~/temp_cmd_2.sh<br>xdotool <span class="hljs-built_in">type</span> --clearmodifiers <span class="hljs-string">&quot;<span class="hljs-variable">$HOME</span>/temp_cmd_2.sh&quot;</span><br>xdotool key Return<br><br><span class="hljs-comment"># 清理创建的临时脚本文件</span><br><span class="hljs-built_in">sleep</span> 5  <span class="hljs-comment"># 确保命令有足够的时间开始执行</span><br><span class="hljs-built_in">rm</span> ~/temp_cmd_1.sh ~/temp_cmd_2.sh<br></code></pre></td></tr></table></figure>
+<p>注意： 这个示例脚本包含许多简化的操作，真实环境下的表现可能会因系统配置不同而有所差异。请务必根据自己的终端快捷键和系统行为进行相应的调整。使用 xdotool 发送命令字符串到终端可能有一些限制，特别是对于复杂的命令。在某些情况下，使用脚本文件是绕过这些限制的一种方法。</p>
+<h2 id="多个工作空间同时工作">多个工作空间同时工作</h2>
+<p>ROS开发中，有时需要建多个工作空间，将不同的功能包区别开来。但是，多个工作空间会存在相互影响的情况，如何让它们能同时工作且相互不影响？单纯改环境变量是不行的。</p>
+<p>假设有两个工作空间<code>/home/user1/work1_ws</code>，<code>/home/user1/work2_ws</code>，怎么做呢？</p>
+<p>需要在同一个shell窗口下依次执行：</p>
+<ol>
+<li>
+<p>在<code>work1_ws</code>中执行<code>catkin_make</code>，编译完成后，执行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">source</span> /home/user1/work1_ws/devel/setup.bash<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>在<code>work2_ws</code>中执行<code>catkin_make</code>，编译完成后，执行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">source</span> /home/user1/work2_ws/devel/setup.bash<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>完成后，查看：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">echo</span> <span class="hljs-variable">$ROS_PACKAGE_PATH</span><br><span class="hljs-comment"># /home/user1/work2_ws /src:/home/user1/work1_ws /src:/opt/ros/kinetic/share</span><br></code></pre></td></tr></table></figure>
+<p>两个工作空间可以同时工作了。</p>
+</li>
+<li>
+<p>核心点就是在<code>catkin_make</code>时确保另一个工作空间的<code>setup.bash</code>已经执行。</p>
+</li>
+</ol>
+<h2 id="将ROS的功能包打包为-deb文件并安装">将ROS的功能包打包为<code>.deb</code>文件并安装</h2>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/gwplovekimi/article/details/107370558">将ROS的功能包打包为deb文件，并且成功安装</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/gwplovekimi/article/details/111562231">ROS实验笔记之——打包roslaunch文件为deb包</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/gwplovekimi/article/details/111562317">ROS实验笔记之——多个工作空间共存</a></p>
+<h2 id="查看bag包每个主题的大小">查看bag包每个主题的大小</h2>
+<p>新建<code>rosbag_size_by_topic.py</code>文件并写入以下内容：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment">#!/usr/bin/env python</span><br><span class="hljs-comment"># Prints total cumulative serialized msg size in bytes per topic</span><br><span class="hljs-comment"># Calculation takes approximately 1sec/GB</span><br><span class="hljs-comment"># Usage:   python rosbag_size_by_topic.py BAG_FILE_PATH</span><br><br><span class="hljs-keyword">import</span> rosbag<br><span class="hljs-keyword">import</span> sys<br><br>topic_size_dict = &#123;&#125;<br><span class="hljs-keyword">for</span> topic, msg, time <span class="hljs-keyword">in</span> rosbag.Bag(sys.argv[<span class="hljs-number">1</span>], <span class="hljs-string">&quot;r&quot;</span>).read_messages(raw=<span class="hljs-literal">True</span>):<br>    topic_size_dict[topic] = topic_size_dict.get(topic, <span class="hljs-number">0</span>) + <span class="hljs-built_in">len</span>(msg[<span class="hljs-number">1</span>])<br><br>topic_size = <span class="hljs-built_in">list</span>(topic_size_dict.items())<br>topic_size.sort(key=<span class="hljs-keyword">lambda</span> x: x[<span class="hljs-number">1</span>], reverse=<span class="hljs-literal">False</span>)<br><br><span class="hljs-keyword">for</span> topic, size <span class="hljs-keyword">in</span> topic_size:<br>    <span class="hljs-keyword">if</span> size &lt; <span class="hljs-number">1000</span>:<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;&#123;:7d&#125;B  &#123;&#125;&quot;</span>.<span class="hljs-built_in">format</span>(size, topic))<br>    <span class="hljs-keyword">elif</span> size &gt;= <span class="hljs-number">1000000000000</span>:<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;&#123;:7.2f&#125;T  &#123;&#125;&quot;</span>.<span class="hljs-built_in">format</span>(size/<span class="hljs-number">1000000000000</span>, topic))<br>    <span class="hljs-keyword">elif</span> size &gt;= <span class="hljs-number">1000000000</span>:<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;&#123;:7.2f&#125;G  &#123;&#125;&quot;</span>.<span class="hljs-built_in">format</span>(size/<span class="hljs-number">1000000000</span>, topic))<br>    <span class="hljs-keyword">elif</span> size &gt;= <span class="hljs-number">1000000</span>:<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;&#123;:7.2f&#125;M  &#123;&#125;&quot;</span>.<span class="hljs-built_in">format</span>(size/<span class="hljs-number">1000000</span>, topic))<br>    <span class="hljs-keyword">elif</span> size &gt;= <span class="hljs-number">1000</span>:<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;&#123;:7.2f&#125;K  &#123;&#125;&quot;</span>.<span class="hljs-built_in">format</span>(size/<span class="hljs-number">1000</span>, topic))<br></code></pre></td></tr></table></figure>
+<p>运行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">python rosbag_size_by_topic.py BAG_FILE_PATH  <span class="hljs-comment"># or</span><br>rosrun PACKAGE rosbag_size_by_topic.py BAG_FILE_PATH<br></code></pre></td></tr></table></figure>
+<p>示例输出：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs bash">    86B  /tf_static<br>   775B  /move_base/global_costmap/inflater_layer/parameter_descriptions<br>   775B  /move_base/local_costmap/inflater_layer/parameter_descriptions<br>  1.01K  /mobile_base_controller/parameter_descriptions<br>  1.33K  /move_base/goal<br>  1.88K  /voxel_grid/parameter_descriptions<br>866.76K  /move_base/GlobalPlanner/plan<br>921.19K  /path_planner/visualization_marker<br>  1.10M  /move_base/TebLocalPlannerROS/local_plan<br>  1.18M  /imu/mag<br>  1.19M  /move_base/TebLocalPlannerROS/teb_markers<br> 19.89M  /tf<br>284.01M  /move_base/GlobalPlanner/potential<br> 19.54G  /move_base/global_costmap/obstacles_layer/voxel_grid<br></code></pre></td></tr></table></figure>
+<h3 id="查看bag包的开始和结束时间戳">查看bag包的开始和结束时间戳</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> os<br><span class="hljs-keyword">import</span> rosbag<br><span class="hljs-keyword">import</span> argparse<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">print_rosbag_time</span>(<span class="hljs-params">directory</span>):<br>    <span class="hljs-keyword">for</span> filename <span class="hljs-keyword">in</span> os.listdir(directory):<br>        <span class="hljs-keyword">if</span> filename.endswith(<span class="hljs-string">&quot;.bag&quot;</span>):  <span class="hljs-comment"># 检查文件是否为rosbag文件</span><br>            filepath = os.path.join(directory, filename)<br>            bag = rosbag.Bag(filepath)<br>            start_time = bag.get_start_time()<br>            end_time = bag.get_end_time()<br>            <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Rosbag <span class="hljs-subst">&#123;filename&#125;</span> start time: <span class="hljs-subst">&#123;start_time&#125;</span>, end time: <span class="hljs-subst">&#123;end_time&#125;</span>&quot;</span>)<br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br>    parser = argparse.ArgumentParser(description=<span class="hljs-string">&#x27;Print start and end time of all rosbags in a directory.&#x27;</span>)<br>    parser.add_argument(<span class="hljs-string">&#x27;directory&#x27;</span>, <span class="hljs-built_in">type</span>=<span class="hljs-built_in">str</span>, <span class="hljs-built_in">help</span>=<span class="hljs-string">&#x27;The directory to search for rosbag files.&#x27;</span>)<br>    args = parser.parse_args()<br><br>    print_rosbag_time(args.directory)<br></code></pre></td></tr></table></figure>
+<h2 id="自定义消息类型">自定义消息类型</h2>
+<ol>
+<li>
+<p>新建工作区：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> youfolder/<br><span class="hljs-built_in">mkdir</span> -p catkin_ws/src  <span class="hljs-comment"># catkin_ws可改名</span><br><br><span class="hljs-built_in">cd</span> catkin_ws<br>catkin config --init --mkdirs --extend /opt/ros/melodic --merge-devel --cmake-args -DCMAKE_BUILD_TYPE=Release<br><br><span class="hljs-built_in">cd</span> src<br>catkin_init_workspace  <span class="hljs-comment"># 创建顶层CMakeLists.txt文件，CLion利用此文件打开项目</span><br><br><span class="hljs-built_in">cd</span> ..<br>catkin build  <span class="hljs-comment"># 编译生成完整工作区</span><br></code></pre></td></tr></table></figure>
+<p>此时，<code>./catkin_ws</code>文件夹下有<code>build</code>、<code>devel</code>、<code>logs</code>和<code>src</code>四个文件夹。</p>
+</li>
+<li>
+<p>克隆catkin_simple：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> youfolder/catkin_ws/src<br>git <span class="hljs-built_in">clone</span> https://github.com/catkin/catkin_simple.git<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>创建消息类型：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> youfolder/catkin_ws/src<br><span class="hljs-built_in">mkdir</span> detection_msgs/msg<br><span class="hljs-built_in">cd</span> detection_msgs/msg<br><span class="hljs-built_in">touch</span> Detection.msg<br></code></pre></td></tr></table></figure>
+<p>在<code>Detection.msg</code>中写入：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs msg">float64 x<br>float64 y<br>float64 w<br>float64 h<br>int32 class_id<br>float64 class_confidence<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>创建<code>package.xml</code>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> youfolder/catkin_ws/src/detection_msgs<br><span class="hljs-built_in">touch</span> package.xml<br></code></pre></td></tr></table></figure>
+<p>在<code>package.xml</code>中写入：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-meta">&lt;?xml version=<span class="hljs-string">&quot;1.0&quot;</span>?&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">package</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>detection_msgs<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>0.0.0<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">description</span>&gt;</span>The detection_msgs package<span class="hljs-tag">&lt;/<span class="hljs-name">description</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">maintainer</span> <span class="hljs-attr">email</span>=<span class="hljs-string">&quot;zeyu.long0121@gmail.com&quot;</span>&gt;</span>Zeyu Long<span class="hljs-tag">&lt;/<span class="hljs-name">maintainer</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">license</span>&gt;</span>MIT<span class="hljs-tag">&lt;/<span class="hljs-name">license</span>&gt;</span><br><br>  <span class="hljs-tag">&lt;<span class="hljs-name">buildtool_depend</span>&gt;</span>catkin<span class="hljs-tag">&lt;/<span class="hljs-name">buildtool_depend</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">buildtool_depend</span>&gt;</span>catkin_simple<span class="hljs-tag">&lt;/<span class="hljs-name">buildtool_depend</span>&gt;</span><br><br>  <span class="hljs-tag">&lt;<span class="hljs-name">build_depend</span>&gt;</span>std_msgs<span class="hljs-tag">&lt;/<span class="hljs-name">build_depend</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">build_depend</span>&gt;</span>message_generation<span class="hljs-tag">&lt;/<span class="hljs-name">build_depend</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">build_depend</span>&gt;</span>roscpp<span class="hljs-tag">&lt;/<span class="hljs-name">build_depend</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">build_depend</span>&gt;</span>rosmsg<span class="hljs-tag">&lt;/<span class="hljs-name">build_depend</span>&gt;</span><br>  <br>  <span class="hljs-tag">&lt;<span class="hljs-name">run_depend</span>&gt;</span>roscpp<span class="hljs-tag">&lt;/<span class="hljs-name">run_depend</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">run_depend</span>&gt;</span>rosmsg<span class="hljs-tag">&lt;/<span class="hljs-name">run_depend</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">run_depend</span>&gt;</span>message_runtime<span class="hljs-tag">&lt;/<span class="hljs-name">run_depend</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">run_depend</span>&gt;</span>std_msgs<span class="hljs-tag">&lt;/<span class="hljs-name">run_depend</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">run_depend</span>&gt;</span>rosbag<span class="hljs-tag">&lt;/<span class="hljs-name">run_depend</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">package</span>&gt;</span><br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>创建<code>CMakeLists.txt</code>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> youfolder/catkin_ws/src/detection_msgs<br><span class="hljs-built_in">touch</span> CMakeLists.txt<br></code></pre></td></tr></table></figure>
+<p>在<code>CMakeLists.txt</code>中写入：</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><code class="hljs cmake"><span class="hljs-keyword">cmake_minimum_required</span>(VERSION <span class="hljs-number">2.8</span>.<span class="hljs-number">3</span>)<br><span class="hljs-keyword">project</span>(detection_msgs)<br><br><span class="hljs-comment"># search for everything we need to build the messages, dont forget the message_generation</span><br><span class="hljs-keyword">find_package</span>(catkin REQUIRED COMPONENTS<br>  message_generation<br>  std_msgs<br>  roscpp<br>  rospy<br>)<br><br><span class="hljs-comment"># search for all msg files</span><br><span class="hljs-keyword">FILE</span>(GLOB messages_to_build RELATIVE <span class="hljs-string">&quot;$&#123;CMAKE_CURRENT_SOURCE_DIR&#125;/msg&quot;</span><br>    <span class="hljs-string">&quot;$&#123;CMAKE_CURRENT_SOURCE_DIR&#125;/msg/*.msg&quot;</span>)<br><br><span class="hljs-comment"># notify catkin to look at the previously found msg files</span><br>add_message_files(<br>  FILES<br>  <span class="hljs-variable">$&#123;messages_to_build&#125;</span><br>)<br><br><span class="hljs-comment"># build the header files from the msg files, and notify catkin about the dependencies</span><br>generate_messages(<br>  DEPENDENCIES<br>  std_msgs<br>)<br><br><span class="hljs-comment"># export the dependencis of this package for who ever depends on us</span><br>catkin_package(<br>  CATKIN_DEPENDS message_runtime std_msgs roscpp rosmsg<br>)<br><br><span class="hljs-keyword">include_directories</span>(<br>  <span class="hljs-variable">$&#123;catkin_INCLUDE_DIRS&#125;</span><br>)<br><br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>编译：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> youfolder/catkin_ws<br>catkin build<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>编译完成后，</p>
+<ul>
+<li>
+<p>在<code>youfolder/catkin_ws/devel/include</code>中生成了<code>detection_msgs</code>文件夹，把该文件夹放入你的C++项目中，引用头文件即可使用。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;ros/ros.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;detection_msgs/Detection.h&quot;</span></span><br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>在<code>youfolder/catkin_ws/devel/lib/python2.7/dist-packages</code>中生成了<code>detection_msgs</code>文件夹，把该文件夹放入你的Python项目中，导入包，即可引用：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> rosbag<br><span class="hljs-keyword">import</span> rospy<br><span class="hljs-keyword">from</span> std_msgs.msg <span class="hljs-keyword">import</span> String<br><span class="hljs-keyword">from</span> std_msgs.msg <span class="hljs-keyword">import</span> Header<br><span class="hljs-keyword">from</span> detection_msgs.msg <span class="hljs-keyword">import</span> Detection<br></code></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li>
+<p>完成。</p>
+</li>
+</ol>
+<blockquote>
+<p>附：<code>DetectionArray.msg</code>:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs msg"># This message contains an array of detections<br>Header header<br><br># an array of detections<br>Detection[] detections<br></code></pre></td></tr></table></figure>
+<p>修改生成的<code>DetectionArray.h</code>:</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">// #include &lt;detection_msgs/Detection.h&gt;</span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;Detection.h&quot;</span></span><br></code></pre></td></tr></table></figure>
+</blockquote>
+<h2 id="同时播放多个rosbag">同时播放多个rosbag</h2>
+<h3 id="怎样同时播放多个rosbag？它们的播放顺序是怎么样的？">怎样同时播放多个rosbag？它们的播放顺序是怎么样的？</h3>
+<p>你可以使用<code>rosbag play</code>命令来播放多个rosbag。如果你在命令行中列出多个rosbag文件，它们将按照你列出的顺序播放。例如：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">rosbag play bag1.bag bag2.bag bag3.bag<br></code></pre></td></tr></table></figure>
+<p>这将首先播放<code>bag1.bag</code>，然后是<code>bag2.bag</code>，最后是<code>bag3.bag</code>。</p>
+<p>然而，这并不会按照时间戳对齐这些rosbag。每个rosbag都会从它自己的开始时间开始播放，这可能会导致时间戳的不连续。如果你需要按照时间戳对齐这些rosbag，你可能需要先将它们合并为一个rosbag，然后再播放。</p>
+<p>如果你需要同时播放多个rosbag，你可以在不同的终端窗口中运行<code>rosbag play</code>命令，或者使用<code>&amp;</code>在后台运行它们。例如：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">rosbag play bag1.bag &amp;<br><br>rosbag play bag2.bag &amp;<br></code></pre></td></tr></table></figure>
+<p>这将同时开始播放<code>bag1.bag</code>和<code>bag2.bag</code>。但是请注意，这并不会按照时间戳对齐这些rosbag。</p>
+<h3 id="按照时间戳对齐，合并rosbag">按照时间戳对齐，合并rosbag</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> rosbag<br><span class="hljs-keyword">from</span> std_msgs.msg <span class="hljs-keyword">import</span> Int32, String<br><span class="hljs-keyword">import</span> sys<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">merge_rosbags</span>(<span class="hljs-params">input_bags, output_bag</span>):<br>    <span class="hljs-keyword">with</span> rosbag.Bag(output_bag, <span class="hljs-string">&#x27;w&#x27;</span>) <span class="hljs-keyword">as</span> outbag:<br>        <span class="hljs-keyword">for</span> input_bag <span class="hljs-keyword">in</span> input_bags:<br>            <span class="hljs-keyword">for</span> topic, msg, t <span class="hljs-keyword">in</span> rosbag.Bag(input_bag).read_messages():<br>                outbag.write(topic, msg, t)<br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br>    input_bags = sys.argv[<span class="hljs-number">1</span>:-<span class="hljs-number">1</span>]  <span class="hljs-comment"># 命令行的第一个参数到倒数第二个参数是输入的rosbag文件</span><br>    output_bag = sys.argv[-<span class="hljs-number">1</span>]  <span class="hljs-comment"># 命令行的最后一个参数是输出的rosbag文件</span><br>    merge_rosbags(input_bags, output_bag)<br></code></pre></td></tr></table></figure>
+<h3 id="按照时间戳对齐，同时播放多个rosbag">按照时间戳对齐，同时播放多个rosbag</h3>
+<p>在ROS中，你可以使用<code>rosbag play</code>命令的<code>--clock</code>选项来发布一个<code>/clock</code>主题，这个主题可以用来同步多个rosbag。然而，<code>rosbag play</code>命令本身并不支持同时播放多个rosbag并按照时间戳对齐它们。</p>
+<p>为了实现这个功能，你可能需要写一个脚本来读取多个rosbag，然后按照时间戳排序所有的消息，最后将排序后的消息发布到相应的主题。这可能需要使用到<code>rosbag</code>的Python API，以及<code>rospy</code>库来发布消息。</p>
+<p>以下是一个简单的示例，展示了如何实现这个功能：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> rosbag<br><span class="hljs-keyword">import</span> rospy<br><span class="hljs-keyword">from</span> std_msgs.msg <span class="hljs-keyword">import</span> Int32, String<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">play_rosbags</span>(<span class="hljs-params">input_bags</span>):<br>    pub_dict = &#123;&#125;<br>    msg_list = []<br>    <span class="hljs-keyword">for</span> input_bag <span class="hljs-keyword">in</span> input_bags:<br>        <span class="hljs-keyword">for</span> topic, msg, t <span class="hljs-keyword">in</span> rosbag.Bag(input_bag).read_messages():<br>            <span class="hljs-keyword">if</span> topic <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> pub_dict:<br>                pub_dict[topic] = rospy.Publisher(topic, <span class="hljs-built_in">type</span>(msg), queue_size=<span class="hljs-number">10</span>)<br>            msg_list.append((topic, msg, t))<br>    msg_list.sort(key=<span class="hljs-keyword">lambda</span> x: x[<span class="hljs-number">2</span>])<br>    <span class="hljs-keyword">for</span> topic, msg, t <span class="hljs-keyword">in</span> msg_list:<br>        pub_dict[topic].publish(msg)<br>        rospy.sleep(t - rospy.Time.now())<br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br>    rospy.init_node(<span class="hljs-string">&#x27;rosbag_player&#x27;</span>, anonymous=<span class="hljs-literal">True</span>)<br>    input_bags = [<span class="hljs-string">&#x27;input1.bag&#x27;</span>, <span class="hljs-string">&#x27;input2.bag&#x27;</span>, <span class="hljs-string">&#x27;input3.bag&#x27;</span>]  <span class="hljs-comment"># 你的输入rosbag文件列表</span><br>    play_rosbags(input_bags)<br></code></pre></td></tr></table></figure>
+<p>这段代码首先定义了一个函数<code>play_rosbags</code>，它接受一个输入rosbag文件列表。然后，它打开每个输入rosbag文件，读取其中的所有消息，并将它们添加到一个列表中。然后，它按照时间戳对所有的消息进行排序，并将排序后的消息发布到相应的主题。</p>
+<p>注意，这个函数假设所有输入rosbag文件的时间戳都是正确的，即它们都是相对于同一个时间原点的。如果这不是你的情况，你可能需要在发布每个消息之前调整它的时间戳。</p>
+<h2 id="运行多个launch文件">运行多个launch文件</h2>
+<p>你可以在一个ROS launch文件中使用<code>&lt;include&gt;</code>标签来启动另一个launch文件。这样，你只需要使用一个<code>roslaunch</code>命令就可以启动两个launch文件。</p>
+<p>以下是如何在launch文件中使用<code>&lt;include&gt;</code>标签的示例：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">launch</span>&gt;</span><br>  <span class="hljs-comment">&lt;!-- Include another launch file --&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">include</span> <span class="hljs-attr">file</span>=<span class="hljs-string">&quot;$(find your_package_name)/launch/your_other_launch_file.launch&quot;</span>/&gt;</span><br>  <br>  <span class="hljs-comment">&lt;!-- Other nodes --&gt;</span><br>  <span class="hljs-comment">&lt;!-- ... --&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">launch</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<p>在这个例子中，我们使用<code>&lt;include&gt;</code>标签来包含另一个launch文件。<code>file</code>属性是要包含的launch文件的路径。你可以使用<code>$(find your_package_name)</code>来获取你的包的路径。</p>
+<p>请注意，被包含的launch文件必须在同一个ROS工作空间中，或者在ROS_PACKAGE_PATH环境变量指定的路径中。</p>
+<h2 id="导出图像topic">导出图像topic</h2>
+<h3 id="命令行-2">命令行</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">roscore<br>rosrun image_view extract_images _sec_per_frame:=0.01 image:=/image/topic  <span class="hljs-comment"># 每0.01秒从/image/topic中获取一张图像保存到当前目录。（如果秒数过小，则会保存下主题内所有的图像）</span><br>rosbag play -r 0.5 image.bag<br></code></pre></td></tr></table></figure>
+<h3 id="Python">Python</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> rosbag<br><span class="hljs-keyword">import</span> cv2<br><span class="hljs-keyword">from</span> cv_bridge <span class="hljs-keyword">import</span> CvBridge<br><span class="hljs-keyword">import</span> os<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">export_images_from_bag</span>(<span class="hljs-params">bag_path, image_topic, output_dir</span>):<br>    <span class="hljs-comment"># 创建输出目录</span><br>    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> os.path.exists(output_dir):<br>        os.makedirs(output_dir)<br><br>    <span class="hljs-comment"># 初始化CvBridge</span><br>    bridge = CvBridge()<br><br>    <span class="hljs-comment"># 打开rosbag文件</span><br>    <span class="hljs-keyword">with</span> rosbag.Bag(bag_path, <span class="hljs-string">&#x27;r&#x27;</span>) <span class="hljs-keyword">as</span> bag:<br>        <span class="hljs-keyword">for</span> topic, msg, t <span class="hljs-keyword">in</span> bag.read_messages(topics=[image_topic]):<br>            <span class="hljs-comment"># 将ROS图像消息转换为OpenCV图像</span><br>            cv_image = bridge.imgmsg_to_cv2(msg, desired_encoding=<span class="hljs-string">&#x27;bgr8&#x27;</span>)<br><br>            <span class="hljs-comment"># 生成图像文件名</span><br>            timestamp = t.to_nsec()<br>            image_filename = os.path.join(output_dir, <span class="hljs-string">f&quot;<span class="hljs-subst">&#123;timestamp&#125;</span>.png&quot;</span>)<br><br>            <span class="hljs-comment"># 保存图像到磁盘</span><br>            cv2.imwrite(image_filename, cv_image)<br>            <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Saved image: <span class="hljs-subst">&#123;image_filename&#125;</span>&quot;</span>)<br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br>    <span class="hljs-comment"># 在此处修改输入参数</span><br>    bag_path = <span class="hljs-string">&#x27;path/to/your.bag&#x27;</span><br>    image_topic = <span class="hljs-string">&#x27;/camera/image&#x27;</span><br>    output_dir = <span class="hljs-string">&#x27;path/to/output/images&#x27;</span><br><br>    export_images_from_bag(bag_path, image_topic, output_dir)<br></code></pre></td></tr></table></figure>
+<h1 id="问题与解决">问题与解决</h1>
+<h2 id="新建的工作空间不在当前路径下-删除工作空间">新建的工作空间不在当前路径下/删除工作空间</h2>
+<p>问题描述：使用<code>catkin config --init</code>初始化工作空间时，显示的<code>Workspace</code>的路径不在当前目录下，而是其上级（或以上）路径，</p>
+<p>原因：工作空间不能嵌套。当前路径的上级（或以上）路径已经被设置为了工作空间。</p>
+<p>解决：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> `Workspace`显示的那个当前路径的上级（或以上）路径<br><span class="hljs-built_in">rm</span> -rf .catkin_tools  <br><span class="hljs-comment"># 即可删除这个工作空间</span><br><br><span class="hljs-comment"># 另：</span><br><span class="hljs-comment"># https://catkin-tools.readthedocs.io/en/latest/verbs/catkin_config.html</span><br>catkin config -h  <span class="hljs-comment"># 可查看其可选参数</span><br><span class="hljs-comment"># 可以使用 -w 参数指定工作空间所在的路径（默认为当前路径）（解决不了上述问题）</span><br></code></pre></td></tr></table></figure>
+<h1 id="参考链接">参考链接</h1>
+<p><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/63306098">ros中的catkin是什么东西？</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/benchuspx/article/details/113847854">catkin build和catkin_make的区别和使用</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/gwplovekimi/article/details/100983390">复习笔记之——ROS（robot operating system）</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/gwplovekimi/article/details/101079595">ROS复习笔记之——ROS术语</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/139405796">ROS的目录文件结构</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/173430043">ROS的几个重要概念：节点、消息、主题、服务</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/gwplovekimi/article/details/101287724">ROS复习笔记之——名称</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/gwplovekimi/article/details/101288835">ROS复习笔记之——坐标变换（TF）</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/gwplovekimi/article/details/104328348">ROS复习笔记之——系统框架及其编程规范</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/zeye5731/article/details/124465549">【ROS进阶】一文搞懂ROS话题通信机制与消息队列</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/Azahaxia/article/details/113934774">ROS：回调函数处理与回调队列</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_42700518/article/details/104453752">ROS 搞懂多话题回调机制以及消息队列</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_40215443/article/details/103793316">ros::spin()、ros::spinOnce()：使用细节、区别</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/gwplovekimi/article/details/104380578">ROS复习笔记之——roslaunch的应用</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/gwplovekimi/article/details/109530285">ROS学习笔记之——一些常用命令的记录</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/lclfans1983/article/details/107453043">ROS中多个工作空间同时工作</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/zong596568821xp/article/details/78623130">gnome-terminal使用</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_37082966/article/details/100033610">.sh脚本启动多个程序（对应多个终端）之ROS篇</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/536485585">ROS 信息打印(INFO、 DEBUG等)</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/newbeixue/article/details/113842570">ROS_INFO与ROS_INFO_STREAM</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_30460905/article/details/123698106">关于ROS日志ROS_INFO需要知道的一些东西</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_30460905/article/details/123697863">ros::Rate 设定的帧率循环进入一次就卡住</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43603658/article/details/133692999">机器人操作系统ROS（十一）：ROS时间戳及其与年月日时分秒毫秒格式的转换</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/didada/p/14581116.html">ros:time::now()详解</a></p>
+<p><a target="_blank" rel="noopener" href="https://answers.ros.org/question/318667/using-rosbag-to-get-size-of-each-topic/">Using rosbag to get size of each topic</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_25458977/article/details/103963286">catkin_make 只编译一个包</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_44365861/article/details/107482177">ros 编译如何选择某些文件或包不编译</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_39258979/article/details/123767491">ROS入门21讲笔记（四）自定义话题消息类型和使用</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/bohaijun_123/article/details/78003747">ros中bag包的恢复</a></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/" class="category-chain-item">技术分享</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>ROS知识积累</div>
+      <div>http://zeyulong.com/posts/c4541b88/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>龙泽雨</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年3月5日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/posts/df5eb46/" title="Anaconda、CUDA、cuDNN和PyTorch包的安装">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Anaconda、CUDA、cuDNN和PyTorch包的安装</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/1e805a22/" title="修改文件属性信息的方法">
+                        <span class="hidden-mobile">修改文件属性信息的方法</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="waline"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#waline', function() {
+      Fluid.utils.createCssLink('https://cdn.staticfile.org/waline/2.15.5/waline.min.css')
+      Fluid.utils.createScript('https://cdn.staticfile.org/waline/2.15.5/waline.min.js', function() {
+        var options = Object.assign(
+          {"serverURL":"https://www.zeyulong.cn/","path":"window.location.pathname","meta":["nick","mail","link"],"requiredMeta":["nick"],"lang":"zh-CN","emoji":["https://cdn.jsdelivr.net/gh/walinejs/emojis/weibo"],"dark":"html[data-user-color-scheme=\"dark\"]","wordLimit":0,"pageSize":10,"reaction":true,"locale":{"placeholder":"花径不曾缘客扫，蓬门今始为君开。"}},
+          {
+            el: '#waline',
+            path: window.location.pathname
+          }
+        )
+        Waline.init(options);
+        Fluid.utils.waitElementVisible('#waline .vcontent', () => {
+          var imgSelector = '#waline .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> <div style="font-size: 0.85rem"> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/custom/RunTime/RunTime.js"></script> </div> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  
+<script src="/custom/live2d/live2d-widget/autoload.js"></script>
+<script src="/custom/live2d/jquery.min.js"></script>
+<script src="/custom/LabelPage/LabelPage.js"></script>
+<script src="/custom/LoadingBar/pace.min.js"></script>
+<script src="/custom/ReadingProgress/ReadingProgress.js"></script>
+<script src="/custom/typing-effect/typing-effect.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  <canvas
+    class="fireworks"
+    style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 32767"
+></canvas>
+<script type="text/javascript" src="/custom/fireworks/anime.min.js"></script> 
+<script type="text/javascript" src="/custom/fireworks/fireworks.js"></script>
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

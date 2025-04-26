@@ -1,0 +1,1267 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" >
+
+
+
+<head><!-- hexo injector head_begin start --><progress id="content_progress" value="0"></progress><!-- hexo injector head_begin end -->
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/theme/TamakoAvatar-new-zip.png">
+  <link rel="icon" href="/img/theme/TamakoAvatar-new-zip.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#000000">
+  <meta name="author" content="龙泽雨">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="本文主要分享了Linux(Ubuntu 18.04)下Anaconda、CUDA、cuDNN和PyTorch包的安装。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Anaconda、CUDA、cuDNN和PyTorch包的安装">
+<meta property="og:url" content="http://zeyulong.com/posts/df5eb46/index.html">
+<meta property="og:site_name" content="龙泽雨的博客">
+<meta property="og:description" content="本文主要分享了Linux(Ubuntu 18.04)下Anaconda、CUDA、cuDNN和PyTorch包的安装。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://zeyulong.com/posts/df5eb46/PyTorch%E5%8C%85%E7%9A%84%E5%91%BD%E5%90%8D%E8%A7%84%E5%88%99.png">
+<meta property="article:published_time" content="2024-03-05T07:37:06.000Z">
+<meta property="article:modified_time" content="2025-04-03T06:18:06.309Z">
+<meta property="article:author" content="龙泽雨">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://zeyulong.com/posts/df5eb46/PyTorch%E5%8C%85%E7%9A%84%E5%91%BD%E5%90%8D%E8%A7%84%E5%88%99.png">
+  
+  
+  
+  <title>Anaconda、CUDA、cuDNN和PyTorch包的安装 - 龙泽雨的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/custom/Markdown/macpanel.css">
+<link rel="stylesheet" href="/custom/Fonts/CodeFont.css">
+<link rel="stylesheet" href="/custom/Fonts/inlinecode-bg-color.css">
+<link rel="stylesheet" href="/custom/live2d/font-awesome.min.css">
+<link rel="stylesheet" href="/custom/LoadingBar/pace-theme-corner-indicator.css">
+<link rel="stylesheet" href="/custom/ReadingProgress/ReadingProgress.css">
+<link rel="stylesheet" href="/custom/SelectBackgroundColor/SelectBackgroundColor.css">
+<link rel="stylesheet" href="/custom/waline/gif.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"zeyulong.com","root":"/","version":"1.9.7","typing":{"enable":false,"typeSpeed":100,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"8gUBTaCjmaSbnf4genwggan3-MdYXbMMI","app_key":"2WRxjgxRXIWRBo8EA4205Wfm","server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<!-- hexo injector head_end start --><link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@200;300;400;500;600;700;900&display=swap" rel="stylesheet"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.0.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Happy every day!</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-steam"></i>
+                <span>摸鱼</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/2048" target="_self">
+                    
+                    <span>2048</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/bcbk/1" target="_self">
+                    
+                    <span>别踩白块-1</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/bcbk/2" target="_self">
+                    
+                    <span>别踩白块-2</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/dblk" target="_self">
+                    
+                    <span>躲避绿块</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/dr" target="_self">
+                    
+                    <span>恐龙快跑</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://mario-kart-3-js.vercel.app/" target="_self">
+                    
+                    <span>马里奥赛车</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/mf" target="_self">
+                    
+                    <span>魔方</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/cat" target="_self">
+                    
+                    <span>圈小猫</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/sl" target="_self">
+                    
+                    <span>扫雷</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/txz" target="_self">
+                    
+                    <span>推箱子</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/wzq" target="_self">
+                    
+                    <span>五子棋</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/theme/GirlWithCat-cut.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle">Anaconda、CUDA、cuDNN和PyTorch包的安装</span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        龙泽雨
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-03-05 15:37" pubdate>
+          2024年3月5日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          6.3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          53 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Anaconda、CUDA、cuDNN和PyTorch包的安装</h1>
+            
+              <p id="updated-time" class="note note-info" style="">
+                
+                  
+                    本文最后更新于 2025年4月3日 下午
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <p>本文主要分享了Linux(Ubuntu 18.04)下Anaconda、CUDA、cuDNN和PyTorch包的安装。</p>
+<span id="more"></span>
+<h1 id="Anaconda">Anaconda</h1>
+<h2 id="查询">查询</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs bash">conda --<span class="hljs-built_in">help</span>  <span class="hljs-comment"># 查询 conda 的命令</span><br>conda --version  <span class="hljs-comment"># 查看当前 conda 的版本</span><br><span class="hljs-comment"># 环境管理</span><br><span class="hljs-comment"># 查看所有的conda环境</span><br>conda <span class="hljs-built_in">env</span> list  <span class="hljs-comment"># 或 </span><br>conda info --envs<br><span class="hljs-comment"># 查看当前环境</span><br>conda info -e  <span class="hljs-comment"># 查看当前环境是哪个</span><br>conda info  <span class="hljs-comment"># 查看当前环境的完整信息</span><br></code></pre></td></tr></table></figure>
+<h2 id="安装">安装</h2>
+<ol>
+<li>
+<p>更新软件包列表。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo apt update  <span class="hljs-comment"># 更新软件包列表，检查可用的软件包更新</span><br>sudo apt upgrade  <span class="hljs-comment"># 安装可用的软件包更新</span><br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>安装第三方库。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo apt-get install libgl1-mesa-glx libegl1-mesa libxrandr2 libxrandr2 libxss1 libxcursor1 libxcomposite1 libasound2 libxi6 libxtst6<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>查询系统架构。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">uname</span> -a  <span class="hljs-comment"># 查询系统架构</span><br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>安装Conda。</p>
+<p><a target="_blank" rel="noopener" href="https://docs.anaconda.com/anaconda/install/linux/">https://docs.anaconda.com/anaconda/install/linux/</a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># Step 1.更换终端 Shell</span><br><span class="hljs-comment"># https://stackoverflow.com/questions/40370467/anaconda-not-found-in-zsh</span><br><span class="hljs-built_in">cat</span> /etc/shells  <span class="hljs-comment"># 查看系统安装了的shell</span><br><span class="hljs-built_in">echo</span> <span class="hljs-variable">$SHELL</span>  <span class="hljs-comment"># 当前的shell</span><br>chsh -s /bin/bash  <span class="hljs-comment"># 切换回 bash 终端</span><br><br><span class="hljs-comment"># Step 2.下载安装 Anaconda3</span><br><span class="hljs-comment"># https://www.anaconda.com/</span><br><span class="hljs-comment"># https://repo.anaconda.com/archive/  # 可以使用浏览器直接下载</span><br>curl -O https://repo.anaconda.com/archive/Anaconda3-&lt;INSTALLER_VERSION&gt;-Linux-x86_64.sh<br>bash Anaconda3-2023.09-0-Linux-x86_64.sh<br><span class="hljs-comment"># 认真看安装过程提示信息，需要按Enter (回车键)或者输入yes，（如果输入yes时，不小心输多了，就按control和退格键删除）。</span><br><span class="hljs-comment"># 看到 more 就是按空格键翻页查看协议，按 q 退出。</span><br><span class="hljs-comment"># Anaconda 建议您接受默认安装位置。请勿将 Anaconda/Miniconda 安装路径选择为 /usr 。</span><br><span class="hljs-comment"># 使用 CTRL+C 取消安装。</span><br>You can undo this by running `conda init --reverse <span class="hljs-variable">$SHELL</span>`? [<span class="hljs-built_in">yes</span>|no]<br><span class="hljs-built_in">yes</span><br><br><span class="hljs-comment"># 安装软件完成后需要重启</span><br><span class="hljs-built_in">source</span> ~/.bashrc<br><br><span class="hljs-comment"># 检查conda是否安装成功</span><br>conda --<span class="hljs-built_in">help</span>  <span class="hljs-comment"># 调用出来说明安装成功</span><br><br><span class="hljs-comment"># Step 3.更换回终端 Shell</span><br>chsh -s /bin/zsh  <span class="hljs-comment"># 切换回 zsh 终端</span><br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>完成。</p>
+</li>
+</ol>
+<h2 id="配置">配置</h2>
+<p>可以通过配置<code>auto_activate_base</code>关闭自动进入conda基础环境：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">conda config --<span class="hljs-built_in">set</span> auto_activate_base <span class="hljs-literal">false</span><br></code></pre></td></tr></table></figure>
+<p>如要开启，将其设为<code>true</code>就可以了：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">conda config --<span class="hljs-built_in">set</span> auto_activate_base <span class="hljs-literal">true</span><br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>附：<a href="https://zeyulong.com/posts/a8aab215/#Conda">conda常用命令</a></p>
+</blockquote>
+<h1 id="NVIDIA显卡驱动">NVIDIA显卡驱动</h1>
+<h2 id="查询驱动">查询驱动</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">lspci | grep -i nvidia  <span class="hljs-comment"># 查看是否安装NVIDIA显卡</span><br>nvidia-smi  <span class="hljs-comment"># 查看显卡信息</span><br></code></pre></td></tr></table></figure>
+<h2 id="安装驱动">安装驱动</h2>
+<h3 id="图形界面（推荐）">图形界面（推荐）</h3>
+<p>打开应用程序界面，选择“软件和更新（softwares and updates）”-附加驱动，在此处选择“使用NVIDIA driver metapackage来自nvidia-driver-版本号(专有)”。安装完成后重启。</p>
+<blockquote>
+<p>一般安装版本号最大的那个。</p>
+</blockquote>
+<blockquote>
+<p>如果刚装好系统，应该会使用底下那个nouveau，nouveau不是英伟达提供的，是民间大佬写的适配英伟达显卡的驱动，只是浏览屏幕的话够用，但我们要深度学习，就需要使用英伟达的驱动了。</p>
+</blockquote>
+<h3 id="命令行">命令行</h3>
+<h4 id="系统自带">系统自带</h4>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo add-apt-repository ppa:graphics-drivers/ppa<br>sudo apt-get update<br>ubuntu-drivers devices<br><span class="hljs-comment"># 找到最适合的驱动安装，安装recommended标记的，通常也是数字版本最大的那个</span><br>sudo apt install nvidia-driver-XXX<br><span class="hljs-comment"># 也可以自动安装系统推荐那个</span><br>sudo ubuntu-drivers autoinstall<br></code></pre></td></tr></table></figure>
+<p>如果没有遇到报错，说明安装成功，此时调用<code>nvidia-smi</code>指令可能还是看不到显卡信息，不要担心，<code>sudo reboot</code>重启系统之后就能看到了。</p>
+<h4 id="run文件安装"><code>run</code>文件安装</h4>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_30468723/article/details/107531062">参考链接</a></p>
+<p>如果在<a href="#%E7%B3%BB%E7%BB%9F%E8%87%AA%E5%B8%A6">系统自带</a>的方式中<code>ubuntu-drivers devices</code>找不到可用的版本，可以使用以下方法：</p>
+<ol>
+<li>
+<p>安装依赖项：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo apt-get update<br>sudo apt-get install gcc<br>sudo apt-get install make<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p><a href="#%E7%A6%81%E7%94%A8nouveau">禁用nouveau</a>。</p>
+</li>
+<li>
+<p>在<a target="_blank" rel="noopener" href="http://www.nvidia.cn/page/home.html">英伟达的官网</a>上查找你自己电脑的显卡型号然后下载相应的驱动，例如：<code>NVIDIA-Linux-x86_64-450.57.run</code>。下载后的<code>run</code>文件拷贝至<code>home</code>目录下（可选？）。</p>
+</li>
+<li>
+<p>在Ubuntu下按<code>Ctrl+Alt+F1</code>进入命令行界面（如果是服务器本来就没有图形化界面的话这一步就不必了？）。</p>
+<ol>
+<li>
+<p>如果出现<code>unit lightdm.service not loaded</code>，则：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo apt-get update<br>sudo apt-get install lightdm<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>安装后会跳出一个界面，选择<code>lightdm</code>。</p>
+</li>
+<li>
+<p>重启：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo reboot<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>重启登录后<code>Ctrl+Alt+F1</code>进入命令行界面。</p>
+</li>
+</ol>
+</li>
+<li>
+<p>输入用户名和密码登录后输入：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo service lightdm stop  <span class="hljs-comment"># 这个是关闭图形界面，不执行会出错。or</span><br>sudo /etc/init.d/lightdm stop<br>sudo /etc/init.d/lightdm status<br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>对于其他的 Linux 版本，如果桌面系统是基于 gdm 类型，应该把命令中的 lightdm 改为 gdm 即可。</p>
+<p>非这两种桌面系统类型的，自行搜索一下你的Linux版本关闭 X 服务的相关命令吧。</p>
+</blockquote>
+</li>
+<li>
+<p>关闭了 X 服务后图形桌面可能会关闭，因为我是通过 ssh 连接的服务器进行的操作，所以也没有看到具体的变化，然后输入一下命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">ps aux | grep X  <span class="hljs-comment"># 查看还有没有X服务的进程，若有直接sudo kill -9 进程号   杀死X服务进程即可</span><br>sudo <span class="hljs-built_in">kill</span> -9 [‘pid’]<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p><a href="#%E5%8D%B8%E8%BD%BD%E9%A9%B1%E5%8A%A8">卸载掉原有驱动</a>（如果装过的话）。</p>
+</li>
+<li>
+<p>安装：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> home<br>sudo <span class="hljs-built_in">chmod</span> a+x NVIDIA-Linux-x86_64-396.18.run  <span class="hljs-comment"># 给驱动run文件赋予执行权限</span><br>sudo ./NVIDIA-Linux-x86_64-396.18.run -no-x-check -no-nouveau-check -no-opengl-files<br></code></pre></td></tr></table></figure>
+<ul>
+<li><code>-no-x-check</code>：安装驱动时关闭X服务</li>
+<li><code>-no-nouveau-check</code>：安装驱动时禁用nouveau</li>
+<li><code>-no-opengl-files</code>：只安装驱动文件，不安装OpenGL文件。只有禁用opengl这样安装才不会出现循环登陆的问题</li>
+</ul>
+<ol>
+<li>The distribution-provided pre-install script failed! Are you sure you want to continue?<code>Yes</code></li>
+<li>Would you like to register the kernel module souces with DKMS? This will allow DKMS to automatically build a new module, if you install a different kernel later?<code>No</code></li>
+<li>Nvidia’s 32-bit compatibility libraries?<code>No</code></li>
+<li>Would you like to run the nvidia-xconfigutility to automatically update your x configuration so that the NVIDIA x driver will be used when you restart x? Any pre-existing x confile will be backed up.<code>Yes</code></li>
+</ol>
+</li>
+<li>
+<p>报错处理：</p>
+<ol>
+<li>
+<p><code>ERROR: Unable to load the kernel module 'nvidia.ko'.</code>可以尝试将<code>-no-opengl-files</code>替换为<code>--add-this-kernel</code>。</p>
+</li>
+<li>
+<p><code>ERROR: Unable to load the kernel module 'nvidia-drm'. </code>此问题是由于之前安装过驱动的残留所致。<a href="#%E5%8D%B8%E8%BD%BD%E9%A9%B1%E5%8A%A8">卸载掉原有驱动</a></p>
+</li>
+<li>
+<p><code>Error：Unable to load the 'nvidia-drm' kernel module .</code>出现这个问题最有可能的原因是你安装的Ubuntu是UEFI模式启动的，但是在BIOS中却打开了Security BOOT选项。正确做法是禁用该选项，具体方式请自行搜索。</p>
+</li>
+<li>
+<p><code>An NVIDIA kernel module 'nvidia-uvm' appears to already be loaded in your kernel.</code>如原文所述，'nvidia-uvm'程序因故未退出导致按照无法正常进行，直接：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo lsof | grep nvidia.uvm<br><span class="hljs-comment"># 查看哪些程序在占用nvidia.nvm就可以了，可直接通过 sudo kill -9  [`pid`] 杀死相对应的进程即可</span><br></code></pre></td></tr></table></figure>
+<p>对于一些 kill 杀不死的进程可直接重启服务器。</p>
+<p>如果还是存在错误，那么就需要查看是否<a href="#%E5%8D%B8%E8%BD%BD%E9%A9%B1%E5%8A%A8">卸载</a>了之前的驱动。</p>
+</li>
+</ol>
+</li>
+<li>
+<p>安装完毕之后执行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">modprobe nvidia  <span class="hljs-comment"># 挂载Nvidia驱动</span><br>nvidia-smi  <span class="hljs-comment"># 检查驱动是否安装成功</span><br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>此时调用<code>nvidia-smi</code>指令可能还是看不到显卡信息，不要担心，<code>sudo reboot</code>重启系统之后就能看到了。</p>
+</blockquote>
+</li>
+<li>
+<p>开启图形界面，重启：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo service lightdm start<br>sudo reboot<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>安装完毕。</p>
+</li>
+</ol>
+<h2 id="卸载驱动">卸载驱动</h2>
+<p>首先，打开应用程序界面，选择“软件和更新（softwares and updates）”-附加驱动，在此处选择“<a target="_blank" rel="noopener" href="http://xn--X-v96a181j.Org">使用X.Org</a> X server-Nouveau display driver来自xserver-Xorg-video-nouveau(开源)”。</p>
+<p>然后，开始卸载：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo apt-get --purge remove nvidia-*<br>sudo apt-get purge nvidia*<br>sudo apt-get purge libnvidia*<br><span class="hljs-comment"># 如果驱动是通过run文件安装的，可以尝试</span><br>sudo ./NVIDIA-Linux-xxx.run --uninstall<br><br><span class="hljs-comment"># 清除缓存（慎用）</span><br>sudo apt-get autoremove<br><br>sudo dpkg --list | grep nvidia  <span class="hljs-comment"># 验证一下有没有卸载干净，输出为空，表示全部卸载了</span><br><span class="hljs-comment"># (非必要不重启，万一进不了系统了)，再打开“软件与更新”，会发现显卡驱动又回到了而nouveau。执行</span><br><span class="hljs-built_in">cat</span> /proc/driver/nvidia/version   <span class="hljs-comment"># 会发现文件目录不存在，说明真的卸载干净了</span><br></code></pre></td></tr></table></figure>
+<p>之后重新安装NVIDIA驱动即可。</p>
+<h2 id="禁用nouveau">禁用nouveau</h2>
+<blockquote>
+<p>应该先装完Nvidia驱动，再在“软件与更新”里面更改驱动，最后再禁用。直接禁用后重启相当于没有驱动了，开机图形化界面进不了。</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo gedit /etc/modprobe.d/blacklist.conf <br><span class="hljs-comment"># 在blacklist.conf文件末尾加上这两行，并保存：</span><br>blacklist nouveau<br>options nouveau modeset=0<br><br>sudo update-initramfs -u  <span class="hljs-comment"># 应用更改</span><br><span class="hljs-comment"># 重启电脑</span><br>sudo reboot<br><span class="hljs-comment"># 验证是否禁用nouveau</span><br>lsmod | grep nouveau  <span class="hljs-comment"># 没有信息返回说明已禁用了</span><br></code></pre></td></tr></table></figure>
+<h2 id="无法进入图形化界面">无法进入图形化界面</h2>
+<p>如果重启后无法进入图形化界面，则强制重启电脑，在BIOS引导界面不直接进入Linux系统，而是进入Advance options for Ubuntu，并选择进入其中一个内核（最好是备用内核），过段时间左上角会出现“_”符号，按住Ctrl+Alt+F2，进入终端，输入用户名和密码，随后卸载所有驱动，清除缓存，重新安装驱动并重启即可。指令如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 卸载所有驱动</span><br>sudo apt-get --purge remove nvidia-*<br>sudo apt-get purge nvidia*<br>sudo apt-get purge libnvidia*  <br><br><span class="hljs-comment"># 清除缓存（慎用）</span><br>sudo apt-get autoremove<br><br><span class="hljs-comment"># 重新安装驱动</span><br>sudo add-apt-repository ppa:graphics-drivers/ppa<br>sudo apt-get update<br>ubuntu-drivers devices<br><span class="hljs-comment"># 找到最适合的驱动安装，安装recommended标记的，通常也是数字版本最大的那个</span><br><span class="hljs-comment"># 最好安装系统之前的那个</span><br>sudo apt install nvidia-driver-XXX<br><span class="hljs-comment"># 也可以自动安装系统推荐那个</span><br>sudo ubuntu-drivers autoinstall<br><br>reboot <span class="hljs-comment"># 重启</span><br></code></pre></td></tr></table></figure>
+<h1 id="CUDA">CUDA</h1>
+<p>全称：CUDA Toolkit</p>
+<blockquote>
+<p>不安装CUDA也可行，在虚拟环境中安装pytorch的时候会自动装一个不完整的CUDA，足够跑深度学习了。只不过用deepspeed的时候会报错找不到CUDA_HOME。但是如果需要CUDA编程等操作就需要安装完整版的CUDA。</p>
+</blockquote>
+<blockquote>
+<p>特定版本的CUDA会对NVIDIA显卡驱动有最低版本要求，一般来说装最新的驱动即可，会向下兼容。</p>
+</blockquote>
+<blockquote>
+<p>（GPU加速的、而不是CPU）CUDA、PyTorch和Python版本并不是一一对应的关系。因此，在选择要安装的CUDA版本时，建议根据环境要求的Python和PyTorch版本在<a target="_blank" rel="noopener" href="https://pytorch.org/get-started/previous-versions/">这里</a>或<a target="_blank" rel="noopener" href="https://download.pytorch.org/whl/torch_stable.html">这里</a>提前确定兼容的CUDA版本。</p>
+</blockquote>
+<blockquote>
+<p>如果CUDA版本太高，没有相应的PyTorch支持。就需要按照PyTorch版本去降低CUDA的版本。</p>
+</blockquote>
+<h2 id="查询-2">查询</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">ls</span> -l /usr/local | grep cuda  <span class="hljs-comment"># 检查是否安装了CUDA</span><br>nvcc -V  <span class="hljs-comment"># 查看自己安装的CUDA版本</span><br>lspci | grep -i nvidia  <span class="hljs-comment"># 检查系统是否有支持 CUDA 编程的 GPU</span><br><span class="hljs-comment"># 获取自己的 GPU 型号和支持的 CUDA 版本</span><br><span class="hljs-comment"># （通过去nvidia官网或者其他地方找到这款GPU对cuda版本的要求（至少是多少））</span><br>nvidia-smi <span class="hljs-comment"># nvidia-smi 显示的的 cuda version 是当前驱动支持的最大 cuda toolkit 的版本</span><br><span class="hljs-built_in">uname</span> -m  <span class="hljs-comment"># 系统架构</span><br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>记住系统此时使用的显卡驱动版本，可以使用<code>nvidia-smi</code>命令查看，可以打开应用程序界面，选择“软件和更新（softwares and updates）”-附加驱动-“使用NVIDIA driver metapackage来自nvidia-driver-版本号(专有)”。</p>
+</blockquote>
+<h2 id="安装-2">安装</h2>
+<ol>
+<li>
+<p>安装依赖库。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 安装相应的依赖库</span><br>sudo apt update <span class="hljs-comment"># 更新 apt</span><br>sudo apt install build-essential<br>sudo apt install cmake gcc g++ make<br>sudo apt install libglu1-mesa libxi-dev libxmu-dev libglu1-mesa-dev freeglut3-dev<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>（可选）降低gcc和g++版本。</p>
+<p>gcc9、g<ins>9版本太高，会导致CUDA无法安装，因此要先降低gcc、g</ins>版本到7及以下。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 查询版本</span><br>gcc -v<br>g++ -v<br></code></pre></td></tr></table></figure>
+<p><a href="https://zeyulong.com/posts/6dba0521/">gcc、g++的安装与版本管理</a></p>
+</li>
+<li>
+<p>下载安装。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">uname</span> -a  <span class="hljs-comment"># 查询系统架构</span><br></code></pre></td></tr></table></figure>
+<p>在 CUDA Toolkit 的下载页面选择系统版本和安装方式，得到官网的下载指示。</p>
+<p>主页：<a target="_blank" rel="noopener" href="https://developer.nvidia.com/cuda-toolkit">https://developer.nvidia.com/cuda-toolkit</a></p>
+<p>历史版本：<a target="_blank" rel="noopener" href="https://developer.nvidia.com/cuda-toolkit-archive">https://developer.nvidia.com/cuda-toolkit-archive</a></p>
+<blockquote>
+<ul>
+<li>使用<code>*.deb</code>安装CUDA，会自动新装显卡驱动，容易出现显卡驱动冲突的问题（当然，可以解决）。</li>
+<li>使用<code>runfile</code>进行安装可以在安装前选择不安装显卡驱动。但后续以<code>*.deb</code>形式安装其他框架时（例如TensorRT），会提示需要使用<code>*.deb</code>安装的CUDA。</li>
+<li>想要[CUDA多版本共存](# CUDA多版本共存)需要使用<code>runfile</code>进行安装。</li>
+<li>所以，使用<code>runfile</code>进行安装更方便、安全；使用<code>*.deb</code>安装更长远？</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>如果使用<code>wget</code>命令下载大文件过程中报错 segmentation fault (core dumped)，那还不如直接复制网址下。</p>
+</blockquote>
+<ul>
+<li>
+<p><code>*.deb(local)</code>版本：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> DownloadFolder<br><span class="hljs-comment"># 以下为官网的下载指示</span><br>wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/cuda-ubuntu1804.pin<br>sudo <span class="hljs-built_in">mv</span> cuda-ubuntu1804.pin /etc/apt/preferences.d/cuda-repository-pin-600<br><br>wget https://developer.download.nvidia.com/compute/cuda/11.8.0/local_installers/cuda-repo-ubuntu1804-11-8-local_11.8.0-520.61.05-1_amd64.deb<br>sudo dpkg -i cuda-repo-ubuntu1804-11-8-local_11.8.0-520.61.05-1_amd64.deb  <span class="hljs-comment"># 安装本地仓库，使得通过APT包管理器安装cuDNN相关包成为可能</span><br>sudo <span class="hljs-built_in">cp</span> /var/cuda-repo-ubuntu1804-11-8-<span class="hljs-built_in">local</span>/cuda-*-keyring.gpg /usr/share/keyrings/  <span class="hljs-comment"># 通过导入GPG密钥，系统能够验证从本地仓库安装的软件包是经过NVIDIA官方签名的</span><br><br>sudo apt-get update  <span class="hljs-comment"># 刷新APT的包列表，准备安装新的软件包</span><br>sudo apt-get -y install cuda<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p><code>*.run</code>版本：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> DownloadFolder<br>wget https://developer.download.nvidia.com/compute/cuda/11.8.0/local_installers/cuda_11.8.0_520.61.05_linux.run<br>sudo sh cuda_11.8.0_520.61.05_linux.run<br><span class="hljs-comment"># 官网除了提供主程序可能还有补丁，这些补丁需要安装基本安装程序后再安装</span><br>sudo sh cuda_10.2.1_linux.run  <span class="hljs-comment"># 可选</span><br>sudo sh cuda_10.2.2_linux.run  <span class="hljs-comment"># 可选</span><br></code></pre></td></tr></table></figure>
+<ol>
+<li>
+<p>安装显卡驱动会默认安装对应版本的CUDA，此时会提示已经存在CUDA（Error installing Cuda toolkit: Existing package manager installation of the driver found）。继续安装（continue）</p>
+</li>
+<li>
+<p>是否接受协议。接受（accept）</p>
+</li>
+<li>
+<p>出现一系列安装提示。<strong>不安装显卡驱动</strong>（在“Driver”选项处按下Enter，取消X号，表示不选择）；Kernel Objests-nvidia-fs保持默认<strong>不勾选</strong>；其它（CUDA Toolkit 11.8、CUDA Demo Suite 11.8和CUDA Documentation 11.8）保持勾选。</p>
+</li>
+<li>
+<p>是否生成/更新动态链接<code>/usr/local/cuda</code>（当你已经有该软链接时，会有此提示）。更新（Yes）</p>
+<blockquote>
+<p>如果出现动态链接库链接不到的情况，手动建立软连接：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo <span class="hljs-built_in">ln</span> -sf /usr/local/cuda-9.0/targets/x86_64-linux/lib/libcudnn.so.7.4.2 /usr/local/cuda-9.0/targets/x86_64-linux/lib/libcudnn.so.7<br></code></pre></td></tr></table></figure>
+</blockquote>
+</li>
+</ol>
+<p>安装好 CUDA Toolkit 后，屏幕上将输出（示例）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs bash">===========<br>= Summary =<br>===========<br><br>Driver:   Not Selected<br>Toolkit:  Installed <span class="hljs-keyword">in</span> /usr/local/cuda-11.8/<br>Samples:  Installed <span class="hljs-keyword">in</span> /home/lll25655/<br><br>Please make sure that<br> -   PATH includes /usr/local/cuda-11.8/bin<br> -   LD_LIBRARY_PATH includes /usr/local/cuda-11.8/lib64, or, add /usr/local/cuda-11.8/lib64 to /etc/ld.so.conf and run ldconfig as root<br><br>To uninstall the CUDA Toolkit, run cuda-uninstaller <span class="hljs-keyword">in</span> /usr/local/cuda-11.8/bin<br><br>Please see CUDA_Installation_Guide_Linux.pdf <span class="hljs-keyword">in</span> /usr/local/cuda-11.8/doc/pdf <span class="hljs-keyword">for</span> detailed information on setting up CUDA.<br>***WARNING: Incomplete installation! This installation did not install the CUDA Driver. A driver of version at least 520.00 is required <span class="hljs-keyword">for</span> CUDA 11.8 functionality to work.<br>To install the driver using this installer, run the following <span class="hljs-built_in">command</span>, replacing &lt;CudaInstaller&gt; with the name of this run file:<br>    sudo &lt;CudaInstaller&gt;.run --silent --driver<br><br>Logfile is /var/log/cuda-installer.log<br></code></pre></td></tr></table></figure>
+<p>这表示 NVIDIA Driver 和 CUDA Toolkit 已安装完毕。后半段安装信息提示我们修改环境变量的 PATH 和 LD_LIBRARY_PATH.</p>
+</li>
+</ul>
+</li>
+<li>
+<p>配置。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo gedit ~/.bashrc  <span class="hljs-comment"># 使用gedit文本编辑器打开.bashrc</span><br><span class="hljs-comment"># （按照实际提示/本地路径）输入：</span><br><br><span class="hljs-comment"># CUDA</span><br><span class="hljs-comment"># add nvcc compiler to path</span><br><span class="hljs-built_in">export</span> PATH=<span class="hljs-string">&quot;<span class="hljs-variable">$PATH</span>:/usr/local/cuda-11.8/bin&quot;</span><br><span class="hljs-comment"># add cuBLAS, cuSPARSE, cuRAND, cuSOLVER, cuFFT to path</span><br><span class="hljs-built_in">export</span> LD_LIBRARY_PATH=<span class="hljs-string">&quot;<span class="hljs-variable">$LD_LIBRARY_PATH</span>:/usr/local/cuda-11.8/lib64&quot;</span><br><span class="hljs-comment"># export CUDA_HOME=&quot;$CUDA_HOME:/usr/local/cuda-11.8&quot;  # CUDA路径前有冒号好像会报错</span><br><span class="hljs-built_in">export</span> CUDA_HOME=<span class="hljs-string">&quot;/usr/local/cuda-11.8&quot;</span>  <span class="hljs-comment"># or</span><br><span class="hljs-comment"># export CUDA_HOME=&quot;/usr/local/cuda&quot;</span><br><br><span class="hljs-comment"># 保存，关闭</span><br><span class="hljs-built_in">source</span> ~/.bashrc<br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>环境变量 PATH 设置可执行程序的搜索路径，LD_LIBRARY_PATH 设置动态链接库的搜索路径。</p>
+</blockquote>
+</li>
+<li>
+<p>测试。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 检查是否安装了CUDA</span><br><span class="hljs-built_in">ls</span> -l /usr/local | grep cuda<br><span class="hljs-comment"># 查看自己安装的cuda版本</span><br>nvcc -V<br><span class="hljs-built_in">cat</span> /usr/local/cuda/version.txt  <span class="hljs-comment"># or</span><br><span class="hljs-built_in">cat</span> /usr/local/cuda/version.json<br></code></pre></td></tr></table></figure>
+<p>可以在路径<code>/usr/local/cuda-[version]/extras/demo_suite</code>下找到一些样例程序，运行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> /usr/local/cuda-11.8/extras/demo_suite<br>./deviceQuery  <span class="hljs-comment"># 输出结果包含Result = PASS 说明OK</span><br>./bandwidthTest  <span class="hljs-comment"># 输出结果包含Result = PASS 说明OK</span><br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>使用deb安装的CUDA从CUDA-11.6开始cuda toolkit就不自带cuda-samples了，可以自行安装：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> yourFloder<br>git <span class="hljs-built_in">clone</span> https://github.com/NVIDIA/cuda-samples.git<br><span class="hljs-built_in">cd</span> cuda-samples/Samples/1_Utilities/deviceQuery  <span class="hljs-comment"># cd &lt;sample_dir&gt;</span><br>make clean  <span class="hljs-comment"># （可选）清除之前编译生成的文件（如果有）</span><br>make<br>./deviceQuery  <span class="hljs-comment"># 即可显示GPU信息</span><br><br>sudo <span class="hljs-built_in">cp</span> deviceQuery /usr/local/bin/  <span class="hljs-comment"># 你可以将 deviceQuery 文件复制到 /usr/local/bin/ 目录中，这样你就可以在任何地方直接运行它</span><br><span class="hljs-comment"># 然后就可以放心删除clone到本地的cuda-samples文件夹了。在任意位置打开terminal，都可以直接运行deviceQuery 命令查看GPU信息</span><br></code></pre></td></tr></table></figure>
+</blockquote>
+</li>
+<li>
+<p>检查显卡驱动（尤其是使用<code>*.deb</code>方式进行安装的）。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">nvidia-smi<br></code></pre></td></tr></table></figure>
+<p>如果正常，最好。如果报错：Failed to initialize NVML: Driver/library version mismatch，这是因为<code>*.deb</code>自动安装了其它版本号的显卡驱动，而自动卸载了之前的显卡驱动，此时运行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo dpkg --list | grep nvidia<br><span class="hljs-comment"># 可以看到既有之前的版本号也有新增的，而且之前的那几个包的状态都变成了rc，这意味着这个包刚被remove卸载了，但是还残留着配置文件configurations，其他新增的的包状态都是ii，意味着这个包刚被install安装，而且已经installed装好了。</span><br></code></pre></td></tr></table></figure>
+<p>可见目前的驱动软件其实已经变成了新增的，但是为什么<code>nvidia-smi</code>还是会报错呢？这是因为，软件变新增的了，但是系统的配置文件还保持着之前的，执行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cat</span> /proc/driver/nvidia/version  <span class="hljs-comment"># 可以看到输出的驱动版本还是之前的</span><br></code></pre></td></tr></table></figure>
+<p>所以，下面要做的事就是卸载所有显卡驱动软件包，再重装之前的显卡驱动：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo apt-get --purge remove nvidia-*<br>sudo apt-get purge nvidia*<br>sudo apt-get purge libnvidia*<br><br>sudo dpkg --list | grep nvidia  <span class="hljs-comment"># 验证一下有没有卸载干净，输出为空，表示全部卸载了</span><br><span class="hljs-comment"># (非必要不重启，万一进不了系统了)，再打开“软件与更新”，会发现显卡驱动又回到了而nouveau。执行</span><br><span class="hljs-built_in">cat</span> /proc/driver/nvidia/version   <span class="hljs-comment"># 会发现文件目录不存在，说明真的卸载干净了</span><br><span class="hljs-comment"># 残留几个包实在卸载不掉也行？</span><br></code></pre></td></tr></table></figure>
+<p>最后，打开应用程序界面，选择“软件和更新（softwares and updates）”-附加驱动，在此处选择“使用NVIDIA driver metapackage来自nvidia-driver-版本号(专有)”（之前使用的那个版本号最保险）。</p>
+<p>如果此时运行<code>nvidia-smi</code>还没有结果，重启一下就好了（最好在重启前备份重要文件，以防万一）。</p>
+<p>如果重启后无法进入图形化界面，则强制重启电脑，在BIOS引导界面不直接进入Linux系统，而是进入Advance options for Ubuntu，并选择进入其中一个内核（最好是备用内核），过段时间左上角会出现“_”符号，按住Ctrl+Alt+F2，进入终端，输入用户名和密码，随后卸载所有驱动，清除缓存，重新安装驱动并重启即可。指令如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 卸载所有驱动</span><br>sudo apt-get --purge remove nvidia-*<br>sudo apt-get purge nvidia*<br>sudo apt-get purge libnvidia*  <br><br><span class="hljs-comment"># 清除缓存（慎用）</span><br>sudo apt-get autoremove<br><br><span class="hljs-comment"># 重新安装驱动</span><br>sudo add-apt-repository ppa:graphics-drivers/ppa<br>sudo apt-get update<br>ubuntu-drivers devices<br><span class="hljs-comment"># 找到最适合的驱动安装，安装recommended标记的，通常也是数字版本最大的那个</span><br><span class="hljs-comment"># 最好安装系统之前的那个</span><br>sudo apt install nvidia-driver-XXX<br><span class="hljs-comment"># 也可以自动安装系统推荐那个</span><br>sudo ubuntu-drivers autoinstall<br><br>reboot <span class="hljs-comment"># 重启</span><br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>完成。</p>
+</li>
+</ol>
+<h2 id="卸载">卸载</h2>
+<p><a target="_blank" rel="noopener" href="https://docs.nvidia.com/cuda/cuda-installation-guide-linux/">https://docs.nvidia.com/cuda/cuda-installation-guide-linux/</a></p>
+<h3 id="deb-local-版本安装"><code>*.deb(local)</code>版本安装</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash">apt list --installed | grep -i cuda  <span class="hljs-comment"># 模糊查询</span><br><br><span class="hljs-comment"># 删除数据库</span><br>sudo apt-get --purge remove cuda-repo-ubuntu1804-11-8-local  <span class="hljs-comment"># 当时安装时使用的deb包名的前一部分，也就是在/var文件夹里的cuda*文件夹</span><br>sudo apt-get --purge remove cuda-11-8  <span class="hljs-comment"># 安装的版本号。没有这个包？无伤大雅</span><br><br>sudo apt-get --purge remove <span class="hljs-string">&quot;*cuda*&quot;</span> <span class="hljs-string">&quot;*cublas*&quot;</span> <span class="hljs-string">&quot;*cufft*&quot;</span> <span class="hljs-string">&quot;*cufile*&quot;</span> <span class="hljs-string">&quot;*curand*&quot;</span> <span class="hljs-string">&quot;*cusolver*&quot;</span> <span class="hljs-string">&quot;*cusparse*&quot;</span> <span class="hljs-string">&quot;*gds-tools*&quot;</span> <span class="hljs-string">&quot;*npp*&quot;</span> <span class="hljs-string">&quot;*nvjpeg*&quot;</span> <span class="hljs-string">&quot;nsight*&quot;</span> <span class="hljs-string">&quot;*nvvm*&quot;</span><br><br><span class="hljs-comment"># 上面的命令应该已经卸载了下面的3个文件夹</span><br><span class="hljs-built_in">cd</span> usr/local<br>sudo <span class="hljs-built_in">rm</span> -rf cuda cuda-11 cuda-11.8<br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>最后，别忘了删除安装CUDA第5步在<code>~/.bashrc</code>增加的3行<code>export</code>语句。</p>
+</blockquote>
+<p>验证：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">nvcc -V<br></code></pre></td></tr></table></figure>
+<h3 id="run版本安装"><code>*.run</code>版本安装</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># cuda10.0及以下的卸载</span><br><span class="hljs-built_in">cd</span> /usr/local/cuda-xx.x/bin/<br>sudo ./uninstall_cuda_xx.x.pl<br><span class="hljs-built_in">cd</span> /usr/local/<br>sudo <span class="hljs-built_in">rm</span> -rf /usr/local/cuda-xx.x<br><br><span class="hljs-comment"># cuda10.1及以上的卸载</span><br><span class="hljs-built_in">cd</span> /usr/local/cuda-xx.x/bin/<br>sudo ./cuda-uninstaller<br><span class="hljs-built_in">cd</span> /usr/local/<br>sudo <span class="hljs-built_in">rm</span> -rf /usr/local/cuda-xx.x<br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>最后，别忘了删除安装CUDA第5步在<code>~/.bashrc</code>增加的3行<code>export</code>语句。</p>
+</blockquote>
+<p>验证：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">nvcc -V<br></code></pre></td></tr></table></figure>
+<p>如果上面的方法不行，再是试试下面的方法：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># uninstall cuda</span><br><span class="hljs-comment"># 第一行命令不要忘记要加上perl命令，要不然会报错</span><br>sudo perl /usr/local/cuda-X.Y/bin/uninstall_cuda_X.Y.pl <br><br><span class="hljs-comment"># 删除文件夹</span><br>sudo <span class="hljs-built_in">rm</span> -rf /usr/local/cuda-X.Y<br><br><span class="hljs-comment">#uninstall driver</span><br>sudo /usr/bin/nvidia-uninstall<br>sudo apt-get remove --purge nvidia-*<br><span class="hljs-comment"># 记得重装nvidia driver</span><br></code></pre></td></tr></table></figure>
+<h2 id="CUDA多版本共存">CUDA多版本共存</h2>
+<p>需要使用<code>*.run</code>版本安装的CUDA，通过改变软链接的方式切换CUDA版本。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo <span class="hljs-built_in">rm</span> -rf /usr/local/cuda  <span class="hljs-comment"># 删除软链接，注意是 /usr/local/cuda 而不是 /usr/local/cuda/,前者仅删除软链接，而后者会删除软链接所指向的目录的所有内容，操作请小心</span><br>sudo <span class="hljs-built_in">ln</span> -s cuda_path /usr/local/cuda  <span class="hljs-comment"># 创建名为 /usr/local/cuda 的软链接，其指向 cuda_path 所指定的 cuda 安装目录，比如：/usr/local/cuda-11.8</span><br><span class="hljs-built_in">ls</span> -l /usr/local | grep cuda  <span class="hljs-comment"># 查看软链接指向</span><br><br><span class="hljs-comment"># 修改安装CUDA第5步在`~/.bashrc`增加的3行`export`语句</span><br></code></pre></td></tr></table></figure>
+<h1 id="cuDNN">cuDNN</h1>
+<h2 id="查询-3">查询</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash">apt show libcudnn8  <span class="hljs-comment"># 通过查询已安装的libcudnn8包来验证cuDNN的版本</span><br><span class="hljs-comment"># 查看版本（路径可能不一致，有一个命令有输出就行）</span><br><span class="hljs-built_in">cat</span> /usr/include/cudnn_version.h  <br><span class="hljs-built_in">cat</span> /usr/include/cudnn.h<br><span class="hljs-built_in">cat</span> /usr/local/cuda/include/cudnn_version.h | grep CUDNN_MAJOR -A 2<br><span class="hljs-built_in">cat</span> /usr/local/cuda/include/cudnn.h | grep CUDNN_MAJOR -A 2<br></code></pre></td></tr></table></figure>
+<h2 id="安装-3">安装</h2>
+<p>全称：CUDA Deep Neural Network library</p>
+<p><a target="_blank" rel="noopener" href="https://docs.nvidia.com/deeplearning/cudnn/latest/installation/linux.html">https://docs.nvidia.com/deeplearning/cudnn/latest/installation/linux.html</a></p>
+<ol>
+<li>
+<p>下载安装。<a target="_blank" rel="noopener" href="https://developer.nvidia.com/cudnn-archive">下载地址</a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">nvcc -V  <span class="hljs-comment"># 查看自己安装的CUDA版本</span><br><span class="hljs-built_in">uname</span> -a  <span class="hljs-comment"># 查询系统架构</span><br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>注意，cuDNN的下载需要先登录NVIDIA账户，没有则要注册，此步需要耐心。</p>
+</blockquote>
+<ul>
+<li>
+<p><code>*.deb</code>版本（对应使用<code>*.deb(local)</code>安装的CUDA）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> DownloadFolder<br>wget https://developer.nvidia.com/downloads/compute/cudnn/secure/8.9.7/local_installers/11.x/cudnn-local-repo-ubuntu1804-8.9.7.29_1.0-1_amd64.deb/<br><span class="hljs-comment"># sudo dpkg -i libcudnn8_8.0.2.39-1+cuda10.2_amd64.deb </span><br><span class="hljs-comment"># sudo dpkg -i libcudnn8-dev_8.0.2.39-1+cuda10.2_amd64.deb</span><br><span class="hljs-comment"># sudo dpkg -i libcudnn8-doc_8.0.2.39-1+cuda10.2_amd64.deb</span><br>sudo dpkg -i cudnn-local-repo-ubuntu1804-8.9.7.29_1.0-1_amd64.deb  <span class="hljs-comment"># 安装本地仓库，使得通过APT包管理器安装cuDNN相关包成为可能</span><br>sudo <span class="hljs-built_in">cp</span> /var/cudnn-local-repo-ubuntu1804-8.9.7.29/cudnn-local-AE31B5F1-keyring.gpg /usr/share/keyrings/  <span class="hljs-comment"># 根据安装*.deb时的输出提示来。通过导入GPG密钥，系统能够验证从本地仓库安装的软件包是经过NVIDIA官方签名的</span><br></code></pre></td></tr></table></figure>
+<p>更新和安装软件包：</p>
+<ol>
+<li>
+<p>方法一：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo apt update  <span class="hljs-comment"># 刷新APT的包列表，准备安装新的软件包</span><br>sudo apt install libcudnn8  <span class="hljs-comment"># 安装cuDNN的运行时库，这是运行基于cuDNN开发的应用程序所必需的</span><br><span class="hljs-comment"># 如果需要安装特定版本的cuDNN运行时库，可以指定版本号</span><br><span class="hljs-comment"># sudo apt install libcudnn8=8.9.6.50+cuda11.8</span><br>sudo apt install libcudnn8-dev  <span class="hljs-comment"># 为了开发基于cuDNN的应用，还需要安装开发者库</span><br><span class="hljs-comment"># 输出：update-alternatives: 使用 /usr/include/x86_64-linux-gnu/cudnn_v8.h 来在自动模式中提供 /usr/include/cudnn.h (libcudnn)</span><br><span class="hljs-comment"># 同样，指定版本号安装也是可能的</span><br><span class="hljs-comment"># sudo apt install libcudnn8-dev=8.9.6.50+cuda11.8</span><br>sudo apt install libcudnn8-samples  <span class="hljs-comment"># 安装cuDNN代码示例可以帮助开发者快速了解如何使用cuDNN API</span><br><span class="hljs-comment"># 示例代码位于/usr/src/cudnn_samples_v8目录下，通过编译和运行这些示例，开发者可以验证cuDNN安装是否成功，同时学习如何在自己的应用中使用cuDNN</span><br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>方法二：在启用本地仓库并导入CUDA GPG密钥后，在<code>/var/cudnn-local-repo-ubuntu1804-8.9.6.50</code>有上面三个的<code>*.deb</code>安装文件，直接通过<code>sudo dpkg -i</code>安装即可。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> /var/cudnn-local-repo-ubuntu1804-8.9.6.50<br>sudo dpkg -i libcudnn8_8.9.7.29-1+cuda11.8_amd64.deb<br>sudo dpkg -i libcudnn8-dev 8.9.7.29-1+cuda11.8_amd64.deb<br>sudo dpkg -i libcudnn8-samples_8.9.7.29-1+cuda11.8_amd64.deb<br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>使用方法一中的命令运行安装时，可以发现使用的就是<code>/var/cudnn-local-repo-ubuntu1804-8.9.6.50</code>中的<code>*.deb</code>。</p>
+</blockquote>
+</li>
+</ol>
+</li>
+<li>
+<p>压缩包版本（对应使用<code>*.run</code>安装的CUDA）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 下载</span><br><span class="hljs-built_in">cd</span> DownloadFolder<br>wget https://developer.nvidia.com/downloads/compute/cudnn/secure/8.9.7/local_installers/11.x/cudnn-linux-x86_64-8.9.7.29_cuda11-archive.tar.xz/<br><br><span class="hljs-comment"># 解压</span><br><span class="hljs-built_in">cd</span> DownloadFolder<br><span class="hljs-comment"># 解压*.tar.xz文件。图形化界面可以直接双击压缩包实现解压</span><br>xz -d -k cudnn-linux-x86_64-8.9.7.29_cuda11-archive.tar.xz  <span class="hljs-comment"># 使用 -k 参数来保留被解压缩的文件。</span><br>tar -xvf cudnn-linux-x86_64-8.9.7.29_cuda11-archive.tar<br><br><span class="hljs-comment"># 复制文件</span><br><span class="hljs-built_in">ls</span> -l /usr/local | grep cuda  <span class="hljs-comment"># 查看软链接指向</span><br><span class="hljs-built_in">cd</span> cudnn-linux-x86_64-8.9.7.29_cuda11-archive<br>sudo <span class="hljs-built_in">cp</span> include/* /usr/local/cuda/include/<br>sudo <span class="hljs-built_in">cp</span> lib/* /usr/local/cuda/lib64/<br>sudo <span class="hljs-built_in">chmod</span> a+r /usr/local/cuda/include/* /usr/local/cuda/lib64/*<br></code></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li>
+<p>测试。</p>
+<ol>
+<li>
+<p>查询版本信息：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash">apt show libcudnn8  <span class="hljs-comment"># 通过查询已安装的libcudnn8包来验证cuDNN的版本</span><br><span class="hljs-comment"># 查看版本（路径可能不一致，有一个命令有输出就行）</span><br><span class="hljs-built_in">cat</span> /usr/include/cudnn_version.h  <br><span class="hljs-built_in">cat</span> /usr/include/cudnn.h<br><span class="hljs-built_in">cat</span> /usr/local/cuda/include/cudnn_version.h | grep CUDNN_MAJOR -A 2<br><span class="hljs-built_in">cat</span> /usr/local/cuda/include/cudnn.h | grep CUDNN_MAJOR -A 2<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>测试示例代码：</p>
+<p>首先，导航到包含cuDNN示例代码的目录。如果已安装<code>libcudnn8-samples</code>，示例代码通常位于<code>/usr/src/cudnn_samples_v8/</code>目录下。编译示例代码前，需要复制该目录到其它目录下，以避免权限问题：</p>
+<blockquote>
+<p>使用压缩包进行安装的方法没有<code>cudnn_samples_v8</code>这个文件夹，需要自行上网下载，比如：<a target="_blank" rel="noopener" href="https://github.com/johnpzh/cudnn_samples_v8">https://github.com/johnpzh/cudnn_samples_v8</a></p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cp</span> -r /usr/src/cudnn_samples_v8/ yourFloder/cudnn_samples_v8<br><span class="hljs-comment"># -r 或 --recursive：用于复制目录及其所有的子目录和文件，如果要复制目录，需要使用该选项。</span><br><span class="hljs-built_in">cd</span> yourFloder/cudnn_samples_v8/mnistCUDNN<br>make clean  <span class="hljs-comment"># （可选）清除之前编译生成的文件（如果有）</span><br>make<br>./mnistCUDNN  <span class="hljs-comment"># Test passed! 如果cuDNN安装正确，此程序将成功运行，通常会输出识别准确率或其他成功执行的指标</span><br><span class="hljs-comment"># 如果报错ERROR: cudnn failure (CUDNN_STATUS_EXECUTION_FAILED) in mnistCUDNN.cpp:637，可能是因为显卡版本太高，CUDA版本太低，不兼容（运行博客PyTorch章节的测试脚本会有相应的warning）。解决：重装高版本的CUDA。</span><br></code></pre></td></tr></table></figure>
+<blockquote>
+<p><code>make</code>报错<code>test.c:1:10: fatal error: FreeImage.h: No such file or directory</code>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo apt-get install libfreeimage3 libfreeimage-dev<br></code></pre></td></tr></table></figure>
+</blockquote>
+</li>
+</ol>
+</li>
+<li>
+<p>完成。</p>
+</li>
+</ol>
+<h2 id="卸载-2">卸载</h2>
+<ul>
+<li>
+<p>卸载通过<code>*.deb</code>文件安装的cuDNN：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 删除数据库</span><br>sudo apt-get --purge remove cudnn-local-repo-ubuntu1804-8.9.7.29  <span class="hljs-comment"># 当时安装时使用的deb包名的前一部分，也就是在/var文件夹里的cudnn*文件夹</span><br><br>sudo apt-get remove libcudnn8-samples<br>sudo apt-get remove libcudnn8-dev<br>sudo apt-get remove libcudnn8<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>通过压缩包安装的cudnn随着CUDA的卸载而卸载。</p>
+</li>
+</ul>
+<h1 id="PyTorch">PyTorch</h1>
+<ol>
+<li>
+<p>下载安装。</p>
+<ol>
+<li>
+<p>命令行安装。访问<a target="_blank" rel="noopener" href="https://pytorch.org/get-started/previous-versions/">链接</a>，根据要安装的PyTorch版本和CUDA版本找到conda安装命令。</p>
+</li>
+<li>
+<p><code>*.whl</code>安装。</p>
+<ol>
+<li>
+<p>下载。<a target="_blank" rel="noopener" href="https://download.pytorch.org/whl/torch_stable.html">下载网址</a></p>
+<p>每个文件命名都是有规律的：</p>
+<img src="/posts/df5eb46/PyTorch%E5%8C%85%E7%9A%84%E5%91%BD%E5%90%8D%E8%A7%84%E5%88%99.png" srcset="/img/loading.gif" lazyload class="" title="PyTorch包的命名规则">
+<p>使用快捷键<code>Ctrl+F</code>，搜索我们需要安装的版本文件下载，例如：</p>
+<ul>
+<li>cu101/torch-1.4.0-cp38-cp38-win_amd64.whl</li>
+<li>cu101/torchyision-0.5.0-cp38-cp38-win_amd64.whl</li>
+</ul>
+</li>
+<li>
+<p>安装。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs bash">conda create --copy -n pytorch python=3.8<br>conda activate pytorch<br><span class="hljs-built_in">cd</span> DownloadFolder<br><br><span class="hljs-comment"># 查看pip的位置</span><br><span class="hljs-built_in">which</span> -a pip<br>pip -V  <span class="hljs-comment"># pip --version</span><br><span class="hljs-comment"># 配置（可选)</span><br>pip install xxxx -i https://pypi.tuna.tsinghua.edu.cn/simple  <span class="hljs-comment"># 临时换源（清华源）</span><br>pip config <span class="hljs-built_in">set</span> global.index-url https://pypi.tuna.tsinghua.edu.cn/simple  <span class="hljs-comment"># 永久换源（清华源）</span><br><span class="hljs-comment"># Writing to /home/xxx/.config/pip/pip.conf</span><br><span class="hljs-comment"># global.index-url=&#x27;https://pypi.tuna.tsinghua.edu.cn/simple&#x27;</span><br>pip config <span class="hljs-built_in">unset</span> global.index-url  <span class="hljs-comment"># 换回默认源</span><br><br>pip install cu101/torch-1.4.0-cp38-cp38-win_amd64.whl<br>pip install cu101/torchvision-0.5.0-cp38-cp38-win_amd64.whl<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>完成。</p>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>
+<p>测试。编写并运行python脚本：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> torch<br><span class="hljs-keyword">import</span> torchvision<br><span class="hljs-built_in">print</span>(torch.__version__)<br><span class="hljs-built_in">print</span>(torch.version.cuda)<br><span class="hljs-built_in">print</span>(torchvision.__version__)<br><span class="hljs-built_in">print</span>(torchvision.version.cuda)<br><span class="hljs-built_in">print</span>(torch.cuda.is_available())<br><span class="hljs-keyword">if</span> torch.cuda.is_available():<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;CUDA device:&quot;</span>, torch.cuda.get_device_name(torch.cuda.current_device()))<br></code></pre></td></tr></table></figure>
+<p>如果全部输出正常证明版本兼容。</p>
+</li>
+<li>
+<p>完成。</p>
+</li>
+</ol>
+<h1 id="参考链接">参考链接</h1>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_38140292/article/details/114157146">【Pytorch】pytorch安装（包含cuda详细安装教程）</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/79059379">Linux 下的 CUDA 安装和使用指南</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/coolsmartboy/article/details/120532547">【非常详细】Ubuntu18.04安装显卡驱动和CUDA,CUDNN流程和踩坑记录</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/h3c4lenovo/article/details/119003405">Ubuntu 20.04安装CUDA &amp; CUDNN 手把手带你撸</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/xiaowk/p/15205506.html">ubuntu安装cuda和cudnn</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/zency/article/details/127356788">Ubuntu系统下由于Nvidia驱动问题导致的无法开机的问题小结</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/666647168">CUDA相关 | 如何安装deviceQuery</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_51661400/article/details/135482023">Ubuntu 18.04上安装cuDNN 8.9.6.50：一站式指南</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/Co1rbin/article/details/139144525">一种解决pytorch和cuda版本不兼容问题的方法（cuda driver版本：12.0.134）</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_37605642/article/details/119637836">Ubuntu下CUDA的卸载以及安装(deb方式和run方式)</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/xu_fengyu/article/details/89364098">Linux下CUDA卸载不完全与重装失败</a></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7%E5%BA%93/" class="category-chain-item">软件工具库</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Anaconda、CUDA、cuDNN和PyTorch包的安装</div>
+      <div>http://zeyulong.com/posts/df5eb46/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>龙泽雨</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年3月5日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/posts/a8aab215/" title="常用的命令及快捷键">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">常用的命令及快捷键</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/c4541b88/" title="ROS知识积累">
+                        <span class="hidden-mobile">ROS知识积累</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="waline"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#waline', function() {
+      Fluid.utils.createCssLink('https://cdn.staticfile.org/waline/2.15.5/waline.min.css')
+      Fluid.utils.createScript('https://cdn.staticfile.org/waline/2.15.5/waline.min.js', function() {
+        var options = Object.assign(
+          {"serverURL":"https://www.zeyulong.cn/","path":"window.location.pathname","meta":["nick","mail","link"],"requiredMeta":["nick"],"lang":"zh-CN","emoji":["https://cdn.jsdelivr.net/gh/walinejs/emojis/weibo"],"dark":"html[data-user-color-scheme=\"dark\"]","wordLimit":0,"pageSize":10,"reaction":true,"locale":{"placeholder":"花径不曾缘客扫，蓬门今始为君开。"}},
+          {
+            el: '#waline',
+            path: window.location.pathname
+          }
+        )
+        Waline.init(options);
+        Fluid.utils.waitElementVisible('#waline .vcontent', () => {
+          var imgSelector = '#waline .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> <div style="font-size: 0.85rem"> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/custom/RunTime/RunTime.js"></script> </div> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  
+<script src="/custom/live2d/live2d-widget/autoload.js"></script>
+<script src="/custom/live2d/jquery.min.js"></script>
+<script src="/custom/LabelPage/LabelPage.js"></script>
+<script src="/custom/LoadingBar/pace.min.js"></script>
+<script src="/custom/ReadingProgress/ReadingProgress.js"></script>
+<script src="/custom/typing-effect/typing-effect.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  <canvas
+    class="fireworks"
+    style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 32767"
+></canvas>
+<script type="text/javascript" src="/custom/fireworks/anime.min.js"></script> 
+<script type="text/javascript" src="/custom/fireworks/fireworks.js"></script>
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

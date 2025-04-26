@@ -1,0 +1,1054 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" >
+
+
+
+<head><!-- hexo injector head_begin start --><progress id="content_progress" value="0"></progress><!-- hexo injector head_begin end -->
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/theme/TamakoAvatar-new-zip.png">
+  <link rel="icon" href="/img/theme/TamakoAvatar-new-zip.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#000000">
+  <meta name="author" content="龙泽雨">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="本文主要分享了自己在编译运行论文《Research on Event Accumulator Settings for Event-Based SLAM》的源代码时的调试记录，下面简称为EventAccumulator。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="EventAccumulator编译运行调试记录">
+<meta property="og:url" content="http://zeyulong.com/posts/827160f0/index.html">
+<meta property="og:site_name" content="龙泽雨的博客">
+<meta property="og:description" content="本文主要分享了自己在编译运行论文《Research on Event Accumulator Settings for Event-Based SLAM》的源代码时的调试记录，下面简称为EventAccumulator。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-02-07T03:26:08.000Z">
+<meta property="article:modified_time" content="2024-02-20T01:25:31.399Z">
+<meta property="article:author" content="龙泽雨">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>EventAccumulator编译运行调试记录 - 龙泽雨的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/custom/Markdown/macpanel.css">
+<link rel="stylesheet" href="/custom/Fonts/CodeFont.css">
+<link rel="stylesheet" href="/custom/Fonts/inlinecode-bg-color.css">
+<link rel="stylesheet" href="/custom/live2d/font-awesome.min.css">
+<link rel="stylesheet" href="/custom/LoadingBar/pace-theme-corner-indicator.css">
+<link rel="stylesheet" href="/custom/ReadingProgress/ReadingProgress.css">
+<link rel="stylesheet" href="/custom/SelectBackgroundColor/SelectBackgroundColor.css">
+<link rel="stylesheet" href="/custom/waline/gif.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"zeyulong.com","root":"/","version":"1.9.7","typing":{"enable":false,"typeSpeed":100,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"8gUBTaCjmaSbnf4genwggan3-MdYXbMMI","app_key":"2WRxjgxRXIWRBo8EA4205Wfm","server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<!-- hexo injector head_end start --><link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@200;300;400;500;600;700;900&display=swap" rel="stylesheet"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.0.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Happy every day!</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-steam"></i>
+                <span>摸鱼</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/2048" target="_self">
+                    
+                    <span>2048</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/bcbk/1" target="_self">
+                    
+                    <span>别踩白块-1</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/bcbk/2" target="_self">
+                    
+                    <span>别踩白块-2</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/dblk" target="_self">
+                    
+                    <span>躲避绿块</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/dr" target="_self">
+                    
+                    <span>恐龙快跑</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://mario-kart-3-js.vercel.app/" target="_self">
+                    
+                    <span>马里奥赛车</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/mf" target="_self">
+                    
+                    <span>魔方</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/cat" target="_self">
+                    
+                    <span>圈小猫</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/sl" target="_self">
+                    
+                    <span>扫雷</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/txz" target="_self">
+                    
+                    <span>推箱子</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/wzq" target="_self">
+                    
+                    <span>五子棋</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/theme/GirlWithCat-cut.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle">EventAccumulator编译运行调试记录</span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        龙泽雨
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-02-07 11:26" pubdate>
+          2024年2月7日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          17 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">EventAccumulator编译运行调试记录</h1>
+            
+              <p id="updated-time" class="note note-info" style="">
+                
+                  
+                    本文最后更新于 2024年2月20日 上午
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <p>本文主要分享了自己在编译运行论文《Research on Event Accumulator Settings for Event-Based SLAM》的源代码时的调试记录，下面简称为EventAccumulator。</p>
+<span id="more"></span>
+<h1 id="针对基于事件的SLAM的事件累加器设置的研究">针对基于事件的SLAM的事件累加器设置的研究</h1>
+<p>这是论文“Research on Event Accumulator Settings for Event-Based SLAM”的源代码。更多详情，请参见论文：</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs txt">K. Xiao, G. Wang, Y. Chen, Y. Xie, H. Li and S. Li, &quot;Research on Event Accumulator Settings for Event-Based SLAM,&quot; 2022 6th International Conference on Robotics, Control and Automation (ICRCA), 2022, pp. 50-56, doi: 10.1109/ICRCA55033.2022.9828933.<br></code></pre></td></tr></table></figure>
+<p>ArXiv 预印本 <strong><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2112.00427">arXiv:2112.00427</a></strong>(2022)</p>
+<h2 id="1-先决条件">1. 先决条件</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 查看版本</span><br><span class="hljs-comment"># gcc</span><br>gcc -v  <span class="hljs-comment"># 7.5.0</span><br><span class="hljs-comment"># cmake</span><br>cmake --version  <span class="hljs-comment"># 3.17.2</span><br><span class="hljs-comment"># Eigen</span><br>gedit /usr/include/eigen3/Eigen/src/Core/util/Macros.h  <span class="hljs-comment"># 3.3.0</span><br><span class="hljs-comment"># Opencv</span><br>pkg-config --modversion opencv  <span class="hljs-comment"># 3.4.5</span><br>pkg-config --cflags opencv  <span class="hljs-comment"># 得到opencv的安装路径</span><br><span class="hljs-comment"># -&gt; -I/usr/local/include/opencv -I/usr/local/include</span><br>pkg-config --cflags opencv4  <span class="hljs-comment"># 附加：得到opencv4的安装路径</span><br></code></pre></td></tr></table></figure>
+<p>见 <a target="_blank" rel="noopener" href="https://github.com/kehanXue/dv_ros">dv_ros</a> 和 <a target="_blank" rel="noopener" href="https://github.com/HKUST-Aerial-Robotics/VINS-Fusion">VINS-Fusion</a></p>
+<h3 id="dv-ros">dv_ros</h3>
+<ul>
+<li>Boost: 1.73</li>
+<li>Eigen: 3.3.0/3.4.0</li>
+<li>OpenCV：3.4.5</li>
+</ul>
+<ol>
+<li>
+<p>安装<code>iniVation dv-runtime</code>。</p>
+<ul>
+<li>
+<p><code>apt-get</code>方法。不建议，使用<code>sudo apt-get install dv-runtime-dev</code>安装的（最新）的<code>dv-runtime</code>的需要OpenCV &gt;= 4.2.0、gcc &gt;= 10.0等。尤其是当gcc &gt;= 10.0，编译<code>dv_ros</code>时会报错<code>rebind</code>（因为gcc的版本太高）。矛盾的是，当降低gcc版本到7，编译<code>dv_ros</code>时<code>dv-runtime</code>又会报错要求gcc &gt;= 10.0。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># Bionic (18.04 LTS) on the x86_64, x86, arm64 and armhf architectures.</span><br>sudo add-apt-repository ppa:ubuntu-toolchain-r/test<br>sudo add-apt-repository ppa:inivation-ppa/inivation-bionic<br>sudo apt-get update<br>sudo apt-get install dv-gui<br><br><span class="hljs-comment"># Focal (20.04 LTS) and Jammy (22.04 LTS) on the x86_64, arm64 and armhf architectures.</span><br>sudo add-apt-repository ppa:inivation-ppa/inivation<br>sudo apt-get update<br>sudo apt-get install dv-gui<br></code></pre></td></tr></table></figure>
+<p>安装以下附加软件包：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment">#! 需要升级libopencv3.2</span><br>sudo apt-get install dv-runtime-dev<br></code></pre></td></tr></table></figure>
+<p>在 ARM 上，你可能需要使用以下环境变量来启动 dv 运行时：</p>
+<p><code>UNW_ARM_UNWIND_METHOD=4</code>。</p>
+</li>
+<li>
+<p>源码安装方法。建议。</p>
+<p>对于源代码安装，您可以按照这里的<a target="_blank" rel="noopener" href="https://gitlab.com/inivation/dv/dv-runtime">步骤</a>操作。需要高版本的 fmt (&gt; = 7.0.3)库和 Boost (&gt; = 1.73)库。</p>
+<ol>
+<li>
+<p>卸载<code>dv-runtime-dev</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 卸载dv-runtime-dev</span><br>apt list --installed | grep -i dv-runtime-dev  <span class="hljs-comment"># 模糊搜索</span><br>sudo apt remove dv-runtime-dev  <span class="hljs-comment"># 卸载软件</span><br>sudo apt-get purge dv-runtime-dev  <span class="hljs-comment"># 清除配置</span><br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>下载<a target="_blank" rel="noopener" href="https://gitlab.com/inivation/dv/dv-runtime/-/tree/1.2.5?ref_type=tags">dv-runtime-1.2.5</a></p>
+</li>
+<li>
+<p>编译。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> dv-runtime-1.2.5<br><span class="hljs-built_in">mkdir</span> build &amp;&amp; <span class="hljs-built_in">cd</span> build<br>cmake -DCMAKE_INSTALL_PREFIX=/usr ..<br>make -j8<br>sudo make install<br></code></pre></td></tr></table></figure>
+<p>报错：</p>
+<ol>
+<li>
+<p>/dv-runtime-1.2.5/modules/calibration/calibration.cpp:50:63: error: ‘class cv::FileNode’ has no member named ‘string’; did you mean ‘isString’?</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs cmake"><span class="hljs-comment"># dv-runtime-1.2.5/CmakeList.txt</span><br><span class="hljs-comment"># 使用OpenCV 3.1.0 报错，使用OpenCV 3.4.5 编译成功。</span><br><span class="hljs-keyword">set</span>(OpenCV_DIR /usr/local/opencv/opencv345/share/OpenCV)  <span class="hljs-comment"># 新增</span><br></code></pre></td></tr></table></figure>
+</li>
+<li></li>
+</ol>
+</li>
+<li></li>
+</ol>
+</li>
+</ul>
+</li>
+<li>
+<p>克隆依赖库。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> yourfolder<br><span class="hljs-built_in">mkdir</span> -p catkin_ws/src<br><span class="hljs-built_in">cd</span> catkin_ws<br>catkin config --init --mkdirs --extend /opt/ros/melodic --merge-devel --cmake-args -DCMAKE_BUILD_TYPE=Release<br><span class="hljs-built_in">cd</span> src<br>catkin_init_workspace<br></code></pre></td></tr></table></figure>
+<p>下载<a target="_blank" rel="noopener" href="https://github.com/kehanXue/CeleX5-ROS">CeleX5-ROS</a>和<a target="_blank" rel="noopener" href="https://github.com/uzh-rpg/rpg_dvs_ros">rpg_dvs_ros</a>解压到<code>./catkin_ws/src</code>目录下。</p>
+</li>
+<li>
+<p>克隆dv_ros。</p>
+<p>下载<a target="_blank" rel="noopener" href="https://github.com/kehanXue/dv_ros/tree/56f339403f5b1b2dbf702eee1286f5e87db46eba">dv_ros-56f339403f5b1b2dbf702eee1286f5e87db46eba.zip</a>解压到<code>./catkin_ws/src</code>目录下。（可选）重命名为<code>dv_ros</code>。</p>
+</li>
+<li>
+<p>（可选）指定项目编译使用的OpenCV版本。</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs cmake"><span class="hljs-comment"># CmakeList.txt</span><br><span class="hljs-keyword">set</span>(OpenCV_DIR /usr/local/opencv/opencv345/share/OpenCV)  <span class="hljs-comment"># 新增</span><br><span class="hljs-keyword">find_package</span>(OpenCV REQUIRED)<br><span class="hljs-comment"># find_package(cv_bridge)  # 如果find_package(OpenCV REQUIRED)报错</span><br><span class="hljs-keyword">include_directories</span>(<span class="hljs-variable">$&#123;OpenCV_INCLUDE_DIRS&#125;</span>)  <span class="hljs-comment"># 新增</span><br><span class="hljs-comment"># 新增</span><br><span class="hljs-keyword">message</span>(STATUS <span class="hljs-string">&quot;opencv version: $&#123;OpenCV_VERSION&#125;&quot;</span>)<br><span class="hljs-keyword">message</span>(STATUS <span class="hljs-string">&quot;opencv lib: $&#123;OpenCV_LIBS&#125;&quot;</span>)<br><span class="hljs-keyword">message</span>(STATUS <span class="hljs-string">&quot;opencv include dir: $&#123;OpenCV_INCLUDE_DIRS&#125;&quot;</span>)<br><span class="hljs-keyword">message</span>(STATUS <span class="hljs-string">&quot;opencv config path: $&#123;openCV_CONFIG_PATH&#125;&quot;</span>)<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>编译。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment">#! 需要升级libopencv3.2</span><br>sudo apt-get install ros-melodic-ddynamic-reconfigure<br>catkin build dv_ros<br><span class="hljs-comment"># 如果编译报错：</span><br><span class="hljs-comment"># catkin clean 相当于 rm -r $&#123;build&#125; $&#123;devel&#125;, 但是避免了 rm -r 这种危险的操作！</span><br></code></pre></td></tr></table></figure>
+<p>报错：</p>
+<ol>
+<li>
+<p>Project ‘cv_bridge‘ specifies ‘/usr/include/opencv‘ as an include dir, which is not found.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 安装OpenCV 4.2.0 or newer</span><br><span class="hljs-comment"># 然后</span><br>sudo <span class="hljs-built_in">ln</span> -s /usr/include/opencv4 /usr/include/opencv<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>/usr/lib/x86_64-linux-gnu/cmake/dv-processing/dv-processing-config.cmake:40 (MESSAGE):Cannot find OpenCV 4.2.0 or newer.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 安装OpenCV 4.2.0 or newer</span><br><span class="hljs-comment"># 然后</span><br>sudo gedit /usr/lib/x86_64-linux-gnu/cmake/dv-processing/dv-processing-config.cmake<br><span class="hljs-comment"># Line 38</span><br>FIND_PACKAGE(OpenCV REQUIRED)<br><span class="hljs-comment"># 修改为</span><br>FIND_PACKAGE(OpenCV 4 REQUIRED)<br></code></pre></td></tr></table></figure>
+<p>治标不治本，建议源码安装dv-runtime-1.2.5。</p>
+</li>
+<li>
+<p>target &quot;dv::dvsdk&quot; but the target was not found.</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs cmake"><span class="hljs-comment"># CmakeList.txt</span><br><span class="hljs-keyword">target_link_libraries</span>(dv_ros_lib<br>  <span class="hljs-variable">$&#123;OpenCV_LIBS&#125;</span><br>  <span class="hljs-variable">$&#123;catkin_LIBRARIES&#125;</span><br>  <span class="hljs-comment"># dv::dvsdk</span><br>  dv::sdk<br>)<br></code></pre></td></tr></table></figure>
+<p>治标不治本，建议源码安装dv-runtime-1.2.5。</p>
+</li>
+<li>
+<p>/catkin_ws/src/dv_ros/dv_ros/accumulator/accumulator.cc:113:9: error: ‘struct dv::Frame’ has no member named ‘convertTo’<br>
+113 |   frame.convertTo(corrected_frame_, CV_8U, scale_factor, shift_factor);</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">// dv_ros/dv_ros/accumulator/accumulator.cc</span><br><span class="hljs-comment">// frame.convertTo(corrected_frame_, CV_8U, scale_factor, shift_factor);</span><br>frame.image.<span class="hljs-built_in">convertTo</span>(corrected_frame_, CV_8U, scale_factor, shift_factor);<br></code></pre></td></tr></table></figure>
+<p>治标不治本，建议源码安装dv-runtime-1.2.5。</p>
+</li>
+<li>
+<p>/opt/ros/melodic/include/ros/serialization.h:427:82: error: no class template named ‘rebind’ in ‘class std::allocator&lt;dvs_msgs::Event_&lt;std::allocator<void> &gt; &gt;’<br>
+427 |   typedef std::vector&lt;T, typename ContainerAllocator::template rebind<T>::other&gt; VecType;</p>
+<p>卸载使用<code>sudo apt-get install dv-runtime-dev</code>安装的（最新）的<code>dv-runtime</code>，源码安装dv-runtime-1.2.5。</p>
+</li>
+<li>
+<p>target &quot;libcaer::caer&quot; but the target was not found.</p>
+<ol>
+<li>
+<p>查看系统中是否已安装的<code>libcaer-dev</code>。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">apt list --installed | grep -i libcaer-dev  <span class="hljs-comment"># 模糊搜索</span><br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>卸载之前使用<code>sudo apt install</code>命令安装的<code>libcaer-dev</code>。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo apt remove libcaer-dev  <span class="hljs-comment"># 卸载软件</span><br>sudo apt-get purge libcaer-dev  <span class="hljs-comment"># 清除配置</span><br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>源码编译安装<code>libcaer-dev</code>。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo apt install libusb-1.0-0-dev libserialport-dev<br><span class="hljs-built_in">cd</span> ~/yourfolder<br>git <span class="hljs-built_in">clone</span> https://gitlab.com/inivation/dv/libcaer.git<br><span class="hljs-built_in">cd</span> libcaer<br><span class="hljs-built_in">mkdir</span> build &amp;&amp; <span class="hljs-built_in">cd</span> build<br>cmake -DENABLE_SERIALDEV=1 -DENABLE_OPENCV=1 ..<br>sudo make -j8<br>sudo make install<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>配置<code>CmakeList.txt</code>。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo find / -name libcaer-exports.cmake<br><span class="hljs-comment"># /usr/local/lib/cmake/libcaer/libcaer-exports.cmake</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs cmake"><span class="hljs-comment"># dv_ros-master/CMakeLists.txt</span><br><span class="hljs-keyword">set</span>(libcaer_DIR <span class="hljs-string">&quot;/usr/local/lib/cmake/libcaer/&quot;</span>)  <span class="hljs-comment"># 新增</span><br><span class="hljs-keyword">find_package</span>(libcaer REQUIRED)  <span class="hljs-comment"># 新增</span><br></code></pre></td></tr></table></figure>
+</li>
+<li></li>
+</ol>
+</li>
+<li></li>
+</ol>
+</li>
+<li></li>
+</ol>
+<h3 id="VINS-Fusion">VINS-Fusion</h3>
+<ol>
+<li><a href="https://zeyulong.com/posts/84f91530/">安装ROS</a>。</li>
+<li><a href="https://zeyulong.com/posts/5c3493c4/">安装Eigen-3.3.0</a>。</li>
+<li><a href="https://zeyulong.com/posts/75ff45ce/">安装OpenCV-3.2.0</a>。</li>
+<li><a href="https://zeyulong.com/posts/60c04195/">安装Ceres-Solver-1.14.0</a>。</li>
+</ol>
+<h2 id="其他依赖包">其他依赖包</h2>
+<ol>
+<li>
+<p>catkin_simple</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> yourfolder/catkin_ws/src<br>git <span class="hljs-built_in">clone</span> https://github.com/catkin/catkin_simple.git<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>matplotlib-cpp</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> yourfolder/catkin_ws/src/CeleX5-ROS/celex5_calibration/third_party<br>git <span class="hljs-built_in">clone</span> https://github.com/lava/matplotlib-cpp.git<br></code></pre></td></tr></table></figure>
+</li>
+<li></li>
+</ol>
+<h2 id="2-构建">2. 构建</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> ~/catkin_ws/src<br>git <span class="hljs-built_in">clone</span> https://github.com/robin-shaun/event-slam-accumulator-settings.git<br><span class="hljs-built_in">cd</span> ../<br>catkin_make <span class="hljs-comment"># 或 catkin build</span><br><span class="hljs-built_in">source</span> ~/catkin_ws/devel/setup.bash<br></code></pre></td></tr></table></figure>
+<p>报错：</p>
+<ol>
+<li>
+<p><code>catkin build celex5_calibration</code>. /opt/Qt5.9.9/5.9.9/gcc_64/lib/libQt5Test.so.5：对‘operator delete(void*, unsigned long)@Qt_5’未定义的引用.</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/ros-industrial/ros_qtc_plugin/issues/117">https://github.com/ros-industrial/ros_qtc_plugin/issues/117</a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment">#  ln [OPTION]... [-T] TARGET LINK_NAME</span><br><span class="hljs-comment"># 在指定的目录下，创建一个名为 LINK_NAME 的硬链接或符号链接，指向名为 TARGET 的文件或目录。</span><br><br><span class="hljs-comment"># 有用</span><br>catkin build celex5_calibration  <span class="hljs-comment"># test</span><br><br><span class="hljs-built_in">cd</span> /opt/Qt5.9.9/5.9.9/gcc_64/lib<br>ll libQt5Test.so.5<br><span class="hljs-comment"># libQt5Test.so.5 -&gt; libQt5Test.so.5.9.9（都在当前目录）</span><br><span class="hljs-built_in">cd</span> /usr/lib/x86_64-linux-gnu<br>ll libQt5Test.so.5<br><span class="hljs-comment"># libQt5Test.so.5 -&gt; libQt5Test.so.5.9.5（都在当前目录）</span><br><span class="hljs-comment"># 修改/opt/Qt5.9.9/5.9.9/gcc_64/lib/libQt5Test.so.5 -&gt; /opt/Qt5.9.9/5.9.9/gcc_64/lib/libQt5Test.so.5</span><br><span class="hljs-built_in">cd</span> /opt/Qt5.9.9/5.9.9/gcc_64/lib<br><span class="hljs-built_in">cp</span> libQt5Test.so.5 /yourfloder/backup/lntest<br>sudo <span class="hljs-built_in">rm</span> libQt5Test.so.5<br>sudo <span class="hljs-built_in">ln</span> -s /usr/lib/x86_64-linux-gnu/libQt5Test.so.5 /opt/Qt5.9.9/5.9.9/gcc_64/lib/libQt5Test.so.5<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>/opt/Qt5.9.9/5.9.9/gcc_64/lib/libQt5OpenGL.so.5：对‘operator delete(void*, unsigned long)@Qt_5’未定义的引用.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs bash">catkin build celex5_calibration  <span class="hljs-comment"># test</span><br><br><span class="hljs-built_in">cd</span> /opt/Qt5.9.9/5.9.9/gcc_64/lib<br>ll libQt5OpenGL.so.5<br><span class="hljs-comment"># libQt5OpenGL.so.5 -&gt; libQt5OpenGL.so.5.9.9（都在当前目录）</span><br><span class="hljs-built_in">cd</span> /usr/lib/x86_64-linux-gnu<br>ll libQt5OpenGL.so.5<br><span class="hljs-comment"># libQt5OpenGL.so.5 -&gt; libQt5OpenGL.so.5.9.5（都在当前目录）</span><br><span class="hljs-comment"># 修改/opt/Qt5.9.9/5.9.9/gcc_64/lib/libQt5OpenGL.so.5.9.5 -&gt; /opt/Qt5.9.9/5.9.9/gcc_64/lib/libQt5OpenGL.so.5.9.5</span><br><span class="hljs-built_in">cd</span> /opt/Qt5.9.9/5.9.9/gcc_64/lib<br><span class="hljs-built_in">cp</span> libQt5OpenGL.so.5 /yourfloder/backup/lntest<br>sudo <span class="hljs-built_in">rm</span> libQt5OpenGL.so.5<br>sudo <span class="hljs-built_in">ln</span> -s /usr/lib/x86_64-linux-gnu/libQt5OpenGL.so.5 /opt/Qt5.9.9/5.9.9/gcc_64/lib/libQt5OpenGL.so.5<br></code></pre></td></tr></table></figure>
+</li>
+<li></li>
+</ol>
+<h2 id="3-演示">3. 演示</h2>
+<p>我们在<a target="_blank" rel="noopener" href="http://rpg.ifi.uzh.ch/davis_data.html">事件相机数据集</a>上定量评估了所提出的方法。此演示以<a target="_blank" rel="noopener" href="http://rpg.ifi.uzh.ch/datasets/davis/dynamic_6dof.bag">dynamic_6dof</a>序列为例。</p>
+<p>首先，启动dv_ros。注意，事件累加器依赖于时间戳，因此当您重新开始数据集或davis驱动程序时，您应该重新启动dv_ros。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">source</span> ./devel/setup.zsh &amp;&amp; roslaunch dv_ros davis240.launch<br></code></pre></td></tr></table></figure>
+<p>然后，启动VINS-Fusion</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">source</span> ./devel/setup.zsh &amp;&amp;  roslaunch vins vins_rviz.launch<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">source</span> ./devel/setup.zsh &amp;&amp;  rosrun vins vins_node ./src/VINS-Fusion/config/davis/rpg_240_mono_imu_config.yaml<br></code></pre></td></tr></table></figure>
+<p>最后，播放rosbag</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> ~/catkin_ws/src/event-slam-accumulator-settings/dataset<br>rosbag play dynamic_6dof.bag<br><span class="hljs-comment"># rosbag play /media/lll25655/Data/LLL25655/Documents/Dataset/UltimateSLAM/dynamic_6dof.bag</span><br></code></pre></td></tr></table></figure>
+<p>注意，默认的VINS-Fusion频率与事件帧频率相同，为30 Hz。如果您的CPU不够强大，也许您应该在此<a href="VINS-Fusion/vins_estimator/src/estimator/estimator.cpp">文件</a>中将其减少到15 Hz，通过取消注释代码。然而，这也会降低性能。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-comment">// if(inputImageCnt % 2 == 0)</span><br><span class="hljs-comment">// &#123;</span><br>    mBuf.<span class="hljs-built_in">lock</span>();<br>    featureBuf.<span class="hljs-built_in">push</span>(<span class="hljs-built_in">make_pair</span>(t, featureFrame));<br>    mBuf.<span class="hljs-built_in">unlock</span>();<br><span class="hljs-comment">// &#125;</span><br></code></pre></td></tr></table></figure>
+<h2 id="4-使用您的设备运行">4. 使用您的设备运行</h2>
+<p>我们已经用DAVIS240和DAVIS346测试了代码。如果您想用您的设备运行，您应该使用<a target="_blank" rel="noopener" href="https://github.com/ethz-asl/kalibr">rpg_dvs_ros</a>。最重要的事情是校准事件相机和imu。我们建议使用<a target="_blank" rel="noopener" href="https://github.com/ethz-asl/kalibr">Kalibr</a>和传统的APS和IMU图片，因为APS和DVS的内参和外参几乎相同。</p>
+<p>如果您想将基于事件的VINS Fusion与DAVIS346的传统VINS Fusion进行比较，您应该使用这份代码。因为DAVIS346的APS帧有时会改变大小，我们对VINS-Fusion进行了一些修改。</p>
+<h2 id="5-使用ORBSLAM3进行双目视觉SLAM运行">5. 使用ORBSLAM3进行双目视觉SLAM运行</h2>
+<p>论文中未介绍基于事件帧的双目视觉SLAM。我们使用<a target="_blank" rel="noopener" href="https://github.com/UZ-SLAMLab/ORB_SLAM3">ORBSLAM3</a>来处理来自dv_ros的事件帧。数据集为<a target="_blank" rel="noopener" href="https://rpg.ifi.uzh.ch/ECCV18_stereo_davis.html">双目DAVIS数据集</a>。结果表明，所提出的方法通过计算绝对轨迹误差（RMS，单位：cm），使用<a target="_blank" rel="noopener" href="https://github.com/MichaelGrupp/evo">odometry 和SLAM评估的Python包</a>，性能优于<a target="_blank" rel="noopener" href="https://github.com/HKUST-Aerial-Robotics/ESVO">ESVO</a>。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">序列</th>
+<th style="text-align:center">所提出的方法</th>
+<th style="text-align:center">ESVO</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">monitor</td>
+<td style="text-align:center">1.49</td>
+<td style="text-align:center">3.3</td>
+</tr>
+<tr>
+<td style="text-align:center">bin</td>
+<td style="text-align:center">2.66</td>
+<td style="text-align:center">2.8</td>
+</tr>
+<tr>
+<td style="text-align:center">box</td>
+<td style="text-align:center">3.51</td>
+<td style="text-align:center">5.8</td>
+</tr>
+<tr>
+<td style="text-align:center">desk</td>
+<td style="text-align:center">3.14</td>
+<td style="text-align:center">3.2</td>
+</tr>
+</tbody>
+</table>
+<p>事件窗口大小：15000, 事件贡献：0.33</p>
+<p>首先根据<a href="ORB_SLAM3/README.md">此处</a>指示，将ORBSLAM3与ROS一起编译。然后您可以使用此<a href="ORB_SLAM3/davis240_run_orbslam_stereo.sh">脚本</a>运行ORBSLAM3，该脚本订阅事件帧并发布估算的位置（我们对ORBSLAM3进行了小幅修改，以发布估算的位置）。</p>
+<h2 id="6-评估结果">6. 评估结果</h2>
+<p>我们修改了<a target="_blank" rel="noopener" href="https://github.com/uzh-rpg/rpg_trajectory_evaluation">rpg_trajectory_evaluation</a>以在终端打印平均位置误差和平均偏航误差。您可以通过以下方式评估论文中展示的结果</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs vim"><span class="hljs-keyword">python</span> analyze_trajectory_single.<span class="hljs-keyword">py</span> ../results/boxes_6dof<br></code></pre></td></tr></table></figure>
+<h2 id="7-致谢">7. 致谢</h2>
+<p>感谢<a target="_blank" rel="noopener" href="https://github.com/kehanXue/dv_ros">dv_ros</a>和我们使用的所有开源项目。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E4%BA%8B%E4%BB%B6%E7%9B%B8%E6%9C%BA/" class="category-chain-item">事件相机</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>EventAccumulator编译运行调试记录</div>
+      <div>http://zeyulong.com/posts/827160f0/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>龙泽雨</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年2月7日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/posts/60c04195/" title="Ceres-Solver的安装与卸载">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Ceres-Solver的安装与卸载</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/ad29da53/" title="系统配置与软件安装[持续更新……]">
+                        <span class="hidden-mobile">系统配置与软件安装[持续更新……]</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="waline"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#waline', function() {
+      Fluid.utils.createCssLink('https://cdn.staticfile.org/waline/2.15.5/waline.min.css')
+      Fluid.utils.createScript('https://cdn.staticfile.org/waline/2.15.5/waline.min.js', function() {
+        var options = Object.assign(
+          {"serverURL":"https://www.zeyulong.cn/","path":"window.location.pathname","meta":["nick","mail","link"],"requiredMeta":["nick"],"lang":"zh-CN","emoji":["https://cdn.jsdelivr.net/gh/walinejs/emojis/weibo"],"dark":"html[data-user-color-scheme=\"dark\"]","wordLimit":0,"pageSize":10,"reaction":true,"locale":{"placeholder":"花径不曾缘客扫，蓬门今始为君开。"}},
+          {
+            el: '#waline',
+            path: window.location.pathname
+          }
+        )
+        Waline.init(options);
+        Fluid.utils.waitElementVisible('#waline .vcontent', () => {
+          var imgSelector = '#waline .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> <div style="font-size: 0.85rem"> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/custom/RunTime/RunTime.js"></script> </div> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  
+<script src="/custom/live2d/live2d-widget/autoload.js"></script>
+<script src="/custom/live2d/jquery.min.js"></script>
+<script src="/custom/LabelPage/LabelPage.js"></script>
+<script src="/custom/LoadingBar/pace.min.js"></script>
+<script src="/custom/ReadingProgress/ReadingProgress.js"></script>
+<script src="/custom/typing-effect/typing-effect.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  <canvas
+    class="fireworks"
+    style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 32767"
+></canvas>
+<script type="text/javascript" src="/custom/fireworks/anime.min.js"></script> 
+<script type="text/javascript" src="/custom/fireworks/fireworks.js"></script>
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

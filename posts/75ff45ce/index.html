@@ -1,0 +1,977 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" >
+
+
+
+<head><!-- hexo injector head_begin start --><progress id="content_progress" value="0"></progress><!-- hexo injector head_begin end -->
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/theme/TamakoAvatar-new-zip.png">
+  <link rel="icon" href="/img/theme/TamakoAvatar-new-zip.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#000000">
+  <meta name="author" content="龙泽雨">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="本文主要分享了在Linux下OpenCV库的安装与版本管理。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OpenCV的安装与版本管理">
+<meta property="og:url" content="http://zeyulong.com/posts/75ff45ce/index.html">
+<meta property="og:site_name" content="龙泽雨的博客">
+<meta property="og:description" content="本文主要分享了在Linux下OpenCV库的安装与版本管理。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://zeyulong.com/posts/75ff45ce/cv_bridge%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E4%BF%AE%E6%94%B9-opencv%E5%A4%B4%E6%96%87%E4%BB%B6%E4%BF%AE%E6%94%B9-1704896294456-1.png">
+<meta property="og:image" content="http://zeyulong.com/posts/75ff45ce/cv_bridge%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E4%BF%AE%E6%94%B9-opencv%E5%BA%93%E6%96%87%E4%BB%B6%E4%BF%AE%E6%94%B9-1704896294456-6.png">
+<meta property="og:image" content="http://zeyulong.com/posts/75ff45ce/opencv%E5%BA%93%E6%96%87%E4%BB%B6%E7%A4%BA%E4%BE%8B-1704896294456-3.png">
+<meta property="og:image" content="http://zeyulong.com/posts/75ff45ce/CMakeLists%E6%96%87%E4%BB%B6%E5%8A%A0%E5%85%A5cv_bridge-1704896294456-2.png">
+<meta property="og:image" content="http://zeyulong.com/posts/75ff45ce/%E4%BF%AE%E6%94%B9cv_bridge-extras%E6%96%87%E4%BB%B6-1704896294456-4.png">
+<meta property="og:image" content="http://zeyulong.com/posts/75ff45ce/OpencvConfig%E7%9A%84%E6%96%87%E4%BB%B6%E4%BF%A1%E6%81%AF-1704896294456-5.png">
+<meta property="og:image" content="http://zeyulong.com/posts/75ff45ce/%E5%9C%A8cv_bridge%E4%B8%AD%E5%AF%BC%E5%85%A5OpenCV%E7%9A%84%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6-1-1704896294456-7.png">
+<meta property="og:image" content="http://zeyulong.com/posts/75ff45ce/%E5%9C%A8cv_bridge%E4%B8%AD%E5%AF%BC%E5%85%A5OpenCV%E7%9A%84%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6-2-1704896294456-8.png">
+<meta property="og:image" content="http://zeyulong.com/posts/75ff45ce/%E5%9C%A8cv_bridge%E4%B8%AD%E5%AF%BC%E5%85%A5OpenCV%E7%9A%84%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6-3-1704896294456-9.png">
+<meta property="article:published_time" content="2024-01-10T14:06:09.000Z">
+<meta property="article:modified_time" content="2024-10-14T07:48:40.500Z">
+<meta property="article:author" content="龙泽雨">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://zeyulong.com/posts/75ff45ce/cv_bridge%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E4%BF%AE%E6%94%B9-opencv%E5%A4%B4%E6%96%87%E4%BB%B6%E4%BF%AE%E6%94%B9-1704896294456-1.png">
+  
+  
+  
+  <title>OpenCV的安装与版本管理 - 龙泽雨的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/custom/Markdown/macpanel.css">
+<link rel="stylesheet" href="/custom/Fonts/CodeFont.css">
+<link rel="stylesheet" href="/custom/Fonts/inlinecode-bg-color.css">
+<link rel="stylesheet" href="/custom/live2d/font-awesome.min.css">
+<link rel="stylesheet" href="/custom/LoadingBar/pace-theme-corner-indicator.css">
+<link rel="stylesheet" href="/custom/ReadingProgress/ReadingProgress.css">
+<link rel="stylesheet" href="/custom/SelectBackgroundColor/SelectBackgroundColor.css">
+<link rel="stylesheet" href="/custom/waline/gif.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"zeyulong.com","root":"/","version":"1.9.7","typing":{"enable":false,"typeSpeed":100,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"8gUBTaCjmaSbnf4genwggan3-MdYXbMMI","app_key":"2WRxjgxRXIWRBo8EA4205Wfm","server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<!-- hexo injector head_end start --><link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@200;300;400;500;600;700;900&display=swap" rel="stylesheet"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.0.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Happy every day!</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-steam"></i>
+                <span>摸鱼</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/2048" target="_self">
+                    
+                    <span>2048</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/bcbk/1" target="_self">
+                    
+                    <span>别踩白块-1</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/bcbk/2" target="_self">
+                    
+                    <span>别踩白块-2</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/dblk" target="_self">
+                    
+                    <span>躲避绿块</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/dr" target="_self">
+                    
+                    <span>恐龙快跑</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://mario-kart-3-js.vercel.app/" target="_self">
+                    
+                    <span>马里奥赛车</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/mf" target="_self">
+                    
+                    <span>魔方</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/cat" target="_self">
+                    
+                    <span>圈小猫</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/sl" target="_self">
+                    
+                    <span>扫雷</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/txz" target="_self">
+                    
+                    <span>推箱子</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/wzq" target="_self">
+                    
+                    <span>五子棋</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/theme/GirlWithCat-cut.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle">OpenCV的安装与版本管理</span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        龙泽雨
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-01-10 22:06" pubdate>
+          2024年1月10日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.8k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          24 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">OpenCV的安装与版本管理</h1>
+            
+              <p id="updated-time" class="note note-info" style="">
+                
+                  
+                    本文最后更新于 2024年10月14日 下午
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <p>本文主要分享了在Linux下OpenCV库的安装与版本管理。</p>
+<span id="more"></span>
+<h1 id="安装">安装</h1>
+<h2 id="1-安装依赖">1. 安装依赖</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 安装依赖</span><br>sudo apt-get -y install libopencv-dev build-essential cmake git libgtk2.0-dev libtiff5-dev<br>sudo apt-get -y install pkg-config python-dev python-numpy libdc1394-22 libdc1394-22-dev<br>sudo apt-get -y install libtheora-dev libvorbis-dev libxvidcore-dev x264 v4l-utils unzip<br>sudo apt-get -y install libqt4-dev libfaac-dev libmp3lame-dev libopencore-amrnb-dev libopencore-amrwb-dev<br>sudo apt-get -y install libswscale-dev libgstreamer0.10-dev libgstreamer-plugins-base0.10-dev libv4l-dev libtbb-dev <br>sudo apt-get -y install libjpeg-dev libpng12-dev libjasper-dev libavcodec-dev libavformat-dev <br></code></pre></td></tr></table></figure>
+<h2 id="2-新建文件夹">2. 新建文件夹</h2>
+<p>下载地址：<a target="_blank" rel="noopener" href="https://opencv.org/releases/">https://opencv.org/releases/</a></p>
+<p>点击<code>Sources</code>进行下载自己需要的版本。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">mkdir</span> opencv  <span class="hljs-comment"># 创建新的文件夹作为OpenCV的目录</span><br><span class="hljs-built_in">cd</span> opencv  <span class="hljs-comment"># 将路径转到OpenCV的目录</span><br><span class="hljs-comment"># 下载OpenCV的安装包</span><br>wget https://github.com/Itseez/opencv/archive/3.2.0.zip -O opencv-3.2.0.zip  <span class="hljs-comment"># 此处3.2.0可换成任意自己需要的版本即可直接下载相应版本</span><br>unzip opencv-3.2.0.zip  <span class="hljs-comment"># 解压OpenCV的安装包</span><br><span class="hljs-built_in">cd</span> opencv-3.2.0  <span class="hljs-comment"># 将路径转到opencv-3.2.0的目录</span><br><span class="hljs-built_in">mkdir</span> build  <span class="hljs-comment"># 创建build文件夹</span><br><span class="hljs-built_in">cd</span> build  <span class="hljs-comment"># 将路径转到build文件夹</span><br></code></pre></td></tr></table></figure>
+<h2 id="3-编译安装">3. 编译安装</h2>
+<h3 id="编译安装流程">编译安装流程</h3>
+<blockquote>
+<p>假设我们已经安装好一版OpenCV，一般都默认安装在<code>/usr/local</code>下。如果需要安装另一个版本的OpenCV，就不能再安装到<code>/usr/local</code>，而是选择其他路径，否则会覆盖掉之前的版本。</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 运行cmake，注意CMAKE_INSTALL_PREFIX的路径选择</span><br>sudo cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/usr/local -D WITH_TBB=ON -D WITH_V4L=ON -D WITH_QT=ON -D WITH_OPENGL=ON ..<br><span class="hljs-comment"># 在已有opencv3.1.0安装在/usr/local/路径下的前提下，我选择将opencv3.4.5安装在/usr/local/opencv/opencv345/路径下</span><br>sudo cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/usr/local/opencv/opencv345 -D WITH_TBB=ON -D WITH_V4L=ON -D WITH_QT=ON -D WITH_OPENGL=ON ..<br><br>sudo cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/usr/local/opencv/opencv452 -D WITH_TBB=ON -D WITH_V4L=ON -D WITH_QT=ON -D WITH_OPENGL=ON ..<br><span class="hljs-comment"># 建议在make之前先查看CPU的核心数</span><br><span class="hljs-built_in">nproc</span>  <span class="hljs-comment"># 你可以根据你的核心数来调整make指令的参数，比如笔者的CPU核心数为12，则可以执行：</span><br><span class="hljs-comment"># make -j12</span><br><br>sudo make -j8  <span class="hljs-comment"># 运行make</span><br>sudo make install  <span class="hljs-comment"># 运行install</span><br></code></pre></td></tr></table></figure>
+<h3 id="报错处理">报错处理</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo make distclean  <span class="hljs-comment"># 清除上一次make以及configure命令生成的文件</span><br>sudo make clean  <span class="hljs-comment"># 清除上一次make命令生成的文件</span><br><span class="hljs-built_in">cd</span> ..  <span class="hljs-comment"># 退出build文件夹</span><br>sudo <span class="hljs-built_in">rm</span> -r build/  <span class="hljs-comment"># 删除build文件夹，解决报错后重来一遍。</span><br></code></pre></td></tr></table></figure>
+<h4 id="3-1-0">3.1.0</h4>
+<ol>
+<li>
+<p>icv_add_video_stream_FFMPEG</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">// 在opencv-3.2.0/modules/videoio/src/cap_ffmpeg_impl.hpp 里最顶端添加：</span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> AV_CODEC_FLAG_GLOBAL_HEADER (1 &lt;&lt; 22)</span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> CODEC_FLAG_GLOBAL_HEADER AV_CODEC_FLAG_GLOBAL_HEADER</span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> AVFMT_RAWPICTURE 0x0020</span><br></code></pre></td></tr></table></figure>
+</li>
+<li></li>
+</ol>
+<h4 id="3-2-0">3.2.0</h4>
+<ol>
+<li>
+<p>/usr/include/c++/5/bits/c<ins>0x_warning.h:32:2: error: #error This file requires compiler and library support for the ISO C</ins> 2011 standard.</p>
+<p>在根目录的<code>CmakeLists.txt</code>开头加上一句：</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmake"><span class="hljs-keyword">add_definitions</span>(-std=c++<span class="hljs-number">11</span>)<br></code></pre></td></tr></table></figure>
+</li>
+<li></li>
+</ol>
+<h2 id="4-环境变量配置">4. 环境变量配置</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo gedit /etc/ld.so.conf.d/opencv.conf <br><span class="hljs-comment"># 执行命令后打开的可能是一个空白的文件，直接添加上下面这句代码：</span><br>	/usr/local/lib  <span class="hljs-comment"># /usr/local/opencv/opencv345/lib</span><br>	<span class="hljs-comment"># 其中/usr/local是opencv安装路径也就是makefile中指定的安装路径。</span><br>sudo ldconfig  <span class="hljs-comment"># 运行配置</span><br><br>sudo gedit /etc/ld.so.conf<br><span class="hljs-comment"># 在文件中加上一行 </span><br>	include /usr/local/lib  <span class="hljs-comment"># include /usr/local/opencv/opencv345/lib</span><br>	<span class="hljs-comment"># 其中/usr/local是opencv安装路径也就是makefile中指定的安装路径。</span><br>sudo ldconfig  <span class="hljs-comment"># 运行配置</span><br><br>sudo gedit /etc/bash.bashrc <br><span class="hljs-comment"># 在文件末尾加入：</span><br>    <span class="hljs-built_in">export</span> PKG_CONFIG_PATH=<span class="hljs-variable">$PKG_CONFIG_PATH</span>:/usr/local/lib/pkgconfig<br>    <span class="hljs-built_in">export</span> LD_LIBRARY_PATH=<span class="hljs-variable">$LD_LIBRARY_PATH</span>:/usr/local/lib<br>    <span class="hljs-comment"># 或</span><br>    <span class="hljs-built_in">export</span> PKG_CONFIG_PATH=<span class="hljs-variable">$PKG_CONFIG_PATH</span>:/usr/local/opencv/opencv345/lib/pkgconfig<br>    <span class="hljs-built_in">export</span> LD_LIBRARY_PATH=<span class="hljs-variable">$LD_LIBRARY_PATH</span>:/usr/local/opencv/opencv345/lib<br><span class="hljs-comment"># 如果命令行解释器Shell不是bash</span><br><span class="hljs-built_in">exec</span> bash  <span class="hljs-comment"># 将命令行从zsh切换为bash</span><br><span class="hljs-built_in">source</span> /etc/bash.bashrc<br><span class="hljs-built_in">exec</span> zsh  <span class="hljs-comment"># 重新运行zsh命令行工具</span><br>sudo updatedb  <span class="hljs-comment"># 更新数据库</span><br><span class="hljs-comment"># Reboot your machine and run following command to check installed version</span><br></code></pre></td></tr></table></figure>
+<p>也可以直接修改<code>~/.bashrc</code>或者<code>~/.zshrc</code>（用哪个终端就改哪个）？值得一试：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo gedit ~/.bashrc<br><span class="hljs-comment"># 或</span><br>sudo gedit ~/.zshrc<br><br><span class="hljs-comment">#OpenCV 3.4.5</span><br><span class="hljs-built_in">export</span> PKG_CONFIG_PATH=<span class="hljs-variable">$PKG_CONFIG_PATH</span>:/usr/local/opencv/opencv345/lib/pkgconfig<br><span class="hljs-built_in">export</span> LD_LIBRARY_PATH=<span class="hljs-variable">$LD_LIBRARY_PATH</span>:/usr/local/opencv/opencv345/lib<br><br><span class="hljs-built_in">source</span> ~/.bashrc<br><span class="hljs-comment"># 或</span><br><span class="hljs-built_in">source</span> ~/.zshrc<br></code></pre></td></tr></table></figure>
+<p>我是都用了，反正只要路径设置正确，就算重复覆盖额外多余了，不会报错就行。</p>
+<h2 id="5-多版本共存">5. 多版本共存</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo gedit /etc/bash.bashrc<br><span class="hljs-comment"># 或 取决于下面的语句你是放在哪里的</span><br>sudo gedit ~/.bashrc<br><br><span class="hljs-comment"># 注释掉其他版本，仅保留你现在想要用的版本即可。</span><br><span class="hljs-comment">#OpenCV_4.2.0</span><br><span class="hljs-comment">#export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:/usr/local/opencv_4.2.0/lib/pkgconfig</span><br><span class="hljs-comment">#export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/opencv_4.2.0/lib</span><br><br><span class="hljs-comment">#OpenCV_3.4.6</span><br><span class="hljs-comment">#export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:/usr/local/opencv_3.4.6/lib/pkgconfig</span><br><span class="hljs-comment">#export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/opencv_3.4.6/lib</span><br><br><span class="hljs-comment">#OpenCV_2.4.9</span><br><span class="hljs-comment">#export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:/usr/local/opencv_2.4.9/lib/pkgconfig</span><br><span class="hljs-comment">#export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/opencv_2.4.9/lib</span><br><br><span class="hljs-built_in">source</span> ~/.bashrc<br></code></pre></td></tr></table></figure>
+<h2 id="6-安装检查">6. 安装检查</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">pkg-config --modversion opencv  <span class="hljs-comment"># 查询版本</span><br>pkg-config --cflags opencv  <span class="hljs-comment"># 得到opencv的安装路径</span><br><span class="hljs-comment"># -&gt; -I/usr/local/include/opencv -I/usr/local/include</span><br>pkg-config --cflags opencv4  <span class="hljs-comment"># 附加：得到opencv4的安装路径</span><br></code></pre></td></tr></table></figure>
+<h2 id="7-验证配置结果">7. 验证配置结果</h2>
+<p>任意目录创建一个<code>test.cpp</code>文件，写入如下内容：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;opencv.hpp&quot;</span></span><br><span class="hljs-comment">// 如果报错 fatal error: opencv.hpp: 没有那个文件或目录</span><br><span class="hljs-comment">// 则改为 #include &lt;opencv2/opencv.hpp&gt;</span><br> <br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> cv;<br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br> <br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">( <span class="hljs-type">int</span> argc, <span class="hljs-type">char</span>** argv )</span></span><br><span class="hljs-function"></span>&#123;<br>  cout &lt;&lt; <span class="hljs-string">&quot;OpenCV version : &quot;</span> &lt;&lt; CV_VERSION &lt;&lt; endl;<br>  cout &lt;&lt; <span class="hljs-string">&quot;Major version : &quot;</span> &lt;&lt; CV_MAJOR_VERSION &lt;&lt; endl;<br>  cout &lt;&lt; <span class="hljs-string">&quot;Minor version : &quot;</span> &lt;&lt; CV_MINOR_VERSION &lt;&lt; endl;<br>  cout &lt;&lt; <span class="hljs-string">&quot;Subminor version : &quot;</span> &lt;&lt; CV_SUBMINOR_VERSION &lt;&lt; endl;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>使用命令行在其文件夹下执行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 编译test.cpp程序，并生成可执行文件</span><br>g++ -std=c++11 test.cpp <span class="hljs-string">&#x27;pkg-config --libs --cflags opencv4&#x27;</span> -o result<br><br><span class="hljs-comment"># 执行可执行文件</span><br>./result<br></code></pre></td></tr></table></figure>
+<p>我这么做会报错，所以，自己在这里是在根目录下新建文件<code>CMakeLists.txt</code>，写入以下内容：</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs cmake"><span class="hljs-keyword">cmake_minimum_required</span>(VERSION <span class="hljs-number">2.8</span>) <br><span class="hljs-comment"># 指定OpenCVConfig.cmake文件的目录</span><br><span class="hljs-keyword">set</span>(OpenCV_DIR /usr/local/opencv/opencv345/share/OpenCV)<br><span class="hljs-keyword">project</span>(<span class="hljs-keyword">test</span>)<br><span class="hljs-comment"># 用find package指令找到OpenCV包</span><br><span class="hljs-keyword">find_package</span>(OpenCV REQUIRED)<br><span class="hljs-comment"># 指定OpenCV的头文件目录</span><br><span class="hljs-keyword">include_directories</span>(<span class="hljs-variable">$&#123;OpenCV_INCLUDE_DIRS&#125;</span>)<br><br><span class="hljs-keyword">add_executable</span>(<span class="hljs-keyword">test</span> <span class="hljs-keyword">test</span>.cpp)<br><span class="hljs-comment"># 将编译生成的文件与OpenCV的动态库/静态库进行链接3</span><br><span class="hljs-keyword">target_link_libraries</span>(<span class="hljs-keyword">test</span> <span class="hljs-variable">$&#123;OpenCV_LIBS&#125;</span>)<br><br><span class="hljs-comment"># 打印OpenCV的信息</span><br><span class="hljs-keyword">message</span>(STATUS <span class="hljs-string">&quot;opencv version: $&#123;OpenCV_VERSION&#125;&quot;</span>)<br><span class="hljs-keyword">message</span>(STATUS <span class="hljs-string">&quot;opencv lib: $&#123;OpenCV_LIBS&#125;&quot;</span>)<br><span class="hljs-keyword">message</span>(STATUS <span class="hljs-string">&quot;opencv include dir: $&#123;OpenCV_INCLUDE_DIRS&#125;&quot;</span>)<br><span class="hljs-keyword">message</span>(STATUS <span class="hljs-string">&quot;opencv config path: $[openCV_CONFIG_PATH&#125;&quot;</span>)<br></code></pre></td></tr></table></figure>
+<p>开始编译：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">mkdir</span> build<br><span class="hljs-built_in">cd</span> build<br>cmake ..<br>make -j8<br>./test<br></code></pre></td></tr></table></figure>
+<p>输出以下内容，即表明配置成功：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">OpenCV version : 3.4.5<br>Major version : 3<br>Minor version : 4<br>Subminor version : 5<br></code></pre></td></tr></table></figure>
+<h1 id="版本管理">版本管理</h1>
+<h3 id="方法1-去掉cv-bridge，自行在CMakeLists-txt文件里指定OpenCV的路径">方法1. 去掉cv_bridge，自行在CMakeLists.txt文件里指定OpenCV的路径</h3>
+<p>首先进行第一章<code>安装</code>的第4、5步。</p>
+<p>后，编辑<code>CMakeLists.txt</code>文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 指定OpenCVConfig.cmake文件的目录</span><br><span class="hljs-comment"># 注意opencv安装目录下的/share/OpenCV</span><br><span class="hljs-built_in">set</span>(OpenCV_DIR /usr/local/share/OpenCV)  <span class="hljs-comment"># 默认安装在/usr/local/</span><br><span class="hljs-built_in">set</span>(OpenCV_DIR /usr/local/opencv/opencv345/share/OpenCV)  <span class="hljs-comment"># 自定义安装在/usr/local/opencv/opencv345的openv3.4.5</span><br><span class="hljs-built_in">set</span>(OpenCV_DIR /usr/local/opencv/opencv452/lib/cmake/opencv4)<br><span class="hljs-comment"># set(OpenCV_DIR /opt/ros/kinetic/share/OpenCV-3.3.1-dev)</span><br><span class="hljs-comment"># set（OpenCV_DIR  /path/to/opencv/build）</span><br><br><span class="hljs-comment"># 用find package指令找到指定路径的OpenCV包</span><br>find_package(OpenCV REQUIRED)<br><span class="hljs-comment"># 指定OpenCV的头文件目录</span><br>include_directories(<br>  ......<br>  <span class="hljs-variable">$&#123;OpenCV_INCLUDE_DIRS&#125;</span><br>  ......<br>)<br><span class="hljs-comment"># include_directories($&#123;catkin_INCLUDE_DIRS&#125; $&#123;OpenCV_INCLUDE_DIRS&#125;)</span><br><br><span class="hljs-comment"># 将编译生成的文件与OpenCV的动态库/静态库进行链接</span><br>target_link_libraries(<br>   ......<br>   <span class="hljs-variable">$&#123;OpenCV_LIBS&#125;</span><br>   ......<br>)<br><br><span class="hljs-comment"># 打印OpenCV的信息</span><br>message(STATUS <span class="hljs-string">&quot;opencv version: <span class="hljs-variable">$&#123;OpenCV_VERSION&#125;</span>&quot;</span>)<br>message(STATUS <span class="hljs-string">&quot;opencv lib: <span class="hljs-variable">$&#123;OpenCV_LIBS&#125;</span>&quot;</span>)<br>message(STATUS <span class="hljs-string">&quot;opencv include dir: <span class="hljs-variable">$&#123;OpenCV_INCLUDE_DIRS&#125;</span>&quot;</span>)<br>message(STATUS <span class="hljs-string">&quot;opencv config path: $[openCV_CONFIG_PATH&#125;&quot;</span>)<br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>如果编译时出现类似“<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/43577496/build-error-undefined-reference-to-cv-bridgecvimagetoimagemsg-const">Build error : undefined reference to cv_bridge::CvImage::toImageMsg() const</a>”问题，可以尝试加入<code>cv_bridge</code>:</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs cmake"><span class="hljs-keyword">find_package</span>(catkin REQUIRED COMPONENTS<br>  cv_bridge<br>)<br></code></pre></td></tr></table></figure>
+</blockquote>
+<h3 id="方法2-对于ROS编译，可以修改cv-bridge的配置文件，使得cv-bridge去调用我们自己安装的OpenCV版本">方法2. 对于ROS编译，可以修改cv_bridge的配置文件，使得cv_bridge去调用我们自己安装的OpenCV版本</h3>
+<p>首先进行第一章<code>安装</code>的第4、5步。</p>
+<p>后，编辑<code>CMakeLists.txt</code>文件：</p>
+<ol>
+<li>
+<p>首先打开终端并进入cv_bridge配置文件所在目录，并用gedit指令打开该配置文件。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># cd /opt/ros/kinetic/share/cv_bridge/cmake/</span><br><span class="hljs-built_in">cd</span> /opt/ros/melodic/share/cv_bridge/cmake/<br>sudo gedit cv_bridgeConfig.cmake<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>然后按ctrl+f，输入关键词include找到以下内容并按图中的方式进行修改。Line 96左右。</p>
+<img src="/posts/75ff45ce/cv_bridge%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E4%BF%AE%E6%94%B9-opencv%E5%A4%B4%E6%96%87%E4%BB%B6%E4%BF%AE%E6%94%B9-1704896294456-1.png" srcset="/img/loading.gif" lazyload class="" title="cv_bridge配置文件修改-opencv头文件修改">
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs cmake"><span class="hljs-keyword">set</span>(_include_dirs <span class="hljs-string">&quot;include;/usr/local/opencv/opencv345/include/opencv2;/usr/local/opencv/opencv345/include/opencv;/usr/local/opencv/opencv345/include;/usr/include&quot;</span>)<br><span class="hljs-keyword">set</span>(_include_dirs <span class="hljs-string">&quot;include;/usr/local/opencv/opencv320/include/opencv2;/usr/local/opencv/opencv320/include/opencv;/usr/local/opencv/opencv320/include;/usr/include&quot;</span>)<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>将默认的OpenCV头文件目录替换后，再按ctrl+f并输入关键词libraries可以找到下图的区域，我们将其库文件也进行替换。Line 120左右。</p>
+<img src="/posts/75ff45ce/cv_bridge%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E4%BF%AE%E6%94%B9-opencv%E5%BA%93%E6%96%87%E4%BB%B6%E4%BF%AE%E6%94%B9-1704896294456-6.png" srcset="/img/loading.gif" lazyload class="" title="cv_bridge配置文件修改-opencv库文件修改">
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs cmake"><span class="hljs-keyword">set</span>(libraries <span class="hljs-string">&quot;cv_bridge;/usr/local/opencv/opencv345/lib/libopencv_core.so.3.4.5;/usr/local/opencv/opencv345/lib/libopencv_imgproc.so.3.4.5;/usr/local/opencv/opencv345/lib/libopencv_imgcodecs.so.3.4.5;/usr/local/opencv/opencv345/lib/libopencv_calib3d.so.3.4.5;/usr/local/opencv/opencv345/lib/libopencv_highgui.so.3.4.5&quot;</span>)<br><span class="hljs-keyword">set</span>(libraries <span class="hljs-string">&quot;cv_bridge;/usr/local/opencv/opencv320/lib/libopencv_core.so.3.2.0;/usr/local/opencv/opencv320/lib/libopencv_imgproc.so.3.2.0;/usr/local/opencv/opencv320/lib/libopencv_imgcodecs.so.3.2.0;/usr/local/opencv/opencv320/lib/libopencv_calib3d.so.3.2.0;/usr/local/opencv/opencv320/lib/libopencv_highgui.so.3.2.0&quot;</span>)<br><span class="hljs-comment"># OpenCV3.2.0库文件全</span><br><span class="hljs-keyword">set</span>(libraries <span class="hljs-string">&quot;cv_bridge;/usr/local/opencv/opencv320/lib/libopencv_calib3d.so.3.2.0;/usr/local/opencv/opencv320/lib/libopencv_core.so.3.2.0;/usr/local/opencv/opencv320/lib/libopencv_features2d.so.3.2.0;/usr/local/opencv/opencv320/lib/libopencv_flann.so.3.2.0;/usr/local/opencv/opencv320/lib/libopencv_highgui.so.3.2.0;/usr/local/opencv/opencv320/lib/libopencv_imgcodecs.so.3.2.0;/usr/local/opencv/opencv320/lib/libopencv_imgproc.so.3.2.0;/usr/local/opencv/opencv320/lib/libopencv_ml.so.3.2.0;/usr/local/opencv/opencv320/lib/libopencv_objdetect.so.3.2.0;/usr/local/opencv/opencv320/lib/libopencv_photo.so.3.2.0;/usr/local/opencv/opencv320/lib/libopencv_shape.so.3.2.0;/usr/local/opencv/opencv320/lib/libopencv_stitching.so.3.2.0;/usr/local/opencv/opencv320/lib/libopencv_superres.so.3.2.0;/usr/local/opencv/opencv320/lib/libopencv_video.so.3.2.0;/usr/local/opencv/opencv320/lib/libopencv_videoio.so.3.2.0;/usr/local/opencv/opencv320/lib/libopencv_videostab.so.3.2.0;/usr/local/opencv/opencv320/lib/libopencv_viz.so.3.2.0&quot;</span>)<br></code></pre></td></tr></table></figure>
+<p>与头文件直接写入目录的方式不同，库文件是将文件本身也写入到配置文件中。而OpenCV的库文件有很多种，如下图所示。</p>
+<img src="/posts/75ff45ce/opencv%E5%BA%93%E6%96%87%E4%BB%B6%E7%A4%BA%E4%BE%8B-1704896294456-3.png" srcset="/img/loading.gif" lazyload class="" title="opencv库文件示例">
+<p>所以我们通常都将core、highgui、imgproc等常用的库文件写入到配置文件中，万一遇到要用的函数的库文件没有包含在配置文件中只要手动添加就可以。</p>
+</li>
+<li>
+<p>修改cv_bridge的配置文件结束后，我们只需要在工程的CMakeLists.txt文件中的find_package加入cv_bridge就能够使用自己安装的OpenCV版本。不需要再像（1）方法中那样手动指定路径，而且这样做的好处就是能够使用cv_bridge。因为该包在OpenCV图像与ROS图像之间的转换中会经常用到。</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmake"><span class="hljs-keyword">find_package</span>(cv_bridge)<br></code></pre></td></tr></table></figure>
+<img src="/posts/75ff45ce/CMakeLists%E6%96%87%E4%BB%B6%E5%8A%A0%E5%85%A5cv_bridge-1704896294456-2.png" srcset="/img/loading.gif" lazyload class="" title="CMakeLists文件加入cv_bridge">
+<p>这时候再编译工程就可以通过了，但奇怪的是我们发现编译输出OpenCV的版本还是3.3.1并且配置文件还是默认的OpenCV3。</p>
+</li>
+<li>
+<p>在终端下面用gedit打开cv_bridge-extras.cmake文件，对该文件进行修改，把自己安装的OpenCV对应的目录输入到文件中。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> /opt/ros/kinetic/share/cv_bridge/cmake/<br>sudo gedit cv_bridge-extras.cmake<br></code></pre></td></tr></table></figure>
+<img src="/posts/75ff45ce/%E4%BF%AE%E6%94%B9cv_bridge-extras%E6%96%87%E4%BB%B6-1704896294456-4.png" srcset="/img/loading.gif" lazyload class="" title="修改cv_bridge-extras文件">
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs cmake"><span class="hljs-keyword">set</span>(OpenCV_VERSION <span class="hljs-number">3.4</span>.<span class="hljs-number">5</span>)<br><span class="hljs-keyword">set</span>(OpenCV_VERSION_MAJOR <span class="hljs-number">3</span>)<br><span class="hljs-keyword">set</span>(OpenCV_VERSION_MINOR <span class="hljs-number">4</span>)<br><span class="hljs-keyword">set</span>(OpenCV_VERSION_PATCH <span class="hljs-number">5</span>)<br><span class="hljs-keyword">set</span>(OpenCV_SHARED <span class="hljs-keyword">ON</span>)<br><span class="hljs-keyword">set</span>(OpenCV_CONFIG_PATH /usr/local/opencv/opencv345/share/OpenCV)<br><span class="hljs-keyword">set</span>(OpenCV_INSTALL_PATH /usr/local/opencv/opencv345)<br><span class="hljs-keyword">set</span>(OpenCV_LIB_COMPONENTS opencv_calib3d;opencv_core;opencv_features2d;opencv_flann;opencv_highgui;opencv_imgcodecs;opencv_imgproc;opencv_ml;opencv_objdetect;opencv_photo;opencv_shape;opencv_stitching;opencv_superres;opencv_video;opencv_videoio;opencv_videostab;opencv_viz;opencv_aruco;opencv_bgsegm;opencv_bioinspired;opencv_ccalib;opencv_datasets;opencv_dpm;opencv_face;opencv_freetype;opencv_fuzzy;opencv_hdf;opencv_line_descriptor;opencv_optflow;opencv_phase_unwrapping;opencv_plot;opencv_reg;opencv_rgbd;opencv_saliency;opencv_stereo;opencv_structured_light;opencv_surface_matching;opencv_text;opencv_ximgproc;opencv_xobjdetect;opencv_xphoto)<br><span class="hljs-keyword">set</span>(OpenCV_USE_MANGLED_PATHS <span class="hljs-keyword">FALSE</span>)<br><span class="hljs-keyword">set</span>(OpenCV_MODULES_SUFFIX )<br><br><span class="hljs-comment">#set(OpenCV_VERSION 3.2.0)</span><br><span class="hljs-comment">#set(OpenCV_VERSION_MAJOR 3)</span><br><span class="hljs-comment">#set(OpenCV_VERSION_MINOR 2)</span><br><span class="hljs-comment">#set(OpenCV_VERSION_PATCH 0)</span><br><span class="hljs-comment">#set(OpenCV_SHARED ON)</span><br><span class="hljs-comment">#set(OpenCV_CONFIG_PATH /usr/local/opencv/opencv320/share/OpenCV)</span><br><span class="hljs-comment">#set(OpenCV_INSTALL_PATH /usr/local/opencv/opencv320)</span><br><span class="hljs-comment">#set(OpenCV_LIB_COMPONENTS opencv_calib3d;opencv_core;opencv_features2d;opencv_flann;opencv_highgui;opencv_imgcodecs;opencv_imgproc;opencv_ml;opencv_objdetect;opencv_photo;opencv_shape;opencv_stitching;opencv_superres;opencv_video;opencv_videoio;opencv_videostab;opencv_viz;opencv_aruco;opencv_bgsegm;opencv_bioinspired;opencv_ccalib;opencv_datasets;opencv_dpm;opencv_face;opencv_freetype;opencv_fuzzy;opencv_hdf;opencv_line_descriptor;opencv_optflow;opencv_phase_unwrapping;opencv_plot;opencv_reg;opencv_rgbd;opencv_saliency;opencv_stereo;opencv_structured_light;opencv_surface_matching;opencv_text;opencv_ximgproc;opencv_xobjdetect;opencv_xphoto)</span><br><span class="hljs-comment">#set(OpenCV_USE_MANGLED_PATHS FALSE)</span><br><span class="hljs-comment">#set(OpenCV_MODULES_SUFFIX )</span><br></code></pre></td></tr></table></figure>
+<p>再运行catkin_make编译工程就可以发现版本号回到了我们指定的版本号。当然，这只是对于显示设置而已，对于使用OpenCV没有太大的影响。</p>
+</li>
+<li></li>
+</ol>
+<h3 id="方法3-cv-bridge与手动指定结合的方式">方法3. cv_bridge与手动指定结合的方式</h3>
+<p>首先进行第一章<code>安装</code>的第4、5步。</p>
+<p>后，编辑<code>CMakeLists.txt</code>文件：</p>
+<ol>
+<li>
+<p>我们打开自己安装的OpenCV的配置文件可以发现该配置文件主要是用来设置一些OpenCV的相关信息。</p>
+<img src="/posts/75ff45ce/OpencvConfig%E7%9A%84%E6%96%87%E4%BB%B6%E4%BF%A1%E6%81%AF-1704896294456-5.png" srcset="/img/loading.gif" lazyload class="" title="OpencvConfig的文件信息">
+</li>
+<li>
+<p>然后我们只要在cv_bridge中导入OpenCV的配置文件，那么只要使用cv_bridge的包就可以在ROS中使用相关的OpenCV版本。</p>
+<img src="/posts/75ff45ce/%E5%9C%A8cv_bridge%E4%B8%AD%E5%AF%BC%E5%85%A5OpenCV%E7%9A%84%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6-1-1704896294456-7.png" srcset="/img/loading.gif" lazyload class="" title="在cv_bridge中导入OpenCV的配置文件-1">
+</li>
+<li>
+<p>同样从配置文件中得到库函数目录的路径。</p>
+<img src="/posts/75ff45ce/%E5%9C%A8cv_bridge%E4%B8%AD%E5%AF%BC%E5%85%A5OpenCV%E7%9A%84%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6-2-1704896294456-8.png" srcset="/img/loading.gif" lazyload class="" title="在cv_bridge中导入OpenCV的配置文件-2">
+<p>上面要注意的是在给系统赋予OpenCV头文件和库文件目录路径时，千万不要忘记把cv_bridge的头文件和库文件目录路径忘记赋给系统。</p>
+</li>
+<li>
+<p>最后把cv_bridge配置文件设置OpenCV参数的选项注释掉。</p>
+<img src="/posts/75ff45ce/%E5%9C%A8cv_bridge%E4%B8%AD%E5%AF%BC%E5%85%A5OpenCV%E7%9A%84%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6-3-1704896294456-9.png" srcset="/img/loading.gif" lazyload class="" title="在cv_bridge中导入OpenCV的配置文件-3">
+</li>
+<li>
+<p>完成。</p>
+</li>
+</ol>
+<h1 id="主要参考链接">主要参考链接</h1>
+<p><a target="_blank" rel="noopener" href="https://www.guyuehome.com/34079">Ubuntu环境下ROS安装自己OPENCV版本</a></p>
+<p><a target="_blank" rel="noopener" href="https://immortalqx.github.io/2021/07/06/opencv-notes-0/#%E9%85%8D%E7%BD%AEOpenCV">buntu配置OpenCV及多版本OpenCV共存</a></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7%E5%BA%93/" class="category-chain-item">软件工具库</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>OpenCV的安装与版本管理</div>
+      <div>http://zeyulong.com/posts/75ff45ce/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>龙泽雨</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年1月10日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/posts/84f91530/" title="ROS的安装与卸载">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">ROS的安装与卸载</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/6dba0521/" title="gcc、g++的安装与版本管理">
+                        <span class="hidden-mobile">gcc、g++的安装与版本管理</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="waline"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#waline', function() {
+      Fluid.utils.createCssLink('https://cdn.staticfile.org/waline/2.15.5/waline.min.css')
+      Fluid.utils.createScript('https://cdn.staticfile.org/waline/2.15.5/waline.min.js', function() {
+        var options = Object.assign(
+          {"serverURL":"https://www.zeyulong.cn/","path":"window.location.pathname","meta":["nick","mail","link"],"requiredMeta":["nick"],"lang":"zh-CN","emoji":["https://cdn.jsdelivr.net/gh/walinejs/emojis/weibo"],"dark":"html[data-user-color-scheme=\"dark\"]","wordLimit":0,"pageSize":10,"reaction":true,"locale":{"placeholder":"花径不曾缘客扫，蓬门今始为君开。"}},
+          {
+            el: '#waline',
+            path: window.location.pathname
+          }
+        )
+        Waline.init(options);
+        Fluid.utils.waitElementVisible('#waline .vcontent', () => {
+          var imgSelector = '#waline .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> <div style="font-size: 0.85rem"> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/custom/RunTime/RunTime.js"></script> </div> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  
+<script src="/custom/live2d/live2d-widget/autoload.js"></script>
+<script src="/custom/live2d/jquery.min.js"></script>
+<script src="/custom/LabelPage/LabelPage.js"></script>
+<script src="/custom/LoadingBar/pace.min.js"></script>
+<script src="/custom/ReadingProgress/ReadingProgress.js"></script>
+<script src="/custom/typing-effect/typing-effect.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  <canvas
+    class="fireworks"
+    style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 32767"
+></canvas>
+<script type="text/javascript" src="/custom/fireworks/anime.min.js"></script> 
+<script type="text/javascript" src="/custom/fireworks/fireworks.js"></script>
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

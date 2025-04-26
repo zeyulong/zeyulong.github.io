@@ -1,0 +1,1105 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" >
+
+
+
+<head><!-- hexo injector head_begin start --><progress id="content_progress" value="0"></progress><!-- hexo injector head_begin end -->
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/theme/TamakoAvatar-new-zip.png">
+  <link rel="icon" href="/img/theme/TamakoAvatar-new-zip.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#000000">
+  <meta name="author" content="龙泽雨">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="本文主要整理了一些常用的Latex语法。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Latex的语法和使用">
+<meta property="og:url" content="http://zeyulong.com/posts/874d7da/index.html">
+<meta property="og:site_name" content="龙泽雨的博客">
+<meta property="og:description" content="本文主要整理了一些常用的Latex语法。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://upload.wikimedia.org/math/e/5/0/e505263bc9c94f673c580f3a36a7f08a.png">
+<meta property="og:image" content="http://upload.wikimedia.org/math/d/a/8/da8c1d9effa4501fd80c054e59ad917d.png">
+<meta property="og:image" content="http://upload.wikimedia.org/math/6/9/2/692d4bffca8e84ffb45cf9d5facf31d6.png">
+<meta property="og:image" content="http://upload.wikimedia.org/math/b/5/a/b5ade5d5393fd7727bf77fa44ec8b564.png">
+<meta property="og:image" content="http://upload.wikimedia.org/math/7/b/e/7bea99aed60ba5e1fe8a134ab43fa85f.png">
+<meta property="og:image" content="http://upload.wikimedia.org/math/b/6/b/b6bd9dba2ebfca24731ae6dc3913e625.png">
+<meta property="og:image" content="http://upload.wikimedia.org/math/0/f/b/0fbcad5fadb912e8afa6d113a75c83e4.png">
+<meta property="article:published_time" content="2024-05-11T01:46:38.000Z">
+<meta property="article:modified_time" content="2025-03-05T02:44:23.407Z">
+<meta property="article:author" content="龙泽雨">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://upload.wikimedia.org/math/e/5/0/e505263bc9c94f673c580f3a36a7f08a.png">
+  
+  
+  
+  <title>Latex的语法和使用 - 龙泽雨的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/custom/Markdown/macpanel.css">
+<link rel="stylesheet" href="/custom/Fonts/CodeFont.css">
+<link rel="stylesheet" href="/custom/Fonts/inlinecode-bg-color.css">
+<link rel="stylesheet" href="/custom/live2d/font-awesome.min.css">
+<link rel="stylesheet" href="/custom/LoadingBar/pace-theme-corner-indicator.css">
+<link rel="stylesheet" href="/custom/ReadingProgress/ReadingProgress.css">
+<link rel="stylesheet" href="/custom/SelectBackgroundColor/SelectBackgroundColor.css">
+<link rel="stylesheet" href="/custom/waline/gif.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"zeyulong.com","root":"/","version":"1.9.7","typing":{"enable":false,"typeSpeed":100,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"8gUBTaCjmaSbnf4genwggan3-MdYXbMMI","app_key":"2WRxjgxRXIWRBo8EA4205Wfm","server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<!-- hexo injector head_end start --><link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@200;300;400;500;600;700;900&display=swap" rel="stylesheet"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.0.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Happy every day!</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-steam"></i>
+                <span>摸鱼</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/2048" target="_self">
+                    
+                    <span>2048</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/bcbk/1" target="_self">
+                    
+                    <span>别踩白块-1</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/bcbk/2" target="_self">
+                    
+                    <span>别踩白块-2</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/dblk" target="_self">
+                    
+                    <span>躲避绿块</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/dr" target="_self">
+                    
+                    <span>恐龙快跑</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://mario-kart-3-js.vercel.app/" target="_self">
+                    
+                    <span>马里奥赛车</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/mf" target="_self">
+                    
+                    <span>魔方</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/cat" target="_self">
+                    
+                    <span>圈小猫</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/sl" target="_self">
+                    
+                    <span>扫雷</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/txz" target="_self">
+                    
+                    <span>推箱子</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/wzq" target="_self">
+                    
+                    <span>五子棋</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/theme/GirlWithCat-cut.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle">Latex的语法和使用</span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        龙泽雨
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-05-11 09:46" pubdate>
+          2024年5月11日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3.1k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          27 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Latex的语法和使用</h1>
+            
+              <p id="updated-time" class="note note-info" style="">
+                
+                  
+                    本文最后更新于 2025年3月5日 上午
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <p>本文主要整理了一些常用的Latex语法。</p>
+<span id="more"></span>
+<h1 id="整体架构">整体架构</h1>
+<figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs latex"><span class="hljs-comment">% 导言区，英文文献用article</span><br><span class="hljs-comment">%\documentclass&#123;article&#125;   %英文文献</span><br><span class="hljs-keyword">\documentclass</span>[utf-8]&#123;ctexart&#125;   <span class="hljs-comment">%中文用这个</span><br><br><span class="hljs-comment">% 导包都在\begin&#123;document&#125; 前面进行导入</span><br><span class="hljs-comment">% 导入中文包</span><br><span class="hljs-keyword">\usepackage</span>&#123;ctex&#125;<br><br><span class="hljs-keyword">\begin</span>&#123;document&#125;  <span class="hljs-comment">% 文献所有内容都要在document里面</span><br>	<span class="hljs-keyword">\title</span>&#123;<span class="hljs-keyword">\heiti</span> 题目&#125;<br>	<span class="hljs-keyword">\author</span>&#123;<span class="hljs-keyword">\kaishu</span> 作者&#125;<br>	<span class="hljs-keyword">\date</span>&#123;<span class="hljs-keyword">\today</span>&#125;  <span class="hljs-comment">% 显示当天时间</span><br>	<span class="hljs-keyword">\maketitle</span>     <span class="hljs-comment">% 显示题目</span><br>	<br>	<span class="hljs-comment">% 正文区域</span><br>	<span class="hljs-keyword">\begin</span>&#123;abstract&#125;<br>		摘要<br>	<span class="hljs-keyword">\end</span>&#123;abstract&#125;<br>	<br>	<span class="hljs-keyword">\section</span>&#123;一级标题&#125;<br>	<br>	<span class="hljs-keyword">\subsection</span>&#123;二级标题&#125;<br>	<br>	<span class="hljs-keyword">\subsubsection</span>&#123;三级标题&#125;<br><span class="hljs-keyword">\end</span>&#123;document&#125;<br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>每个章节一个文档，放置在一个文件夹下。</p>
+<p>图片统一放置在一个文件夹下。每个图片的表述一个文档，放置在一个文件夹下。</p>
+<p>每个表格一个文档，放置在一个文件夹下。</p>
+<p>使用相对路径进行引用，统一管理。</p>
+</blockquote>
+<h1 id="导入模板">导入模板</h1>
+<ol>
+<li><code>*.cls</code>模板文件放在与<code>*.tex</code>同一个路径下。</li>
+<li>导入包，<code>\documentclass&#123;cls文件名&#125;</code>，与<code>*.cls</code>文件名字保持一致，运行就行了。</li>
+</ol>
+<h1 id="换行-分段-换页-空格">换行&amp;分段&amp;换页&amp;空格</h1>
+<h2 id="换行">换行</h2>
+<ul>
+<li>在LaTeX中，一个回车表示一个空格，两个回车表示一个分段。多个连续的空行，只会被看成一个空行。</li>
+<li>在段落模式下，<code>\newline</code> 命令相当于双反斜杠（<code>\\</code>）。</li>
+</ul>
+<h2 id="分段">分段</h2>
+<ul>
+<li><code>\par</code></li>
+</ul>
+<h2 id="换页">换页</h2>
+<ul>
+<li><code>\newpage</code></li>
+</ul>
+<h2 id="空格">空格</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">要求</th>
+<th style="text-align:center">Latex语法</th>
+<th style="text-align:center">可视化</th>
+<th style="text-align:center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">两个quad空格</td>
+<td style="text-align:center"><code>a \qquad b</code></td>
+<td style="text-align:center"><img src="http://upload.wikimedia.org/math/e/5/0/e505263bc9c94f673c580f3a36a7f08a.png" srcset="/img/loading.gif" lazyload alt="a quad b"></td>
+<td style="text-align:center">两个<em>m</em>的宽度</td>
+</tr>
+<tr>
+<td style="text-align:center">quad空格</td>
+<td style="text-align:center"><code>a \quad b</code></td>
+<td style="text-align:center"><img src="http://upload.wikimedia.org/math/d/a/8/da8c1d9effa4501fd80c054e59ad917d.png" srcset="/img/loading.gif" lazyload alt="a uad b"></td>
+<td style="text-align:center">一个<em>m</em>的宽度</td>
+</tr>
+<tr>
+<td style="text-align:center">大空格</td>
+<td style="text-align:center"><code>a\ b</code></td>
+<td style="text-align:center"><img src="http://upload.wikimedia.org/math/6/9/2/692d4bffca8e84ffb45cf9d5facf31d6.png" srcset="/img/loading.gif" lazyload alt="ab"></td>
+<td style="text-align:center">1/3<em>m</em>宽度</td>
+</tr>
+<tr>
+<td style="text-align:center">中等空格</td>
+<td style="text-align:center"><code>a\;b</code></td>
+<td style="text-align:center"><img src="http://upload.wikimedia.org/math/b/5/a/b5ade5d5393fd7727bf77fa44ec8b564.png" srcset="/img/loading.gif" lazyload alt="ab"></td>
+<td style="text-align:center">2/7<em>m</em>宽度</td>
+</tr>
+<tr>
+<td style="text-align:center">小空格</td>
+<td style="text-align:center"><code>a\,b</code></td>
+<td style="text-align:center"><img src="http://upload.wikimedia.org/math/7/b/e/7bea99aed60ba5e1fe8a134ab43fa85f.png" srcset="/img/loading.gif" lazyload alt="ab"></td>
+<td style="text-align:center">1/6<em>m</em>宽度</td>
+</tr>
+<tr>
+<td style="text-align:center">没有空格</td>
+<td style="text-align:center"><code>ab</code></td>
+<td style="text-align:center"><img src="http://upload.wikimedia.org/math/b/6/b/b6bd9dba2ebfca24731ae6dc3913e625.png" srcset="/img/loading.gif" lazyload alt="ab"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">紧贴</td>
+<td style="text-align:center"><code>a\!b</code></td>
+<td style="text-align:center"><img src="http://upload.wikimedia.org/math/0/f/b/0fbcad5fadb912e8afa6d113a75c83e4.png" srcset="/img/loading.gif" lazyload alt="ab"></td>
+<td style="text-align:center">缩进1/6<em>m</em>宽度</td>
+</tr>
+</tbody>
+</table>
+<p><code>\quad</code>、<code>1em</code>、<code>em</code>、<code>m</code>代表当前字体下接近字符<code>M</code>的宽度。</p>
+<h1 id="数学公式">数学公式</h1>
+<h2 id="基本语法">基本语法</h2>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/LCCFlccf/article/details/89643585">LaTeX数学符号大全</a></p>
+<figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs latex"><span class="hljs-built_in">$</span> 行内公式 <span class="hljs-built_in">$</span>  <span class="hljs-comment">% 数学公式的前后要加上$或\，比如：$f(x) = 3x + 7$和\(f(x) = 3x + 7) \效果是一样的</span><br><span class="hljs-built_in">$</span><span class="hljs-built_in">$</span> 行间公式 <span class="hljs-built_in">$</span><span class="hljs-built_in">$</span>  <span class="hljs-comment">% 如果用\\公式，或者使用$$公式 ，则该公式独占一行</span><br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>涉及到上下标的公式就算是一个变量前后也要加<code>$</code>,不然会编译失败</p>
+</blockquote>
+<figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs latex">A<span class="hljs-built_in">^</span>&#123;bc&#125;  上标<br>A<span class="hljs-built_in">_</span>&#123;bc&#125;  下标<br></code></pre></td></tr></table></figure>
+<h2 id="向量表示">向量表示</h2>
+<figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs latex"><span class="hljs-comment">% 有两种形式</span><br><span class="hljs-keyword">\boldsymbol</span>   <span class="hljs-comment">% 加粗</span><br><span class="hljs-keyword">\vec</span>          <span class="hljs-comment">% 上面加横向箭头</span><br></code></pre></td></tr></table></figure>
+<h2 id="单行公式">单行公式</h2>
+<p>如果用<code> \begin&#123;equation&#125;</code>和 <code>\end&#123;equation&#125;</code>，则公式除了独占一行还会自动被添加序号。</p>
+<p>如何公式不想编号则使用 <code>\begin&#123;equation*&#125; </code>和 <code>\end&#123;equation*&#125;</code>。</p>
+<figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs latex"><span class="hljs-comment">% 公式插入</span><br><span class="hljs-keyword">\begin</span>&#123;equation&#125;<br>	a<span class="hljs-built_in">^</span>&#123;2&#125;+b<span class="hljs-built_in">^</span>&#123;2&#125;=c<span class="hljs-built_in">^</span>&#123;2&#125;<br><span class="hljs-keyword">\end</span>&#123;equation&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="多行公式">多行公式</h2>
+<p>导包：<code>\usepackage&#123;amsmath&#125;</code></p>
+<figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs latex"><span class="hljs-comment">% 系统自动编号，允许公式按等号或其他关系符对齐，在关系符前加 &amp;表示对齐；</span><br><span class="hljs-keyword">\begin</span>&#123;equation&#125;<br><span class="hljs-keyword">\begin</span>&#123;aligned&#125;<br>	aa <span class="hljs-keyword">\\</span><br>	bb <br><span class="hljs-keyword">\end</span>&#123;aligned&#125;<br><span class="hljs-keyword">\end</span>&#123;equation&#125;<br><br><span class="hljs-keyword">\begin</span>&#123;align&#125;<br>a<span class="hljs-built_in">&amp;</span>=1+2+3+4+5 <span class="hljs-keyword">\\</span><br><span class="hljs-built_in">&amp;</span>=6+9<br><span class="hljs-keyword">\end</span>&#123;align&#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs latex"><span class="hljs-comment">% 自己手动编号</span><br><span class="hljs-keyword">\begin</span>&#123;gather&#125;<br>	公式1 <span class="hljs-keyword">\\</span> <span class="hljs-keyword">\tag</span>&#123;公式编号&#125; <br>	公式2 <span class="hljs-keyword">\tag</span>&#123;公式编号&#125;<br><span class="hljs-keyword">\end</span>&#123;gather&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="插入矩阵">插入矩阵</h2>
+<figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs latex"><span class="hljs-comment">% &amp; 分割元素，\\ 换行</span><br><span class="hljs-built_in">$</span><span class="hljs-built_in">$</span><br><span class="hljs-keyword">\left</span>[<br><span class="hljs-keyword">\begin</span>&#123;matrix&#125;<br>    d<span class="hljs-built_in">_</span>&#123;10&#125;(t) <span class="hljs-built_in">&amp;</span> d<span class="hljs-built_in">_</span>&#123;11&#125;(t) <span class="hljs-built_in">&amp;</span> ... <span class="hljs-built_in">&amp;</span> d<span class="hljs-built_in">_</span>&#123;1n&#125;(t) <span class="hljs-keyword">\\</span><br>    d<span class="hljs-built_in">_</span>&#123;20&#125;(t) <span class="hljs-built_in">&amp;</span> d<span class="hljs-built_in">_</span>&#123;21&#125;(t) <span class="hljs-built_in">&amp;</span> ... <span class="hljs-built_in">&amp;</span> d<span class="hljs-built_in">_</span>&#123;2n&#125;(t) <span class="hljs-keyword">\\</span><br>    <span class="hljs-keyword">\vdots</span> <span class="hljs-built_in">&amp;</span> <span class="hljs-keyword">\vdots</span> <span class="hljs-built_in">&amp;</span> ... <span class="hljs-built_in">&amp;</span> <span class="hljs-keyword">\vdots</span> <span class="hljs-keyword">\\</span><br>    d<span class="hljs-built_in">_</span>&#123;n0&#125;(t) <span class="hljs-built_in">&amp;</span> d<span class="hljs-built_in">_</span>&#123;n1&#125;(t) <span class="hljs-built_in">&amp;</span> ... <span class="hljs-built_in">&amp;</span> d<span class="hljs-built_in">_</span>&#123;nn&#125;(t) <span class="hljs-keyword">\\</span><br><span class="hljs-keyword">\end</span>&#123;matrix&#125;<br><span class="hljs-keyword">\right</span>]<br><span class="hljs-built_in">$</span><span class="hljs-built_in">$</span><br></code></pre></td></tr></table></figure>
+<h1 id="插入图片">插入图片</h1>
+<ol>
+<li>
+<p>导入图片包<code>\usepackage&#123;graphicx&#125;</code>。</p>
+</li>
+<li>
+<p>把图片跟<code>*.tex</code>文件放在同一路径下，可以直接导入，如果不是同一路径就使用绝对路径。</p>
+<figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs latex"><span class="hljs-comment">% 一张图片占一栏</span><br><span class="hljs-keyword">\begin</span>&#123;figure&#125;[h]<br>	<span class="hljs-keyword">\centering</span><br>	<span class="hljs-keyword">\includegraphics</span>[scale=0.35]&#123;system<span class="hljs-built_in">_</span>model.png&#125;<br>	<span class="hljs-keyword">\caption</span>&#123;system model&#125;<br><span class="hljs-keyword">\end</span>&#123;figure&#125;<br><span class="hljs-comment">% 一张图片占双栏</span><br><span class="hljs-keyword">\begin</span>&#123;figure*&#125;[h]<br>	<span class="hljs-keyword">\centering</span><br>	<span class="hljs-keyword">\includegraphics</span>[scale=0.35]&#123;system<span class="hljs-built_in">_</span>model.png&#125;<br>	<span class="hljs-keyword">\caption</span>&#123;system model&#125;<br><span class="hljs-keyword">\end</span>&#123;figure*&#125;<br></code></pre></td></tr></table></figure>
+<p>其中，</p>
+<figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs latex">figure参数：h 此处（here）t 页顶（top）b 页底（bottom）p 独立一页（page）<br>figure* 双栏排版可加入通栏图片<br><span class="hljs-keyword">\centering</span>表示的是里面紧跟的内容都居中<br><span class="hljs-keyword">\includegraphics</span>[缩放比例]&#123;图片途径&#125;<br><span class="hljs-keyword">\caption</span>添加标题<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>插入并排图片:</p>
+<figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs latex"><span class="hljs-comment">% 导包</span><br><span class="hljs-keyword">\usepackage</span>&#123;geometry&#125;<span class="hljs-comment">%页面设置</span><br><span class="hljs-keyword">\usepackage</span>&#123;graphicx&#125;<span class="hljs-comment">%图片设置</span><br><span class="hljs-keyword">\usepackage</span>&#123;subfig&#125;<span class="hljs-comment">%多个子图</span><br><span class="hljs-keyword">\usepackage</span>&#123;caption&#125;<span class="hljs-comment">%注释设置	</span><br><br><span class="hljs-keyword">\begin</span>&#123;figure*&#125;[htp]  <span class="hljs-comment">%[htbp]中的h是浮动的意思</span><br>		<span class="hljs-keyword">\centering</span>    <span class="hljs-comment">%居中</span><br>		<span class="hljs-keyword">\subfloat</span>[子图1名称] <span class="hljs-comment">%第一张子图</span><br>		&#123;<br>			<span class="hljs-keyword">\begin</span>&#123;minipage&#125;[t]&#123;0.5<span class="hljs-keyword">\textwidth</span>&#125;<br>				<span class="hljs-keyword">\centering</span>          <span class="hljs-comment">%子图居中</span><br>				<span class="hljs-keyword">\includegraphics</span>[scale=0.5]&#123;paper<span class="hljs-built_in">_</span>img/ave<span class="hljs-built_in">_</span>delay.png&#125;  <br>			<span class="hljs-keyword">\end</span>&#123;minipage&#125;<span class="hljs-comment">%</span><br>		&#125;<span class="hljs-comment">%注意这里不能回车空行，否则两张图会上下排列，而不是并排排列</span><br>		<span class="hljs-keyword">\subfloat</span>[子图2名称] <span class="hljs-comment">%第二张子图</span><br>		&#123;<br>			<span class="hljs-keyword">\begin</span>&#123;minipage&#125;[t]&#123;0.5<span class="hljs-keyword">\textwidth</span>&#125;<br>				<span class="hljs-keyword">\centering</span>      <span class="hljs-comment">%子图居中</span><br>				<span class="hljs-keyword">\includegraphics</span>[scale=0.5]&#123;paper<span class="hljs-built_in">_</span>img/all<span class="hljs-built_in">_</span>delay.png&#125;   <span class="hljs-comment">%以行宽的0.5倍大小显示</span><br>			<span class="hljs-keyword">\end</span>&#123;minipage&#125;<br>		&#125;<span class="hljs-comment">%</span><br>		<span class="hljs-keyword">\caption</span>&#123;大图名称&#125; <span class="hljs-comment">%  %大图名称</span><br>		<span class="hljs-keyword">\label</span>&#123;fig2&#125;  <span class="hljs-comment">%图片引用标记</span><br><span class="hljs-keyword">\end</span>&#123;figure*&#125;<br></code></pre></td></tr></table></figure>
+</li>
+</ol>
+<h1 id="插入表格">插入表格</h1>
+<h2 id="小技巧">小技巧</h2>
+<h3 id="控制表格标题位置">控制表格标题位置</h3>
+<p>现有一个表格，若要把表格标题放在表格下面，则把<code>\caption&#123;***&#125;</code>这一行代码放在下面，如下所示：</p>
+<figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs latex"><span class="hljs-keyword">\begin</span>&#123;table&#125;[H]<br>	<span class="hljs-keyword">\renewcommand</span>&#123;<span class="hljs-keyword">\arraystretch</span>&#125;&#123;1.3&#125;<br>	<span class="hljs-keyword">\centering</span><br>	<span class="hljs-keyword">\begin</span>&#123;tabular&#125;&#123;c|cc|cc&#125;<br>		<span class="hljs-keyword">\hline</span><br>		<span class="hljs-keyword">\hline</span><br>	<span class="hljs-keyword">\end</span>&#123;tabular&#125;<br>	<span class="hljs-keyword">\caption</span>&#123;***&#125;<br>	<span class="hljs-keyword">\label</span>&#123;tab1&#125;<br><span class="hljs-keyword">\end</span>&#123;table&#125;<br></code></pre></td></tr></table></figure>
+<p>若要把表格标题放在表格上面，则把<code>\caption&#123;***&#125;</code>这一行代码放在上面，如下所示：</p>
+<figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs latex"><span class="hljs-keyword">\begin</span>&#123;table&#125;[H]<br>	<span class="hljs-keyword">\renewcommand</span>&#123;<span class="hljs-keyword">\arraystretch</span>&#125;&#123;1.3&#125;<br>        <span class="hljs-keyword">\caption</span>&#123;***&#125;<br>	<span class="hljs-keyword">\label</span>&#123;tab1&#125;<br>	<span class="hljs-keyword">\centering</span><br>	<span class="hljs-keyword">\begin</span>&#123;tabular&#125;&#123;c|cc|cc&#125;<br>		<span class="hljs-keyword">\hline</span><br>		<span class="hljs-keyword">\hline</span><br>	<span class="hljs-keyword">\end</span>&#123;tabular&#125;<br><span class="hljs-keyword">\end</span>&#123;table&#125;<br></code></pre></td></tr></table></figure>
+<blockquote>
+<p><code>\label&#123;tab1&#125;</code>一定要放在<code>\caption&#123;***&#125;</code>后面。（<code>\label</code>即标记，用于<code>\ref</code>即引用）</p>
+</blockquote>
+<h1 id="浮动体">浮动体</h1>
+<h2 id="控制位置">控制位置</h2>
+<p>在LaTeX中，<code>table</code>和<code>figure</code>等环境都是浮动体。当我们在这些环境后面添加<code>[htbp!]</code>等参数时，如<code>\begin&#123;figure&#125;[h]</code>，我们实际上在告诉LaTeX我们希望浮动体出现在何处。</p>
+<p><code>[htbp!]</code>中的每个字母代表一个特定的位置：</p>
+<ul>
+<li><code>h</code>（here）：就在当前位置。</li>
+<li><code>t</code>（top）：在当前页面的顶部。</li>
+<li><code>b</code>（bottom）：在当前页面的底部。</li>
+<li><code>p</code>（page）：在一个特殊的浮动体页面，该页面除了浮动体和它们的标题外不包含任何其他内容。</li>
+<li><code>!</code>：这是一个特殊的标记，它告诉LaTeX忽视大部分对浮动体位置的内建限制，尽可能地满足我们的位置需求。</li>
+</ul>
+<p>要使用<code>[htbp!]</code>，只需将其作为参数添加到浮动体环境后面即可。例如：</p>
+<figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs latex"><span class="hljs-keyword">\begin</span>&#123;figure&#125;[h]<br>  <span class="hljs-keyword">\includegraphics</span>&#123;figure.jpg&#125;<br>  <span class="hljs-keyword">\caption</span>&#123;This is a figure.&#125;<br><span class="hljs-keyword">\end</span>&#123;figure&#125;<br><br><span class="hljs-keyword">\begin</span>&#123;table&#125;[ht]<br>  <span class="hljs-keyword">\centering</span><br>  <span class="hljs-keyword">\begin</span>&#123;tabular&#125;&#123;c c&#125;<br>    <span class="hljs-comment">% Your table here.</span><br>  <span class="hljs-keyword">\end</span>&#123;tabular&#125;<br>  <span class="hljs-keyword">\caption</span>&#123;This is a table.&#125;<br><span class="hljs-keyword">\end</span>&#123;table&#125;<br></code></pre></td></tr></table></figure>
+<p>在上面的例子中，<code>figure</code>环境的参数是<code>[h]</code>，这告诉LaTeX我们希望图像就在当前位置。<code>table</code>环境的参数是<code>[ht]</code>，这告诉LaTeX我们优先希望表格在当前位置，如果这不可能，那么就放在页面顶部。</p>
+<blockquote>
+<p>虽然<code>[htbp!]</code>能够让我们对浮动体的位置有更多的控制，但它们并不总是能够完全满足我们的期望。LaTeX的排版算法有其内在的逻辑和限制，它旨在使整个文档的排版看起来整齐和美观。因此，即使我们使用了<code>[htbp!]</code>，LaTeX也可能不会完全按照我们的期望来放置浮动体。</p>
+</blockquote>
+<h2 id="控制间距">控制间距</h2>
+<p>在 LaTeX 中，<code>\vspace</code> 命令用于在垂直方向上插入空白空间。它可以增加或减少元素之间的垂直间距。具体来说：</p>
+<figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs latex"><span class="hljs-keyword">\vspace</span>&#123;-0.5cm&#125;  <span class="hljs-comment">% 在图片上方减少0.5厘米的垂直空白空间。</span><br><span class="hljs-keyword">\includegraphics</span>[width=0.96<span class="hljs-keyword">\linewidth</span>]&#123;assets/cover.png&#125;<br><span class="hljs-keyword">\captionof</span>&#123;figure&#125;&#123;标题&#125;<br><span class="hljs-keyword">\label</span>&#123;cover&#125;<br><span class="hljs-keyword">\vspace</span>&#123;4mm&#125;  <span class="hljs-comment">% 在图片下方插入4毫米的垂直空白空间。</span><br></code></pre></td></tr></table></figure>
+<p>在 LaTeX 中，<code>em</code> 是一种相对单位，用于表示当前字体大小的宽度。具体来说，<code>1em</code> 等于当前字体的宽度。<code>em</code> 单位通常用于排版和布局，以确保元素之间的间距相对于字体大小进行调整，从而在不同字体大小下保持一致的比例。</p>
+<figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs latex"><span class="hljs-keyword">\vspace</span>&#123;-1.0em&#125;  <span class="hljs-comment">%-1.0em 表示减少当前字体大小的1倍宽度的垂直空白空间。</span><br></code></pre></td></tr></table></figure>
+<p>这种相对单位在调整布局时非常有用，因为它可以根据字体大小自动调整间距，从而在不同的排版环境中保持一致的视觉效果。</p>
+<h1 id="导入参考文献">导入参考文献</h1>
+<ol>
+<li>
+<p>创建<code>*.bib</code>文件。在TexStudio中新建文件，然后保存的时候选择保存为<code>*.bib</code>文件，即创建了一个BibTex参考文献库，如创建的BibTex库的名字为：<code>ref.bib</code>。</p>
+</li>
+<li>
+<p>添加引用文章的内容，复制文献的BibTex引用格式，粘贴到<code>ref.bib</code>里。例如：</p>
+<figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs latex">@article&#123;mur2017orb,<br>  title=&#123;Orb-slam2: An open-source slam system for monocular, stereo, and rgb-d cameras&#125;,<br>  author=&#123;Mur-Artal, Raul and Tard&#123;<span class="hljs-keyword">\&#x27;</span>o&#125;s, Juan D&#125;,<br>  journal=&#123;IEEE transactions on robotics&#125;,<br>  volume=&#123;33&#125;,<br>  number=&#123;5&#125;,<br>  pages=&#123;1255--1262&#125;,<br>  year=&#123;2017&#125;,<br>  publisher=&#123;IEEE&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>在<code>*.tex</code>文章开头，<code>\begin&#123;document&#125;</code>前加入<code>\usepackage&#123;cite&#125;</code>。</p>
+</li>
+<li>
+<p>添加引用配置，可选的引用格式包括：</p>
+<figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs latex">1. plain，按字母的顺序排列，比较次序为作者、年度和标题<br>2. unsrt，样式同plain，只是按照引用的先后排序<br>3. alpha，用作者名首字母+年份后两位作标号，以字母顺序排序<br>4. abbrv，类似plain，将月份全拼改为缩写，更显紧凑<br>5. ieeetr，国际电气电子工程师协会期刊样式<br>6. acm，美国计算机学会期刊样式<br>7. siam，美国工业和应用数学学会期刊样式<br>8. apalike，美国心理学学会期刊样式<br></code></pre></td></tr></table></figure>
+<p>例如，如果想按照cite顺序自动排序文献编号，则把<code>\bibliographystyle&#123;unsrt&#125;</code>放在<code>\begin&#123;document&#125;</code>后面，<code>\bibliography&#123;ref（这里是管理参考文献.bib文件的文件名）&#125;</code>放在<code>\end&#123;document&#125;</code>前面。</p>
+</li>
+<li>
+<p>添加引用，在文中添加引用，引用格式如下：<code>\cite&#123;mur2017orb&#125;</code>，括号里面填ARTICLE后面的代号就行了，此时引用序号为正文字体大小。使用<code>\upcite&#123;&#125;</code>，此时引用序号为上标。</p>
+</li>
+<li>
+<p>点击Tools-Bibliography先把<code>*.bib</code>文件编译一下，然后编译两次<code>*.tex</code>文件就行成看到引用的文献啦。</p>
+<blockquote>
+<p>将参考文献在正文中进行引用后，再进行编译。如果不引用，该参考文献将不会出现在参考文献列表中。</p>
+</blockquote>
+</li>
+<li>
+<p>完成。</p>
+</li>
+</ol>
+<h1 id="小技巧-2">小技巧</h1>
+<h2 id="编译器的选择">编译器的选择</h2>
+<p>若写中文论文，则需修改默认编译器为 XelaTeX；若为英文，则用 PdfLaTex。字符乱码、错位就再编译一遍。</p>
+<h2 id="比较两个Latex文件的不同">比较两个Latex文件的不同</h2>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/venom_snake/article/details/123139228">参考链接</a></p>
+<p>使用latexdiff，而且TexLive就自带了latexdiff。</p>
+<ol>
+<li>
+<p>查看latexdiff是否可用：</p>
+<p>在终端输入命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">latexdiff<br></code></pre></td></tr></table></figure>
+<p>结果如下则可以直接使用：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">2 and only 2 non-option arguments required.  Write latexdiff -h to get <span class="hljs-built_in">help</span><br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>比较两个文件的不同：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">latexdiff origin.tex modify.tex &gt; diff.tex<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>编译为PDF：</p>
+<p>设编译链为：pdflatex-pdflatex-pdflatex</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">pdflatex diff.tex; bibtex diff.tex; pdflatex diff.tex; pdflatex diff.tex<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>报错处理：</p>
+<ul>
+<li>
+<p>使用<code>PdfLaTex</code>编译器编译直接报错编译失败，没有明显的提示信息（例如<code>! Text line contains an invalid character.</code>）。切换为<code>XeLaTex</code>编译器编译成功。这个问题是因为latexdiff默认的编码方式是<code>UTF-16 LE</code>格式导致的。也可以通过将<code>diff.tex</code>的编码方式改为<code>UTF-8</code>或者新建一个文本文档，将<code>diff.tex</code>的内容复制进去解决。</p>
+</li>
+<li>
+<p>!Latex Error: Option clash for package ulem.</p>
+<p>原始导入了：<code>\usepackage&#123;ulem&#125;</code>和<code>\RequirePackage[normalem]&#123;ulem&#125; %DIF PREAMBLE</code>任意删除一个即可，最好删除后面这个。</p>
+</li>
+<li>
+<p>其它报错，例如出现繁体字等，可根据报错提示对<code>diff.tex</code>文档进行修正。</p>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="删除注释行">删除注释行</h2>
+<p><a target="_blank" rel="noopener" href="https://github.com/google-research/arxiv-latex-cleaner">arXiv LaTeX Cleaner: Easily clean the LaTeX code of your paper to submit to arXiv</a></p>
+<p>或，根据<a target="_blank" rel="noopener" href="https://help.aliyun.com/zh/pai/user-guide/llm-latex-remove-comments">参考链接</a>，定义LaTeX格式文本注释行的正则表达式如下：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><strong>注释类型</strong></th>
+<th style="text-align:center"><strong>正则表达式</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">多行注释</td>
+<td style="text-align:center"><code>r'(?m)^%.*\n?'</code></td>
+</tr>
+<tr>
+<td style="text-align:center">单行注释</td>
+<td style="text-align:center"><code>r'[^\\]%.+$'</code></td>
+</tr>
+</tbody>
+</table>
+<p>经测试，单行注释的正则表达式为<code>%.+$</code>，将其替换为空字符即可。不过删除之后留下的空行可能会导致报错，根据报错位置删除空行即可。</p>
+<h1 id="报错">报错</h1>
+<h2 id="I-found-no-citation-commands">I found no \citation commands</h2>
+<p>如果不想要生成参考文献，那么编译链中就不要有bibtex。</p>
+<h1 id="参考链接">参考链接</h1>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/dogfat/article/details/106962966">TexStudio的安装及简单使用（持续更新）</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/seaskying/article/details/51316607">Latex中的空格</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/adreammaker/article/details/123934243">TexStudio的安装与使用教程（包括参考文献的引用）Latex教程</a></p>
+<p><a target="_blank" rel="noopener" href="https://sirlis.cn/posts/Latex-TexStudio/">LaTeX+TexStudio环境配置</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qazwsxrx/article/details/133208134">LaTeX中的[htbp!]选项：控制浮动体的位置</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_38314865/article/details/103422898">LaTeX的表格标题位置</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_41554005/article/details/120711081">Latex 编译报错 I found no \bibstyle &amp; \bibdata &amp; \citation command</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/woshilsh/article/details/90137408">Latex投稿回复修改意见如何高亮显示</a></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/" class="category-chain-item">技术分享</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Latex的语法和使用</div>
+      <div>http://zeyulong.com/posts/874d7da/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>龙泽雨</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年5月11日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/posts/3135da56/" title="邮箱命名规则">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">邮箱命名规则</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/5b8fd703/" title="Git的配置与使用">
+                        <span class="hidden-mobile">Git的配置与使用</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="waline"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#waline', function() {
+      Fluid.utils.createCssLink('https://cdn.staticfile.org/waline/2.15.5/waline.min.css')
+      Fluid.utils.createScript('https://cdn.staticfile.org/waline/2.15.5/waline.min.js', function() {
+        var options = Object.assign(
+          {"serverURL":"https://www.zeyulong.cn/","path":"window.location.pathname","meta":["nick","mail","link"],"requiredMeta":["nick"],"lang":"zh-CN","emoji":["https://cdn.jsdelivr.net/gh/walinejs/emojis/weibo"],"dark":"html[data-user-color-scheme=\"dark\"]","wordLimit":0,"pageSize":10,"reaction":true,"locale":{"placeholder":"花径不曾缘客扫，蓬门今始为君开。"}},
+          {
+            el: '#waline',
+            path: window.location.pathname
+          }
+        )
+        Waline.init(options);
+        Fluid.utils.waitElementVisible('#waline .vcontent', () => {
+          var imgSelector = '#waline .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> <div style="font-size: 0.85rem"> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/custom/RunTime/RunTime.js"></script> </div> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  
+<script src="/custom/live2d/live2d-widget/autoload.js"></script>
+<script src="/custom/live2d/jquery.min.js"></script>
+<script src="/custom/LabelPage/LabelPage.js"></script>
+<script src="/custom/LoadingBar/pace.min.js"></script>
+<script src="/custom/ReadingProgress/ReadingProgress.js"></script>
+<script src="/custom/typing-effect/typing-effect.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  <canvas
+    class="fireworks"
+    style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 32767"
+></canvas>
+<script type="text/javascript" src="/custom/fireworks/anime.min.js"></script> 
+<script type="text/javascript" src="/custom/fireworks/fireworks.js"></script>
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

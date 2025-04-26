@@ -1,0 +1,1150 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" >
+
+
+
+<head><!-- hexo injector head_begin start --><progress id="content_progress" value="0"></progress><!-- hexo injector head_begin end -->
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/theme/TamakoAvatar-new-zip.png">
+  <link rel="icon" href="/img/theme/TamakoAvatar-new-zip.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#000000">
+  <meta name="author" content="龙泽雨">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="本文主要分享了自己在编译运行论文《Ultimate SLAM? Combining Events, Images, and IMU for Robust Visual SLAM in HDR and High Speed Scenarios》的源代码时的调试记录，下面简称为UltimateSLAM。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="UltimateSLAM编译运行调试记录">
+<meta property="og:url" content="http://zeyulong.com/posts/6d95d81a/index.html">
+<meta property="og:site_name" content="龙泽雨的博客">
+<meta property="og:description" content="本文主要分享了自己在编译运行论文《Ultimate SLAM? Combining Events, Images, and IMU for Robust Visual SLAM in HDR and High Speed Scenarios》的源代码时的调试记录，下面简称为UltimateSLAM。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-02-07T04:25:36.000Z">
+<meta property="article:modified_time" content="2024-10-16T02:39:08.927Z">
+<meta property="article:author" content="龙泽雨">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>UltimateSLAM编译运行调试记录 - 龙泽雨的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/custom/Markdown/macpanel.css">
+<link rel="stylesheet" href="/custom/Fonts/CodeFont.css">
+<link rel="stylesheet" href="/custom/Fonts/inlinecode-bg-color.css">
+<link rel="stylesheet" href="/custom/live2d/font-awesome.min.css">
+<link rel="stylesheet" href="/custom/LoadingBar/pace-theme-corner-indicator.css">
+<link rel="stylesheet" href="/custom/ReadingProgress/ReadingProgress.css">
+<link rel="stylesheet" href="/custom/SelectBackgroundColor/SelectBackgroundColor.css">
+<link rel="stylesheet" href="/custom/waline/gif.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"zeyulong.com","root":"/","version":"1.9.7","typing":{"enable":false,"typeSpeed":100,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"8gUBTaCjmaSbnf4genwggan3-MdYXbMMI","app_key":"2WRxjgxRXIWRBo8EA4205Wfm","server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<!-- hexo injector head_end start --><link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@200;300;400;500;600;700;900&display=swap" rel="stylesheet"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.0.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Happy every day!</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-steam"></i>
+                <span>摸鱼</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/2048" target="_self">
+                    
+                    <span>2048</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/bcbk/1" target="_self">
+                    
+                    <span>别踩白块-1</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/bcbk/2" target="_self">
+                    
+                    <span>别踩白块-2</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/dblk" target="_self">
+                    
+                    <span>躲避绿块</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/dr" target="_self">
+                    
+                    <span>恐龙快跑</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://mario-kart-3-js.vercel.app/" target="_self">
+                    
+                    <span>马里奥赛车</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/mf" target="_self">
+                    
+                    <span>魔方</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/cat" target="_self">
+                    
+                    <span>圈小猫</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/sl" target="_self">
+                    
+                    <span>扫雷</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/txz" target="_self">
+                    
+                    <span>推箱子</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/wzq" target="_self">
+                    
+                    <span>五子棋</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/theme/GirlWithCat-cut.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle">UltimateSLAM编译运行调试记录</span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        龙泽雨
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-02-07 12:25" pubdate>
+          2024年2月7日 中午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          4.3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          36 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">UltimateSLAM编译运行调试记录</h1>
+            
+              <p id="updated-time" class="note note-info" style="">
+                
+                  
+                    本文最后更新于 2024年10月16日 上午
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <p>本文主要分享了自己在编译运行论文《Ultimate SLAM? Combining Events, Images, and IMU for Robust Visual SLAM in HDR and High Speed Scenarios》的源代码时的调试记录，下面简称为UltimateSLAM。</p>
+<span id="more"></span>
+<h1 id="UltimateSLAM">UltimateSLAM</h1>
+<p>此存储库包含运行UltimateSLAM的代码，如下两篇论文所述：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="http://rpg.ifi.uzh.ch/docs/RAL18_VidalRebecq.pdf">Ultimate SLAM? Combining Events, Images, and IMU for Robust Visual SLAM in HDR and High Speed Scenarios</a>, IEEE Robotics and Automation Letters, 2018.</li>
+<li><a target="_blank" rel="noopener" href="http://rpg.ifi.uzh.ch/docs/BMVC17_Rebecq.pdf">Real-time Visual-Inertial Odometry for Event Cameras using Keyframe-based Nonlinear Optimization</a>, British Machine Vision Conference, 2017.</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://youtu.be/0hDGFFJQfmA">在此处查看演示视频</a></p>
+<p>如果您在学术背景下使用此代码，请引用以下作品：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bibtex">@InProceedings&#123;Rosinol_2018_RAL,<br>  author = &#123;Antoni Rosinol Vidal and Henri Rebecq and Timo Horstschaefer and Davide Scaramuzza&#125;,<br>  title = &#123;Ultimate SLAM? Combining Events, Images, and IMU for Robust Visual SLAM in HDR and High Speed Scenarios&#125;,<br>  booktitle = &#123;&#123;IEEE&#125; Robotics and Automation Letters (RA-L)&#125;,<br>  year = &#123;2018&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bibtex">@InProceedings&#123;Rebecq_2017_BMVC,<br>  author = &#123;Henri Rebecq and Timo Horstschaefer and Davide Scaramuzza&#125;,<br>  title = &#123;Real-time Visual-Inertial Odometry for Event Cameras using Keyframe-based Nonlinear Optimization&#125;,<br>  booktitle = &#123;British Machine Vision Conference (BMVC)&#125;,<br>  year = &#123;2017&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="动机">动机</h2>
+<p>事件相机是受生物启发的视觉传感器，输出像素级亮度变化而不是标准强度帧。事件相机不受运动模糊的影响，并且具有非常高的动态范围，这使它们能够在高速运动或高动态范围的场景中提供可靠的视觉信息。然而，当运动量有限时，如在几乎静止的运动中，事件相机只输出少量信息。相反，在低速和良好照明的情况下，标准相机大部分时间提供即时丰富的环境信息，但在快速运动或困难照明（如高动态范围或低光场景）的情况下，它们严重失败。UltimateSLAM是第一个利用这两种传感器的互补优势的状态估计管道，通过紧密耦合方式融合事件、标准帧和惯性测量。在高速和高动态范围场景中，UltimateSLAM的准确性提高了高达85％，与标准基于帧的视觉-惯性测距系统相比，可以在嵌入式平台上实时运行。我们已经展示，UltimateSLAM可用于低光环境下的自主无人机飞行，甚至在一旋翼失效时保持无人机飞行（<a target="_blank" rel="noopener" href="https://youtu.be/Ww8u0KH7Ugs">视频</a>）。</p>
+<h2 id="内容">内容</h2>
+<ul>
+<li><a href="#UltimateSLAM%E7%9A%84%E5%AE%89%E8%A3%85">UltimateSLAM的安装</a></li>
+<li><a href="#%E8%BF%90%E8%A1%8C%E7%A4%BA%E4%BE%8B">运行示例</a></li>
+<li><a href="#%E7%9B%B8%E6%9C%BA%E6%A0%A1%E5%87%86">相机校准</a></li>
+<li><a href="#%E8%BF%90%E8%A1%8C%E5%AE%9E%E6%97%B6%E6%BC%94%E7%A4%BA">运行实时演示</a></li>
+<li><a href="#%E5%8F%82%E6%95%B0%E8%B0%83%E4%BC%98%E6%8C%87%E5%8D%97">参数调优指南</a></li>
+</ul>
+<h1 id="UltimateSLAM的安装">UltimateSLAM的安装</h1>
+<p>此安装指南已在Ubuntu 16.04和Ubuntu 18.04上测试。</p>
+<h2 id="要求">要求</h2>
+<ul>
+<li>CMake &gt;= 3.0</li>
+<li>ROS (&gt;= Kinetic)（见<a target="_blank" rel="noopener" href="http://wiki.ros.org/ROS/Installation">官方安装指南</a>、<a href="https://zeyulong.com/posts/84f91530/">ROS的安装与卸载</a>）。</li>
+</ul>
+<p>对于Ceres，您需要安装以下包：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo apt install liblapack-dev libblas-dev<br></code></pre></td></tr></table></figure>
+<h2 id="安装">安装</h2>
+<p>首先，我们需要为UltimateSLAM创建一个<a target="_blank" rel="noopener" href="http://wiki.ros.org/catkin">catkin</a>工作空间并初始化它：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> yourfolder<br><span class="hljs-built_in">mkdir</span> -p uslam_ws/src &amp;&amp; <span class="hljs-built_in">cd</span> uslam_ws<br>catkin init<br></code></pre></td></tr></table></figure>
+<p>然后，我们配置我们的工作空间以扩展ROS基础工作空间，并默认以发布模式（带优化）编译。请将<code>kinetic</code>替换为您的ROS版本（例如<code>melodic</code>）。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">catkin config --extend /opt/ros/kinetic --cmake-args -DCMAKE_BUILD_TYPE=Release<br><span class="hljs-comment"># catkin config --extend /opt/ros/melodic --cmake-args -DCMAKE_BUILD_TYPE=Release</span><br></code></pre></td></tr></table></figure>
+<p>克隆UltimateSLAM存储库：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> src/<br>git <span class="hljs-built_in">clone</span> git@github.com:uzh-rpg/rpg_ultimate_slam_open.git<br></code></pre></td></tr></table></figure>
+<p>运行<code>vcstool</code>自动导入依赖项：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">vcs-import &lt; rpg_ultimate_slam_open/dependencies.yaml<br></code></pre></td></tr></table></figure>
+<p>下载的第三方库在<code>./catkin_ws/src/</code>目录下，与<code>rpg_ultimate_slam_open</code>文件夹同级。</p>
+<p>为防止网路下载不稳定的情况，可以将第三方库<code>CmakeLists.txt</code>中的下载链接替换为本地路径。</p>
+<blockquote>
+<p>注：URL可以直接使用本地地址，但是文件必需为压缩文件，编译时会自动解压。<a target="_blank" rel="noopener" href="https://cmake.org/cmake/help/latest/module/ExternalProject.html">官方文档</a>，<a target="_blank" rel="noopener" href="https://runebook.dev/zh/docs/cmake/module/externalproject">中文解读1</a>，<a target="_blank" rel="noopener" href="https://blog.csdn.net/wzj_110/article/details/116722467">中文解读2</a>。</p>
+</blockquote>
+<ol>
+<li>
+<p><code>gflags_catkin</code>。下载<a target="_blank" rel="noopener" href="https://github.com/gflags/gflags/archive/v2.2.1.zip">v2.2.1.zip</a>到<code>yourfolder/</code>并重命名为<code>gflags-2.2.1.zip</code>。打开<code>./uslam_ws/src/gflags_catkin</code>目录下的<code>Cmakelists.txt</code>文件，修改<code>URL</code>：</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs cmake"><span class="hljs-comment"># URL https://github.com/gflags/gflags/archive/v2.2.1.zip</span><br>URL <span class="hljs-string">&quot;/yourfolder/gflags-2.2.1.zip&quot;</span><br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p><mark>待解决</mark>。<code>suitesparse</code>。下载<a target="_blank" rel="noopener" href="https://github.com/ethz-asl/thirdparty_library_binaries/raw/master/SuiteSparse-4.2.1.tar.gz">SuiteSparse-4.2.1.tar.gz</a>到<code>yourfolder/</code>。打开<code>./uslam_ws/src/suitesparse/suitesparse</code>目录下的<code>Cmakelists.txt</code>文件，修改<code>DOWNLOAD_COMMAND</code>：</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs cmake"><span class="hljs-comment"># DOWNLOAD_COMMAND rm -f SuiteSparse-$&#123;VERSION&#125;.tar.gz &amp;&amp; wget --retry-connrefused --waitretry=1 --timeout=40 --tries 3 https://github.com/ethz-asl/thirdparty_library_binaries/raw/master/SuiteSparse-$&#123;VERSION&#125;.tar.gz</span><br>URL <span class="hljs-string">&quot;/yourfolder/SuiteSparse-$&#123;VERSION&#125;.tar.gz&quot;</span><br></code></pre></td></tr></table></figure>
+<p>上述方法不可行，下面的方法可行：</p>
+<p>打开<code>./uslam_ws/src/suitesparse/suitesparse</code>目录下的<code>Cmakelists.txt</code>文件，修改<code>DOWNLOAD_COMMAND</code>：</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs cmake"><span class="hljs-comment"># DOWNLOAD_COMMAND rm -f SuiteSparse-$&#123;VERSION&#125;.tar.gz &amp;&amp; wget --retry-connrefused --waitretry=1 --timeout=40 --tries 3 https://github.com/ethz-asl/thirdparty_library_binaries/raw/master/SuiteSparse-$&#123;VERSION&#125;.tar.gz</span><br>DOWNLOAD_COMMAND <span class="hljs-string">&quot;&quot;</span><br></code></pre></td></tr></table></figure>
+<p>复制<a target="_blank" rel="noopener" href="https://github.com/ethz-asl/thirdparty_library_binaries/raw/master/SuiteSparse-4.2.1.tar.gz">SuiteSparse-4.2.1.tar.gz</a>到<code>./catkin_ws/src/</code>，</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> ./catkin_ws/src/<br><span class="hljs-comment"># 在catkin build前运行命令：</span><br><span class="hljs-built_in">mkdir</span> -p build/suitesparse/suitesparse_src-prefix/src &amp;&amp; <span class="hljs-built_in">cp</span> SuiteSparse-4.2.1.tar.gz ./build/suitesparse/suitesparse_src-prefix/src<br><span class="hljs-comment"># find -name SuiteSparse-4.2.1.tar.gz</span><br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p><code>ceres_catkin</code>。下载<a target="_blank" rel="noopener" href="http://ceres-solver.org/ceres-solver-1.14.0.tar.gz">ceres-solver-1.14.0.tar.gz</a>到<code>yourfolder/</code>。打开<code>./uslam_ws/src/ceres_catkin</code>目录下的<code>Cmakelists.txt</code>文件，修改<code>GIT_REPOSITORY</code>：</p>
+<blockquote>
+<p>由于ceres库和Eigen库有一定的版本对应关系，因此很容易在编译期间报错。实测Eigen3.3.x与ceres-solver-1.14.0对应应该没有问题。</p>
+</blockquote>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs cmake"><span class="hljs-comment"># GIT_REPOSITORY https://github.com/ceres-solver/ceres-solver.git</span><br><span class="hljs-comment"># GIT_TAG $&#123;VERSION&#125;</span><br>URL <span class="hljs-string">&quot;/yourfolder/ceres-solver-1.14.0.tar.gz&quot;</span><br>UPDATE_COMMAND <span class="hljs-string">&quot;&quot;</span><br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p><code>yaml_cpp_catkin。</code>下载<a target="_blank" rel="noopener" href="https://github.com/jbeder/yaml-cpp/tree/11607eb5bf1258641d80f7051e7cf09e317b4746">yaml-cpp-11607eb5bf1258641d80f7051e7cf09e317b4746.zip</a>到<code>yourfolder/</code>。打开<code>./uslam_ws/src/yaml_cpp_catkin</code>目录下的<code>Cmakelists.txt</code>文件，修改<code>GIT_REPOSITORY</code>：</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs cmake"><span class="hljs-comment"># GIT_REPOSITORY  https://github.com/jbeder/yaml-cpp</span><br><span class="hljs-comment"># GIT_TAG $&#123;YAML_CPP_TAG&#125;</span><br>URL <span class="hljs-string">&quot;/yourfolder/yaml-cpp-11607eb5bf1258641d80f7051e7cf09e317b4746.zip&quot;</span><br>URL_MD5 f2847f928634303a8ee305a3f28ebbcc<br>UPDATE_COMMAND <span class="hljs-string">&quot;&quot;</span><br></code></pre></td></tr></table></figure>
+</li>
+<li></li>
+</ol>
+<p>你可能需要<code>autoreconf</code>来编译glog_catkin，使用以下命令安装<code>autoreconf</code>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># https://askubuntu.com/questions/265471/autoreconf-not-found-error-during-making-qemu-1-4-0/269423#269423</span><br><span class="hljs-comment"># 查询可安装的版本</span><br>apt-cache search autoreconf<br>sudo apt-get install autoconf  <span class="hljs-comment"># 13.04/14.04/16.04/18.04</span><br>sudo apt install dh-autoreconf  <span class="hljs-comment"># 20.04</span><br></code></pre></td></tr></table></figure>
+<p>指定项目编译使用的OpenCV版本。</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs cmake"><span class="hljs-comment"># CmakeList.txt</span><br><span class="hljs-keyword">set</span>(OpenCV_DIR /usr/local/opencv/opencv320/share/OpenCV)  <span class="hljs-comment"># 新增</span><br><span class="hljs-keyword">find_package</span>(OpenCV REQUIRED)<br><span class="hljs-comment"># find_package(cv_bridge)  # 如果find_package(OpenCV REQUIRED)报错</span><br><span class="hljs-keyword">include_directories</span>(<span class="hljs-variable">$&#123;OpenCV_INCLUDE_DIRS&#125;</span>)  <span class="hljs-comment"># 新增</span><br><span class="hljs-comment"># 新增</span><br><span class="hljs-keyword">message</span>(STATUS <span class="hljs-string">&quot;opencv version: $&#123;OpenCV_VERSION&#125;&quot;</span>)<br><span class="hljs-keyword">message</span>(STATUS <span class="hljs-string">&quot;opencv lib: $&#123;OpenCV_LIBS&#125;&quot;</span>)<br><span class="hljs-keyword">message</span>(STATUS <span class="hljs-string">&quot;opencv include dir: $&#123;OpenCV_INCLUDE_DIRS&#125;&quot;</span>)<br><span class="hljs-keyword">message</span>(STATUS <span class="hljs-string">&quot;opencv config path: $&#123;openCV_CONFIG_PATH&#125;&quot;</span>)<br></code></pre></td></tr></table></figure>
+<p>最后，构建UltimateSLAM：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> ./catkin_ws/src/<br><span class="hljs-comment"># mkdir -p build/suitesparse/suitesparse_src-prefix/src &amp;&amp; cp SuiteSparse-4.2.1.tar.gz ./build/suitesparse/suitesparse_src-prefix/src</span><br>catkin build ze_vio_ceres<br><span class="hljs-comment"># 如果编译报错：</span><br><span class="hljs-comment"># catkin clean 相当于 rm -r $&#123;build&#125; $&#123;devel&#125;, 但是避免了 rm -r 这种危险的操作！</span><br></code></pre></td></tr></table></figure>
+<p>这将花费一些时间（至少几分钟）。如果遇到错误，请查看下面的疑难解答部分。</p>
+<p>报错：</p>
+<ol>
+<li>ceres_catkin。
+<ul>
+<li><code>catkin build ceres_catkin</code>报错：/usr/include/eigen3/Eigen/src/Core/PlainObjectBase.h:883:7: error: static assertion failed: INVALID_MATRIX_TEMPLATE_PARAMETERS</li>
+<li>解决方案：使用Eigen3.3.x和ceres-solver-1.14.0。</li>
+</ul>
+</li>
+<li>yaml_cpp_catkin。
+<ul>
+<li><code>catkin build yaml_cpp_catkin</code>报错。</li>
+<li>解决方案：使用<a target="_blank" rel="noopener" href="https://github.com/jbeder/yaml-cpp/tree/11607eb5bf1258641d80f7051e7cf09e317b4746">正确的yaml-cpp版本</a>。</li>
+</ul>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/uzh-rpg/rpg_ultimate_slam_open/issues/9">Compilation Error NVIDIA Jetson TX2</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/uzh-rpg/rpg_ultimate_slam_open/issues/8">kalibr_swe_config isn't available as stated in Wiki</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/uzh-rpg/rpg_ultimate_slam_open/issues/5">F0712 16:55:25.590517 19922 ros_bridge.cpp:131 Unsupported pixel typergb8</a></li>
+</ol>
+<p>如果构建成功，恭喜！您已安装UltimateSLAM。您的下一步将是<a href="Run-Examples.md">运行一些示例</a>来测试您的设置。</p>
+<h1 id="运行示例">运行示例</h1>
+<p>在此页面上，我们将展示如何在<a target="_blank" rel="noopener" href="http://rpg.ifi.uzh.ch/davis_data.html">事件相机数据集</a>的几个数据集上离线运行UltimateSLAM。</p>
+<h2 id="下载数据集">下载数据集</h2>
+<p>首先，在当前终端中刷新UltimateSLAM：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">source</span> ~/uslam_ws/devel/setup.bash<br></code></pre></td></tr></table></figure>
+<p>现在，导航到<code>rpg_ultimate_slam_open</code>文件夹并创建一个<code>data</code>文件夹：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">roscd ze_vio_ceres/../../<br><span class="hljs-built_in">mkdir</span> data<br><span class="hljs-built_in">cd</span> data/<br></code></pre></td></tr></table></figure>
+<p>下载一些示例数据集：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">wget http://rpg.ifi.uzh.ch/datasets/davis/boxes_6dof.bag<br>wget http://rpg.ifi.uzh.ch/datasets/davis/dynamic_6dof.bag<br>wget http://rpg.ifi.uzh.ch/datasets/davis/shapes_6dof.bag<br></code></pre></td></tr></table></figure>
+<h2 id="运行UltimateSLAM">运行UltimateSLAM</h2>
+<p>UltimateSLAM可以以两种不同的模式运行：仅使用事件和IMU，或使用事件、帧和IMU。</p>
+<h3 id="使用事件-IMU">使用事件+IMU</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">source</span> ./devel/setup.zsh &amp;&amp; roslaunch ze_vio_ceres ijrr17_events_only.launch bag_filename:=dynamic_6dof.bag<br></code></pre></td></tr></table></figure>
+<h3 id="使用事件-帧-IMU">使用事件+帧+IMU</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">source</span> ./devel/setup.zsh &amp;&amp; roslaunch ze_vio_ceres ijrr17.launch bag_filename:=dynamic_6dof.bag<br><br><span class="hljs-built_in">source</span> ./devel/setup.zsh &amp;&amp; roslaunch ze_vio_ceres ijrr17.launch bag_filename:=shapes_6dof.bag<br></code></pre></td></tr></table></figure>
+<p>启动时，应该会弹出一个 RVIZ 窗口，显示当前估计的轨迹和点云。</p>
+<p>IMU 同步和校准问题引起的运行时系统崩溃（失败，未找到好的解决办法）：更改Opencv或Eigen的版本。</p>
+<ul>
+<li>
+<p>尝试：</p>
+<ul>
+<li>OpenCV 3.2.0 + Eigen 3.3.0. 运行报错。</li>
+<li>OpenCV 3.2.0 + Eigen 3.4.0. 运行报错。</li>
+<li>OpenCV 3.4.5 + Eigen 3.3.0. 运行报错。</li>
+<li>OpenCV 3.4.5 + Eigen 3.4.0. 运行报错。</li>
+</ul>
+</li>
+<li>
+<p><a target="_blank" rel="noopener" href="https://github.com/uzh-rpg/rpg_ultimate_slam_open/issues/22">https://github.com/uzh-rpg/rpg_ultimate_slam_open/issues/22</a></p>
+</li>
+<li>
+<p><a target="_blank" rel="noopener" href="https://github.com/uzh-rpg/rpg_ultimate_slam_open/issues/10">https://github.com/uzh-rpg/rpg_ultimate_slam_open/issues/10</a></p>
+</li>
+</ul>
+<blockquote>
+<p>可以尝试手动播放 rosbag：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">source</span> ./devel/setup.zsh &amp;&amp; roslaunch ze_vio_ceres  live_DAVIS240C.launch camera_name:=DAVIS-IJRR17<br><span class="hljs-built_in">source</span> ./devel/setup.zsh &amp;&amp; rosbag play -r 0.5 dynamic_6dof.bag<br></code></pre></td></tr></table></figure>
+</blockquote>
+<p>恭喜你！你已准备好<a href="Run-Live-Demo.md">实时运行 UltimateSLAM</a>。</p>
+<h1 id="相机校准">相机校准</h1>
+<p>本页提供了执行相机校准的一些指导，即估算你的事件相机的内参，以及事件相机与 IMU 之间的外参校准。</p>
+<h2 id="DAVIS-校准">DAVIS 校准</h2>
+<p>由于 DAVIS 传感器在与事件相同的传感器阵列上提供灰度图像（<code>/dvs/image_raw</code>），因此可以在灰度图像上使用标准校准工具来校准相机。我们建议使用 <a target="_blank" rel="noopener" href="https://github.com/ethz-asl/kalibr">Kalibr 工具箱</a>。</p>
+<p>为了获得最佳结果，我们建议记录两个单独的校准数据集：一个用于执行内参校准，另一个用于进行相机到 IMU 的校准。理论上，记录一个数据集以完成这两项是足够的，但是当记录两个单独的数据集时，结果通常会更好。</p>
+<h3 id="内参校准">内参校准</h3>
+<p>为了进行内参校准，录制一个 rosbag，包含大约一分钟的灰度图像数据（<code>/dvs/image_raw</code>），相机从不同角度观察一个<a target="_blank" rel="noopener" href="https://github.com/ethz-asl/kalibr/wiki/calibration-targets">已知的校准模式</a>（我们建议使用 Aprilgrid）。此时，较慢地移动相机会更好，以最小化图像中的运动模糊。同时，请确保尽可能覆盖许多不同的角度以获得良好的结果。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 录制 rosbag</span><br>rosbag record -O cam_calib.bag /dvs/image_raw<br><span class="hljs-comment"># 然后，用 Kalibr 估算相机内参</span><br>kalibr_calibrate_cameras --target ~/uslam_ws/src/ultimate_slam/calibration/kalibr_targets/april_5x4.yaml --bag cam_calib.bag --models pinhole-radtan --topics /dvs/image_raw --show-extraction<br></code></pre></td></tr></table></figure>
+<h3 id="相机到-IMU-的校准">相机到 IMU 的校准</h3>
+<p>为了进行相机到 IMU 的校准，录制一个 rosbag，包含大约一分钟的灰度图像 + IMU 数据（<code>/dvs/image_raw</code> 和 <code>/dvs/imu</code>）。如前所述，相机应始终指向校准模式。不同于上述，对于这个数据集，相机移动应该稍快一些，以适当激发 IMU。然而，<strong>运动必须尽可能平稳</strong>，即避免停止或非常急促的运动。确保激活加速度计（X/Y/Z）和陀螺仪（偏航，俯仰，滚转）的所有自由度。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 录制 rosbag</span><br>rosbag record -O imu_cam_calib.bag /dvs/image_raw /dvs/imu<br><span class="hljs-comment"># 然后，用 Kalibr 估算相机到 IMU 的外参</span><br>kalibr_calibrate_imu_camera --target ~/uslam_ws/src/ultimate_slam/calibration/kalibr_targets/april_5x4.yaml --bag imu_cam_calib.bag --cam camchain-cam_calib.yaml --imu ~/uslam_ws/src/ultimate_slam/calibration/imu/davis_mpu6150.yaml --time-calibration<br></code></pre></td></tr></table></figure>
+<h3 id="转换为我们的校准格式：">转换为我们的校准格式：</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">kalibr_swe_config --cam camchain-imucam-calib.yaml --mav camera --out camera.yaml<br></code></pre></td></tr></table></figure>
+<h3 id="考虑相机和-IMU-消息之间的时间延迟">考虑相机和 IMU 消息之间的时间延迟</h3>
+<p>一旦你运行了 <code>kalibr_calibrate_imu_camera</code>，别忘了在实时运行 UltimateSLAM 时使用以下标志：<code>timeshift_cam_imu:=0.0028133308512579796</code>，其中你需要用 Kalibr 给出的数字替换这个数字。</p>
+<h1 id="运行实时演示">运行实时演示</h1>
+<p>要运行 UltimateSLAM，你需要一个带有硬件同步的惯性测量单元的事件相机。我们已经成功地测试了 UltimateSLAM 与 <a target="_blank" rel="noopener" href="https://inivation.com/buy/">DAVIS240C 和 DAVIS346 相机</a>。</p>
+<h2 id="安装-DAVIS-ROS-驱动程序">安装 DAVIS ROS 驱动程序</h2>
+<p>在此之前，请确保按照<a target="_blank" rel="noopener" href="https://github.com/uzh-rpg/rpg_dvs_ros#driver-installation">这里</a>的说明安装了任何依赖项。特别要确保安装了 <code>libcaer</code>。然后，</p>
+<ul>
+<li>构建 DAVIS ROS 驱动程序：</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">catkin build davis_ros_driver<br></code></pre></td></tr></table></figure>
+<ul>
+<li>需要更新 udev 规则以运行驱动程序：</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">source</span> ~/uslam_ws/devel/setup.bash<br>roscd libcaer_catkin<br>sudo ./install.sh<br></code></pre></td></tr></table></figure>
+<p>如果在这一步中遇到问题，更详细的说明可在<a target="_blank" rel="noopener" href="https://github.com/uzh-rpg/rpg_dvs_ros">这里</a>找到。</p>
+<h2 id="校准你的-DAVIS-相机">校准你的 DAVIS 相机</h2>
+<p>在运行 UltimateSLAM 之前，你需要校准你的 DAVIS 传感器，即估算相机的内在参数、相机到 IMU 的外部参数，以及 IMU 与事件之间的时间偏移。<a href="Camera-Calibration.md">本页</a>提供了一些指导。</p>
+<p><strong>请注意，精确的相机校准对于获得良好的跟踪结果至关重要。请确保你特别关注这一步</strong>。</p>
+<p>一旦你完成了校准，请将你的校准文件复制到 <code>calibration</code> 文件夹中的正确格式。</p>
+<h2 id="用-DAVIS-运行-UltimateSLAM-实时演示">用 DAVIS 运行 UltimateSLAM 实时演示</h2>
+<p>要实时运行搭配 DAVIS 传感器的 UltimateSLAM，你将需要同时打开多个终端。我们推荐使用 <a target="_blank" rel="noopener" href="https://gnometerminator.blogspot.com/p/introduction.html">Terminator</a>，它允许你轻松地同时打开多个终端窗口并在这些窗口间轻松导航。</p>
+<p>打开三个终端，并启动以下命令。</p>
+<h3 id="终端-1">终端 1</h3>
+<p>启动 <code>roscore</code>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">roscore<br></code></pre></td></tr></table></figure>
+<h3 id="终端-2">终端 2</h3>
+<p>启动 DAVIS 驱动程序：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">rosrun davis_ros_driver davis_ros_driver<br></code></pre></td></tr></table></figure>
+<h3 id="终端-3">终端 3</h3>
+<p>启动 UltimateSLAM：</p>
+<h4 id="事件-帧">事件 + 帧</h4>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">roslaunch ze_vio_ceres live_DAVIS240C.launch camera_name:=&lt;your_camera_calibration_filename&gt; timeshift_cam_imu:=0.0028100209382249794<br></code></pre></td></tr></table></figure>
+<h4 id="仅事件">仅事件</h4>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">roslaunch ze_vio_ceres live_DAVIS240C_events_only.launch camera_name:=&lt;your_camera_calibration_filename&gt; timeshift_cam_imu:=0.0028100209382249794<br></code></pre></td></tr></table></figure>
+<p>校准文件将在 <code>calibration/</code> 文件夹中被搜索。在这两种情况下，一个新的 RVIZ 窗口应该会弹出，显示当前相机位置、轨迹和当前估计的点云。</p>
+<h4 id="参数">参数</h4>
+<ul>
+<li><code>camera_name</code>：将其替换为<code>calibration</code>文件夹中你的校准文件名，不包括<code>.yaml</code>扩展名。</li>
+<li><code>timeshift_cam_imu</code>：相机和IMU之间的时间偏移。请将上面的值替换为Kalibr在校准步骤期间估计的值。</li>
+<li><code>frame_size</code>：每个事件帧中集成的事件数量</li>
+<li><code>motion_correction</code>：如果为1，将执行运动校正。否则，不执行。</li>
+<li>启动文件中还有其他参数，请参考<a href="Parameter-Tuning-Guide.md">参数调整指南</a>了解更多详情。</li>
+</ul>
+<h2 id="重要建议">重要建议</h2>
+<ul>
+<li>UltimateSLAM中的初始化相当敏感。为了获得最佳结果，我们建议从传感器静态开始（例如，放置在桌子上）。启动UltimateSLAM后，用传感器执行几秒钟的平移运动（左右移动，上下移动）以获得IMU偏差的良好初始估计。避免在传感器已经移动时初始化UltimateSLAM。避免在用相机进行大部分旋转运动时进行初始化。</li>
+<li>就像任何视觉-惯性里程计系统一样，良好的校准对于获得良好的追踪结果至关重要。</li>
+<li>适当的<a href="#%E5%8F%82%E6%95%B0%E8%B0%83%E4%BC%98%E6%8C%87%E5%8D%97">参数调整</a>是必要的，以获得最佳结果。默认情况下，参数被设置为与DAVIS240C（240x180）传感器和场景中的中等纹理量很好地工作。</li>
+</ul>
+<h1 id="参数调优指南">参数调优指南</h1>
+<p>UltimateSLAM提供了许多可以且应该为最佳跟踪性能进行调整的参数。可以通过运行以下命令获取参数的详尽列表：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">source</span> ./devel/setup.zsh &amp;&amp; rosrun ze_vio_ceres ze_vio_ceres_node --<span class="hljs-built_in">help</span><br></code></pre></td></tr></table></figure>
+<p>在本页面的其余部分，我们将关注最重要的参数。</p>
+<h2 id="事件帧参数">事件帧参数</h2>
+<p>以下参数允许控制如何生成事件帧。</p>
+<h3 id="集成参数">集成参数</h3>
+<ul>
+<li>
+<p><code>--vio_frame_size</code>：用于绘制每个事件帧的事件数量（默认：DAVIS240C为15000）。当预期的纹理量较小时使用较小的数字（例如，对于<em>shapes_6dof</em>数据集为5000）。</p>
+</li>
+<li>
+<p><code>--data_size_augmented_event_packet</code>：增强事件包的大小（传递给负责事件帧绘制的前端），以事件数量表示。<strong>此值应大于<code>--vio_frame_size</code></strong>。</p>
+</li>
+<li>
+<p><code>--vio_do_motion_correction</code>：是否启用使用IMU、估计速度和中位场景深度的运动校正（默认：true）。除非你使用的帧大小非常小，或用于调试，否则我们建议启用它。</p>
+</li>
+<li>
+<p><code>--noise_event_rate</code>：如果局部事件率小于每帧<code>noise_event_rate</code>，这些事件被视为噪声，VIO将丢弃来自该事件帧的测量，对后端添加强“静态”先验。</p>
+</li>
+</ul>
+<h3 id="事件帧生成频率（仅限事件管道）">事件帧生成频率（仅限事件管道）</h3>
+<p>在仅限事件的管道中，您可以完全指定事件帧将以以下参数下的哪个速率被创建。</p>
+<p><strong>在事件+帧管道中，事件帧率与灰度图像帧率相同（即，DAVIS240C为~20 Hz）</strong>。</p>
+<p><strong>以下参数适用于仅限事件的管道。</strong></p>
+<ul>
+<li>
+<p><code>--data_use_time_interval</code>：指定事件包是以固定时间率（true）还是固定事件率（false）创建。</p>
+</li>
+<li>
+<p><code>--data_interval_between_event_packets</code>：指定两个事件包之间的间隔。如果<code>--data_use_time_interval</code>为true，则此值解释为毫秒，如果为false，则解释为事件数量。</p>
+</li>
+</ul>
+<h2 id="校准参数">校准参数</h2>
+<ul>
+<li><code>--timeshift_cam_imu</code>：IMU与相机之间的时间偏移（以秒为单位）。使用Kalibr来估计它。</li>
+<li><code>--calib_filename</code>：YAML相机校准文件的文件名（在<code>calibration</code>文件夹中）。</li>
+</ul>
+<h2 id="日志记录参数">日志记录参数</h2>
+<ul>
+<li><code>--log_dir</code>：将保存日志信息（估计的相机姿势，计时信息）的文件夹。</li>
+<li><code>--vio_trace_pose</code>：是否将估计的姿势输出到文件。</li>
+</ul>
+<h2 id="可视化参数">可视化参数</h2>
+<ul>
+<li><code>--vio_viz_feature_tracks</code>：是否显示特征轨迹的痕迹。</li>
+</ul>
+<h1 id="VINS-Mono">VINS-Mono</h1>
+<p>在VINS-Mono框架下复现论文《Ultimate SLAM? Combining Events, Images, and IMU for Robust Visual SLAM in HDR and High Speed Scenarios》。</p>
+<p><a target="_blank" rel="noopener" href="https://gitee.com/stancy_sun/ultimate_slam">代码地址</a></p>
+<h2 id="编译">编译</h2>
+<ol>
+<li>
+<p>新建工作区。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> yourfolder<br>catkin config --extend /opt/ros/melodic --cmake-args -DCMAKE_BUILD_TYPE=Release<br><span class="hljs-built_in">mkdir</span> -p catkin_ws/src<br><span class="hljs-built_in">cd</span> catkin_ws/src<br>catkin_init_workspace<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>克隆库到<code>./catkin_ws/src</code>目录下。</p>
+<ol>
+<li>克隆<a target="_blank" rel="noopener" href="https://gitee.com/stancy_sun/ultimate_slam">VINS-Mono-ultimate_slam</a>。</li>
+<li>克隆<a target="_blank" rel="noopener" href="https://github.com/catkin/catkin_simple/tree/0e62848b12da76c8cc58a1add42b4f894d1ac21e">catkin_simple-0e62848</a></li>
+<li>克隆<a target="_blank" rel="noopener" href="https://github.com/uzh-rpg/rpg_dvs_ros/tree/95f08d565c3115b181a4763e1e350f4df0375c4b">rpg_dvs_ros-95f08d5</a></li>
+</ol>
+<blockquote>
+<p>此时<code>./catkin_ws/src</code>目录下有<code>VINS-Mono-ultimate_slam</code>、<code>catkin_simple-0e62848</code>和<code>rpg_dvs_ros-95f08d5</code>3个文件夹和一个<code>CMakeLists.txt</code>文件。</p>
+</blockquote>
+</li>
+<li>
+<p>配置依赖，要求同<a target="_blank" rel="noopener" href="https://github.com/HKUST-Aerial-Robotics/VINS-Mono">VINS-Mono</a>。</p>
+<ol>
+<li><a href="https://zeyulong.com/posts/84f91530/">安装ROS</a>。</li>
+<li><a href="https://zeyulong.com/posts/5c3493c4/">安装Eigen-3.3.0</a>。</li>
+<li><a href="https://zeyulong.com/posts/75ff45ce/">安装OpenCV-3.2.0</a>。</li>
+<li><a href="https://zeyulong.com/posts/60c04195/">安装Ceres-Solver-1.14.0</a>。</li>
+</ol>
+</li>
+<li>
+<p>（可选）指定项目编译使用的OpenCV版本。</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs cmake"><span class="hljs-comment"># CmakeList.txt</span><br><span class="hljs-keyword">set</span>(OpenCV_DIR /usr/local/opencv/opencv320/share/OpenCV)  <span class="hljs-comment"># 新增</span><br><span class="hljs-keyword">find_package</span>(OpenCV REQUIRED)<br><span class="hljs-comment"># find_package(cv_bridge)  # 如果find_package(OpenCV REQUIRED)报错</span><br><span class="hljs-keyword">include_directories</span>(<span class="hljs-variable">$&#123;OpenCV_INCLUDE_DIRS&#125;</span>)  <span class="hljs-comment"># 新增</span><br><span class="hljs-comment"># 新增</span><br><span class="hljs-keyword">message</span>(STATUS <span class="hljs-string">&quot;opencv version: $&#123;OpenCV_VERSION&#125;&quot;</span>)<br><span class="hljs-keyword">message</span>(STATUS <span class="hljs-string">&quot;opencv lib: $&#123;OpenCV_LIBS&#125;&quot;</span>)<br><span class="hljs-keyword">message</span>(STATUS <span class="hljs-string">&quot;opencv include dir: $&#123;OpenCV_INCLUDE_DIRS&#125;&quot;</span>)<br><span class="hljs-keyword">message</span>(STATUS <span class="hljs-string">&quot;opencv config path: $&#123;openCV_CONFIG_PATH&#125;&quot;</span>)<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>编译。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">catkin build  <span class="hljs-comment"># 或 catkin_make</span><br><span class="hljs-comment"># 如果编译报错：</span><br><span class="hljs-comment"># catkin clean 相当于 rm -r $&#123;build&#125; $&#123;devel&#125;, 但是避免了 rm -r 这种危险的操作！</span><br></code></pre></td></tr></table></figure>
+<p>Ceres-Solver报关于Eigen库的错误：注意此时使用的Eigen版本要与之前编译Ceres-Solver库时使用的版本一致。如果现在使用的Eigen版本变更了，那就卸载重装一遍Ceres-Solver吧。</p>
+</li>
+<li></li>
+</ol>
+<h2 id="运行">运行</h2>
+<p><a target="_blank" rel="noopener" href="https://rpg.ifi.uzh.ch/davis_data.html">数据集下载</a></p>
+<h3 id="配置文件">配置文件</h3>
+<p>以如下的rosbag包信息为例：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">rosbag info bag_name.bag<br></code></pre></td></tr></table></figure>
+<p>查询结果为：</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs txt">topics:      /davis346/events       12339 msgs    : dvs_msgs/EventArray      <br>             /davis346/image_raw     4745 msgs    : sensor_msgs/Image        <br>             /davis346/imu         205526 msgs    : sensor_msgs/Imu<br></code></pre></td></tr></table></figure>
+<p>按实际情况修改如下配置文件：</p>
+<ol>
+<li>
+<p><code>./ultimate_slam/vins_estimator/launch/config/xxx.yaml</code>：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-comment">#common parameters</span><br><span class="hljs-attr">imu_topic:</span> <span class="hljs-string">&quot;/davis346/imu&quot;</span>  <span class="hljs-comment"># 修改</span><br><span class="hljs-comment"># 下面是发布给 feature_trecker 的话题，与 motion_compensation_node.cpp 中的 event_image_pub_ 和 raw_image_pub_ 变量赋值相对应，不需要修改。不要修改为实际 rosbag 包的话题。</span><br><span class="hljs-attr">image_topic:</span> <span class="hljs-string">&quot;/mc/image_raw&quot;</span><br><span class="hljs-attr">event_topic:</span> <span class="hljs-string">&quot;/mc/event_image&quot;</span><br><br><span class="hljs-comment">#camera calibration </span><br><span class="hljs-string">...</span><br><span class="hljs-comment"># Extrinsic parameter between IMU and Camera.</span><br><span class="hljs-string">...</span><br><span class="hljs-comment">#imu parameters</span><br><span class="hljs-string">...</span><br><span class="hljs-comment">#unsynchronization parameters</span><br><span class="hljs-string">...</span><br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p><code>./ultimate_slam/vins_estimator/launch/config/xxx.launch</code>：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">arg</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;config_path&quot;</span> <span class="hljs-attr">default</span> = <span class="hljs-string">&quot;$(find vins_estimator)/launch/config/xxx.yaml&quot;</span> /&gt;</span><br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p><code>./ultimate_slam/motion_compensation/src/motion_compensation_node.cpp</code>：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs c++">EventProcessNode::<span class="hljs-built_in">EventProcessNode</span>(ros::NodeHandle &amp;nh)<br>	: <span class="hljs-built_in">nh_</span>(nh), <span class="hljs-built_in">it_</span>(nh)<br>&#123;<br>  <span class="hljs-comment">// fx, 0, cx, 0, fy, cy, 0, 0, 1</span><br>  cout &lt;&lt; <span class="hljs-string">&quot;Using vicon_aggressive_hdr davis346&quot;</span> &lt;&lt; endl;<br>	K &lt;&lt; <span class="hljs-number">259.355</span>, <span class="hljs-number">0.0</span>, <span class="hljs-number">177.005</span>, <span class="hljs-number">0.0</span>, <span class="hljs-number">259.58</span>, <span class="hljs-number">137.922</span>, <span class="hljs-number">0.0</span>, <span class="hljs-number">0.0</span>, <span class="hljs-number">1.0</span>;<br>        <br><span class="hljs-comment">//	events_sub_ = nh_.subscribe(&quot;/dvs/events&quot;, 2, &amp;EventProcessNode::eventCallback, this);</span><br>	events_sub_ = nh_.<span class="hljs-built_in">subscribe</span>(<span class="hljs-string">&quot;/davis346/events&quot;</span>, <span class="hljs-number">2</span>, &amp;EventProcessNode::eventCallback, <span class="hljs-keyword">this</span>);<br><span class="hljs-comment">//	img_sub_ = nh_.subscribe(&quot;/dvs/image_raw&quot;, 2, &amp;EventProcessNode::imageCallback, this);</span><br>	img_sub_ = nh_.<span class="hljs-built_in">subscribe</span>(<span class="hljs-string">&quot;/davis346/image_raw&quot;</span>, <span class="hljs-number">2</span>, &amp;EventProcessNode::imageCallback, <span class="hljs-keyword">this</span>);<br><br>    <span class="hljs-comment">// 下面两行无需修改</span><br>	event_image_pub_ = it_.<span class="hljs-built_in">advertise</span>(<span class="hljs-string">&quot;/mc/event_image&quot;</span>, <span class="hljs-number">1</span>);<br>	raw_image_pub_ = it_.<span class="hljs-built_in">advertise</span>(<span class="hljs-string">&quot;/mc/image_raw&quot;</span>, <span class="hljs-number">1</span>);<br><br>	EventAccumulatedImage_ = Mat::<span class="hljs-built_in">zeros</span>(<span class="hljs-number">260</span>, <span class="hljs-number">346</span>, CV_8U);<br><br><br><span class="hljs-comment">//	imu_sub_.subscribe(nh_, &quot;/dvs/imu&quot;, 500, ros::TransportHints().tcpNoDelay());</span><br>	imu_sub_.<span class="hljs-built_in">subscribe</span>(nh_, <span class="hljs-string">&quot;/davis346/imu&quot;</span>, <span class="hljs-number">500</span>, ros::<span class="hljs-built_in">TransportHints</span>().<span class="hljs-built_in">tcpNoDelay</span>());<br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="运行-2">运行</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">source</span> ./devel/setup.zsh &amp;&amp; roslaunch vins_estimator flyingroom.launch<br>rosbag play /yourfolder/boxes_6dof.bag<br></code></pre></td></tr></table></figure>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E4%BA%8B%E4%BB%B6%E7%9B%B8%E6%9C%BA/" class="category-chain-item">事件相机</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>UltimateSLAM编译运行调试记录</div>
+      <div>http://zeyulong.com/posts/6d95d81a/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>龙泽雨</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年2月7日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/posts/1e805a22/" title="修改文件属性信息的方法">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">修改文件属性信息的方法</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/2ef058d1/" title="EVO编译运行调试记录">
+                        <span class="hidden-mobile">EVO编译运行调试记录</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="waline"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#waline', function() {
+      Fluid.utils.createCssLink('https://cdn.staticfile.org/waline/2.15.5/waline.min.css')
+      Fluid.utils.createScript('https://cdn.staticfile.org/waline/2.15.5/waline.min.js', function() {
+        var options = Object.assign(
+          {"serverURL":"https://www.zeyulong.cn/","path":"window.location.pathname","meta":["nick","mail","link"],"requiredMeta":["nick"],"lang":"zh-CN","emoji":["https://cdn.jsdelivr.net/gh/walinejs/emojis/weibo"],"dark":"html[data-user-color-scheme=\"dark\"]","wordLimit":0,"pageSize":10,"reaction":true,"locale":{"placeholder":"花径不曾缘客扫，蓬门今始为君开。"}},
+          {
+            el: '#waline',
+            path: window.location.pathname
+          }
+        )
+        Waline.init(options);
+        Fluid.utils.waitElementVisible('#waline .vcontent', () => {
+          var imgSelector = '#waline .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> <div style="font-size: 0.85rem"> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/custom/RunTime/RunTime.js"></script> </div> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  
+<script src="/custom/live2d/live2d-widget/autoload.js"></script>
+<script src="/custom/live2d/jquery.min.js"></script>
+<script src="/custom/LabelPage/LabelPage.js"></script>
+<script src="/custom/LoadingBar/pace.min.js"></script>
+<script src="/custom/ReadingProgress/ReadingProgress.js"></script>
+<script src="/custom/typing-effect/typing-effect.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  <canvas
+    class="fireworks"
+    style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 32767"
+></canvas>
+<script type="text/javascript" src="/custom/fireworks/anime.min.js"></script> 
+<script type="text/javascript" src="/custom/fireworks/fireworks.js"></script>
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

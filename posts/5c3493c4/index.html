@@ -1,0 +1,949 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" >
+
+
+
+<head><!-- hexo injector head_begin start --><progress id="content_progress" value="0"></progress><!-- hexo injector head_begin end -->
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/theme/TamakoAvatar-new-zip.png">
+  <link rel="icon" href="/img/theme/TamakoAvatar-new-zip.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#000000">
+  <meta name="author" content="龙泽雨">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="本文主要分享了在Linux下Eigen库的安装与版本管理。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Eigen的安装与版本管理">
+<meta property="og:url" content="http://zeyulong.com/posts/5c3493c4/index.html">
+<meta property="og:site_name" content="龙泽雨的博客">
+<meta property="og:description" content="本文主要分享了在Linux下Eigen库的安装与版本管理。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-01-10T14:05:21.000Z">
+<meta property="article:modified_time" content="2024-10-11T07:50:54.005Z">
+<meta property="article:author" content="龙泽雨">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>Eigen的安装与版本管理 - 龙泽雨的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/custom/Markdown/macpanel.css">
+<link rel="stylesheet" href="/custom/Fonts/CodeFont.css">
+<link rel="stylesheet" href="/custom/Fonts/inlinecode-bg-color.css">
+<link rel="stylesheet" href="/custom/live2d/font-awesome.min.css">
+<link rel="stylesheet" href="/custom/LoadingBar/pace-theme-corner-indicator.css">
+<link rel="stylesheet" href="/custom/ReadingProgress/ReadingProgress.css">
+<link rel="stylesheet" href="/custom/SelectBackgroundColor/SelectBackgroundColor.css">
+<link rel="stylesheet" href="/custom/waline/gif.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"zeyulong.com","root":"/","version":"1.9.7","typing":{"enable":false,"typeSpeed":100,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"8gUBTaCjmaSbnf4genwggan3-MdYXbMMI","app_key":"2WRxjgxRXIWRBo8EA4205Wfm","server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<!-- hexo injector head_end start --><link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@200;300;400;500;600;700;900&display=swap" rel="stylesheet"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.0.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Happy every day!</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-steam"></i>
+                <span>摸鱼</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/2048" target="_self">
+                    
+                    <span>2048</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/bcbk/1" target="_self">
+                    
+                    <span>别踩白块-1</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/bcbk/2" target="_self">
+                    
+                    <span>别踩白块-2</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/dblk" target="_self">
+                    
+                    <span>躲避绿块</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/dr" target="_self">
+                    
+                    <span>恐龙快跑</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://mario-kart-3-js.vercel.app/" target="_self">
+                    
+                    <span>马里奥赛车</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/mf" target="_self">
+                    
+                    <span>魔方</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/cat" target="_self">
+                    
+                    <span>圈小猫</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/sl" target="_self">
+                    
+                    <span>扫雷</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/txz" target="_self">
+                    
+                    <span>推箱子</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/wzq" target="_self">
+                    
+                    <span>五子棋</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/theme/GirlWithCat-cut.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle">Eigen的安装与版本管理</span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        龙泽雨
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-01-10 22:05" pubdate>
+          2024年1月10日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.1k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          18 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Eigen的安装与版本管理</h1>
+            
+              <p id="updated-time" class="note note-info" style="">
+                
+                  
+                    本文最后更新于 2024年10月11日 下午
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <p>本文主要分享了在Linux下Eigen库的安装与版本管理。</p>
+<span id="more"></span>
+<blockquote>
+<p>推荐安装 Eigen &gt;= 3.3.4。在我运行的几个程序上，3.3.0 版本可能计算分配有点问题，程序计算卡顿，做不到实时，单个 CPU 核心满载，其它 CPU 核心空闲。</p>
+</blockquote>
+<h1 id="安装">安装</h1>
+<h2 id="利用apt-get进行安装">利用apt-get进行安装</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo apt-get install libeigen3-dev<br></code></pre></td></tr></table></figure>
+<p>通过上面的方式进行安装的Eigen，一般是存放在<code>/usr/include</code>，有一个<code>eigen3</code>文件夹。</p>
+<p>查看当前版本：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">gedit /usr/include/eigen3/Eigen/src/Core/util/Macros.h  <span class="hljs-comment"># 或</span><br>sed -n <span class="hljs-string">&#x27;10,20p&#x27;</span> /usr/include/eigen3/Eigen/src/Core/util/Macros.h  <span class="hljs-comment"># 将Macros.h文件的第10-20行打印到终端</span><br></code></pre></td></tr></table></figure>
+<h2 id="利用源码进行安装">利用源码进行安装</h2>
+<blockquote>
+<p>这里我是在之前已经通过<code>apt-get</code>在<code>/usr/include/eigen3</code>里安装了<code>Eigen3.4.0</code>的基础上安装配置<code>Eigen3.3.0</code>。</p>
+</blockquote>
+<ol>
+<li>
+<p>在<code>/usr/include</code>新建文件夹，等会用来存放Eigen的编译生成的文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> /usr/include<br>sudo <span class="hljs-built_in">mkdir</span> eigen330<br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>如果不是为了等会版本管理时替换文件夹方便，我个人更推荐把第三方库安装在<code>/usr/local</code>文件夹下进行管理。例如，在<code>/usr/local</code>文件夹下新建文件夹<code>eigen3</code>，后在<code>eigen3</code>文件夹下新建文件夹<code>eigen330</code>、<code>eigen340</code>。</p>
+<p>所以，如果你希望使用的版本管理方法是[CMakeLists.txt文件指定](# CMakeLists.txt文件指定)（最简单），而不是[替换eigen3文件夹](# 替换eigen3文件夹)，那么就完全可以把路径新建在<code>usr/local</code>下。</p>
+</blockquote>
+</li>
+<li>
+<p>下载Eigen。</p>
+<p>进入你准备放置Eigen源文件的目录：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> yourgfolder/  <span class="hljs-comment"># 区别于第1步的eigen330</span><br></code></pre></td></tr></table></figure>
+<p>从<a target="_blank" rel="noopener" href="https://gitlab.com/libeigen/eigen/-/releases">Eigen下载链接</a>下载你需要的Eigen版本，并解压到<code>yourgfolder</code>。</p>
+</li>
+<li>
+<p>编译Eigen。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">mkdir</span> build<br><span class="hljs-built_in">cd</span> build<br>cmake -DCMAKE_INSTALL_PREFIX=/usr/include/eigen330 ..<br>sudo make -j8<br>sudo make install<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>这时，<code>/usr/include/eigen330</code>目录下生成了3个文件夹，分别是<code>include</code>、<code>lib</code>和<code>share</code>。而<code>/usr/include/eigen3</code>目录下的3个文件（夹）分别是<code>Eigen</code>、<code>unsupported</code>和<code>signature_of_eigen3_matrix_library</code>。</p>
+<p>因此，类比下，我们要使用复制命令<code>cp</code>将<code>/usr/include/eigen330/include/eigen3</code>目录下的3个文件（夹）<code>Eigen</code>、<code>unsupported</code>和<code>signature_of_eigen3_matrix_library</code>复制到<code>/usr/include/eigen330/</code>目录下。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> /usr/include/eigen330/include/eigen3<br><span class="hljs-built_in">ls</span> <br>sudo <span class="hljs-built_in">cp</span> -r Eigen/ /usr/include/eigen330/<br>sudo <span class="hljs-built_in">cp</span> -r unsupported/ /usr/include/eigen330/<br>sudo <span class="hljs-built_in">cp</span> signature_of_eigen3_matrix_library /usr/include/eigen330/<br><span class="hljs-comment"># -r 或 --recursive：用于复制目录及其所有的子目录和文件，如果要复制目录，需要使用该选项。</span><br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>这样<code>/usr/include</code>目录下就存在两个版本的<code>eigen</code>，一个是以<code>eigen3</code>命名的通过<code>apt-get</code>的方式安装的最新版本3.4.0，另外一个是以<code>eigen330</code>命名通过编译源码的形式安装的自选指定版本3.3.0。</p>
+</li>
+</ol>
+<h1 id="版本管理">版本管理</h1>
+<h2 id="CMakeLists-txt文件指定">CMakeLists.txt文件指定</h2>
+<p>这是最简单的一种方法，也方便解决在一个项目中不同包需要的Eigen3版本不同的问题。</p>
+<p>自己花了不短的时间摸索出的-_-，还是对cmake的原理（内部调用关系）认识不足。</p>
+<p>直接在项目的<code>CMakeLists.txt</code>文件中指定你想使用的Eigen版本的路径：</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs cmake"><span class="hljs-comment"># 指定第三方库所在的路径，即指定其编译安装后`.cmake`文件所在的路径：</span><br><span class="hljs-comment"># set(Eigen3_DIR /usr/include/eigen330/lib/cmake/eigen3)  </span><br><span class="hljs-comment"># set(Eigen3_DIR /usr/include/eigen340/share/eigen3/cmake)  </span><br><span class="hljs-comment"># 无用。优先级问题？make时还是会指向/usr/include/eigen3</span><br><br><span class="hljs-keyword">set</span>(EIGEN3_INCLUDE_DIR <span class="hljs-string">&quot;/usr/local/eigen/eigen340/include&quot;</span>)  <span class="hljs-comment"># 确保你在`set`指定了Eigen3路径后没有调用`find_package(Eigen3 REQUIRED)`，因为这会覆盖你的设置。</span><br><span class="hljs-comment"># find_package(Eigen3 REQUIRED)  # 查找Eigen3的CMake配置文件（通常名为`Eigen3Config.cmake`或者`Eigen3-config.cmake`）。</span><br><span class="hljs-keyword">INCLUDE_DIRECTORIES</span>(<span class="hljs-variable">$&#123;EIGEN3_INCLUDE_DIR&#125;</span>)<br><br><span class="hljs-keyword">add_executable</span>(...)<br><span class="hljs-keyword">target_link_libraries</span>(...)<br><br><span class="hljs-keyword">message</span>(STATUS <span class="hljs-string">&quot;Eigen3_DIR: $&#123;Eigen3_DIR&#125;&quot;</span>)<br><span class="hljs-keyword">message</span>(STATUS <span class="hljs-string">&quot;EIGEN3_INCLUDE_DIR: $&#123;EIGEN3_INCLUDE_DIR&#125;&quot;</span>)<br><span class="hljs-keyword">message</span>(STATUS <span class="hljs-string">&quot;EIGEN3_VERSION_STRING: $&#123;EIGEN3_VERSION_STRING&#125;&quot;</span>)<br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>例如，如果路径为<code>/usr/include/eigen340/include/eigen3</code>的话（该路径下有3个文件（夹）分别是<code>Eigen</code>、<code>unsupported</code>和<code>signature_of_eigen3_matrix_library</code>），</p>
+<ul>
+<li>在代码文件中使用<code>#include &lt;eigen3/Eigen/Core&gt;</code> &lt;-&gt; 在<code>CMakeLists.txt</code>文件中使用<code>set(EIGEN3_INCLUDE_DIR &quot;/usr/local/eigen/eigen340/include&quot;)</code>。</li>
+<li>在代码文件中使用<code>#include &lt;Eigen/Core&gt;</code> &lt;-&gt; 在<code>CMakeLists.txt</code>文件中使用<code>set(EIGEN3_INCLUDE_DIR &quot;/usr/local/eigen/eigen340/include/eigen3&quot;)</code>。</li>
+</ul>
+<p>如果路径错误的话，会找不到文件，会报错。</p>
+</blockquote>
+<blockquote>
+<p>[利用apt-get进行安装](# 利用apt-get进行安装)的Eigen3的<code>cmake</code>文件所在的路径：<code>/usr/share/eigen3/cmake</code>。</p>
+</blockquote>
+<blockquote>
+<p>只使用了<code>find_package(Eigen3 REQUIRED)</code>，没有使用<code>set</code>函数指定路径的<code>CMakeLists.txt</code>所在的包还会使用默认的Eigen版本，即<code>/usr/include/eigen3</code>路径下的Eigen。</p>
+</blockquote>
+<blockquote>
+<p>为什么我使用<code>set</code>函数设置了Eigen3.4.0的路径为<code>/usr/include/eigen340/share/eigen3/cmake</code>，Cmake时打印出的<code>message</code>也是3.4.0的路径，但是实际make时使用的还是<code>/usr/include/eigen3</code>中的Eigen3.3.0？</p>
+<p>这可能是因为你的项目中的其他地方（可能是其他CMakeLists.txt文件）也设置了Eigen的路径，而且它们的优先级高于你设置的路径。或者，你的系统环境变量中可能已经设置了Eigen的路径。</p>
+<p>你可以尝试以下步骤来解决这个问题：</p>
+<ol>
+<li>检查你的项目中的所有CMakeLists.txt文件，确保没有其他地方设置了Eigen的路径。</li>
+<li>检查你的系统环境变量，看看是否有设置Eigen的路径。</li>
+<li>确保你在设置Eigen路径后没有调用<code>find_package(Eigen3)</code>，因为这会覆盖你的设置。</li>
+<li>使用<code>message(STATUS $&#123;EIGEN3_INCLUDE_DIR&#125;)</code>来打印出实际使用的Eigen路径，以便于调试。</li>
+</ol>
+<p>如果以上步骤都不能解决问题，你可能需要更深入地检查你的项目配置和环境设置。</p>
+</blockquote>
+<h2 id="替换eigen3文件夹">替换eigen3文件夹</h2>
+<blockquote>
+<p>使用该方法的前提是[利用apt-get进行安装](# 利用apt-get进行安装)了Eigen，也就是在系统目录<code>/usr/include/eigen3</code>下有Eigen的源文件，<code>/usr/share/eigen3/cmake</code>下有Eigen的<code>*.cmake*</code>文件，<code>/usr/share/pkgconfig</code>下有<code>eigen3.pc</code>。</p>
+</blockquote>
+<blockquote>
+<p>原理就是因为Eigen只有头文件，所以可以通过直接替换头文件的方法来替换Eigen的内容。</p>
+</blockquote>
+<h3 id="mv命令">mv命令</h3>
+<p>Linux <code>mv</code>（英文全拼：move file）命令用来为文件或目录改名、或将文件或目录移入其它位置。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 将源文件名 source_file 改为目标文件名 dest_file</span><br><span class="hljs-built_in">mv</span> source_file(文件) dest_file(文件)<br><span class="hljs-comment"># 将文件 source_file 移动到目标目录 dest_directory 中</span><br><span class="hljs-built_in">mv</span> source_file(文件) dest_directory(目录)<br><span class="hljs-comment"># 目录名 dest_directory 已存在，将 source_directory 移动到目录名 dest_directory 中；</span><br><span class="hljs-comment"># 目录名 dest_directory 不存在则 source_directory 改名为目录名 dest_directory</span><br><span class="hljs-built_in">mv</span> source_directory(目录) dest_directory(目录)<br><span class="hljs-comment"># 出错</span><br><span class="hljs-built_in">mv</span> source_directory(目录) dest_file(文件)<br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>注意：需要先执行<code>Ctrl+H</code>显示隐藏文件命令，否则，隐藏文件以及隐藏文件夹不会被移动到新目录。</p>
+</blockquote>
+<h3 id="eigen3-pc文件">eigen3.pc文件</h3>
+<p>系统是通过<code>eigen3.pc</code>这个文件搜索<code>eigen</code>库的，两种方式安装都会生成一个<code>eigen3.pc</code>文件，通过<code>apt-get</code>安装的存放在<code>/usr/share/pkgconfig</code>文件夹下，通过源码安装的就存放在安装目录的<code>share/pkgconfig</code>文件夹下。除了第一行的安装位置以及第七行版本的差别，两个文件没有其他差别。</p>
+<h3 id="实际操作">实际操作</h3>
+<p>由于我们的<code>eigen3</code>放在了<code>/usr/include</code>下，因此第一行不用改，保持<code>prefix=/usr</code>即可。需要修改<code>Version</code>，用哪个版本就改成哪个版本号，另一个版本用<code>//</code>注释掉即可，修改完保存退出。</p>
+<p>现为3.4.0版本，想要切换到3.3.0版本：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo gedit /usr/share/pkgconfig/eigen3.pc<br><span class="hljs-comment"># 把Line 7 改为Version: 3.3.0</span><br><span class="hljs-built_in">cd</span> /usr/include<br>sudo <span class="hljs-built_in">mv</span> eigen3 eigen340  <span class="hljs-comment"># 把eigen3重命名为eigen340</span><br>sudo <span class="hljs-built_in">mv</span> eigen330 eigen3  <span class="hljs-comment"># 把eigen330重命名为eigen3</span><br><span class="hljs-comment"># 此时/usr/include目录下有文件夹eigen3(3.3.0)和eigen340</span><br><br><span class="hljs-comment"># 查看当前版本</span><br>gedit /usr/include/eigen3/Eigen/src/Core/util/Macros.h  <span class="hljs-comment"># 或</span><br>sed -n <span class="hljs-string">&#x27;10,20p&#x27;</span> /usr/include/eigen3/Eigen/src/Core/util/Macros.h  <span class="hljs-comment"># 将Macros.h文件的第10-20行打印到终端</span><br></code></pre></td></tr></table></figure>
+<p>这样就通过重命名的方式改变系统查找文件时的指向，进而完成了版本切换的工作。</p>
+<p>现为3.3.0版本，想要切换回3.4.0版本：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo gedit /usr/share/pkgconfig/eigen3.pc<br><span class="hljs-comment"># 把Line 7 改为Version: 3.4.0</span><br><span class="hljs-built_in">cd</span> /usr/include<br>sudo <span class="hljs-built_in">mv</span> eigen3 eigen330  <span class="hljs-comment"># 把eigen3重命名为eigen330</span><br>sudo <span class="hljs-built_in">mv</span> eigen340 eigen3  <span class="hljs-comment"># 把eigen340重命名为eigen3</span><br><span class="hljs-comment"># 此时/usr/include目录下有文件夹eigen3(3.4.0)和eigen330</span><br><br><span class="hljs-comment"># 查看当前版本</span><br>gedit /usr/include/eigen3/Eigen/src/Core/util/Macros.h  <span class="hljs-comment"># 或</span><br>sed -n <span class="hljs-string">&#x27;10,20p&#x27;</span> /usr/include/eigen3/Eigen/src/Core/util/Macros.h  <span class="hljs-comment"># 将Macros.h文件的第10-20行打印到终端</span><br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>当然，你也可以使用建立<code>eigen3</code>文件夹的软链接的方式，而不是替换文件夹。效果/目的都是一样的。</p>
+</blockquote>
+<blockquote>
+<p>你也可以把安装在<code>/usr/local/</code>里的Eigen3调用过来，殊途同归。</p>
+</blockquote>
+<h1 id="参考链接">参考链接</h1>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_42265301/article/details/121984300">Eigen3多版本切换</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_36594547/article/details/102955881">ubuntu系统简单的eigen版本切换</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.eigen.tuxfamily.org/dox/TopicCMakeGuide.html">Using Eigen in CMake Projects</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/xiaohuidi/p/16079220.html">ubuntu 编译eigen3.4 和eigen3.3共存</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/p942005405/article/details/100653731">ubuntu 安装使用eigen3 (两种方式)</a></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7%E5%BA%93/" class="category-chain-item">软件工具库</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Eigen的安装与版本管理</div>
+      <div>http://zeyulong.com/posts/5c3493c4/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>龙泽雨</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年1月10日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/posts/6dba0521/" title="gcc、g++的安装与版本管理">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">gcc、g++的安装与版本管理</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/5723e027/" title="[每日亿遍]来自二次元的甜蜜暴击">
+                        <span class="hidden-mobile">[每日亿遍]来自二次元的甜蜜暴击</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="waline"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#waline', function() {
+      Fluid.utils.createCssLink('https://cdn.staticfile.org/waline/2.15.5/waline.min.css')
+      Fluid.utils.createScript('https://cdn.staticfile.org/waline/2.15.5/waline.min.js', function() {
+        var options = Object.assign(
+          {"serverURL":"https://www.zeyulong.cn/","path":"window.location.pathname","meta":["nick","mail","link"],"requiredMeta":["nick"],"lang":"zh-CN","emoji":["https://cdn.jsdelivr.net/gh/walinejs/emojis/weibo"],"dark":"html[data-user-color-scheme=\"dark\"]","wordLimit":0,"pageSize":10,"reaction":true,"locale":{"placeholder":"花径不曾缘客扫，蓬门今始为君开。"}},
+          {
+            el: '#waline',
+            path: window.location.pathname
+          }
+        )
+        Waline.init(options);
+        Fluid.utils.waitElementVisible('#waline .vcontent', () => {
+          var imgSelector = '#waline .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> <div style="font-size: 0.85rem"> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/custom/RunTime/RunTime.js"></script> </div> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  
+<script src="/custom/live2d/live2d-widget/autoload.js"></script>
+<script src="/custom/live2d/jquery.min.js"></script>
+<script src="/custom/LabelPage/LabelPage.js"></script>
+<script src="/custom/LoadingBar/pace.min.js"></script>
+<script src="/custom/ReadingProgress/ReadingProgress.js"></script>
+<script src="/custom/typing-effect/typing-effect.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  <canvas
+    class="fireworks"
+    style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 32767"
+></canvas>
+<script type="text/javascript" src="/custom/fireworks/anime.min.js"></script> 
+<script type="text/javascript" src="/custom/fireworks/fireworks.js"></script>
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

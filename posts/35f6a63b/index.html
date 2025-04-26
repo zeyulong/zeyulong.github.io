@@ -1,0 +1,1279 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" >
+
+
+
+<head><!-- hexo injector head_begin start --><progress id="content_progress" value="0"></progress><!-- hexo injector head_begin end -->
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/theme/TamakoAvatar-new-zip.png">
+  <link rel="icon" href="/img/theme/TamakoAvatar-new-zip.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#000000">
+  <meta name="author" content="龙泽雨">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="本文主要分享了用于评估里程计和SLAM的Python工具包evo的安装与使用。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="evo工具的安装与使用">
+<meta property="og:url" content="http://zeyulong.com/posts/35f6a63b/index.html">
+<meta property="og:site_name" content="龙泽雨的博客">
+<meta property="og:description" content="本文主要分享了用于评估里程计和SLAM的Python工具包evo的安装与使用。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://zeyulong.com/posts/35f6a63b/%E5%AF%B9%E9%BD%90%E7%B1%BB%E5%9E%8B.png">
+<meta property="og:image" content="http://zeyulong.com/posts/35f6a63b/%E4%BD%8D%E5%A7%BF%E6%8A%95%E5%BD%B1.png">
+<meta property="article:published_time" content="2024-04-29T13:00:10.000Z">
+<meta property="article:modified_time" content="2025-01-03T07:52:21.280Z">
+<meta property="article:author" content="龙泽雨">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://zeyulong.com/posts/35f6a63b/%E5%AF%B9%E9%BD%90%E7%B1%BB%E5%9E%8B.png">
+  
+  
+  
+  <title>evo工具的安装与使用 - 龙泽雨的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/custom/Markdown/macpanel.css">
+<link rel="stylesheet" href="/custom/Fonts/CodeFont.css">
+<link rel="stylesheet" href="/custom/Fonts/inlinecode-bg-color.css">
+<link rel="stylesheet" href="/custom/live2d/font-awesome.min.css">
+<link rel="stylesheet" href="/custom/LoadingBar/pace-theme-corner-indicator.css">
+<link rel="stylesheet" href="/custom/ReadingProgress/ReadingProgress.css">
+<link rel="stylesheet" href="/custom/SelectBackgroundColor/SelectBackgroundColor.css">
+<link rel="stylesheet" href="/custom/waline/gif.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"zeyulong.com","root":"/","version":"1.9.7","typing":{"enable":false,"typeSpeed":100,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"8gUBTaCjmaSbnf4genwggan3-MdYXbMMI","app_key":"2WRxjgxRXIWRBo8EA4205Wfm","server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<!-- hexo injector head_end start --><link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@200;300;400;500;600;700;900&display=swap" rel="stylesheet"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.0.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Happy every day!</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-steam"></i>
+                <span>摸鱼</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/2048" target="_self">
+                    
+                    <span>2048</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/bcbk/1" target="_self">
+                    
+                    <span>别踩白块-1</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/bcbk/2" target="_self">
+                    
+                    <span>别踩白块-2</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/dblk" target="_self">
+                    
+                    <span>躲避绿块</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/dr" target="_self">
+                    
+                    <span>恐龙快跑</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://mario-kart-3-js.vercel.app/" target="_self">
+                    
+                    <span>马里奥赛车</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/mf" target="_self">
+                    
+                    <span>魔方</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/cat" target="_self">
+                    
+                    <span>圈小猫</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/sl" target="_self">
+                    
+                    <span>扫雷</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/txz" target="_self">
+                    
+                    <span>推箱子</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/wzq" target="_self">
+                    
+                    <span>五子棋</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/theme/GirlWithCat-cut.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle">evo工具的安装与使用</span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        龙泽雨
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-04-29 21:00" pubdate>
+          2024年4月29日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          5.8k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          49 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">evo工具的安装与使用</h1>
+            
+              <p id="updated-time" class="note note-info" style="">
+                
+                  
+                    本文最后更新于 2025年1月3日 下午
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <p>本文主要分享了用于评估里程计和SLAM的Python工具包evo的安装与使用。</p>
+<span id="more"></span>
+<h1 id="概述">概述</h1>
+<p><a target="_blank" rel="noopener" href="https://github.com/MichaelGrupp/evo">GitHub存储库</a></p>
+<p>该软件包提供了可执行文件和一个小型库，用于处理、评估和比较里程计和 SLAM 算法的轨迹输出。</p>
+<p>支持的轨迹格式：</p>
+<ul>
+<li>TUM轨迹文件</li>
+<li>KITTI位姿文件</li>
+<li>EuRoC MAV（<code>*.csv</code>真值和TUM轨迹文件）</li>
+<li>带有 <code>geometry_msgs/PoseStamped</code> 、 <code>geometry_msgs/TransformStamped</code> 、 <code>geometry_msgs/PoseWithCovarianceStamped</code> 、 <code>geometry_msgs/PointStamped</code> 或 <code>nav_msgs/Odometry</code> 主题或 TF 消息的 ROS 和 ROS2 bag文件</li>
+</ul>
+<h1 id="安装-升级-卸载">安装/升级/卸载</h1>
+<h2 id="安装-升级">安装/升级</h2>
+<ol>
+<li>
+<p>如果您只想使用最新发行版本的可执行文件，最简单的方法是运行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo apt install python-pip  <span class="hljs-comment"># python3-pip</span><br>pip install evo --upgrade --no-binary evo  <span class="hljs-comment"># 或pip3，需要注意ros只支持python2</span><br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>源码安装，可其中提供的一些工具比如格式转换：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo apt install python-pip  <span class="hljs-comment"># python3-pip</span><br>git <span class="hljs-built_in">clone</span> https://github.com/MichaelGrupp/evo.git<br><span class="hljs-built_in">cd</span> evo<br>pip install --editable . --upgrade --no-binary evo  <span class="hljs-comment"># 或pip3，需要注意ros只支持python2</span><br></code></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>报错处理：</p>
+<ol>
+<li>
+<p>报错信息：evo module evo.main_traj crashed - no logfile written (disabled)</p>
+<p>解决方法：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">pip install matplotlib --upgrade<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>问题：加载<code>matplotlib</code>包时出现加载的问题</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt<br></code></pre></td></tr></table></figure>
+<p>报错信息：ImportError: No module named '_tkinter', please install the python3-tk package</p>
+<p>解决方法：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo apt-get update<br>sudo apt-get install python3-tk<br></code></pre></td></tr></table></figure>
+<p>如果不想更新的话，<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/50327906/importerror-no-module-named-tkinter-please-install-the-python3-tk-package">stackoverflow</a>上有更好的解决方法：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> matplotlib<br>matplotlib.use(<span class="hljs-string">&quot;agg&quot;</span>)<br><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt<br></code></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="测试">测试</h2>
+<p>本地安装路径</p>
+<ul>
+<li><code>/home/lll25655/.local/lib/python2.7/site-packages/evo</code></li>
+<li><code>/home/lll25655/.local/bin/evo</code>（存放可执行文件）</li>
+</ul>
+<p>安装完毕后，在命令行输入evo，若显示了相关信息，则表明安装成功。若提示&quot;command not found&quot;也不用惊慌，很多人遇到这种问题，重启电脑即可找到evo相应指令。</p>
+<ul>
+<li><code>evo pkg --version</code> 查看evo版本</li>
+<li><code>evo pkg --info</code> 查看evo的简要介绍和描述</li>
+<li><code>evo pkg --pyversion</code> 查看evo使用的python版本</li>
+<li><code>evo pkg --license</code> 查看许可证</li>
+<li><code>evo pkg --location</code> 查看evo安装路径</li>
+<li><code>evo pkg --logfile</code> 查看日志文件路径</li>
+<li><code>evo pkg --open_log</code> 打开日志文件</li>
+<li><code>evo pkg --clear_log</code> 清除日志文件</li>
+</ul>
+<h2 id="卸载">卸载</h2>
+<p>简单安装evo，虽然下载了源码但并不是通过源码，卸载<code>pip install</code>的文件步骤如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">pip list  <span class="hljs-comment"># 列出pip安装的软件包</span><br>pip uninstall evo  <span class="hljs-comment"># 卸载</span><br></code></pre></td></tr></table></figure>
+<h1 id="命令行界面">命令行界面</h1>
+<h2 id="概述-2">概述</h2>
+<p>安装后，可以从命令行全局调用以下可执行文件：</p>
+<p>指标：</p>
+<ul>
+<li><code>evo_ape</code> - 绝对位姿误差</li>
+<li><code>evo_rpe</code> - 相对位姿误差</li>
+</ul>
+<p>工具：</p>
+<ul>
+<li><code>evo_traj</code> - 用于分析、绘制或导出一个或多个轨迹的工具</li>
+<li><code>evo_res</code> - 用于比较 <code>evo_ape</code> 或 <code>evo_rpe</code> 中的一个或多个结果文件的工具</li>
+<li><code>evo_fig</code> - 用于重新打开序列化图的（实验）工具（使用 <code>--serialize_plot</code> 保存）</li>
+<li><code>evo_config</code> - 用于全局设置和配置文件操作的工具</li>
+</ul>
+<p>使用 <code>--help</code> 调用命令以查看选项，例如 <code>evo_ape --help</code> 。命令行参数的 Tab 补全功能在类 UNIX 系统上可用。</p>
+<p>更多文档请查看 GitHub 上的 <a target="_blank" rel="noopener" href="https://github.com/MichaelGrupp/evo/wiki">Wiki</a>。</p>
+<p>存储库中还提供了非常简单的命令行应用程序的 Bash 脚本演示，其中显示了不同用例的示例，请参阅<a target="_blank" rel="noopener" href="https://github.com/MichaelGrupp/evo/tree/master/test/demos">此处</a>。</p>
+<h2 id="示例工作流程">示例工作流程</h2>
+<p><code>test/data</code> 的源文件夹中有一些示例轨迹。</p>
+<h3 id="绘制多条轨迹">绘制多条轨迹</h3>
+<p>在这里，我们使用 <code>evo_traj</code> 绘制两个 KITTI 位姿文件和真值：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> <span class="hljs-built_in">test</span>/data<br>evo_traj kitti KITTI_00_ORB.txt KITTI_00_SPTAM.txt --ref=KITTI_00_gt.txt -p --plot_mode=xz<br></code></pre></td></tr></table></figure>
+<h3 id="对轨迹运行度量">对轨迹运行度量</h3>
+<p>例如，这里我们使用 <code>evo_ape</code> （ <code>KITTI_00_gt.txt</code> 是参考（真值））计算 ORB-SLAM 和 S-PTAM 的两个轨迹的绝对位姿误差，并绘制和保存 <code>evo_res</code> 的各个结果到 <code>*.zip</code> 文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 第一条轨迹（ORB Stereo）</span><br><span class="hljs-built_in">mkdir</span> results<br>evo_ape kitti KITTI_00_gt.txt KITTI_00_ORB.txt -va --plot --plot_mode xz --save_results results/ORB.zip<br><span class="hljs-comment"># 第二条轨迹（S-PTAM）</span><br>evo_ape kitti KITTI_00_gt.txt KITTI_00_SPTAM.txt -va --plot --plot_mode xz --save_results results/SPTAM.zip<br></code></pre></td></tr></table></figure>
+<h3 id="处理一个指标的多个结果">处理一个指标的多个结果</h3>
+<p><code>evo_res</code> 可用于比较指标中的多个结果文件，即：</p>
+<ul>
+<li>打印信息和统计数据（默认）</li>
+<li>将统计数据保存在表中</li>
+</ul>
+<p>在这里，我们使用上面的结果来生成图表和表格：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">evo_res results/*.zip -p --save_table results/table.csv<br></code></pre></td></tr></table></figure>
+<h1 id="文件格式">文件格式</h1>
+<p>加载轨迹的可执行文件支持不同的格式。您可以指定要与模式开关（第二个参数）一起使用的格式，例如： <code>evo_traj tum ...</code> 或 <code>evo_traj kitti ...</code> 。本文档提供有关这些文件格式的信息。</p>
+<h2 id="bag-bag2"><code>bag</code> &amp; <code>bag2</code></h2>
+<p>ROS1/ROS2 bag文件。</p>
+<p>目前，支持主题包含 <code>geometry_msgs/PoseStamped</code> 、 <code>geometry_msgs/TransformStamped</code> 、 <code>geometry_msgs/PoseWithCovarianceStamped</code> 、 <code>geometry_msgs/PointStamped</code> 和 <code>nav_msgs/Odometry</code> 消息的包文件。 evo 仅读取轨迹，因此不使用协方差或扭曲。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">evo_traj bag my_data.bag /odom /pose<br></code></pre></td></tr></table></figure>
+<p>v1.9 以来的新功能：现在也支持 TF 主题。您可以使用说明符 <code>&lt;topic&gt;:&lt;parent_frame&gt;.&lt;child_frame&gt;</code> 在命令行应用程序中加载 TF 变换的轨迹。例如：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">evo_traj bag my_data.bag /tf:map.base_link /tf:odom.base_link<br></code></pre></td></tr></table></figure>
+<p>更多信息：<a target="_blank" rel="noopener" href="http://wiki.ros.org/Bags">http://wiki.ros.org/Bags</a></p>
+<h2 id="euroc"><code>euroc</code></h2>
+<p>EuRoC MAV 数据集格式（也用于 TUM VI 数据集）。</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs txt">timestamp,px,py,pz,qw,qx,qy,qz,vx,vy,vz,bwx,bwy,bwz,bax,bay,baz<br>（每行17个元素，逗号隔开，时间以纳秒为单位）<br></code></pre></td></tr></table></figure>
+<p>EuRoC MAV 数据集的每个序列都有包含各种地面实况信息的 <code>.csv</code> 文件。对于我们来说，只有具有真实轨迹的第一列才重要（时间戳、位置和方向）。</p>
+<p>您可以在序列文件夹中找到这些文件： <code>&lt;sequence&gt;/mav0/state_groundtruth_estimate0/data.csv</code>。</p>
+<p>这种格式仅对这些真实文件有意义，因为它们具有附加数据（我们不需要）。如果您使用EuRoC数据集，您通常需要将轨迹保存为另一种格式，例如TUM格式（例如ORB-SLAM就是这样做的）。</p>
+<p>在 <code>euroc</code> 模式下，evo的指标要求您提供EuRoC格式的参考和TUM格式的估计轨迹。</p>
+<p>更多信息：<a target="_blank" rel="noopener" href="http://projects.asl.ethz.ch/datasets/doku.php?id=kmavvisualinertialdatasets#the_euroc_mav_dataset">http://projects.asl.ethz.ch/datasets/doku.php?id=kmavvisualinertialdatasets#the_euroc_mav_dataset</a></p>
+<blockquote>
+<p>要小心 EuRoC 数据集坐标系（地面实况、IMU、相机...），因为它们具有不同的轴约定。</p>
+</blockquote>
+<h2 id="kitti"><code>kitti</code></h2>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs txt">r11 r12 r13 tx r21 r22 r23 ty r31 r32 r33 tz<br>（存储变换矩阵的前三行（每行12元素，空格隔开）没有时间）<br></code></pre></td></tr></table></figure>
+<p>这实际上不是真正的轨迹格式，因为它没有时间戳 - 它只包含文本文件中的姿势。这意味着当您想要将此格式的两个文件与度量进行比较时必须小心，因为位姿的数量必须完全相同。</p>
+<p>文件的每一行都包含 4x4 齐次位姿矩阵（SE(3) 矩阵）的前 3 行，该矩阵被展平为一行，每个值由空格分隔。例如，这个位姿矩阵：</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs txt">a b c d<br>e f g h<br>i j k l<br>0 0 0 1<br></code></pre></td></tr></table></figure>
+<p>将在文件中显示为以下行：</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs txt">a b c d e f g h i j k l<br></code></pre></td></tr></table></figure>
+<p>更多信息：<a target="_blank" rel="noopener" href="http://www.cvlibs.net/datasets/kitti/eval_odometry.php">http://www.cvlibs.net/datasets/kitti/eval_odometry.php</a></p>
+<h2 id="tum"><code>tum</code></h2>
+<p>TUM RGB-D 数据集轨迹格式。</p>
+<p>每行都有 8 个条目，其中包含时间戳（以秒为单位）、位置和方向（作为四元数），每个值之间用空格分隔：</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs txt">timestamp x y z q_x q_y q_z q_w<br></code></pre></td></tr></table></figure>
+<p>更多信息：<a target="_blank" rel="noopener" href="https://vision.in.tum.de/data/datasets/rgbd-dataset/file_formats">https://vision.in.tum.de/data/datasets/rgbd-dataset/file_formats</a></p>
+<blockquote>
+<p>注意：TUM 视觉惯性数据集以与 EuRoC MAV 数据集类似的格式提供真实数据。它没有使用 TUM RGB-D 轨迹格式作为基本事实。对于 evo 1.13.4 或更高版本，您也可以对此数据集使用 <code>euroc</code> 模式。</p>
+</blockquote>
+<h1 id="evo-traj">evo_traj</h1>
+<p><code>evo_traj</code> 是处理多个轨迹的主要工具，例如：</p>
+<ul>
+<li>显示一些信息</li>
+<li>绘图</li>
+<li>验证数据是否有效</li>
+<li>导出为其他格式</li>
+<li>应用变换等</li>
+</ul>
+<p>可以在命令行通过<code>-h</code>或<code>--help</code>参数查看当前evo指令的参数及相关说明。例如：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">evo_traj tum –h<br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>注意一定要输入完整的evo指令（<code>evo_traj</code>, <code>evo_ape</code>等），与必选参数，即数据格式（<code>tum</code>/<code>kitti</code>/<code>euroc</code>/<code>bag</code>）。</p>
+</blockquote>
+<h2 id="基础">基础</h2>
+<p><code>evo_traj</code> 可以打开任意数量的轨迹。如果是基于文本的轨迹格式（ <code>tum</code> 、 <code>euroc</code> 、 <code>kitti</code> - 另请参阅<a target="_blank" rel="noopener" href="https://github.com/MichaelGrupp/evo/wiki/Formats">文件格式</a>），您可以将轨迹文件作为参数提供，例如：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">evo_traj tum traj_1.txt traj_2.txt traj_3.txt<br></code></pre></td></tr></table></figure>
+<p>（在这里，您还可以在类 UNIX 系统上使用 glob 表示法： <code>evo_traj tum traj_*</code> ）</p>
+<p>如果是 ROS bagfile，您可以提供文件路径，后跟要使用的主题的名称：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">evo_traj bag data.bag /groundtruth /odom /tf:map.base_link<br></code></pre></td></tr></table></figure>
+<p>或者，使用 ROS2 包：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">evo_traj bag2 data /groundtruth /odom /tf:map.base_link<br></code></pre></td></tr></table></figure>
+<p>您还可以使用 <code>--all_topics</code> 选项加载 bagfile 内的所有轨迹。 TF 主题可以与[此处](#<code>bag</code> &amp; <code>bag2</code>)描述的特殊语法一起使用。</p>
+<p>参考轨迹可以用 <code>--ref</code> 标记：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">evo_traj bag data.bag /odom /tf:map.base_link --ref /groundtruth<br></code></pre></td></tr></table></figure>
+<p>您还可以将对齐功能（ <code>-a / --align</code> 、 <code>-s / --correct_scale</code> 或 <code>--n_to_align</code> 参数）与 <code>evo_traj</code> 一起使用。</p>
+<h2 id="检查轨迹数据">检查轨迹数据</h2>
+<p>默认情况下， <code>evo_traj</code> 仅打印有关您以这种格式输入的轨迹的一些重要信息：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">name:	groundtruth<br>infos:	12765 poses, 304.207m path length, 889.019s duration<br></code></pre></td></tr></table></figure>
+<p>在详细模式（ <code>-v</code> / <code>--verbose</code> ）下，输出更改为以下格式：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs bash">name:   groundtruth<br>infos<br>        duration (s)    889.01894474<br>        nr. of poses    12765<br>        path length (m) 304.206897009<br>        pos_end (m)     [ -3.32159757  -4.64051651  32.7839329 ]<br>        pos_start (m)   [-0.00489994 -0.01775981 -0.01375532]<br>        t_end (s)       1502793459.3<br>        t_start (s)     1502792570.28<br></code></pre></td></tr></table></figure>
+<p>您可以使用 <code>--full_check</code> 标志获得最详细的输出。这会执行一些数学和逻辑检查 - 例如四元数是否具有单位范数或者时间戳是否升序。还显示了一些速度值（ <code>kitti</code> 除外，我们没有时间戳）。</p>
+<h2 id="绘图">绘图</h2>
+<p>将 <code>-p</code> 或 <code>--plot</code> 附加到您的命令以绘制轨迹。您可以使用 <code>--plot_mode</code> 指定视图 - 例如 <code>--plot_mode xz</code> 用于 x 和 z 轴的 2D 视图，或 <code>--plot_mode xyz</code> 用于 3D 视图。无论如何，绘图窗口中还有第二个选项卡，其中单独绘制了 x、y 和 z 值，第三个选项卡则显示了横滚角、俯仰角和偏航角（xyz 约定）。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">evo_ape bag file.bag /groundtruth /estimate -a -p --plot_mode xz<br></code></pre></td></tr></table></figure>
+<p>另请参阅此处了解更多信息：<a href="#%E5%AE%9A%E5%88%B6%E7%BB%98%E5%9B%BE">定制绘图</a>。</p>
+<h2 id="导出">导出</h2>
+<p>看<a href="#%E4%BF%9D%E5%AD%98/%E5%AF%BC%E5%87%BA%E4%B8%BA%E5%85%B6%E4%BB%96%E6%A0%BC%E5%BC%8F">这里</a>。</p>
+<h2 id="对齐与转换">对齐与转换</h2>
+<h3 id="几何对齐">几何对齐</h3>
+<p>如果使用 <code>--ref</code> 给出参考轨迹，则可以使用 Umeyama 的方法将其他轨迹与参考对齐：</p>
+<ul>
+<li><code>--align</code> 或 <code>-a</code> = SE(3) Umeyama 对齐（旋转、平移）</li>
+<li><code>--align --correct_scale</code> 或 <code>-as</code> = Sim(3) Umeyama 对齐（旋转、平移、缩放）</li>
+<li><code>--correct_scale</code> 或 <code>-s</code> = 仅比例校正。不加<code>-s</code>表示默认尺度对齐参数为1.0，即不进行尺度对齐。</li>
+<li><code>--n_to_align N_TO_ALIGN</code>: the number of poses to use for Umeyama alignment, counted from the start (default: all)</li>
+</ul>
+<img src="/posts/35f6a63b/%E5%AF%B9%E9%BD%90%E7%B1%BB%E5%9E%8B.png" srcset="/img/loading.gif" lazyload class="" title="对齐类型">
+<blockquote>
+<p>v1.5.0 以来的新功能： <code>--align_origin</code> 提供了可用于漂移/闭环评估的简单原点对齐。这不是基于 Umeyama 算法。</p>
+</blockquote>
+<h3 id="时间对齐">时间对齐</h3>
+<p>这是通过搜索参考轨迹和其他轨迹之间的最佳匹配时间戳来完成的。然后，所有轨迹都会缩减为最佳匹配时间戳。如果未找到匹配项，则会引发错误。此步骤的选项有：</p>
+<ul>
+<li><code>--t_offset</code> ：添加一个恒定的时间戳偏移量（不添加到 --ref 轨迹） - 默认值：0.0s</li>
+<li><code>--t_max_diff</code> ：数据关联的最大时间戳差异 - 默认：0.01s</li>
+</ul>
+<p>所有几何对齐方法（ <code>--align</code> 、 <code>--correct_scale</code> ）都会自动执行此操作以进行点配准。您还可以仅同步轨迹的时间戳，而无需与 <code>--sync</code> 进行任何几何对齐。</p>
+<h3 id="投影变换">投影变换</h3>
+<p>您可以将位姿投影到具有 <code>--project_to_plane</code> 和所需平面（xy、xz 或 yz）的平面中。例如， <code>--project_to_plane xy</code> ：</p>
+<img src="/posts/35f6a63b/%E4%BD%8D%E5%A7%BF%E6%8A%95%E5%BD%B1.png" srcset="/img/loading.gif" lazyload class="" title="位姿投影">
+<blockquote>
+<p>注意：投影是在任何潜在的<a href="#%E5%87%A0%E4%BD%95%E5%AF%B9%E9%BD%90">几何对齐</a>之前完成的。</p>
+</blockquote>
+<h3 id="下采样-过滤">下采样/过滤</h3>
+<p>轨迹可以被下采样到固定的最大数量的姿势。例如，如果您有非常大的数据并且想要提高绘图性能，这可能很有用。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">evo_traj tum data.txt -v --downsample 1000<br></code></pre></td></tr></table></figure>
+<p>一种更智能的过滤类型是运动过滤器。这会过滤掉与之前的姿势相比移动不够的姿势。例如，这可以用于删除没有发生任何有趣的数据的部分，仅保留高于平移或角度阈值的运动。使用 0.5m 和 5 度的阈值进行过滤的示例：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">evo_traj tum data.txt -v --motion_filter 0.5 5<br></code></pre></td></tr></table></figure>
+<h3 id="转换">转换</h3>
+<p>您还可以使用自定义 3D 变换来变换轨迹的姿势。为此，您需要一个 .json 文件，其中包含以下格式的平移向量和旋转四元数：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs bash">&#123;<br>  <span class="hljs-string">&quot;x&quot;</span>: 0.0,<br>  <span class="hljs-string">&quot;y&quot;</span>: 0.0,<br>  <span class="hljs-string">&quot;z&quot;</span>: 0.0,<br>  <span class="hljs-string">&quot;qx&quot;</span>: 0.0,<br>  <span class="hljs-string">&quot;qy&quot;</span>: 0.0,<br>  <span class="hljs-string">&quot;qz&quot;</span>: 0.0,<br>  <span class="hljs-string">&quot;qw&quot;</span>: 1.0<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>您也可以使用 numpy 以文本 ( <code>np.savetxt</code> ) 或二进制格式 ( <code>np.save</code> ) 保存 4x4 SE(3) 矩阵，并使用<a href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6">与 JSON 相同的命令行参数</a>加载它们格式。</p>
+<p>要从全局框架应用此类转换，请使用 <code>--transform_left &lt;json file&gt;</code> 。要从其自己的本地框架转换每个姿势，请使用 <code>--transform_right &lt;json file&gt;</code> （如果包含平移，这会更改轨迹的形状！）。</p>
+<h1 id="指标">指标</h1>
+<h2 id="概述-3">概述</h2>
+<p>这些内置命令行应用程序可让您根据参考（地面实况）评估估计轨迹：</p>
+<ul>
+<li><code>evo_ape</code></li>
+<li><code>evo_rpe</code></li>
+</ul>
+<p>从概念上讲，命令语法如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">command</span> format reference-trajectory estimated-trajectory [options] <br></code></pre></td></tr></table></figure>
+<p>其中 <code>format</code> 表示支持的轨迹格式之一 - 有关不同格式的更多信息，请参阅<a href="#%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F">此处</a>。</p>
+<p>对于 ROS bagfile，语法略有不同：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">command</span> bag bagfile-path reference-topic estimated-topic [options] <br></code></pre></td></tr></table></figure>
+<p>还支持 TF 主题，请参阅[此处](#bag<code>&amp;</code>bag2)。</p>
+<p>有关命令行界面的更多详细信息，请使用 <code>--help</code> 标志 - 例如 <code>evo_rpe euroc --help</code> 。</p>
+<blockquote>
+<p>大多数中论文的指标为测量绝对误差， 在进行评估时，若经过了缩放，在命令行中应将真实轨迹（参考轨迹）放在估计轨迹（计算轨迹）前方，避免在缩放时参考轨迹错误而造成误差被错误缩放。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">evo_ape tum groundtruth.txt CameraTrajectory_TUM.txt -p --plot_mode=xy -as<br></code></pre></td></tr></table></figure>
+</blockquote>
+<p>输出指标；</p>
+<ul>
+<li><code>max</code>：表示最大误差</li>
+<li><code>mean</code>：平均误差</li>
+<li><code>median</code>：误差中位数</li>
+<li><code>min</code>：最小误差</li>
+<li><code>rmse</code>：均方根误差</li>
+<li><code>sse</code>：和方差、误差平方和</li>
+<li><code>std</code>：标准差</li>
+</ul>
+<h2 id="evo-ape">evo_ape</h2>
+<p>绝对位姿误差，常被用作绝对轨迹误差。给定位姿关系，直接比较估计和参考之间的相应位姿。然后，计算整个轨迹的统计数据。这对于测试轨迹的全局一致性很有用。该标准非常适合于评估视觉 SLAM 系统的性能。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">evo_ape tum reference.txt estimate.txt --align<br></code></pre></td></tr></table></figure>
+<p>将 <code>--help</code> 附加到命令以查看所有可用选项。</p>
+<ul>
+<li><code>-r(--pose_relation) full</code>表示同时考虑旋转和平移误差得到的ape,无单位（unit-less）</li>
+<li>（默认）<code>-r trans_part</code>表示考虑平移部分得到的ape，单位为m</li>
+<li><code>-r rot_part</code>表示考虑旋转部分得到的ape，衡量旋转精度，无单位（unit-less）</li>
+<li><code>-r angle_deg</code>表示考虑旋转角得到的ape，单位°（deg）</li>
+<li><code>-r angle_rad</code>表示考虑旋转角得到的ape,单位弧度（rad）</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">evo_ape kitti KITTI_00_gt.txt KITTI_00_ORB.txt -r full -va --plot --plot_mode xz --save_results results/ORB.zip  <span class="hljs-comment"># 命令的含义为：计算考虑平移和旋转部分误差的ape,进行平移和旋转对齐,以详细模式显示，保存画图并保存计算结果。</span><br></code></pre></td></tr></table></figure>
+<h2 id="evo-rpe">evo_rpe</h2>
+<p>相对位姿误差不是直接比较绝对位姿，而是比较运动（“位姿增量”）。该指标提供了有关局部精度（即漂移）的见解。例如，可以评估每米的平移或旋转漂移：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">evo_rpe tum reference.txt estimate.txt -r angle_deg --delta 1 --delta_unit m<br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>除非指定 <code>--all_pairs</code> ，否则相对姿势对是连续的。然后，使用重叠的相对姿势对。</p>
+<p>当在命令中加上<code>--all_pairs</code>，则计算rpe时使用位置数据中所有的对而不是仅连续对，此时，可以通过<code>-t</code>/<code>--delta_tol</code>控制<code>–-all_pairs</code>模式下的相对增量的容差（relative delta tolerance）。需要注意<code>--all_pairs</code>下不能使用<code>–-plot</code>函数。</p>
+</blockquote>
+<p>将 <code>--help</code> 附加到命令以查看所有可用选项。</p>
+<ul>
+<li><code>–d</code>/<code>-–delta</code>表示相对位姿之间的增量，<code>–u</code>/<code>-–delta_unit</code>表示增量的单位，可选参数为[f, d, r, m]，分别表示[frames, deg, rad, meters]。<code>–d</code>/<code>-–delta</code>与<code>-u</code>/<code>-–delta_unit</code>合起来表示衡量局部精度的单位，如每米，每弧度，每百米等。其中<code>-–delta_unit</code>为<code>f</code>时，<code>–-delta</code>的参数必须为整形，其余情况下可以为浮点型。<code>–-delta</code> 默认为<code>1</code>，<code>–-delta_unit</code>默认为<code>f</code>。</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">evo_rpe euroc data.csv V102.txt -r angle_deg --delta 1 --delta_unit m -va --plot --plot_mode xyz --save_plot ./VIO --save_results ./VIO.zip  <span class="hljs-comment"># 命令的含义为 求每米考虑旋转角的rpe，以详细模式显示并画图。</span><br></code></pre></td></tr></table></figure>
+<h2 id="对齐">对齐</h2>
+<p>与<code>evo_traj</code>相同，您可以使用 <a href="#%E5%87%A0%E4%BD%95%E5%AF%B9%E9%BD%90">Umeyama 对齐</a>作为预处理步骤。单目 SLAM 通常需要比例或 Sim(3) 对齐，其中通常具有随机比例。如果您想尽可能最好地测量轨迹的形状相似度，SE(3) 对齐对于绝对位姿误差 ( <code>evo_ape</code> ) 很有用。</p>
+<h2 id="投影">投影</h2>
+<p>在计算误差之前，可以将 3D 轨迹投影到 2D。这与通过 <code>--project_to_plane &#123;xy, xz, yz&#125;</code> 在 <code>evo_traj</code> 中的工作方式相同，有关详细信息，请参阅<a href="#%E6%8A%95%E5%BD%B1%E5%8F%98%E6%8D%A2">那里</a>的部分。</p>
+<h2 id="下采样和过滤">下采样和过滤</h2>
+<p>数据可以被下采样和运动过滤。这与 <code>evo_traj</code> 中的工作方式相同，有关详细信息，请参阅<a href="#%E4%B8%8B%E9%87%87%E6%A0%B7/%E8%BF%87%E6%BB%A4">那里</a>的部分。</p>
+<h1 id="结果比较">结果比较</h1>
+<p><code>evo_ape</code>和<code>evo_rpe</code>旨在将一条轨迹与参考进行比较。虽然这简化了使用，但不同结果的比较通常也很有趣。</p>
+<p>对于 evo，结果比较是一个单独的步骤。这样做的优点是，您可以将 SLAM 算法 X 的结果与另一个算法 Y 的结果进行比较，而无需重新运行指标。并且比较与原始轨迹文件格式无关。</p>
+<h2 id="save-results"><code>--save_results</code></h2>
+<p>工作流程是，您为每个轨迹运行指标，并通过在指标应用程序中指定 <code>--save_results</code> 参数将结果单独保存在文件中。查看 <a target="_blank" rel="noopener" href="http://README.md">README.md</a> 的<a target="_blank" rel="noopener" href="https://github.com/MichaelGrupp/evo#example-workflow">示例</a>。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">evo_ape kitti 03.txt allTra03.kitti -va --plot --correct_scale --align --save_plot ./03ape_plot --save_results ./03ape_result.zip<br></code></pre></td></tr></table></figure>
+<p>“结果文件”是以 zip 格式存储的序列化 <code>Result</code> 对象，可以由 <code>evo_res</code> 读取。</p>
+<p>这些由带有 <code>--save_results</code> 选项的指标生成的文件包含将不同结果与 <code>evo_res</code> 进行比较所需的数据。它们只是包含一些 <code>.json</code> 文件和用于存储更大的 numpy 数组的 <code>.npy</code> 文件的 <code>.zip</code> 文件。</p>
+<p>如果需要，您还可以在 <code>.zip</code> 文件中存储用于生成结果的轨迹的备份。要在使用 <code>--save_results</code> 时自动执行此操作，请更改设置：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">evo_config <span class="hljs-built_in">set</span> save_traj_in_zip <span class="hljs-literal">true</span><br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>请注意，这会增加文件的大小。</p>
+</blockquote>
+<h2 id="evo-res"><code>evo_res</code></h2>
+<p>您可以使用 <code>evo_res</code> 加载多个结果文件来比较不同的结果。为了避免错误的比较，如果它认为您比较由不同指标生成的文件（除非指定了 <code>--no_warnings</code> ），它会向您发出警告。</p>
+<p>在使用<code>evo_ape</code>或<code>evo_rpe</code>将结果保存为<code>*.zip</code>文件后，可以利用<code>evo_res</code>对不同的结果进行比较：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">evo_res ape_result/.zip -p --save_table ape_result.csv<br>evo_res ape_result/.zip -p --save_plot ape_result.pdf<br></code></pre></td></tr></table></figure>
+<ul>
+<li><code>--save_table ape_result.csv</code>表示将统计指标保存在<code>csv</code>文件中</li>
+<li><code>–-save_plot ape_result.pdf</code>表示将误差分析图保存在<code>pdf</code>文件中</li>
+</ul>
+<h2 id="综合使用">综合使用</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">evo_ape euroc data.csv vins_result_no_loop.csv -va --plot --plot_mode xyz --save_results a.zip<br>evo_ape euroc data.csv vins_result_loop.txt -va --plot --plot_mode xyz --save_results b.zip<br>evo_res a.zip b.zip -p --save_table table.csv<br><span class="hljs-comment"># 通过对比图可看出，回环后各项精度指标大大增加，不回环平均位姿精度为14.4cm，回环平均位姿精度为5.5cm，精度大大提高，并且根据std,rmse等指标，数据稳定性鲁棒性更好。</span><br></code></pre></td></tr></table></figure>
+<h1 id="定制绘图">定制绘图</h1>
+<p>有多种设置可让您更改绘图的外观。</p>
+<p>在命令行应用程序中，查看 <code>--plot</code> 、 <code>--plot_mode</code> 等参数。</p>
+<ul>
+<li><code>–-plot_mode xz</code>表示图像投影在xoz平面上，其余可选参数为：xy,yx,yz,zx,zy,xyz</li>
+</ul>
+<p>更一般的，可以通过 <code>evo_config set</code> 设置包范围的设置（请参阅“配置”部分）。查看 <code>evo_config show</code> 以查看所有可用设置及其当前值。也可直接修改<code>~/.evo/settings.json</code>配置文件。</p>
+<h2 id="打印质量图的配置示例">打印质量图的配置示例</h2>
+<p>这是一个示例演练，说明如何从理论上更改绘图设置以生成用于打印（论文）的高质量绘图。</p>
+<ol>
+<li>
+<p>设置绘图网格和背景。默认绘图设置具有深色背景。这在屏幕上看起来不错，但不适合打印。我们可以通过更改 <a target="_blank" rel="noopener" href="https://seaborn.pydata.org/">Seaborn</a> 的 style 参数来将背景更改为白色背景的网格：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">evo_config <span class="hljs-built_in">set</span> plot_seaborn_style whitegrid<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>设置字体类型和比例。默认字体并不真正适合我们论文的其余部分，它使用衬线字体。图中文本标签的相对大小也可以增加，以获得更好的可读性。我们可以通过调用以下命令切换到更大尺寸的衬线字体：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">evo_config <span class="hljs-built_in">set</span> plot_fontfamily serif plot_fontscale 1.2<br></code></pre></td></tr></table></figure>
+<p>为了匹配较小的字体，我们还减小了线宽：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">evo_config <span class="hljs-built_in">set</span> plot_linewidth 1.0<br></code></pre></td></tr></table></figure>
+<p>您还可以更改其他一些内容，例如参考轨迹的线条样式：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">evo_config <span class="hljs-built_in">set</span> plot_reference_linestyle -<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>设置默认图形尺寸。您也可以调整默认绘图尺寸。例如，宽度为 5，高度为 4.5：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">evo_config <span class="hljs-built_in">set</span> plot_figsize 5 4.5<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>使用LaTeX渲染器。因为我们使用 LaTeX 来写论文，所以我们也想用 LaTeX 渲染绘图的字体：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">evo_config <span class="hljs-built_in">set</span> plot_usetex<br></code></pre></td></tr></table></figure>
+<p>如果第一次尝试不起作用，您可能需要将 <code>plot_texsystem</code> 参数更改为计算机上安装的 LaTeX 系统，请参阅 <code>evo_config show</code> 。</p>
+<p>高级：绘图也可以以 pgf 格式导出 ( <code>--save_plot plot.pgf</code> )。</p>
+</li>
+<li>
+<p>（可选）恢复默认设置</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">evo_config reset<br></code></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="坐标轴标记">坐标轴标记</h2>
+<p>可以通过将 <code>plot_axis_marker_scale</code> 设置为非零值来激活坐标轴标记，例如：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">evo_config <span class="hljs-built_in">set</span> plot_axis_marker_scale 0.1<br></code></pre></td></tr></table></figure>
+<p>参考轨迹有一个单独的参数 <code>plot_reference_axis_marker_scale</code> ：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">evo_config <span class="hljs-built_in">set</span> plot_reference_axis_marker_scale 0.1<br></code></pre></td></tr></table></figure>
+<p>您可能需要调整此比例值以将其调整为轨迹的大小。如果不再需要，请再次将其设置为 <code>0</code> 。</p>
+<h2 id="开始和结束标记">开始和结束标记</h2>
+<p>起点用圆圈标记，终点用十字标记：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">evo_config <span class="hljs-built_in">set</span> plot_start_end_markers <span class="hljs-literal">true</span><br></code></pre></td></tr></table></figure>
+<h2 id="位姿对应标记">位姿对应标记</h2>
+<p>您可以启用将参考轨迹的位姿与其他轨迹中的相应位姿连接起来的标记。此设置适用于 <code>evo_ape</code> 和 <code>evo_rpe</code> ，如果您指定 <code>--ref</code> 引用并且其他轨迹已同步或已同步，则也适用于 <code>evo_traj</code> 对齐。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">evo_config <span class="hljs-built_in">set</span> plot_pose_correspondences <span class="hljs-literal">true</span><br></code></pre></td></tr></table></figure>
+<h2 id="更改长度单位">更改长度单位</h2>
+<p>您可以将轨迹图的轴刻度缩放为不同的长度单位。如果您的数据规模非常小（ <code>cm</code> 、 <code>mm</code> ；例如来自手机）或规模非常大（ <code>km</code> ；例如来自汽车），这会很有用）。请注意，这不会改变数据，只会改变绘图外观。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">evo_config <span class="hljs-built_in">set</span> plot_trajectory_length_unit km<br></code></pre></td></tr></table></figure>
+<h2 id="2D-ROS-地图">2D ROS 地图</h2>
+<p>略。<a target="_blank" rel="noopener" href="https://github.com/MichaelGrupp/evo/wiki/Plotting#2d-ros-maps">详情</a>。</p>
+<h1 id="自定义配置文件">自定义配置文件</h1>
+<p>有时，将实验参数存储在专用文件中而不是每次都手动将它们作为命令行参数键入是有用的。 evo 的大多数命令行工具都可以使用 <code>-c</code> 或 <code>--config</code> 参数加载 <code>.json</code> 配置文件。</p>
+<p>假设您针对相对位姿误差运行此命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">evo_rpe tum groundtruth.txt estimate.txt -r angle_deg --delta 1 --delta_unit m --verbose --plot<br></code></pre></td></tr></table></figure>
+<p><code>evo_config generate</code> 可以将任意命令行参数转换为 <code>--out</code> 指定的 <code>.json</code> 文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">evo_config generate -r angle_deg --delta 1 --delta_unit m --verbose --plot --out rpe_config.json<br></code></pre></td></tr></table></figure>
+<p>这将输出一个包含以下内容的文件 <code>rpe_config.json</code> ：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><br>    <span class="hljs-attr">&quot;delta&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1.0</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;delta_unit&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;m&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;plot&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">true</span></span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;pose_relation&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;angle_deg&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;verbose&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">true</span></span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+<p>下次您想使用这些参数运行 <code>evo_rpe</code> 时，您只需调用：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">evo_rpe groundtruth.txt estimate2.txt -c rpe_config.json<br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>出于技术原因，您需要将 <code>evo_config generate</code> 与“长”选项（如果可用）一起使用 - 例如： <code>--plot</code> 而不是 <code>-p</code></p>
+</blockquote>
+<blockquote>
+<p>配置文件中的参数具有优先级（您不能通过等效的命令行选项覆盖它们）</p>
+</blockquote>
+<h1 id="保存-导出为其他格式">保存/导出为其他格式</h1>
+<h2 id="保存当前结果">保存当前结果</h2>
+<ul>
+<li><code>-–save_plot pngname</code>：表示保存生成的图片名</li>
+<li><code>--save_results results/ORB.zip</code>：表示保存计算结果</li>
+</ul>
+<h2 id="导出为其他格式">导出为其他格式</h2>
+<p>一般来说，您可以使用 <code>evo_traj</code> 使用 <code>--save_as_&lt;other_format&gt;</code> 选项将轨迹导出为其他格式。</p>
+<p>可能有以下组合：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th><code>--save_as_bag</code></th>
+<th><code>--save_as_kitti</code></th>
+<th><code>--save_as_tum</code></th>
+<th><code>--save_as_bag2</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>bag</code></td>
+<td>yes</td>
+<td>yes</td>
+<td>yes</td>
+<td>yes</td>
+</tr>
+<tr>
+<td><code>euroc</code></td>
+<td>yes</td>
+<td>yes</td>
+<td>yes</td>
+<td>yes</td>
+</tr>
+<tr>
+<td><code>kitti</code></td>
+<td>no (no timestamps)</td>
+<td>yes</td>
+<td>no (no timestamps)*</td>
+<td>no (no timestamps)</td>
+</tr>
+<tr>
+<td><code>tum</code></td>
+<td>yes</td>
+<td>yes</td>
+<td>yes</td>
+<td>yes</td>
+</tr>
+<tr>
+<td><code>bag2</code></td>
+<td>yes</td>
+<td>yes</td>
+<td>yes</td>
+<td>yes</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>*：但是您可以将<a target="_blank" rel="noopener" href="https://github.com/MichaelGrupp/evo/blob/master/contrib/kitti_poses_and_timestamps_to_trajectory.py">此脚本</a>与 KITTI 数据集的时间戳文件一起使用</p>
+</blockquote>
+<blockquote>
+<p>导出的 ROS 包文件将包含 <code>geometry_msgs/PoseStamped</code> 消息</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># export a EuRoC groundtruth file to a TUM trajectory</span><br>evo_traj euroc data.csv --save_as_tum<br><span class="hljs-comment"># (will be saved as data.tum)</span><br><br><span class="hljs-comment"># export TUM trajectories to KITTI format</span><br>evo_traj tum traj_1.txt traj_2.txt traj_3.txt --save_as_kitti<br><span class="hljs-comment"># (will be saved as *.kitti)</span><br><br><span class="hljs-comment"># export TUM trajectories to ROS bagfile</span><br>evo_traj tum traj_1.txt traj_2.txt traj_3.txt --save_as_bag<br><span class="hljs-comment"># (will be saved as &lt;timestamp&gt;.bag with topics traj_1, traj_2 and traj_3)</span><br><br><span class="hljs-comment"># and so on...</span><br></code></pre></td></tr></table></figure>
+<h1 id="License">License</h1>
+<p>如果您使用此包进行研究，则可以使用带有此存储库链接的脚注： <code>github.com/MichaelGrupp/evo</code> 。</p>
+<p>或者，用 BibTeX 引用：</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs tex">@misc&#123;grupp2017evo,<br>  title=&#123;evo: Python package for the evaluation of odometry and SLAM.&#125;,<br>  author=&#123;Grupp, Michael&#125;,<br>  howpublished=&#123;<span class="hljs-keyword">\url</span>&#123;<span class="hljs-link">https://github.com/MichaelGrupp/evo</span>&#125;&#125;,<br>  year=&#123;2017&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h1 id="参考链接">参考链接</h1>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/MichaelGrupp/evo">https://github.com/MichaelGrupp/evo</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/hhaowang/article/details/105225595">轨迹评估工具使用总结（一） evo从安装到入门</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/u010196944/article/details/129384012">SLAM 轨迹评估工具——EVO安装、使用介绍</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_60355964/article/details/126044512">用evo工具分析ORB-SLAM2运行TUM，KITTI，EuRoC数据集轨迹</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/Darlingqiang/article/details/102631102">SLAM精度测评——EVO</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/xiaojinger_123/article/details/120269185">evo评测VINS-MONO---指标解析、算法精度分析（数据集）</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_33733356/article/details/106969109">evo测试工具错误： evo module evo.main_traj crashed - no logfile written (disabled)</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/u014513323/article/details/101050132">解决：ImportError: No module named '_tkinter', please install the python3-tk package</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_41861406/article/details/122075611">ubuntu18.04安装evo，踩坑无数经验所得。</a></li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7%E5%BA%93/" class="category-chain-item">软件工具库</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>evo工具的安装与使用</div>
+      <div>http://zeyulong.com/posts/35f6a63b/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>龙泽雨</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年4月29日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/posts/5b8fd703/" title="Git的配置与使用">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Git的配置与使用</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/e3cf771c/" title="有意思的图表">
+                        <span class="hidden-mobile">有意思的图表</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="waline"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#waline', function() {
+      Fluid.utils.createCssLink('https://cdn.staticfile.org/waline/2.15.5/waline.min.css')
+      Fluid.utils.createScript('https://cdn.staticfile.org/waline/2.15.5/waline.min.js', function() {
+        var options = Object.assign(
+          {"serverURL":"https://www.zeyulong.cn/","path":"window.location.pathname","meta":["nick","mail","link"],"requiredMeta":["nick"],"lang":"zh-CN","emoji":["https://cdn.jsdelivr.net/gh/walinejs/emojis/weibo"],"dark":"html[data-user-color-scheme=\"dark\"]","wordLimit":0,"pageSize":10,"reaction":true,"locale":{"placeholder":"花径不曾缘客扫，蓬门今始为君开。"}},
+          {
+            el: '#waline',
+            path: window.location.pathname
+          }
+        )
+        Waline.init(options);
+        Fluid.utils.waitElementVisible('#waline .vcontent', () => {
+          var imgSelector = '#waline .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> <div style="font-size: 0.85rem"> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/custom/RunTime/RunTime.js"></script> </div> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  
+<script src="/custom/live2d/live2d-widget/autoload.js"></script>
+<script src="/custom/live2d/jquery.min.js"></script>
+<script src="/custom/LabelPage/LabelPage.js"></script>
+<script src="/custom/LoadingBar/pace.min.js"></script>
+<script src="/custom/ReadingProgress/ReadingProgress.js"></script>
+<script src="/custom/typing-effect/typing-effect.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  <canvas
+    class="fireworks"
+    style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 32767"
+></canvas>
+<script type="text/javascript" src="/custom/fireworks/anime.min.js"></script> 
+<script type="text/javascript" src="/custom/fireworks/fireworks.js"></script>
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

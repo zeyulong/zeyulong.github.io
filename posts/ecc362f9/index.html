@@ -1,0 +1,917 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" >
+
+
+
+<head><!-- hexo injector head_begin start --><progress id="content_progress" value="0"></progress><!-- hexo injector head_begin end -->
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/theme/TamakoAvatar-new-zip.png">
+  <link rel="icon" href="/img/theme/TamakoAvatar-new-zip.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#000000">
+  <meta name="author" content="龙泽雨">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="本文主要提供了多个可以实现在Linux&#x2F;Ubuntu下进行英文文献阅读的思路，更推荐使用Zotero的zotero-pdf-translate插件。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux、Ubuntu下英文文献翻译软件、工具推荐">
+<meta property="og:url" content="http://zeyulong.com/posts/ecc362f9/index.html">
+<meta property="og:site_name" content="龙泽雨的博客">
+<meta property="og:description" content="本文主要提供了多个可以实现在Linux&#x2F;Ubuntu下进行英文文献阅读的思路，更推荐使用Zotero的zotero-pdf-translate插件。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://zeyulong.com/posts/ecc362f9/Zotero%E6%96%87%E7%8C%AE%E7%BF%BB%E8%AF%91%E4%BD%BF%E7%94%A8%E6%88%AA%E5%9B%BE.png">
+<meta property="article:published_time" content="2023-12-25T02:46:50.000Z">
+<meta property="article:modified_time" content="2025-01-14T06:49:18.143Z">
+<meta property="article:author" content="龙泽雨">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://zeyulong.com/posts/ecc362f9/Zotero%E6%96%87%E7%8C%AE%E7%BF%BB%E8%AF%91%E4%BD%BF%E7%94%A8%E6%88%AA%E5%9B%BE.png">
+  
+  
+  
+  <title>Linux、Ubuntu下英文文献翻译软件、工具推荐 - 龙泽雨的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/custom/Markdown/macpanel.css">
+<link rel="stylesheet" href="/custom/Fonts/CodeFont.css">
+<link rel="stylesheet" href="/custom/Fonts/inlinecode-bg-color.css">
+<link rel="stylesheet" href="/custom/live2d/font-awesome.min.css">
+<link rel="stylesheet" href="/custom/LoadingBar/pace-theme-corner-indicator.css">
+<link rel="stylesheet" href="/custom/ReadingProgress/ReadingProgress.css">
+<link rel="stylesheet" href="/custom/SelectBackgroundColor/SelectBackgroundColor.css">
+<link rel="stylesheet" href="/custom/waline/gif.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"zeyulong.com","root":"/","version":"1.9.7","typing":{"enable":false,"typeSpeed":100,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"8gUBTaCjmaSbnf4genwggan3-MdYXbMMI","app_key":"2WRxjgxRXIWRBo8EA4205Wfm","server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<!-- hexo injector head_end start --><link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@200;300;400;500;600;700;900&display=swap" rel="stylesheet"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.0.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Happy every day!</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-steam"></i>
+                <span>摸鱼</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/2048" target="_self">
+                    
+                    <span>2048</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/bcbk/1" target="_self">
+                    
+                    <span>别踩白块-1</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/bcbk/2" target="_self">
+                    
+                    <span>别踩白块-2</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/dblk" target="_self">
+                    
+                    <span>躲避绿块</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/dr" target="_self">
+                    
+                    <span>恐龙快跑</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://mario-kart-3-js.vercel.app/" target="_self">
+                    
+                    <span>马里奥赛车</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/mf" target="_self">
+                    
+                    <span>魔方</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/cat" target="_self">
+                    
+                    <span>圈小猫</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/sl" target="_self">
+                    
+                    <span>扫雷</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/txz" target="_self">
+                    
+                    <span>推箱子</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/wzq" target="_self">
+                    
+                    <span>五子棋</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/theme/GirlWithCat-cut.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle">Linux、Ubuntu下英文文献翻译软件、工具推荐</span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        龙泽雨
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-12-25 10:46" pubdate>
+          2023年12月25日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.8k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          15 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Linux、Ubuntu下英文文献翻译软件、工具推荐</h1>
+            
+              <p id="updated-time" class="note note-info" style="">
+                
+                  
+                    本文最后更新于 2025年1月14日 下午
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <p>本文主要提供了多个可以实现在Linux/Ubuntu下进行英文文献阅读的思路，更推荐使用Zotero的zotero-pdf-translate插件。</p>
+<span id="more"></span>
+<p>自己在 Windows 系统上使用到的英文文献翻译软件是<a target="_blank" rel="noopener" href="https://www.zhiyunwenxian.cn/">知云文献翻译</a>，本着试一试的态度，却一见如故。</p>
+<blockquote>
+<p>因为 <a target="_blank" rel="noopener" href="https://www.zotero.org/">Zotero</a> 不止限于插件提供的翻译功能，还有自身的文献管理、跨平台同步和文件树等功能，以及丰富的插件（市场），自己现在更倾向于使用<a target="_blank" rel="noopener" href="https://www.zotero.org/">Zotero</a>了。</p>
+</blockquote>
+<p>但是，自从因为研究学习的原因把主要的工作平台转到 Linux/Ubuntu 上后，自己却始终没有找到一款较能称心如意的翻译软件/工具。根据网上搜索和网友的推荐，自己曾做出过的尝试和遇到的问题如下：</p>
+<ol>
+<li>
+<p>使用 wine 安装 Win 版的知云文献翻译。安装失败，只好作罢。知云文献翻译只提供了 Win 版和 Mac 版，自己曾问过客服，但他们近期应该是没有开发 Linux 版的想法。</p>
+<p>wine 参考安装链接：</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/nicholas_duan/article/details/107336013">https://blog.csdn.net/nicholas_duan/article/details/107336013</a></p>
+<p><a target="_blank" rel="noopener" href="https://wiki.winehq.org/Ubuntu_zhcn">https://wiki.winehq.org/Ubuntu_zhcn</a></p>
+</li>
+<li>
+<p>GoldenDict。GoldenDict 是一款词典，通过自己添加词典，可以起到查词的作用。也可以通过添加网址实现划句跳转到翻译网站进行翻译。但是，自己遇到的主要问题是在划句翻译时它的响应速度太慢。因为主要还是一款词典，所以划句翻译且是调用第三方翻译网站进行翻译就显得不那么专业了。</p>
+<p>GoldenDict 参考安装链接：</p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/creasing/p/11333728.html">https://www.cnblogs.com/creasing/p/11333728.html</a></p>
+</li>
+<li>
+<p><a target="_blank" rel="noopener" href="https://fanyi.youdao.com/download-multi">有道翻译</a>。可以实现划句翻译。但是，遇到的主要问题是在自己的 2K 屏幕上有道翻译适配得并不好，界面和字体太小且不能调节，有些别扭。</p>
+<p>有道翻译参考安装链接：</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/haojie_duan/article/details/124327367">https://blog.csdn.net/haojie_duan/article/details/124327367</a></p>
+</li>
+<li>
+<p>兰译。应该是作者大大为了解决在 Linux 系统下看文献的问题专门开发的一款软件，可复制文字自动翻译、OCR识别翻译、追加翻译、自动去除换行。使用百度、腾讯接口翻译，可自定义自己的 API 账号。软件是放在 GitHub 和 Gitee 平台上的，免费，大爱比心。可惜自己在使用的时候始终导入不了自己的 API 账号，用不了。</p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/439439447?utm_id=0">这是作者自己在知乎上对软件的介绍</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/yuhldr/ldr-translate">https://github.com/yuhldr/ldr-translate</a></p>
+<p><a target="_blank" rel="noopener" href="https://gitee.com/yuhldr/ldr-translate">https://gitee.com/yuhldr/ldr-translate</a></p>
+</li>
+<li>
+<p>在线网页。实验室师兄们一般都用<a target="_blank" rel="noopener" href="https://www.xljsci.com/">小绿鲸</a>和 <a target="_blank" rel="noopener" href="https://readpaper.com/new">ReadPaper</a> 在线网页实现对英文文献 PDF 的翻译阅读。但是，一方面是考虑到个人隐私，一方面是软件不装在自己电脑本地上，为自己所有所用，就不是自己的。在线网页，自己只有“使用权”没有“所有权”，万一自己用熟之后被割韭菜了呢。当然，这是自己的顾虑，并没有特地针对谁。所以，自己并不喜欢将在线网页工具作为自己常用的工具，偶尔用一下还行。</p>
+</li>
+<li>
+<p>20240307更新：在GitHub上看到一个项目：<a target="_blank" rel="noopener" href="https://github.com/openai-translator/openai-translator">openai-translator</a>——基于 ChatGPT API 的划词翻译浏览器插件和跨平台桌面端应用。值得一试，不过自己没试。</p>
+</li>
+<li>
+<p>20240327更新：<a target="_blank" rel="noopener" href="https://github.com/pot-app/pot-desktop">pot-desktop</a>: 一个跨平台的划词翻译和OCR软件。值得一试，不过自己没试。</p>
+</li>
+</ol>
+<p><strong>重点来了！</strong></p>
+<p>在行到水穷处时，自己偶然在知乎上刷到一篇<a target="_blank" rel="noopener" href="https://www.zhihu.com/question/292293671/answer/3234930108?utm_psn=1704890331890393088">文章</a>，作者在里面提到了 <a target="_blank" rel="noopener" href="https://www.zotero.org/">Zotero</a> 里的一个插件：<a target="_blank" rel="noopener" href="https://github.com/windingwind/zotero-pdf-translate">zotero-pdf-translate</a>，可以实现划句翻译。“死马当活马医”，自己下下来装上插件一试，这不就是 Win 版的知云文献翻译吗？意外之喜，开心！再配合上其他一些插件，甚至比知云文献翻译的实用性更高了。</p>
+<p>Zotero 参考安装链接：</p>
+<p><a target="_blank" rel="noopener" href="https://www.zotero.org/support/installation">https://www.zotero.org/support/installation</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/436241013?utm_id=0">https://zhuanlan.zhihu.com/p/436241013?utm_id=0</a></p>
+<p>自己早就知道 Zotero 是一款开源的文献管理软件，但是并不知道它竟然还能实现这个功能，果然开源的软件更有创造力，可以让大家都参与进来，解决自己遇到的问题，实现自己想要的功能。</p>
+<p>因为自己目前主要是对翻译英文文献 PDF 有需求，对文献管理的需求暂时不大，所以只安装了以下几个 zotero 插件（插件官网包含有安装说明）：</p>
+<ol>
+<li><a target="_blank" rel="noopener" href="https://github.com/windingwind/zotero-pdf-translate">zotero-pdf-translate</a>，划句翻译，支持切换Google Translate、Google Translate(API)、CNKI、Youdao Translate、Youdao Zhiyun、Niu Translate(Trial)、Niu Translate、Microsoft Translate、LingoCloud(Caiyun) Translate、DeepL Translate、Aliyun Translate、Baidu Translate、Baidu Field、Tencent Translate 和GPT(OpenAI) 等翻译引擎。</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/windingwind/zotero-pdf-preview">zotero-pdf-preview</a>，在首页侧栏打开一个文件预览窗口。</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/MuiseDestiny/zotero-reference">zotero-reference</a>，自动爬取并列出当前文献的所有引用文献。显示文献信息（包括摘要），可点击链接，可复制文献信息等。</li>
+<li></li>
+</ol>
+<p>在此对以上各位作者表示感谢，大爱比心！</p>
+<p>一些快捷键：<a href="https://zeyulong.com/posts/a8aab215/">Linux系统下常用的命令及快捷键</a></p>
+<p>在此配上一张使用过程中的截图：</p>
+<img src="/posts/ecc362f9/Zotero%E6%96%87%E7%8C%AE%E7%BF%BB%E8%AF%91%E4%BD%BF%E7%94%A8%E6%88%AA%E5%9B%BE.png" srcset="/img/loading.gif" lazyload class="" title="Zotero文献翻译使用截图">
+<p>20240130更新：发现在Zotero对PDF做的标注没有同步到本地文件上来，原来是在Zotero导入本地PDF后，Zotero在自己的存储文件夹里备份了一份PDF，所有在Zotero对PDF做的标注都在这个备份PDF里。且通过阅读<a target="_blank" rel="noopener" href="https://zotero-chinese.com/user-guide/take-notes.html">Zotero百科全书-阅读文献、添加笔记</a>，文首里面说明到：</p>
+<blockquote>
+<p>Zotero 支持直接打开并批注 PDF，与内部的笔记、同步等功能深度集成。建议使用 Zotero 阅读器以获得最佳体验。</p>
+<p>内部阅读器所做的高亮、批注等<strong>不在原始 PDF 上</strong>，因此与第三方 PDF 阅读器的批注无法互通，也不支持非 Zotero 或非 WebDAV 的同步方式（关于同步，请见后续章节）。</p>
+<p>如果你并没有特别依赖第三方 PDF 阅读器的某些特殊功能，建议使用 Zotero 阅读器。</p>
+</blockquote>
+<p>这也许是使用Zotero阅读PDF唯一的不足了吧，如果能容忍，就值得一试。</p>
+<blockquote>
+<p>不过，话又说回来，Zotero本身有跨平台同步的功能。也就是说，在Linux系统下阅读和批注的PDF，在Windows系统下也可以同步过来。</p>
+</blockquote>
+<blockquote>
+<p>所以，Windows下是用<a target="_blank" rel="noopener" href="https://www.zhiyunwenxian.cn/">知云文献翻译</a>，还是保持统一，使用Zotero呢？</p>
+<p>20241125更新：因为 Zotero 的跨平台同步和文件树功能，自己更倾向于使用 Zotero 了。</p>
+</blockquote>
+<hr>
+<p>综上，在此提供了多个可以实现在 Linux/Ubuntu 下进行英文文献阅读的思路，提供了可参考的安装链接，但具体软件配置就需要读者另寻高见和自行摸索了。</p>
+<p>本着互联网的分享精神，将自己摸索尝试的过程分享出来，希望可以帮助到大家，少走一些弯路，把重点放在研究学习上。最好能够有意识地提高自己的英语能力，逐步摆脱对翻译软件的需求，这也将获益匪浅（怎么还说教上了呢？）。</p>
+<p>允许转载，但请标注来源。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7%E5%BA%93/" class="category-chain-item">软件工具库</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Linux、Ubuntu下英文文献翻译软件、工具推荐</div>
+      <div>http://zeyulong.com/posts/ecc362f9/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>龙泽雨</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年12月25日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/posts/437b0d10/" title="Hexo博客解决插入图片的路径问题">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Hexo博客解决插入图片的路径问题</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/3edad46f/" title="Hexo博客美化">
+                        <span class="hidden-mobile">Hexo博客美化</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="waline"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#waline', function() {
+      Fluid.utils.createCssLink('https://cdn.staticfile.org/waline/2.15.5/waline.min.css')
+      Fluid.utils.createScript('https://cdn.staticfile.org/waline/2.15.5/waline.min.js', function() {
+        var options = Object.assign(
+          {"serverURL":"https://www.zeyulong.cn/","path":"window.location.pathname","meta":["nick","mail","link"],"requiredMeta":["nick"],"lang":"zh-CN","emoji":["https://cdn.jsdelivr.net/gh/walinejs/emojis/weibo"],"dark":"html[data-user-color-scheme=\"dark\"]","wordLimit":0,"pageSize":10,"reaction":true,"locale":{"placeholder":"花径不曾缘客扫，蓬门今始为君开。"}},
+          {
+            el: '#waline',
+            path: window.location.pathname
+          }
+        )
+        Waline.init(options);
+        Fluid.utils.waitElementVisible('#waline .vcontent', () => {
+          var imgSelector = '#waline .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> <div style="font-size: 0.85rem"> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/custom/RunTime/RunTime.js"></script> </div> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  
+<script src="/custom/live2d/live2d-widget/autoload.js"></script>
+<script src="/custom/live2d/jquery.min.js"></script>
+<script src="/custom/LabelPage/LabelPage.js"></script>
+<script src="/custom/LoadingBar/pace.min.js"></script>
+<script src="/custom/ReadingProgress/ReadingProgress.js"></script>
+<script src="/custom/typing-effect/typing-effect.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  <canvas
+    class="fireworks"
+    style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 32767"
+></canvas>
+<script type="text/javascript" src="/custom/fireworks/anime.min.js"></script> 
+<script type="text/javascript" src="/custom/fireworks/fireworks.js"></script>
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

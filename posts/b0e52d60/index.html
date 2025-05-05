@@ -24,7 +24,7 @@
 <meta property="og:description" content="本文主要总结整理了网上分享的ChatGPT、 GitHub Copilot等大模型及集成交互接口gpt_academic的使用技巧，尽可能做到物尽其用，在使用大模型时充分发挥出其优势和性能，以更好地解决问题。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-01-03T09:59:29.000Z">
-<meta property="article:modified_time" content="2025-04-07T02:58:53.184Z">
+<meta property="article:modified_time" content="2025-05-05T09:19:12.784Z">
 <meta property="article:author" content="龙泽雨">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -359,7 +359,7 @@
         
         
         
-          155 分钟
+          158 分钟
         
       </span>
     
@@ -409,7 +409,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2025年4月7日 上午
+                    本文最后更新于 2025年5月5日 下午
                   
                 
               </p>
@@ -1104,10 +1104,6 @@
 <p>在<code>config.py</code>中，配置API KEY等变量。<a target="_blank" rel="noopener" href="https://github.com/binary-husky/gpt_academic/issues/1">特殊网络环境设置方法</a>、<a target="_blank" rel="noopener" href="https://github.com/binary-husky/gpt_academic/wiki/%E9%A1%B9%E7%9B%AE%E9%85%8D%E7%BD%AE%E8%AF%B4%E6%98%8E">Wiki-项目配置说明</a>。</p>
 <p>「 程序会优先检查是否存在名为<code>config_private.py</code>的私密配置文件，并用其中的配置覆盖<code>config.py</code>的同名配置。如您能理解以上读取逻辑，我们强烈建议您在<code>config.py</code>同路径下创建一个名为<code>config_private.py</code>的新配置文件，并使用<code>config_private.py</code>配置项目，以确保更新或其他用户无法轻易查看您的私有配置 」。</p>
 <p>「 支持通过<code>环境变量</code>配置项目，环境变量的书写格式参考<code>docker-compose.yml</code>文件或者我们的<a target="_blank" rel="noopener" href="https://github.com/binary-husky/gpt_academic/wiki/%E9%A1%B9%E7%9B%AE%E9%85%8D%E7%BD%AE%E8%AF%B4%E6%98%8E">Wiki页面</a>。配置读取优先级: <code>环境变量</code> &gt; <code>config_private.py</code> &gt; <code>config.py</code> 」。</p>
-<blockquote>
-<p>20240211更新：</p>
-<p>在Windows11系统中，使用<code>config_private.py</code>配置（网络）无效，程序只会读取<code>config.py</code>里的（网络）配置。</p>
-</blockquote>
 </li>
 <li>
 <p>（可选）<a target="_blank" rel="noopener" href="https://github.com/binary-husky/gpt_academic/wiki/%E7%AC%AC%E4%B8%89%E6%96%B9API%E2%80%90KEY%E6%8E%A5%E5%85%A5%E6%8C%87%E5%8D%97">第三方API‐KEY接入指南</a></p>
@@ -1157,7 +1153,9 @@
 <p>运行主程序：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">python main.py<br></code></pre></td></tr></table></figure>
 </li>
-<li></li>
+<li>
+<p>完成。</p>
+</li>
 </ol>
 <h3 id="安装方法II：使用Docker"><a target="_blank" rel="noopener" href="https://github.com/binary-husky/gpt_academic?tab=readme-ov-file#%E5%AE%89%E8%A3%85%E6%96%B9%E6%B3%95ii%E4%BD%BF%E7%94%A8docker">安装方法II：使用Docker</a></h3>
 <h3 id="安装方法III：其他部署方法"><a target="_blank" rel="noopener" href="https://github.com/binary-husky/gpt_academic?tab=readme-ov-file#%E5%AE%89%E8%A3%85%E6%96%B9%E6%B3%95iii%E5%85%B6%E4%BB%96%E9%83%A8%E7%BD%B2%E6%96%B9%E6%B3%95">安装方法III：其他部署方法</a></h3>
@@ -1191,6 +1189,24 @@
 <p>参考链接：</p>
 <p><a target="_blank" rel="noopener" href="https://www.followchain.org/contact-chatgpt-openai-support/">How to Contact ChatGPT or OpenAI Support</a></p>
 <p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/618610494">申述邮件参考</a></p>
+</li>
+</ol>
+<h2 id="手动更新">手动更新</h2>
+<p>一般在gpt_academic启动时，会自动检测是否有新版本（<code>check_proxy.py-&gt;def auto_update(raise_error=False)</code>）并需手动确认更新。但如果在gpt_academic发布新版本前，就想应用在GitHub上更新的新功能/模型，可以手动更新：</p>
+<ol>
+<li>
+<p>在一个临时路径下克隆仓库：</p>
+<blockquote>
+<p>Git本身没有直接提供可以通过命令选择是否覆盖同名文件（夹）的功能。</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> new/path/to/temp_folder/<br>git <span class="hljs-built_in">clone</span> --depth=1 https://github.com/binary-husky/gpt_academic.git<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>移动覆盖掉旧<code>gpt_academic</code>文件夹。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">mv</span> new/path/to/temp_folder/gpt_academic/ old/path/to/gpt_academic/ -f<br><span class="hljs-comment"># -f 如果指定移动的源文件目录或文件与目标文件的目录或文件同名，不会询问，直接覆盖旧文件。</span><br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>完成。</p>
 </li>
 </ol>
 <h2 id="配置使用">配置使用</h2>
@@ -1565,6 +1581,17 @@
 <blockquote>
 <p><strong>在对话过程中切换模式</strong>：例如，您可能在询问模式下开始集思广益提出应用创意，然后切换到代理模式来执行计划。提示：按 Ctrl+. 可快速切换模式。</p>
 </blockquote>
+<ul>
+<li>使用<code>#</code>引用文件、函数、类等。</li>
+<li>使用 <code>@workspace</code> 来引用 IDE 中处于活动状态的解决方案，从而获取上下文。 当使用 <code>@workspace</code> 作为上下文时，Copilot Chat 会利用有关 IDE 中当前打开和正在处理的文件、项目和配置的信息。</li>
+<li>使用 <code>@github</code>，以包含整个存储库中的上下文和搜索 Web。</li>
+<li>导出和导入聊天记录。<a target="_blank" rel="noopener" href="https://github.com/orgs/community/discussions/57190">How to export the chat history of GitHub Copilot Chat? #57190</a>
+<ul>
+<li>您可以通过 <code>Ctrl+Shift+P | Chat: Export Session...</code> 或选择 <code>View &gt; Command Palette | Chat: Export Session...</code> 将 Visual Studio Code 中的 Copilot Chat 会话导出为 JSON 文件</li>
+<li>然后，您可以使用 <code>Ctrl+Shift+P | Chat: Import Session...</code> 或选择 <code>View &gt; Command Palette | Chat: Import Session...</code> 来导入此 chat.json 文件。</li>
+</ul>
+</li>
+</ul>
 <h2 id="GitHub-Copilot（CLI-版）">GitHub Copilot（CLI 版）</h2>
 <p><a target="_blank" rel="noopener" href="https://docs.github.com/zh/copilot/github-copilot-in-the-cli/about-github-copilot-in-the-cli">关于 GitHub Copilot（CLI 版）</a></p>
 <p>GitHub Copilot in the CLI 在终端中提供类似聊天的界面，可用于询问有关命令行的问题。 可以要求 GitHub Copilot 提供命令建议或给定命令的说明。</p>

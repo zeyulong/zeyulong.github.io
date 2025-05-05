@@ -26,7 +26,7 @@
 <meta property="og:image" content="http://zeyulong.com/posts/a8aab215/vi-vim-cheat-sheet-sch.gif">
 <meta property="og:image" content="http://zeyulong.com/posts/a8aab215/vim-vi-workmodel.png">
 <meta property="article:published_time" content="2024-03-05T14:33:19.000Z">
-<meta property="article:modified_time" content="2025-04-11T06:26:55.761Z">
+<meta property="article:modified_time" content="2025-05-05T09:18:18.362Z">
 <meta property="article:author" content="龙泽雨">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://zeyulong.com/posts/a8aab215/vi-vim-cheat-sheet-sch.gif">
@@ -351,7 +351,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          30k 字
+          32k 字
         
       </span>
     
@@ -362,7 +362,7 @@
         
         
         
-          250 分钟
+          264 分钟
         
       </span>
     
@@ -412,7 +412,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2025年4月11日 下午
+                    本文最后更新于 2025年5月5日 下午
                   
                 
               </p>
@@ -1140,7 +1140,7 @@
 </tr>
 <tr>
 <td style="text-align:center">Ctrl+L</td>
-<td style="text-align:center">相当于clear，即清屏</td>
+<td style="text-align:center">类似于<code>clear</code>，即清屏。其实只是把光标位置移动到屏幕顶部，仍保留了之前的终端内容。</td>
 </tr>
 <tr>
 <td style="text-align:center">Ctrl+Y</td>
@@ -1165,6 +1165,14 @@
 <tr>
 <td style="text-align:center">Ctrl+PGUP/PGDN</td>
 <td style="text-align:center">切换到上/下一个标签页</td>
+</tr>
+<tr>
+<td style="text-align:center">Ctrl+Shift+↑/↓</td>
+<td style="text-align:center">向上/下滚动内容</td>
+</tr>
+<tr>
+<td style="text-align:center">Shift+PageUp/PageDown</td>
+<td style="text-align:center">向上/下翻页</td>
 </tr>
 </tbody>
 </table>
@@ -1528,6 +1536,48 @@
 <p>使用云存储服务。你可以使用云存储服务（如Dropbox、Google Drive、OneDrive等）来自动同步文件。将文件放在云存储的同步文件夹中，云存储服务会自动同步文件到云端和其他设备。</p>
 </li>
 </ol>
+<h3 id="在bash终端窗口查看上一个命令的开始位置">在bash终端窗口查看上一个命令的开始位置</h3>
+<p>在 Linux 的终端中，没有直接的命令可以一键跳转到上一个命令的开始位置，因为终端主要是一个输出流，并没有内置的“标记位置”或“跳转到输出开头”的功能。然而，可以通过以下方法间接实现类似的功能：</p>
+<h4 id="使用终端滚动功能">使用终端滚动功能</h4>
+<p>大多数终端（例如 Ubuntu 的默认终端 <code>gnome-terminal</code>）支持滚动查看之前的输出：</p>
+<ul>
+<li>快捷键：
+<ul>
+<li><strong>Ctrl + Shift + ↑/↓</strong>：向上或向下滚动内容。</li>
+<li><strong>Shift + PageUp/PageDown</strong>：快速向上或向下翻页。</li>
+</ul>
+</li>
+<li>鼠标滚轮：
+<ul>
+<li>使用鼠标滚轮向上滚动查看之前的输出内容。</li>
+</ul>
+</li>
+</ul>
+<h4 id="提前清屏">提前清屏</h4>
+<p>在运行耗时较长、输出较多的命令之前，手动清屏以标记起始位置。</p>
+<ul>
+<li>在终端窗口执行<code>clear</code>命令会清空屏幕，运行命令后，输出内容从清空后的顶部开始。</li>
+<li>当你想回到命令开头时，只需向上滚动到屏幕顶部。</li>
+</ul>
+<blockquote>
+<p>“Ctrl+L”类似于<code>clear</code>命令，但并不会真正删除屏幕后面的内容，只是将光标移到屏幕顶部，并清空可见区域。</p>
+</blockquote>
+<h4 id="标记开始位置">标记开始位置</h4>
+<ol>
+<li>
+<p>在运行命令之前，打印一个明显的分隔符，方便在输出中快速找到起点。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;========== Start ==========&quot;</span><br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>打开终端的搜索功能“Ctrl+Shift+F”并输入关键字（例如 <code>========== Start ==========</code>），快速定位到命令开头。</p>
+</li>
+<li>
+<p>完成。</p>
+</li>
+</ol>
+<h4 id="将输出重定向到文件">将输出重定向到文件</h4>
+<p>如果你执行的命令输出非常多，可以提前将其输出保存到文件中，方便后续查看。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">your_command &gt; output.txt<br></code></pre></td></tr></table></figure>
 <h1 id="Windows">Windows</h1>
 <h2 id="快捷键-3">快捷键</h2>
 <table>
@@ -1718,91 +1768,6 @@
 <p>还可以按 Win+R 快捷键后，在“打开”处输入<code>at 16:00 shutdown -s</code>。(TODO)</p>
 </blockquote>
 <h2 id="小贴士-3">小贴士</h2>
-<h3 id="文件（夹）命名">文件（夹）命名</h3>
-<h4 id="命名规范">命名规范</h4>
-<p>为了确保日常使用的方便与系统兼容性，个人电脑上的文件夹和文件命名应遵循一定的规范。以下是一些通用的指导原则和最佳实践：</p>
-<ol>
-<li><strong>简洁明了</strong>：命名应简单且直接表达文件内容或文件夹用途，避免过长或含糊不清的名称。</li>
-<li><strong>避免使用特殊字符</strong>：一般来说，文件名中不应包含如下字符：<code>\/:*?&quot;&lt;&gt;|</code>。这些特殊字符在多数操作系统中有特定用途，可能导致错误或不被识别。</li>
-<li><strong>使用合适的文件扩展名</strong>：文件扩展名反映了文件的类型，如 <code>.txt</code> 表示文本文件，<code>.jpg</code> 表示JPEG图像文件。正确的扩展名有助于操作系统正确识别和打开文件。</li>
-<li><strong>利用日期和版本控制</strong>：在文件名中包含日期（如 <code>2023-03-15</code>）可以帮助管理文件版本。对于频繁更新的文档，可能还需要添加版本号（如 <code>v1.0</code>、<code>v2.0</code>）。</li>
-<li><strong>避免空格</strong>：虽然大多数现代操作系统可以很好地处理文件名中的空格，但在某些情况下（如命令行操作或网络传输）可能会引起问题。可以使用下划线（_）或破折号（-）来代替空格。</li>
-<li><strong>区分大小写</strong>：虽然Windows系统的文件名不区分大小写，但Linux和macOS区分大小写。为了兼容性，最好在命名时注意大小写的一致性。</li>
-<li><strong>组织性和易读性</strong>：对于包含多个文件的文件夹，可以采用有组织的命名体系，如按功能、日期或项目分类。</li>
-<li><strong>国际化和本地化</strong>：如果你的文件可能会被不同语言的用户访问，避免使用特定语言的字符，尽量使用英文和国际通用的符号。</li>
-</ol>
-<p>遵循这些基本原则可以帮助提升文件管理的效率和降低因命名不当引起的问题。如果有特定的组织或项目命名规则，也应优先遵守这些专业指导标准。</p>
-<h4 id="命名方法">命名方法</h4>
-<blockquote>
-<p>整词用驼峰或下划线<code>_</code>命名，整词间用<code>-</code>分隔。</p>
-</blockquote>
-<p>在个人电脑上命名文件夹和文件时，虽然没有像编程语言那样严格的命名规范，但仍可以借鉴一些编程中的命名方法来组织文件，使其更加有序和易于管理。以下是一些常见的命名方法，以及如何将它们应用于文件和文件夹的命名：</p>
-<ol>
-<li><strong>小驼峰式命名法 (lowerCamelCase)</strong>:
-<ul>
-<li><strong>应用</strong>: 适用于文件名，尤其是在需要保持名称简洁且连贯的情况下。</li>
-<li><strong>示例</strong>: <code>personalBudget.xlsx</code>, <code>summerVacationPhotos.jpg</code></li>
-</ul>
-</li>
-<li><strong>大驼峰式命名法 (UpperCamelCase)</strong>:
-<ul>
-<li><strong>应用</strong>: 适合用于较重要的文件和项目文件夹，特别是在编程项目中。</li>
-<li><strong>示例</strong>: <code>ProjectReport2023.docx</code>, <code>TaxDocuments2023</code></li>
-</ul>
-</li>
-<li><strong>下划线命名法 (snake_case)</strong>:
-<ul>
-<li><strong>应用</strong>: 适用于需要强调易读性的情况，也有助于避免在使用某些操作系统和环境时出现问题。</li>
-<li><strong>示例</strong>: <code>final_report_2023.pdf</code>, <code>holiday_photos_2022</code></li>
-</ul>
-</li>
-<li><strong>破折号命名法 (kebab-case)</strong>:
-<ul>
-<li><strong>应用</strong>: 更常见于网页文件和资源，但也可以用于普通文件和文件夹。</li>
-<li><strong>示例</strong>: <code>end-of-year-summary-2023.pdf</code>, <code>project-budget-2023.xlsx</code></li>
-<li><strong>注意</strong>: 文件系统如Windows和记录系统通常对破折号支持良好，但在某些命令行环境中可能会遇到解释上的问题。</li>
-</ul>
-</li>
-<li><strong>日期前缀命名</strong>:
-<ul>
-<li><strong>应用</strong>: 对于需要按日期管理的文档或文件，如财务文件或定期报告。</li>
-<li><strong>示例</strong>: <code>2023-01-30_MeetingNotes.docx</code>, <code>2023-03-15_Invoice.pdf</code></li>
-</ul>
-</li>
-</ol>
-<p>选择哪种命名方法取决于个人偏好、所处的工作环境以及是否需要跨平台交互。例如，如果在一个环境中主要用Python编程，那么使用snake_case可能更自然。而如果是在处理法律或业务文档，使用UpperCamelCase或日期前缀可能更为合适。</p>
-<p>无论选择哪种命名方法，重要的是保持一致性，这样可以减少寻找和管理文件的时间，也能使文件系统更加有序。</p>
-<h3 id="中文文本中夹用英文时，是否要留有空格">中文文本中夹用英文时，是否要留有空格</h3>
-<blockquote>
-<p>推荐留空，方便整词选择。如果不留空，选择时可能会选择夹杂中英文的整行而不是单个英文单词。</p>
-</blockquote>
-<p>中文文本中夹用英文时，应根据所选用的中英文字体、字符间距以及排版的视觉效果决定英文词句与中文文字之间是否留有空格间距。如留空格，应保证体例的统一。——中华人民共和国新闻出版行业标准CY/T 154—2017号《中文出版物夹用英文的编辑规范》第8.1节</p>
-<ul>
-<li>但同时我更鼓励各类排版引擎自动在用户没有显式输入空格字符的情况下，也在中英文词汇间产生适当的间距。现在有一些已经做到了，比如 iOS 系统、微信、Microsoft 办公软件等。</li>
-</ul>
-<h3 id="浏览器搜索操作符">浏览器搜索操作符</h3>
-<p>可以直接用此网址，不需要记命令，它自动组装为命令：</p>
-<ul>
-<li>
-<p>百度高级搜索：<a target="_blank" rel="noopener" href="https://www.baidu.com/gaoji/advanced.html">https://www.baidu.com/gaoji/advanced.html</a></p>
-</li>
-<li>
-<p>谷歌高级搜索：<a target="_blank" rel="noopener" href="https://www.google.com.hk/advanced_search">https://www.google.com.hk/advanced_search</a></p>
-</li>
-<li>
-<p>GitHub高级搜索：<a target="_blank" rel="noopener" href="https://github.com/search/advanced">https://github.com/search/advanced</a></p>
-</li>
-</ul>
-<p>语法：</p>
-<ul>
-<li>整词搜索：双引号。示例：&quot;关键词&quot;</li>
-<li>逻辑与：空格。示例：关键词1 关键词2</li>
-<li>逻辑或：空格OR空格。示例：关键词1 OR 关键词2</li>
-<li>逻辑非：空格-（减号前面必须是空格，减号后面没有空格，要紧跟着需要排除的词）。示例：关键词 -排除词</li>
-<li>模糊搜索：*（通配符，匹配任意词或短语）。示例：<code>国家* 匹夫*</code></li>
-<li>指定网站：关键词 site:网站地址。注意：“site:”后面跟的站点域名，不要带“http://”。site:和站点名之间，不要带空格。示例： 编程教程 site:blog.csdn.net</li>
-<li>排除指定网站：关键词 -site:网站地址。示例：编程教程 -site:blog.csdn.net</li>
-</ul>
 <h3 id="设置-重映射快捷键">设置/重映射快捷键</h3>
 <ol>
 <li>
@@ -1858,67 +1823,6 @@
 </ul>
 </li>
 </ul>
-<h3 id="github文件夹">.github文件夹</h3>
-<p><code>.github</code> 文件夹通常包含 GitHub 特定的配置文件和工作流。以下是一些常见的用途：</p>
-<ul>
-<li><strong>GitHub Actions Workflows</strong>: 自动化构建、测试和部署脚本，通常存放在 <code>.github/workflows</code> 目录下。</li>
-<li><strong>Issue 和 Pull Request 模板</strong>: 自定义 issue 和 pull request 的模板，通常存放在 <code>.github/ISSUE_TEMPLATE</code> 和 <code>.github/PULL_REQUEST_TEMPLATE.md</code> 文件中。</li>
-<li><strong>CODEOWNERS 文件</strong>: 指定项目中某些文件或目录的负责人，通常存放在 <code>.github/CODEOWNERS</code> 文件中。</li>
-<li><strong>FUNDING 文件</strong>: 为项目设置资助选项，通常存放在 <code>.github/FUNDING.yml</code> 文件中。</li>
-<li><strong>社区健康文件</strong>: 包括 <a target="_blank" rel="noopener" href="http://CONTRIBUTING.md">CONTRIBUTING.md</a>、CODE_OF_CONDUCT.md 等文件，帮助社区成员了解项目的贡献指南和行为守则。</li>
-</ul>
-<p>这些文件和配置帮助项目维护者和贡献者更好地协作和管理项目。</p>
-<h3 id="中英文版本的简称">中英文版本的简称</h3>
-<p>当描述一个文件是中文版本时，通常使用的语言代码有几种不同的形式，主要取决于具体的语境和标准。最常见的是“zh”，这是ISO 639-1标准下的代码，用于表示中文。然而，如果需要指明具体是简体中文还是繁体中文，人们可能会使用“zh-CN”（中国大陆使用的简体中文）和“zh-TW”（台湾地区使用的繁体中文）。这些是基于IETF语言标签（由ISO 639和ISO 3166国家代码组合而成），广泛用于网站和软件本地化中。</p>
-<p>对于英文版本，通常使用的语言代码为“en”，这同样遵循ISO 639-1标准。如需进一步区分不同地区的英语，例如美国英语和英国英语，则分别使用“en-US”和“en-GB”。</p>
-<p>这些缩写在多语言处理、软件本地化、网页语言标签等方面非常重要。选择正确的代码有助于正确设置语言环境，确保内容正确呈现给目标用户群体。如果有更具体的用途，如编程、文件标签或其他，请提供详细信息，以便提供更精确的建议。</p>
-<h3 id="流程框图">流程框图</h3>
-<p>绘制流程框图（流程图）时，形状的使用有一套特定的规则，这些规则帮助标准化流程描述，并使流程图对于阅读者更加直观易懂。以下是一些基本的形状以及它们在流程图中的应用规则：</p>
-<ol>
-<li><strong>椭圆形或圆形（起止符）</strong>：
-<ul>
-<li><strong>用途</strong>：表示流程的开始和结束。</li>
-<li><strong>规则</strong>：每个流程图通常以一个圆形开始（标有“开始”或特定的启动指示），并以一个圆形结束（标有“结束”或特定的结束指示）。</li>
-</ul>
-</li>
-<li><strong>矩形（处理步骤）</strong>：
-<ul>
-<li><strong>用途</strong>：表示一个具体的操作或指令。</li>
-<li><strong>规则</strong>：矩形内部应清晰地描述步骤的内容。每个矩形应该包含一个动作动词，明确指示执行的操作。</li>
-</ul>
-</li>
-<li><strong>菱形（决策符）</strong>：
-<ul>
-<li><strong>用途</strong>：表示需要做出决策的点，通常涉及是/否或者多重选择。</li>
-<li><strong>规则</strong>：菱形中应包含一个简洁的问题或决策点，出口流向应标有可能的答案或选择，如“是”或“否”。</li>
-</ul>
-</li>
-<li><strong>平行四边形（输入输出符）</strong>：
-<ul>
-<li><strong>用途</strong>：表示数据的输入或输出。</li>
-<li><strong>规则</strong>：必须明确指出数据的输入源或输出去向。例如，用户输入、数据保存等。</li>
-</ul>
-</li>
-<li><strong>箭头</strong>：
-<ul>
-<li><strong>用途</strong>：表示控制流程的方向。</li>
-<li><strong>规则</strong>：箭头从一个符号指向另一个符号，显示流程的流向。保持箭头清晰，避免过多交叉，以免图表混乱。</li>
-</ul>
-</li>
-<li><strong>圆角矩形（子程序）</strong>：
-<ul>
-<li><strong>用途</strong>：如果流程图中某个操作是复杂的并在其他位置有详细描述，可以使用圆角矩形表示这是一个子过程。</li>
-<li><strong>规则</strong>：子程序通常有对应独立的流程图说明详细步骤。</li>
-</ul>
-</li>
-</ol>
-<p>流程图的绘制还应遵守一些基本的布局规则，例如：</p>
-<ul>
-<li><strong>清晰性</strong>：图表应清晰易读，避免过度复杂的连接。</li>
-<li><strong>简洁性</strong>：只包含完成目标所需的必要步骤，避免冗余。</li>
-<li><strong>一致性</strong>：使用统一的符号和术语。</li>
-</ul>
-<p>在绘制流程图时，使用这些形状按照规则确保你的图表不仅标准化而且功能性强，能够清楚地传达流程信息。</p>
 <h3 id="其它-2">其它</h3>
 <ol>
 <li>
@@ -2462,6 +2366,17 @@
 </tbody>
 </table>
 <h2 id="GitHub">GitHub</h2>
+<h3 id="github文件夹">.github文件夹</h3>
+<p><code>.github</code> 文件夹通常包含 GitHub 特定的配置文件和工作流。以下是一些常见的用途：</p>
+<ul>
+<li><strong>GitHub Actions Workflows</strong>: 自动化构建、测试和部署脚本，通常存放在 <code>.github/workflows</code> 目录下。</li>
+<li><strong>Issue 和 Pull Request 模板</strong>: 自定义 issue 和 pull request 的模板，通常存放在 <code>.github/ISSUE_TEMPLATE</code> 和 <code>.github/PULL_REQUEST_TEMPLATE.md</code> 文件中。</li>
+<li><strong>CODEOWNERS 文件</strong>: 指定项目中某些文件或目录的负责人，通常存放在 <code>.github/CODEOWNERS</code> 文件中。</li>
+<li><strong>FUNDING 文件</strong>: 为项目设置资助选项，通常存放在 <code>.github/FUNDING.yml</code> 文件中。</li>
+<li><strong>社区健康文件</strong>: 包括 <a target="_blank" rel="noopener" href="http://CONTRIBUTING.md">CONTRIBUTING.md</a>、CODE_OF_CONDUCT.md 等文件，帮助社区成员了解项目的贡献指南和行为守则。</li>
+</ul>
+<p>这些文件和配置帮助项目维护者和贡献者更好地协作和管理项目。</p>
+<h3 id="tips">tips</h3>
 <ol>
 <li>
 <p><code>star</code>的原则：</p>
@@ -2494,7 +2409,29 @@
 <p>搜索：</p>
 <figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs txt">java stars:&gt;1000  # 目标语言是java且star数大于1k<br>dvs_msgs language:Python  # 指定编程语言<br></code></pre></td></tr></table></figure>
 </li>
-<li></li>
+<li>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/xinghaikongmeng/article/details/127529654">查看GitHub仓库创建时间</a>：</p>
+<ul>
+<li>格式: <a target="_blank" rel="noopener" href="https://api.github.com/repos/%7B:owner%7D/%7B:repository%7D">https://api.github.com/repos/{:owner}/{:repository}</a></li>
+<li>例子: <a target="_blank" rel="noopener" href="https://api.github.com/repos/tensorflow/hub">https://api.github.com/repos/tensorflow/hub</a></li>
+</ul>
+<p>请求api可以得到一个 JSON 格式的信息。其中有个字段为 created_at，即为仓库创建时间。</p>
+<ol>
+<li>
+<p>在浏览器地址栏输入 上述URL地址，然后在返回结果页面搜索 <code>created_at</code>，可以看到对应的创建时间。</p>
+</li>
+<li>
+<p>命令行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">curl  -k https://api.github.com/repos/tensorflow/hub | grep created_at<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>等等。</p>
+</li>
+</ol>
+</li>
+<li>
+<p>等等。</p>
+</li>
 </ol>
 <h2 id="Google-Colab">Google Colab</h2>
 <ol>
@@ -2534,7 +2471,7 @@
 <li>RL - 右到左</li>
 <li>LR - 左到右</li>
 </ul>
-<h3 id="流程图">流程图</h3>
+<h3 id="流程图"><a href="#%E6%B5%81%E7%A8%8B%E6%A1%86%E5%9B%BE">流程图</a></h3>
 <p>简单示例：</p>
 <pre><code class=" mermaid">flowchart TD
     A[Enter Chart Definition] --&gt; |Text| B(Preview)
@@ -3406,6 +3343,8 @@
 <li>按住<code>Shift</code>和<code>Alt</code>键（在 macOS 上是<code>Shift</code>和<code>Option</code>键）。</li>
 <li>同时拖动鼠标（鼠标分别点击开始和结束位置）以选择所需的矩形区域。</li>
 </ol>
+<h4 id="重启窗口">重启窗口</h4>
+<p><code>Ctrl+Shift+P</code>-输入：Reload Window</p>
 <h4 id="其它-4">其它</h4>
 <ol>
 <li>在“资源管理器”视图中查看当前文件并输入 F2 或者 Enter 选择文件名文本：
@@ -3478,6 +3417,328 @@
 <li><strong>一份</strong>异地副本：您应该在异地远程位置保存一份数据副本，最好距离其他两份副本几英里远。</li>
 </ul>
 <p>如果您想保护您的个人信息、照片、工作文件或其他重要数据，3-2-1 备份策略是您的最佳选择。它可以帮助您避免出现容易受到人为错误、<a target="_blank" rel="noopener" href="https://www.backblaze.com/blog/backblaze-drive-stats-for-q1-2024/">硬盘驱动器崩溃</a>、盗窃、自然灾害或<a target="_blank" rel="noopener" href="https://www.backblaze.com/blog/category/cloud-storage/ransomware/">勒索软件</a>影响的单点故障。``</p>
+<h2 id="文件（夹）命名">文件（夹）命名</h2>
+<h3 id="命名规范">命名规范</h3>
+<p>为了确保日常使用的方便与系统兼容性，个人电脑上的文件夹和文件命名应遵循一定的规范。以下是一些通用的指导原则和最佳实践：</p>
+<ol>
+<li><strong>简洁明了</strong>：命名应简单且直接表达文件内容或文件夹用途，避免过长或含糊不清的名称。</li>
+<li><strong>避免使用特殊字符</strong>：一般来说，文件名中不应包含如下字符：<code>\/:*?&quot;&lt;&gt;|</code>。这些特殊字符在多数操作系统中有特定用途，可能导致错误或不被识别。</li>
+<li><strong>使用合适的文件扩展名</strong>：文件扩展名反映了文件的类型，如 <code>.txt</code> 表示文本文件，<code>.jpg</code> 表示JPEG图像文件。正确的扩展名有助于操作系统正确识别和打开文件。</li>
+<li><strong>利用日期和版本控制</strong>：在文件名中包含日期（如 <code>2023-03-15</code>）可以帮助管理文件版本。对于频繁更新的文档，可能还需要添加版本号（如 <code>v1.0</code>、<code>v2.0</code>）。</li>
+<li><strong>避免空格</strong>：虽然大多数现代操作系统可以很好地处理文件名中的空格，但在某些情况下（如命令行操作或网络传输）可能会引起问题。可以使用下划线（_）或破折号（-）来代替空格。</li>
+<li><strong>区分大小写</strong>：虽然Windows系统的文件名不区分大小写，但Linux和macOS区分大小写。为了兼容性，最好在命名时注意大小写的一致性。</li>
+<li><strong>组织性和易读性</strong>：对于包含多个文件的文件夹，可以采用有组织的命名体系，如按功能、日期或项目分类。</li>
+<li><strong>国际化和本地化</strong>：如果你的文件可能会被不同语言的用户访问，避免使用特定语言的字符，尽量使用英文和国际通用的符号。</li>
+</ol>
+<p>遵循这些基本原则可以帮助提升文件管理的效率和降低因命名不当引起的问题。如果有特定的组织或项目命名规则，也应优先遵守这些专业指导标准。</p>
+<h3 id="命名方法">命名方法</h3>
+<blockquote>
+<p>整词用驼峰或下划线<code>_</code>命名，整词间用<code>-</code>分隔。</p>
+</blockquote>
+<p>在个人电脑上命名文件夹和文件时，虽然没有像编程语言那样严格的命名规范，但仍可以借鉴一些编程中的命名方法来组织文件，使其更加有序和易于管理。以下是一些常见的命名方法，以及如何将它们应用于文件和文件夹的命名：</p>
+<ol>
+<li><strong>小驼峰式命名法 (lowerCamelCase)</strong>:
+<ul>
+<li><strong>应用</strong>: 适用于文件名，尤其是在需要保持名称简洁且连贯的情况下。</li>
+<li><strong>示例</strong>: <code>personalBudget.xlsx</code>, <code>summerVacationPhotos.jpg</code></li>
+</ul>
+</li>
+<li><strong>大驼峰式命名法 (UpperCamelCase)</strong>:
+<ul>
+<li><strong>应用</strong>: 适合用于较重要的文件和项目文件夹，特别是在编程项目中。</li>
+<li><strong>示例</strong>: <code>ProjectReport2023.docx</code>, <code>TaxDocuments2023</code></li>
+</ul>
+</li>
+<li><strong>下划线命名法 (snake_case)</strong>:
+<ul>
+<li><strong>应用</strong>: 适用于需要强调易读性的情况，也有助于避免在使用某些操作系统和环境时出现问题。</li>
+<li><strong>示例</strong>: <code>final_report_2023.pdf</code>, <code>holiday_photos_2022</code></li>
+</ul>
+</li>
+<li><strong>破折号命名法 (kebab-case)</strong>:
+<ul>
+<li><strong>应用</strong>: 更常见于网页文件和资源，但也可以用于普通文件和文件夹。</li>
+<li><strong>示例</strong>: <code>end-of-year-summary-2023.pdf</code>, <code>project-budget-2023.xlsx</code></li>
+<li><strong>注意</strong>: 文件系统如Windows和记录系统通常对破折号支持良好，但在某些命令行环境中可能会遇到解释上的问题。</li>
+</ul>
+</li>
+<li><strong>日期前缀命名</strong>:
+<ul>
+<li><strong>应用</strong>: 对于需要按日期管理的文档或文件，如财务文件或定期报告。</li>
+<li><strong>示例</strong>: <code>2023-01-30_MeetingNotes.docx</code>, <code>2023-03-15_Invoice.pdf</code></li>
+</ul>
+</li>
+</ol>
+<p>选择哪种命名方法取决于个人偏好、所处的工作环境以及是否需要跨平台交互。例如，如果在一个环境中主要用Python编程，那么使用snake_case可能更自然。而如果是在处理法律或业务文档，使用UpperCamelCase或日期前缀可能更为合适。</p>
+<p>无论选择哪种命名方法，重要的是保持一致性，这样可以减少寻找和管理文件的时间，也能使文件系统更加有序。</p>
+<h3 id="下划线-与短划线-的对比">下划线_与短划线-的对比</h3>
+<table>
+<thead>
+<tr>
+<th><strong>特点</strong></th>
+<th><strong>下划线 <code>_</code></strong></th>
+<th><strong>短划线 <code>-</code></strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>命名风格</strong></td>
+<td>常用于变量名、文件名（snake_case）。</td>
+<td>常用于文件名、URL（kebab-case）。</td>
+</tr>
+<tr>
+<td><strong>双击选中行为</strong></td>
+<td>双击时会选中整个包含下划线的字符串。</td>
+<td>双击时只选中单个单词。</td>
+</tr>
+<tr>
+<td><strong>可读性</strong></td>
+<td>下划线在代码中更容易识别为分隔符。</td>
+<td>短划线在命令行或文件名中更直观。</td>
+</tr>
+<tr>
+<td><strong>使用场景</strong></td>
+<td>编写代码（变量名、函数名）。</td>
+<td>文件名、URL 或配置文件中的键。</td>
+</tr>
+<tr>
+<td><strong>键盘输入</strong></td>
+<td>需要按住 Shift 键（<code>Shift + -</code>）。</td>
+<td>直接输入，无需按住 Shift 键。</td>
+</tr>
+<tr>
+<td><strong>技术限制</strong></td>
+<td>不适用于某些文件系统或 URL（下划线合法但不常用）。</td>
+<td>短划线在变量名中不被编译器支持（如 C++）。</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>在很多编程语言中，<code>_</code> 是合法的变量名分隔符，而 <code>-</code> 不是。</li>
+<li>在文件系统中，<code>_</code> 通常比 <code>-</code> 更常用，尤其是在需要跨平台（Windows、Linux、macOS）兼容的情况下：
+<ul>
+<li>某些旧系统可能会错误解析 <code>-</code>。</li>
+<li><code>-</code> 在命令行中容易被误解为选项前缀（例如 <code>ls -a</code>）。</li>
+</ul>
+</li>
+<li>短划线更适合文件名和 URL，因为它们在视觉上更易分辨。</li>
+<li>如果你更倾向于使用下划线 <code>_</code> 但希望解决双击选中全部字符串问题，可以通过配置编辑器的行为来优化。</li>
+</ul>
+<h3 id="表示存放未修改的源文件的文件夹">表示存放未修改的源文件的文件夹</h3>
+<p>如果一个文件夹存放的是未修改的源文件（例如来自第三方库或外部依赖），常见的命名方式包括：</p>
+<ul>
+<li><strong><code>vendor/</code></strong>：
+<ul>
+<li>常见于包含第三方库的代码，例如在前端项目或后端依赖管理中。</li>
+<li>例如：<code>vendor/react</code>, <code>vendor/bootstrap</code>.</li>
+</ul>
+</li>
+<li><strong><code>third_party/</code></strong> 或 <strong><code>thirdparty/</code></strong>：
+<ul>
+<li>表示存放来自第三方的代码或库。</li>
+<li>例如：<code>third_party/libpng</code>, <code>third_party/zlib</code>.</li>
+</ul>
+</li>
+<li><strong><code>external/</code></strong>：
+<ul>
+<li>用于存放外部依赖项，强调这些文件是外部的而且未修改。</li>
+<li>例如：<code>external/protobuf</code>, <code>external/sqlite</code>.</li>
+</ul>
+</li>
+<li><strong><code>original/</code></strong> 或 <strong><code>src/</code></strong>：
+<ul>
+<li>如果这些源文件是项目的一部分，但未经过修改，<code>original/</code> 表示它们是原始版本。</li>
+<li>例如：<code>original/images</code>, <code>src/original_code</code>.</li>
+</ul>
+</li>
+</ul>
+<p>在软件开发中，如果需要一个文件夹存放一些 <strong>额外的、杂的、不属于其他文件夹分类的文件</strong>，通常会使用以下命名方式：</p>
+<ul>
+<li>
+<p><strong><code>misc/</code></strong>（最常见）</p>
+<ul>
+<li>
+<p><strong>含义</strong>：表示 &quot;miscellaneous&quot;（杂项、其他）。</p>
+</li>
+<li>
+<p><strong>用途</strong>：存储那些不容易归类到其他文件夹的文件。</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong><code>miscellaneous/</code></strong></p>
+<ul>
+<li><strong>含义</strong>：<code>miscellaneous</code> 是 &quot;misc&quot; 的完整拼写形式。</li>
+<li><strong>用途</strong>：与 <code>misc/</code> 类似，但更正式。</li>
+</ul>
+</li>
+<li>
+<p><strong><code>other/</code></strong></p>
+<ul>
+<li><strong>含义</strong>：表示 &quot;other files&quot;（其他文件）。</li>
+<li><strong>用途</strong>：存储那些不属于其他分类的文件。</li>
+</ul>
+</li>
+<li>
+<p><strong><code>extra/</code></strong></p>
+<ul>
+<li><strong>含义</strong>：表示 &quot;extra files&quot;（额外文件）。</li>
+<li><strong>用途</strong>：表示一些附加文件，通常是非核心文件或附加的内容。</li>
+</ul>
+</li>
+<li>
+<p><strong><code>temp/</code></strong></p>
+<ul>
+<li><strong>含义</strong>：表示临时文件（temporary）。</li>
+<li><strong>用途</strong>：如果这些杂项文件是临时性的或供短期使用，可以存放在 <code>temp/</code> 文件夹。</li>
+</ul>
+</li>
+</ul>
+<h3 id="表示一个文件是另一个文件的备份">表示一个文件是另一个文件的备份</h3>
+<p>备份文件的命名方式通常遵循几个规则，以清晰地表示其来源和目的：</p>
+<ul>
+<li><strong>使用后缀 <code>.bak</code></strong>（常见于备份文件）：
+<ul>
+<li>例如：<code>config.json.bak</code></li>
+<li>表示 <code>config.json</code> 文件的备份版本。</li>
+</ul>
+</li>
+<li><strong>在文件名中添加 <code>backup</code></strong>：
+<ul>
+<li>例如：<code>config_backup.json</code></li>
+<li>清楚地表明这是一个备份文件。</li>
+</ul>
+</li>
+<li><strong>添加时间戳</strong>：
+<ul>
+<li>例如：<code>config_20250423.json</code> 或 <code>config_backup_20250423.json</code></li>
+<li>通过时间戳标记备份的创建时间，方便管理多个备份。</li>
+</ul>
+</li>
+<li><strong>命名模板：<code>original_filename.bak</code>, <code>original_filename.timestamp</code></strong>：
+<ul>
+<li>例如：
+<ul>
+<li><code>data.csv.bak</code></li>
+<li><code>data_20250423.csv</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="中文文本中夹用英文时，是否要留有空格">中文文本中夹用英文时，是否要留有空格</h2>
+<blockquote>
+<p>推荐留空，方便整词选择。如果不留空，选择时可能会选择夹杂中英文的整行而不是单个英文单词。</p>
+</blockquote>
+<p>中文文本中夹用英文时，应根据所选用的中英文字体、字符间距以及排版的视觉效果决定英文词句与中文文字之间是否留有空格间距。如留空格，应保证体例的统一。——中华人民共和国新闻出版行业标准CY/T 154—2017号《中文出版物夹用英文的编辑规范》第8.1节</p>
+<ul>
+<li>但同时我更鼓励各类排版引擎自动在用户没有显式输入空格字符的情况下，也在中英文词汇间产生适当的间距。现在有一些已经做到了，比如 iOS 系统、微信、Microsoft 办公软件等。</li>
+</ul>
+<h2 id="浏览器搜索操作符">浏览器搜索操作符</h2>
+<p>可以直接用此网址，不需要记命令，它自动组装为命令：</p>
+<ul>
+<li>
+<p>百度高级搜索：<a target="_blank" rel="noopener" href="https://www.baidu.com/gaoji/advanced.html">https://www.baidu.com/gaoji/advanced.html</a></p>
+</li>
+<li>
+<p>谷歌高级搜索：<a target="_blank" rel="noopener" href="https://www.google.com.hk/advanced_search">https://www.google.com.hk/advanced_search</a></p>
+</li>
+<li>
+<p>GitHub高级搜索：<a target="_blank" rel="noopener" href="https://github.com/search/advanced">https://github.com/search/advanced</a></p>
+</li>
+</ul>
+<p>语法：</p>
+<ul>
+<li>整词搜索：双引号。示例：&quot;关键词&quot;</li>
+<li>逻辑与：空格。示例：关键词1 关键词2</li>
+<li>逻辑或：空格OR空格。示例：关键词1 OR 关键词2</li>
+<li>逻辑非：空格-（减号前面必须是空格，减号后面没有空格，要紧跟着需要排除的词）。示例：关键词 -排除词</li>
+<li>模糊搜索：*（通配符，匹配任意词或短语）。示例：<code>国家* 匹夫*</code></li>
+<li>指定网站：关键词 site:网站地址。注意：“site:”后面跟的站点域名，不要带“http://”。site:和站点名之间，不要带空格。示例： 编程教程 site:blog.csdn.net</li>
+<li>排除指定网站：关键词 -site:网站地址。示例：编程教程 -site:blog.csdn.net</li>
+</ul>
+<h2 id="中英文版本的简称">中英文版本的简称</h2>
+<p>当描述一个文件是中文版本时，通常使用的语言代码有几种不同的形式，主要取决于具体的语境和标准。最常见的是“zh”，这是ISO 639-1标准下的代码，用于表示中文。然而，如果需要指明具体是简体中文还是繁体中文，人们可能会使用“zh-CN”（中国大陆使用的简体中文）和“zh-TW”（台湾地区使用的繁体中文）。这些是基于IETF语言标签（由ISO 639和ISO 3166国家代码组合而成），广泛用于网站和软件本地化中。</p>
+<p>对于英文版本，通常使用的语言代码为“en”，这同样遵循ISO 639-1标准。如需进一步区分不同地区的英语，例如美国英语和英国英语，则分别使用“en-US”和“en-GB”。</p>
+<p>这些缩写在多语言处理、软件本地化、网页语言标签等方面非常重要。选择正确的代码有助于正确设置语言环境，确保内容正确呈现给目标用户群体。如果有更具体的用途，如编程、文件标签或其他，请提供详细信息，以便提供更精确的建议。</p>
+<h2 id="流程框图">流程框图</h2>
+<p>绘制流程框图（流程图）时，形状的使用有一套特定的规则，这些规则帮助标准化流程描述，并使流程图对于阅读者更加直观易懂。以下是一些基本的形状以及它们在流程图中的应用规则：</p>
+<ol>
+<li><strong>椭圆形或圆形（起止符）</strong>：
+<ul>
+<li><strong>用途</strong>：表示流程的开始和结束。</li>
+<li><strong>规则</strong>：每个流程图通常以一个圆形开始（标有“开始”或特定的启动指示），并以一个圆形结束（标有“结束”或特定的结束指示）。</li>
+</ul>
+</li>
+<li><strong>矩形（处理步骤）</strong>：
+<ul>
+<li><strong>用途</strong>：表示一个具体的操作或指令。</li>
+<li><strong>规则</strong>：矩形内部应清晰地描述步骤的内容。每个矩形应该包含一个动作动词，明确指示执行的操作。</li>
+</ul>
+</li>
+<li><strong>菱形（决策符）</strong>：
+<ul>
+<li><strong>用途</strong>：表示需要做出决策的点，通常涉及是/否或者多重选择。</li>
+<li><strong>规则</strong>：菱形中应包含一个简洁的问题或决策点，出口流向应标有可能的答案或选择，如“是”或“否”。</li>
+</ul>
+</li>
+<li><strong>平行四边形（输入输出符）</strong>：
+<ul>
+<li><strong>用途</strong>：表示数据的输入或输出。</li>
+<li><strong>规则</strong>：必须明确指出数据的输入源或输出去向。例如，用户输入、数据保存等。</li>
+</ul>
+</li>
+<li><strong>箭头</strong>：
+<ul>
+<li><strong>用途</strong>：表示控制流程的方向。</li>
+<li><strong>规则</strong>：箭头从一个符号指向另一个符号，显示流程的流向。保持箭头清晰，避免过多交叉，以免图表混乱。</li>
+</ul>
+</li>
+<li><strong>圆角矩形（子程序）</strong>：
+<ul>
+<li><strong>用途</strong>：如果流程图中某个操作是复杂的并在其他位置有详细描述，可以使用圆角矩形表示这是一个子过程。</li>
+<li><strong>规则</strong>：子程序通常有对应独立的流程图说明详细步骤。</li>
+</ul>
+</li>
+</ol>
+<p>流程图的绘制还应遵守一些基本的布局规则，例如：</p>
+<ul>
+<li><strong>清晰性</strong>：图表应清晰易读，避免过度复杂的连接。</li>
+<li><strong>简洁性</strong>：只包含完成目标所需的必要步骤，避免冗余。</li>
+<li><strong>一致性</strong>：使用统一的符号和术语。</li>
+</ul>
+<p>在绘制流程图时，使用这些形状按照规则确保你的图表不仅标准化而且功能性强，能够清楚地传达流程信息。</p>
+<h2 id="命令行参数设计">命令行参数设计</h2>
+<p>在命令行参数设计中，使用一个短划线（<code>-v</code>）还是两个短划线（<code>--v</code>）取决于参数的用途和常见的命令行约定。以下是它们的区别和使用场景：</p>
+<ul>
+<li>单短划线（<code>-v</code>）
+<ul>
+<li>使用一个短划线通常表示<strong>短选项</strong>。</li>
+<li>短选项通常是单个字母，简洁易用，例如：
+<ul>
+<li><code>-v</code>（verbose，启用详细输出）</li>
+<li><code>-h</code>（help，显示帮助信息）</li>
+</ul>
+</li>
+<li>短选项<mark>可以组合</mark>在一起。例如，<code>-abc</code>相当于<code>-a -b -c</code>。</li>
+<li>短选项适合经常使用的参数，因为打字很快。</li>
+</ul>
+</li>
+<li>双短划线（<code>--v</code> 或 <code>--verbose</code>）
+<ul>
+<li>使用两个短划线表示<strong>长选项</strong>。</li>
+<li>长选项通常是一个完整的单词或短语，便于理解，例如：
+<ul>
+<li><code>--verbose</code>（启用详细输出）</li>
+<li><code>--help</code>（显示帮助信息）</li>
+</ul>
+</li>
+<li>长选项通常不允许组合，必须单独列出。</li>
+<li>长选项更<mark>适合不常用的参数，或者需要更清晰语义的场景</mark>。</li>
+</ul>
+</li>
+<li>最佳实践是同时支持短选项和长选项，为用户提供灵活性。</li>
+</ul>
 
                 
               </div>

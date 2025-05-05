@@ -24,7 +24,7 @@
 <meta property="og:description" content="本文主要分享了编程过程中积累的知识点。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-01-08T02:37:36.000Z">
-<meta property="article:modified_time" content="2025-03-12T12:00:08.135Z">
+<meta property="article:modified_time" content="2025-05-05T09:16:38.061Z">
 <meta property="article:author" content="龙泽雨">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -348,7 +348,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          25k 字
+          29k 字
         
       </span>
     
@@ -359,7 +359,7 @@
         
         
         
-          207 分钟
+          241 分钟
         
       </span>
     
@@ -409,7 +409,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2025年3月12日 晚上
+                    本文最后更新于 2025年5月5日 下午
                   
                 
               </p>
@@ -525,6 +525,33 @@
 </tr>
 </tbody>
 </table>
+<h2 id="静态变量">静态变量</h2>
+<ul>
+<li><strong>销毁时机</strong>：
+<ul>
+<li>静态变量无论定义在函数内、类中还是全局作用域，其生命周期都是整个程序的运行周期。</li>
+<li>它们在程序结束时才会被销毁。</li>
+</ul>
+</li>
+<li><strong>作用域</strong>：
+<ul>
+<li>局部静态变量：只能在定义它的函数中访问。</li>
+<li>类的静态成员变量：属于类，所有对象共享。</li>
+<li>全局静态变量：只能在定义它的文件中访问（文件作用域）。</li>
+</ul>
+</li>
+<li><strong>初始化</strong>：
+<ul>
+<li>静态变量的初始化只发生一次，无论定义它的作用域如何。</li>
+</ul>
+</li>
+</ul>
+<h2 id="静态成员变量">静态成员变量</h2>
+<ul>
+<li><strong>静态成员变量和静态成员函数</strong>属于类本身，可以通过类名直接调用，无需实例化对象。</li>
+<li><strong>非静态成员变量和成员函数</strong>属于具体对象，必须通过对象调用，不能直接通过类名访问。</li>
+<li>因此，静态成员更容易被其他类调用，而非静态成员需要具体的实例才能调用。</li>
+</ul>
 <h1 id="C-函数">C++函数</h1>
 <h2 id="普通函数、类的普通成员函数和类的静态成员函数之间的区别">普通函数、类的普通成员函数和类的静态成员函数之间的区别</h2>
 <p>在C++中，普通函数、类的普通成员函数和类的静态成员函数之间有以下几点主要区别：</p>
@@ -687,6 +714,78 @@
 </ul>
 <p>综上所述，选择哪一种取决于你的具体需求和开发习惯。在ROS开发中，<code>ROS_INFO</code>和<code>ROS_INFO_STREAM</code>因为其与ROS系统的集成，通常会是首选。</p>
 <p><a href="https://zeyulong.com/posts/c4541b88/#%E6%B6%88%E6%81%AF%E6%89%93%E5%8D%B0">ROS消息打印</a></p>
+</li>
+<li>
+<p>等等。</p>
+</li>
+</ol>
+<h2 id="函数参数默认值">函数参数默认值</h2>
+<h3 id="Python">Python</h3>
+<p>在 Python 中，函数支持 <strong>显式指定参数名</strong> 的调用方式（也称为<strong>关键字参数</strong>）。这允许调用者不按照参数的顺序，而是通过指定参数名为参数赋值。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">my_function</span>(<span class="hljs-params">a=<span class="hljs-number">1</span>, b=<span class="hljs-number">2</span>, c=<span class="hljs-number">3</span></span>):<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;a = <span class="hljs-subst">&#123;a&#125;</span>, b = <span class="hljs-subst">&#123;b&#125;</span>, c = <span class="hljs-subst">&#123;c&#125;</span>&quot;</span>)<br><br><span class="hljs-comment"># 调用示例</span><br>my_function(a=<span class="hljs-number">10</span>, c=<span class="hljs-number">30</span>)  <span class="hljs-comment"># 输出: a = 10, b = 2, c = 30</span><br>my_function(c=<span class="hljs-number">40</span>)        <span class="hljs-comment"># 输出: a = 1, b = 2, c = 40</span><br></code></pre></td></tr></table></figure>
+<h3 id="C">C++</h3>
+<p>在 C++ 中，要为类成员函数的参数设置默认值，可以在类的声明（通常是 <code>.h</code> 文件）中为参数提供默认值，而不需要在实现（<code>.cpp</code> 文件）中重复指定默认值（会导致编译错误）。</p>
+<ul>
+<li>
+<p>调用时的行为：</p>
+<ul>
+<li>
+<p>如果在调用时为参数提供了值，则使用提供的值。</p>
+</li>
+<li>
+<p>如果调用时省略了参数，则使用默认值。</p>
+</li>
+</ul>
+</li>
+<li>
+<p>多个参数的默认值：</p>
+<ul>
+<li>如果函数有多个参数，默认值从右往左依次设置。如果左右参数都有默认值，但中间参数没有默认值，会编译报错。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">// .h</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">MyClass</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">myFunction</span><span class="hljs-params">(<span class="hljs-type">int</span> a, <span class="hljs-type">int</span> b = <span class="hljs-number">10</span>)</span></span>; <span class="hljs-comment">// 参数 b 具有默认值 10</span><br>&#125;;<br><span class="hljs-comment">// .cpp</span><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">MyClass::myFunction</span><span class="hljs-params">(<span class="hljs-type">int</span> a, <span class="hljs-type">int</span> b)</span> </span>&#123;<br>    std::cout &lt;&lt; <span class="hljs-string">&quot;a = &quot;</span> &lt;&lt; a &lt;&lt; <span class="hljs-string">&quot;, b = &quot;</span> &lt;&lt; b &lt;&lt; std::endl;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    MyClass obj;<br><br>    <span class="hljs-comment">// 调用时提供所有参数</span><br>    obj.<span class="hljs-built_in">myFunction</span>(<span class="hljs-number">5</span>, <span class="hljs-number">20</span>); <span class="hljs-comment">// 输出: a = 5, b = 20</span><br><br>    <span class="hljs-comment">// 调用时省略 b，使用默认值</span><br>    obj.<span class="hljs-built_in">myFunction</span>(<span class="hljs-number">5</span>);     <span class="hljs-comment">// 输出: a = 5, b = 10</span><br><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>在 C++ 中，函数参数默认是 <strong>位置参数</strong>，调用时必须按照声明中参数的顺序依次传递值。C++ 并不直接支持像 Python 那样的关键字参数调用方式。<strong>必须按照顺序传参</strong>：不能跳过中间参数直接为后续参数赋值。</p>
+<p>通过将函数的参数封装到一个结构体中，调用者可以使用字段名赋值，从而模拟关键字参数。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-keyword">struct</span> <span class="hljs-title class_">Params</span> &#123;<br>    <span class="hljs-type">int</span> a = <span class="hljs-number">1</span>; <span class="hljs-comment">// 默认值</span><br>    <span class="hljs-type">int</span> b = <span class="hljs-number">2</span>; <span class="hljs-comment">// 默认值</span><br>    <span class="hljs-type">int</span> c = <span class="hljs-number">3</span>; <span class="hljs-comment">// 默认值</span><br>&#125;;<br><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">myFunction</span><span class="hljs-params">(<span class="hljs-type">const</span> Params&amp; params)</span> </span>&#123;<br>    std::cout &lt;&lt; <span class="hljs-string">&quot;a = &quot;</span> &lt;&lt; params.a <br>              &lt;&lt; <span class="hljs-string">&quot;, b = &quot;</span> &lt;&lt; params.b<br>              &lt;&lt; <span class="hljs-string">&quot;, c = &quot;</span> &lt;&lt; params.c &lt;&lt; std::endl;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    Params params;<br>    params.a = <span class="hljs-number">10</span>; <span class="hljs-comment">// 修改 a，b 和 c 保持默认值</span><br>    params.c = <span class="hljs-number">30</span>; <span class="hljs-comment">// 修改 c</span><br><br>    <span class="hljs-built_in">myFunction</span>(params); <span class="hljs-comment">// 输出: a = 10, b = 2, c = 30</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="没有执行到return时函数的返回值">没有执行到return时函数的返回值</h2>
+<p>在 C++ 中，如果一个函数执行过程中由于某种原因没有执行到 <code>return</code> 语句，那么函数的返回值会取决于函数的返回类型以及具体的情况。以下是不同情况的分析：</p>
+<ol>
+<li>
+<p>普通函数（非 <code>void</code> 类型）未执行 <code>return</code> 的行为：如果一个非 <code>void</code> 类型的函数在执行时没有到达 <code>return</code> 语句，行为是 <strong>未定义行为（Undefined Behavior，UB）</strong>。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">exampleFunction</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-keyword">if</span> (<span class="hljs-literal">false</span>) &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">42</span>; <span class="hljs-comment">// 永远不会执行到这里</span><br>    &#125;<br>    <span class="hljs-comment">// 没有返回值</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-type">int</span> result = <span class="hljs-built_in">exampleFunction</span>();<br>    std::cout &lt;&lt; <span class="hljs-string">&quot;Result: &quot;</span> &lt;&lt; result &lt;&lt; std::endl; <span class="hljs-comment">// 未定义行为</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<ul>
+<li>根据 C++ 标准，函数必须通过 <code>return</code> 返回一个值，如果不返回值而直接结束，则是未定义行为。</li>
+<li>未定义行为的后果：
+<ul>
+<li>程序可能崩溃。</li>
+<li>返回值可能是一个随机值或垃圾值。</li>
+<li>编译器可能会发出警告（但并不总是如此）。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><code>void</code> 类型函数未执行到 <code>return</code>。对于 <code>void</code> 类型函数，如果没有显式的 <code>return</code> 语句，函数到末尾时会隐式返回。这种情况下不会有未定义行为。</p>
+</li>
+<li>
+<p>函数内部异常或失败的场景。如果函数在执行过程中抛出异常，并且异常未被捕获，则函数会中断执行，控制权转移到上层调用者的异常处理机制中。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdexcept&gt;</span></span><br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">exampleFunction</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-keyword">if</span> (<span class="hljs-literal">true</span>) &#123;<br>        <span class="hljs-keyword">throw</span> std::<span class="hljs-built_in">runtime_error</span>(<span class="hljs-string">&quot;Function failed!&quot;</span>); <span class="hljs-comment">// 抛出异常</span><br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">42</span>; <span class="hljs-comment">// 不会执行到这里</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-keyword">try</span> &#123;<br>        <span class="hljs-type">int</span> result = <span class="hljs-built_in">exampleFunction</span>();<br>        std::cout &lt;&lt; <span class="hljs-string">&quot;Result: &quot;</span> &lt;&lt; result &lt;&lt; std::endl;<br>    &#125; <span class="hljs-built_in">catch</span> (<span class="hljs-type">const</span> std::exception&amp; e) &#123;<br>        std::cout &lt;&lt; <span class="hljs-string">&quot;Caught exception: &quot;</span> &lt;&lt; e.<span class="hljs-built_in">what</span>() &lt;&lt; std::endl;<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>结果：</p>
+<ul>
+<li>输出：<code>Caught exception: Function failed!</code></li>
+<li><strong>解释</strong>：函数中断执行，没有返回值，异常被捕获。</li>
+</ul>
+</li>
+<li>
+<p>编译器警告或错误。</p>
+</li>
+<li>
+<p>大多数现代 C++ 编译器会对以下情况发出警告甚至报错：</p>
+<ul>
+<li>非 <code>void</code> 类型的函数在某些代码路径中没有返回值。</li>
+<li>如果启用了更严格的警告（如 <code>-Wall</code> 或 <code>-Werror</code>），未返回值的函数可能会导致编译失败。</li>
+</ul>
 </li>
 <li>
 <p>等等。</p>
@@ -1126,8 +1225,59 @@
 <li><code>class</code> 默认的成员和继承是 <code>private</code>。</li>
 </ul>
 <p>你可以将 <code>struct</code> 当作一种简化形式的 <code>class</code>，适合用于没有太多复杂功能的简单数据封装。</p>
-<h1 id="初始化列表">初始化列表</h1>
-<h2 id="用法">用法</h2>
+<h1 id="初始化">初始化</h1>
+<h2 id="拷贝初始化-Copy-Initialization">拷贝初始化 (Copy Initialization)</h2>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c++">Type variable = value;<br></code></pre></td></tr></table></figure>
+<h4 id="描述"><strong>描述</strong></h4>
+<ul>
+<li>
+<p>拷贝初始化使用等号 (<code>=</code>) 将一个值分配给正在声明的变量。</p>
+</li>
+<li>
+<p>它看起来像是赋值，但实际上是初始化。</p>
+</li>
+<li>
+<p>过程：</p>
+<ul>
+<li>编译器会尝试调用适当的构造函数来创建一个临时对象。</li>
+<li>然后，将该临时对象拷贝或移动到目标变量。</li>
+<li>在 C++11 及之后，编译器可能会通过优化（拷贝省略或移动语义）直接构造目标对象，而不会真的创建临时对象。</li>
+</ul>
+</li>
+<li>
+<p>示例：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;string&gt;</span></span><br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    std::string str = <span class="hljs-string">&quot;Hello&quot;</span>; <span class="hljs-comment">// 拷贝初始化，调用 std::string 的构造函数</span><br>    <span class="hljs-type">int</span> x = <span class="hljs-number">42</span>;               <span class="hljs-comment">// 拷贝初始化，直接初始化基本类型</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>等等。</p>
+</li>
+</ul>
+<h2 id="直接初始化-Direct-Initialization">直接初始化 (Direct Initialization)</h2>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function">Type <span class="hljs-title">variable</span><span class="hljs-params">(value)</span></span>;<br></code></pre></td></tr></table></figure>
+<h4 id="描述-2"><strong>描述</strong></h4>
+<ul>
+<li>
+<p>直接初始化通过调用构造函数来初始化变量，而不使用等号。</p>
+</li>
+<li>
+<p>它直接调用合适的构造函数，将参数传递给它。</p>
+</li>
+<li>
+<p>过程：</p>
+<ul>
+<li>编译器直接调用构造函数来构造目标对象，没有临时对象的生成。</li>
+</ul>
+</li>
+<li>
+<p>示例：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;string&gt;</span></span><br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-function">std::string <span class="hljs-title">str</span><span class="hljs-params">(<span class="hljs-string">&quot;Hello&quot;</span>)</span></span>; <span class="hljs-comment">// 直接初始化，调用 std::string 的构造函数</span><br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">x</span><span class="hljs-params">(<span class="hljs-number">42</span>)</span></span>;               <span class="hljs-comment">// 直接初始化基本类型</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>等等。</p>
+</li>
+</ul>
+<h2 id="初始化列表">初始化列表</h2>
+<h3 id="用法">用法</h3>
 <p>在C++中，初始化列表用于在构造函数中初始化类的成员变量。它允许在进入构造函数体之前对成员变量进行初始化，从而提高效率和简洁性。以下是初始化列表的语法和用法：</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">MyClass</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-type">int</span> x;<br>    <span class="hljs-type">int</span> y;<br>    <span class="hljs-built_in">MyClass</span>(<span class="hljs-type">int</span> a, <span class="hljs-type">int</span> b) : <span class="hljs-built_in">x</span>(a), <span class="hljs-built_in">y</span>(b) &#123;<br>        <span class="hljs-comment">// 构造函数体，可以包含其他初始化逻辑</span><br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
 <p>在这个例子中，<code>MyClass</code>有两个成员变量<code>x</code>和<code>y</code>，它们在构造函数的初始化列表中被初始化为<code>a</code>和<code>b</code>的值。</p>
@@ -1137,7 +1287,17 @@
 <li><strong>初始化常量成员</strong>：可以初始化<code>const</code>成员和引用成员。</li>
 <li><strong>初始化基类</strong>：可以在派生类的初始化列表中调用基类的构造函数。</li>
 </ul>
-<h2 id="其它用法">其它用法</h2>
+<p>必须使用初始化列表的情况包括：</p>
+<ol>
+<li><strong><code>const</code> 成员变量</strong>：必须在初始化列表中初始化。</li>
+<li><strong>引用类型成员（<code>&amp;</code>）</strong>：必须在初始化列表中绑定。</li>
+<li><strong>没有默认构造函数的成员对象</strong>：必须在初始化列表中调用构造函数。</li>
+<li><strong>基类的构造函数</strong>：必须在初始化列表中调用。</li>
+<li><strong>成员变量之间有依赖关系</strong>：通过初始化列表明确顺序。</li>
+<li><strong>性能优化</strong>：避免多次构造和赋值操作。</li>
+</ol>
+<p>在这些情况下，初始化列表不仅是必需的，而且更符合 C++ 的设计规范和性能优化原则。</p>
+<h3 id="其它用法">其它用法</h3>
 <p>除了类，C++中的初始化列表还可以用于以下场景：</p>
 <ul>
 <li>
@@ -1337,58 +1497,6 @@
 <h2 id="程序计时">程序计时</h2>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">pragma</span> once</span><br><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;ctime&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;cstdlib&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;chrono&gt;</span></span><br><br><span class="hljs-comment">// TicToc类，记录时间</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">TicToc</span><br>&#123;<br>  <span class="hljs-keyword">public</span>:<br>    <span class="hljs-built_in">TicToc</span>()<br>    &#123;<br>        <span class="hljs-built_in">tic</span>();<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">tic</span><span class="hljs-params">()</span></span><br><span class="hljs-function">    </span>&#123;<br>        start = std::chrono::system_clock::<span class="hljs-built_in">now</span>();<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-type">double</span> <span class="hljs-title">toc</span><span class="hljs-params">()</span></span><br><span class="hljs-function">    </span>&#123;<br>        end = std::chrono::system_clock::<span class="hljs-built_in">now</span>();<br>        std::chrono::duration&lt;<span class="hljs-type">double</span>&gt; elapsed_seconds = end - start;<br>        <span class="hljs-keyword">return</span> elapsed_seconds.<span class="hljs-built_in">count</span>() * <span class="hljs-number">1000</span>;<br>    &#125;<br><br>  <span class="hljs-keyword">private</span>:<br>    std::chrono::time_point&lt;std::chrono::system_clock&gt; start, end;<br>&#125;;<br><br></code></pre></td></tr></table></figure>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;tic_toc.h&quot;</span></span><br><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">some_function_to_test</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-comment">// 这里放置你要测试的代码</span><br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">1000000</span>; ++i)<br>    &#123;<br>        <span class="hljs-comment">// 模拟一些工作</span><br>    &#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-type">const</span> <span class="hljs-type">int</span> num_iterations = <span class="hljs-number">100</span>; <span class="hljs-comment">// 测试次数</span><br>    <span class="hljs-type">double</span> total_time = <span class="hljs-number">0.0</span>;<br><br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; num_iterations; ++i)<br>    &#123;<br>        TicToc timer;<br>        <span class="hljs-built_in">some_function_to_test</span>();<br>        <span class="hljs-type">double</span> elapsed_time = timer.<span class="hljs-built_in">toc</span>();<br>        total_time += elapsed_time;<br>    &#125;<br><br>    <span class="hljs-type">double</span> average_time = total_time / num_iterations;<br>    std::cout &lt;&lt; <span class="hljs-string">&quot;Average execution time: &quot;</span> &lt;&lt; average_time &lt;&lt; <span class="hljs-string">&quot; ms&quot;</span> &lt;&lt; std::endl;<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
-<h1 id="内存泄漏">内存泄漏</h1>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_45498383/article/details/138488477">参考链接</a></p>
-<h2 id="什么是内存泄漏？">什么是内存泄漏？</h2>
-<p>内存泄漏是指程序中已分配的内存未能（在离开其作用域、程序运行结束后）成功释放，导致可用内存逐渐减少的现象。在程序运行过程中，如果反复发生内存泄漏，最终可能会导致系统可用内存耗尽，从而影响程序的性能或导致程序崩溃。内存泄漏在长时间运行的程序中尤其危险，例如服务器或持续运行的后台任务。</p>
-<h2 id="内存泄漏的原因">内存泄漏的原因</h2>
-<p>内存泄漏通常发生在以下几种情况：</p>
-<ul>
-<li>
-<p>未释放动态分配的内存：当使用如 <code>malloc</code>, <code>calloc</code>, <code>realloc</code> 和 <code>new</code> 等函数分配内存后，未使用对应的 free 或 delete 来释放内存。</p>
-<blockquote>
-<p>在C++中，指针本身是一个变量，它存储的是<strong>内存地址</strong>。指针的生命周期与普通变量相同，当指针超出其作用域时，指针变量本身会被自动销毁，但它<strong>指向的内存</strong>并不会被自动释放。</p>
-</blockquote>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">exampleFunction</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-type">int</span>* ptr = <span class="hljs-keyword">new</span> <span class="hljs-built_in">int</span>(<span class="hljs-number">10</span>); <span class="hljs-comment">// 动态分配内存</span><br>    std::cout &lt;&lt; <span class="hljs-string">&quot;Inside function: &quot;</span> &lt;&lt; *ptr &lt;&lt; std::endl;<br>    <span class="hljs-comment">// ptr变量在函数结束时会被销毁，但指向的内存不会被释放</span><br>    <span class="hljs-comment">// delete ptr; // 手动释放内存</span><br>    <br>    <span class="hljs-comment">// std::unique_ptr&lt;int&gt; ptr = std::make_unique&lt;int&gt;(10); // 使用智能指针自动管理内存</span><br>    <span class="hljs-comment">// 不需要手动释放内存，智能指针在作用域结束时会自动释放内存</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-built_in">exampleFunction</span>();<br>    <span class="hljs-comment">// 此时ptr已经被销毁，但指向的内存仍然存在，导致内存泄漏</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
-</li>
-<li>
-<p>资源占用：除了内存外，程序可能申请其他系统资源（如文件句柄、数据库连接等），未正确释放这些资源也会导致类似内存泄漏的问题。</p>
-</li>
-<li>
-<p>数据结构错误：例如，链表、树等数据结构若未正确处理其元素的删除操作，可能导致部分节点成为不可达的，从而造成内存泄漏。</p>
-</li>
-</ul>
-<h2 id="如何判断内存泄漏？">如何判断内存泄漏？</h2>
-<p>判断和诊断内存泄漏通常需要以下几个步骤或工具：</p>
-<ol>
-<li>代码审查：通过审查代码来寻找可能未释放内存的地方。特别关注那些有动态内存分配的函数或模块。</li>
-<li>运行时工具：
-<ul>
-<li>Valgrind：这是一个编程工具，用于内存调试、内存泄漏检测等。在 Linux 环境下，使用 Valgrind 运行程序可以帮助检测内存泄漏。</li>
-<li>Visual Studio：在 Windows 环境下，Visual Studio IDE 提供了内置的内存泄漏检测工具。</li>
-<li>Sanitizers：如 AddressSanitizer，这是一种快速的内存错误检测工具，可以集成到 GCC 或 Clang 编译器中，用于检测内存泄漏和其他内存相关错误。</li>
-</ul>
-</li>
-<li>性能监控工具：使用系统或第三方性能监控工具来观察程序的内存使用情况，查看内存使用是否随时间持续增加。</li>
-<li>日志和追踪：在代码中添加日志输出，特别是在分配和释放资源的地方，可以帮助追踪内存的使用和释放。</li>
-</ol>
-<h2 id="如何防止内存泄漏？">如何防止内存泄漏？</h2>
-<ul>
-<li>使用智能指针：在 C++中使用 <code>std::unique_ptr</code>, <code>std::shared_ptr</code> 等智能指针可以自动管理内存，大大减少内存泄漏的风险。</li>
-<li>资源获取即初始化（RAII, Resource Acquisition Is Initialization）：这是一种编程范式。资源的获取即是初始化，资源的释放即是销毁。确保在对象的生命周期内资源被正确管理。通过在对象的构造函数中分配资源，并在析构函数中释放资源，可以保证资源总是被正确管理。</li>
-<li>定期代码审查：定期进行代码审查可以帮助识别潜在的内存泄漏问题。</li>
-<li>自动化测试：编写测试用例，尤其是针对资源管理的单元测试，可以在开发过程中早期发现和解决内存泄漏问题。</li>
-</ul>
-<h1 id="数值溢出">数值溢出</h1>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-type">long</span> goal = nums[i] + nums[j];<br><span class="hljs-keyword">if</span> (goal &gt; target) right--;<br></code></pre></td></tr></table></figure>
-<p>在这段代码中，<code>nums[i]</code> 和 <code>nums[j]</code> 是两个整数（假设它们是 <code>int</code> 类型）。<code>nums[i] + nums[j]</code> 表达式会先执行整数相加操作，然后将结果转换为 <code>long</code> 类型并赋值给 <code>goal</code>。如果 <code>nums[i] + nums[j]</code> 的结果超过了 <code>int</code> 类型的范围（即发生溢出），则在转换为 <code>long</code> 类型之前已经丢失了信息，因此可能会导致错误的结果。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">if</span> ((<span class="hljs-type">long</span>) nums[i] + nums[j] &gt; target) right--;<br></code></pre></td></tr></table></figure>
-<p>在这段代码中，<code>(long) nums[i] + nums[j]</code> 会先将 <code>nums[i]</code> 转换为 <code>long</code> 类型，然后再进行加法运算。由于 <code>long</code> 类型的范围比 <code>int</code> 类型大得多，这样可以避免在加法运算过程中发生溢出。因此，即使 <code>nums[i]</code> 和 <code>nums[j]</code> 的和超过了 <code>int</code> 类型的范围，它们的和仍然可以正确地表示为 <code>long</code> 类型，不会丢失信息。</p>
-<p>如果你仍然想使用 <code>goal</code> 变量来代表 <code>nums[i] + nums[j]</code>，并且避免数值溢出的问题，可以在计算和赋值时进行显式类型转换。你可以先将 <code>nums[i]</code> 转换为 <code>long</code> 类型，再进行加法运算，并将结果赋值给 <code>goal</code> 变量。以下是正确的做法：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-type">long</span> goal = <span class="hljs-built_in">static_cast</span>&lt;<span class="hljs-type">long</span>&gt;(nums[i]) + nums[j];<br><span class="hljs-keyword">if</span> (goal &gt; target) right--;<br></code></pre></td></tr></table></figure>
-<blockquote>
-<p>当一个 <code>long</code> 类型的变量与一个 <code>int</code> 类型的变量相加时，<code>int</code> 类型的变量会被自动提升为 <code>long</code> 类型，然后进行相加运算。这样可以确保运算结果的正确性和避免潜在的溢出问题。</p>
-</blockquote>
 <h1 id="第三方库">第三方库</h1>
 <h2 id="Eigen">Eigen</h2>
 <h3 id="Matrix类与Array类">Matrix类与Array类</h3>
@@ -1470,7 +1578,7 @@
 <p>有一条指令，在MATLAB的command里面输入</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">mcc -w cpplib:funcname -T<br><span class="hljs-built_in">link</span>:lib funcname.m -C<br></code></pre></td></tr></table></figure>
 <p>具体可以网上搜一下。</p>
-<h1 id="Python">Python</h1>
+<h1 id="Python-2">Python</h1>
 <h2 id="if-name-main">if <strong>name</strong> == &quot;<strong>main</strong>&quot;:</h2>
 <p>在Python中，<code>if __name__ == &quot;__main__&quot;:</code> 是一个常见的模式。这行代码的作用是检查当前的模块是被直接运行还是被导入为一个模块。</p>
 <p>当Python解释器读取一个源文件时，它会首先定义一些特殊的变量。其中一个就是 <code>__name__</code>。如果该文件被直接运行，那么 <code>__name__</code> 的值会被设置为 <code>&quot;__main__&quot;</code>。如果该文件被其他Python文件导入，那么 <code>__name__</code> 的值则会被设置为该文件的名字。</p>
@@ -1484,7 +1592,209 @@
 <h2 id="读取参数">读取参数</h2>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># python run.py file.rosbag /ground_truth/odometry /pose_graph/odometry</span><br><br>import sys<br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br>    <span class="hljs-comment"># 从命令行参数获取rosbag的路径和指定的topics</span><br>    rosbag_file = sys.argv[1]<br>    gt_topic_name = (<br>        sys.argv[2] <span class="hljs-keyword">if</span> len(sys.argv) &gt; 2 <span class="hljs-keyword">else</span> <span class="hljs-string">&quot;/ground_truth/odometry&quot;</span><br>    )<br>    est_topic_name = (<br>        sys.argv[3] <span class="hljs-keyword">if</span> len(sys.argv) &gt; 3 <span class="hljs-keyword">else</span> <span class="hljs-string">&quot;/pose_graph/odometry&quot;</span><br>    )<br></code></pre></td></tr></table></figure>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># python run.py file.rosbag /ground_truth/odometry /pose_graph/odometry --start_offset 0.5 --end_offset 0.5</span><br><br><span class="hljs-keyword">import</span> argparse<br><span class="hljs-keyword">import</span> os<br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br>    parser = argparse.ArgumentParser(description=<span class="hljs-string">&quot;Filter ROS bag messages based on timestamp ranges.&quot;</span>)<br>    parser.add_argument(<span class="hljs-string">&quot;input_bag_path&quot;</span>, <span class="hljs-built_in">help</span>=<span class="hljs-string">&quot;Path to the input ROS bag file.&quot;</span>)<br>    parser.add_argument(<span class="hljs-string">&quot;gt_topic_name&quot;</span>, <span class="hljs-built_in">help</span>=<span class="hljs-string">&quot;Ground truth topic name.&quot;</span>, default=<span class="hljs-string">&quot;/ground_truth/odometry&quot;</span>)<br>    parser.add_argument(<span class="hljs-string">&quot;est_topic_name&quot;</span>, <span class="hljs-built_in">help</span>=<span class="hljs-string">&quot;Estimated topic name.&quot;</span>, default=<span class="hljs-string">&quot;/pose_graph/odometry&quot;</span>)<br>    parser.add_argument(<span class="hljs-string">&quot;--start_offset&quot;</span>, <span class="hljs-built_in">type</span>=<span class="hljs-built_in">float</span>, default=<span class="hljs-number">0.0</span>, <span class="hljs-built_in">help</span>=<span class="hljs-string">&quot;Offset to add to the start time (in seconds).&quot;</span>)<br>    parser.add_argument(<span class="hljs-string">&quot;--end_offset&quot;</span>, <span class="hljs-built_in">type</span>=<span class="hljs-built_in">float</span>, default=<span class="hljs-number">0.0</span>, <span class="hljs-built_in">help</span>=<span class="hljs-string">&quot;Offset to subtract from the end time (in seconds).&quot;</span>)<br>    args = parser.parse_args()<br><br>    output_bag_path = os.path.splitext(args.input_bag_path)[<span class="hljs-number">0</span>] + <span class="hljs-string">&quot;_alignment.bag&quot;</span><br><br>    filter_bag(args.input_bag_path, args.gt_topic_name, args.est_topic_name, output_bag_path, args.start_offset, args.end_offset)<br>    <br></code></pre></td></tr></table></figure>
-<h1 id="其它-2">其它</h1>
+<h1 id="tips">tips</h1>
+<h2 id="引入头文件路径的方法">引入头文件路径的方法</h2>
+<h3 id="与">&lt;&gt;与&quot;&quot;</h3>
+<p>在 C++ 中，<code>#include</code> 指令用于包含头文件，而 <code>&lt;&gt;</code> 和 <code>&quot;&quot;</code> 两种形式的区别主要在于文件的搜索路径和优先级。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><strong>特性</strong></th>
+<th style="text-align:center"><strong><code>#include &lt;&gt;</code></strong></th>
+<th style="text-align:center"><strong><code>#include &quot;&quot;</code></strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><strong>优先搜索路径</strong></td>
+<td style="text-align:center">系统默认路径（如标准库路径或第三方库路径）</td>
+<td style="text-align:center">当前目录或项目目录（优先），然后系统默认路径</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>常见用途</strong></td>
+<td style="text-align:center">标准库或第三方库头文件</td>
+<td style="text-align:center">用户自定义头文件</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>适用场景</strong></td>
+<td style="text-align:center">标准库头文件如 <code>&lt;iostream&gt;</code>，第三方库如 <code>&lt;opencv&gt;</code></td>
+<td style="text-align:center">项目内部头文件如 <code>&quot;my_header.h&quot;</code></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<ul>
+<li>如果你的项目头文件之间有依赖关系，优先使用 <code>#include &quot;&quot;</code>。</li>
+<li>如果你的项目头文件可能与标准库冲突（名称相同），采用 <code>#include &quot;&quot;</code> 保证优先加载项目内部的头文件。</li>
+<li>编译器的 <code>-I</code>（Include Path）选项可以指定额外的搜索路径。</li>
+<li>如果使用 <code>#include &lt;&gt;</code>，即使指定了 <code>-I</code>，编译器仍然优先搜索系统路径。</li>
+<li>如果使用 <code>#include &quot;&quot;</code>，编译器会优先搜索 <code>-I</code> 指定的路径。</li>
+</ul>
+</blockquote>
+<h3 id="复杂路径">复杂路径</h3>
+<ul>
+<li>当前文件路径为：<code>/path/to/current_folder/source_file.cpp</code></li>
+<li>目标头文件路径为：<code>/path/to/parent/parent/parent_folder/child_folder/custom_header.h</code></li>
+</ul>
+<p>引入方法：</p>
+<ol>
+<li>
+<p>使用 <code>#include</code> 指令，结合相对路径：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;../../../parent_folder/child_folder/custom_header.h&quot;</span></span><br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>g++：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">g++ -I/path/to/parent/parent/parent_folder/child_folder source_file.cpp -o output<br></code></pre></td></tr></table></figure>
+<p>然后可在代码中直接使用：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;custom_header.h&quot;</span></span><br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>Cmake：</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs cmake"><span class="hljs-comment"># 方法一：</span><br><span class="hljs-keyword">include_directories</span>(<span class="hljs-variable">$&#123;CMAKE_SOURCE_DIR&#125;</span>//path/to/parent/parent/parent_folder/child_folder)<br><span class="hljs-comment"># 方法二：</span><br><span class="hljs-keyword">add_executable</span>(MyApp src/main.cpp)<br><span class="hljs-keyword">target_include_directories</span>(MyApp PRIVATE <span class="hljs-variable">$&#123;CMAKE_SOURCE_DIR&#125;</span>//path/to/parent/parent/parent_folder/child_folder)  <span class="hljs-comment"># 提供更细粒度的控制，避免全局污染头文件搜索路径。</span><br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>如果路径是相对于当前文件的，而不是项目根目录，可以通过 <code>$&#123;CMAKE_CURRENT_SOURCE_DIR&#125;</code> 动态获取路径。</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmake"><span class="hljs-keyword">target_include_directories</span>(MyApp PRIVATE <span class="hljs-variable">$&#123;CMAKE_CURRENT_SOURCE_DIR&#125;</span>/path/to/parent/parent/parent_folder/child_folder )<br></code></pre></td></tr></table></figure>
+</blockquote>
+<p>然后可在代码中直接使用：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;custom_header.h&quot;</span></span><br></code></pre></td></tr></table></figure>
+<p>如果项目中有多个头文件路径，建议将所有路径统一存储在变量中，例如：</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs cmake"><span class="hljs-keyword">set</span>(INCLUDE_DIRS <span class="hljs-variable">$&#123;CMAKE_SOURCE_DIR&#125;</span>/<span class="hljs-keyword">include</span>/custom <span class="hljs-variable">$&#123;CMAKE_SOURCE_DIR&#125;</span>/third_party/<span class="hljs-keyword">include</span>)<br><span class="hljs-keyword">target_include_directories</span>(MyApp PRIVATE <span class="hljs-variable">$&#123;INCLUDE_DIRS&#125;</span>)<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>等等。</p>
+</li>
+</ol>
+<h2 id="头文件保护机制">头文件保护机制</h2>
+<p>C++ 编译器提供了多种机制来防止头文件中的内容被重复包含：</p>
+<h3 id="include-Guards">include Guards</h3>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">// test_1.h</span><br><span class="hljs-meta">#<span class="hljs-keyword">ifndef</span> TEST_1_H</span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> TEST_1_H</span><br><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;vector&gt;</span> <span class="hljs-comment">// 引入标准库头文件 vector</span></span><br><br><span class="hljs-meta">#<span class="hljs-keyword">endif</span> <span class="hljs-comment">// TEST_1_H</span></span><br></code></pre></td></tr></table></figure>
+<p>在这种情况下：</p>
+<ul>
+<li>第一次包含 <code>test_1.h</code> 时，<code>TEST_1_H</code> 宏尚未定义，文件的内容会被编译器处理。</li>
+<li>第二次包含时，<code>TEST_1_H</code> 宏已经定义，编译器会跳过整个文件的内容。</li>
+</ul>
+<h3 id="pragma-once">#pragma once</h3>
+<p>许多现代编译器（如 GCC、Clang、MSVC）支持 <code>#pragma once</code>，这是一个更简洁的方式来实现头文件保护：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">// test_1.h</span><br><span class="hljs-meta">#<span class="hljs-keyword">pragma</span> once</span><br><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;vector&gt;</span> <span class="hljs-comment">// 引入标准库头文件 vector</span></span><br></code></pre></td></tr></table></figure>
+<p><code>#pragma once</code> 告诉编译器在编译过程中只处理一次该文件的内容，即使被多次 <code>#include</code>。</p>
+<h2 id="多重定义">多重定义</h2>
+<h3 id="宏防止头文件重复包含的作用">宏防止头文件重复包含的作用</h3>
+<p><code>#ifndef</code> 宏（或 <code>#pragma once</code>）的作用是防止头文件在 <strong>同一个编译单元（translation unit）</strong> 中被多次包含。它通过条件编译的方式确保头文件的内容只会被处理一次。</p>
+<h4 id="编译单元（Translation-Unit）"><strong>编译单元（Translation Unit）</strong></h4>
+<ul>
+<li>一个编译单元是指一个源文件（<code>.cpp</code> 文件）及其包含的所有头文件（通过 <code>#include</code> 指令）。</li>
+<li>每个源文件在编译时会生成一个独立的编译单元。</li>
+</ul>
+<h4 id="如何防止重复包含"><strong>如何防止重复包含</strong></h4>
+<p>假设有一个头文件 <code>SuperPoint.h</code>，内容如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">ifndef</span> SUPERPOINT_H</span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> SUPERPOINT_H</span><br><br><span class="hljs-comment">// 头文件内容</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">SuperPoint</span> &#123;<br>    <span class="hljs-comment">// 类定义</span><br>&#125;;<br><br><span class="hljs-meta">#<span class="hljs-keyword">endif</span></span><br></code></pre></td></tr></table></figure>
+<p>如果某个源文件 <code>A.cpp</code> 中包含了 <code>SuperPoint.h</code>，而 <code>SuperPoint.h</code> 又被其他头文件间接包含，例如：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">// A.cpp</span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;SuperPoint.h&quot;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;OtherHeader.h&quot;</span>  <span class="hljs-comment">// OtherHeader.h 也包含了 SuperPoint.h</span></span><br></code></pre></td></tr></table></figure>
+<p>在这种情况下，<code>SuperPoint.h` 会被多次包含，但由于 </code>#ifndef SUPERPOINT_H` 的存在，编译器会忽略重复的内容，从而避免编译错误。</p>
+<h3 id="为什么宏不能解决多重定义问题">为什么宏不能解决多重定义问题</h3>
+<p>虽然 <code>#ifndef</code> 宏可以防止头文件在同一个编译单元中被多次包含，但它无法解决 <strong>&quot;multiple definition&quot;（多重定义）</strong> 的问题。多重定义问题通常发生在 <strong>链接阶段</strong>，而不是编译阶段。</p>
+<h4 id="多重定义问题的原因"><strong>多重定义问题的原因</strong></h4>
+<p>多重定义问题的根本原因是 <strong>头文件中包含了函数或变量的定义</strong>，而头文件被多个源文件包含，导致这些定义在多个编译单元中重复出现。例如：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">// SuperPoint.h</span><br><span class="hljs-meta">#<span class="hljs-keyword">ifndef</span> SUPERPOINT_H</span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> SUPERPOINT_H</span><br><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;string&gt;</span></span><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">SuperPoint</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-built_in">SuperPoint</span>() &#123;&#125;<br>&#125;;<br><br><span class="hljs-meta">#<span class="hljs-keyword">endif</span></span><br></code></pre></td></tr></table></figure>
+<p>如果 <code>SuperPoint.h</code> 被两个源文件 <code>A.cpp</code> 和 <code>B.cpp</code> 包含：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">// A.cpp</span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;SuperPoint.h&quot;</span></span><br><br><span class="hljs-comment">// B.cpp</span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;SuperPoint.h&quot;</span></span><br></code></pre></td></tr></table></figure>
+<p>在编译阶段，<code>A.cpp</code> 和 <code>B.cpp</code> 都会生成 <code>SuperPoint</code> 构造函数的定义。链接器在链接时会发现多个编译单元中存在相同的符号定义（<code>SuperPoint::SuperPoint</code>），从而报错 <strong>&quot;multiple definition&quot;</strong>。</p>
+<h4 id="宏与多重定义的区别"><strong>宏与多重定义的区别</strong></h4>
+<table>
+<thead>
+<tr>
+<th><strong>问题</strong></th>
+<th><strong>宏的作用</strong></th>
+<th><strong>多重定义的原因</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>头文件重复包含</strong></td>
+<td>宏可以防止头文件在同一个编译单元中被多次包含。</td>
+<td>头文件被多次包含时，宏可以确保头文件内容只被处理一次。</td>
+</tr>
+<tr>
+<td><strong>多重定义（multiple definition）</strong></td>
+<td>宏无法解决多重定义问题，因为多重定义发生在链接阶段。</td>
+<td>头文件中包含了函数或变量的定义，而头文件被多个源文件包含，导致多个编译单元中重复定义。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="如何解决多重定义问题">如何解决多重定义问题</h3>
+<ol>
+<li>
+<p>将函数实现移到源文件。头文件中只保留函数的声明，将函数的实现移到源文件中。</p>
+</li>
+<li>
+<p>使用 <code>inline</code> 关键字。如果函数的实现必须放在头文件中，可以使用 <code>inline</code> 关键字。<code>inline</code> 告诉编译器，函数的多个定义在链接时是可以合并的。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">ifndef</span> SUPERPOINT_H</span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> SUPERPOINT_H</span><br><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;string&gt;</span></span><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">SuperPoint</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-title">SuperPoint</span><span class="hljs-params">()</span> </span>&#123;&#125;  <span class="hljs-comment">// 使用 inline 关键字</span><br>&#125;;<br><br><span class="hljs-meta">#<span class="hljs-keyword">endif</span></span><br></code></pre></td></tr></table></figure>
+<blockquote>
+<p><code>inline</code> 适用于简单的函数，不适合复杂的实现。</p>
+</blockquote>
+</li>
+<li>
+<p>等等。</p>
+</li>
+</ol>
+<h2 id="内存泄漏">内存泄漏</h2>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_45498383/article/details/138488477">参考链接</a></p>
+<h3 id="什么是内存泄漏？">什么是内存泄漏？</h3>
+<p>内存泄漏是指程序中已分配的内存未能（在离开其作用域、程序运行结束后）成功释放，导致可用内存逐渐减少的现象。在程序运行过程中，如果反复发生内存泄漏，最终可能会导致系统可用内存耗尽，从而影响程序的性能或导致程序崩溃。内存泄漏在长时间运行的程序中尤其危险，例如服务器或持续运行的后台任务。</p>
+<h3 id="内存泄漏的原因">内存泄漏的原因</h3>
+<p>内存泄漏通常发生在以下几种情况：</p>
+<ul>
+<li>
+<p>未释放动态分配的内存：当使用如 <code>malloc</code>, <code>calloc</code>, <code>realloc</code> 和 <code>new</code> 等函数分配内存后，未使用对应的 free 或 delete 来释放内存。</p>
+<blockquote>
+<p>在C++中，指针本身是一个变量，它存储的是<strong>内存地址</strong>。指针的生命周期与普通变量相同，当指针超出其作用域时，指针变量本身会被自动销毁，但它<strong>指向的内存</strong>并不会被自动释放。</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">exampleFunction</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-type">int</span>* ptr = <span class="hljs-keyword">new</span> <span class="hljs-built_in">int</span>(<span class="hljs-number">10</span>); <span class="hljs-comment">// 动态分配内存</span><br>    std::cout &lt;&lt; <span class="hljs-string">&quot;Inside function: &quot;</span> &lt;&lt; *ptr &lt;&lt; std::endl;<br>    <span class="hljs-comment">// ptr变量在函数结束时会被销毁，但指向的内存不会被释放</span><br>    <span class="hljs-comment">// delete ptr; // 手动释放内存</span><br>    <br>    <span class="hljs-comment">// std::unique_ptr&lt;int&gt; ptr = std::make_unique&lt;int&gt;(10); // 使用智能指针自动管理内存</span><br>    <span class="hljs-comment">// 不需要手动释放内存，智能指针在作用域结束时会自动释放内存</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-built_in">exampleFunction</span>();<br>    <span class="hljs-comment">// 此时ptr已经被销毁，但指向的内存仍然存在，导致内存泄漏</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>资源占用：除了内存外，程序可能申请其他系统资源（如文件句柄、数据库连接等），未正确释放这些资源也会导致类似内存泄漏的问题。</p>
+</li>
+<li>
+<p>数据结构错误：例如，链表、树等数据结构若未正确处理其元素的删除操作，可能导致部分节点成为不可达的，从而造成内存泄漏。</p>
+</li>
+</ul>
+<h3 id="如何判断内存泄漏？">如何判断内存泄漏？</h3>
+<p>判断和诊断内存泄漏通常需要以下几个步骤或工具：</p>
+<ol>
+<li>代码审查：通过审查代码来寻找可能未释放内存的地方。特别关注那些有动态内存分配的函数或模块。</li>
+<li>运行时工具：
+<ul>
+<li>Valgrind：这是一个编程工具，用于内存调试、内存泄漏检测等。在 Linux 环境下，使用 Valgrind 运行程序可以帮助检测内存泄漏。</li>
+<li>Visual Studio：在 Windows 环境下，Visual Studio IDE 提供了内置的内存泄漏检测工具。</li>
+<li>Sanitizers：如 AddressSanitizer，这是一种快速的内存错误检测工具，可以集成到 GCC 或 Clang 编译器中，用于检测内存泄漏和其他内存相关错误。</li>
+</ul>
+</li>
+<li>性能监控工具：使用系统或第三方性能监控工具来观察程序的内存使用情况，查看内存使用是否随时间持续增加。</li>
+<li>日志和追踪：在代码中添加日志输出，特别是在分配和释放资源的地方，可以帮助追踪内存的使用和释放。</li>
+</ol>
+<h3 id="如何防止内存泄漏？">如何防止内存泄漏？</h3>
+<ul>
+<li>使用智能指针：在 C++中使用 <code>std::unique_ptr</code>, <code>std::shared_ptr</code> 等智能指针可以自动管理内存，大大减少内存泄漏的风险。</li>
+<li>资源获取即初始化（RAII, Resource Acquisition Is Initialization）：这是一种编程范式。资源的获取即是初始化，资源的释放即是销毁。确保在对象的生命周期内资源被正确管理。通过在对象的构造函数中分配资源，并在析构函数中释放资源，可以保证资源总是被正确管理。</li>
+<li>定期代码审查：定期进行代码审查可以帮助识别潜在的内存泄漏问题。</li>
+<li>自动化测试：编写测试用例，尤其是针对资源管理的单元测试，可以在开发过程中早期发现和解决内存泄漏问题。</li>
+</ul>
+<h2 id="数值溢出">数值溢出</h2>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-type">long</span> goal = nums[i] + nums[j];<br><span class="hljs-keyword">if</span> (goal &gt; target) right--;<br></code></pre></td></tr></table></figure>
+<p>在这段代码中，<code>nums[i]</code> 和 <code>nums[j]</code> 是两个整数（假设它们是 <code>int</code> 类型）。<code>nums[i] + nums[j]</code> 表达式会先执行整数相加操作，然后将结果转换为 <code>long</code> 类型并赋值给 <code>goal</code>。如果 <code>nums[i] + nums[j]</code> 的结果超过了 <code>int</code> 类型的范围（即发生溢出），则在转换为 <code>long</code> 类型之前已经丢失了信息，因此可能会导致错误的结果。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">if</span> ((<span class="hljs-type">long</span>) nums[i] + nums[j] &gt; target) right--;<br></code></pre></td></tr></table></figure>
+<p>在这段代码中，<code>(long) nums[i] + nums[j]</code> 会先将 <code>nums[i]</code> 转换为 <code>long</code> 类型，然后再进行加法运算。由于 <code>long</code> 类型的范围比 <code>int</code> 类型大得多，这样可以避免在加法运算过程中发生溢出。因此，即使 <code>nums[i]</code> 和 <code>nums[j]</code> 的和超过了 <code>int</code> 类型的范围，它们的和仍然可以正确地表示为 <code>long</code> 类型，不会丢失信息。</p>
+<p>如果你仍然想使用 <code>goal</code> 变量来代表 <code>nums[i] + nums[j]</code>，并且避免数值溢出的问题，可以在计算和赋值时进行显式类型转换。你可以先将 <code>nums[i]</code> 转换为 <code>long</code> 类型，再进行加法运算，并将结果赋值给 <code>goal</code> 变量。以下是正确的做法：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-type">long</span> goal = <span class="hljs-built_in">static_cast</span>&lt;<span class="hljs-type">long</span>&gt;(nums[i]) + nums[j];<br><span class="hljs-keyword">if</span> (goal &gt; target) right--;<br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>当一个 <code>long</code> 类型的变量与一个 <code>int</code> 类型的变量相加时，<code>int</code> 类型的变量会被自动提升为 <code>long</code> 类型，然后进行相加运算。这样可以确保运算结果的正确性和避免潜在的溢出问题。</p>
+</blockquote>
+<h2 id="变量数据类型转换">变量数据类型转换</h2>
+<p>在 C++ 中，如果一个函数的参数是 <code>int</code> 类型，而你传递了一个 <code>float</code> 类型的变量，<strong>不会报编译错误</strong>，因为 C++ 会自动进行类型转换（称为隐式类型转换）。但是，这种转换可能会导致精度丢失。如果你的编译器启用了警告（如 <code>-Wall</code> 或 <code>-Wconversion</code>），可能会提示类型转换的警告。</p>
+<p>如果你确定需要将 float 转换为 int，可以使用显式类型转换：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">myFunction</span><span class="hljs-params">(<span class="hljs-type">int</span> x)</span> </span>&#123;<br>    std::cout &lt;&lt; <span class="hljs-string">&quot;x = &quot;</span> &lt;&lt; x &lt;&lt; std::endl;<br>&#125;<br><br><span class="hljs-type">float</span> value = <span class="hljs-number">5.99</span>;<br><span class="hljs-built_in">myFunction</span>(value); <span class="hljs-comment">// 输出: x = 5</span><br><span class="hljs-built_in">myFunction</span>(<span class="hljs-built_in">static_cast</span>&lt;<span class="hljs-type">int</span>&gt;(value));<br></code></pre></td></tr></table></figure>
+<p>在 C++ 中，如果一个函数的参数是 <code>float</code> 类型，而你传递了一个 <code>int</code> 类型的变量，<strong>不会报错</strong>，因为 C++ 会自动进行隐式类型转换（从 <code>int</code> 转换为 <code>float</code>）。这种转换是安全的，不会丢失数据（因为 <code>int</code> 的值可以精确表示为 <code>float</code>，只要值不超过 <code>float</code> 的表示范围）。编译器不会报错或发出警告。</p>
+<h2 id="其它-2">其它</h2>
 <ol>
 <li>
 <p><code>code</code>单词做代码释义时是不可数名词。</p>
@@ -1720,6 +2030,62 @@
 <li><strong>程序正常结束</strong>：在程序正常结束时，缓冲区会被刷新。</li>
 <li><strong>显式刷新</strong>：可以使用 <code>std::flush</code> 来显式刷新缓冲区。</li>
 </ol>
+</li>
+<li>
+<p>在 C++ 中，可以在定义类的成员变量时直接赋值（称为 <strong>成员变量初始化</strong>）。C++11 引入了这种功能，使得代码更加简洁和直观。不过，它与在构造函数中对类变量赋值还是有一些差异。以下是成员变量初始化和构造函数赋值的主要区别：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><strong>特性</strong></th>
+<th style="text-align:center"><strong>成员变量初始化</strong></th>
+<th style="text-align:center"><strong>构造函数中赋值</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><strong>引入版本</strong></td>
+<td style="text-align:center">C++11 及以后</td>
+<td style="text-align:center">C++98 及以后</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>初始化时机</strong></td>
+<td style="text-align:center">在构造函数执行之前</td>
+<td style="text-align:center">在构造函数执行时</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>代码简洁性</strong></td>
+<td style="text-align:center">更简洁，适合简单默认值</td>
+<td style="text-align:center">适合复杂逻辑</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>初始化顺序</strong></td>
+<td style="text-align:center">按照成员声明的顺序初始化</td>
+<td style="text-align:center">初始化列表顺序优先于构造函数体</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>适用场景</strong></td>
+<td style="text-align:center">常量、默认值等简单初始化</td>
+<td style="text-align:center">参数依赖、复杂逻辑初始化</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>效率</strong></td>
+<td style="text-align:center">更高效（直接初始化）</td>
+<td style="text-align:center">有时会产生额外的赋值操作</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<ul>
+<li>如果初始化需要依赖参数或更复杂的逻辑，应该使用构造函数的初始化列表。</li>
+<li><strong>推荐优先使用成员变量初始化</strong>，因为它更简洁，并减少了重复代码。</li>
+</ul>
+</blockquote>
+</li>
+<li>
+<p>（函数的）声明必须在调用（它的函数的声明）之前，定义（实现）无顺序要求。</p>
+</li>
+<li>
+<p>在 C++ 中，由花括号 <code>&#123;&#125;</code> 包围的部分通常被称为 <strong>作用域（Scope）</strong>。作用域定义了标识符（如变量、函数、类等）的可见性和生命周期。</p>
 </li>
 <li>
 <p>等等。</p>

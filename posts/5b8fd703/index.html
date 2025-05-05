@@ -34,7 +34,7 @@
 <meta property="og:image" content="http://zeyulong.com/posts/5b8fd703/feature_branch_diverge_from_master_diagram.png">
 <meta property="og:image" content="http://zeyulong.com/posts/5b8fd703/rebase_result_diagram.png">
 <meta property="article:published_time" content="2024-05-09T03:34:55.000Z">
-<meta property="article:modified_time" content="2025-04-26T13:11:26.869Z">
+<meta property="article:modified_time" content="2025-05-05T08:56:02.170Z">
 <meta property="article:author" content="龙泽雨">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://zeyulong.com/posts/5b8fd703/Git%E6%B5%81%E7%A8%8B-1.png">
@@ -359,7 +359,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          20k 字
+          21k 字
         
       </span>
     
@@ -370,7 +370,7 @@
         
         
         
-          164 分钟
+          172 分钟
         
       </span>
     
@@ -420,7 +420,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2025年4月26日 晚上
+                    本文最后更新于 2025年5月5日 下午
                   
                 
               </p>
@@ -467,6 +467,9 @@
 <li>
 <p>为git设置代理。在linux的设置，网络中查看代理的地址，例如设置如下：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">git config --global http.proxy <span class="hljs-string">&#x27;127.0.0.1:1080&#x27;</span><br>git config --global https.proxy <span class="hljs-string">&#x27;127.0.0.1:1080&#x27;</span><br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>根据自己的端口号配置。</p>
+</blockquote>
 <p>这时候再次查看应该有代理内容输出，此时在git应该是可行的。</p>
 </li>
 <li>
@@ -1292,6 +1295,157 @@ Aborting</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">rmdir</span> /s /q .git<br></code></pre></td></tr></table></figure>
 <p>这些命令将递归地删除 <code>.git</code> 目录及其所有内容，从而永久地从你的工作目录中移除 Git 版本控制。</p>
 <p>执行完毕后，当前目录就不再是一个 Git 仓库，所有版本控制历史都会被删除。如果你的项目中还有其他重要的文件或数据，它们不会被这个操作影响。</p>
+<h2 id="使用git来比较两个文件夹">使用git来比较两个文件夹</h2>
+<p>假设你有两个文件夹：</p>
+<ol>
+<li><strong>文件夹 A</strong>：现有文件夹，包含旧数据或当前正在使用的内容。</li>
+<li><strong>文件夹 B</strong>：来自另一个仓库或文件夹，包含需要引入或对比的内容。</li>
+</ol>
+<h3 id="使用checkout">使用checkout</h3>
+<ol>
+<li>
+<p>创建 Git 仓库。将文件夹 A 和文件夹 B 添加到一个 Git 仓库中。</p>
+<ol>
+<li>
+<p>初始化仓库并添加文件夹 A：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> /path/to/folderA<br>git init<br>git add .<br>git commit -m <span class="hljs-string">&quot;Initial commit with folder A&quot;</span><br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>创建一个新分支用于文件夹 B：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">git checkout -b folderB<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>将文件夹 B 的内容拷贝到当前目录（或者直接引入文件夹 B 的路径）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cp</span> -r /path/to/folderB /path/to/folderA<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>提交文件夹 B 的内容：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">git add .<br>git commit -m <span class="hljs-string">&quot;Added content from folder B&quot;</span><br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>完成。</p>
+</li>
+</ol>
+</li>
+<li>
+<p>比较两个文件夹。通过 Git 的分支合并功能，可以比较文件夹 A 和文件夹 B 的差异。</p>
+<ol>
+<li>
+<p>切回主分支：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">git checkout main<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>合并分支：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">git merge folderB<br></code></pre></td></tr></table></figure>
+<p>如果文件夹 A 和文件夹 B 存在差异，Git 会提示冲突。你可以手动解决冲突，并决定如何迁移或保留文件。</p>
+</li>
+<li>
+<p>完成。</p>
+</li>
+</ol>
+</li>
+<li>
+<p>查看差异。</p>
+<ol>
+<li>
+<p>在 <code>git merge</code> 过程中，使用 <code>git status</code> 查看有哪些文件发生了冲突或修改。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">git status<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>通过 <code>git diff</code> 查看具体的文件差异：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">git diff<br>git diff --merge  <span class="hljs-comment"># 查看冲突文件的内容差异</span><br>git diff &lt;file-path&gt;  <span class="hljs-comment"># 查看特定文件的差异</span><br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>完成。</p>
+</li>
+</ol>
+</li>
+<li>
+<p>解决冲突。如果文件夹 A 和文件夹 B 中的文件内容有冲突，Git 会在文件中标记冲突位置，格式如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">&lt;&lt;&lt;&lt;&lt;&lt;&lt; <span class="hljs-string">HEAD</span><br><span class="hljs-string">内容来自文件夹 A</span><br><span class="hljs-string">=======</span><br><span class="hljs-string">内容来自文件夹 B</span><br><span class="hljs-string">&gt;&gt;&gt;&gt;&gt;&gt;&gt; folderB</span><br></code></pre></td></tr></table></figure>
+<ol>
+<li>
+<p>手动解决冲突。编辑冲突的文件，手动选择保留的内容。例如：</p>
+<ul>
+<li>保留文件夹 A 的内容。</li>
+<li>或者合并两者的内容。</li>
+</ul>
+<p>编辑后，标记冲突已解决：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">git add &lt;file-path&gt;<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>自动解决冲突。如果你确定要保留某一分支的内容，可以使用以下命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">git checkout --ours &lt;file-path&gt;  <span class="hljs-comment"># 保留文件夹 A 的内容（主分支内容）</span><br>git checkout --theirs &lt;file-path&gt;  <span class="hljs-comment"># 保留文件夹 B 的内容（分支内容）</span><br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>完成。</p>
+</li>
+</ol>
+</li>
+<li>
+<p>提交合并结果。解决所有冲突后，提交合并结果：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">git commit -m <span class="hljs-string">&quot;Resolved conflicts and merged folder B into folder A&quot;</span><br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>（可选）生成迁移报告：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">git diff --name-status HEAD  <span class="hljs-comment"># 查看已改变或新增的文件</span><br>git diff --name-status HEAD &gt; migration_report.txt  <span class="hljs-comment"># 导出到文件</span><br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>完成。</p>
+</li>
+</ol>
+<h3 id="使用pull">使用pull</h3>
+<ol>
+<li>
+<p>初始化本地仓库。如果你的本地文件夹 A 还不是一个 Git 仓库，先初始化它。同上。</p>
+</li>
+<li>
+<p>将远程仓库 B 添加为本地仓库的一个远程：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> /path/to/folderB<br>git init<br><br><span class="hljs-built_in">cd</span> /path/to/folderA<br>git remote add origin /path/to/folderB<br>git remote -v  <span class="hljs-comment"># 查看远程仓库是否添加成功</span><br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>拉取远程分支。使用 <code>git fetch</code> 拉取远程仓库的内容，但不合并到本地分支。这一步可以让你安全地查看远程仓库内容，而不会影响本地文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">git fetch origin<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>比较本地和远程的差异：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash">git diff HEAD origin/main  <span class="hljs-comment"># 显示本地文件夹 A 和远程仓库 B 中 main 分支的具体文件差异。</span><br><span class="hljs-comment"># 根据这些差异，你可以决定是否迁移文件。</span><br><br><span class="hljs-comment"># 如果你想知道哪些文件会被覆盖或冲突，可以尝试合并分支，但不要提交：</span><br>git merge --no-commit origin/main<br>git status  <span class="hljs-comment"># 查看哪些文件有冲突或需要迁移</span><br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>决定迁移方式。</p>
+<ol>
+<li>
+<p>覆盖本地内容。如果远程仓库 B 的内容更重要，你可以直接覆盖本地内容：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">git reset --hard origin/main  <span class="hljs-comment"># 放弃本地更改，保留远程版本</span><br>git clean -fd  <span class="hljs-comment"># 如果有多余的未跟踪文件，可以清理这些文件</span><br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>保留本地内容。如果你希望保留本地文件夹 A 的内容，并且只合并必要的文件，可以通过解决冲突的方式完成迁移：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">git merge origin/main  <span class="hljs-comment"># 合并远程分支</span><br></code></pre></td></tr></table></figure>
+<p>如果有冲突，Git 会提示冲突文件：</p>
+<ul>
+<li>
+<p>编辑冲突文件，手动合并内容。</p>
+</li>
+<li>
+<p>标记冲突已解决：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">git add &lt;file-path&gt;<br></code></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>提交合并结果：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">git commit -m <span class="hljs-string">&quot;Merged remote changes into local branch&quot;</span><br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>完成。</p>
+</li>
+</ol>
+</li>
+<li>
+<p>（可选）生成迁移报告。同上。</p>
+</li>
+<li>
+<p>完成。</p>
+</li>
+</ol>
 <h1 id="问题与解决-2">问题与解决</h1>
 <h2 id="只修改了一个文件，git却显示所有文件被修改了？">只修改了一个文件，git却显示所有文件被修改了？</h2>
 <p>原因：不同操作系统使用的换行符是不一样的。Unix/Linux使用的是LF，Mac后期也采用了LF，但Windows一直使用CRLF【回车(CR, ASCII 13, r) 换行(LF, ASCII 10, n)】作为换行符。而git入库的代码采用的是LF格式，它考虑到了跨平台协作的场景，提供了“换行符自动转换”的功能。在Windows下使用git，在拉取文件时，会自动将LF换行符替换为CRLF；在提交时，又会将CRLF转回LF。就是这个转换有问题的。</p>

@@ -24,7 +24,7 @@
 <meta property="og:description" content="本文主要分享了Windows、Linux系统的配置与常用软件的安装。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-01-31T16:27:11.000Z">
-<meta property="article:modified_time" content="2025-04-25T08:40:17.663Z">
+<meta property="article:modified_time" content="2025-05-05T09:25:01.012Z">
 <meta property="article:author" content="龙泽雨">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -359,7 +359,7 @@
         
         
         
-          180 分钟
+          183 分钟
         
       </span>
     
@@ -409,7 +409,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2025年4月25日 下午
+                    本文最后更新于 2025年5月5日 下午
                   
                 
               </p>
@@ -1060,6 +1060,8 @@
 </ol>
 <h2 id="安装鼠标驱动">安装鼠标驱动</h2>
 <p>我使用的鼠标是Logitech G502，但是Logitech的鼠标驱动<a target="_blank" rel="noopener" href="https://support.logi.com/hc/zh-cn/articles/360025298133-Logitech-G-HUB">Logitech G HUB</a>只提供了Windows和Mac版。当然，我相信<a href="#Piper">Piper</a>提供的鼠标驱动不止适用于这款鼠标。</p>
+<h2 id="更改鼠标大小">更改鼠标大小</h2>
+<p>设置-通用辅助-视觉-光标大小。</p>
 <h2 id="锁屏不熄屏">锁屏不熄屏</h2>
 <p>短按<code>Win+L</code>会锁屏，然后关显示器； 按<code>Win+L</code>持续几秒钟（屏幕会一闪），就会采用你设置的关屏时间（设置里面的电源选项里面），设置成<code>never</code>就永远亮着了。</p>
 <h2 id="更换壁纸">更换壁纸</h2>
@@ -2156,6 +2158,7 @@ sudo okular
 <ol>
 <li>常规-文件夹标签、文件夹ID（用同步的两个设备间的文件夹ID应相同）、文件夹路径。</li>
 <li>共享-勾选要同步的设备。</li>
+<li>（可选）忽略模式（语法类似<code>.gitignore</code>？）</li>
 <li>（可选）高级-文件夹类型：仅发送。（用于实现两个设备的<strong>单向同步</strong>）</li>
 <li>保存。</li>
 </ol>
@@ -2398,24 +2401,8 @@ source ~/.bashrc  # source ~/.zshrc
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 安装命令：</span><br>sudo apt-get install ./todesk-v4.7.2.0-amd64.deb<br><span class="hljs-comment"># 启动命令：</span><br>todesk<br><span class="hljs-comment"># 删除服务设置配置:</span><br>sudo <span class="hljs-built_in">rm</span> /opt/todesk/config/config.ini<br><span class="hljs-comment"># 卸载:</span><br>sudo apt-get remove --purge todesk<br><br><span class="hljs-comment"># 如不能正常使用,请执行以下命令初始化.</span><br>sudo systemctl stop todeskd.service<br>sudo <span class="hljs-built_in">mv</span> /opt/todesk/config/config.ini /opt/todesk/config/config.ini.bak<br>sudo systemctl start todeskd.service<br><br><span class="hljs-comment"># 排查错误可执行以下命令看日志:</span><br><span class="hljs-comment"># 查看服务日志：（例如:xxxx_xx_xx.log为2022_08_03.log）</span><br><span class="hljs-built_in">tail</span> -f /var/log/todesk/service_xxxx_xx_xx.log<br><span class="hljs-comment"># 查看客户端日志：（例如:xxxx_xx_xx.log为2022_08_03.log）</span><br><span class="hljs-built_in">tail</span> -f ~/.local/share/todesk/Logs/client_xxxx_xx_xx.log<br></code></pre></td></tr></table></figure>
 <p>默认安装位置：<code>/opt/todesk</code></p>
 <h1 id="VSCode">VSCode</h1>
-<blockquote>
-<p><a target="_blank" rel="noopener" href="https://code.visualstudio.com/docs/remote/faq#_can-i-run-vs-code-server-on-older-linux-distributions">我可以在旧版 Linux 发行版上运行 VS Code Server 吗？</a></p>
-<p>从 VS Code 版本 1.86.1（2024 年 1 月）开始，提高了远程服务器构建工具链的最低要求。</p>
-<p>VS Code 分发的预构建服务器与基于 [glibc](# 升级GLIBC_) 2.28 或更高版本的 Linux 发行版兼容，例如 Debian 10、RHEL 8 或 Ubuntu 20.04。在 2025 年 2 月之前，VS Code 仍允许用户连接到 VS Code 不支持的操作系统（不提供 glibc &gt;= 2.28 和 libstdc++ &gt;= 3.4.25 的操作系统）。</p>
-<p>这让您和您的公司有时间迁移到较新的 Linux 发行版。当您连接到 VS Code 不支持的操作系统版本时，VS Code 将显示对话框和横幅消息。</p>
-</blockquote>
-<blockquote>
-<p><a target="_blank" rel="noopener" href="https://marketplace.visualstudio.com/items?itemName=GitHub.copilot-chat">VSCode GitHub Copilot 版本兼容性</a></p>
-<p>由于 Copilot Chat 因其深度 UI 集成而与 VS Code 同步发布，因此 Copilot Chat 的每个新版本仅与最新版本的 VS Code 兼容。</p>
-<p>这意味着，如果您使用的是旧版本的 VS Code，您将无法使用最新的 Copilot Chat。</p>
-<p>只有最新的 Copilot Chat 版本才会使用 Copilot 服务提供的最新模型，因为即使是较小的模型升级也需要在扩展中进行及时更改和修复。旧版本的 Copilot Chat 仍将使用最新版本的 Copilot 完成信息。</p>
-</blockquote>
-<h2 id="下载安装-4">下载安装</h2>
-<blockquote>
-<p><a target="_blank" rel="noopener" href="https://code.visualstudio.com/docs/supporting/faq#_can-i-run-vs-code-on-older-linux-distributions">我可以在旧版 Linux 发行版上运行 VS Code 吗？</a></p>
-<p>从 VS Code 版本 1.86.1（2024 年 1 月）开始，VS Code 桌面仅与基于 glibc 2.28 或更高版本的 Linux 发行版兼容，例如 Debian 10、RHEL 8 或 Ubuntu 20.04。</p>
-<p>如果您无法升级 Linux 发行版，建议的替代方案是使用我们的<a target="_blank" rel="noopener" href="https://code.visualstudio.com/docs/editor/vscode-web">Web 客户端</a>。如果您想使用桌面版本，则可以从<a target="_blank" rel="noopener" href="https://code.visualstudio.com/updates/v1_85">此处</a>下载 VS Code 版本 1.85。根据您的平台，请确保禁用更新以保留该版本。一个好的建议是使用<a target="_blank" rel="noopener" href="https://code.visualstudio.com/docs/editor/portable">便携式模式</a>进行安装。</p>
-</blockquote>
+<h2 id="下载、安装、升级、降级">下载、安装、升级、降级</h2>
+<h3 id="下载、安装">下载、安装</h3>
 <ol>
 <li>
 <p>在<a target="_blank" rel="noopener" href="https://code.visualstudio.com/download">下载链接</a>下载<code>*.deb</code>文件。</p>
@@ -2428,9 +2415,103 @@ source ~/.bashrc  # source ~/.zshrc
 <p>完成。</p>
 </li>
 </ol>
-<h2 id="升级">升级</h2>
+<h3 id="升级">升级</h3>
 <p>如果你的VSCode已经通过<code>*.deb</code>安装过了，只需要输入两行代码即可更新已经安装的VSCode：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo apt update  <span class="hljs-comment"># 更新源</span><br>sudo apt install code<br></code></pre></td></tr></table></figure>
+<h3 id="降级">降级</h3>
+<p><a target="_blank" rel="noopener" href="https://code.visualstudio.com/docs/remote/faq#_can-i-run-vs-code-server-on-older-linux-distributions">Can I run VS Code Server on older Linux distributions?</a></p>
+<p>从 VS Code 版本 1.99（2025 年 3 月）开始，VS Code 分发的预构建服务器仅与基于 glibc 2.28 或更高版本的 Linux 发行版兼容。例如，这些发行版包括 Debian 10、RHEL 8 或 Ubuntu 20.04。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">VS Code version</th>
+<th style="text-align:left">Base Requirements</th>
+<th style="text-align:left">Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">1.99.x</td>
+<td style="text-align:left">kernel &gt;= 4.18, glibc &gt;=2.28, libstdc++ &gt;= 3.4.25, binutils &gt;= 2.29</td>
+<td style="text-align:left"><none></td>
+</tr>
+</tbody>
+</table>
+<p><a href="#%E5%8D%87%E7%BA%A7GLIBC_">更新glibc</a>有风险且不一定会成功，最保险且实用的方法是把VSCode降级到1.99版本以下：</p>
+<blockquote>
+<p>不过就会使用不到VSCode和插件的最新功能了。</p>
+</blockquote>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://marketplace.visualstudio.com/items?itemName=GitHub.copilot-chat">VSCode GitHub Copilot 版本兼容性</a></p>
+<p>由于 Copilot Chat 因其深度 UI 集成而与 VS Code 同步发布，因此 Copilot Chat 的每个新版本仅与最新版本的 VS Code 兼容。</p>
+<p>这意味着，如果您使用的是旧版本的 VS Code，您将无法使用最新的 Copilot Chat。</p>
+<p>只有最新的 Copilot Chat 版本才会使用 Copilot 服务提供的最新模型，因为即使是较小的模型升级也需要在扩展中进行及时更改和修复。旧版本的 Copilot Chat 仍将使用最新版本的 Copilot 完成信息。</p>
+</blockquote>
+<ol>
+<li>
+<p>例如，<a target="_blank" rel="noopener" href="https://code.visualstudio.com/updates/v1_98">下载1.98版本</a>，覆盖安装即可。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo dpkg -i code_1.98.2-1741788907_amd64.deb<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>对于不再满足版本要求的插件，同样需要降级：</p>
+<ol>
+<li>点击插件打开插件主页。</li>
+<li>点击“卸载”右边的“下三角”图标。</li>
+<li>点击“安装特定版本”。</li>
+<li>（可选）取消勾选“卸载”右边的“自动更新”。</li>
+</ol>
+</li>
+<li>
+<p>（可选）将VSCode的自动更新改为“手动更新”：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-attr">&quot;update.mode&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;manual&quot;</span><span class="hljs-punctuation">,</span><br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>是“自动更新”时，Ubuntu下好像只会提示有更新，还是需要手动跳转到官网下载。而Windows下会自动下载更新。因此，特别是想在Windows下保持版本，那么最好设置维“手动更新”。</p>
+</blockquote>
+</li>
+<li>
+<p>（可选）删除<code>sudo apt update</code>时自动检索的链接，防止<code>sudo apt upgrade</code>时自动升级VSCode：</p>
+<ol>
+<li>
+<p>图形界面：</p>
+<ol>
+<li>Win+A打开应用程序菜单。</li>
+<li>点击打开“软件和更新”。</li>
+<li>点击“其它软件”。</li>
+<li>取消勾选“<a target="_blank" rel="noopener" href="https://packages.microsoft.com/repos/code">https://packages.microsoft.com/repos/code</a> stable main”。</li>
+<li>按照提示更新检索。</li>
+<li>完成。</li>
+</ol>
+</li>
+<li>
+<p>或，命令行：</p>
+<ol>
+<li>
+<p>APT源的配置通常保存在以下两个地方：</p>
+<ul>
+<li><strong>主配置文件</strong>：<code>/etc/apt/sources.list</code></li>
+<li><strong>额外的源配置文件</strong>：<code>/etc/apt/sources.list.d/</code></li>
+</ul>
+<p>可以使用以下命令搜索包含目标链接的文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">grep -r <span class="hljs-string">&quot;https://packages.microsoft.com/repos/code stable main&quot;</span> /etc/apt/<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>找到目标链接的配置文件后，使用文本编辑器打开文件并删除或行前加<code>#</code>注释掉对应的行。</p>
+</li>
+<li>
+<p>编辑完成后，更新APT缓存，确保删除的链接不再被检索：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo apt update<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>完成。</p>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>
+<p>完成。</p>
+</li>
+</ol>
 <h2 id="配置-6">配置</h2>
 <h3 id="通用配置">通用配置</h3>
 <blockquote>
@@ -2689,6 +2770,10 @@ source ~/.bashrc  # source ~/.zshrc
 <h3 id="clangd插件">clangd插件</h3>
 <blockquote>
 <p>先安装“C/C++”插件再安装“clangd”插件安装完成后，会提示发生冲突提示，请选择“Disable IntelliSense”。</p>
+</blockquote>
+<blockquote>
+<p>为了让<code>clangd</code>正常分析C++代码并提供智能补全、代码导航等功能，<strong>你需要生成 <code>compile_commands.json</code> 文件</strong>，因为它包含了项目中每个源文件的编译选项和包含路径等信息。</p>
+<p><strong>通常需要运行 <code>cmake</code></strong>，因为 <code>cmake</code> 是生成 <code>compile_commands.json</code> 文件的常用工具。<strong>不需要运行 <code>make</code>，除非你需要编译和构建项目。</strong></p>
 </blockquote>
 <p>编辑<strong>用户</strong>设置 <code>settings.json</code> 文件：</p>
 <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-attr">&quot;cmake.copyCompileCommands&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span><br><span class="hljs-attr">&quot;C_Cpp.errorSquiggles&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;disabled&quot;</span><span class="hljs-punctuation">,</span><br><span class="hljs-attr">&quot;C_Cpp.intelliSenseEngineFallback&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;disabled&quot;</span><span class="hljs-punctuation">,</span><br><span class="hljs-attr">&quot;C_Cpp.intelliSenseEngine&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;disabled&quot;</span><span class="hljs-punctuation">,</span><br><span class="hljs-attr">&quot;clangd.path&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;/home/lll25655/.config/Code/User/globalStorage/llvm-vs-code-extensions.vscode-clangd/install/18.1.3/clangd_18.1.3/bin/clangd&quot;</span><span class="hljs-punctuation">,</span>  <span class="hljs-comment">// 不支持使用`~`表示主目录</span><br><span class="hljs-attr">&quot;clangd.onConfigChanged&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;restart&quot;</span><span class="hljs-punctuation">,</span><br><span class="hljs-comment">// clangd的运行参数(在终端/命令行(`cd`到clangd可执行文件的路径后)输入 `./clangd --help` 可查看更多)</span><br><span class="hljs-comment">// clangd --version 可查看版本</span><br><span class="hljs-comment">// clangd --help-list-hidden 可查看隐藏参数</span><br><span class="hljs-attr">&quot;clangd.arguments&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><br>    <span class="hljs-comment">// 启用 Clang-Tidy 以提供「静态检查」</span><br>    <span class="hljs-string">&quot;--clang-tidy&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-comment">// compelie_commands.json 文件的目录位置(相对于工作区)，一般情况下，由于 CMake 生成的该文件默认在 build 文件夹中，故设置为 build)</span><br>    <span class="hljs-string">&quot;--compile-commands-dir=build&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-comment">// 建议风格：打包bundled(重载函数只会给出一个建议）；反可以设置为detailed</span><br>    <span class="hljs-string">&quot;--completion-style=detailed&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-comment">// 启用配置文件(YAML格式)</span><br>    <span class="hljs-string">&quot;--enable-config&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-comment">// 默认格式化风格: 谷歌开源项目代码指南（可用的有 LLVM, Google, Chromium, Mozilla, Webkit, Microsoft, GNU 等）</span><br>    <span class="hljs-comment">// 当未找到 .clang-format 文件时默认应用 clang-format 样式</span><br>    <span class="hljs-string">&quot;--fallback-style=Google&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-comment">// 启用这项时，补全函数时，将会给参数提供占位符，键入后按 Tab 可以切换到下一占位符，乃至函数末</span><br>    <span class="hljs-string">&quot;--function-arg-placeholders=true&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-comment">// 输入建议中，已包含头文件的项与还未包含头文件的项会以圆点加以区分</span><br>    <span class="hljs-string">&quot;--header-insertion-decorators&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-comment">// 允许补充头文件</span><br>    <span class="hljs-string">&quot;--header-insertion=never&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-comment">// 让 Clangd 生成更详细的日志</span><br>    <span class="hljs-string">&quot;--log=verbose&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-comment">// pch优化的位置(memory 或 disk，选择memory会增加内存开销，但会提升性能)</span><br>    <span class="hljs-string">&quot;--pch-storage=memory&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-comment">// 输出的 JSON 文件更美观</span><br>    <span class="hljs-string">&quot;--pretty&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-comment">// 建议排序模型</span><br>    <span class="hljs-string">&quot;--ranking-model=heuristics&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-comment">// 同时开启的任务数量</span><br>    <span class="hljs-string">&quot;-j=16&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-comment">// 跨文件重命名变量</span><br>    <span class="hljs-string">&quot;--cross-file-rename&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-comment">// 在后台自动分析文件(基于 complie_commands，我们用CMake生成)</span><br>    <span class="hljs-string">&quot;--background-index&quot;</span><br><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span><br><span class="hljs-comment">// 找不到编译数据库(compile_flags.json 文件)时使用的编译器选项，</span><br><span class="hljs-comment">// 这样的缺陷是不能直接索引同一项目的不同文件，只能分析系统头文件、当前文件和被include的文件</span><br><span class="hljs-attr">&quot;clangd.fallbackFlags&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><br>    <span class="hljs-string">&quot;-pedantic&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-string">&quot;-Wall&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-string">&quot;-Wextra&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-string">&quot;-Wcast-align&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-string">&quot;-Wdouble-promotion&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-string">&quot;-Wformat=2&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-string">&quot;-Wimplicit-fallthrough&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-string">&quot;-Wmisleading-indentation&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-string">&quot;-Wnon-virtual-dtor&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-string">&quot;-Wnull-dereference&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-string">&quot;-Wold-style-cast&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-string">&quot;-Woverloaded-virtual&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-string">&quot;-Wpedantic&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-string">&quot;-Wshadow&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-string">&quot;-Wunused&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-string">&quot;-pthread&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-string">&quot;-fuse-ld=lld&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-string">&quot;-fsanitize=address&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-string">&quot;-fsanitize=undefined&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-string">&quot;-stdlib=libc++&quot;</span><br><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span><br><span class="hljs-comment">// 自动检测 clangd 更新</span><br><span class="hljs-attr">&quot;clangd.checkUpdates&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">true</span></span><span class="hljs-punctuation">,</span><br><span class="hljs-comment">// clangd的snippets有很多的跳转点，不用这个就必须手动触发Intellisense了</span><br><span class="hljs-attr">&quot;editor.suggest.snippetsPreventQuickSuggestions&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">false</span></span><span class="hljs-punctuation">,</span><br></code></pre></td></tr></table></figure>
@@ -2994,7 +3079,7 @@ source ~/.bashrc  # source ~/.zshrc
 <li>完成。</li>
 </ol>
 <h1 id="Zotero">Zotero</h1>
-<h2 id="下载安装-5">下载安装</h2>
+<h2 id="下载安装-4">下载安装</h2>
 <p><a target="_blank" rel="noopener" href="https://www.zotero.org/"> Zotero官网</a></p>
 <h2 id="插件">插件</h2>
 <h3 id="插件推荐">插件推荐</h3>

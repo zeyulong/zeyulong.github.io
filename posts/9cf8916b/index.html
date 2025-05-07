@@ -24,7 +24,7 @@
 <meta property="og:description" content="本文主要分享了程序编译、安装与卸载的知识点。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-02-19T03:05:47.000Z">
-<meta property="article:modified_time" content="2025-05-05T09:08:50.190Z">
+<meta property="article:modified_time" content="2025-05-07T14:49:14.660Z">
 <meta property="article:author" content="龙泽雨">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -348,7 +348,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.8k 字
+          4.3k 字
         
       </span>
     
@@ -359,7 +359,7 @@
         
         
         
-          32 分钟
+          36 分钟
         
       </span>
     
@@ -409,7 +409,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2025年5月5日 下午
+                    本文最后更新于 2025年5月7日 晚上
                   
                 
               </p>
@@ -609,6 +609,38 @@
 </li>
 <li>等等。</li>
 </ul>
+<h2 id="set变量的作用域">set变量的作用域</h2>
+<h3 id="普通变量的作用域">普通变量的作用域</h3>
+<p>在 CMake 中，普通变量的作用域是定义它的 CMakeLists.txt 文件所在的目录。</p>
+<ul>
+<li>这些变量仅在当前目录的 CMakeLists.txt 和由 <code>include</code> 引入的文件中可见。</li>
+<li>如果使用了 <code>add_subdirectory()</code> 引入子目录，普通变量<strong>不会自动传递到子目录</strong>。</li>
+</ul>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs cmake"><span class="hljs-comment"># Top-level CMakeLists.txt</span><br><span class="hljs-keyword">set</span>(MY_VARIABLE <span class="hljs-string">&quot;value_in_parent&quot;</span>)<br><span class="hljs-keyword">add_subdirectory</span>(subdir)<br><br><span class="hljs-comment"># subdir/CMakeLists.txt</span><br><span class="hljs-keyword">message</span>(STATUS <span class="hljs-string">&quot;MY_VARIABLE in subdir: $&#123;MY_VARIABLE&#125;&quot;</span>)<br><br><span class="hljs-comment"># 输出</span><br>MY_VARIABLE in subdir:  <span class="hljs-comment"># 子目录的 CMakeLists.txt 中无法访问 `MY_VARIABLE`，因为普通变量默认不会传递到子目录。</span><br></code></pre></td></tr></table></figure>
+<h3 id="子目录中的变量传递">子目录中的变量传递</h3>
+<p>如果希望变量在父目录中可见，可以用 <code>PARENT_SCOPE</code> 指定变量的作用域。</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs cmake"><span class="hljs-comment"># subdir/CMakeLists.txt</span><br><span class="hljs-keyword">set</span>(MY_VARIABLE <span class="hljs-string">&quot;value_from_subdir&quot;</span> PARENT_SCOPE)<br></code></pre></td></tr></table></figure>
+<p>在父目录中，<code>MY_VARIABLE</code> 将可见。</p>
+<h3 id="函数作用域">函数作用域</h3>
+<ul>
+<li>在函数中定义的变量，其作用域仅限于函数内部，函数外不可见。这是为了避免污染全局命名空间。</li>
+<li>如果需要将函数内部的变量传递到函数外部，可以使用 <code>PARENT_SCOPE</code>。</li>
+</ul>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs cmake"><span class="hljs-keyword">function</span>(my_function)<br>    <span class="hljs-keyword">set</span>(MY_VARIABLE <span class="hljs-string">&quot;value_in_function&quot;</span> PARENT_SCOPE)<br><span class="hljs-keyword">endfunction</span>()<br><br>my_function()<br><span class="hljs-keyword">message</span>(STATUS <span class="hljs-string">&quot;MY_VARIABLE outside function: $&#123;MY_VARIABLE&#125;&quot;</span>)<br><br><span class="hljs-comment"># 输出</span><br>MY_VARIABLE outside <span class="hljs-keyword">function</span>: value_in_function<br></code></pre></td></tr></table></figure>
+<h3 id="使用CACHE设置全局变量">使用CACHE设置全局变量</h3>
+<p>如果需要在整个 CMake 项目中都能访问某个变量，可以通过 <code>CACHE</code> 将变量设置为全局变量。</p>
+<p>CMake的 CACHE变量可以通过 set命令定义，支持以下类型：</p>
+<ul>
+<li><strong>BOOL</strong>：布尔值，用于启用或禁用功能。</li>
+<li><strong>STRING</strong>：字符串，用于存储一般文本。</li>
+<li><strong>PATH</strong>：指向目录的路径。</li>
+<li><strong>FILEPATH</strong>：指向文件的路径。</li>
+<li><strong>INTERNAL</strong>：内部变量，不对用户显示。</li>
+</ul>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs cmake"><span class="hljs-comment"># Top-level CMakeLists.txt</span><br><span class="hljs-keyword">set</span>(MY_VARIABLE <span class="hljs-string">&quot;value_in_cache&quot;</span> CACHE INTERNAL <span class="hljs-string">&quot;Pass to all directories&quot;</span>)<br><span class="hljs-keyword">add_subdirectory</span>(subdir)<br><br><span class="hljs-comment"># subdir/CMakeLists.txt</span><br><span class="hljs-keyword">message</span>(STATUS <span class="hljs-string">&quot;MY_VARIABLE in subdir: $&#123;MY_VARIABLE&#125;&quot;</span>)<br><br><span class="hljs-comment"># 输出</span><br>MY_VARIABLE in subdir: value_in_cache<br></code></pre></td></tr></table></figure>
+<h3 id="变量的优先级">变量的优先级</h3>
+<p>如果在不同作用域中定义了同名变量，CMake 会优先使用当前作用域的变量，而不是父目录的变量。</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs cmake"><span class="hljs-comment"># Top-level CMakeLists.txt</span><br><span class="hljs-keyword">set</span>(MY_VARIABLE <span class="hljs-string">&quot;value_in_parent&quot;</span>)<br><span class="hljs-keyword">add_subdirectory</span>(subdir)<br><br><span class="hljs-comment"># subdir/CMakeLists.txt</span><br><span class="hljs-keyword">set</span>(MY_VARIABLE <span class="hljs-string">&quot;value_in_subdir&quot;</span>)<br><span class="hljs-keyword">message</span>(STATUS <span class="hljs-string">&quot;MY_VARIABLE in subdir: $&#123;MY_VARIABLE&#125;&quot;</span>)<br><br><span class="hljs-comment"># 输出</span><br>MY_VARIABLE in subdir: value_in_subdir<br></code></pre></td></tr></table></figure>
 
                 
               </div>

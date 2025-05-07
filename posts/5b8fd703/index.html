@@ -34,7 +34,7 @@
 <meta property="og:image" content="http://zeyulong.com/posts/5b8fd703/feature_branch_diverge_from_master_diagram.png">
 <meta property="og:image" content="http://zeyulong.com/posts/5b8fd703/rebase_result_diagram.png">
 <meta property="article:published_time" content="2024-05-09T03:34:55.000Z">
-<meta property="article:modified_time" content="2025-05-05T08:56:02.170Z">
+<meta property="article:modified_time" content="2025-05-07T14:43:26.392Z">
 <meta property="article:author" content="龙泽雨">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://zeyulong.com/posts/5b8fd703/Git%E6%B5%81%E7%A8%8B-1.png">
@@ -370,7 +370,7 @@
         
         
         
-          172 分钟
+          173 分钟
         
       </span>
     
@@ -420,7 +420,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2025年5月5日 下午
+                    本文最后更新于 2025年5月7日 晚上
                   
                 
               </p>
@@ -623,6 +623,9 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash">git push &lt;远程主机名&gt; &lt;本地分支名&gt;:&lt;远程分支名&gt;<br><span class="hljs-comment"># 如果本地分支名与远程分支名相同，则可以省略冒号：</span><br>git push &lt;远程主机名&gt; &lt;本地分支名&gt;<br>git push origin master  <span class="hljs-comment"># 将本地的 master 分支推送到 origin 主机的 master 分支，相当于：</span><br>git push origin master:master<br><span class="hljs-comment"># 如果本地版本与远程版本有差异，但又要强制推送可以使用 --force 参数：</span><br>git push --force origin master<br>git push [remote] --all  <span class="hljs-comment"># 推送所有分支到远程仓库</span><br></code></pre></td></tr></table></figure>
 <h3 id="克隆clone">克隆clone</h3>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs bash">git <span class="hljs-built_in">clone</span> [url]  <span class="hljs-comment"># [url] 是你要拷贝的项目</span><br><span class="hljs-comment"># 执行完上述步骤后，Git 会克隆远程仓库到本地，并在当前目录下创建一个与远程仓库同名的文件夹</span><br><span class="hljs-comment"># 上述操作将复制该项目的全部记录</span><br><br>git <span class="hljs-built_in">clone</span> &lt;repository-url&gt; &lt;local-directory&gt;<br><span class="hljs-comment"># &lt;repository-url&gt; 是你想克隆的远程 Git 仓库的 URL</span><br><span class="hljs-comment"># &lt;local-directory&gt; 是你想创建本地副本的目录路径</span><br><br><span class="hljs-comment"># 克隆特定分支</span><br>git <span class="hljs-built_in">clone</span> --branch my-branch https://github.com/my-username/my-repository.git<br><span class="hljs-comment"># 克隆特定标签</span><br>git <span class="hljs-built_in">clone</span> --branch v1.0.0 https://github.com/my-username/my-repository.git<br><span class="hljs-comment"># 克隆特定提交</span><br>git <span class="hljs-built_in">clone</span> --branch 4c4ba1d https://github.com/my-username/my-repository.git<br><span class="hljs-comment"># 克隆子目录</span><br>git <span class="hljs-built_in">clone</span> --depth 1 --filter=blob:none https://github.com/my-username/my-repository.git my-subdirectory  <span class="hljs-comment"># 这个命令将创建 my-repository 仓库的 my-subdirectory 子目录中的文件的本地副本</span><br><span class="hljs-comment"># depth 用于指定克隆深度，为1即表示只克隆最近一次commit</span><br><br>git <span class="hljs-built_in">clone</span> --bare &lt;url&gt; [&lt;directory&gt;]  <span class="hljs-comment"># 它将克隆一个裸仓库（bare repository）。裸仓库是一个没有工作目录的Git仓库，只包含版本对象和引用，不保存源代码的修改历史，非常适合用作中央仓库或备份</span><br>git <span class="hljs-built_in">clone</span> --bare https://github.com/username/repository.git<br><br>git <span class="hljs-built_in">clone</span> --recursive &lt;repository_url&gt;  <span class="hljs-comment"># 我们在一个项目中使用了开源库或第三方库，而这些库通常会作为子模块嵌入到我们的项目中。如果我们使用普通的 Git Clone 命令只会将主项目克隆下来，而不会将子模块一同克隆。这时候，我们就可以使用 Git Clone –recursive 来克隆主项目和子模块。</span><br><span class="hljs-comment"># if you forgot the `--recursive` options, you can run below git commands after cloning:</span><br><span class="hljs-comment">#   git submodule sync --recursive</span><br><span class="hljs-comment">#   git submodule update --init --recursive --force</span><br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>如果父仓库中包含子 Git 仓库（即独立的 Git 仓库目录，并且每个子目录中有自己的 <code>.git</code> 文件夹），执行 <code>git clone</code> 时，Git 会将这些子仓库当作普通文件夹处理，直接复制它们的内容，包括 <code>.git</code> 文件夹。</p>
+</blockquote>
 <h3 id="增加add-删除rm-移动mv文件">增加add/删除rm/移动mv文件</h3>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash">git add [file1] [file2] ...  <span class="hljs-comment"># 添加指定文件到暂存区</span><br>git add [<span class="hljs-built_in">dir</span>]  <span class="hljs-comment"># 添加指定目录到暂存区，包括子目录</span><br>git add .  <span class="hljs-comment"># 添加当前目录的所有文件到暂存区</span><br><br><span class="hljs-comment"># 添加每个变化前，都会要求确认</span><br><span class="hljs-comment"># 对于同一个文件的多处变化，可以实现分次提交</span><br>git add -p<br><br>git <span class="hljs-built_in">rm</span> [file1] [file2] ...  <span class="hljs-comment"># 删除工作区文件，并且将这次删除放入暂存区</span><br>git <span class="hljs-built_in">rm</span> --cached [file]  <span class="hljs-comment"># 停止追踪指定文件，但该文件会保留在工作区</span><br>git <span class="hljs-built_in">mv</span> [file-original] [file-renamed]  <span class="hljs-comment"># 改名文件，并且将这个改名放入暂存区</span><br></code></pre></td></tr></table></figure>
 <h3 id="提交commit">提交commit</h3>
@@ -654,7 +657,14 @@
 <h3 id="查看信息status-log-show">查看信息status/log/show</h3>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs bash">git status  <span class="hljs-comment"># 显示有变更的文件</span><br>git <span class="hljs-built_in">log</span>  <span class="hljs-comment"># 显示当前分支的版本历史</span><br>git <span class="hljs-built_in">log</span> --graph --pretty=format:<span class="hljs-string">&#x27;%Cred%h%Creset - %C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)&lt;%an&gt;%Creset&#x27;</span> --abbrev-commit --<span class="hljs-built_in">date</span>=relative  <span class="hljs-comment"># 更清晰的日志展示</span><br>git <span class="hljs-built_in">log</span> --<span class="hljs-built_in">stat</span>  <span class="hljs-comment"># 显示commit历史，以及每次commit发生变更的文件</span><br>git <span class="hljs-built_in">log</span> -S [keyword]  <span class="hljs-comment"># 搜索提交历史，根据关键词</span><br>git <span class="hljs-built_in">log</span> [tag] HEAD --pretty=format:%s  <span class="hljs-comment"># 显示某个commit之后的所有变动，每个commit占据一行</span><br>git <span class="hljs-built_in">log</span> [tag] HEAD --grep feature  <span class="hljs-comment"># 显示某个commit之后的所有变动，其&quot;提交说明&quot;必须符合搜索条件</span><br><br><span class="hljs-comment"># 显示某个文件的版本历史，包括文件改名</span><br>git <span class="hljs-built_in">log</span> --follow [file]<br>git whatchanged [file]<br><br>git <span class="hljs-built_in">log</span> -p [file]  <span class="hljs-comment"># 显示指定文件相关的每一次diff</span><br>git <span class="hljs-built_in">log</span> -5 --pretty --oneline  <span class="hljs-comment"># 显示过去5次提交</span><br><br>git shortlog -sn  <span class="hljs-comment"># 显示所有提交过的用户，按提交次数排序</span><br>git blame [file]  <span class="hljs-comment"># 显示指定文件是什么人在什么时间修改过</span><br><br>git show [commit] <span class="hljs-comment"># 显示某次提交的元数据和内容变化</span><br>git show --name-only [commit]  <span class="hljs-comment"># 显示某次提交发生变化的文件</span><br>git show [commit]:[filename]  <span class="hljs-comment"># 显示某次提交时，某个文件的内容</span><br>git reflog  <span class="hljs-comment"># 显示当前分支的最近几次提交，还有分支切换历史</span><br></code></pre></td></tr></table></figure>
 <h3 id="远程仓库remote">远程仓库remote</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 查看信息</span><br>git remote  <span class="hljs-comment"># 查看远程库的信息</span><br>git remote –v  <span class="hljs-comment"># 查看远程库的详细信息</span><br>git remote show [remote]  <span class="hljs-comment"># 显示某个远程仓库的信息</span><br>git fetch [remote]  <span class="hljs-comment"># 下载远程仓库的所有变动</span><br><br><span class="hljs-comment"># 创建</span><br>git remote add [shortname] [url]  <span class="hljs-comment"># 增加一个新的远程仓库，并命名。使用shortname指代url，方便输入和记忆</span><br><br><span class="hljs-comment"># 删除</span><br>git remote <span class="hljs-built_in">rm</span> [远程主机名称]  <span class="hljs-comment"># 删除此远程连接</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">git remote –v  <span class="hljs-comment"># 查看远程库的详细信息</span><br><span class="hljs-comment"># 示例输出</span><br>origin  https://github.com/username/repository.git (fetch)<br>origin  https://github.com/username/repository.git (push)<br></code></pre></td></tr></table></figure>
+<ul>
+<li><code>origin</code> 是远程仓库的名字。</li>
+<li>后面的 URL 是远程仓库的地址。</li>
+<li><code>(fetch)</code> 表示用于拉取代码的地址。</li>
+<li><code>(push)</code> 表示用于推送代码的地址。</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 查看信息</span><br>git remote  <span class="hljs-comment"># 查看远程库的信息</span><br>git remote show [remote]  <span class="hljs-comment"># 显示某个远程仓库的信息</span><br>git fetch [remote]  <span class="hljs-comment"># 下载远程仓库的所有变动</span><br><br><span class="hljs-comment"># 创建</span><br>git remote add [shortname] [url]  <span class="hljs-comment"># 增加一个新的远程仓库，并命名。使用shortname指代url，方便输入和记忆</span><br><br><span class="hljs-comment"># 删除</span><br>git remote <span class="hljs-built_in">rm</span> [远程主机名称]  <span class="hljs-comment"># 删除此远程连接</span><br></code></pre></td></tr></table></figure>
 <h2 id="本地创建Git仓库">本地创建Git仓库</h2>
 <blockquote>
 <p>在操作Git仓库的时候多使用<code>git status</code>命令，这能帮助我们实时了解仓库的状态，非常有用。</p>
@@ -945,7 +955,13 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs git"># comment  // 表示此行为注释，将被Git忽略<br><br>/text.txt  // 忽略位于根目录下的 text.txt 文件<br>/test/text.txt  // 忽略一个位于根目录下的 test 目录中的 text.txt 文件。同 test/text.txt<br>text.txt  // 忽略任何 text.txt 文件<br><br>img*  // 忽略所有名字以 img 开头的文件和目录<br>*.md  // 忽略位于项目中任何地方的以 .md 为扩展名的任何文件<br>!README.md  // 但不忽略 README.md 文件<br>!/bin/run.sh  // 表示不忽略bin目录下的run.sh文件<br><br>debug/*.obj  // 表示忽略debug/io.obj，不忽略 debug/common/io.obj和tools/debug/io.obj<br>doc/*.txt  // 表示会忽略doc/notes.txt但不包括 doc/server/arch.txt<br><br>**/foo  // 表示忽略/foo,a/foo,a/b/foo等<br>a/**/b  // 表示忽略a/b, a/x/b,a/x/y/b等<br><br>test/  // 忽略位于你的项目中任何地方的名为 test 的目录（包括目录中的其他文件和其他子目录）<br>!test/example.md  // 试图在一个被忽略的目录内排除一个文件是行不通的<br><br>test/*  // 忽略位于你的项目中任何地方的名为 test 的目录中的文件，但不忽略该目录<br>!test/example.md  // 这里可以在一个被忽略的目录内排除一个文件<br>!test/example/  // 在被忽略的目录内排除一个文件夹<br>!test/example  // 在被忽略的目录内排除名为example文件和文件夹<br><br>/test/  // 只忽略当前目录（根目录）下的test文件夹<br>/test  // 同时忽略当前目录（根目录）下的test文件和文件夹<br>test  // 同时忽略任何带有这个名字的文件或目录<br></code></pre></td></tr></table></figure>
 <h3 id="问题与解决">问题与解决</h3>
 <p><mark>问题1：</mark></p>
-<p>情况：<code>.gitignore</code>中已经标明忽略的文件目录下的文件，但<code>git push</code>的时候还会出现在<code>push</code>的目录中，或者用<code>git status</code>查看状态，想要忽略的文件还是显示被追踪状态。原因：因为在git忽略目录中，新建的文件在git中会有缓存，如果某些文件之前已经被纳入了版本管理中（已经被跟踪），就算是在<code>.gitignore</code>中已经声明了忽略路径也是不起作用的。解决：这时候我们就应该先把本地缓存删除，然后再进行git的提交，这样就不会出现忽略的文件了。</p>
+<p>情况：<code>.gitignore</code>中已经标明忽略的文件目录下的文件，但<code>git push</code>的时候还会出现在<code>push</code>的目录中，或者用<code>git status</code>查看状态，想要忽略的文件还是显示被追踪状态。原因：在 Git 中，当你在 <code>.gitignore</code> 文件中添加一个文件夹（或文件）到忽略列表时，Git 的行为取决于该文件夹是否<strong>已经被版本控制跟踪</strong>。以下是详细的解释：</p>
+<ul>
+<li>如果文件夹 <strong>已经被 Git 跟踪</strong>，你需要先清除 Git 的缓存（<code>git rm --cached</code>），然后通过 <code>.gitignore</code> 忽略它。</li>
+<li>如果文件夹 <strong>未被 Git 跟踪</strong>，只需要直接在 <code>.gitignore</code> 文件中添加规则即可。</li>
+<li><code>.gitignore</code> 只对未被 Git 跟踪的内容生效，对已经被跟踪的内容无效。</li>
+</ul>
+<p>解决：这时候我们就应该先把本地缓存删除，然后再进行git的提交，这样就不会出现忽略的文件了。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">git <span class="hljs-built_in">rm</span> -r --cached .  <span class="hljs-comment"># or</span><br><span class="hljs-comment"># git rm --cached directory/.env  # 只删除特定文件的缓存</span><br>git add .<br>git commit -m <span class="hljs-string">&#x27;update .gitignore&#x27;</span><br>git push -u origin master<br></code></pre></td></tr></table></figure>
 <p><mark>问题2：</mark></p>
 <p>需求：在使用<code>.gitignore</code>文件后如何删除远程仓库中以前上传的此类文件而保留本地文件。在使用git和github的时候，之前没有写<code>.gitignore</code>文件，就上传了一些没有必要的文件，在添加了<code>·</code>文件后，就想删除远程仓库中的文件却想保存本地的文件。</p>
@@ -1193,12 +1209,19 @@ Aborting</p>
 <li>显示文件每一行的最后修改版本和作者</li>
 </ul>
 <h2 id="从远程获取代码库fetch">从远程获取代码库fetch</h2>
-<h3 id="pull和fetch的区别">pull和fetch的区别</h3>
-<p><code>pull</code>命令是从远程库获取最新代码并自动合并到本地分支的快捷方式。它实际上包含了两个操作：<code>fetch</code>和<code>merge</code>。</p>
-<blockquote>
-<p>如果当前分支和要合并的分支存在冲突，Git会要求我们解决冲突并手动执行合并操作。</p>
-</blockquote>
-<p><code>fetch</code>命令只是从远程库下载最新代码，但并不自动合并到本地分支。它只是将最新代码下载到本地仓库的一个特殊的分支，称为远程跟踪分支。这样我们可以查看最新代码的变动，然后决定是否需要合并到当前分支。</p>
+<ul>
+<li><strong><code>git fetch</code></strong>：获取远程更新，但不合并，手动控制更改。
+<ul>
+<li>仅更新本地的远程追踪分支（如 <code>origin/main</code>），而不影响当前工作分支。</li>
+</ul>
+</li>
+<li><strong><code>git pull</code></strong>：获取远程更新并自动合并，快速同步更改。
+<ul>
+<li>是 <code>git fetch</code> 和 <code>git merge</code> 的组合操作。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">git fetch origin<br>git diff origin/main<br>git merge origin/main<br><br>git pull origin main<br></code></pre></td></tr></table></figure>
 <h2 id="将指定的提交（commit）应用于其他分支cherry-pick">将指定的提交（commit）应用于其他分支cherry-pick</h2>
 <p><code>git cherry-pick</code>命令将特定提交引入的更改应用于当前分支。这对于在分支之间移植错误修复或功能非常有用。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">git cherry-pick abc1234  <span class="hljs-comment"># Apply changes from commit abc1234</span><br></code></pre></td></tr></table></figure>

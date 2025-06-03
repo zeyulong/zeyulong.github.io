@@ -24,7 +24,7 @@
 <meta property="og:description" content="本文主要介绍了Docker的安装与使用。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-12-04T09:13:55.000Z">
-<meta property="article:modified_time" content="2025-05-06T13:30:54.072Z">
+<meta property="article:modified_time" content="2025-06-03T14:35:21.247Z">
 <meta property="article:author" content="龙泽雨">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -348,7 +348,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.8k 字
+          2k 字
         
       </span>
     
@@ -359,7 +359,7 @@
         
         
         
-          16 分钟
+          17 分钟
         
       </span>
     
@@ -409,7 +409,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2025年5月6日 晚上
+                    本文最后更新于 2025年6月3日 晚上
                   
                 
               </p>
@@ -548,6 +548,13 @@
 </ul>
 <h2 id="常用命令">常用命令</h2>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs bash">docker images -a  <span class="hljs-comment"># 列出所有镜像</span><br>docker ps -a  <span class="hljs-comment"># 列出所有容器</span><br><br>docker commit --pause=<span class="hljs-literal">false</span> &lt;container_id&gt; &lt;new_image_name&gt;  <span class="hljs-comment"># （在不暂停容器的情况下）将容器的当前状态保存为新的Docker镜像</span><br><br><span class="hljs-comment"># 删除</span><br>docker stop container_name_or_id<br>docker <span class="hljs-built_in">rm</span> container_name_or_id<br>docker rmi &lt;image_1_id_or_name&gt; &lt;image_2_id_or_name&gt; &lt;image_3_id_or_name&gt;<br></code></pre></td></tr></table></figure>
+<h2 id="容器的使用">容器的使用</h2>
+<p>只要你<strong>没有删除容器</strong>，关闭（停止）后再次启动<strong>同一个容器</strong>，你在容器内部所做的更改（包括文件的增删改、软件的安装等）都会被<strong>保留</strong>。如需持久化重要数据，建议用<strong>挂载卷（volume）</strong>，这样即使容器被删数据也不会丢失。最佳实践建议：</p>
+<ul>
+<li><strong>开发/实验阶段</strong>：可以直接启动旧 container，方便调试和保留现场。</li>
+<li><strong>生产/团队协作/备份</strong>：建议将修改后的容器提交为新的 image，日后新建 container。这样环境可复现、易于管理。</li>
+<li><strong>长期维护</strong>：推荐用 Dockerfile 管理镜像，所有更改都写进 Dockerfile，这样环境最可控、最易于维护和升级。</li>
+</ul>
 <h2 id="重新挂载目录">重新挂载目录</h2>
 <p><strong>在现有的 Docker 容器中无法直接重新挂载一个新的目录</strong>。Docker 的挂载点（即 <code>-v</code> 或 <code>--mount</code> 参数所指定的挂载）是在容器创建时确定的，并且一旦容器启动后，挂载配置就无法更改。</p>
 <p>如果你需要修改挂载配置，有以下几种方法：</p>

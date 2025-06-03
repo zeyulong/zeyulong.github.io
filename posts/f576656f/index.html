@@ -24,7 +24,7 @@
 <meta property="og:description" content="本文主要分享了编程过程中积累的知识点。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-01-08T02:37:36.000Z">
-<meta property="article:modified_time" content="2025-05-07T14:37:34.338Z">
+<meta property="article:modified_time" content="2025-06-03T14:37:58.414Z">
 <meta property="article:author" content="龙泽雨">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -348,7 +348,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          29k 字
+          30k 字
         
       </span>
     
@@ -359,7 +359,7 @@
         
         
         
-          244 分钟
+          251 分钟
         
       </span>
     
@@ -409,7 +409,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2025年5月7日 晚上
+                    本文最后更新于 2025年6月3日 晚上
                   
                 
               </p>
@@ -748,7 +748,14 @@
 <p>在 C++ 中，函数参数默认是 <strong>位置参数</strong>，调用时必须按照声明中参数的顺序依次传递值。C++ 并不直接支持像 Python 那样的关键字参数调用方式。<strong>必须按照顺序传参</strong>：不能跳过中间参数直接为后续参数赋值。</p>
 <p>通过将函数的参数封装到一个结构体中，调用者可以使用字段名赋值，从而模拟关键字参数。</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-keyword">struct</span> <span class="hljs-title class_">Params</span> &#123;<br>    <span class="hljs-type">int</span> a = <span class="hljs-number">1</span>; <span class="hljs-comment">// 默认值</span><br>    <span class="hljs-type">int</span> b = <span class="hljs-number">2</span>; <span class="hljs-comment">// 默认值</span><br>    <span class="hljs-type">int</span> c = <span class="hljs-number">3</span>; <span class="hljs-comment">// 默认值</span><br>&#125;;<br><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">myFunction</span><span class="hljs-params">(<span class="hljs-type">const</span> Params&amp; params)</span> </span>&#123;<br>    std::cout &lt;&lt; <span class="hljs-string">&quot;a = &quot;</span> &lt;&lt; params.a <br>              &lt;&lt; <span class="hljs-string">&quot;, b = &quot;</span> &lt;&lt; params.b<br>              &lt;&lt; <span class="hljs-string">&quot;, c = &quot;</span> &lt;&lt; params.c &lt;&lt; std::endl;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    Params params;<br>    params.a = <span class="hljs-number">10</span>; <span class="hljs-comment">// 修改 a，b 和 c 保持默认值</span><br>    params.c = <span class="hljs-number">30</span>; <span class="hljs-comment">// 修改 c</span><br><br>    <span class="hljs-built_in">myFunction</span>(params); <span class="hljs-comment">// 输出: a = 10, b = 2, c = 30</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
-<h2 id="没有执行到return时函数的返回值">没有执行到return时函数的返回值</h2>
+<h2 id="返回值">返回值</h2>
+<h3 id="接收返回值">接收返回值</h3>
+<ul>
+<li>在 C++ 中，如果一个函数有返回值，但你在主程序调用它时<strong>没有用变量接收返回值</strong>，程序<strong>不会有语法或运行时错误</strong>，也不会崩溃或报错。这种用法是<strong>允许的</strong>，只是函数返回的值被<strong>丢弃</strong>了。</li>
+<li>如果返回值是临时对象（特别是有析构函数的类），会在表达式结束后自动析构；这不会造成内存泄漏。</li>
+<li>如果返回值是动态分配的指针（如 <code>int*</code>），没有接住就无法释放，会导致内存泄漏（但这是设计问题，不是语法问题）。</li>
+</ul>
+<h3 id="没有执行到return时函数的返回值">没有执行到return时函数的返回值</h3>
 <p>在 C++ 中，如果一个函数执行过程中由于某种原因没有执行到 <code>return</code> 语句，那么函数的返回值会取决于函数的返回类型以及具体的情况。以下是不同情况的分析：</p>
 <ol>
 <li>
@@ -1119,25 +1126,40 @@
 <p>在这个例子中，<code>T</code>是一个类型模板参数，<code>N</code>是一个非类型模板参数。你可以用任何类型替换<code>T</code>，用任何整数替换<code>N</code>，来创建不同的<code>Array</code>类：</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c++">Array&lt;<span class="hljs-type">int</span>, <span class="hljs-number">10</span>&gt; intArray;<br>Array&lt;<span class="hljs-type">double</span>, <span class="hljs-number">20</span>&gt; doubleArray;<br></code></pre></td></tr></table></figure>
 <p>模板类与一般的类的主要区别在于，模板类可以处理多种类型的数据，而一般的类只能处理特定类型的数据。模板类提供了一种机制，使得你可以在类定义时不指定具体的类型，而是在使用类时指定类型。这使得你的代码更加灵活，可以处理多种类型的数据。</p>
-<h2 id="成员初始化列表">成员初始化列表</h2>
-<p><strong>成员初始化列表</strong>（Member Initializer List）是C++中一个重要的特性，它允许在构造函数中初始化类的成员变量。这个特性不仅可以提高代码的清晰度和执行效率，还是某些情况下初始化成员变量的唯一方法。</p>
-<p>在C++中，构造函数可以包含一个初始化列表，用于在进入构造函数体之前初始化成员变量。初始化列表以冒号（<em>:</em>）开头，后面跟着用逗号（<em>,</em>）分隔的初始化表达式。例如：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Example</span> &#123;<br>    <span class="hljs-keyword">public</span>:<br>    	<span class="hljs-comment">// 含有两个参数的构造函数</span><br>    	<span class="hljs-built_in">Example</span>(<span class="hljs-type">int</span> x, <span class="hljs-type">int</span> y) : <span class="hljs-built_in">x_</span>(x), <span class="hljs-built_in">y_</span>(y) &#123;&#125;  <span class="hljs-comment">// 用接收到的 int 类型的变量 x 的值来初始化 x_ 。</span><br>    <span class="hljs-keyword">private</span>:<br>    	<span class="hljs-type">int</span> x_;<br>    	<span class="hljs-type">int</span> y_;<br>&#125;;<br></code></pre></td></tr></table></figure>
-<p>在这个例子中，*x_<em>和</em>y_*是通过成员初始化列表进行初始化的，而不是在构造函数体内赋值。</p>
-<p>有几种情况下必须使用成员初始化列表：</p>
-<ol>
-<li><strong>const成员变量</strong>：const成员变量必须在声明时初始化，不能在构造函数体内赋值。</li>
-<li><strong>引用成员变量</strong>：引用成员同样需要在声明时初始化。</li>
-<li><strong>没有默认构造函数的类类型成员</strong>：如果类成员本身是一个对象，并且这个对象没有无参的构造函数，那么必须通过成员初始化列表来调用其有参构造函数。</li>
-<li><strong>继承中的基类成员</strong>：如果需要在子类中初始化基类的私有成员，也需要在成员初始化列表中显式调用基类的构造函数。</li>
-</ol>
-<p>使用成员初始化列表初始化类成员比在构造函数体内赋值有几个优势：</p>
-<ul>
-<li><strong>性能</strong>：对于类类型的成员变量，使用成员初始化列表可以避免调用默认构造函数后再赋值，减少了一次不必要的构造和析构过程，提高了效率。</li>
-<li><strong>顺序</strong>：成员变量的初始化顺序与它们在类定义中的声明顺序一致，与初始化列表中的顺序无关。这有助于避免一些因初始化顺序不当导致的错误。</li>
-</ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">A</span> &#123;<br>    <span class="hljs-keyword">private</span>:<br>    	<span class="hljs-type">const</span> <span class="hljs-type">int</span> a; <span class="hljs-comment">// const成员</span><br>    <span class="hljs-keyword">public</span>:<br>    	<span class="hljs-built_in">A</span>() : <span class="hljs-built_in">a</span>(<span class="hljs-number">10</span>) &#123;&#125; <span class="hljs-comment">// 使用成员初始化列表进行初始化</span><br>&#125;;<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">B</span> &#123;<br>    <span class="hljs-keyword">private</span>:<br>    	<span class="hljs-type">int</span> &amp;b; <span class="hljs-comment">// 引用成员</span><br>    <span class="hljs-keyword">public</span>:<br>    	<span class="hljs-built_in">B</span>(<span class="hljs-type">int</span> &amp;b_ref) : <span class="hljs-built_in">b</span>(b_ref) &#123;&#125; <span class="hljs-comment">// 使用成员初始化列表进行初始化</span><br>&#125;;<br></code></pre></td></tr></table></figure>
-<p>在这个示例中，类<em>A</em>的成员<em>a</em>是一个const成员，类<em>B</em>的成员<em>b</em>是一个引用成员。它们都通过成员初始化列表进行了初始化。</p>
+<h3 id="类的变量的初始化的方式">类的变量的初始化的方式</h3>
+<table>
+<thead>
+<tr>
+<th><strong>场景</strong></th>
+<th><strong>运行时机</strong></th>
+<th><strong>效率</strong></th>
+<th><strong>推荐使用场景</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>在定义时赋值</strong></td>
+<td>成员变量在构造函数调用之前直接初始化。</td>
+<td>高效，无多余操作</td>
+<td>适合简单的默认值初始化，适用于所有构造函数共用的默认值。</td>
+</tr>
+<tr>
+<td><strong>构造函数<a href="#%E5%88%9D%E5%A7%8B%E5%8C%96%E5%88%97%E8%A1%A8">初始化列表</a>中赋值</strong></td>
+<td>成员变量在构造函数体执行之前直接初始化。</td>
+<td>高效，无多余操作</td>
+<td>适合需要动态传递值时，例如基于构造函数参数初始化成员变量。</td>
+</tr>
+<tr>
+<td><strong>构造函数体中赋值</strong></td>
+<td>成员变量先被默认初始化（例如为垃圾值），然后在构造函数体中被重新赋值。</td>
+<td>低效，可能多次赋值</td>
+<td>不推荐，除非某些初始化逻辑必须在构造函数体中完成（例如依赖外部函数调用）。</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>直接初始化：编译器会将变量 <code>x</code> 初始化为 <code>10</code>，这属于<strong>初始化</strong>阶段，而不是后续的赋值操作。</p>
+</blockquote>
 <h2 id="其它">其它</h2>
 <ol>
 <li>
@@ -1150,6 +1172,71 @@
 <p>在类的成员函数中，你可以更改这个成员变量的值。例如，你可以在一个成员函数中增加<code>trackIDCounter_</code>的值：</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">FeatureTracker::incrementTrackID</span><span class="hljs-params">()</span> </span>&#123;<br>    trackIDCounter_++;<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>在这个例子中，<code>incrementTrackID</code>函数将<code>trackIDCounter_</code>的值增加1。你可以在类的任何成员函数中更改<code>trackIDCounter_</code>的值，只要这个函数有权限访问这个成员变量（即，这个函数不是<code>const</code>的）。</p>
+</li>
+<li>
+<p>当你在派生类中定义一个函数，并使用 <code>override</code> 关键字时，编译器会检查该函数是否确实是基类的虚函数。如果基类中没有对应的虚函数，或者函数签名不匹配，编译器会报错。</p>
+</li>
+<li>
+<p>在 C++ 中，<code>= 0</code> 的作用是将一个成员函数声明为<strong>纯虚函数</strong>（pure virtual function）。纯虚函数是一个没有实现的虚函数，必须在派生类中重写。</p>
+<blockquote>
+<p>如果不在虚函数后面加 <code>= 0</code>，那么这个函数就不是<strong>纯虚函数</strong>，而是一个普通的虚函数。普通虚函数可以在基类中提供默认实现，而派生类可以选择是否重写它。如果派生类不重写这个虚函数，程序会使用基类中提供的默认实现。</p>
+</blockquote>
+<blockquote>
+<ul>
+<li>在 C++ 中，函数的签名（signature）由以下部分决定：
+<ul>
+<li>函数名。</li>
+<li>参数的类型、顺序和数量。</li>
+<li>返回值类型（虽然返回值类型不参与重载，但在重写时必须与基类一致）。</li>
+</ul>
+</li>
+<li>参数的名字（即变量名）不属于函数签名的一部分，因此在重写虚函数时，参数的名字可以与基类不同。</li>
+</ul>
+</blockquote>
+</li>
+<li>
+<p>类变量赋值位置：</p>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>在定义时赋值</th>
+<th>在构造函数中赋值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>简洁性</strong></td>
+<td>简洁，逻辑清晰</td>
+<td>构造函数中可能冗长</td>
+</tr>
+<tr>
+<td><strong>灵活性</strong></td>
+<td>不灵活，适合简单的默认值初始化</td>
+<td>灵活，可处理动态初始化和复杂逻辑</td>
+</tr>
+<tr>
+<td><strong>性能</strong></td>
+<td>性能较好</td>
+<td>初始化列表效率高于构造函数体赋值</td>
+</tr>
+<tr>
+<td><strong>代码复用性</strong></td>
+<td>避免在多个构造函数中重复初始化代码</td>
+<td>需要在每个构造函数中重复写逻辑</td>
+</tr>
+<tr>
+<td><strong>初始化顺序控制</strong></td>
+<td>无法控制</td>
+<td>可以通过构造函数控制初始化顺序</td>
+</tr>
+<tr>
+<td><strong>适用场景</strong></td>
+<td>默认值初始化</td>
+<td>动态初始化和复杂逻辑</td>
+</tr>
+</tbody>
+</table>
 </li>
 <li>
 <p>等等。</p>
@@ -1443,6 +1530,9 @@
 <p><code>free()</code> 函数是C标准库中的函数，用于释放由<code>malloc()</code>、<code>calloc()</code>或<code>realloc()</code>分配的内存。</p>
 <p>当你使用 <code>free()</code> 函数时，它只会释放指针指向的内存，不会调用析构函数。因此，指针指向的内存会被释放，但指针变量本身仍然存在，只是它现在指向一个无效地址（悬空指针）。</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;cstdlib&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-type">int</span>* ptr = (<span class="hljs-type">int</span>*)<span class="hljs-built_in">malloc</span>(<span class="hljs-built_in">sizeof</span>(<span class="hljs-type">int</span>)); <span class="hljs-comment">// 动态分配内存</span><br>    *ptr = <span class="hljs-number">5</span>;<br>    <span class="hljs-built_in">free</span>(ptr);                            <span class="hljs-comment">// 释放内存，ptr现在是悬空指针</span><br>    ptr = <span class="hljs-literal">nullptr</span>;                        <span class="hljs-comment">// 避免悬空指针</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="void-pointer">void pointer</h2>
+<p>在 C++ 中，<code>void*</code> 是一种特殊类型的指针，称为 <strong>通用指针</strong> 或 <strong>无类型指针</strong> (<code>void pointer</code>)。它可以指向任何类型的数据，但不能直接解引用或进行类型安全的操作。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-type">void</span>* ptr;<br><span class="hljs-type">int</span> a = <span class="hljs-number">10</span>;<br>ptr = &amp;a;  <span class="hljs-comment">// 指向 int 类型</span><br><br><span class="hljs-comment">// 错误：无法直接解引用 void* 类型</span><br><span class="hljs-comment">// std::cout &lt;&lt; *ptr &lt;&lt; std::endl;</span><br><br><span class="hljs-comment">// 正确：先转换为 int* 类型</span><br>std::cout &lt;&lt; *(<span class="hljs-type">int</span>*)ptr &lt;&lt; std::endl;  <span class="hljs-comment">// 输出 10</span><br></code></pre></td></tr></table></figure>
 <h1 id="mutex">mutex</h1>
 <p>互斥量（mutex），它是一种同步原语，用于保护共享数据免受多个线程同时访问。在多线程环境中，如果多个线程试图<strong>同时访问和修改</strong>同一块数据，可能会导致数据不一致和未定义的行为。为了防止这种情况，我们可以使用互斥量来确保在任何时候只有一个线程能够访问该数据。</p>
 <blockquote>
@@ -1519,9 +1609,6 @@
 <p>最后，在<code>ESVIO/pose_graph/src/keyframe.cpp</code>文件中，你也需要包含<code>global.h</code>。这样你就可以在<code>keyframe.cpp</code>中使用<code>SYSTEM_MODE</code>变量了：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;global.h&quot;</span></span><br><br><span class="hljs-comment">// 现在你可以在这个文件中使用SYSTEM_MODE变量</span><br></code></pre></td></tr></table></figure>
 <p>注意，<code>extern</code>关键字告诉编译器变量的定义在别的地方，你不能在声明的时候初始化它。变量的定义（也就是初始化）应该在一个源文件中进行，而不是头文件。如果你在多个地方定义了同一个<code>extern</code>变量，那么会导致链接错误。</p>
-<h2 id="程序计时">程序计时</h2>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">pragma</span> once</span><br><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;ctime&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;cstdlib&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;chrono&gt;</span></span><br><br><span class="hljs-comment">// TicToc类，记录时间</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">TicToc</span><br>&#123;<br>  <span class="hljs-keyword">public</span>:<br>    <span class="hljs-built_in">TicToc</span>()<br>    &#123;<br>        <span class="hljs-built_in">tic</span>();<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">tic</span><span class="hljs-params">()</span></span><br><span class="hljs-function">    </span>&#123;<br>        start = std::chrono::system_clock::<span class="hljs-built_in">now</span>();<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-type">double</span> <span class="hljs-title">toc</span><span class="hljs-params">()</span></span><br><span class="hljs-function">    </span>&#123;<br>        end = std::chrono::system_clock::<span class="hljs-built_in">now</span>();<br>        std::chrono::duration&lt;<span class="hljs-type">double</span>&gt; elapsed_seconds = end - start;<br>        <span class="hljs-keyword">return</span> elapsed_seconds.<span class="hljs-built_in">count</span>() * <span class="hljs-number">1000</span>;<br>    &#125;<br><br>  <span class="hljs-keyword">private</span>:<br>    std::chrono::time_point&lt;std::chrono::system_clock&gt; start, end;<br>&#125;;<br><br></code></pre></td></tr></table></figure>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;tic_toc.h&quot;</span></span><br><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">some_function_to_test</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-comment">// 这里放置你要测试的代码</span><br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">1000000</span>; ++i)<br>    &#123;<br>        <span class="hljs-comment">// 模拟一些工作</span><br>    &#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-type">const</span> <span class="hljs-type">int</span> num_iterations = <span class="hljs-number">100</span>; <span class="hljs-comment">// 测试次数</span><br>    <span class="hljs-type">double</span> total_time = <span class="hljs-number">0.0</span>;<br><br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; num_iterations; ++i)<br>    &#123;<br>        TicToc timer;<br>        <span class="hljs-built_in">some_function_to_test</span>();<br>        <span class="hljs-type">double</span> elapsed_time = timer.<span class="hljs-built_in">toc</span>();<br>        total_time += elapsed_time;<br>    &#125;<br><br>    <span class="hljs-type">double</span> average_time = total_time / num_iterations;<br>    std::cout &lt;&lt; <span class="hljs-string">&quot;Average execution time: &quot;</span> &lt;&lt; average_time &lt;&lt; <span class="hljs-string">&quot; ms&quot;</span> &lt;&lt; std::endl;<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 <h1 id="第三方库">第三方库</h1>
 <h2 id="Eigen">Eigen</h2>
 <h3 id="Matrix类与Array类">Matrix类与Array类</h3>
@@ -1618,6 +1705,26 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># python run.py file.rosbag /ground_truth/odometry /pose_graph/odometry</span><br><br>import sys<br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br>    <span class="hljs-comment"># 从命令行参数获取rosbag的路径和指定的topics</span><br>    rosbag_file = sys.argv[1]<br>    gt_topic_name = (<br>        sys.argv[2] <span class="hljs-keyword">if</span> len(sys.argv) &gt; 2 <span class="hljs-keyword">else</span> <span class="hljs-string">&quot;/ground_truth/odometry&quot;</span><br>    )<br>    est_topic_name = (<br>        sys.argv[3] <span class="hljs-keyword">if</span> len(sys.argv) &gt; 3 <span class="hljs-keyword">else</span> <span class="hljs-string">&quot;/pose_graph/odometry&quot;</span><br>    )<br></code></pre></td></tr></table></figure>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># python run.py file.rosbag /ground_truth/odometry /pose_graph/odometry --start_offset 0.5 --end_offset 0.5</span><br><br><span class="hljs-keyword">import</span> argparse<br><span class="hljs-keyword">import</span> os<br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br>    parser = argparse.ArgumentParser(description=<span class="hljs-string">&quot;Filter ROS bag messages based on timestamp ranges.&quot;</span>)<br>    parser.add_argument(<span class="hljs-string">&quot;input_bag_path&quot;</span>, <span class="hljs-built_in">help</span>=<span class="hljs-string">&quot;Path to the input ROS bag file.&quot;</span>)<br>    parser.add_argument(<span class="hljs-string">&quot;gt_topic_name&quot;</span>, <span class="hljs-built_in">help</span>=<span class="hljs-string">&quot;Ground truth topic name.&quot;</span>, default=<span class="hljs-string">&quot;/ground_truth/odometry&quot;</span>)<br>    parser.add_argument(<span class="hljs-string">&quot;est_topic_name&quot;</span>, <span class="hljs-built_in">help</span>=<span class="hljs-string">&quot;Estimated topic name.&quot;</span>, default=<span class="hljs-string">&quot;/pose_graph/odometry&quot;</span>)<br>    parser.add_argument(<span class="hljs-string">&quot;--start_offset&quot;</span>, <span class="hljs-built_in">type</span>=<span class="hljs-built_in">float</span>, default=<span class="hljs-number">0.0</span>, <span class="hljs-built_in">help</span>=<span class="hljs-string">&quot;Offset to add to the start time (in seconds).&quot;</span>)<br>    parser.add_argument(<span class="hljs-string">&quot;--end_offset&quot;</span>, <span class="hljs-built_in">type</span>=<span class="hljs-built_in">float</span>, default=<span class="hljs-number">0.0</span>, <span class="hljs-built_in">help</span>=<span class="hljs-string">&quot;Offset to subtract from the end time (in seconds).&quot;</span>)<br>    args = parser.parse_args()<br><br>    output_bag_path = os.path.splitext(args.input_bag_path)[<span class="hljs-number">0</span>] + <span class="hljs-string">&quot;_alignment.bag&quot;</span><br><br>    filter_bag(args.input_bag_path, args.gt_topic_name, args.est_topic_name, output_bag_path, args.start_offset, args.end_offset)<br>    <br></code></pre></td></tr></table></figure>
 <h1 id="tips">tips</h1>
+<h2 id="条件编译">条件编译</h2>
+<h3 id="if">#if</h3>
+<p><a target="_blank" rel="noopener" href="https://c.biancheng.net/view/1986.html">C语言#if、#ifdef、#ifndef用法详解，C语言条件编译详解</a></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">if</span> 整型常量表达式1</span><br>    程序段<span class="hljs-number">1</span><br><span class="hljs-meta">#<span class="hljs-keyword">elif</span> 整型常量表达式2</span><br>    程序段<span class="hljs-number">2</span><br><span class="hljs-meta">#<span class="hljs-keyword">elif</span> 整型常量表达式3</span><br>    程序段<span class="hljs-number">3</span><br><span class="hljs-meta">#<span class="hljs-keyword">else</span></span><br>    程序段<span class="hljs-number">4</span><br><span class="hljs-meta">#<span class="hljs-keyword">endif</span></span><br></code></pre></td></tr></table></figure>
+<p>它的意思是：如常“表达式1”的值为真（非0），就对“程序段1”进行编译，否则就计算“表达式2”，结果为真的话就对“程序段2”进行编译，为假的话就继续往下匹配，直到遇到值为真的表达式，或者遇到<code>#else</code>。</p>
+<blockquote>
+<p><code>#if</code> 命令要求判断条件为“整型常量表达式”，也就是说，表达式中不能包含变量，而且结果必须是整数。</p>
+</blockquote>
+<h3 id="ifdef">#ifdef</h3>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">ifdef</span>  宏名</span><br>    程序段<span class="hljs-number">1</span><br><span class="hljs-meta">#<span class="hljs-keyword">else</span></span><br>    程序段<span class="hljs-number">2</span><br><span class="hljs-meta">#<span class="hljs-keyword">endif</span></span><br></code></pre></td></tr></table></figure>
+<p>它的意思是，如果当前的宏已被定义过，则对“程序段1”进行编译，否则对“程序段2”进行编译。</p>
+<blockquote>
+<p><code>#ifdef ABC</code>可以认为是<code>#if defined(ABC)</code>的缩写。</p>
+</blockquote>
+<h3 id="ifndef">#ifndef</h3>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">ifndef</span> 宏名</span><br>    程序段<span class="hljs-number">1</span> <br><span class="hljs-meta">#<span class="hljs-keyword">else</span> </span><br>    程序段<span class="hljs-number">2</span> <br><span class="hljs-meta">#<span class="hljs-keyword">endif</span></span><br></code></pre></td></tr></table></figure>
+<p>它的意思是，如果当前的宏未被定义，则对“程序段1”进行编译，否则对“程序段2”进行编译，这与<code>#ifdef</code>的功能正好相反。</p>
+<blockquote>
+<p><code>#ifdef ABC</code>可以认为是<code>#if !defined(ABC)</code>的缩写。</p>
+</blockquote>
 <h2 id="引入头文件路径的方法">引入头文件路径的方法</h2>
 <h3 id="与">&lt;&gt;与&quot;&quot;</h3>
 <p>在 C++ 中，<code>#include</code> 指令用于包含头文件，而 <code>&lt;&gt;</code> 和 <code>&quot;&quot;</code> 两种形式的区别主要在于文件的搜索路径和优先级。</p>
@@ -1819,6 +1926,34 @@
 <p>如果你确定需要将 float 转换为 int，可以使用显式类型转换：</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">myFunction</span><span class="hljs-params">(<span class="hljs-type">int</span> x)</span> </span>&#123;<br>    std::cout &lt;&lt; <span class="hljs-string">&quot;x = &quot;</span> &lt;&lt; x &lt;&lt; std::endl;<br>&#125;<br><br><span class="hljs-type">float</span> value = <span class="hljs-number">5.99</span>;<br><span class="hljs-built_in">myFunction</span>(value); <span class="hljs-comment">// 输出: x = 5</span><br><span class="hljs-built_in">myFunction</span>(<span class="hljs-built_in">static_cast</span>&lt;<span class="hljs-type">int</span>&gt;(value));<br></code></pre></td></tr></table></figure>
 <p>在 C++ 中，如果一个函数的参数是 <code>float</code> 类型，而你传递了一个 <code>int</code> 类型的变量，<strong>不会报错</strong>，因为 C++ 会自动进行隐式类型转换（从 <code>int</code> 转换为 <code>float</code>）。这种转换是安全的，不会丢失数据（因为 <code>int</code> 的值可以精确表示为 <code>float</code>，只要值不超过 <code>float</code> 的表示范围）。编译器不会报错或发出警告。</p>
+<h2 id="打印耗时">打印耗时</h2>
+<h3 id="c">c++</h3>
+<h4 id="C-11-及以上推荐：std-chrono">C++11 及以上推荐：std::chrono</h4>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;chrono&gt;</span></span><br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-keyword">auto</span> start = std::chrono::high_resolution_clock::<span class="hljs-built_in">now</span>();<br><br>    <span class="hljs-comment">// 要测试耗时的代码块</span><br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">1000000</span>; ++i);<br><br>    <span class="hljs-keyword">auto</span> end = std::chrono::high_resolution_clock::<span class="hljs-built_in">now</span>();<br>    std::chrono::duration&lt;<span class="hljs-type">double</span>, std::milli&gt; elapsed = end - start;<br>    std::cout &lt;&lt; <span class="hljs-string">&quot;耗时: &quot;</span> &lt;&lt; elapsed.<span class="hljs-built_in">count</span>() &lt;&lt; <span class="hljs-string">&quot; ms&quot;</span> &lt;&lt; std::endl;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<ul>
+<li><code>std::chrono::high_resolution_clock</code> 提供高精度计时。</li>
+<li>输出单位为毫秒（ms），你也可以设为微秒或秒。</li>
+</ul>
+<h4 id="C-98-03-传统方法：clock">C++98/03 传统方法：clock()</h4>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;ctime&gt;</span></span><br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-type">clock_t</span> start = <span class="hljs-built_in">clock</span>();<br><br>    <span class="hljs-comment">// 要测试耗时的代码块</span><br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">1000000</span>; ++i);<br><br>    <span class="hljs-type">clock_t</span> end = <span class="hljs-built_in">clock</span>();<br>    <span class="hljs-type">double</span> elapsed = <span class="hljs-built_in">double</span>(end - start) / CLOCKS_PER_SEC;<br>    std::cout &lt;&lt; <span class="hljs-string">&quot;耗时: &quot;</span> &lt;&lt; elapsed &lt;&lt; <span class="hljs-string">&quot; 秒&quot;</span> &lt;&lt; std::endl;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<ul>
+<li>输出单位为秒。</li>
+<li>精度和跨平台性不如 <code>std::chrono</code>。</li>
+</ul>
+<h3 id="python">python</h3>
+<ul>
+<li>简单场景用 <code>time.time()</code> 或 <code>time.perf_counter()</code> 记录起止时间即可；</li>
+<li>多次测试或计时小代码块可用 <code>timeit</code>；</li>
+<li>复杂场景可自定义上下文管理器。</li>
+</ul>
+<h4 id="使用-time-模块">使用 time 模块</h4>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> time<br><br>start_time = time.time()  <span class="hljs-comment"># 记录开始时间</span><br><br><span class="hljs-comment"># 你的代码块</span><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1000000</span>):<br>    <span class="hljs-keyword">pass</span><br><br>end_time = time.time()    <span class="hljs-comment"># 记录结束时间</span><br><span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;耗时：<span class="hljs-subst">&#123;end_time - start_time&#125;</span> 秒&quot;</span>)<br></code></pre></td></tr></table></figure>
+<h4 id="Python-3-3-推荐：time-perf-counter">Python 3.3+ 推荐：time.perf_counter()</h4>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> time<br><br>start = time.perf_counter()<br><span class="hljs-comment"># 你的代码</span><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1000000</span>):<br>    <span class="hljs-keyword">pass</span><br>end = time.perf_counter()<br><span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;耗时：<span class="hljs-subst">&#123;end - start&#125;</span> 秒&quot;</span>)<br></code></pre></td></tr></table></figure>
+<h4 id="使用-timeit-模块（适合代码片段性能测试）">使用 timeit 模块（适合代码片段性能测试）</h4>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> timeit<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">your_function</span>():<br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1000000</span>):<br>        <span class="hljs-keyword">pass</span><br><br>elapsed_time = timeit.timeit(your_function, number=<span class="hljs-number">1</span>)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;耗时：<span class="hljs-subst">&#123;elapsed_time&#125;</span> 秒&quot;</span>)<br></code></pre></td></tr></table></figure>
+<h4 id="使用上下文管理器（自定义）">使用上下文管理器（自定义）</h4>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> time<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Timer</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__enter__</span>(<span class="hljs-params">self</span>):<br>        self.start = time.time()<br>        <span class="hljs-keyword">return</span> self<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__exit__</span>(<span class="hljs-params">self, *args</span>):<br>        self.end = time.time()<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;耗时：<span class="hljs-subst">&#123;self.end - self.start&#125;</span> 秒&quot;</span>)<br><br><span class="hljs-keyword">with</span> Timer():<br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1000000</span>):<br>        <span class="hljs-keyword">pass</span><br></code></pre></td></tr></table></figure>
 <h2 id="其它-2">其它</h2>
 <ol>
 <li>
@@ -2111,6 +2246,10 @@
 </li>
 <li>
 <p>在 C++ 中，由花括号 <code>&#123;&#125;</code> 包围的部分通常被称为 <strong>作用域（Scope）</strong>。作用域定义了标识符（如变量、函数、类等）的可见性和生命周期。</p>
+</li>
+<li>
+<p>打印：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c++">std::cerr &lt;&lt; <span class="hljs-string">&quot;[SPDetector] mProb_ shape: (&quot;</span> &lt;&lt; prob_height_ &lt;&lt; <span class="hljs-string">&quot;, &quot;</span><br>              &lt;&lt; prob_width_ &lt;&lt; <span class="hljs-string">&quot;)&quot;</span> &lt;&lt; std::endl;  <span class="hljs-comment">// 模块加[]框住。</span><br></code></pre></td></tr></table></figure>
 </li>
 <li>
 <p>等等。</p>

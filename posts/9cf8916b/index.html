@@ -24,7 +24,7 @@
 <meta property="og:description" content="本文主要分享了程序编译、安装与卸载的知识点。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-02-19T03:05:47.000Z">
-<meta property="article:modified_time" content="2025-05-07T14:49:14.660Z">
+<meta property="article:modified_time" content="2025-06-03T14:54:59.862Z">
 <meta property="article:author" content="龙泽雨">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -348,7 +348,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          4.3k 字
+          4.5k 字
         
       </span>
     
@@ -359,7 +359,7 @@
         
         
         
-          36 分钟
+          38 分钟
         
       </span>
     
@@ -409,7 +409,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2025年5月7日 晚上
+                    本文最后更新于 2025年6月3日 晚上
                   
                 
               </p>
@@ -421,6 +421,31 @@
 <span id="more"></span>
 <p><a href="https://zeyulong.com/posts/c4541b88/#%E4%BB%A3%E7%A0%81%E7%BC%96%E8%AF%91%E5%92%8C%E8%BF%90%E8%A1%8C">ROS编译与运行</a></p>
 <h1 id="编写CmakeLists-txt">编写CmakeLists.txt</h1>
+<h2 id="">${}</h2>
+<p>在 CMake 中，<code>$&#123;Variable&#125;</code> 和 <code>Variable</code> 的区别如下：</p>
+<ol>
+<li><code>$&#123;Variable&#125;</code></li>
+</ol>
+<ul>
+<li><code>$&#123;...&#125;</code> 是<strong>变量引用</strong>的语法，表示取变量的值。</li>
+<li>例如：<code>if($&#123;Variable&#125;)</code> 实际等价于 <code>if(ON)</code>（如果 <code>set(Variable ON)</code>）。</li>
+<li>用于需要变量值的地方，比如 <code>message(&quot;$&#123;Variable&#125;&quot;)</code> 会输出 <code>ON</code> 或 <code>OFF</code>。</li>
+</ul>
+<ol start="2">
+<li><code>Variable</code></li>
+</ol>
+<ul>
+<li>不加 <code>$&#123;&#125;</code>，在 <code>if()</code> 语句中，CMake 会把它当作<strong>变量名</strong>，自动查找其值。</li>
+<li>例如：<code>if(Variable)</code> 实际等价于 <code>if(DEFINED Variable AND Variable)</code>，即变量存在且为真时成立。</li>
+<li>推荐在条件判断中直接写 <code>if(Variable)</code>，这样更安全、语义更清晰。</li>
+</ul>
+<ol start="3">
+<li>区别总结</li>
+</ol>
+<ul>
+<li><code>$&#123;Variable&#125;</code>：取变量的值，常用于字符串拼接、赋值、输出等。</li>
+<li><code>Variable</code>：变量名，常用于 <code>if()</code> 判断，CMake 会自动解析其值。</li>
+</ul>
 <h2 id="在CmakeLists-txt里指定第三方库所在的路径">在CmakeLists.txt里指定第三方库所在的路径</h2>
 <p>在<code>CmakeLists.txt</code>里指定第三方库所在的路径，即指定其编译安装后<code>.cmake</code>文件所在的路径，例如：</p>
 <figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs cmake"><span class="hljs-comment"># 指定OpenCVConfig.cmake文件的目录</span><br><span class="hljs-comment"># 注意opencv安装目录下的/share/OpenCV</span><br><span class="hljs-keyword">set</span>(OpenCV_DIR /usr/local/share/OpenCV)  <span class="hljs-comment"># 默认安装在/usr/local/</span><br><span class="hljs-keyword">set</span>(OpenCV_DIR /usr/local/opencv/opencv345/share/OpenCV)  <span class="hljs-comment"># 自定义安装在/usr/local/opencv/opencv345的openv3.4.5</span><br><span class="hljs-keyword">set</span>(OpenCV_DIR /usr/local/opencv/opencv452/lib/cmake/opencv4)<br><span class="hljs-comment"># set(OpenCV_DIR /opt/ros/kinetic/share/OpenCV-3.3.1-dev)</span><br><span class="hljs-comment"># set（OpenCV_DIR  /path/to/opencv/build）</span><br><span class="hljs-keyword">find_package</span>(OpenCV REQUIRED)<br></code></pre></td></tr></table></figure>

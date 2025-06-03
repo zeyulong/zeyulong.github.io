@@ -1,0 +1,905 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" >
+
+
+
+<head><!-- hexo injector head_begin start --><progress id="content_progress" value="0"></progress><!-- hexo injector head_begin end -->
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/theme/TamakoAvatar-new-zip.png">
+  <link rel="icon" href="/img/theme/TamakoAvatar-new-zip.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#000000">
+  <meta name="author" content="龙泽雨">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="本文主要分享了在Linux下DboW2和DBoW3的编译和示例运行。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DBoW的编译和运行">
+<meta property="og:url" content="http://zeyulong.com/posts/863b4e09/index.html">
+<meta property="og:site_name" content="龙泽雨的博客">
+<meta property="og:description" content="本文主要分享了在Linux下DboW2和DBoW3的编译和示例运行。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-06-03T14:49:12.000Z">
+<meta property="article:modified_time" content="2025-06-03T14:51:21.311Z">
+<meta property="article:author" content="龙泽雨">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>DBoW的编译和运行 - 龙泽雨的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/custom/Markdown/macpanel.css">
+<link rel="stylesheet" href="/custom/Fonts/CodeFont.css">
+<link rel="stylesheet" href="/custom/Fonts/inlinecode-bg-color.css">
+<link rel="stylesheet" href="/custom/live2d/font-awesome.min.css">
+<link rel="stylesheet" href="/custom/LoadingBar/pace-theme-corner-indicator.css">
+<link rel="stylesheet" href="/custom/ReadingProgress/ReadingProgress.css">
+<link rel="stylesheet" href="/custom/SelectBackgroundColor/SelectBackgroundColor.css">
+<link rel="stylesheet" href="/custom/waline/gif.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"zeyulong.com","root":"/","version":"1.9.7","typing":{"enable":false,"typeSpeed":100,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"8gUBTaCjmaSbnf4genwggan3-MdYXbMMI","app_key":"2WRxjgxRXIWRBo8EA4205Wfm","server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<!-- hexo injector head_end start --><link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@200;300;400;500;600;700;900&display=swap" rel="stylesheet"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.0.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Happy every day!</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-steam"></i>
+                <span>摸鱼</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/2048" target="_self">
+                    
+                    <span>2048</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/bcbk/1" target="_self">
+                    
+                    <span>别踩白块-1</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/bcbk/2" target="_self">
+                    
+                    <span>别踩白块-2</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/dblk" target="_self">
+                    
+                    <span>躲避绿块</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/dr" target="_self">
+                    
+                    <span>恐龙快跑</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://mario-kart-3-js.vercel.app/" target="_self">
+                    
+                    <span>马里奥赛车</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/mf" target="_self">
+                    
+                    <span>魔方</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/cat" target="_self">
+                    
+                    <span>圈小猫</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/sl" target="_self">
+                    
+                    <span>扫雷</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/txz" target="_self">
+                    
+                    <span>推箱子</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/wzq" target="_self">
+                    
+                    <span>五子棋</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/theme/GirlWithCat-cut.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle">DBoW的编译和运行</span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        龙泽雨
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-06-03 22:49" pubdate>
+          2025年6月3日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          990 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          9 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">DBoW的编译和运行</h1>
+            
+              <p id="updated-time" class="note note-info" style="">
+                
+                  
+                    本文最后更新于 2025年6月3日 晚上
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <p>本文主要分享了在Linux下DboW2和DBoW3的编译和示例运行。</p>
+<span id="more"></span>
+<h1 id="安装依赖">安装依赖</h1>
+<ol>
+<li>
+<p><a href="https://zeyulong.com/posts/75ff45ce/">安装 OpenCV 3.4.13</a>。</p>
+<blockquote>
+<p>OpenCV4因为安全性提升、解析器更复杂、兼容性增强等原因导致其读取<code>*.yml</code>文件的速度要远慢于OpenCV3。</p>
+</blockquote>
+</li>
+<li>
+<p>安装Boost库（DBoW2需要）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo apt-get update<br>sudo apt-get install libboost-all-dev<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>完成。</p>
+</li>
+</ol>
+<h1 id="DboW3">DboW3</h1>
+<ol>
+<li>
+<p>克隆代码：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> your_floder<br>git <span class="hljs-built_in">clone</span> https://github.com/rmsalinas/DBow3.git<br><span class="hljs-built_in">cd</span> DBow3<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>（可选）在根目录的<code>CMakeLists.txt</code>中Line53 <code>find_package(OpenCV  REQUIRED)</code> 前指定OpenCV的路径：</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmake"><span class="hljs-keyword">set</span>(OpenCV_DIR /usr/local/opencv/opencv3413/share/OpenCV) <br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>编译代码：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">mkdir</span> build<br><span class="hljs-built_in">cd</span> build<br>cmake .. -DBUILD_TESTS=ON<br>make -j8<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>运行示例：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 把in.yml转存为DBoW3支持的二进制格式out.dbow以加快词袋的读取速度。</span><br>./tests/test_iobinary in.yml out.dbow<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>完成。</p>
+</li>
+</ol>
+<h1 id="DBoW2">DBoW2</h1>
+<ol>
+<li>
+<p>克隆代码：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">git <span class="hljs-built_in">clone</span> https://github.com/raulmur/ORB_SLAM2.git<br><span class="hljs-built_in">cd</span> ORB_SLAM2<br>git fetch origin pull/21/head:pr-21<br>git checkout pr-21<br></code></pre></td></tr></table></figure>
+<p>后面只需要<code>Thirdparty/</code>下的<code>DBoW2</code>文件夹。</p>
+<blockquote>
+<p>这里使用了ORB-SLAM2中<a target="_blank" rel="noopener" href="https://github.com/raulmur/ORB_SLAM2/pull/21/commits/4122702ced85b20bd458d0e74624b9610c19f8cc">pr-21</a>的修改后的DBoW2，其中添加了加载和保存二进制词袋的功能。主要修改文件为<code>Thirdparty/DBoW2/DBoW2/TemplatedVocabulary.h</code>，添加的内容为：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">/**</span><br><span class="hljs-comment">   * Loads the vocabulary from a binary file</span><br><span class="hljs-comment">   * @param filename</span><br><span class="hljs-comment">   */</span><br><span class="hljs-function"><span class="hljs-type">bool</span> <span class="hljs-title">loadFromBinaryFile</span><span class="hljs-params">(<span class="hljs-type">const</span> std::string &amp;filename)</span></span>;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment">   * Saves the vocabulary into a binary file</span><br><span class="hljs-comment">   * @param filename</span><br><span class="hljs-comment">   */</span><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">saveToBinaryFile</span><span class="hljs-params">(<span class="hljs-type">const</span> std::string &amp;filename)</span> <span class="hljs-type">const</span></span>; <br><br><span class="hljs-keyword">template</span>&lt;<span class="hljs-keyword">class</span> <span class="hljs-title class_">TDescriptor</span>, <span class="hljs-keyword">class</span> <span class="hljs-title class_">F</span>&gt;<br><span class="hljs-type">bool</span> TemplatedVocabulary&lt;TDescriptor,F&gt;::<span class="hljs-built_in">loadFromBinaryFile</span>(<span class="hljs-type">const</span> std::string &amp;filename) &#123;<br>  fstream f;<br>  f.<span class="hljs-built_in">open</span>(filename.<span class="hljs-built_in">c_str</span>(), ios_base::in|ios::binary);<br>  <span class="hljs-type">unsigned</span> <span class="hljs-type">int</span> nb_nodes, size_node;<br>  f.<span class="hljs-built_in">read</span>((<span class="hljs-type">char</span>*)&amp;nb_nodes, <span class="hljs-built_in">sizeof</span>(nb_nodes));<br>  f.<span class="hljs-built_in">read</span>((<span class="hljs-type">char</span>*)&amp;size_node, <span class="hljs-built_in">sizeof</span>(size_node));<br>  f.<span class="hljs-built_in">read</span>((<span class="hljs-type">char</span>*)&amp;m_k, <span class="hljs-built_in">sizeof</span>(m_k));<br>  f.<span class="hljs-built_in">read</span>((<span class="hljs-type">char</span>*)&amp;m_L, <span class="hljs-built_in">sizeof</span>(m_L));<br>  f.<span class="hljs-built_in">read</span>((<span class="hljs-type">char</span>*)&amp;m_scoring, <span class="hljs-built_in">sizeof</span>(m_scoring));<br>  f.<span class="hljs-built_in">read</span>((<span class="hljs-type">char</span>*)&amp;m_weighting, <span class="hljs-built_in">sizeof</span>(m_weighting));<br>  <span class="hljs-built_in">createScoringObject</span>();<br><br>  m_words.<span class="hljs-built_in">clear</span>();<br>  m_words.<span class="hljs-built_in">reserve</span>(<span class="hljs-built_in">pow</span>((<span class="hljs-type">double</span>)m_k, (<span class="hljs-type">double</span>)m_L + <span class="hljs-number">1</span>));<br>  m_nodes.<span class="hljs-built_in">clear</span>();<br>  m_nodes.<span class="hljs-built_in">resize</span>(nb_nodes+<span class="hljs-number">1</span>);<br>  m_nodes[<span class="hljs-number">0</span>].id = <span class="hljs-number">0</span>;<br>  <span class="hljs-type">char</span> buf[size_node]; <span class="hljs-type">int</span> nid = <span class="hljs-number">1</span>;<br>  <span class="hljs-keyword">while</span> (!f.<span class="hljs-built_in">eof</span>()) &#123;<br>	f.<span class="hljs-built_in">read</span>(buf, size_node);<br>	m_nodes[nid].id = nid;<br>	<span class="hljs-comment">// FIXME</span><br>	<span class="hljs-type">const</span> <span class="hljs-type">int</span>* ptr=(<span class="hljs-type">int</span>*)buf;<br>	m_nodes[nid].parent = *ptr;<br>	<span class="hljs-comment">//m_nodes[nid].parent = *(const int*)buf;</span><br>	m_nodes[m_nodes[nid].parent].children.<span class="hljs-built_in">push_back</span>(nid);<br>	m_nodes[nid].descriptor = cv::<span class="hljs-built_in">Mat</span>(<span class="hljs-number">1</span>, F::L, CV_8U);<br>	<span class="hljs-built_in">memcpy</span>(m_nodes[nid].descriptor.data, buf+<span class="hljs-number">4</span>, F::L);<br>	m_nodes[nid].weight = *(<span class="hljs-type">float</span>*)(buf+<span class="hljs-number">4</span>+F::L);<br>	<span class="hljs-keyword">if</span> (buf[<span class="hljs-number">8</span>+F::L]) &#123; <span class="hljs-comment">// is leaf</span><br>	  <span class="hljs-type">int</span> wid = m_words.<span class="hljs-built_in">size</span>();<br>	  m_words.<span class="hljs-built_in">resize</span>(wid+<span class="hljs-number">1</span>);<br>	  m_nodes[nid].word_id = wid;<br>	  m_words[wid] = &amp;m_nodes[nid];<br>	&#125;<br>	<span class="hljs-keyword">else</span><br>	  m_nodes[nid].children.<span class="hljs-built_in">reserve</span>(m_k);<br>	nid+=<span class="hljs-number">1</span>;<br>  &#125;<br>  f.<span class="hljs-built_in">close</span>();<br>  <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>&#125;<br><br><span class="hljs-keyword">template</span>&lt;<span class="hljs-keyword">class</span> <span class="hljs-title class_">TDescriptor</span>, <span class="hljs-keyword">class</span> <span class="hljs-title class_">F</span>&gt;<br><span class="hljs-type">void</span> TemplatedVocabulary&lt;TDescriptor,F&gt;::<span class="hljs-built_in">saveToBinaryFile</span>(<span class="hljs-type">const</span> std::string &amp;filename) <span class="hljs-type">const</span> &#123;<br>  fstream f;<br>  f.<span class="hljs-built_in">open</span>(filename.<span class="hljs-built_in">c_str</span>(), ios_base::out|ios::binary);<br>f.<span class="hljs-built_in">open</span> ( filename.<span class="hljs-built_in">c_str</span> (),ios_base::out|ios::binary);<br>  <span class="hljs-type">unsigned</span> <span class="hljs-type">int</span> nb_nodes = m_nodes.<span class="hljs-built_in">size</span>();<br>  <span class="hljs-type">float</span> _weight;<br>  <span class="hljs-type">unsigned</span> <span class="hljs-type">int</span> size_node = <span class="hljs-built_in">sizeof</span>(m_nodes[<span class="hljs-number">0</span>].parent) + F::L*<span class="hljs-built_in">sizeof</span>(<span class="hljs-type">char</span>) + <span class="hljs-built_in">sizeof</span>(_weight) + <span class="hljs-built_in">sizeof</span>(<span class="hljs-type">bool</span>);<br>  f.<span class="hljs-built_in">write</span>((<span class="hljs-type">char</span>*)&amp;nb_nodes, <span class="hljs-built_in">sizeof</span>(nb_nodes));<br>  f.<span class="hljs-built_in">write</span>((<span class="hljs-type">char</span>*)&amp;size_node, <span class="hljs-built_in">sizeof</span>(size_node));<br>  f.<span class="hljs-built_in">write</span>((<span class="hljs-type">char</span>*)&amp;m_k, <span class="hljs-built_in">sizeof</span>(m_k));<br>  f.<span class="hljs-built_in">write</span>((<span class="hljs-type">char</span>*)&amp;m_L, <span class="hljs-built_in">sizeof</span>(m_L));<br>  f.<span class="hljs-built_in">write</span>((<span class="hljs-type">char</span>*)&amp;m_scoring, <span class="hljs-built_in">sizeof</span>(m_scoring));<br>  f.<span class="hljs-built_in">write</span>((<span class="hljs-type">char</span>*)&amp;m_weighting, <span class="hljs-built_in">sizeof</span>(m_weighting));<br>  <span class="hljs-keyword">for</span>(<span class="hljs-type">size_t</span> i=<span class="hljs-number">1</span>; i&lt;nb_nodes;i++) &#123;<br>	<span class="hljs-type">const</span> Node&amp; node = m_nodes[i];<br>	f.<span class="hljs-built_in">write</span>((<span class="hljs-type">char</span>*)&amp;node.parent, <span class="hljs-built_in">sizeof</span>(node.parent));<br>	f.<span class="hljs-built_in">write</span>((<span class="hljs-type">char</span>*)node.descriptor.data, F::L);<br>	_weight = node.weight; f.<span class="hljs-built_in">write</span>((<span class="hljs-type">char</span>*)&amp;_weight, <span class="hljs-built_in">sizeof</span>(_weight));<br>	<span class="hljs-type">bool</span> is_leaf = node.<span class="hljs-built_in">isLeaf</span>(); f.<span class="hljs-built_in">write</span>((<span class="hljs-type">char</span>*)&amp;is_leaf, <span class="hljs-built_in">sizeof</span>(is_leaf)); <span class="hljs-comment">// i put this one at the end for alignement....</span><br>  &#125;<br>  f.<span class="hljs-built_in">close</span>();<br>&#125;<br></code></pre></td></tr></table></figure>
+</blockquote>
+</li>
+<li>
+<p>在<code>DBoW2/DBoW2/</code>里添加<code>demo.cpp</code>文件，文件内容为：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * File: Demo.cpp</span><br><span class="hljs-comment"> * Date: November 2011</span><br><span class="hljs-comment"> * Author: Dorian Galvez-Lopez</span><br><span class="hljs-comment"> * Description: demo application of DBoW2</span><br><span class="hljs-comment"> * License: see the LICENSE.txt file</span><br><span class="hljs-comment"> */</span><br><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;vector&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;string&gt;</span></span><br><br><span class="hljs-comment">// DBoW2</span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;FORB.h&quot;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;TemplatedVocabulary.h&quot;</span></span><br><br><span class="hljs-comment">// OpenCV</span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;opencv2/core.hpp&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;opencv2/highgui.hpp&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;opencv2/features2d.hpp&gt;</span></span><br><br><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> DBoW2;<br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br><span class="hljs-comment">//command line parser</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">CmdLineParser</span>&#123;<span class="hljs-type">int</span> argc; <span class="hljs-type">char</span> **argv; <span class="hljs-keyword">public</span>: <span class="hljs-built_in">CmdLineParser</span>(<span class="hljs-type">int</span> _argc,<span class="hljs-type">char</span> **_argv):<span class="hljs-built_in">argc</span>(_argc),<span class="hljs-built_in">argv</span>(_argv)&#123;&#125;  <span class="hljs-type">bool</span> <span class="hljs-keyword">operator</span>[] ( string param ) &#123;<span class="hljs-type">int</span> idx=<span class="hljs-number">-1</span>;  <span class="hljs-keyword">for</span> ( <span class="hljs-type">int</span> i=<span class="hljs-number">0</span>; i&lt;argc &amp;&amp; idx==<span class="hljs-number">-1</span>; i++ ) <span class="hljs-keyword">if</span> ( <span class="hljs-built_in">string</span> ( argv[i] ) ==param ) idx=i;    <span class="hljs-keyword">return</span> ( idx!=<span class="hljs-number">-1</span> ) ;    &#125; <span class="hljs-function">string <span class="hljs-title">operator</span><span class="hljs-params">()</span><span class="hljs-params">(string param,string defvalue=<span class="hljs-string">&quot;-1&quot;</span>)</span></span>&#123;<span class="hljs-type">int</span> idx=<span class="hljs-number">-1</span>;    <span class="hljs-keyword">for</span> ( <span class="hljs-type">int</span> i=<span class="hljs-number">0</span>; i&lt;argc &amp;&amp; idx==<span class="hljs-number">-1</span>; i++ ) <span class="hljs-keyword">if</span> ( <span class="hljs-built_in">string</span> ( argv[i] ) ==param ) idx=i; <span class="hljs-keyword">if</span> ( idx==<span class="hljs-number">-1</span> ) <span class="hljs-keyword">return</span> defvalue;   <span class="hljs-keyword">else</span>  <span class="hljs-built_in">return</span> ( argv[  idx+<span class="hljs-number">1</span>] ); &#125;&#125;;<br><br><span class="hljs-function"><span class="hljs-type">bool</span> <span class="hljs-title">has_suffix</span><span class="hljs-params">(<span class="hljs-type">const</span> std::string &amp;str, <span class="hljs-type">const</span> std::string &amp;suffix)</span> </span>&#123;<br>    std::<span class="hljs-type">size_t</span> index = str.<span class="hljs-built_in">find</span>(suffix, str.<span class="hljs-built_in">size</span>() - suffix.<span class="hljs-built_in">size</span>());<br>    <span class="hljs-keyword">return</span> (index != std::string::npos);<br>&#125;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-type">int</span> argc,<span class="hljs-type">char</span> **argv)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">try</span>&#123;<br>        <span class="hljs-function">CmdLineParser <span class="hljs-title">cml</span><span class="hljs-params">(argc,argv)</span></span>;<br>        <span class="hljs-keyword">if</span> (cml[<span class="hljs-string">&quot;-h&quot;</span>] || argc!=<span class="hljs-number">3</span>)&#123;<br>            cerr&lt;&lt;<span class="hljs-string">&quot;Usage:  in.yml out.bin&quot;</span>&lt;&lt;endl;<br>            <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;<br>        &#125;<br>        DBoW2::TemplatedVocabulary&lt;DBoW2::FORB::TDescriptor, DBoW2::FORB&gt; voc;<br>        <span class="hljs-keyword">if</span> (<span class="hljs-built_in">has_suffix</span>(argv[<span class="hljs-number">1</span>], <span class="hljs-string">&quot;.txt&quot;</span>)) &#123;<br>          voc.<span class="hljs-built_in">loadFromTextFile</span>(argv[<span class="hljs-number">1</span>]);<br>          cout&lt;&lt;<span class="hljs-string">&quot;loaded&quot;</span>&lt;&lt;endl;<br>          voc.<span class="hljs-built_in">saveToBinaryFile</span>(argv[<span class="hljs-number">2</span>]);<br>          cout&lt;&lt;<span class="hljs-string">&quot;saved&quot;</span>&lt;&lt;endl;<br>        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-built_in">has_suffix</span>(argv[<span class="hljs-number">1</span>], <span class="hljs-string">&quot;.yml&quot;</span>)) &#123;<br>          voc.<span class="hljs-built_in">load</span>(argv[<span class="hljs-number">1</span>]);<br>          cout&lt;&lt;<span class="hljs-string">&quot;loaded&quot;</span>&lt;&lt;endl;<br>          voc.<span class="hljs-built_in">saveToBinaryFile</span>(argv[<span class="hljs-number">2</span>]);<br>          cout&lt;&lt;<span class="hljs-string">&quot;saved&quot;</span>&lt;&lt;endl;<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>          voc.<span class="hljs-built_in">loadFromBinaryFile</span>(argv[<span class="hljs-number">1</span>]);<br>          cout&lt;&lt;<span class="hljs-string">&quot;loaded&quot;</span>&lt;&lt;endl;<br>        &#125;<br>    &#125;<span class="hljs-built_in">catch</span>(std::exception &amp;ex)&#123;<br>        cerr&lt;&lt;ex.<span class="hljs-built_in">what</span>()&lt;&lt;endl;<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>修改根目录<code>DBoW2/</code>的<code>CMakeLists.txt</code>文件：</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs cmake"><span class="hljs-comment"># 在Line27 `find_package(OpenCV 3.0 QUIET)` 前指定OpenCV的路径：</span><br><span class="hljs-keyword">set</span>(OpenCV_DIR /usr/local/opencv/opencv3413/share/OpenCV) <br><br><span class="hljs-comment"># 在最后一行添加：</span><br><span class="hljs-keyword">add_executable</span>(demo DBoW2/demo.cpp)<br><span class="hljs-keyword">target_link_libraries</span>(demo DBoW2 <span class="hljs-variable">$&#123;OpenCV_LIBS&#125;</span>)<br><span class="hljs-keyword">MESSAGE</span>( STATUS <span class="hljs-string">&quot;OPENCV_DIR= $&#123;OpenCV_DIR&#125; VERSION=$&#123;OpenCV_VERSION&#125;&quot;</span> )<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>编译代码：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> DBoW2<br><span class="hljs-built_in">mkdir</span> build<br><span class="hljs-built_in">cd</span> build<br>cmake .. <br>make -j8<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>运行示例：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">./demo in.yml out.bin<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>完成。</p>
+</li>
+</ol>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7%E5%BA%93/" class="category-chain-item">软件工具库</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>DBoW的编译和运行</div>
+      <div>http://zeyulong.com/posts/863b4e09/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>龙泽雨</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年6月3日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/6d4fe931/" title="编程规范">
+                        <span class="hidden-mobile">编程规范</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="waline"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#waline', function() {
+      Fluid.utils.createCssLink('https://cdn.staticfile.org/waline/2.15.5/waline.min.css')
+      Fluid.utils.createScript('https://cdn.staticfile.org/waline/2.15.5/waline.min.js', function() {
+        var options = Object.assign(
+          {"serverURL":"https://www.zeyulong.cn/","path":"window.location.pathname","meta":["nick","mail","link"],"requiredMeta":["nick"],"lang":"zh-CN","emoji":["https://cdn.jsdelivr.net/gh/walinejs/emojis/weibo"],"dark":"html[data-user-color-scheme=\"dark\"]","wordLimit":0,"pageSize":10,"reaction":true,"locale":{"placeholder":"花径不曾缘客扫，蓬门今始为君开。"}},
+          {
+            el: '#waline',
+            path: window.location.pathname
+          }
+        )
+        Waline.init(options);
+        Fluid.utils.waitElementVisible('#waline .vcontent', () => {
+          var imgSelector = '#waline .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> <div style="font-size: 0.85rem"> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/custom/RunTime/RunTime.js"></script> </div> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  
+<script src="/custom/live2d/live2d-widget/autoload.js"></script>
+<script src="/custom/live2d/jquery.min.js"></script>
+<script src="/custom/LabelPage/LabelPage.js"></script>
+<script src="/custom/LoadingBar/pace.min.js"></script>
+<script src="/custom/ReadingProgress/ReadingProgress.js"></script>
+<script src="/custom/typing-effect/typing-effect.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  <canvas
+    class="fireworks"
+    style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 32767"
+></canvas>
+<script type="text/javascript" src="/custom/fireworks/anime.min.js"></script> 
+<script type="text/javascript" src="/custom/fireworks/fireworks.js"></script>
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

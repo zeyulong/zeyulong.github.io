@@ -34,7 +34,7 @@
 <meta property="og:image" content="http://zeyulong.com/posts/5b8fd703/feature_branch_diverge_from_master_diagram.png">
 <meta property="og:image" content="http://zeyulong.com/posts/5b8fd703/rebase_result_diagram.png">
 <meta property="article:published_time" content="2024-05-09T03:34:55.000Z">
-<meta property="article:modified_time" content="2025-05-07T14:43:26.392Z">
+<meta property="article:modified_time" content="2025-06-03T14:56:06.952Z">
 <meta property="article:author" content="龙泽雨">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://zeyulong.com/posts/5b8fd703/Git%E6%B5%81%E7%A8%8B-1.png">
@@ -370,7 +370,7 @@
         
         
         
-          173 分钟
+          174 分钟
         
       </span>
     
@@ -420,7 +420,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2025年5月7日 晚上
+                    本文最后更新于 2025年6月3日 晚上
                   
                 
               </p>
@@ -1190,6 +1190,9 @@ Aborting</p>
 <p>之后的操作与第2步开始相同。</p>
 </li>
 </ol>
+<h2 id="撤销最近的一次commit">撤销最近的一次commit</h2>
+<p>在 Git 中，撤销最近的一次 commit 有多种方式，常见用法如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 这样会撤回最近一次 commit，但你的改动还在暂存区（可以重新提交）。</span><br>git reset --soft HEAD~1<br><br><span class="hljs-comment"># 这样会撤回最近一次 commit，并把改动变为未暂存状态（可修改后再提交）。</span><br>git reset --mixed HEAD~1<br><span class="hljs-comment"># 或者</span><br>git reset HEAD~1<br><br><span class="hljs-comment"># 这样会撤回最近一次 commit，所有改动丢失，不可恢复！</span><br>git reset --hard HEAD~1<br><br><span class="hljs-comment"># 如果已经 push 到远程，并且要撤销。推荐用 git revert，这会生成一个新的“撤销”commit，不会影响公共历史。</span><br>git revert &lt;commit_sha&gt;<br></code></pre></td></tr></table></figure>
 <h2 id="撤销修改">撤销修改</h2>
 <p>方法一：如果知道要修改回的内容的话，可以直接手动更改那些需要的文件。然后<code>git add</code>添加到暂存区，最后<code>git commit</code>掉。</p>
 <p>方法二：直接<a href="#%E5%9B%9E%E6%BB%9Areset">回滚</a>到上一个版本。</p>

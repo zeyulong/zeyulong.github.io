@@ -26,7 +26,7 @@
 <meta property="og:image" content="http://zeyulong.com/posts/a8aab215/vi-vim-cheat-sheet-sch.gif">
 <meta property="og:image" content="http://zeyulong.com/posts/a8aab215/vim-vi-workmodel.png">
 <meta property="article:published_time" content="2024-03-05T14:33:19.000Z">
-<meta property="article:modified_time" content="2025-05-21T14:27:51.058Z">
+<meta property="article:modified_time" content="2025-06-09T12:10:28.044Z">
 <meta property="article:author" content="龙泽雨">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://zeyulong.com/posts/a8aab215/vi-vim-cheat-sheet-sch.gif">
@@ -351,7 +351,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          32k 字
+          31k 字
         
       </span>
     
@@ -362,7 +362,7 @@
         
         
         
-          267 分钟
+          263 分钟
         
       </span>
     
@@ -412,7 +412,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2025年5月21日 晚上
+                    本文最后更新于 2025年6月9日 晚上
                   
                 
               </p>
@@ -646,6 +646,7 @@
 </ol>
 <h2 id="命令">命令</h2>
 <h3 id="软件、库的安装、卸载和升级">软件、库的安装、卸载和升级</h3>
+<h4 id="常用命令">常用命令</h4>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 安装</span><br>sudo apt update	<span class="hljs-comment"># 先更新软件包列表，检查可用的软件包更新</span><br><span class="hljs-comment"># 查看可选的安装版本</span><br>apt-cache search exact_package_name  <span class="hljs-comment"># 你可以使用一个正则表达式来搜索本地 APT 缓存中的包。</span><br>apt-cache policy exact_package_name  <span class="hljs-comment"># 如果你指定了软件包的名称，它将显示该软件包是否已经安装，在哪个版本的仓库中可用，以及它的优先级。</span><br>sudo apt install exact_package_name[=xxx]	<span class="hljs-comment"># 安装软件，例如：sudo apt install libc6-dev=2.27-3ubuntu1.6</span><br><br><span class="hljs-comment"># 卸载（不知名的软件）</span><br>apt list --installed | grep -i possible_package_name  <span class="hljs-comment"># 模糊搜索</span><br>sudo apt remove exact_package_name  <span class="hljs-comment"># 卸载软件</span><br>sudo apt-get purge exact_package_name  <span class="hljs-comment"># 清除配置</span><br><br><span class="hljs-comment"># 升级</span><br><span class="hljs-comment"># apt 可以看作 apt-get 和 apt-cache 命令的子集, 可以为包管理提供必要的命令选项。apt-get 虽然没被弃用，但作为普通用户，还是应该首先使用 apt。</span><br>sudo apt update  <span class="hljs-comment"># 更新软件包列表，检查可用的软件包更新</span><br>apt list --upgradable  <span class="hljs-comment"># 查看可用安装</span><br>sudo apt upgrade  <span class="hljs-comment"># 安装可用的软件包更新</span><br>sudo apt install exact_package_name  <span class="hljs-comment"># 直接升级特定的包</span><br></code></pre></td></tr></table></figure>
 <p>优先级：</p>
 <ul>
@@ -657,6 +658,48 @@
 <li><strong>&gt; 1000</strong>：将始终安装，即使它强制 APT 降级到旧版本。</li>
 </ul>
 <p>默认情况下，每个已安装的软件包版本的优先级为 100，未安装的软件包的优先级为 500。同一软件包可能有多个不同优先级的版本。APT 会安装优先级较高的版本，除非安装的版本较新。</p>
+<h4 id="deb">deb</h4>
+<h5 id="安装路径">安装路径</h5>
+<p>在 Ubuntu 下，使用 <code>*.deb</code> 包安装的软件，其<strong>主要文件会分散安装在系统的标准目录</strong>，而不是集中在某一个“专属”文件夹。具体来说：</p>
+<ul>
+<li>可执行文件（程序主文件）
+<ul>
+<li>通常安装在 <code>/usr/bin/</code>、<code>/usr/sbin/</code>、<code>/bin/</code>、<code>/sbin/</code> 等目录。</li>
+<li>例如：<code>/usr/bin/vim</code>、<code>/usr/bin/git</code></li>
+</ul>
+</li>
+<li>配置文件
+<ul>
+<li>一般安装在 <code>/etc/</code> 目录下的子目录。</li>
+<li>例如：<code>/etc/nginx/</code>、<code>/etc/mysql/</code></li>
+</ul>
+</li>
+<li>库文件
+<ul>
+<li>通常安装在 <code>/usr/lib/</code> 或 <code>/usr/lib64/</code>。</li>
+<li>例如：<code>/usr/lib/libreoffice/</code></li>
+</ul>
+</li>
+<li>共享数据文件
+<ul>
+<li>通常安装在 <code>/usr/share/</code> 下。</li>
+<li>例如：<code>/usr/share/doc/</code>（文档）、<code>/usr/share/applications/</code>（桌面快捷方式）</li>
+</ul>
+</li>
+<li>日志文件
+<ul>
+<li>如果有日志，通常在 <code>/var/log/</code> 下。</li>
+<li>例如：<code>/var/log/nginx/</code></li>
+</ul>
+</li>
+<li>卸载脚本、服务文件等
+<ul>
+<li>可能会分布在 <code>/etc/init.d/</code>、<code>/lib/systemd/system/</code> 等与服务相关的位置。</li>
+</ul>
+</li>
+</ul>
+<h5 id="如何查看某个-deb-包都装了哪些文件？">如何查看某个 .deb 包都装了哪些文件？</h5>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">dpkg -L package_name<br><span class="hljs-comment"># 或者</span><br>dpkg-deb -c xxx.deb<br></code></pre></td></tr></table></figure>
 <h3 id="查找查看">查找查看</h3>
 <h4 id="辅助搭配">辅助搭配</h4>
 <blockquote>
@@ -684,6 +727,17 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 查看指定目录下的各文件（夹）大小</span><br><span class="hljs-comment"># du 命令需要在root权限下操作，或者在命令行前加sudo命令也可以。但排序是乱的，不好查看。</span><br><span class="hljs-comment"># 使用 sort 命令 的 -k 参数设置对第二列的值进行重排，也就是按照文件（夹）名进行排序</span><br>sudo <span class="hljs-built_in">du</span> -ah --max-depth=1 --exclude=./proc --exclude=./tmp --exclude=./lost+found --exclude=./media --exclude=./mnt --exclude=./run /path/to/your/folder/ | <span class="hljs-built_in">sort</span> -k 2<br><br><span class="hljs-comment"># 查看指定目录对应的磁盘空间大小</span><br><span class="hljs-built_in">df</span> -B G /path/to/your/folder/  <span class="hljs-comment"># 以GB为单位显示指定磁盘文件的使用情况。如果没有指定文件，则显示所有挂载的文件系统的磁盘使用情况。</span><br><span class="hljs-built_in">df</span> -B M /path/to/your/folder/  <span class="hljs-comment"># MB</span><br><span class="hljs-comment"># 加路径为当前路径所在的磁盘空间，不加路径为所有。</span><br><br><span class="hljs-comment"># 上述两个命令的常用参数：</span><br>-a或 -all 显示目录中个别文件的大小。<br>-h或 --human-readable 以K，M，G为单位，提高信息的可读性。<br>--max-depth=&lt;目录层数&gt; 超过指定层数的目录后，予以忽略。<br>-exclude=&lt;目录或文件&gt; 略过指定的目录或文件。<br><br>ll  <span class="hljs-comment"># 文件大小以字节为单位显示，并且在输出中的第 5 列。</span><br></code></pre></td></tr></table></figure>
 <h4 id="文件（夹）修改时间">文件（夹）修改时间</h4>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">ll  <span class="hljs-comment"># ls -l</span><br></code></pre></td></tr></table></figure>
+<h4 id="文件（夹）权限">文件（夹）权限</h4>
+<p>在使用 <code>ls -l</code> 命令时，第一列的其余 9 个字符表示文件或目录的访问权限，分别对应三个字符一组的 <strong>rwx</strong> 权限。例如：</p>
+<ul>
+<li>r 表示读取权限</li>
+<li>w 表示写入权限</li>
+<li>x 表示执行权限</li>
+<li>- 表示没有对应权限</li>
+</ul>
+<p>前三个字符表示所有者的权限，中间三个字符表示所属组的权限，后三个字符表示其他用户的权限。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">-rw-r--r-- 1 user group 4096 Feb 21 12:00 file.txt<br></code></pre></td></tr></table></figure>
+<p>表示文件名为<code>file.txt</code>的文件，所有者具有读写权限，所属组和其他用户只有读取权限。</p>
 <h4 id="版本信息">版本信息</h4>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># Linux内核版本</span><br><span class="hljs-built_in">uname</span> -a  <span class="hljs-comment"># 系统架构x64（x86_64、amd64）</span><br><span class="hljs-comment"># 系统架构：x64（x86_64、amd64）、arm64（aarch64）、mips64（mips64el）</span><br><span class="hljs-comment"># cmake</span><br>cmake --version<br><span class="hljs-comment"># conda</span><br>conda --version<br><span class="hljs-comment"># CPU核心数</span><br><span class="hljs-built_in">nproc</span><br><span class="hljs-comment"># CPU占用</span><br>top<br><span class="hljs-comment"># CUDA</span><br><span class="hljs-built_in">ls</span> -l /usr/local | grep cuda  <span class="hljs-comment"># 检查是否安装了CUDA</span><br>nvcc -V  <span class="hljs-comment"># 查看自己安装的CUDA版本</span><br>lspci | grep -i nvidia  <span class="hljs-comment"># 检查系统是否有支持 CUDA 编程的 GPU</span><br><span class="hljs-comment"># cuDNN</span><br>apt show libcudnn8  <span class="hljs-comment"># 通过查询已安装的libcudnn8包来验证cuDNN的版本</span><br><span class="hljs-comment"># 查看版本（路径可能不一致，有一个命令有输出就行）</span><br><span class="hljs-built_in">cat</span> /usr/include/cudnn_version.h  <br><span class="hljs-built_in">cat</span> /usr/include/cudnn.h<br><span class="hljs-built_in">cat</span> /usr/local/cuda/include/cudnn_version.h | grep CUDNN_MAJOR -A 2<br><span class="hljs-built_in">cat</span> /usr/local/cuda/include/cudnn.h | grep CUDNN_MAJOR -A 2<br><span class="hljs-comment"># Eigen</span><br>/usr/include/eigen3  <span class="hljs-comment"># Eigen安装路径</span><br>/usr/include/eigen330  <span class="hljs-comment"># Eigen3.3.0安装路径</span><br>/usr/include/eigen340  <span class="hljs-comment"># Eigen3.4.0安装路径</span><br>gedit /usr/include/eigen3/Eigen/src/Core/util/Macros.h<br><span class="hljs-comment"># GLIBC_</span><br>ldd --version<br>strings /lib/x86_64-linux-gnu/libm.so.6 |grep GLIBC_  <span class="hljs-comment"># strings /lib64/libc.so.6 |grep GLIBC_</span><br>ll /lib/x86_64-linux-gnu/libm.so.6<br><span class="hljs-comment"># gcc</span><br>gcc -v<br><span class="hljs-comment"># java</span><br>java -version<br><span class="hljs-comment"># 内存</span><br>free<br><span class="hljs-comment"># NVIDIA</span><br>lspci | grep -i nvidia  <span class="hljs-comment"># 查看是否安装NVIDIA显卡</span><br>nvidia-smi  <span class="hljs-comment"># 查看显卡信息</span><br>watch -n 0.2 nvidia-smi  <span class="hljs-comment"># 每 0.2 秒刷新一次</span><br><span class="hljs-comment"># 显卡型号</span><br>lspci | grep -i nvidia<br><span class="hljs-comment"># Opencv</span><br>/usr/local  <span class="hljs-comment"># opencv3.1.0安装路径</span><br>/usr/local/opencv/opencv320  <span class="hljs-comment"># opencv3.2.0安装路径</span><br>/usr/local/opencv/opencv345  <span class="hljs-comment"># opencv3.4.5安装路径</span><br>pkg-config --modversion opencv  <span class="hljs-comment"># 查询版本</span><br>pkg-config --cflags opencv  <span class="hljs-comment"># 得到opencv的安装路径</span><br><span class="hljs-comment"># -&gt; -I/usr/local/include/opencv -I/usr/local/include</span><br>pkg-config --cflags opencv4  <span class="hljs-comment"># 附加：得到opencv4的安装路径</span><br><span class="hljs-comment"># openssl</span><br>openssl version -a<br><span class="hljs-comment"># Pangolin</span><br>find / -name pangolin<br><span class="hljs-comment"># protoc</span><br>protoc --version<br><span class="hljs-comment"># python</span><br><span class="hljs-built_in">which</span> python<br>ll /usr/bin/python<br>python -V  <span class="hljs-comment"># python --version</span><br>sudo update-alternatives --config python<br>sudo update-alternatives --install /usr/bin/python python /usr/bin/python3 1<br>sudo update-alternatives --install /usr/bin/python python /usr/bin/python2 2<br><span class="hljs-comment"># Qt5.9.9</span><br>qmake -v<br><span class="hljs-comment"># ROS</span><br><span class="hljs-built_in">echo</span> <span class="hljs-variable">$ROS_PACKAGE_PATH</span><br></code></pre></td></tr></table></figure>
 <h4 id="用户手册">用户手册</h4>
@@ -787,8 +841,9 @@
 </blockquote>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">tar -zcvf FileName.tar.gz DirName  <span class="hljs-comment"># 压缩</span><br>tar -zxvf cmake-3.23.0-rc1.tar.gz  <span class="hljs-comment"># 解压</span><br></code></pre></td></tr></table></figure>
 <ul>
-<li><code>-c</code>: 创建新的归档文件</li>
 <li><code>-z</code>: 使用 gzip 压缩归档文件</li>
+<li><code>-c</code>: 创建新的归档文件</li>
+<li><code>-x</code>：解开压缩文件</li>
 <li><code>-v</code>: 显示详细输出，列出被添加到归档中的文件</li>
 <li><code>-f</code>: 指定归档文件的名称</li>
 </ul>
@@ -803,7 +858,7 @@
 <h4 id="pigz">pigz</h4>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 压缩文件（夹）</span><br>tar --use-compress-program=pigz -cvpf  /目录名/文件名.tgz （空格） /boot（压缩的文件或者目录）<br>--use-compress-program=pigz  是指定 （ pigz ）来进行压缩<br>-cvpf   <br>-c    创建压缩文件    <br>-v    显示压缩或解压的过程    <br>-p    保留原始的权限与属性  <br>-f    目标文件名   <br>--exclude=/xx  排除这个目录不压缩<br><br><span class="hljs-comment"># 解压文件（夹）</span><br>tar --use-compress-program=pigz -xvpf 文件.tgz -C  / （这是指定解压到了根目录）（不加默认解压到当前文件夹）<br>--use-compress-program=pigz  是指定 （ pigz ）来进行解压<br>-xvpf  <br>-x    解开压缩文件    <br>-v    显示压缩或解压的过程    <br>-p    保留原始的权限与属性  <br>-f    目标文件名   <br>-C    指定解压到的目录<br></code></pre></td></tr></table></figure>
 <h3 id="设置文件权限">设置文件权限</h3>
-<h4 id="chmod命令的语法">chmod命令的语法</h4>
+<h4 id="chmod">chmod</h4>
 <p>指令名称：<code>chmod</code></p>
 <p>使用权限：所有使用者</p>
 <p>使用方式：<code>chmod [-cfvR] [--help] [--version] mode file...</code></p>
@@ -842,8 +897,74 @@
 <p><code>chmod a=rwx file</code> 和<code>chmod 777 file</code>效果相同。</p>
 <p><code>chmod ug=rwx,o=x file</code>和<code>chmod 771 file</code>效果相同。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 查看文件权限</span><br>ll<br></code></pre></td></tr></table></figure>
+<h4 id="chown">chown</h4>
+<h5 id="用法-2">用法</h5>
+<blockquote>
+<p>在 Linux/Unix 系统下，<code>chown</code> 命令用于更改文件或目录的拥有者（user）和所属组（group）。</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">chown</span> [-cfhvR] [--<span class="hljs-built_in">help</span>] [--version] user[:group] file...<br></code></pre></td></tr></table></figure>
+<ul>
+<li>user : 新的文件拥有者的使用者 ID</li>
+<li>group : 新的文件拥有者的使用者组(group)</li>
+<li>-c : 显示更改的部分的信息</li>
+<li>-f : 忽略错误信息</li>
+<li>-h :修复符号链接</li>
+<li>-v : 显示详细的处理信息</li>
+<li>-R : 处理指定目录以及其子目录下的所有文件</li>
+<li>--help : 显示辅助说明</li>
+<li>--version : 显示版本</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo <span class="hljs-built_in">chown</span> -R $(<span class="hljs-built_in">whoami</span>):$(<span class="hljs-built_in">whoami</span>) filepath<br></code></pre></td></tr></table></figure>
+<h5 id="user和group的区别">user和group的区别</h5>
+<ul>
+<li><strong>user</strong> 指的是文件/目录的“所有者”（Owner），即一个具体的用户账号，比如 <code>alice</code>、<code>bob</code>、<code>root</code> 等。
+<ul>
+<li>拥有者对文件有<strong>独立权限</strong>（如读、写、执行）。</li>
+</ul>
+</li>
+<li><strong>group</strong> 指的是文件/目录归属的“用户组”（Group），比如 <code>staff</code>、<code>wheel</code>、<code>users</code>、<code>developers</code> 等。
+<ul>
+<li>一个用户可以属于多个组，文件的 group 权限控制“同组成员”能否访问、修改文件。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">chown</span> bob file.txt <span class="hljs-comment"># 只改拥有者：拥有者变为 bob，组不变</span><br><span class="hljs-built_in">chown</span> :wheel file.txt <span class="hljs-comment"># 只改组：组变为 wheel，拥有者不变</span><br><span class="hljs-built_in">chown</span> bob:wheel file.txt  <span class="hljs-comment"># 同时改：拥有者变为 bob，组变为 wheel</span><br></code></pre></td></tr></table></figure>
+<h4 id="chown和chmod的区别">chown和chmod的区别</h4>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>主要作用</th>
+<th>控制内容</th>
+<th>典型命令</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>chown</td>
+<td>更改拥有者和用户组</td>
+<td>user/group</td>
+<td><code>chown bob:staff file.txt</code></td>
+</tr>
+<tr>
+<td>chmod</td>
+<td>更改文件访问权限</td>
+<td>r/w/x权限</td>
+<td><code>chmod 755 file.txt</code></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><code>chown</code> = 谁“拥有”这个文件/文件夹
+<ul>
+<li><strong><code>chown</code> 只是更改文件的拥有者（user）和用户组（group）</strong>，并不会自动更改文件的读、写、执行权限设置。</li>
+<li>文件原有的权限（rwx）<strong>不会改变</strong>，只是“谁”享有这些权限的身份发生了变化。</li>
+</ul>
+</li>
+<li><code>chmod</code> = “拥有者/组/其他人”各自拥有哪些读/写/执行权限</li>
+</ul>
 <h4 id="root用户把某个文件权限给到普通用户">root用户把某个文件权限给到普通用户</h4>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 先切换到root环境</span><br>su root<br><span class="hljs-comment"># 赋权</span><br><span class="hljs-built_in">chown</span> -R username filepath<br><span class="hljs-comment"># username 指的是 你的普通用户名称</span><br><span class="hljs-comment"># filepath 指的是 你需要赋权给普通用户的文件夹路径</span><br><span class="hljs-comment"># 这样普通用户也就可以操作这个路径下的文件了</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 先切换到root环境</span><br>su root<br><span class="hljs-comment"># 赋权</span><br><span class="hljs-built_in">chown</span> -R username filepath<br><span class="hljs-comment"># username 指的是 你的普通用户名称</span><br><span class="hljs-comment"># filepath 指的是 你需要赋权给普通用户的文件夹路径</span><br><span class="hljs-comment"># 这样普通用户也就可以操作这个路径下的文件了</span><br><br><span class="hljs-comment"># 示例：</span><br>sudo <span class="hljs-built_in">chown</span> -R $(<span class="hljs-built_in">whoami</span>):$(<span class="hljs-built_in">whoami</span>) filepath<br></code></pre></td></tr></table></figure>
 <h3 id="软-硬链接">软/硬链接</h3>
 <h4 id="区别">区别</h4>
 <p><a target="_blank" rel="noopener" href="https://www.runoob.com/linux/linux-comm-ln.html">Linux ln 命令 - 菜鸟教程</a></p>
@@ -1101,9 +1222,6 @@
 <li>直接将&quot;文件管理器&quot;中的文件拖到&quot;终端&quot;中就可以在终端中得到完整的路径名。</li>
 </ol>
 <h1 id="终端Terminal">终端Terminal</h1>
-<ol start="6">
-<li></li>
-</ol>
 <h2 id="命令行解释器Shell">命令行解释器Shell</h2>
 <blockquote>
 <p>终端负责是从用户这里接收输入（键盘、鼠标等输入设备），扔给 Shell，然后把 Shell 返回的结果展示给用户（比如通过显示器）。而 Shell 负责从终端那里拿到用户输入的命令，解析后交给操作系统内核去执行，并把执行结果返回给终端。</p>
@@ -1217,7 +1335,6 @@
 </table>
 <h3 id="Terminator">Terminator</h3>
 <p>更方便的终端，区别于默认GNOME终端。</p>
-<h4 id="快捷键-2">快捷键</h4>
 <table>
 <thead>
 <tr>
@@ -1279,165 +1396,14 @@
 <blockquote>
 <p>选中即复制，鼠标中键粘贴。对于单词，双击即可选中，三击选中一行。</p>
 </blockquote>
-<h4 id="配置">配置</h4>
-<p>修改打开的窗口的默认大小：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">gedit ~/.config/terminator/config<br></code></pre></td></tr></table></figure>
-<p>修改 layouts - default - window0 - size（没有就新增）（对应的是像素值）</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs bash">[layouts]<br>  [[default]]<br>    [[[child1]]]<br>      parent = window0<br>      profile = default<br>      <span class="hljs-built_in">type</span> = Terminal<br>    [[[window0]]]<br>      parent = <span class="hljs-string">&quot;&quot;</span><br>      size = 1500, 900<br>      <span class="hljs-built_in">type</span> = Window<br></code></pre></td></tr></table></figure>
-<p>保存，关闭文件。关闭所有终端后，再重新打开就应用更改了。</p>
-<h3 id="zsh">zsh</h3>
-<h4 id="特性">特性</h4>
-<ol>
-<li>色彩高亮：不同的颜色表明当前命令的类型，并且路径有无下划线表示路径是否存在。</li>
-<li>智能补全：在使用cd切换路径时，按下tab会列出当前目录下的目录和文件，如果是bash，它会提示你手动输入，但是zsh中你可以继续按一下tab进入选择模式，继续使用tab选择，或者使用方向键选择目标目录而不需手动输入。</li>
-<li>按键盘右方向键<code>-&gt;</code>直接确定整个补全提示。<code>Ctrl+-&gt;</code>按整词顺序依次确定。</li>
-<li><code>d</code>命令“回车”后，会列出我们最近进入的目录历史，并且会给这些目录加上序号，只需要输入对应目录的序号，即可重新进入该目录。</li>
-</ol>
-<h4 id="插件">插件</h4>
-<p>路径：<code>~/.oh-my-zsh/plugins</code></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs bash">plugins=(<br>    zsh-syntax-highlighting<br>    zsh-autosuggestions<br>    zsh-completions<br>    history-substring-search<br>    git<br>    autojump<br>    extract<br>    sudo<br>)<br></code></pre></td></tr></table></figure>
-<ol>
-<li>
-<p>zsh-autosuggestions————命令提示/补全。提示和补全有不同实现机制，好用之处在于补全，输入命令会根据输入的历史自动补全，并且随着输入不断修正，如果补全是你期望的结果，按下右方向键接受，再回车即可。</p>
-<p>如果你用缓冲区末尾的光标按下→ key (forward-char widget)或 End (End-of-line widget) ，它就会接受这个建议，用这个建议替换命令行 buffer 的内容。</p>
-<p>配置：</p>
-<ol>
-<li>
-<p>当您键入命令时，您将看到在光标之后提供的一个柔和的灰色的完成。可以通过设置<code>ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE</code>变量来更改此颜色。</p>
-<p>默认值是 <code>fg = 8</code>，它将从256色调色板中将前景色设置为8色。如果您的终端只支持8种颜色，您将需要使用一个介于0和7之间的数字。</p>
-<p>还可以设置背景颜色，建议可以设置粗体、下划线或突出。例如，这将在青色背景上显示带有粗体、下划线、粉红色文字的建议:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE=<span class="hljs-string">&quot;fg=#ff00ff,bg=cyan,bold,underline&quot;</span><br></code></pre></td></tr></table></figure>
-</li>
-<li>
-<p>等等。</p>
-</li>
-</ol>
-</li>
-<li>
-<p>autojump：这个插件会自动统计我们经常cd的目录，不同目录会有不同的权重。在我们想要进入某个目录时，使用<code>j &lt;dir-name&gt;</code>即可以帮助我们快速跳转到目标目录。</p>
-</li>
-<li>
-<p>extract：将各种解压命令集合成使用 <code>x &lt;archived file&gt;</code>来提取压缩文件。</p>
-</li>
-<li>
-<p>sudo：双击两次<code>ESC</code>自动在句首添加<code>sudo</code>。</p>
-</li>
-</ol>
-<h4 id="报错">报错</h4>
-<ol>
-<li>
-<p>zsh: corrupt history file /home/XXX/.zsh_history</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 解决：</span><br><span class="hljs-built_in">cp</span> .zsh_history zsh_history<br><span class="hljs-built_in">rm</span> -f .zsh_history <br>strings zsh_history .zsh_history<br><span class="hljs-comment"># 或</span><br><span class="hljs-built_in">cd</span> ~<br><span class="hljs-built_in">mv</span> .zsh_history .zsh_history_bad<br>strings .zsh_history_bad &gt; .zsh_history<br><span class="hljs-built_in">fc</span> -R .zsh_history<br></code></pre></td></tr></table></figure>
-</li>
-<li>
-<p>等等。</p>
-</li>
-</ol>
-<h3 id="Powerlevel10k">Powerlevel10k</h3>
-<blockquote>
-<p>下面都是以Oh My Zsh框架为例，其它方式详见<a target="_blank" rel="noopener" href="https://github.com/romkatv/powerlevel10k">Powerlevel10k官方文档</a>。</p>
-</blockquote>
-<h4 id="安装-2">安装</h4>
-<ol>
-<li>
-<p>克隆仓库：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">git <span class="hljs-built_in">clone</span> --depth=1 https://github.com/romkatv/powerlevel10k.git <span class="hljs-variable">$&#123;ZSH_CUSTOM:-<span class="hljs-variable">$HOME</span>/.oh-my-zsh/custom&#125;</span>/themes/powerlevel10k  <span class="hljs-comment"># for Oh My Zsh</span><br></code></pre></td></tr></table></figure>
-</li>
-<li>
-<p>Set <code>ZSH_THEME=&quot;powerlevel10k/powerlevel10k&quot;</code> in <code>~/.zshrc</code>.</p>
-</li>
-</ol>
-<p><a target="_blank" rel="noopener" href="https://github.com/romkatv/powerlevel10k?tab=readme-ov-file#installation">其它安装方式</a></p>
-<h4 id="（重新）配置：">（重新）配置：</h4>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">p10k configure<br></code></pre></td></tr></table></figure>
-<p>配置向导根据您的偏好创建 <code>~/.p10k.zsh</code> 。可以通过编辑此文件来完成其他提示自定义。它有大量注释可以帮助您浏览配置选项。</p>
-<p>例如：</p>
-<ol>
-<li>
-<p>配置终端路径显示层数：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># If set to &quot;first&quot; (&quot;last&quot;), remove everything before the first (last) subdirectory that contains</span><br><span class="hljs-comment"># files matching $POWERLEVEL9K_SHORTEN_FOLDER_MARKER. For example, when the current directory is</span><br><span class="hljs-comment"># /foo/bar/git_repo/nested_git_repo/baz, prompt will display git_repo/nested_git_repo/baz (first)</span><br><span class="hljs-comment"># or nested_git_repo/baz (last). This assumes that git_repo and nested_git_repo contain markers</span><br><span class="hljs-comment"># and other directories don&#x27;t.</span><br><span class="hljs-comment">#</span><br><span class="hljs-comment"># Optionally, &quot;first&quot; and &quot;last&quot; can be followed by &quot;:&lt;offset&gt;&quot; where &lt;offset&gt; is an integer.</span><br><span class="hljs-comment"># This moves the truncation point to the right (positive offset) or to the left (negative offset)</span><br><span class="hljs-comment"># relative to the marker. Plain &quot;first&quot; and &quot;last&quot; are equivalent to &quot;first:0&quot; and &quot;last:0&quot;</span><br><span class="hljs-comment"># respectively.</span><br><span class="hljs-built_in">typeset</span> -g POWERLEVEL9K_DIR_TRUNCATE_BEFORE_MARKER=first:-1  <span class="hljs-comment"># default false</span><br></code></pre></td></tr></table></figure>
-<blockquote>
-<p>默认显示全路径，现在配置成了显示倒数两个文件夹。</p>
-</blockquote>
-</li>
-<li>
-<p><a target="_blank" rel="noopener" href="https://github.com/romkatv/powerlevel10k?tab=readme-ov-file#horrific-mess-when-resizing-terminal-window">调整终端窗口大小时出现可怕的混乱</a>。</p>
-</li>
-</ol>
-<h4 id="更新">更新</h4>
-<ol>
-<li>
-<p>更新仓库：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">git -C <span class="hljs-variable">$&#123;ZSH_CUSTOM:-<span class="hljs-variable">$HOME</span>/.oh-my-zsh/custom&#125;</span>/themes/powerlevel10k pull  <span class="hljs-comment"># for Oh My Zsh</span><br></code></pre></td></tr></table></figure>
-</li>
-<li>
-<p>更新 Powerlevel10k 后重新启动 Zsh。不要使用 <code>source ~/.zshrc</code> 。</p>
-</li>
-</ol>
-<p><a target="_blank" rel="noopener" href="https://github.com/romkatv/powerlevel10k?tab=readme-ov-file#how-do-i-update-powerlevel10k">其它更新方式</a></p>
-<h4 id="卸载">卸载</h4>
-<ol>
-<li>
-<p>从 <code>~/.zshrc</code> 中删除所有对“p10k”的引用。您可能会在顶部看到此片段：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-keyword">if</span> [[ -r <span class="hljs-string">&quot;<span class="hljs-variable">$&#123;XDG_CACHE_HOME:-<span class="hljs-variable">$HOME</span>/.cache&#125;</span>/p10k-instant-prompt-<span class="hljs-variable">$&#123;(%):-%n&#125;</span>.zsh&quot;</span> ]]; <span class="hljs-keyword">then</span><br>  <span class="hljs-built_in">source</span> <span class="hljs-string">&quot;<span class="hljs-variable">$&#123;XDG_CACHE_HOME:-<span class="hljs-variable">$HOME</span>/.cache&#125;</span>/p10k-instant-prompt-<span class="hljs-variable">$&#123;(%):-%n&#125;</span>.zsh&quot;</span><br><span class="hljs-keyword">fi</span><br></code></pre></td></tr></table></figure>
-<p>底部是这样的：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">[[ ! -f ~/.p10k.zsh ]] || <span class="hljs-built_in">source</span> ~/.p10k.zsh<br></code></pre></td></tr></table></figure>
-<p>这些是由<a target="_blank" rel="noopener" href="https://github.com/romkatv/powerlevel10k?tab=readme-ov-file#configuration-wizard">配置向导</a>添加的。删除它们。</p>
-</li>
-<li>
-<p>从 <code>~/.zshrc</code> 、 <code>~/.zpreztorc</code> 和 <code>~/.zimrc</code> 中删除所有对“powerlevel10k”的引用（其中一些文件可能会丢失 - 这是正常的）。这些引用是您在安装 Powerlevel10k 时手动添加的。如果需要提醒，请参阅<a target="_blank" rel="noopener" href="https://github.com/romkatv/powerlevel10k?tab=readme-ov-file#installation">安装说明</a>。</p>
-</li>
-<li>
-<p>验证所有对“p10k”和“powerlevel10k”的引用均已从 <code>~/.zshrc</code> 、 <code>~/.zpreztorc</code> 和 <code>~/.zimrc</code> 中消失：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">grep -E <span class="hljs-string">&#x27;p10k|powerlevel10k&#x27;</span> ~/.zshrc ~/.zpreztorc ~/.zimrc 2&gt;/dev/null<br></code></pre></td></tr></table></figure>
-<p>如果此命令产生输出，则仍然引用“p10k”或“powerlevel10k”。你需要删除它们。</p>
-</li>
-<li>
-<p>删除Powerlevel10k配置文件。该文件由<a target="_blank" rel="noopener" href="https://github.com/romkatv/powerlevel10k?tab=readme-ov-file#configuration-wizard">配置向导</a>创建，可能包含您自己的手动编辑。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">rm</span> -f ~/.p10k.zsh<br></code></pre></td></tr></table></figure>
-</li>
-<li>
-<p>删除Powerlevel10k源文件。这些文件已在您安装 Powerlevel10k 时下载。删除它们的命令取决于您选择的安装方法。如果需要提醒，请参阅<a target="_blank" rel="noopener" href="https://github.com/romkatv/powerlevel10k?tab=readme-ov-file#installation">安装说明</a>。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">rm</span> -rf -- <span class="hljs-variable">$&#123;ZSH_CUSTOM:-<span class="hljs-variable">$HOME</span>/.oh-my-zsh/custom&#125;</span>/themes/powerlevel10k  <span class="hljs-comment"># for Oh My Zsh</span><br></code></pre></td></tr></table></figure>
-</li>
-<li>
-<p>重新启动 Zsh。不要使用 <code>source ~/.zshrc</code> 。</p>
-</li>
-<li>
-<p>删除 Powerlevel10k 缓存文件：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">rm</span> -rf -- <span class="hljs-string">&quot;<span class="hljs-variable">$&#123;XDG_CACHE_HOME:-<span class="hljs-variable">$HOME</span>/.cache&#125;</span>&quot;</span>/p10k-*(N) <span class="hljs-string">&quot;<span class="hljs-variable">$&#123;XDG_CACHE_HOME:-<span class="hljs-variable">$HOME</span>/.cache&#125;</span>&quot;</span>/gitstatus<br></code></pre></td></tr></table></figure>
-</li>
-<li>
-<p>完成。</p>
-</li>
-</ol>
-<p><a target="_blank" rel="noopener" href="https://github.com/romkatv/powerlevel10k?tab=readme-ov-file#how-do-i-uninstall-powerlevel10k">其它卸载方式</a></p>
-<h3 id="导出配置文件">导出配置文件</h3>
-<h4 id="bash">bash</h4>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">gedit ~/.bashrc<br></code></pre></td></tr></table></figure>
-<h4 id="zsh-2">zsh</h4>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">gedit ~/.zshrc<br></code></pre></td></tr></table></figure>
-<h4 id="gnome-terminal">gnome-terminal</h4>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 导出</span><br>dconf dump /org/gnome/terminal/legacy/profiles:/ &gt; ~/Documents/gnome-terminal-profiles.dconf<br><span class="hljs-comment"># 导入</span><br>dconf load /org/gnome/terminal/legacy/profiles:/ &lt; ~/Documents/gnome-terminal-profiles.dconf<br></code></pre></td></tr></table></figure>
-<p>报错：</p>
-<ul>
-<li>
-<p>错误：密钥文件不以组开头</p>
-</li>
-<li>
-<p>原因： .dconf 文件的引导行是问题所在：<code>default='...'</code></p>
-</li>
-<li>
-<p>解决：用这个替换引导线似乎使它可以加载：<code>[/]</code></p>
-<p>因此，如果它有帮助，您尝试加载的文件应具有如下所示的格式。请注意标题中的列表项与下面的条目一一对应。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs bash">[/]<br>list=[<span class="hljs-string">&#x27;b1dcc9dd-5262-4d8d-a863-c897e6d979b9&#x27;</span>, <span class="hljs-string">&#x27;6f6b9da3-d0bf-4eca-8f37-3c0e58198a63&#x27;</span>]<br>default=<span class="hljs-string">&#x27;6f6b9da3-d0bf-4eca-8f37-3c0e58198a63&#x27;</span><br><br>[:b1dcc9dd-5262-4d8d-a863-c897e6d979b9]<br>background-color=<span class="hljs-string">&#x27;rgb(0,0,0)&#x27;</span><br>use-theme-colors=<span class="hljs-literal">false</span><br>foreground-color=<span class="hljs-string">&#x27;rgb(255,255,255)&#x27;</span><br>scrollback-unlimited=<span class="hljs-literal">true</span><br><br>[:6f6b9da3-d0bf-4eca-8f37-3c0e58198a63]<br>foreground-color=<span class="hljs-string">&#x27;#F8F8F2&#x27;</span><br>visible-name=<span class="hljs-string">&#x27;dracula&#x27;</span><br>palette=[<span class="hljs-string">&#x27;#262626&#x27;</span>, <span class="hljs-string">&#x27;#E356A7&#x27;</span>, <span class="hljs-string">&#x27;#42E66C&#x27;</span>, <span class="hljs-string">&#x27;#E4F34A&#x27;</span>, <span class="hljs-string">&#x27;#9B6BDF&#x27;</span>, <span class="hljs-string">&#x27;#E64747&#x27;</span>, <span class="hljs-string">&#x27;#75D7EC&#x27;</span>, <span class="hljs-string">&#x27;#EFA554&#x27;</span>, <span class="hljs-string">&#x27;#7A7A7A&#x27;</span>, <span class="hljs-string">&#x27;#FF79C6&#x27;</span>, <span class="hljs-string">&#x27;#50FA7B&#x27;</span>, <span class="hljs-string">&#x27;#F1FA8C&#x27;</span>, <span class="hljs-string">&#x27;#BD93F9&#x27;</span>, <span class="hljs-string">&#x27;#FF5555&#x27;</span>, <span class="hljs-string">&#x27;#8BE9FD&#x27;</span>, <span class="hljs-string">&#x27;#FFB86C&#x27;</span>]<br>use-system-font=<span class="hljs-literal">false</span><br>use-theme-colors=<span class="hljs-literal">false</span><br>font=<span class="hljs-string">&#x27;JetBrains Mono 14&#x27;</span><br>scrollback-unlimited=<span class="hljs-literal">true</span><br>bold-color-same-as-fg=<span class="hljs-literal">false</span><br>bold-color=<span class="hljs-string">&#x27;#6E46A4&#x27;</span><br>background-color=<span class="hljs-string">&#x27;#282A36&#x27;</span><br></code></pre></td></tr></table></figure>
-</li>
-</ul>
-<h4 id="Terminator-2">Terminator</h4>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">gedit ~/.config/terminator/config<br></code></pre></td></tr></table></figure>
-<h4 id="Powerlevel10k-2">Powerlevel10k</h4>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">gedit ~/.p10k.zsh<br></code></pre></td></tr></table></figure>
 <h2 id="tips">tips</h2>
+<h3 id="终端程序静默运行">终端程序静默运行</h3>
+<ul>
+<li>在 Linux（以及类 Unix 系统）的终端（shell）中，命令末尾加上 <code>&amp;</code>，表示<strong>让该命令在“后台”运行</strong>。这就是常说的“后台进程”（background process）。</li>
+<li><strong>默认情况下</strong>，你在终端执行一个命令，shell 会等待该命令执行完毕，期间终端会被该进程“占用”。</li>
+<li><strong>加上 <code>&amp;</code></strong>，shell 会让这个命令在后台运行，立即把控制权还给你，你可以继续在终端输入其它命令，甚至直接关闭终端窗口（如果进程没有依赖终端，则不会被终端关闭而退出）。</li>
+<li><strong>图形界面（GUI）程序</strong>（如 VS Code）通常加 <code>&amp;</code> 就足够，不会因为关闭终端而退出（但在某些特殊终端或远程 SSH 下还是建议用 <code>nohup</code>）。</li>
+</ul>
 <h3 id="Shell脚本一次性启动多个程序（对应多个终端）">Shell脚本一次性启动多个程序（对应多个终端）</h3>
 <p>经常开发ros环境的应该知道，当节点太多难以控制的时候，不如写个脚本直接启动多个节点（对应多个终端）。</p>
 <p>先介绍一下<code>gnome-terminal</code>命令的使用：</p>
@@ -1618,7 +1584,7 @@
 <p>如果你执行的命令输出非常多，可以提前将其输出保存到文件中，方便后续查看。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">your_command &gt; output.txt<br></code></pre></td></tr></table></figure>
 <h1 id="Windows">Windows</h1>
-<h2 id="快捷键-3">快捷键</h2>
+<h2 id="快捷键-2">快捷键</h2>
 <table>
 <thead>
 <tr>
@@ -1906,7 +1872,7 @@
 </ol>
 <h1 id="软件">软件</h1>
 <h2 id="CLion">CLion</h2>
-<h3 id="快捷键-4">快捷键</h3>
+<h3 id="快捷键-3">快捷键</h3>
 <p>自定义快捷键：设置-按键映射</p>
 <table>
 <thead>
@@ -2364,7 +2330,7 @@
 </ol>
 <h3 id="环境移植">环境移植</h3>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 方法一：克隆环境</span><br>conda create -n 新环境名 --<span class="hljs-built_in">clone</span> 旧环境名  <span class="hljs-comment"># 克隆环境</span><br><br><span class="hljs-comment"># 方法二：导出环境</span><br>conda <span class="hljs-built_in">env</span> <span class="hljs-built_in">export</span> &gt; environment.yml  <span class="hljs-comment"># 导出使用 conda 安装的环境，在当前目录下生成一个名为 enviroment.yml 的文件</span><br>conda <span class="hljs-built_in">env</span> create -f environment.yml  <span class="hljs-comment"># 根据 yml 文件创建使用 conda 安装的环境</span><br><span class="hljs-comment"># 如果创建环境中途遇到了报错，希望继续创建，可以：</span><br>conda activate environment_name  <span class="hljs-comment"># 激活已经部分创建的环境</span><br>conda <span class="hljs-built_in">env</span> update --file environment.yml --prune  <span class="hljs-comment"># 继续安装剩余的依赖。--prune选项会移除不在environment.yml文件中的包。</span><br><span class="hljs-comment"># 在用 conda 的时候发现有些module还是未安装，上网找了下原因，原来以上只会导出conda命令直接安装的包，而我的包大多是用pip安装在Anaconda的lib和site-package里了。因此还要用导出pip的方法：</span><br>pip freeze &gt; environment.txt  <span class="hljs-comment"># 导出使用 pip 安装的环境，在当前目录下生成一个名为 environment.txt 的文件</span><br>pip install -r environment.txt  <span class="hljs-comment"># 根据 txt 文件创建使用 pip 安装的环境</span><br><br><span class="hljs-comment"># 方法三：利用conda pack进行环境拷贝</span><br><span class="hljs-comment"># conda-pack包安装</span><br><span class="hljs-comment"># 利用conda进行conda-pack包安装</span><br>conda install -c conda-forge conda-pack<br><span class="hljs-comment"># 利用pip进行conda-pack包安装</span><br>pip install conda-pack<br>	<br><span class="hljs-comment"># 环境打包</span><br><span class="hljs-comment"># 打包环境，生成environment.tar.gz</span><br>conda pack -n enviroment<br><span class="hljs-comment"># 打包环境，生成defined_name.tar.gz</span><br>conda pack -n my_env -o defined_name.tar.gz<br><span class="hljs-comment"># 打包环境，使生成的environment.tar.gz置于[path]下</span><br>conda pack -p [path]<br>	<br><span class="hljs-comment"># 环境移植</span><br><span class="hljs-comment"># 首先要在conda安装目录下的envs文件夹下新建一个文件夹，这个文件夹的名称就是环境的名称，即在[path of conda]/envs/下</span><br><span class="hljs-comment"># 定位到conda下的envs文件夹下</span><br><span class="hljs-built_in">cd</span> envs<br><span class="hljs-comment"># 新建用于环境的</span><br><span class="hljs-built_in">mkdir</span> enviroment<br><span class="hljs-comment"># 将打包的环境重新恢复</span><br>tar -xzf enviromen.tar.gz -C enviroment<br></code></pre></td></tr></table></figure>
-<h3 id="报错-2">报错</h3>
+<h3 id="报错">报错</h3>
 <p>在 shell 脚本中执行<code>conda activate</code>时报错:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">CondaError: Run <span class="hljs-string">&#x27;conda init&#x27;</span> before <span class="hljs-string">&#x27;conda activate&#x27;</span><br></code></pre></td></tr></table></figure>
 <p>加上<code>conda init</code>后还是报错。</p>
@@ -2380,7 +2346,7 @@
 <li></li>
 </ol>
 <h2 id="Git">Git</h2>
-<h3 id="快捷键-5">快捷键</h3>
+<h3 id="快捷键-4">快捷键</h3>
 <p>Windows下的Git Bash终端快捷键：</p>
 <table>
 <thead>
@@ -2701,7 +2667,7 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo apt upgrade  <span class="hljs-comment"># 安装可用的软件包更新</span><br>`高亮`<br>```高亮```<br><span class="hljs-comment">#! 执行</span><br></code></pre></td></tr></table></figure>
 <h4 id="脚注">脚注</h4>
 <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs markdown">您可以像这样创建脚注[^footnote].<br><br>[<span class="hljs-symbol">^footnote</span>]: <span class="hljs-link">Here is the *text* of the **footnote**.</span><br></code></pre></td></tr></table></figure>
-<h3 id="快捷键-6">快捷键</h3>
+<h3 id="快捷键-5">快捷键</h3>
 <table>
 <thead>
 <tr>
@@ -2822,10 +2788,32 @@
 <li><code>:e!</code>：将档案还原到最原始状态！</li>
 </ul>
 <p>按 <code>ESC</code> 键可随时退出<a href="#%E5%BA%95%E7%BA%BF%E5%91%BD%E4%BB%A4%E8%A1%8C%E6%A8%A1%E5%BC%8F">底线命令行模式</a>，切换回<a href="#%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F">命令模式</a></p>
-<h3 id="vi-vim按键说明">vi/vim按键说明</h3>
-<p><a href="vi/vim%E6%8C%89%E9%94%AE%E8%AF%B4%E6%98%8E">vi/vim按键说明</a></p>
+<h4 id="翻页">翻页</h4>
+<ul>
+<li>
+<p><code>Ctrl + f</code>：向下翻一页（forward）</p>
+</li>
+<li>
+<p><code>Ctrl + d</code>：向下翻半页（down）</p>
+</li>
+<li>
+<p><code>Ctrl + b</code>：向上翻一页（backward）</p>
+</li>
+<li>
+<p><code>Ctrl + u</code>：向上翻半页（up）</p>
+</li>
+<li>
+<p><code>gg</code>：跳到文件开头</p>
+</li>
+<li>
+<p><code>G</code>：跳到文件结尾</p>
+</li>
+<li>
+<p><code>数字 + G</code>：跳到指定行（如 <code>15G</code> 跳到第15行）</p>
+</li>
+</ul>
 <h2 id="VSCode">VSCode</h2>
-<h3 id="快捷键-7">快捷键</h3>
+<h3 id="快捷键-6">快捷键</h3>
 <p><a target="_blank" rel="noopener" href="https://code.visualstudio.com/docs">官方文档</a></p>
 <blockquote>
 <p>（当快捷键冲突时，）您可以通过导航到文件 -&gt; 首选项 -&gt; 键盘快捷键(Ctrl+K, Ctrl+S)并在搜索栏中搜索“导航”来更改首选键绑定。</p>

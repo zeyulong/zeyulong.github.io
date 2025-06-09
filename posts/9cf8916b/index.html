@@ -24,7 +24,7 @@
 <meta property="og:description" content="本文主要分享了程序编译、安装与卸载的知识点。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-02-19T03:05:47.000Z">
-<meta property="article:modified_time" content="2025-06-03T14:54:59.862Z">
+<meta property="article:modified_time" content="2025-06-05T10:20:26.538Z">
 <meta property="article:author" content="龙泽雨">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -409,7 +409,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2025年6月3日 晚上
+                    本文最后更新于 2025年6月5日 晚上
                   
                 
               </p>
@@ -488,6 +488,10 @@
 </blockquote>
   <figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs cmake"><span class="hljs-comment"># URL https://github.com/gflags/gflags/archive/v2.2.1.zip</span><br><br><span class="hljs-comment"># GIT_REPOSITORY  https://github.com/jbeder/yaml-cpp</span><br><span class="hljs-comment"># GIT_TAG $&#123;YAML_CPP_TAG&#125;</span><br><br><span class="hljs-comment"># DOWNLOAD_COMMAND rm -f SuiteSparse-$&#123;VERSION&#125;.tar.gz &amp;&amp; wget --retry-connrefused --waitretry=1 --timeout=40 --tries 3 https://github.com/ethz-asl/thirdparty_library_binaries/raw/master/SuiteSparse-$&#123;VERSION&#125;.tar.gz</span><br><br><span class="hljs-comment"># 对于上述的3种情况，可以替换为：</span><br>DOWNLOAD_COMMAND <span class="hljs-string">&quot;&quot;</span><br>URL <span class="hljs-string">&quot;/yourfolder/gflags-2.2.1.zip&quot;</span>  <span class="hljs-comment"># 使用存档时，它将自动解压缩，除非设置了 DOWNLOAD_NO_EXTRACT 选项来阻止它。</span><br><span class="hljs-comment"># 详细示例：https://zeyulong.com/posts/6d95d81a/</span><br><br><span class="hljs-comment"># 默认解压路径为catkin_ws/build/xxx/xxx_src-prefix/src/xxx_src</span><br><br><span class="hljs-comment"># 可选</span><br>URL_MD5 <span class="hljs-number">4628</span>df9eeae10ae5f0c486f1ac982fce  <span class="hljs-comment"># （可选，仅用作文件验证）与URL搭配。随便输入一个MD5码，编译时会报错当前压缩包正确的MD5码。</span><br>UPDATE_COMMAND <span class="hljs-string">&quot;&quot;</span>  <span class="hljs-comment"># 与URL搭配。使用自定义命令覆盖下载方法的更新步骤。</span><br>DOWNLOAD_NO_EXTRACT <span class="hljs-keyword">TRUE</span>  <span class="hljs-comment"># 允许通过为此选项传递一个布尔真值来禁用下载步骤的提取部分。</span><br><span class="hljs-comment"># 如果希望控制下载的归档文件的位置及其名称，可以使用以下选项</span><br><span class="hljs-keyword">set</span>(CMAKE_CURRENT_BINARY_DIR /yourfolder)  <span class="hljs-comment"># 放在主程序中，而不包含在ExternalProject_Add()</span><br>DOWNLOAD_DIR <span class="hljs-variable">$&#123;CMAKE_CURRENT_BINARY_DIR&#125;</span><br>DOWNLOAD_NAME jsoncpp_1.<span class="hljs-number">8.4</span>.tar.gz<br></code></pre></td></tr></table></figure>
 <p>或者，将<code>src</code>（这个文件是原本解压下载的第三方源码source的地方，具体名称要看<code>CMakeLists.txt</code>中SOURCE_DIR的设置）中的各个第三方源码都解压好，放到src对应的文件夹中。例如<code>catkin_ws/build/xxx/xxx_src-prefix/src/xxx.tar.gz</code>。</p>
+<h2 id="tips">tips</h2>
+<ul>
+<li>CMake 区分大小写。<code>DBoW3/</code> 和 <code>DBow3/</code> 会被识别为<strong>不同的文件夹</strong>。</li>
+</ul>
 <h1 id="cmake">cmake</h1>
 <h2 id="一般流程">一般流程</h2>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> package_name<br><span class="hljs-built_in">mkdir</span> build<br><span class="hljs-built_in">cd</span> build<br>cmake ..<br></code></pre></td></tr></table></figure>
@@ -553,7 +557,7 @@
 </ul>
 <p>需要注意的是，这两个命令的具体行为取决于 makefile 的编写者。在使用这些命令之前，你应该查看 makefile 或者相关的文档，以了解这些命令的具体行为。</p>
 </blockquote>
-<h1 id="tips">tips</h1>
+<h1 id="tips-2">tips</h1>
 <h2 id="cmake文件">*.cmake文件</h2>
 <ul>
 <li><code>*.cmake</code> 文件是 CMake 的脚本文件，用于定义构建逻辑、模块化配置、共享配置等。</li>
@@ -622,7 +626,7 @@
 </ol>
 <p>在这些情况下，完整的命令是：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">rm</span> -rf build<br><span class="hljs-built_in">mkdir</span> build<br><span class="hljs-built_in">cd</span> build<br>cmake ..<br>make<br></code></pre></td></tr></table></figure>
-<h3 id="tips-2">tips</h3>
+<h3 id="tips-3">tips</h3>
 <ul>
 <li>当你修改了 <code>CMakeLists.txt</code> 后直接运行 <code>make</code>，它会自动触发 <code>cmake</code> 来重新生成 Makefile。这种行为是由 CMake 和 Make 的依赖追踪机制决定的，目的是确保构建系统始终保持最新状态。具体的调用方式是由 CMake 内部生成的构建规则决定的，通常是等效于 <strong><code>cmake</code> 命令与最初配置时的参数</strong>。</li>
 <li>当你执行完 <code>cmake .. -D&lt;变量&gt;=&lt;值&gt;</code> 后，这些变量值会被缓存。如果你修改了 <code>CMakeLists.txt</code> 并重新运行 <code>cmake ..</code>，这些变量值<strong>不会变化</strong>，除非：

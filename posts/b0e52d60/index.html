@@ -24,7 +24,7 @@
 <meta property="og:description" content="本文主要总结整理了网上分享的ChatGPT、 GitHub Copilot等大模型及集成交互接口gpt_academic的使用技巧，尽可能做到物尽其用，在使用大模型时充分发挥出其优势和性能，以更好地解决问题。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-01-03T09:59:29.000Z">
-<meta property="article:modified_time" content="2025-05-05T09:19:12.784Z">
+<meta property="article:modified_time" content="2025-06-06T09:12:52.970Z">
 <meta property="article:author" content="龙泽雨">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -359,7 +359,7 @@
         
         
         
-          158 分钟
+          162 分钟
         
       </span>
     
@@ -409,7 +409,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2025年5月5日 下午
+                    本文最后更新于 2025年6月6日 下午
                   
                 
               </p>
@@ -1575,8 +1575,23 @@
 <p>在聊天视图中，您将看到一个具有三种模式的下拉菜单：</p>
 <ul>
 <li><strong><a target="_blank" rel="noopener" href="https://code.visualstudio.com/docs/copilot/chat/chat-ask-mode">询问 </a></strong>：这与之前的聊天视图相同。使用任何模型询问有关您的工作区或一般编码的问题。使用 <code>@</code> 调用内置聊天参与者或从已安装的[扩展调用 ](<a href="https://marketplace.visualstudio.com/search?term=chat-participant&amp;target=VSCode&amp;category=All">https://marketplace.visualstudio.com/search?term=chat-participant&amp;target=VSCode&amp;category=All</a> categories&amp;sortBy=Relevance)。使用 <code>#</code> 手动附加任何类型的上下文。</li>
-<li><strong><a target="_blank" rel="noopener" href="https://code.visualstudio.com/docs/copilot/chat/chat-agent-mode">代理 </a></strong>：使用一组工具启动代理编码流程，使其能够自主收集上下文、运行终端命令或采取其他操作来完成任务。代理模式已为所有 <a target="_blank" rel="noopener" href="https://code.visualstudio.com/insiders/">VS Code Insiders</a> 用户启用，我们正在向 VS Code Stable 中的更多用户推出该模式。</li>
-<li><strong><a target="_blank" rel="noopener" href="https://code.visualstudio.com/docs/copilot/chat/copilot-edits">编辑 </a></strong>：在编辑模式下，模型可以对多个文件进行定向编辑。附加 <code>#codebase</code> 以使其自动找到要编辑的文件。但它不会运行终端命令或自动执行任何其他操作。</li>
+<li><strong><a target="_blank" rel="noopener" href="https://code.visualstudio.com/docs/copilot/chat/chat-agent-mode">代理 </a></strong>：使用一组工具启动代理编码流程，使其能够自主收集上下文、运行终端命令或采取其他操作来完成任务。代理模式已为所有 <a target="_blank" rel="noopener" href="https://code.visualstudio.com/insiders/">VS Code Insiders</a> 用户启用，我们正在向 VS Code Stable 中的更多用户推出该模式。<a target="_blank" rel="noopener" href="https://code.visualstudio.com/docs/copilot/chat/chat-agent-mode#_why-would-i-use-agent-mode-instead-of-edit-mode">为什么我要使用代理模式而不是编辑模式？</a>在编辑模式和代理模式之间进行选择时，请考虑以下标准：
+<ul>
+<li><strong>编辑范围</strong> ：代理模式会自主确定要编辑的相关上下文和文件。在编辑模式下，您需要自行指定上下文。</li>
+<li><strong>任务复杂性</strong> ：代理模式更适合复杂的任务，这些任务不仅需要编辑代码，还需要调用工具和终端命令。</li>
+<li><strong>时长</strong> ：代理模式涉及多个步骤来处理请求，因此可能需要更长时间才能获得响应。例如，确定要编辑的相关上下文和文件，确定行动计划等等。</li>
+<li><strong>自我修复</strong> ：代理模式评估生成的编辑的结果，并可能多次迭代以解决中间问题。</li>
+<li><strong>请求配额</strong> ：在代理模式下，根据任务的复杂性，一个提示可能会导致向后端发出许多请求。</li>
+</ul>
+</li>
+<li><strong><a target="_blank" rel="noopener" href="https://code.visualstudio.com/docs/copilot/chat/copilot-edits">编辑 </a></strong>：在编辑模式下，模型可以对多个文件进行定向编辑。附加 <code>#codebase</code> 以使其自动找到要编辑的文件。但它不会运行终端命令或自动执行任何其他操作。<a target="_blank" rel="noopener" href="https://code.visualstudio.com/docs/copilot/chat/copilot-edits">为什么我要使用编辑模式而不是代理模式？</a>在编辑模式和代理模式之间进行选择时，请考虑以下标准：
+<ul>
+<li><strong>编辑范围</strong> ：如果您的请求仅涉及代码编辑并且您知道更改的确切范围，则您可以使用编辑模式。</li>
+<li><strong>时长</strong> ：代理模式涉及多个步骤来处理请求，因此可能需要更长时间才能获得响应。例如，确定要编辑的相关上下文和文件，确定行动计划等等。</li>
+<li><strong>不确定性</strong> ：代理模式会评估生成的编辑结果，并且可能会进行多次迭代。因此，代理模式的不确定性可能比编辑模式更大。</li>
+<li><strong>请求配额</strong> ：在代理模式下，根据任务的复杂性，一个提示可能会导致向后端发出许多请求。</li>
+</ul>
+</li>
 </ul>
 <blockquote>
 <p><strong>在对话过程中切换模式</strong>：例如，您可能在询问模式下开始集思广益提出应用创意，然后切换到代理模式来执行计划。提示：按 Ctrl+. 可快速切换模式。</p>

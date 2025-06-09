@@ -24,7 +24,7 @@
 <meta property="og:description" content="本文主要分享了Windows、Linux系统的配置与常用软件的安装。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-01-31T16:27:11.000Z">
-<meta property="article:modified_time" content="2025-06-03T14:53:17.814Z">
+<meta property="article:modified_time" content="2025-06-09T12:08:16.049Z">
 <meta property="article:author" content="龙泽雨">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -348,7 +348,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          22k 字
+          26k 字
         
       </span>
     
@@ -359,7 +359,7 @@
         
         
         
-          186 分钟
+          221 分钟
         
       </span>
     
@@ -409,7 +409,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2025年6月3日 晚上
+                    本文最后更新于 2025年6月9日 晚上
                   
                 
               </p>
@@ -1874,10 +1874,244 @@
 <p>完成。</p>
 </li>
 </ol>
+<h1 id="命令行解释器Shell">命令行解释器Shell</h1>
+<h2 id="Bash">Bash</h2>
+<h3 id="自定义终端提示符的样式">自定义终端提示符的样式</h3>
+<p>配置信息在<code>~/.bashrc</code>的这几行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-keyword">if</span> [ <span class="hljs-string">&quot;<span class="hljs-variable">$color_prompt</span>&quot;</span> = <span class="hljs-built_in">yes</span> ]; <span class="hljs-keyword">then</span><br>    PS1=<span class="hljs-string">&#x27;$&#123;debian_chroot:+($debian_chroot)&#125;\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ &#x27;</span>  <span class="hljs-comment"># PS1 是 Bash 的主提示符变量，决定了你在终端输入命令时看到的提示符样式（如 user@host:~/dir$）。</span><br><span class="hljs-keyword">else</span><br>    PS1=<span class="hljs-string">&#x27;$&#123;debian_chroot:+($debian_chroot)&#125;\u@\h:\w\$ &#x27;</span><br><span class="hljs-keyword">fi</span><br><span class="hljs-built_in">unset</span> color_prompt force_color_prompt  <span class="hljs-comment"># 删除（取消设置）变量 color_prompt 和 force_color_prompt，释放环境变量，防止它们影响后续操作或脚本。</span><br></code></pre></td></tr></table></figure>
+<p>也就是由<code>PS1</code>参数控制。</p>
+<p>同理，可以通过修改相关的<code>.bashrc</code>文件，解决ssh服务器、进入root（<code>/root/.bashrc</code>）和进入Docker时提示符样式（如 <code>user@host:~/dir$</code>）没有配色等问题。比如，</p>
+<ul>
+<li>强制启用彩色提示符：<code>color_prompt=yes</code></li>
+<li>或者直接设置你喜欢的彩色PS1：<code>PS1='$&#123;debian_chroot:+($debian_chroot)&#125;\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '</code></li>
+</ul>
+<h2 id="Terminator">Terminator</h2>
+<h3 id="安装-2">安装</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo apt install terminator<br></code></pre></td></tr></table></figure>
+<p>对于Ubuntu系统，如果安装了terminator，那么快捷键Ctrl+Alt+T将不会启动自带的terminal，而是启动安装的terminator。</p>
+<p>如果想恢复回来，可以执行以下命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo update-alternatives --config x-terminal-emulator<br><span class="hljs-comment"># 然后选择：</span><br>gnome-terminal.wrapper<br></code></pre></td></tr></table></figure>
+<h3 id="配置-2">配置</h3>
+<h4 id="修改打开的窗口的默认大小">修改打开的窗口的默认大小</h4>
+<p>修改打开的窗口的默认大小：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">gedit ~/.config/terminator/config<br></code></pre></td></tr></table></figure>
+<p>修改 layouts - default - window0 - size（没有就新增）（对应的是像素值）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs bash">[layouts]<br>  [[default]]<br>    [[[child1]]]<br>      parent = window0<br>      profile = default<br>      <span class="hljs-built_in">type</span> = Terminal<br>    [[[window0]]]<br>      parent = <span class="hljs-string">&quot;&quot;</span><br>      size = 1500, 900<br>      <span class="hljs-built_in">type</span> = Window<br></code></pre></td></tr></table></figure>
+<p>保存，关闭文件。关闭所有终端后，再重新打开就应用更改了。</p>
+<h4 id="添加右键菜单">添加右键菜单</h4>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/zhanghm1995/article/details/89419109">Ubuntu16.04或Ubuntu18.04设置右键打开terminator而非系统terminal</a></p>
+<ol>
+<li>
+<p>安装nautilus-actions软件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo apt-get update<br>sudo apt-get install nautilus-actions<br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>在终端执行该命令时，可能会出现“无法定位该软件”的错误，主要是因为Ubuntu16.04系统默认没有添加该软件源。需要打开“软件和更新”-Ubuntu软件-可从互联网下载-勾选“社区维护的免费和开源软件（universe）”。</p>
+</blockquote>
+<blockquote>
+<p>对于Ubuntu18.04系统，已经取消了<code>nautilus-actions</code>这个软件，取而代之的是<code>filemanager-actions</code>这个软件。安装方法如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo add-apt-repository ppa:daniel-marynicz/filemanager-actions<br>sudo apt update<br>sudo apt install filemanager-actions-nautilus-extension<br></code></pre></td></tr></table></figure>
+</blockquote>
+</li>
+<li>
+<p>配置nautilus-actions软件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">nautilus-actions-config-tool<br><span class="hljs-comment"># 或</span><br>fma-config-tool<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>文件-新建动作：</p>
+<ol>
+<li>动作：
+<ol>
+<li>勾选“显示选择右键菜单中的项目”</li>
+<li>勾选“Display item in location context menu”</li>
+<li>Context labei: Open in terminator</li>
+<li>工具提示：open in terminator</li>
+</ol>
+</li>
+<li>命令：
+<ol>
+<li>命令-路径：/usr/bin/terminator</li>
+<li>命令-参数：--working-directory=%d/%b</li>
+</ol>
+</li>
+<li>文件-Save。</li>
+</ol>
+</li>
+<li>
+<p>FilManager-Actions Configuration Tool-Preferences-取消勾选“Create a root ‘Nautilus-Actions’ menu”-确定。</p>
+</li>
+<li>
+<p>文件-Save。</p>
+</li>
+<li>
+<p>全部配置完成后，重启电脑，或者在终端运行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">nautilus -q  <span class="hljs-comment"># 关闭Nautilus文件管理器</span><br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>此时打开任何一个文件，鼠标右键，就会有一个<code>Open in terminator</code>选项。</p>
+</li>
+<li>
+<p>完成。</p>
+</li>
+</ol>
+<h2 id="zsh">zsh</h2>
+<h3 id="特性">特性</h3>
+<ol>
+<li>色彩高亮：不同的颜色表明当前命令的类型，并且路径有无下划线表示路径是否存在。</li>
+<li>智能补全：在使用cd切换路径时，按下tab会列出当前目录下的目录和文件，如果是bash，它会提示你手动输入，但是zsh中你可以继续按一下tab进入选择模式，继续使用tab选择，或者使用方向键选择目标目录而不需手动输入。</li>
+<li>按键盘右方向键<code>-&gt;</code>直接确定整个补全提示。<code>Ctrl+-&gt;</code>按整词顺序依次确定。</li>
+<li><code>d</code>命令“回车”后，会列出我们最近进入的目录历史，并且会给这些目录加上序号，只需要输入对应目录的序号，即可重新进入该目录。</li>
+</ol>
+<h3 id="插件">插件</h3>
+<p>路径：<code>~/.oh-my-zsh/plugins</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs bash">plugins=(<br>    zsh-syntax-highlighting<br>    zsh-autosuggestions<br>    zsh-completions<br>    history-substring-search<br>    git<br>    autojump<br>    extract<br>    sudo<br>)<br></code></pre></td></tr></table></figure>
+<ol>
+<li>
+<p>zsh-autosuggestions————命令提示/补全。提示和补全有不同实现机制，好用之处在于补全，输入命令会根据输入的历史自动补全，并且随着输入不断修正，如果补全是你期望的结果，按下右方向键接受，再回车即可。</p>
+<p>如果你用缓冲区末尾的光标按下→ key (forward-char widget)或 End (End-of-line widget) ，它就会接受这个建议，用这个建议替换命令行 buffer 的内容。</p>
+<p>配置：</p>
+<ol>
+<li>
+<p>当您键入命令时，您将看到在光标之后提供的一个柔和的灰色的完成。可以通过设置<code>ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE</code>变量来更改此颜色。</p>
+<p>默认值是 <code>fg = 8</code>，它将从256色调色板中将前景色设置为8色。如果您的终端只支持8种颜色，您将需要使用一个介于0和7之间的数字。</p>
+<p>还可以设置背景颜色，建议可以设置粗体、下划线或突出。例如，这将在青色背景上显示带有粗体、下划线、粉红色文字的建议:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE=<span class="hljs-string">&quot;fg=#ff00ff,bg=cyan,bold,underline&quot;</span><br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>等等。</p>
+</li>
+</ol>
+</li>
+<li>
+<p>autojump：这个插件会自动统计我们经常cd的目录，不同目录会有不同的权重。在我们想要进入某个目录时，使用<code>j &lt;dir-name&gt;</code>即可以帮助我们快速跳转到目标目录。</p>
+</li>
+<li>
+<p>extract：将各种解压命令集合成使用 <code>x &lt;archived file&gt;</code>来提取压缩文件。</p>
+</li>
+<li>
+<p>sudo：双击两次<code>ESC</code>自动在句首添加<code>sudo</code>。</p>
+</li>
+</ol>
+<h3 id="报错">报错</h3>
+<ol>
+<li>
+<p>zsh: corrupt history file /home/XXX/.zsh_history</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 解决：</span><br><span class="hljs-built_in">cp</span> .zsh_history zsh_history<br><span class="hljs-built_in">rm</span> -f .zsh_history <br>strings zsh_history .zsh_history<br><span class="hljs-comment"># 或</span><br><span class="hljs-built_in">cd</span> ~<br><span class="hljs-built_in">mv</span> .zsh_history .zsh_history_bad<br>strings .zsh_history_bad &gt; .zsh_history<br><span class="hljs-built_in">fc</span> -R .zsh_history<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>等等。</p>
+</li>
+</ol>
+<h2 id="Powerlevel10k">Powerlevel10k</h2>
+<blockquote>
+<p>下面都是以Oh My Zsh框架为例，其它方式详见<a target="_blank" rel="noopener" href="https://github.com/romkatv/powerlevel10k">Powerlevel10k官方文档</a>。</p>
+</blockquote>
+<h3 id="安装-3">安装</h3>
+<ol>
+<li>
+<p>克隆仓库：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">git <span class="hljs-built_in">clone</span> --depth=1 https://github.com/romkatv/powerlevel10k.git <span class="hljs-variable">$&#123;ZSH_CUSTOM:-<span class="hljs-variable">$HOME</span>/.oh-my-zsh/custom&#125;</span>/themes/powerlevel10k  <span class="hljs-comment"># for Oh My Zsh</span><br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>Set <code>ZSH_THEME=&quot;powerlevel10k/powerlevel10k&quot;</code> in <code>~/.zshrc</code>.</p>
+</li>
+</ol>
+<p><a target="_blank" rel="noopener" href="https://github.com/romkatv/powerlevel10k?tab=readme-ov-file#installation">其它安装方式</a></p>
+<h3 id="（重新）配置：">（重新）配置：</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">p10k configure<br></code></pre></td></tr></table></figure>
+<p>配置向导根据您的偏好创建 <code>~/.p10k.zsh</code> 。可以通过编辑此文件来完成其他提示自定义。它有大量注释可以帮助您浏览配置选项。</p>
+<p>例如：</p>
+<ol>
+<li>
+<p>配置终端路径显示层数：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># If set to &quot;first&quot; (&quot;last&quot;), remove everything before the first (last) subdirectory that contains</span><br><span class="hljs-comment"># files matching $POWERLEVEL9K_SHORTEN_FOLDER_MARKER. For example, when the current directory is</span><br><span class="hljs-comment"># /foo/bar/git_repo/nested_git_repo/baz, prompt will display git_repo/nested_git_repo/baz (first)</span><br><span class="hljs-comment"># or nested_git_repo/baz (last). This assumes that git_repo and nested_git_repo contain markers</span><br><span class="hljs-comment"># and other directories don&#x27;t.</span><br><span class="hljs-comment">#</span><br><span class="hljs-comment"># Optionally, &quot;first&quot; and &quot;last&quot; can be followed by &quot;:&lt;offset&gt;&quot; where &lt;offset&gt; is an integer.</span><br><span class="hljs-comment"># This moves the truncation point to the right (positive offset) or to the left (negative offset)</span><br><span class="hljs-comment"># relative to the marker. Plain &quot;first&quot; and &quot;last&quot; are equivalent to &quot;first:0&quot; and &quot;last:0&quot;</span><br><span class="hljs-comment"># respectively.</span><br><span class="hljs-built_in">typeset</span> -g POWERLEVEL9K_DIR_TRUNCATE_BEFORE_MARKER=first:-1  <span class="hljs-comment"># default false</span><br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>默认显示全路径，现在配置成了显示倒数两个文件夹。</p>
+</blockquote>
+</li>
+<li>
+<p><a target="_blank" rel="noopener" href="https://github.com/romkatv/powerlevel10k?tab=readme-ov-file#horrific-mess-when-resizing-terminal-window">调整终端窗口大小时出现可怕的混乱</a>。</p>
+</li>
+</ol>
+<h3 id="更新">更新</h3>
+<ol>
+<li>
+<p>更新仓库：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">git -C <span class="hljs-variable">$&#123;ZSH_CUSTOM:-<span class="hljs-variable">$HOME</span>/.oh-my-zsh/custom&#125;</span>/themes/powerlevel10k pull  <span class="hljs-comment"># for Oh My Zsh</span><br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>更新 Powerlevel10k 后重新启动 Zsh。不要使用 <code>source ~/.zshrc</code> 。</p>
+</li>
+</ol>
+<p><a target="_blank" rel="noopener" href="https://github.com/romkatv/powerlevel10k?tab=readme-ov-file#how-do-i-update-powerlevel10k">其它更新方式</a></p>
+<h3 id="卸载-2">卸载</h3>
+<ol>
+<li>
+<p>从 <code>~/.zshrc</code> 中删除所有对“p10k”的引用。您可能会在顶部看到此片段：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-keyword">if</span> [[ -r <span class="hljs-string">&quot;<span class="hljs-variable">$&#123;XDG_CACHE_HOME:-<span class="hljs-variable">$HOME</span>/.cache&#125;</span>/p10k-instant-prompt-<span class="hljs-variable">$&#123;(%):-%n&#125;</span>.zsh&quot;</span> ]]; <span class="hljs-keyword">then</span><br>  <span class="hljs-built_in">source</span> <span class="hljs-string">&quot;<span class="hljs-variable">$&#123;XDG_CACHE_HOME:-<span class="hljs-variable">$HOME</span>/.cache&#125;</span>/p10k-instant-prompt-<span class="hljs-variable">$&#123;(%):-%n&#125;</span>.zsh&quot;</span><br><span class="hljs-keyword">fi</span><br></code></pre></td></tr></table></figure>
+<p>底部是这样的：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">[[ ! -f ~/.p10k.zsh ]] || <span class="hljs-built_in">source</span> ~/.p10k.zsh<br></code></pre></td></tr></table></figure>
+<p>这些是由<a target="_blank" rel="noopener" href="https://github.com/romkatv/powerlevel10k?tab=readme-ov-file#configuration-wizard">配置向导</a>添加的。删除它们。</p>
+</li>
+<li>
+<p>从 <code>~/.zshrc</code> 、 <code>~/.zpreztorc</code> 和 <code>~/.zimrc</code> 中删除所有对“powerlevel10k”的引用（其中一些文件可能会丢失 - 这是正常的）。这些引用是您在安装 Powerlevel10k 时手动添加的。如果需要提醒，请参阅<a target="_blank" rel="noopener" href="https://github.com/romkatv/powerlevel10k?tab=readme-ov-file#installation">安装说明</a>。</p>
+</li>
+<li>
+<p>验证所有对“p10k”和“powerlevel10k”的引用均已从 <code>~/.zshrc</code> 、 <code>~/.zpreztorc</code> 和 <code>~/.zimrc</code> 中消失：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">grep -E <span class="hljs-string">&#x27;p10k|powerlevel10k&#x27;</span> ~/.zshrc ~/.zpreztorc ~/.zimrc 2&gt;/dev/null<br></code></pre></td></tr></table></figure>
+<p>如果此命令产生输出，则仍然引用“p10k”或“powerlevel10k”。你需要删除它们。</p>
+</li>
+<li>
+<p>删除Powerlevel10k配置文件。该文件由<a target="_blank" rel="noopener" href="https://github.com/romkatv/powerlevel10k?tab=readme-ov-file#configuration-wizard">配置向导</a>创建，可能包含您自己的手动编辑。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">rm</span> -f ~/.p10k.zsh<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>删除Powerlevel10k源文件。这些文件已在您安装 Powerlevel10k 时下载。删除它们的命令取决于您选择的安装方法。如果需要提醒，请参阅<a target="_blank" rel="noopener" href="https://github.com/romkatv/powerlevel10k?tab=readme-ov-file#installation">安装说明</a>。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">rm</span> -rf -- <span class="hljs-variable">$&#123;ZSH_CUSTOM:-<span class="hljs-variable">$HOME</span>/.oh-my-zsh/custom&#125;</span>/themes/powerlevel10k  <span class="hljs-comment"># for Oh My Zsh</span><br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>重新启动 Zsh。不要使用 <code>source ~/.zshrc</code> 。</p>
+</li>
+<li>
+<p>删除 Powerlevel10k 缓存文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">rm</span> -rf -- <span class="hljs-string">&quot;<span class="hljs-variable">$&#123;XDG_CACHE_HOME:-<span class="hljs-variable">$HOME</span>/.cache&#125;</span>&quot;</span>/p10k-*(N) <span class="hljs-string">&quot;<span class="hljs-variable">$&#123;XDG_CACHE_HOME:-<span class="hljs-variable">$HOME</span>/.cache&#125;</span>&quot;</span>/gitstatus<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>完成。</p>
+</li>
+</ol>
+<p><a target="_blank" rel="noopener" href="https://github.com/romkatv/powerlevel10k?tab=readme-ov-file#how-do-i-uninstall-powerlevel10k">其它卸载方式</a></p>
+<h2 id="导出配置文件">导出配置文件</h2>
+<h3 id="bash">bash</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">gedit ~/.bashrc<br></code></pre></td></tr></table></figure>
+<h3 id="zsh-2">zsh</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">gedit ~/.zshrc<br></code></pre></td></tr></table></figure>
+<h3 id="gnome-terminal">gnome-terminal</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 导出</span><br>dconf dump /org/gnome/terminal/legacy/profiles:/ &gt; ~/Documents/gnome-terminal-profiles.dconf<br><span class="hljs-comment"># 导入</span><br>dconf load /org/gnome/terminal/legacy/profiles:/ &lt; ~/Documents/gnome-terminal-profiles.dconf<br></code></pre></td></tr></table></figure>
+<p>报错：</p>
+<ul>
+<li>
+<p>错误：密钥文件不以组开头</p>
+</li>
+<li>
+<p>原因： .dconf 文件的引导行是问题所在：<code>default='...'</code></p>
+</li>
+<li>
+<p>解决：用这个替换引导线似乎使它可以加载：<code>[/]</code></p>
+<p>因此，如果它有帮助，您尝试加载的文件应具有如下所示的格式。请注意标题中的列表项与下面的条目一一对应。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs bash">[/]<br>list=[<span class="hljs-string">&#x27;b1dcc9dd-5262-4d8d-a863-c897e6d979b9&#x27;</span>, <span class="hljs-string">&#x27;6f6b9da3-d0bf-4eca-8f37-3c0e58198a63&#x27;</span>]<br>default=<span class="hljs-string">&#x27;6f6b9da3-d0bf-4eca-8f37-3c0e58198a63&#x27;</span><br><br>[:b1dcc9dd-5262-4d8d-a863-c897e6d979b9]<br>background-color=<span class="hljs-string">&#x27;rgb(0,0,0)&#x27;</span><br>use-theme-colors=<span class="hljs-literal">false</span><br>foreground-color=<span class="hljs-string">&#x27;rgb(255,255,255)&#x27;</span><br>scrollback-unlimited=<span class="hljs-literal">true</span><br><br>[:6f6b9da3-d0bf-4eca-8f37-3c0e58198a63]<br>foreground-color=<span class="hljs-string">&#x27;#F8F8F2&#x27;</span><br>visible-name=<span class="hljs-string">&#x27;dracula&#x27;</span><br>palette=[<span class="hljs-string">&#x27;#262626&#x27;</span>, <span class="hljs-string">&#x27;#E356A7&#x27;</span>, <span class="hljs-string">&#x27;#42E66C&#x27;</span>, <span class="hljs-string">&#x27;#E4F34A&#x27;</span>, <span class="hljs-string">&#x27;#9B6BDF&#x27;</span>, <span class="hljs-string">&#x27;#E64747&#x27;</span>, <span class="hljs-string">&#x27;#75D7EC&#x27;</span>, <span class="hljs-string">&#x27;#EFA554&#x27;</span>, <span class="hljs-string">&#x27;#7A7A7A&#x27;</span>, <span class="hljs-string">&#x27;#FF79C6&#x27;</span>, <span class="hljs-string">&#x27;#50FA7B&#x27;</span>, <span class="hljs-string">&#x27;#F1FA8C&#x27;</span>, <span class="hljs-string">&#x27;#BD93F9&#x27;</span>, <span class="hljs-string">&#x27;#FF5555&#x27;</span>, <span class="hljs-string">&#x27;#8BE9FD&#x27;</span>, <span class="hljs-string">&#x27;#FFB86C&#x27;</span>]<br>use-system-font=<span class="hljs-literal">false</span><br>use-theme-colors=<span class="hljs-literal">false</span><br>font=<span class="hljs-string">&#x27;JetBrains Mono 14&#x27;</span><br>scrollback-unlimited=<span class="hljs-literal">true</span><br>bold-color-same-as-fg=<span class="hljs-literal">false</span><br>bold-color=<span class="hljs-string">&#x27;#6E46A4&#x27;</span><br>background-color=<span class="hljs-string">&#x27;#282A36&#x27;</span><br></code></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="Terminator-2">Terminator</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">gedit ~/.config/terminator/config<br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>如果没有这个文件（夹），就先在终端窗口中修改下Terminator的配置，就会自动生成<code>config</code>文件。</p>
+</blockquote>
+<h3 id="Powerlevel10k-2">Powerlevel10k</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">gedit ~/.p10k.zsh<br></code></pre></td></tr></table></figure>
 <h1 id="Mission-Center">Mission Center</h1>
 <p>类似于Windows的任务管理器。</p>
 <p><a target="_blank" rel="noopener" href="https://missioncenter.io/">Mission Center官网</a></p>
-<h2 id="安装-2">安装</h2>
+<h2 id="安装-4">安装</h2>
 <p><a target="_blank" rel="noopener" href="https://flathub.org/setup/Ubuntu">flathub官方安装教程</a></p>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/jiexijihe945/article/details/137559859">Mission Center安装参考链接</a></p>
 <ol>
@@ -1926,14 +2160,14 @@
 </ul>
 <h1 id="Office">Office</h1>
 <h2 id="Microsoft-Office">Microsoft Office</h2>
-<h2 id="配置-2">配置</h2>
+<h2 id="配置-3">配置</h2>
 <h3 id="修改快捷键">修改快捷键</h3>
 <ol>
 <li>File(文件)-&gt;options(选项)-&gt; Customize ribbon(自定义功能区)-&gt;Customize (自定义快捷键)</li>
 <li>选择 All commands(所有命令)-&gt;PasteTextOnly(粘贴纯文本)， 在 Press new shortcut key (键入新快捷键)中输入自己喜欢的快捷键，例如示例中的 Ctrl+Shift+V, 点击 Assign(确定)，即可使用快捷键 Ctrl+Shift+V 去粘贴为纯文本了。</li>
 </ol>
 <h2 id="Libre-Office">Libre Office</h2>
-<h3 id="配置-3">配置</h3>
+<h3 id="配置-4">配置</h3>
 <h4 id="修改快捷键-2">修改快捷键</h4>
 <p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/353517766">Word中设置粘贴为纯文本的自定义快捷键</a></p>
 <ol>
@@ -1961,7 +2195,7 @@
 <h1 id="Okular">Okular</h1>
 <p>Linux下使用的PDF阅读器。</p>
 <p><a target="_blank" rel="noopener" href="https://okular.kde.org/">Okular官网</a></p>
-<h2 id="安装-3">安装</h2>
+<h2 id="安装-5">安装</h2>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 首先，通过运行以下命令确保所有系统包都是最新的 apt 终端中的命令。</span><br>sudo apt update<br>sudo apt upgrade<br><span class="hljs-comment"># 默认情况下，Okular 在 Ubuntu 20.04 基础存储库中不可用。 现在运行以下命令以在您的 Ubuntu 系统上启用 Universe 存储库。</span><br>sudo add-apt-repository universe<br><span class="hljs-comment"># 运行以下命令更新包索引并安装 Okular PDF 查看器。</span><br>sudo apt update <br>sudo apt install okular<br><br><span class="hljs-comment"># 或，通过 Snap 安装 Okular</span><br><span class="hljs-comment"># 如果尚未安装 Snapd 软件包，则可以通过运行以下命令来安装它</span><br>sudo apt update<br>sudo apt install snapd<br><span class="hljs-comment"># 要安装 Okular，只需使用以下命令</span><br>sudo snap install okular<br><br><span class="hljs-comment"># 或，在软件中心搜索okular，点击install。</span><br></code></pre></td></tr></table></figure>
 <h2 id="中文配置">中文配置</h2>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_34626094/article/details/112647745">参考链接</a></p>
@@ -1997,12 +2231,12 @@ sudo okular
 <h1 id="Piper">Piper</h1>
 <p>我使用的鼠标是Logitech G502，但是Logitech的鼠标驱动<a target="_blank" rel="noopener" href="https://support.logi.com/hc/zh-cn/articles/360025298133-Logitech-G-HUB">Logitech G HUB</a>只提供了Windows和Mac版。当然，我相信Piper提供的鼠标驱动不止适用于这款鼠标。</p>
 <p><a target="_blank" rel="noopener" href="https://github.com/libratbag/piper">项目地址</a></p>
-<h2 id="安装-4">安装</h2>
+<h2 id="安装-6">安装</h2>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo add-apt-repository ppa:libratbag-piper/piper-libratbag-git<br>sudo apt update<br><span class="hljs-comment"># 对于 &lt; Ubuntu 20.04 版本的系统，需要先添加上面的PPA</span><br>sudo apt install piper<br></code></pre></td></tr></table></figure>
 <h2 id="使用-3">使用</h2>
 <p>Win+A打开应用列表，找到Piper点击即可。</p>
 <h1 id="Powershell">Powershell</h1>
-<h2 id="更新">更新</h2>
+<h2 id="更新-2">更新</h2>
 <p><a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/powershell/scripting/install/installing-powershell?view=powershell-7.4">官方文档</a></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash">winget <span class="hljs-built_in">source</span> remove winget  <span class="hljs-comment"># 删除由 Microsoft 维护的官方源</span><br>winget <span class="hljs-built_in">source</span> add winget https://mirrors.ustc.edu.cn/winget-source  <span class="hljs-comment"># 添加中科大开源软件镜像源</span><br>winget <span class="hljs-built_in">source</span> list  <span class="hljs-comment"># 换源进行验证和查看</span><br><span class="hljs-comment"># 如果要恢复使用 Microsoft 官方源，可以使用以下命令进行重置</span><br>winget <span class="hljs-built_in">source</span> reset winget<br><br>winget install --<span class="hljs-built_in">id</span> Microsoft.Powershell --<span class="hljs-built_in">source</span> winget<br><span class="hljs-variable">$PSVersionTable</span>  <span class="hljs-comment"># 查看版本</span><br></code></pre></td></tr></table></figure>
 <p>安装程序在 Windows“开始”菜单中创建一个快捷方式。</p>
@@ -2010,7 +2244,7 @@ sudo okular
 <li>默认情况下，包安装位置为 <code>$env:ProgramFiles\PowerShell\&lt;version&gt;</code></li>
 <li>可以通过“开始”菜单或 <code>$env:ProgramFiles\PowerShell\&lt;version&gt;\pwsh.exe</code> 启动 PowerShell</li>
 </ul>
-<h2 id="配置-4">配置</h2>
+<h2 id="配置-5">配置</h2>
 <h3 id="自动补全">自动补全</h3>
 <p>PowerShell 命令自动补全：按 Tab 键。</p>
 <p><a target="_blank" rel="noopener" href="https://sspai.com/post/73019">https://sspai.com/post/73019</a></p>
@@ -2099,7 +2333,7 @@ sudo okular
 <h3 id="如何卸载？">如何卸载？</h3>
 <p>请尽量使用你安装时使用的对应方式来卸载QQ Linux版（参考你所使用的系统安装包管理器说明）。同样需要root权限才能完成卸载。以下是一些例子：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo rpm -e linuxqq<br>sudo dpkg -r linuxqq<br></code></pre></td></tr></table></figure>
-<h2 id="更新-2">更新</h2>
+<h2 id="更新-3">更新</h2>
 <p>下载最新版的安装包，如<code>.deb</code>，双击安装即可覆盖。</p>
 <h1 id="搜狗输入法">搜狗输入法</h1>
 <h2 id="下载安装-3">下载安装</h2>
@@ -2115,9 +2349,18 @@ sudo okular
 <li>
 <p>Windows端：</p>
 <ol>
-<li>下载<a target="_blank" rel="noopener" href="https://syncthing.net/downloads/">相应版本</a>，一般为Intel/AMD (64-bit)。</li>
-<li>解压后双击打开<code>syncthing.exe</code>，将打开终端、自动打开网页。</li>
-<li>网页右上角：操作-设置-GUI-设置用户和密码-保存。</li>
+<li>
+<p>下载<a target="_blank" rel="noopener" href="https://syncthing.net/downloads/">相应版本</a>，一般为Intel/AMD (64-bit)。</p>
+</li>
+<li>
+<p>解压后双击打开<code>syncthing.exe</code>，将打开终端、自动打开网页。</p>
+<blockquote>
+<p>管理 GUI 自动启动并保持可用 <code>http://localhost:8384/</code> 。Cookie 对于 GUI 的正常运行至关重要；请确保您的浏览器接受它们。</p>
+</blockquote>
+</li>
+<li>
+<p>网页右上角：操作-设置-GUI-设置用户和密码-保存。</p>
+</li>
 </ol>
 </li>
 <li>
@@ -2140,7 +2383,7 @@ sudo okular
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># Add the release PGP keys:</span><br>sudo <span class="hljs-built_in">mkdir</span> -p /etc/apt/keyrings<br>sudo curl -L -o /etc/apt/keyrings/syncthing-archive-keyring.gpg https://syncthing.net/release-key.gpg<br><br><span class="hljs-comment"># Add the &quot;stable&quot; channel to your APT sources:</span><br><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;deb [signed-by=/etc/apt/keyrings/syncthing-archive-keyring.gpg] https://apt.syncthing.net/ syncthing stable&quot;</span> | sudo <span class="hljs-built_in">tee</span> /etc/apt/sources.list.d/syncthing.list<br><br><span class="hljs-comment"># Add the &quot;candidate&quot; channel to your APT sources:</span><br><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;deb [signed-by=/etc/apt/keyrings/syncthing-archive-keyring.gpg] https://apt.syncthing.net/ syncthing candidate&quot;</span> | sudo <span class="hljs-built_in">tee</span> /etc/apt/sources.list.d/syncthing.list<br><br><span class="hljs-comment"># Update and install syncthing:</span><br>sudo apt-get update<br>sudo apt-get install syncthing<br></code></pre></td></tr></table></figure>
 </li>
 <li>
-<p>使用Win+A快捷键打开应用程序菜单。点击“Start Syncthing”图标后点击“Syncthing Web UI”图标。</p>
+<p>使用Win+A快捷键打开应用程序菜单。点击“Start Syncthing”图标（也可直接在终端下执行<code>syncthing</code>以启动syncthing）后点击“Syncthing Web UI”图标。</p>
 </li>
 <li>
 <p>浏览器自动打开可视化界面。</p>
@@ -2371,7 +2614,7 @@ source ~/.bashrc  # source ~/.zshrc
 </tbody>
 </table>
 <p>表格摘自：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/435589701">说一说 TeXstudio</a></p>
-<h2 id="配置-5">配置</h2>
+<h2 id="配置-6">配置</h2>
 <ol>
 <li>
 <p>选项-设置，勾选左下角的“显示高级选项”。</p>
@@ -2408,6 +2651,97 @@ source ~/.bashrc  # source ~/.zshrc
 <p>（覆盖旧版安装后，临时密码将会变更）</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 安装命令：</span><br>sudo apt-get install ./todesk-v4.7.2.0-amd64.deb<br><span class="hljs-comment"># 启动命令：</span><br>todesk<br><span class="hljs-comment"># 删除服务设置配置:</span><br>sudo <span class="hljs-built_in">rm</span> /opt/todesk/config/config.ini<br><span class="hljs-comment"># 卸载:</span><br>sudo apt-get remove --purge todesk<br><br><span class="hljs-comment"># 如不能正常使用,请执行以下命令初始化.</span><br>sudo systemctl stop todeskd.service<br>sudo <span class="hljs-built_in">mv</span> /opt/todesk/config/config.ini /opt/todesk/config/config.ini.bak<br>sudo systemctl start todeskd.service<br><br><span class="hljs-comment"># 排查错误可执行以下命令看日志:</span><br><span class="hljs-comment"># 查看服务日志：（例如:xxxx_xx_xx.log为2022_08_03.log）</span><br><span class="hljs-built_in">tail</span> -f /var/log/todesk/service_xxxx_xx_xx.log<br><span class="hljs-comment"># 查看客户端日志：（例如:xxxx_xx_xx.log为2022_08_03.log）</span><br><span class="hljs-built_in">tail</span> -f ~/.local/share/todesk/Logs/client_xxxx_xx_xx.log<br></code></pre></td></tr></table></figure>
 <p>默认安装位置：<code>/opt/todesk</code></p>
+<h1 id="Typora">Typora</h1>
+<h2 id="下载安装-5">下载安装</h2>
+<p><a target="_blank" rel="noopener" href="https://typora.io/">官网</a></p>
+<p><a target="_blank" rel="noopener" href="https://typoraio.cn/">中文站</a></p>
+<h2 id="功能增强">功能增强</h2>
+<p><a target="_blank" rel="noopener" href="https://github.com/obgnail/typora_plugin">Typora Plugin</a></p>
+<h3 id="下载安装-6">下载安装</h3>
+<p>前往 <a target="_blank" rel="noopener" href="https://github.com/obgnail/typora_plugin/issues/847">视频安装教程</a>。</p>
+<ol>
+<li>
+<p><a target="_blank" rel="noopener" href="https://github.com/obgnail/typora_plugin/releases/latest">下载</a> 插件源码的压缩包，并解压。</p>
+</li>
+<li>
+<p>进入 Typora 安装路径，找到包含 <code>window.html</code> 的文件夹 A。</p>
+<ul>
+<li>正式版 Typora，路径为 <code>./resources/window.html</code>。</li>
+<li>免费版 Typora，路径为 <code>./resources/app/window.html</code>。</li>
+</ul>
+<blockquote>
+<p>Linux下使用<code>*.deb</code>安装的Typora的<code>resources</code>文件夹可能在<code>/usr/share/typora/</code>下，可以通过<code>sudo find / -name typora</code>进行搜索。</p>
+</blockquote>
+</li>
+<li>
+<p>将解压得到的 plugin 文件夹粘贴进文件夹 A 下。</p>
+</li>
+<li>
+<p>进入文件夹 <code>A/plugin/bin/</code>。</p>
+<ul>
+<li>Windows 系统：双击运行 <code>install_windows_amd_x64.exe</code>，如果看到下图，说明安装成功。</li>
+<li>Linux 系统：以管理员运行 <code>sudo bash ./install_linux.sh</code>，如果看到下图，说明安装成功。</li>
+</ul>
+</li>
+<li>
+<p>验证：重启 Typora，在正文区域点击鼠标右键，弹出右键菜单栏，如果能看到 <code>常用插件</code> 栏目，说明一切顺利。</p>
+</li>
+</ol>
+<p>Linux下的命令行操作：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> your_download_folder/<br>unzip typora-plugin@v1.14.8.zip<br><span class="hljs-built_in">mv</span> plugin/ /usr/share/typora/resources/ <span class="hljs-comment"># 可能需要加 sudo。resources/ 所在路径以实际为准</span><br><span class="hljs-built_in">cd</span> /usr/share/typora/resources/plugin/bin/<br>sudo bash ./install_linux.sh<br></code></pre></td></tr></table></figure>
+<h3 id="示例功能">示例功能</h3>
+<h4 id="标题大纲">标题大纲</h4>
+<ul>
+<li>复制标题路径</li>
+<li>提升/降低选中文段的大纲等级</li>
+<li>拖动大纲标题，调整标题结构</li>
+</ul>
+<h4 id="window-tab：标签页管理">window_tab：标签页管理</h4>
+<ul>
+<li>切换标签：Ctrl+滚轮滚动、ctrl+shift+tab、ctrl+tab、ctrl+PgUp、ctrl+PgDn</li>
+<li>关闭标签：ctrl+w、鼠标中键</li>
+<li>新窗口打开：ctrl+单击标签</li>
+<li>排序标签：拖拽</li>
+<li>弹出标签的菜单选项：右键单击标签页</li>
+</ul>
+<h4 id="md-padding：中英文混排优化">md_padding：中英文混排优化</h4>
+<p>功能：中英文混排时，中文与英文之间、中文与数字之间添加空格。</p>
+<p>快捷键：ctrl+shift+B</p>
+<h4 id="fence-enhance：复制，折叠，格式化代码">fence_enhance：复制，折叠，格式化代码</h4>
+<h4 id="toolbar：多功能搜索">toolbar：多功能搜索</h4>
+<p>功能：类似于 vscode 的 ctrl+shift+p 功能</p>
+<p>使用方式：</p>
+<ul>
+<li>方式一：右键菜单 -&gt; 少用插件 -&gt; 多功能搜索</li>
+<li>方式二：快捷键 <code>ctrl+j</code></li>
+</ul>
+<p>支持搜索：</p>
+<ul>
+<li><code>his</code>：最新打开过的文件</li>
+<li><code>plu</code>：插件</li>
+<li><code>tab</code>：打开的标签页</li>
+<li><code>ops</code>：常用操作</li>
+<li><code>out</code>：文档大纲</li>
+<li><code>mode</code>：切换文件模式</li>
+<li><code>theme</code>：临时切换主题</li>
+<li><code>func</code>：功能列表</li>
+<li><code>all</code>：混合查找（所有项目都混在一起查找）</li>
+</ul>
+<p>键入内容说明：</p>
+<ul>
+<li>键入内容 = 搜索工具名称 + 空格 + 搜索内容</li>
+<li>支持 <code>交集查询</code>、<code>差集查询</code>，并且可以随意组合（类似于 google 的正负向查询）</li>
+</ul>
+<p>举例：</p>
+<ul>
+<li><code>his node learn</code>：查找最近打开的文件，要求文件标题【包含 node 和 learn 两个关键字】</li>
+<li><code>plu multi -search</code>：查找插件，要求插件名【包含 multi 关键字，但是不包含 search 关键字】</li>
+<li><code>tab -messing</code>：查找所有打开的标签页，要求标签页名称【不包含 messing 关键字】</li>
+<li><code>his close -win -mark 标签</code>：查找最近打开的文件，要求文件标题【包含 close、标签，不包含 win、mark】</li>
+</ul>
+<h4 id="auto-number：自动编号">auto_number：自动编号</h4>
+<h4 id="chineseSymbolAutoPairer：中文符号自动补全">chineseSymbolAutoPairer：中文符号自动补全</h4>
+<p>功能：输入 <code>《 【 （ ‘ “ 「</code> 符号时自动补全。</p>
 <h1 id="VSCode">VSCode</h1>
 <h2 id="下载、安装、升级、降级">下载、安装、升级、降级</h2>
 <h3 id="下载、安装">下载、安装</h3>
@@ -2520,7 +2854,124 @@ source ~/.bashrc  # source ~/.zshrc
 <p>完成。</p>
 </li>
 </ol>
-<h2 id="配置-6">配置</h2>
+<h2 id="多版本隔离">多版本隔离</h2>
+<p>你可以通过以下方式安装两个互不干扰的 VS Code 实例（一个最新版，一个指定历史版本）：</p>
+<blockquote>
+<p>使用建议：</p>
+<ul>
+<li>最新版用官方 deb 安装（系统级，自动更新）。可用系统菜单直接启动（或 <code>code</code> 命令）。</li>
+<li>指定版本下载 tar.gz 便携包，解压独立目录，加 <code>--user-data-dir</code> 启动，互不干扰。建议写个桌面快捷方式或 shell 脚本，方便启动。</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>如果不想用系统全局安装，可以都用 <code>tar.gz</code> 包，分别解压到不同文件夹，通过 <code>--user-data-dir</code> 指定不同的数据目录即可。</p>
+</blockquote>
+<h3 id="安装最新版-VS-Code（使用-deb-包）">安装最新版 VS Code（使用 .deb 包）</h3>
+<ol>
+<li>
+<p>下载最新版 VS Code 的 .deb 包：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">wget -O vscode-latest.deb <span class="hljs-string">&quot;https://code.visualstudio.com/sha/download?build=stable&amp;os=linux-deb-x64&quot;</span><br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>安装：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo dpkg -i vscode-latest.deb<br>sudo apt-get install -f  <span class="hljs-comment"># 解决依赖</span><br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>这种安装方式会把 VS Code 安装到 <code>/usr/share/code</code>，桌面菜单也会有 VS Code。</p>
+</li>
+</ol>
+<h3 id="安装指定版本-VS-Code（使用-tar-gz-便携版）">安装指定版本 VS Code（使用 tar.gz 便携版）</h3>
+<ol>
+<li>
+<p>到<a target="_blank" rel="noopener" href="https://code.visualstudio.com/updates/">VS Code 历史版本下载页面</a> 或 <a target="_blank" rel="noopener" href="https://update.code.visualstudio.com/api/releases/stable">官方release列表</a> 找到你需要的版本号，比如 1.80.0。</p>
+</li>
+<li>
+<p>下载对应版本的 tar.gz 便携包，例如（以 1.80.0 为例）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">wget -O vscode-1.80.0.tar.gz <span class="hljs-string">&quot;https://update.code.visualstudio.com/1.80.0/linux-x64/stable&quot;</span><br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>解压到独立目录（比如你的 home 目录下）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">mkdir</span> -p ~/vscode-1.80.0<br>tar -xzf vscode-1.80.0.tar.gz -C ~/vscode-1.80.0 --strip-components=1<br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>一般 VS Code 的 tar.gz 包解压后，最外层会有一个名为 <code>VSCode-linux-x64</code> 的文件夹，里面才是真正的内容。<strong>加 <code>--strip-components=1</code> 的作用</strong>：<strong>解压时去掉最外层目录</strong>，直接把内容解压到目标文件夹。</p>
+</blockquote>
+</li>
+<li>
+<p>运行指定版本（便携模式，配置互不影响）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">mkdir</span> -p ~/vscode-1.80.0/data<br>~/vscode-1.80.0/code --user-data-dir ~/vscode-1.80.0/data<br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>如果你<strong>不指定</strong> <code>--user-data-dir</code> 参数来启动便携版 VS Code，VS Code 会使用“默认用户数据目录”。默认用户数据（配置、插件、缓存等）会<strong>写入你主目录下的 <code>~/.config/Code/</code></strong>。这和使用 deb 包（系统安装版）VS Code 时用的是<strong>同一套配置和插件目录</strong>。</p>
+</blockquote>
+<blockquote>
+<p>要让 VS Code 静默（后台）启动，<strong>终端可以关闭、不影响 VS Code 运行</strong>，可以：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">~/vscode-1.80.0/code --user-data-dir ~/vscode-1.80.0/data &amp;<br></code></pre></td></tr></table></figure>
+</blockquote>
+</li>
+<li>
+<p>这样设置后，该目录下的 <code>data</code> 文件夹会保存用户配置和插件，和系统安装版完全隔离。</p>
+</li>
+<li>
+<p>（可选）添加快捷启动命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo gedit ~/.bashrc<br><span class="hljs-comment"># 添加如下语句</span><br><span class="hljs-built_in">alias</span> vscode1800=<span class="hljs-string">&#x27;~/vscode-1.80.0/code --user-data-dir ~/vscode-1.80.0/data&#x27;</span><br><span class="hljs-comment"># 保存退出</span><br><span class="hljs-built_in">source</span> ~/.bashrc<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>（可选）便携版在认证GitHub Copilot时网页跳转回的VSCode可能是使用deb安装的VSCode。这时，可以在便携版VSCode中取消认证。系统会提示是否使用“本地服务器”。选择“是”，即可认证成功。</p>
+</li>
+<li>
+<p>完成。</p>
+</li>
+</ol>
+<h3 id="自解压便携版（tar-gz）和官方-deb-包的区别">自解压便携版（tar.gz）和官方 deb 包的区别</h3>
+<h4 id="安装方式">安装方式</h4>
+<ul>
+<li><strong>deb 包</strong>：用于基于 Debian/Ubuntu 的系统，使用 <code>apt</code> 或 <code>dpkg</code> 安装，会自动集成到系统（菜单、图标、PATH 等），全局可用。会自动处理依赖，并能通过系统包管理器自动升级。</li>
+<li><strong>自解压便携版（tar.gz）</strong>：只需解压即可用，无需 root 权限，不会修改系统环境。适合放在任意文件夹，可拷贝移动。不会自动集成到菜单，需要手动创建快捷方式。</li>
+</ul>
+<h4 id="配置与数据">配置与数据</h4>
+<ul>
+<li><strong>deb 包</strong>：用户数据和插件在 <code>~/.config/Code/</code>，多个安装共用一套配置（除非用 <code>--user-data-dir</code> 参数）。</li>
+<li><strong>便携版</strong>：可通过 <code>--user-data-dir</code> 参数指定专属数据目录，做到完全独立，互不干扰。适合并存多版本或便于备份携带。</li>
+</ul>
+<h4 id="功能和更新">功能和更新</h4>
+<ul>
+<li><strong>二者功能完全相同</strong>：无论 deb 还是便携版，VS Code 的核心功能、插件支持、语言支持、远程开发等都一样。代码仓库、插件市场、调试、终端等功能没有任何区别。</li>
+<li><strong>自动更新机制</strong>：
+<ul>
+<li>deb 包可通过系统包管理器自动升级。</li>
+<li>便携版需手动下载新版本覆盖。</li>
+</ul>
+</li>
+</ul>
+<h4 id="适用场景">适用场景</h4>
+<ul>
+<li><strong>deb 包</strong>：适合日常主力使用，系统集成度高，使用方便。</li>
+<li><strong>便携版</strong>：适合需要多个独立版本、无 root 权限环境、或者测试/临时目的。</li>
+</ul>
+<h3 id="升级-VS-Code-便携版（tar-gz-版）">升级 VS Code 便携版（tar.gz 版）</h3>
+<ol>
+<li>
+<p>关闭正在运行的 VS Code 便携版。</p>
+</li>
+<li>
+<p>下载新版 VS Code 的 tar.gz 包。到 <a target="_blank" rel="noopener" href="https://code.visualstudio.com/updates">VS Code Release 页面</a> 或 <a target="_blank" rel="noopener" href="https://code.visualstudio.com/Download">官方下载地址</a> 获取你想升级到的版本。</p>
+</li>
+<li>
+<p>解压新版覆盖旧版（推荐备份）。假如你的便携版目录在 <code>~/vscode-old</code>，你可以这样做：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># （可选）备份旧文件夹</span><br><span class="hljs-built_in">cp</span> -r ~/vscode-old ~/vscode-old-backup<br><br><span class="hljs-comment"># 解压新版到原目录，推荐用 --strip-components=1</span><br>tar -xzf VSCode-linux-x64-1.x.x.tar.gz -C ~/vscode-old --strip-components=1<br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>如果你想保留旧版，也可以解压到新目录，然后用原来的 <code>--user-data-dir</code> 路径启动。</p>
+</blockquote>
+</li>
+<li>
+<p>使用原有的数据目录启动：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">~/vscode-old/code --user-data-dir ~/vscode-old/data<br></code></pre></td></tr></table></figure>
+<p>这样你的插件、配置等会自动沿用，无需迁移。</p>
+</li>
+<li>
+<p>完成。</p>
+</li>
+</ol>
+<h2 id="配置-7">配置</h2>
 <h3 id="通用配置">通用配置</h3>
 <blockquote>
 <p>打开<code>settings.json</code> ：</p>
@@ -2540,6 +2991,9 @@ source ~/.bashrc  # source ~/.zshrc
 <ol>
 <li>
 <p>控制启用同步的账户：VSCode右下角“设置”图标-点击“设置同步已打开”-设置同步：Turn Off（账户）</p>
+</li>
+<li>
+<p>切换界面语言：安装“Chinese (Simplified) Language Pack for Visual Studio Code”插件后，按下Ctrl+Shift+P后输入：Configure Display Language。</p>
 </li>
 <li>
 <p>字体大小：</p>
@@ -2581,13 +3035,13 @@ source ~/.bashrc  # source ~/.zshrc
 </li>
 <li>
 <p>淡化未使用的代码：设置：Editor: Show Unused</p>
+</li>
+</ol>
 <blockquote>
 <p>C++语言环境无效。</p>
 </blockquote>
-</li>
-<li>
-<p>修改主题配色：</p>
-</li>
+<ol start="11">
+<li>修改主题配色：</li>
 </ol>
 <p><a target="_blank" rel="noopener" href="https://code.visualstudio.com/docs/cpp/colorization-cpp">Enhanced colorization</a></p>
    <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-attr">&quot;editor.tokenColorCustomizations&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>        <span class="hljs-attr">&quot;[One Dark Pro Darker]&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>            <span class="hljs-comment">// [常用范围列表](https://binaryify.github.io/OneDark-Pro/#/?id=common-scope-list)</span><br>          <span class="hljs-attr">&quot;textMateRules&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><br>            <span class="hljs-punctuation">&#123;</span><br>              <span class="hljs-attr">&quot;scope&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">&quot;variable.other.local&quot;</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>  <span class="hljs-comment">// （C++）局部变量，适用于设置使用C/C++插件的静态分析</span><br>              <span class="hljs-attr">&quot;settings&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>                <span class="hljs-attr">&quot;foreground&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;#BBBBBB&quot;</span><br>              <span class="hljs-punctuation">&#125;</span><br>            <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>            <span class="hljs-punctuation">&#123;</span><br>                <span class="hljs-attr">&quot;scope&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">&quot;variable.parameter&quot;</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>  <span class="hljs-comment">// 形参</span><br>                <span class="hljs-attr">&quot;settings&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>                  <span class="hljs-attr">&quot;foreground&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;#D19A66&quot;</span><br>                <span class="hljs-punctuation">&#125;</span><br>              <span class="hljs-punctuation">&#125;</span><br>          <span class="hljs-punctuation">]</span><br>        <span class="hljs-punctuation">&#125;</span><br>      <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br><span class="hljs-attr">&quot;editor.semanticTokenColorCustomizations&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>        <span class="hljs-attr">&quot;enabled&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">true</span></span><span class="hljs-punctuation">,</span> <span class="hljs-comment">// enable for all themes</span><br>        <span class="hljs-attr">&quot;rules&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>            <span class="hljs-attr">&quot;variable.functionScope&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span>  <span class="hljs-comment">// （C++）局部变量，适用于设置了使用clangd插件的静态分析</span><br>                <span class="hljs-attr">&quot;foreground&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;#BBBBBB&quot;</span><span class="hljs-punctuation">,</span><br>                <span class="hljs-comment">// &quot;fontStyle&quot;: &quot;bold&quot;</span><br>            <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-punctuation">&#125;</span><br>    <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br></code></pre></td></tr></table></figure>
@@ -3039,7 +3493,7 @@ source ~/.bashrc  # source ~/.zshrc
 </li>
 </ol>
 <h1 id="Windows-Terminal">Windows Terminal</h1>
-<h2 id="安装-5">安装</h2>
+<h2 id="安装-7">安装</h2>
 <ol>
 <li>
 <p>更新 winget</p>
@@ -3076,7 +3530,7 @@ source ~/.bashrc  # source ~/.zshrc
 <p>完成。</p>
 </li>
 </ol>
-<h2 id="配置-7">配置</h2>
+<h2 id="配置-8">配置</h2>
 <ol>
 <li>通过开始菜单-终端或文件夹右键-在终端打开。</li>
 <li>点击左上角下三角-设置，配置你的风格。</li>
@@ -3097,9 +3551,9 @@ source ~/.bashrc  # source ~/.zshrc
 <li>完成。</li>
 </ol>
 <h1 id="Zotero">Zotero</h1>
-<h2 id="下载安装-5">下载安装</h2>
+<h2 id="下载安装-7">下载安装</h2>
 <p><a target="_blank" rel="noopener" href="https://www.zotero.org/"> Zotero官网</a></p>
-<h2 id="插件">插件</h2>
+<h2 id="插件-2">插件</h2>
 <h3 id="插件推荐">插件推荐</h3>
 <p>当前自己使用Zotero主要是为了在Linux系统下阅读英文文献。<a href="https://zeyulong.com/posts/ecc362f9/">Linux、Ubuntu下英文文献翻译软件、工具推荐</a></p>
 <blockquote>
@@ -3141,7 +3595,7 @@ source ~/.bashrc  # source ~/.zshrc
 <p>编辑-首选项</p>
 <h2 id="使用-6">使用</h2>
 <p><a href="https://zeyulong.com/posts/a8aab215/">Linux系统下常用的命令及快捷键</a></p>
-<h2 id="更新-3">更新</h2>
+<h2 id="更新-4">更新</h2>
 <h3 id="更新Zotero">更新Zotero</h3>
 <p><a target="_blank" rel="noopener" href="https://mlog.club/article/2872394">参考链接</a></p>
 <p>帮助-检查更新-自动更新。</p>

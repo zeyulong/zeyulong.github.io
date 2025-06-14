@@ -24,7 +24,7 @@
 <meta property="og:description" content="本文主要分享了Windows、Linux系统的配置与常用软件的安装。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-01-31T16:27:11.000Z">
-<meta property="article:modified_time" content="2025-06-09T12:08:16.049Z">
+<meta property="article:modified_time" content="2025-06-12T13:57:35.171Z">
 <meta property="article:author" content="龙泽雨">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -348,7 +348,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          26k 字
+          27k 字
         
       </span>
     
@@ -409,7 +409,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2025年6月9日 晚上
+                    本文最后更新于 2025年6月12日 晚上
                   
                 
               </p>
@@ -2343,6 +2343,9 @@ sudo okular
 <p>首先：Win+A打开“Fcitx配置”，把“键盘 - 汉语”和“搜狗输入法个人版”的位置换一下试试。不行？再换回来试试。</p>
 <p>如果还是不行：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 方法一</span><br>sudo fcitx -r<br><br><span class="hljs-comment"># 方法二</span><br>pidof fcitx | sudo xargs <span class="hljs-built_in">kill</span><br>sogou-qimpanel | xargs <span class="hljs-built_in">kill</span><br>fcitx &amp;<br>sogou-qimpanel &amp;<br></code></pre></td></tr></table></figure>
+<h2 id="tips">tips</h2>
+<h3 id="打开设置界面">打开设置界面</h3>
+<p>Windows系统下打个字，鼠标右键点击输入框。</p>
 <h1 id="Syncthing">Syncthing</h1>
 <h2 id="安装配置">安装配置</h2>
 <ol>
@@ -2380,7 +2383,7 @@ sudo okular
 </li>
 <li>
 <p>或，<a target="_blank" rel="noopener" href="https://apt.syncthing.net/">使用命令行安装</a>(Debian/Ubuntu)：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># Add the release PGP keys:</span><br>sudo <span class="hljs-built_in">mkdir</span> -p /etc/apt/keyrings<br>sudo curl -L -o /etc/apt/keyrings/syncthing-archive-keyring.gpg https://syncthing.net/release-key.gpg<br><br><span class="hljs-comment"># Add the &quot;stable&quot; channel to your APT sources:</span><br><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;deb [signed-by=/etc/apt/keyrings/syncthing-archive-keyring.gpg] https://apt.syncthing.net/ syncthing stable&quot;</span> | sudo <span class="hljs-built_in">tee</span> /etc/apt/sources.list.d/syncthing.list<br><br><span class="hljs-comment"># Add the &quot;candidate&quot; channel to your APT sources:</span><br><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;deb [signed-by=/etc/apt/keyrings/syncthing-archive-keyring.gpg] https://apt.syncthing.net/ syncthing candidate&quot;</span> | sudo <span class="hljs-built_in">tee</span> /etc/apt/sources.list.d/syncthing.list<br><br><span class="hljs-comment"># Update and install syncthing:</span><br>sudo apt-get update<br>sudo apt-get install syncthing<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># Add the release PGP keys:</span><br>sudo <span class="hljs-built_in">mkdir</span> -p /etc/apt/keyrings<br>sudo curl -L -o /etc/apt/keyrings/syncthing-archive-keyring.gpg https://syncthing.net/release-key.gpg<br><br><span class="hljs-comment"># Add the &quot;stable&quot; channel to your APT sources:</span><br><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;deb [signed-by=/etc/apt/keyrings/syncthing-archive-keyring.gpg] https://apt.syncthing.net/ syncthing stable&quot;</span> | sudo <span class="hljs-built_in">tee</span> /etc/apt/sources.list.d/syncthing.list<br><span class="hljs-comment"># or</span><br><span class="hljs-comment"># Add the &quot;candidate&quot; channel to your APT sources:</span><br><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;deb [signed-by=/etc/apt/keyrings/syncthing-archive-keyring.gpg] https://apt.syncthing.net/ syncthing candidate&quot;</span> | sudo <span class="hljs-built_in">tee</span> /etc/apt/sources.list.d/syncthing.list<br><br><span class="hljs-comment"># Update and install syncthing:</span><br>sudo apt-get update<br>sudo apt-get install syncthing<br></code></pre></td></tr></table></figure>
 </li>
 <li>
 <p>使用Win+A快捷键打开应用程序菜单。点击“Start Syncthing”图标（也可直接在终端下执行<code>syncthing</code>以启动syncthing）后点击“Syncthing Web UI”图标。</p>

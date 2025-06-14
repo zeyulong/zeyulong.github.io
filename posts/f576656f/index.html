@@ -24,7 +24,7 @@
 <meta property="og:description" content="本文主要分享了编程过程中积累的知识点。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-01-08T02:37:36.000Z">
-<meta property="article:modified_time" content="2025-06-03T14:53:11.272Z">
+<meta property="article:modified_time" content="2025-06-10T13:35:51.743Z">
 <meta property="article:author" content="龙泽雨">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -348,7 +348,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          30k 字
+          31k 字
         
       </span>
     
@@ -359,7 +359,7 @@
         
         
         
-          253 分钟
+          262 分钟
         
       </span>
     
@@ -409,7 +409,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2025年6月3日 晚上
+                    本文最后更新于 2025年6月10日 晚上
                   
                 
               </p>
@@ -1167,6 +1167,20 @@
 <li><code>-&gt;</code>（箭头）用于<strong>指针</strong>（变量是一个指向对象的指针）。</li>
 </ul>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">MyClass</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">foo</span><span class="hljs-params">()</span> </span>&#123;&#125;<br>&#125;;<br><br>MyClass obj;  <span class="hljs-comment">// obj 是对象</span><br>MyClass* ptr = &amp;obj;  <span class="hljs-comment">// ptr 是指向对象的指针</span><br><br>obj.<span class="hljs-built_in">foo</span>();  <span class="hljs-comment">// 用&#x27;.&#x27;，正确</span><br>ptr-&gt;<span class="hljs-built_in">foo</span>();  <span class="hljs-comment">// 用&#x27;-&gt;&#x27;，正确</span><br><br>obj-&gt;<span class="hljs-built_in">foo</span>();  <span class="hljs-comment">// 错误：&#x27;obj&#x27; 不是指针</span><br>ptr.<span class="hljs-built_in">foo</span>();  <span class="hljs-comment">// 错误：&#x27;ptr&#x27; 是指针，不能用 &#x27;.&#x27;</span><br></code></pre></td></tr></table></figure>
+<h2 id="禁用拷贝构造函数和拷贝赋值运算符">禁用拷贝构造函数和拷贝赋值运算符</h2>
+<p><strong>禁用拷贝构造函数和拷贝赋值运算符</strong>，即禁止对象被拷贝（包括显式和隐式拷贝）。这样做可以防止对象被意外复制，避免资源（如指针、线程等）被多次释放或出现悬挂指针等问题。</p>
+<p><strong>一般用法：</strong></p>
+<ul>
+<li>禁用拷贝构造和赋值可以保护资源管理安全，防止对象被错误地复制。</li>
+<li>一般用于管理独占资源的类。
+<ul>
+<li>当你的类中包含<strong>独占资源</strong>（如<code>std::unique_ptr</code>、裸指针、线程等），或者对象的拷贝语义不明确、不安全时，建议禁用拷贝构造和赋值。</li>
+<li>这样可以强制用户只能移动（move）对象，或者只允许对象以引用或指针方式传递。</li>
+</ul>
+</li>
+</ul>
+<p>示例：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">MyClass</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-built_in">MyClass</span>() = <span class="hljs-keyword">default</span>;<br>    ~<span class="hljs-built_in">MyClass</span>() = <span class="hljs-keyword">default</span>;<br><br>    <span class="hljs-comment">// 禁用拷贝</span><br>    <span class="hljs-built_in">MyClass</span>(<span class="hljs-type">const</span> MyClass&amp;) = <span class="hljs-keyword">delete</span>;<br>    MyClass&amp; <span class="hljs-keyword">operator</span>=(<span class="hljs-type">const</span> MyClass&amp;) = <span class="hljs-keyword">delete</span>;<br><br>    <span class="hljs-comment">// 可以定义移动构造和移动赋值</span><br>    <span class="hljs-built_in">MyClass</span>(MyClass&amp;&amp;) <span class="hljs-keyword">noexcept</span> = <span class="hljs-keyword">default</span>;<br>    MyClass&amp; <span class="hljs-keyword">operator</span>=(MyClass&amp;&amp;) <span class="hljs-keyword">noexcept</span> = <span class="hljs-keyword">default</span>;<br>&#125;;<br></code></pre></td></tr></table></figure>
 <h2 id="其它">其它</h2>
 <ol>
 <li>
@@ -1500,7 +1514,48 @@
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">myswap</span><span class="hljs-params">(<span class="hljs-type">int</span> *a,<span class="hljs-type">int</span> *b)</span></span>&#123;<span class="hljs-comment">//传入的是a和b的地址值</span><br>    <span class="hljs-type">int</span> tmp=*a;  <span class="hljs-comment">//除了声明或初始化指针时，*代表指针的意思，其他时候*在指针变量名左边代表指针指向的内容。这里tmp=a地址指向的内容，即a的值</span><br>    *a=*b;      <span class="hljs-comment">//指针a指向的地址空间内容变成指针b指向的地址空间内容，即a=b</span><br>    *b=tmp;    <span class="hljs-comment">//同理b指向的地方=tmp/a，完成交换</span><br>&#125;<br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;<br>	<span class="hljs-type">int</span> a=<span class="hljs-number">1</span>,b=<span class="hljs-number">2</span>;<br>    <span class="hljs-built_in">myswap</span>(&amp;a,&amp;b);  <span class="hljs-comment">//传入地址值</span><br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d %d&quot;</span>,a,b); <span class="hljs-comment">// 输出为2 1</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;  <br>&#125;<br></code></pre></td></tr></table></figure>
 <p>引用写法：</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">myswap</span><span class="hljs-params">(<span class="hljs-type">int</span> &amp;a,<span class="hljs-type">int</span> &amp;b)</span></span>&#123;  <span class="hljs-comment">//传入的为引用，调用该函数的时候，会生成引用a=a,引用b=b，所以函数里操作引用的时候，就是修改了原值。</span><br>    <span class="hljs-type">int</span> tmp=a;<br>    a=b;<br>    b=tmp;<br>&#125;<br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;<br>	<span class="hljs-type">int</span> a=<span class="hljs-number">1</span>,b=<span class="hljs-number">2</span>;<br>    <span class="hljs-built_in">myswap</span>(a,b);<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d %d&quot;</span>,a,b); <span class="hljs-comment">// 2 1</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;  <br>&#125;<br></code></pre></td></tr></table></figure>
-<h2 id="指针的类型">指针的类型</h2>
+<h2 id="裸指针与智能指针">裸指针与智能指针</h2>
+<h3 id="裸指针">裸指针</h3>
+<p><strong>裸指针</strong>（Raw Pointer）是指C/C++中最基础的指针类型，即直接用 <code>*</code> 定义的普通指针，比如 <code>int* p;</code>。裸指针<strong>只是单纯地保存某个内存地址</strong>，不具备自动管理资源的能力。</p>
+<p>主要特征：</p>
+<ol>
+<li><strong>定义简单</strong><br>
+例如：<code>int* p = new int(5);</code></li>
+<li><strong>不会自动释放内存</strong><br>
+用裸指针指向动态分配的内存时，需要手动 <code>delete</code>，否则会造成内存泄漏。</li>
+<li><strong>没有所有权和生命周期管理</strong><br>
+裸指针不会跟踪它所指向资源的生命周期，也不知道其他指针是否也指向同一资源，这可能导致“悬垂指针”、多次释放、内存泄漏等问题。</li>
+<li><strong>没有智能指针的安全机制</strong><br>
+比如 <code>std::unique_ptr</code> 或 <code>std::shared_ptr</code> 具备自动释放和所有权转移等机制，而裸指针没有。</li>
+</ol>
+<p>示例：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-type">int</span>* p = <span class="hljs-keyword">new</span> <span class="hljs-built_in">int</span>(<span class="hljs-number">42</span>); <span class="hljs-comment">// 裸指针分配内存</span><br><span class="hljs-comment">// ... 使用p</span><br><span class="hljs-keyword">delete</span> p; <span class="hljs-comment">// 需要手动释放</span><br></code></pre></td></tr></table></figure>
+<ul>
+<li>如果忘记 <code>delete p;</code> 就会造成<strong>内存泄漏</strong>。</li>
+<li>如果 <code>delete</code> 了两次，程序会崩溃（<strong>野指针/悬垂指针</strong>）。</li>
+</ul>
+<h3 id="智能指针">智能指针</h3>
+<h4 id="std-unique-ptr">std::unique_ptr</h4>
+<p><code>std::unique_ptr</code> 是 C++11 引入的一种<strong>智能指针</strong>，它用于<strong>独占式地管理动态分配（<code>new</code>）的内存资源</strong>。它的核心作用是：</p>
+<ul>
+<li><strong>自动释放内存</strong>：当 <code>std::unique_ptr</code> 离开作用域时，所管理的对象会自动被删除，无需手动 <code>delete</code>，有效避免内存泄漏。</li>
+<li><strong>独占所有权</strong>：同一时刻只能有一个 <code>unique_ptr</code> 指向同一个资源，防止“多次释放”同一块内存。</li>
+<li><strong>资源安全转移</strong>：可以通过移动语义（<code>std::move</code>）将资源的所有权转移给另一个 <code>unique_ptr</code>，但不能拷贝。</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;memory&gt;</span></span><br><br><span class="hljs-comment">// 1. 创建 unique_ptr</span><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">create_unique_ptr</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-function">std::unique_ptr&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">up1</span><span class="hljs-params">(<span class="hljs-keyword">new</span> <span class="hljs-type">int</span>(<span class="hljs-number">10</span>))</span></span>; <span class="hljs-comment">// 传统方式</span><br>    <span class="hljs-keyword">auto</span> up2 = std::<span class="hljs-built_in">make_unique</span>&lt;<span class="hljs-type">int</span>&gt;(<span class="hljs-number">20</span>);  <span class="hljs-comment">// 推荐方式（C++14及以上）</span><br>    std::cout &lt;&lt; <span class="hljs-string">&quot;up1: &quot;</span> &lt;&lt; *up1 &lt;&lt; <span class="hljs-string">&quot;, up2: &quot;</span> &lt;&lt; *up2 &lt;&lt; std::endl;<br>&#125;<br><br><span class="hljs-comment">// 2. 转移所有权（move）</span><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">transfer_ownership</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-keyword">auto</span> up1 = std::<span class="hljs-built_in">make_unique</span>&lt;<span class="hljs-type">int</span>&gt;(<span class="hljs-number">42</span>);<br>    std::unique_ptr&lt;<span class="hljs-type">int</span>&gt; up2 = std::<span class="hljs-built_in">move</span>(up1); <span class="hljs-comment">// up1 失去所有权</span><br>    <span class="hljs-keyword">if</span> (!up1) std::cout &lt;&lt; <span class="hljs-string">&quot;up1 is now nullptr&quot;</span> &lt;&lt; std::endl;<br>    std::cout &lt;&lt; <span class="hljs-string">&quot;up2: &quot;</span> &lt;&lt; *up2 &lt;&lt; std::endl;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-built_in">create_unique_ptr</span>();<br>    <span class="hljs-built_in">transfer_ownership</span>();<br>    <span class="hljs-comment">// 离开作用域时所有unique_ptr会自动释放资源</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h4 id="std-shared-ptr">std::shared_ptr</h4>
+<p><code>std::shared_ptr</code> 是 C++11 引入的标准库智能指针类型，用于<strong>共享所有权地管理</strong>动态分配的资源。它的设计目标是让多个指针对象可以“共享”同一个资源，在<strong>最后一个指向资源的 shared_ptr 被销毁时，资源才会自动释放</strong>，有效避免资源泄漏和重复释放的问题。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;memory&gt;</span></span><br><br><span class="hljs-comment">// 创建 shared_ptr</span><br><span class="hljs-keyword">auto</span> p1 = std::<span class="hljs-built_in">make_shared</span>&lt;<span class="hljs-type">int</span>&gt;(<span class="hljs-number">100</span>); <span class="hljs-comment">// 推荐用 make_shared</span><br><span class="hljs-function">std::shared_ptr&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">p2</span><span class="hljs-params">(<span class="hljs-keyword">new</span> <span class="hljs-type">int</span>(<span class="hljs-number">42</span>))</span></span>; <span class="hljs-comment">// 也可以直接用 new</span><br><br><span class="hljs-comment">// 拷贝和赋值</span><br>std::shared_ptr&lt;<span class="hljs-type">int</span>&gt; p3 = p1; <span class="hljs-comment">// 共享同一个 int，引用计数+1</span><br>p2 = p3; <span class="hljs-comment">// p2 现在和 p3, p1 指向同一对象</span><br><br><span class="hljs-comment">// 引用计数</span><br>std::cout &lt;&lt; p1.<span class="hljs-built_in">use_count</span>() &lt;&lt; std::endl; <span class="hljs-comment">// 查看有几个shared_ptr指向同一资源</span><br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>如果两个对象互相持有 <code>shared_ptr</code>，会导致内存泄漏。此时可用 <code>std::weak_ptr</code> 打破循环引用。</p>
+</blockquote>
+<h4 id="总结对比">总结对比</h4>
+<ul>
+<li><strong>只要能用 <code>unique_ptr</code>，就优先用它（更高效、更简单）；只有当资源确实需要被多个对象共享管理时，才用 <code>shared_ptr</code>。</strong></li>
+<li><code>std::unique_ptr</code> 适用于资源有唯一所有者、无需共享场景（如文件句柄、工厂函数、容器元素等）。</li>
+<li><code>std::shared_ptr</code> 适用于多个对象需要共享资源所有权、对象关系复杂、不易明确唯一所有者的场景（如观察者模式、多线程共享资源等）。</li>
+</ul>
+<h2 id="野指针与悬空指针">野指针与悬空指针</h2>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/nyist_zxp/article/details/119478944">野指针？悬空指针？ 一文带你搞懂！</a></p>
 <h3 id="野指针">野指针</h3>
 <p>野指针是指尚未初始化的指针，既不指向合法的内存空间，也没有使用 NULL/nullptr 初始化指针。</p>

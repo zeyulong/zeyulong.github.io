@@ -24,7 +24,7 @@
 <meta property="og:description" content="本文主要介绍了Docker的安装与使用。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-12-04T09:13:55.000Z">
-<meta property="article:modified_time" content="2025-06-03T14:35:21.247Z">
+<meta property="article:modified_time" content="2025-06-26T13:10:10.930Z">
 <meta property="article:author" content="龙泽雨">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -348,7 +348,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2k 字
+          2.4k 字
         
       </span>
     
@@ -359,7 +359,7 @@
         
         
         
-          17 分钟
+          20 分钟
         
       </span>
     
@@ -409,7 +409,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2025年6月3日 晚上
+                    本文最后更新于 2025年6月26日 晚上
                   
                 
               </p>
@@ -566,6 +566,85 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">docker <span class="hljs-built_in">cp</span> /path/to/dir_2 &lt;container_name&gt;:/workdir<br>docker restart &lt;container_name&gt;<br></code></pre></td></tr></table></figure>
 <h3 id="直接修改挂载的解决方法（不推荐）">直接修改挂载的解决方法（不推荐）</h3>
 <p>通过底层工具（如 <code>nsenter</code> 和 <code>mount</code>），可以尝试在运行中的容器中手动挂载目录，但这非常复杂且容易出错，通常不推荐。</p>
+<h2 id="迁移-Docker-环境">迁移 Docker 环境</h2>
+<ol>
+<li>
+<p>迁移 Docker 镜像。</p>
+<ol>
+<li>
+<p>在源机器导出镜像：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">docker images    <span class="hljs-comment"># 查看所有镜像</span><br>docker save -o my_images.tar 镜像名1:tag 镜像名2:tag ...<br><span class="hljs-comment"># docker save -o all_images.tar $(docker images -q)</span><br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>拷贝到目标机器（比如用 <code>scp</code> 或 <code>rsync</code>）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">scp my_images.tar user@dest_ip:/path/to/<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">rsync -av my_images.tar user@dest_ip:/path/to/<br></code></pre></td></tr></table></figure>
+<ul>
+<li><code>-a</code>：归档模式，保留文件属性。</li>
+<li><code>-v</code>：显示详细过程。</li>
+</ul>
+</li>
+<li>
+<p>在目标机器导入镜像：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">docker load -i my_images.tar<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>完成。</p>
+</li>
+</ol>
+</li>
+<li>
+<p>迁移数据卷（Volumes）。</p>
+<ol>
+<li>
+<p>找到你用的卷名或挂载目录：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">docker volume <span class="hljs-built_in">ls</span><br>docker inspect 卷名<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>导出卷内容（假设卷名为 mydata）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">docker run --<span class="hljs-built_in">rm</span> -v mydata:/volume -v $(<span class="hljs-built_in">pwd</span>):/backup alpine tar czf /backup/mydata.tar.gz -C /volume . <br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>拷贝 <code>mydata.tar.gz</code> 到目标机器并恢复：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 在目标机器新建同名卷</span><br>docker volume create mydata<br><br><span class="hljs-comment"># 恢复数据</span><br>docker run --<span class="hljs-built_in">rm</span> -v mydata:/volume -v $(<span class="hljs-built_in">pwd</span>):/backup alpine sh -c <span class="hljs-string">&quot;cd /volume &amp;&amp; tar xzf /backup/mydata.tar.gz&quot;</span><br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>完成。</p>
+</li>
+</ol>
+</li>
+<li>
+<p>迁移 Docker Compose 配置（如有）。</p>
+<ol>
+<li>
+<p>直接把 <code>docker-compose.yml</code> 及相关 <code>.env</code> 配置文件复制到目标机器即可。</p>
+</li>
+<li>
+<p>在目标机器上运行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">docker-compose up -d<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>完成。</p>
+</li>
+</ol>
+</li>
+<li>
+<p>迁移容器（可选）。</p>
+<blockquote>
+<p>一般只迁移镜像和数据卷即可，容器本身建议在新机器用相同参数重建。</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash">docker commit &lt;container_name_or_id&gt; my_temp_image:latest<br>docker save -o my_temp_image.tar my_temp_image:latest<br><span class="hljs-comment"># 拷贝到新机器</span><br>scp my_temp_image.tar user@new_host:/path/<br><span class="hljs-comment"># 新机器上导入</span><br>docker load -i my_temp_image.tar<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>迁移网络（如有特殊网络配置）。</p>
+<ol>
+<li>可用 <code>docker network ls</code> 和 <code>docker network inspect</code> 查看配置，必要时在新机器用 <code>docker network create</code> 手动创建。</li>
+</ol>
+</li>
+<li>
+<p>完成。</p>
+</li>
+</ol>
 
                 
               </div>

@@ -34,7 +34,7 @@
 <meta property="og:image" content="http://zeyulong.com/posts/5b8fd703/feature_branch_diverge_from_master_diagram.png">
 <meta property="og:image" content="http://zeyulong.com/posts/5b8fd703/rebase_result_diagram.png">
 <meta property="article:published_time" content="2024-05-09T03:34:55.000Z">
-<meta property="article:modified_time" content="2025-06-12T13:06:18.119Z">
+<meta property="article:modified_time" content="2025-06-25T07:15:21.140Z">
 <meta property="article:author" content="龙泽雨">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://zeyulong.com/posts/5b8fd703/Git%E6%B5%81%E7%A8%8B-1.png">
@@ -370,7 +370,7 @@
         
         
         
-          228 分钟
+          229 分钟
         
       </span>
     
@@ -420,7 +420,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2025年6月12日 晚上
+                    本文最后更新于 2025年6月25日 下午
                   
                 
               </p>
@@ -1597,7 +1597,7 @@ Aborting</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">git remote -v<br><span class="hljs-comment"># 示例输出：</span><br>origin    https://github.com/user/repo.git (fetch)<br>origin    https://github.com/user/repo.git (push)<br></code></pre></td></tr></table></figure>
 <p>同理适用于<code>git clone</code>。</p>
 <p>修改：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 修改 fetch 和 push 地址为同一个</span><br>git remote set-url origin &lt;新的url&gt;<br><br><span class="hljs-comment"># 分别修改 fetch 和 push 地址</span><br><span class="hljs-comment"># 修改 fetch 地址</span><br>git remote set-url origin &lt;新的url&gt;  <span class="hljs-comment"># 设置 fetch 和 push 地址</span><br><span class="hljs-comment"># 修改 push 地址</span><br>git remote set-url --push origin &lt;新的push地址&gt;<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 修改 fetch 和 push 地址为同一个</span><br>git remote set-url origin &lt;新的url&gt;<br><br><span class="hljs-comment"># 分别修改 fetch 和 push 地址</span><br><span class="hljs-comment"># 修改 fetch 地址</span><br>git remote set-url origin &lt;新的url&gt;  <span class="hljs-comment"># 设置 fetch 和 push 地址</span><br>git remote -v  <span class="hljs-comment"># 看看现在的情况</span><br><span class="hljs-comment"># 修改 push 地址</span><br>git remote set-url --push origin &lt;新的push地址&gt;<br></code></pre></td></tr></table></figure>
 <h2 id="发布">发布</h2>
 <h3 id="生成一个可供发布的压缩包">生成一个可供发布的压缩包</h3>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">git archive<br></code></pre></td></tr></table></figure>

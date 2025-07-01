@@ -24,7 +24,7 @@
 <meta property="og:description" content="本文主要分享了Windows、Linux系统的配置与常用软件的安装。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-01-31T16:27:11.000Z">
-<meta property="article:modified_time" content="2025-06-12T13:57:35.171Z">
+<meta property="article:modified_time" content="2025-06-23T03:37:40.597Z">
 <meta property="article:author" content="龙泽雨">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -359,7 +359,7 @@
         
         
         
-          221 分钟
+          224 分钟
         
       </span>
     
@@ -409,7 +409,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2025年6月12日 晚上
+                    本文最后更新于 2025年6月23日 中午
                   
                 
               </p>
@@ -741,6 +741,12 @@
 <td style="text-align:center"><a target="_blank" rel="noopener" href="https://www.tbtool.cn/">图拉丁吧工具箱</a></td>
 <td style="text-align:center"></td>
 <td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">音频播放器</td>
+<td style="text-align:center"><a target="_blank" rel="noopener" href="https://www.aimp.ru/">AIMP</a></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"><a target="_blank" rel="noopener" href="https://www.aimp.ru/">AIMP</a></td>
 </tr>
 <tr>
 <td style="text-align:center">硬盘管理</td>
@@ -2192,6 +2198,8 @@
 </li>
 <li>确定。</li>
 </ol>
+<h3 id="单元格内换行">单元格内换行</h3>
+<p>Ctrl+Enter（Microsoft Office的Excel为Alt+Enter）</p>
 <h1 id="Okular">Okular</h1>
 <p>Linux下使用的PDF阅读器。</p>
 <p><a target="_blank" rel="noopener" href="https://okular.kde.org/">Okular官网</a></p>
@@ -2341,6 +2349,9 @@ sudo okular
 <h2 id="重启">重启</h2>
 <p>用于解决搜狗输入法不响应/输入不了中文的情况：</p>
 <p>首先：Win+A打开“Fcitx配置”，把“键盘 - 汉语”和“搜狗输入法个人版”的位置换一下试试。不行？再换回来试试。</p>
+<blockquote>
+<p>“搜狗输入法个人版”第一，“键盘 - 汉语”第二。</p>
+</blockquote>
 <p>如果还是不行：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 方法一</span><br>sudo fcitx -r<br><br><span class="hljs-comment"># 方法二</span><br>pidof fcitx | sudo xargs <span class="hljs-built_in">kill</span><br>sogou-qimpanel | xargs <span class="hljs-built_in">kill</span><br>fcitx &amp;<br>sogou-qimpanel &amp;<br></code></pre></td></tr></table></figure>
 <h2 id="tips">tips</h2>
@@ -2369,7 +2380,7 @@ sudo okular
 <li>
 <p>Android端：</p>
 <ol>
-<li><a target="_blank" rel="noopener" href="https://github.com/syncthing/syncthing-android">下载</a>后安装。</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/syncthing/syncthing-android">下载</a>后安装。<a target="_blank" rel="noopener" href="https://github.com/Catfriend1/syncthing-android">另一个可尝试的软件</a></li>
 </ol>
 <blockquote>
 <p>如果希望实时同步，最好在电池管理里设置Syncthing后台常驻。</p>
@@ -3437,17 +3448,14 @@ source ~/.bashrc  # source ~/.zshrc
 </ol>
 <h2 id="使用-5">使用</h2>
 <p><a href="https://zeyulong.com/posts/a8aab215/#VSCode">常用命令及快捷键</a></p>
-<h2 id="小贴士-2">小贴士</h2>
-<ol>
-<li>
+<h2 id="tips-2">tips</h2>
+<h3 id="全局搜索内容不全？">全局搜索内容不全？</h3>
 <p>全局搜索内容不全？需要打开文件才能搜索到？可能是因为搜索时使用了<code>.gitignore</code>文件。</p>
 <ol>
 <li>注释掉<code>.gitignore</code>文件中的部分内容。</li>
 <li>打开设置，搜索“Use Ignore Files”，取消勾选。</li>
 </ol>
-</li>
-<li>
-<p>侧边栏源代码管理里没有显示git仓库里的git仓库？</p>
+<h3 id="侧边栏源代码管理里没有显示git仓库里的git仓库？">侧边栏源代码管理里没有显示git仓库里的git仓库？</h3>
 <ol>
 <li>
 <p>打开内嵌git仓库里某个被修改过的文件后重启VSCode。</p>
@@ -3470,11 +3478,14 @@ source ~/.bashrc  # source ~/.zshrc
 <p>完成。</p>
 </li>
 </ol>
-</li>
-<li>
-<p>等等。</p>
-</li>
-</ol>
+<h3 id="IDE跳转受限？">IDE跳转受限？</h3>
+<ul>
+<li>在某行前之前，你只是给成员变量赋值，IDE 可能还没分析到这些变量的类型（尤其是复杂的多文件工程、或成员变量声明和实现分离时，部分 IDE 解析不完全）。</li>
+<li>在该行之后，你对这些成员变量进行了更多操作，IDE 能更好地推断类型和跳转到声明。</li>
+<li>但<strong>实际上，这些成员变量在整个成员函数体内都可用</strong>，只要在类里声明了即可。</li>
+<li>**这不是 C++ 语法问题，而是 IDE（如 VSCode、CLion 等）索引和跳转能力的局限。**IDE 跳转异常只是工具解析不完全导致，不影响编译和运行。</li>
+<li>如果 IDE 跳转不正常，可以尝试重新索引、清理缓存，或用“全局搜索”功能辅助跳转。</li>
+</ul>
 <h1 id="微信">微信</h1>
 <ol>
 <li>

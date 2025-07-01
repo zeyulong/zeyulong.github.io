@@ -24,7 +24,7 @@
 <meta property="og:description" content="本文主要分享了编程过程中积累的知识点。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-01-08T02:37:36.000Z">
-<meta property="article:modified_time" content="2025-06-10T13:35:51.743Z">
+<meta property="article:modified_time" content="2025-06-24T14:38:01.545Z">
 <meta property="article:author" content="龙泽雨">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -348,7 +348,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          31k 字
+          34k 字
         
       </span>
     
@@ -359,7 +359,7 @@
         
         
         
-          262 分钟
+          283 分钟
         
       </span>
     
@@ -409,7 +409,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2025年6月10日 晚上
+                    本文最后更新于 2025年6月24日 晚上
                   
                 
               </p>
@@ -581,37 +581,6 @@
 </blockquote>
 <p>以下是一个简单的例子来说明这三种函数的区别：</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">MyClass</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-type">int</span> x; <span class="hljs-comment">// 普通成员变量</span><br>    <span class="hljs-type">static</span> <span class="hljs-type">int</span> y; <span class="hljs-comment">// 静态成员变量。只被初始化一次，下次执行初始化语句会直接跳过。</span><br><br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">func</span><span class="hljs-params">()</span> </span>&#123; <span class="hljs-comment">// 普通成员函数</span><br>        x = <span class="hljs-number">1</span>; <span class="hljs-comment">// 可以访问普通成员变量</span><br>        y = <span class="hljs-number">2</span>; <span class="hljs-comment">// 可以访问静态成员变量</span><br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-type">static</span> <span class="hljs-type">void</span> <span class="hljs-title">staticFunc</span><span class="hljs-params">()</span> </span>&#123; <span class="hljs-comment">// 静态成员函数</span><br>        <span class="hljs-comment">// x = 3; // 错误：不能访问普通成员变量</span><br>        y = <span class="hljs-number">4</span>; <span class="hljs-comment">// 可以访问静态成员变量</span><br>    &#125;<br>&#125;;<br><br><span class="hljs-type">int</span> MyClass::y = <span class="hljs-number">0</span>; <span class="hljs-comment">// 初始化静态成员变量</span><br><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">globalFunc</span><span class="hljs-params">(MyClass&amp; obj)</span> </span>&#123; <span class="hljs-comment">// 普通函数</span><br>    <span class="hljs-comment">// obj.x = 5; // 可以通过对象访问其成员变量</span><br>    <span class="hljs-comment">// MyClass::y = 6; // 可以访问静态成员变量</span><br>&#125;<br></code></pre></td></tr></table></figure>
-<h2 id="类的构造函数和析构函数的调用时机">类的构造函数和析构函数的调用时机</h2>
-<p>在C++中，类的构造函数和析构函数的调用时机如下：</p>
-<ol>
-<li>
-<p><strong>构造函数</strong>：当创建类的对象时，会自动调用类的构造函数。构造函数的主要任务是初始化对象的数据成员。构造函数的名称与类名相同，没有返回类型。构造函数可以有参数，可以被重载。</p>
-<ul>
-<li>当创建一个类的对象时，例如<code>MyClass obj;</code>，会调用默认构造函数（无参数的构造函数）。</li>
-<li>当以参数方式创建一个类的对象时，例如<code>MyClass obj(1, 2);</code>，会调用相应的参数构造函数。</li>
-<li>当一个对象作为另一个对象的初始化参数时，例如<code>MyClass obj1 = obj2;</code>或<code>MyClass obj1(obj2);</code>，会调用拷贝构造函数。</li>
-</ul>
-</li>
-<li>
-<p><strong>析构函数</strong>：在C++中，当类的对象需要在其生命周期结束时执行某些操作（如释放资源、关闭文件、断开网络连接等）时，就需要定义析构函数。当一个对象的生命周期结束时（例如，对象离开其作用域，或者使用<code>delete</code>删除动态分配的对象），会自动调用其析构函数。析构函数的主要任务是执行清理工作，例如释放对象可能拥有的资源。析构函数的名称是类名前加上波浪号<code>~</code>，没有返回类型，也不能有任何参数，因此不能被重载。</p>
-<blockquote>
-<ul>
-<li>一个局部变量，那么当它的定义域（例如一个函数或一个代码块）结束时，它的析构函数会被调用。</li>
-<li>一个全局变量或者静态变量，那么当程序结束时，它的析构函数会被调用。</li>
-</ul>
-</blockquote>
-<blockquote>
-<p>而有的对象不会被析构函数自动释放，因此就不能使用空的析构函数，而是在析构函数内定义释放规则。</p>
-<p>以下是一个例子，该例子中的类<code>FileWrapper</code>封装了一个文件指针，需要在析构函数中关闭文件：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;cstdio&gt;</span></span><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">FileWrapper</span> &#123;<br><span class="hljs-keyword">private</span>:<br> FILE* file_;<br><br><span class="hljs-keyword">public</span>:<br> <span class="hljs-built_in">FileWrapper</span>(<span class="hljs-type">const</span> <span class="hljs-type">char</span>* filename, <span class="hljs-type">const</span> <span class="hljs-type">char</span>* mode) &#123;<br>     file_ = std::<span class="hljs-built_in">fopen</span>(filename, mode);<br>     <span class="hljs-keyword">if</span> (file_ == <span class="hljs-literal">nullptr</span>) &#123;<br>         <span class="hljs-keyword">throw</span> std::<span class="hljs-built_in">runtime_error</span>(<span class="hljs-string">&quot;Failed to open file.&quot;</span>);<br>     &#125;<br> &#125;<br><br> ~<span class="hljs-built_in">FileWrapper</span>() &#123;<br>     <span class="hljs-keyword">if</span> (file_ != <span class="hljs-literal">nullptr</span>) &#123;<br>         std::<span class="hljs-built_in">fclose</span>(file_);  <span class="hljs-comment">// 关闭文件</span><br>     &#125;<br> &#125;<br><br> <span class="hljs-comment">// 其他成员函数...</span><br>&#125;;<br></code></pre></td></tr></table></figure>
-<p>在这个例子中，<code>FileWrapper</code>的构造函数打开一个文件，并将文件指针存储在<code>file_</code>中。然后，<code>FileWrapper</code>的析构函数在<code>file_</code>不为<code>nullptr</code>时关闭文件。这样，无论<code>FileWrapper</code>对象何时被销毁（例如，离开作用域或被<code>delete</code>删除），都会自动关闭文件，防止资源泄漏。</p>
-<p>如果<code>FileWrapper</code>使用空的析构函数，那么文件将不会被关闭，可能会导致资源泄漏和其他问题。</p>
-</blockquote>
-</li>
-</ol>
-<p>以下是一个简单的例子：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">MyClass</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-built_in">MyClass</span>() &#123;<br>        <span class="hljs-comment">// 构造函数</span><br>        std::cout &lt;&lt; <span class="hljs-string">&quot;Constructor called!&quot;</span> &lt;&lt; std::endl;<br>    &#125;<br><br>    ~<span class="hljs-built_in">MyClass</span>() &#123;<br>        <span class="hljs-comment">// 析构函数</span><br>        std::cout &lt;&lt; <span class="hljs-string">&quot;Destructor called!&quot;</span> &lt;&lt; std::endl;<br>    &#125;<br>&#125;;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    MyClass obj; <span class="hljs-comment">// 创建对象，调用构造函数</span><br>    <span class="hljs-comment">// 当obj离开作用域时，调用析构函数</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
-<p>在这个例子中，当<code>MyClass obj;</code>执行时，会调用<code>MyClass</code>的构造函数。当<code>obj</code>离开其作用域（即<code>main</code>函数结束时），会调用<code>MyClass</code>的析构函数。</p>
 <h2 id="输出函数的选择">输出函数的选择</h2>
 <ol>
 <li>
@@ -1119,6 +1088,69 @@
 </blockquote>
 </li>
 </ul>
+<h2 id="成员变量的初始化顺序">成员变量的初始化顺序</h2>
+<p>成员变量总是按照它们在类中声明的顺序初始化，先用初始化列表指定的构造函数初始化该成员，没出现在初始化列表中的成员用默认构造函数初始化。初始化完成后才进入构造函数体。示例：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">MyClass</span> &#123;<br>    MemberA a;<br>    MemberB b;<br>    MemberC c;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-built_in">MyClass</span>(<span class="hljs-type">int</span> x) : <span class="hljs-built_in">c</span>(x), <span class="hljs-built_in">a</span>(x) &#123;<br>        <span class="hljs-comment">// 构造函数体</span><br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+<ul>
+<li><strong>初始化顺序</strong>：<code>a</code> → <code>b</code> → <code>c</code>（按声明顺序）</li>
+<li>虽然初始化列表写的是 <code>c(x), a(x)</code>，但实际会先初始化 <code>a(x)</code>，然后 <code>b()</code>（默认），最后 <code>c(x)</code>。</li>
+</ul>
+<h2 id="类的构造函数和析构函数">类的构造函数和析构函数</h2>
+<h3 id="构造函数">构造函数</h3>
+<p>当创建类的对象时，会自动调用类的构造函数。构造函数的主要任务是初始化对象的数据成员。构造函数的名称与类名相同，没有返回类型。构造函数可以有参数，可以被重载。</p>
+<ul>
+<li>当创建一个类的对象时，例如<code>MyClass obj;</code>，会调用默认构造函数（无参数的构造函数）。</li>
+<li>当以参数方式创建一个类的对象时，例如<code>MyClass obj(1, 2);</code>，会调用相应的参数构造函数。</li>
+<li>当一个对象作为另一个对象的初始化参数时，例如<code>MyClass obj1 = obj2;</code>或<code>MyClass obj1(obj2);</code>，会调用拷贝构造函数。</li>
+</ul>
+<h3 id="析构函数">析构函数</h3>
+<h4 id="概述">概述</h4>
+<p>在C++中，当类的对象需要在其生命周期结束时执行某些操作（如释放资源、关闭文件、断开网络连接等）时，就需要定义析构函数。当一个对象的生命周期结束时（例如，对象离开其作用域，或者使用<code>delete</code>删除动态分配的对象），会自动调用其析构函数。析构函数的主要任务是执行清理工作，例如释放对象可能拥有的资源。析构函数的名称是类名前加上波浪号<code>~</code>，没有返回类型，也不能有任何参数，因此不能被重载。</p>
+<blockquote>
+<ul>
+<li>一个局部变量，那么当它的定义域（例如一个函数或一个代码块）结束时，它的析构函数会被调用。</li>
+<li>一个全局变量或者静态变量，那么当程序结束时，它的析构函数会被调用。</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>而有的对象不会被析构函数自动释放，因此就不能使用空的析构函数，而是在析构函数内定义释放规则。</p>
+<p>以下是一个例子，该例子中的类<code>FileWrapper</code>封装了一个文件指针，需要在析构函数中关闭文件：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;cstdio&gt;</span></span><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">FileWrapper</span> &#123;<br><span class="hljs-keyword">private</span>:<br>FILE* file_;<br><br><span class="hljs-keyword">public</span>:<br><span class="hljs-built_in">FileWrapper</span>(<span class="hljs-type">const</span> <span class="hljs-type">char</span>* filename, <span class="hljs-type">const</span> <span class="hljs-type">char</span>* mode) &#123;<br>  file_ = std::<span class="hljs-built_in">fopen</span>(filename, mode);<br>  <span class="hljs-keyword">if</span> (file_ == <span class="hljs-literal">nullptr</span>) &#123;<br>      <span class="hljs-keyword">throw</span> std::<span class="hljs-built_in">runtime_error</span>(<span class="hljs-string">&quot;Failed to open file.&quot;</span>);<br>  &#125;<br>&#125;<br><br>~<span class="hljs-built_in">FileWrapper</span>() &#123;<br>  <span class="hljs-keyword">if</span> (file_ != <span class="hljs-literal">nullptr</span>) &#123;<br>      std::<span class="hljs-built_in">fclose</span>(file_);  <span class="hljs-comment">// 关闭文件</span><br>  &#125;<br>&#125;<br><br><span class="hljs-comment">// 其他成员函数...</span><br>&#125;;<br></code></pre></td></tr></table></figure>
+<p>在这个例子中，<code>FileWrapper</code>的构造函数打开一个文件，并将文件指针存储在<code>file_</code>中。然后，<code>FileWrapper</code>的析构函数在<code>file_</code>不为<code>nullptr</code>时关闭文件。这样，无论<code>FileWrapper</code>对象何时被销毁（例如，离开作用域或被<code>delete</code>删除），都会自动关闭文件，防止资源泄漏。</p>
+<p>如果<code>FileWrapper</code>使用空的析构函数，那么文件将不会被关闭，可能会导致资源泄漏和其他问题。</p>
+</blockquote>
+<p>以下是一个简单的例子：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">MyClass</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-built_in">MyClass</span>() &#123;<br>        <span class="hljs-comment">// 构造函数</span><br>        std::cout &lt;&lt; <span class="hljs-string">&quot;Constructor called!&quot;</span> &lt;&lt; std::endl;<br>    &#125;<br><br>    ~<span class="hljs-built_in">MyClass</span>() &#123;<br>        <span class="hljs-comment">// 析构函数</span><br>        std::cout &lt;&lt; <span class="hljs-string">&quot;Destructor called!&quot;</span> &lt;&lt; std::endl;<br>    &#125;<br>&#125;;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    MyClass obj; <span class="hljs-comment">// 创建对象，调用构造函数</span><br>    <span class="hljs-comment">// 当obj离开作用域时，调用析构函数</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>在这个例子中，当<code>MyClass obj;</code>执行时，会调用<code>MyClass</code>的构造函数。当<code>obj</code>离开其作用域（即<code>main</code>函数结束时），会调用<code>MyClass</code>的析构函数。</p>
+<h4 id="调用时机">调用时机</h4>
+<p>在C++中，<strong>析构函数（Destructor）会在对象生命周期结束时被自动调用</strong>，用于释放对象占用的资源、做清理工作。具体来说，析构函数被调用的典型时机有：</p>
+<ol>
+<li>
+<p>局部对象（栈对象）离开作用域时：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">foo</span><span class="hljs-params">()</span> </span>&#123;<br>    MyClass obj; <span class="hljs-comment">// 定义在函数体内，作用域结束时自动调用析构函数</span><br>&#125; <span class="hljs-comment">// 离开foo函数，obj析构</span><br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>动态分配的对象被<code>delete</code>时：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c++">MyClass* ptr = <span class="hljs-keyword">new</span> <span class="hljs-built_in">MyClass</span>();<br><span class="hljs-comment">// ... 使用ptr</span><br><span class="hljs-keyword">delete</span> ptr; <span class="hljs-comment">// delete时会自动调用析构函数</span><br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>全局（静态）对象程序结束时：</p>
+<ul>
+<li>全局变量、<code>static</code>变量、<code>namespace</code>作用域对象，在程序（或它们所在的作用域）结束时调用析构函数。</li>
+</ul>
+</li>
+<li>
+<p>容器中的对象被销毁时：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function">std::vector&lt;MyClass&gt; <span class="hljs-title">v</span><span class="hljs-params">(<span class="hljs-number">3</span>)</span></span>; <span class="hljs-comment">// 向量销毁或缩容时，元素析构</span><br>v.<span class="hljs-built_in">clear</span>(); <span class="hljs-comment">// clear() 会析构所有元素</span><br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>显式调用析构函数。极少见，一般不推荐。比如：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c++">obj.~<span class="hljs-built_in">MyClass</span>();<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>等等。</p>
+</li>
+</ol>
 <h2 id="模板类">模板类</h2>
 <p>模板类是C++中一种特殊的类，它可以用于创建处理不同数据类型的类的蓝图。模板类的定义以关键字<code>template</code>开始，后面跟一个或多个模板参数。</p>
 <p>例如，你可以定义一个模板类<code>Array</code>，它可以用于创建处理不同类型元素的数组：</p>
@@ -1264,7 +1296,7 @@
 </li>
 </ol>
 <h1 id="结构体">结构体</h1>
-<h2 id="概述">概述</h2>
+<h2 id="概述-2">概述</h2>
 <blockquote>
 <p>定义一个结构体类型就类似于定义了一个变量类型，结构体的用法类似于变量，只不过一个结构体里可以包含多个变量类型。</p>
 </blockquote>
@@ -1460,6 +1492,7 @@
 <h1 id="指针与引用">指针与引用</h1>
 <h2 id="区别">区别</h2>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">// 指针</span><br><span class="hljs-type">int</span> a = <span class="hljs-number">10</span>;<br><span class="hljs-type">int</span>* ptr = &amp;a; <span class="hljs-comment">// 获取a的地址</span><br><span class="hljs-type">int</span> value = *ptr; <span class="hljs-comment">// 间接访问a的值</span><br><br><span class="hljs-comment">// 引用</span><br><span class="hljs-type">int</span> a = <span class="hljs-number">10</span>;<br><span class="hljs-type">int</span>&amp; ref = a; <span class="hljs-comment">// ref是a的引用</span><br><span class="hljs-type">int</span> value = ref; <span class="hljs-comment">// 直接访问a的值</span><br></code></pre></td></tr></table></figure>
+<h3 id="概述-3">概述</h3>
 <ol>
 <li>定义方式：
 <ul>
@@ -1499,6 +1532,35 @@
 </li>
 <li>等等。</li>
 </ol>
+<h3 id="既然有引用了，为什么还需要指针？">既然有引用了，为什么还需要指针？</h3>
+<p>为什么还需要指针？</p>
+<ul>
+<li>
+<p>需要可空性（null）。引用不能为null，但有些场景（如函数可能返回“无对象”）就需要指针。</p>
+</li>
+<li>
+<p>需要可重新绑定。引用一旦绑定不能更改，指针可以随时指向别的对象。</p>
+</li>
+<li>
+<p>需要动态分配与释放资源。指针配合<code>new/delete</code>进行堆内存管理，引用做不到。</p>
+</li>
+<li>
+<p>需要数组和指针运算。指针可用于遍历、操作数组，引用没有这种能力。</p>
+</li>
+<li>
+<p>实现复杂数据结构。如链表、树等，节点间多变关系只能用指针。</p>
+</li>
+<li>
+<p>C与C<ins>互操作。很多C库接口只支持指针，C</ins>引用无法直接传递给C函数。</p>
+</li>
+</ul>
+<blockquote>
+<ul>
+<li><strong>引用</strong>：更安全、简洁，适合“别名”语义（参数传递、返回值等），不能为null，不能更改指向。</li>
+<li><strong>指针</strong>：更灵活，适合需要“可空、可变指向、动态分配、指针运算”等场景。</li>
+</ul>
+<p><strong>能用引用就用引用，必须用指针再用指针。两者各有用途，缺一不可。</strong></p>
+</blockquote>
 <h2 id="指针">指针</h2>
 <p><a target="_blank" rel="noopener" href="https://www.runoob.com/cplusplus/cpp-pointers.html">C++ 指针 | 菜鸟教程</a></p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br> <br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br> <br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span> <span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>   <span class="hljs-type">int</span>  var = <span class="hljs-number">20</span>;   <span class="hljs-comment">// 实际变量的声明</span><br>   <span class="hljs-type">int</span>  *ip;        <span class="hljs-comment">// 指针变量的声明</span><br> <br>   ip = &amp;var;       <span class="hljs-comment">// 在指针变量中存储 var 的地址</span><br> <br>   cout &lt;&lt; <span class="hljs-string">&quot;Value of var variable: &quot;</span>;<br>   cout &lt;&lt; var &lt;&lt; endl;<br> <br>   <span class="hljs-comment">// 输出在指针变量中存储的地址</span><br>   cout &lt;&lt; <span class="hljs-string">&quot;Address stored in ip variable: &quot;</span>;<br>   cout &lt;&lt; ip &lt;&lt; endl;<br> <br>   <span class="hljs-comment">// 访问指针中地址的值</span><br>   cout &lt;&lt; <span class="hljs-string">&quot;Value of *ip variable: &quot;</span>;<br>   cout &lt;&lt; *ip &lt;&lt; endl;<br> <br>   <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br><br>Value of var variable: <span class="hljs-number">20</span><br>Address stored in ip variable: <span class="hljs-number">0xbfc601ac</span><br>Value of *ip variable: <span class="hljs-number">20</span><br></code></pre></td></tr></table></figure>
@@ -1535,6 +1597,18 @@
 <li>如果 <code>delete</code> 了两次，程序会崩溃（<strong>野指针/悬垂指针</strong>）。</li>
 </ul>
 <h3 id="智能指针">智能指针</h3>
+<h4 id="优点">优点</h4>
+<p>智能指针（如 <code>std::unique_ptr</code>, <code>std::shared_ptr</code>, <code>std::weak_ptr</code>）相比于裸指针（如 <code>T*</code>），有以下主要好处：</p>
+<ol>
+<li>自动管理内存，防止内存泄漏。智能指针在生命周期结束时会自动释放所管理的内存资源（调用delete），不用手动管理，极大降低了内存泄漏的风险。</li>
+<li>异常安全。即使发生异常导致函数提前退出，智能指针依然会自动释放内存资源，保证资源不泄漏。</li>
+<li>防止悬垂指针。智能指针析构后会自动置空，防止访问已释放的内存。而裸指针容易出现“悬垂指针”问题。</li>
+<li>更清晰的所有权语义。<code>std::unique_ptr</code> 表示唯一所有权，<code>std::shared_ptr</code> 表示共享所有权，代码可读性和可维护性更好。裸指针无法表达谁负责释放内存，容易混淆。</li>
+<li>支持自定义删除器。智能指针可以指定自定义删除器，用于释放特殊资源（如文件句柄、数组、C风格资源等）。</li>
+<li>方便与标准库和容器结合使用。智能指针能很好地与STL容器结合，自动管理容器中的对象生命周期，避免资源泄漏和重复释放。</li>
+<li>减少重复释放和双重释放的风险。智能指针内部管理资源引用计数（如 <code>shared_ptr</code>），可有效防止重复释放；而裸指针容易发生 double free。</li>
+<li>便于调试和维护。使用智能指针，资源释放点更清晰，调试时更容易定位内存管理问题。</li>
+</ol>
 <h4 id="std-unique-ptr">std::unique_ptr</h4>
 <p><code>std::unique_ptr</code> 是 C++11 引入的一种<strong>智能指针</strong>，它用于<strong>独占式地管理动态分配（<code>new</code>）的内存资源</strong>。它的核心作用是：</p>
 <ul>
@@ -1560,6 +1634,12 @@
 <h3 id="野指针">野指针</h3>
 <p>野指针是指尚未初始化的指针，既不指向合法的内存空间，也没有使用 NULL/nullptr 初始化指针。</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br> <br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-type">int</span> *p;     <span class="hljs-comment">// 野指针</span><br>    <span class="hljs-type">int</span> *q = <span class="hljs-literal">NULL</span>; <span class="hljs-comment">// 非野指针</span><br>    p = <span class="hljs-keyword">new</span> <span class="hljs-built_in">int</span>(<span class="hljs-number">5</span>);  <span class="hljs-comment">// p 现在不再是野指针</span><br>    q = <span class="hljs-keyword">new</span> <span class="hljs-built_in">int</span>(<span class="hljs-number">10</span>); <br>    cout&lt;&lt;<span class="hljs-string">&quot;*p = &quot;</span>&lt;&lt;*p&lt;&lt;endl;  <span class="hljs-comment">// *p = 5</span><br>    cout&lt;&lt;<span class="hljs-string">&quot;*q = &quot;</span>&lt;&lt;*q&lt;&lt;endl;  <span class="hljs-comment">// *q = 10</span><br>    <span class="hljs-built_in">free</span>(p);<br>    <span class="hljs-built_in">free</span>(q);<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<ul>
+<li>C++ 中，<strong>类的指针成员变量如果没有显式初始化，其值是未定义的</strong>（野指针）。</li>
+<li><code>Atlas* mpAtlas;</code>只是声明了一个指针变量，并不会自动分配对象，自动调用构造函数，也不会自动赋值为 <code>nullptr</code>。</li>
+<li>只有你在构造函数里写了<code>mpAtlas = new Atlas();</code>，才会调用构造函数分配对象。</li>
+<li>只有你在成员声明时写了<code>Atlas* mpAtlas = nullptr;</code>，或者在构造函数初始化列表里写<code>mpAtlas(nullptr)</code>，它才会自动为 <code>nullptr</code>。</li>
+</ul>
 <h3 id="悬空指针">悬空指针</h3>
 <p>悬空指针是指指针指向的内存空间已被释放或不再有效。</p>
 <blockquote>
@@ -1583,6 +1663,9 @@
 </li>
 </ul>
 <h3 id="未释放内存而丢失指针引用会导致内存泄漏">未释放内存而丢失指针引用会导致<a href="#%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F">内存泄漏</a></h3>
+<h2 id="通用指针-void-pointer">通用指针 void pointer</h2>
+<p>在 C++ 中，<code>void*</code> 是一种特殊类型的指针，称为 <strong>通用指针</strong> 或 <strong>无类型指针</strong> (<code>void pointer</code>)。它可以指向任何类型的数据，但不能直接解引用或进行类型安全的操作。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-type">void</span>* ptr;<br><span class="hljs-type">int</span> a = <span class="hljs-number">10</span>;<br>ptr = &amp;a;  <span class="hljs-comment">// 指向 int 类型</span><br><br><span class="hljs-comment">// 错误：无法直接解引用 void* 类型</span><br><span class="hljs-comment">// std::cout &lt;&lt; *ptr &lt;&lt; std::endl;</span><br><br><span class="hljs-comment">// 正确：先转换为 int* 类型</span><br>std::cout &lt;&lt; *(<span class="hljs-type">int</span>*)ptr &lt;&lt; std::endl;  <span class="hljs-comment">// 输出 10</span><br></code></pre></td></tr></table></figure>
 <h2 id="指针的操作">指针的操作</h2>
 <h3 id="delete">delete</h3>
 <p><code>delete</code> 是C++中的运算符，用于释放由<code>new</code>分配的内存。</p>
@@ -1592,18 +1675,38 @@
 <p><code>free()</code> 函数是C标准库中的函数，用于释放由<code>malloc()</code>、<code>calloc()</code>或<code>realloc()</code>分配的内存。</p>
 <p>当你使用 <code>free()</code> 函数时，它只会释放指针指向的内存，不会调用析构函数。因此，指针指向的内存会被释放，但指针变量本身仍然存在，只是它现在指向一个无效地址（悬空指针）。</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;cstdlib&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-type">int</span>* ptr = (<span class="hljs-type">int</span>*)<span class="hljs-built_in">malloc</span>(<span class="hljs-built_in">sizeof</span>(<span class="hljs-type">int</span>)); <span class="hljs-comment">// 动态分配内存</span><br>    *ptr = <span class="hljs-number">5</span>;<br>    <span class="hljs-built_in">free</span>(ptr);                            <span class="hljs-comment">// 释放内存，ptr现在是悬空指针</span><br>    ptr = <span class="hljs-literal">nullptr</span>;                        <span class="hljs-comment">// 避免悬空指针</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
-<h2 id="void-pointer">void pointer</h2>
-<p>在 C++ 中，<code>void*</code> 是一种特殊类型的指针，称为 <strong>通用指针</strong> 或 <strong>无类型指针</strong> (<code>void pointer</code>)。它可以指向任何类型的数据，但不能直接解引用或进行类型安全的操作。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-type">void</span>* ptr;<br><span class="hljs-type">int</span> a = <span class="hljs-number">10</span>;<br>ptr = &amp;a;  <span class="hljs-comment">// 指向 int 类型</span><br><br><span class="hljs-comment">// 错误：无法直接解引用 void* 类型</span><br><span class="hljs-comment">// std::cout &lt;&lt; *ptr &lt;&lt; std::endl;</span><br><br><span class="hljs-comment">// 正确：先转换为 int* 类型</span><br>std::cout &lt;&lt; *(<span class="hljs-type">int</span>*)ptr &lt;&lt; std::endl;  <span class="hljs-comment">// 输出 10</span><br></code></pre></td></tr></table></figure>
+<h2 id="指针传递机制">指针传递机制</h2>
+<h3 id="指针的值传递">指针的值传递</h3>
+<p>当函数参数是指针类型（如 <code>int* p</code>），<strong>调用时将指针的值（即地址）拷贝一份传给函数</strong>。函数内部可以通过这个指针修改指针所指的内容，但<strong>无法改变实参指针本身</strong>（即无法让外部的指针指向别的地方）。</p>
+<p>示例：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">foo</span><span class="hljs-params">(<span class="hljs-type">int</span>* p)</span> </span>&#123;   <span class="hljs-comment">// 指针的值传递</span><br>    *p = <span class="hljs-number">20</span>;         <span class="hljs-comment">// 修改了外部变量</span><br>    p = <span class="hljs-literal">nullptr</span>;     <span class="hljs-comment">// 只修改了局部副本，外部指针不受影响</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-type">int</span> a = <span class="hljs-number">10</span>;<br>    <span class="hljs-type">int</span>* ptr = &amp;a;<br>    <span class="hljs-built_in">foo</span>(ptr);<br>    <span class="hljs-comment">// a 变成 20，但 ptr 依然指向 a，不是 nullptr</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="指针的指针传递">指针的指针传递</h3>
+<p>如果你想让函数<strong>能修改外部指针本身的指向</strong>，就需要传递“指向指针的指针”（如 <code>int** pp</code>），或者用引用（如 <code>int*&amp; p</code>）。适用于需要在函数内“重定向”指针的场合。</p>
+<h4 id="指针的指针">指针的指针</h4>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">foo</span><span class="hljs-params">(<span class="hljs-type">int</span>** pp)</span> </span>&#123;<br>    *pp = <span class="hljs-literal">nullptr</span>; <span class="hljs-comment">// 改变了外部指针本身的指向</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-type">int</span> a = <span class="hljs-number">10</span>;<br>    <span class="hljs-type">int</span>* ptr = &amp;a;<br>    <span class="hljs-built_in">foo</span>(&amp;ptr);<br>    <span class="hljs-comment">// ptr 现在变成 nullptr</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<blockquote>
+<ul>
+<li>C++ 运算符优先级：<code>-&gt;</code> 高于 <code>*</code>，所以 <code>*ppAtlas-&gt;Func()</code> 实际上是 <code>*(ppAtlas-&gt;Func())</code>。</li>
+<li>用括号 <code>(*ppAtlas)-&gt;Func()</code>，强制先解引用，再调用成员函数，<strong>语法和语义都正确</strong>。</li>
+<li>这是 C++ 指针和运算符优先级的标准写法，能正确访问二级指针指向的对象的成员函数。</li>
+</ul>
+</blockquote>
+<h4 id="指针的引用">指针的引用</h4>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">foo</span><span class="hljs-params">(<span class="hljs-type">int</span>*&amp; p)</span> </span>&#123;<br>    p = <span class="hljs-literal">nullptr</span>; <span class="hljs-comment">// 直接修改外部指针</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-type">int</span> a = <span class="hljs-number">10</span>;<br>    <span class="hljs-type">int</span>* ptr = &amp;a;<br>    <span class="hljs-built_in">foo</span>(ptr);<br>    <span class="hljs-comment">// ptr 现在为 nullptr</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="总结对比-2">总结对比</h3>
+<ul>
+<li><strong>指针的值传递</strong>：传递的是地址的副本，能改内容，不能改指针本身；</li>
+<li><strong>指针的指针传递（或引用）</strong>：能改指针本身，让它指向新的地方。</li>
+</ul>
 <h1 id="mutex">mutex</h1>
-<p>互斥量（mutex），它是一种同步原语，用于保护共享数据免受多个线程同时访问。在多线程环境中，如果多个线程试图<strong>同时访问和修改</strong>同一块数据，可能会导致数据不一致和未定义的行为。为了防止这种情况，我们可以使用互斥量来确保在任何时候只有一个线程能够访问该数据。</p>
+<p>互斥量（mutex），它是一种同步原语，用于保护共享数据免受多个线程同时访问。在 C++ 多线程编程中，<strong>当多个线程可能同时访问同一份共享资源，并且至少有一个线程会修改该资源时，就需要加锁</strong>。不加锁会导致数据竞争（data race），引发未定义行为，造成程序随机崩溃或数据错误。为了防止这种情况，我们可以使用互斥量来确保在任何时候只有一个线程能够访问该数据。</p>
 <blockquote>
 <p>比如在回调函数中被持续赋值，在其它函数中被修改。</p>
 </blockquote>
 <blockquote>
 <p>即使变量在其他函数中只被读取，也需要保护它，因为在多线程环境中，一个线程可能在另一个线程正在写入变量的同时读取该变量，这可能会导致读取到的数据是不一致或者无效的。这种情况被称为“读-写冲突”。</p>
 </blockquote>
-<p>一个或多个共享资源（例如，一个全局变量或一个在多个线程之间共享的数据结构），当一个线程想要访问这个共享资源时，它需要首先锁定（lock）互斥量。如果互斥量已经被另一个线程锁定，那么这个线程将会被阻塞，直到互斥量被解锁（unlock）。当线程完成对共享资源的访问后，它需要解锁互斥量，以便其他线程可以锁定互斥量并访问共享资源。</p>
+<p>一个或多个共享资源（例如，一个全局变量或一个在多个线程之间共享的数据结构），当一个线程想要访问这个共享资源时，它需要首先锁定（lock）互斥量。如果互斥量已经被另一个线程锁定，那么这个线程将会被阻塞，直到互斥量被解锁（unlock）。当线程完成对共享资源的访问后，它需要解锁互斥量，以便其他线程可以锁定互斥量并访问共享资源。加锁把并发访问变成<strong>串行化访问</strong>，牺牲了一定的并发性能，但换来数据的安全和可靠。</p>
 <h2 id="lock">lock</h2>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c++">std::mutex m_buf_event;<br>m_buf_event.<span class="hljs-built_in">lock</span>();<br><span class="hljs-comment">// ... do some work ...</span><br>m_buf_event.<span class="hljs-built_in">unlock</span>();<br></code></pre></td></tr></table></figure>
 <blockquote>
@@ -1619,6 +1722,58 @@
 </blockquote>
 <p>示例：</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs c++">mutex evt_buf_mutex;<br>mutex events_storage_mutex;<br><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">callback_events</span><span class="hljs-params">(<span class="hljs-type">const</span> dvs_msgs::EventArray::ConstPtr &amp;msg)</span> </span>&#123;<br>  <span class="hljs-comment">// We first lock the event buffers, to avoid any collision</span><br>  &#123;<br>    <span class="hljs-function">lock_guard&lt;mutex&gt; <span class="hljs-title">lock</span><span class="hljs-params">(evt_buf_mutex)</span></span>;<br><br>    <span class="hljs-comment">// We then append the received events at the back of the current buffer</span><br>    evt_buffers[buffer_used].<span class="hljs-built_in">insert</span>(evt_buffers[buffer_used].<span class="hljs-built_in">end</span>(),<br>                                    <span class="hljs-built_in">begin</span>(msg-&gt;events), <span class="hljs-built_in">end</span>(msg-&gt;events));<br>  &#125;<br>  <br>  <span class="hljs-comment">// Add new events to events_storage</span><br>  &#123;<br>    <span class="hljs-function">lock_guard&lt;mutex&gt; <span class="hljs-title">storage_lock</span><span class="hljs-params">(events_storage_mutex)</span></span>;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">const</span> dvs_msgs::Event &amp;event : msg-&gt;events) &#123;<br>      events_storage.<span class="hljs-built_in">push_back</span>(event);<br>      <span class="hljs-comment">// If the size of events_storage exceeds accumulation_number, we remove</span><br>      <span class="hljs-comment">// the oldest event</span><br>      <span class="hljs-keyword">if</span> (events_storage.<span class="hljs-built_in">size</span>() &gt; accumulation_number) &#123;<br>        events_storage.<span class="hljs-built_in">pop_front</span>();<br>      &#125;<br>    &#125;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h1 id="多线程">多线程</h1>
+<h2 id="join-和detach">join()和detach()</h2>
+<blockquote>
+<ul>
+<li>如果 thread 还在运行且未 <code>join()</code> 或 <code>detach()</code>，析构时会调用 <code>std::terminate()</code>，导致程序崩溃。因此<strong>必须保证析构前线程已被 join 或 detach</strong>。</li>
+<li><strong>一般建议：每个线程对象都必须明确 join 或 detach，否则有资源泄漏和崩溃的风险。</strong></li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li><code>join()</code>：等待线程结束，常用于主线程需要同步等待子线程结果的场景。</li>
+<li><code>detach()</code>：让线程后台独立运行，常用于不关心线程结果、需要后台任务的场景。</li>
+</ul>
+</blockquote>
+<h3 id="join">join()</h3>
+<p><strong>作用：</strong><br>
+让主线程（或调用线程）<strong>等待子线程执行结束</strong>。当你调用 <code>t.join()</code> 时，当前线程会阻塞，直到线程<code>t</code>执行完毕。</p>
+<p><strong>特点：</strong></p>
+<ul>
+<li><strong>同步操作</strong>：主线程会等待子线程结束，之后才能继续执行。</li>
+<li><strong>常用于：</strong> 需要确保子线程任务完成后再继续后续操作的场景。</li>
+<li><strong>一个线程只能被 join 或 detach 一次，二者不能重复。</strong></li>
+<li><strong>调用后，线程对象<code>t</code>不再代表一个可执行的线程（变为“非 joinable”）。</strong></li>
+</ul>
+<p><strong>示例：</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;thread&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">func</span><span class="hljs-params">()</span> </span>&#123;<br>    std::cout &lt;&lt; <span class="hljs-string">&quot;Thread running\n&quot;</span>;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-function">std::thread <span class="hljs-title">t</span><span class="hljs-params">(func)</span></span>;<br>    t.<span class="hljs-built_in">join</span>(); <span class="hljs-comment">// 主线程等待t线程结束</span><br>    std::cout &lt;&lt; <span class="hljs-string">&quot;Main continues\n&quot;</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="detach">detach()</h3>
+<p><strong>作用：</strong><br>
+将线程与主线程“分离”，让线程在后台独立运行，不再受主线程控制。</p>
+<p><strong>特点：</strong></p>
+<ul>
+<li><strong>异步操作</strong>：主线程不会等待子线程，子线程会在后台自己运行，运行结束后资源自动回收。</li>
+<li><strong>常用于：</strong> 后台任务、不关心线程何时结束的场合。</li>
+<li><strong>一旦 detach 后，无法再 join，也无法直接管理该线程。</strong></li>
+<li><strong>需确保线程运行期间相关资源仍然有效，否则会有悬垂指针等风险。</strong></li>
+</ul>
+<p><strong>示例：</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;thread&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">func</span><span class="hljs-params">()</span> </span>&#123;<br>    std::cout &lt;&lt; <span class="hljs-string">&quot;Thread running\n&quot;</span>;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-function">std::thread <span class="hljs-title">t</span><span class="hljs-params">(func)</span></span>;<br>    t.<span class="hljs-built_in">detach</span>(); <span class="hljs-comment">// 分离线程，主线程不会等待</span><br>    std::cout &lt;&lt; <span class="hljs-string">&quot;Main continues\n&quot;</span>;<br>    <span class="hljs-comment">// 主线程提前结束，后台线程可能还在运行</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="用指针方式管理线程对象">用指针方式管理线程对象</h2>
+<ul>
+<li>在 C++ 中，线程对象（如 <code>std::thread</code>）通常<strong>建议以栈变量或智能指针的形式管理</strong>，但有时也需要用原始指针（如 <code>std::thread*</code>）管理线程对象。</li>
+<li>当你用<strong>指针方式管理线程对象时</strong>，需要特别注意生命周期和资源释放，否则可能引发内存泄漏、悬垂指针或程序崩溃。</li>
+<li>在线程对象销毁前，必须对其调用 join() 或 detach()，否则程序会调用 std::terminate。</li>
+</ul>
+<p>示例：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs c++">std::thread* t = <span class="hljs-keyword">new</span> std::<span class="hljs-built_in">thread</span>([]() &#123; <span class="hljs-comment">/* ... */</span> &#125;);<br><br><span class="hljs-comment">// 线程完成后，安全管理</span><br><span class="hljs-keyword">if</span> (t) &#123;<br>    <span class="hljs-keyword">if</span> (t-&gt;<span class="hljs-built_in">joinable</span>()) t-&gt;<span class="hljs-built_in">join</span>();<br>    <span class="hljs-keyword">delete</span> t;<br>    t = <span class="hljs-literal">nullptr</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<ul>
+<li><strong>优先使用 <code>std::thread</code> 栈变量或 <code>std::unique_ptr&lt;std::thread&gt;</code></strong>，自动析构时释放资源，无需手动 delete。</li>
+<li>避免裸指针，减少内存和生命周期管理的出错概率。</li>
+</ul>
+<p>示例：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">auto</span> t = std::<span class="hljs-built_in">make_unique</span>&lt;std::thread&gt;(func, args...);<br><span class="hljs-keyword">if</span> (t-&gt;<span class="hljs-built_in">joinable</span>()) t-&gt;<span class="hljs-built_in">join</span>(); <span class="hljs-comment">// 自动析构，无需手动 delete</span><br><span class="hljs-comment">// unique_ptr 自动析构的本质是自动调用 delete，并将指针置空。</span><br></code></pre></td></tr></table></figure>
 <h1 id="C-小技巧">C++小技巧</h1>
 <h2 id="模板参数必须在编译时是已知的常量">模板参数必须在编译时是已知的常量</h2>
 <p>在C++中，模板参数必须在编译时是已知的常量。这意味着你不能使用运行时从配置文件中读取的值作为模板参数。</p>

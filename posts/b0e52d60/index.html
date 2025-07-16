@@ -24,7 +24,7 @@
 <meta property="og:description" content="本文主要总结整理了网上分享的ChatGPT、 GitHub Copilot等大模型及集成交互接口gpt_academic的使用技巧，尽可能做到物尽其用，在使用大模型时充分发挥出其优势和性能，以更好地解决问题。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-01-03T09:59:29.000Z">
-<meta property="article:modified_time" content="2025-06-24T14:38:33.315Z">
+<meta property="article:modified_time" content="2025-07-10T03:37:57.010Z">
 <meta property="article:author" content="龙泽雨">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -359,7 +359,7 @@
         
         
         
-          168 分钟
+          170 分钟
         
       </span>
     
@@ -409,7 +409,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2025年6月24日 晚上
+                    本文最后更新于 2025年7月10日 中午
                   
                 
               </p>
@@ -1127,7 +1127,7 @@
 </li>
 <li>
 <p>安装依赖</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># （选择I: 如熟悉python, python推荐版本 3.9 ~ 3.11）备注：使用官方pip源或者阿里pip源, 临时换源方法：python -m pip install -r requirements.txt -i https://mirrors.aliyun.com/pypi/simple/</span><br>python -m pip install -r requirements.txt<br><br><span class="hljs-comment"># （选择II: 使用Anaconda）步骤也是类似的 (https://www.bilibili.com/video/BV1rc411W7Dr)：</span><br>conda create -n gptac_venv python=3.11    <span class="hljs-comment"># 创建anaconda环境</span><br>conda activate gptac_venv                 <span class="hljs-comment"># 激活anaconda环境</span><br>python -m pip install -r requirements.txt <span class="hljs-comment"># 这个步骤和pip安装一样的步骤</span><br>pip install --upgrade nougat-ocr tiktoken  <span class="hljs-comment"># 可选，[插件-学术]精确翻译PDF论文(NOUGAT)需要。需好的网络环境和2G以上流量。</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># （选择I: 如熟悉python, python推荐版本 3.9 ~ 3.11）备注：使用官方pip源或者阿里pip源, 临时换源方法：python -m pip install -r requirements.txt -i https://mirrors.aliyun.com/pypi/simple/</span><br>python -m pip install -r requirements.txt<br><br><span class="hljs-comment"># （选择II: 使用Anaconda）步骤也是类似的 (https://www.bilibili.com/video/BV1rc411W7Dr)：</span><br>conda create -n gptac_venv python=3.11    <span class="hljs-comment"># 创建anaconda环境</span><br>conda activate gptac_venv                 <span class="hljs-comment"># 激活anaconda环境</span><br>python -m pip install -r requirements.txt <span class="hljs-comment"># 这个步骤和pip安装一样的步骤</span><br>pip install --upgrade nougat-ocr tiktoken  <span class="hljs-comment"># 可选，[插件-学术]精确翻译PDF论文(NOUGAT)需要。需好的网络环境和2G以上流量。</span><br>pip install openpyxl  <span class="hljs-comment"># 解决导出对话时提示“已完成对话存档（pdf和word格式的对话存档生成未成功）。No module named &#x27;openpyxl&#x27;”</span><br></code></pre></td></tr></table></figure>
 <blockquote>
 <p>在执行多线程时，遇到WARNING:root:No GPU found. Conversion on CPU is very slow.</p>
 <p>解决：需要提前安装带cuda的pytorch.</p>
@@ -1464,6 +1464,9 @@
 <blockquote>
 <p>GitHub Copilot 扩展会经常更新，以修复 bug 并添加新功能。请务必使扩展保持最新状态，因为较旧版本的客户端无法与 GitHub Copilot 服务器通信。在安装了 GitHub Copilot 扩展的所有计算机上更新它。</p>
 </blockquote>
+<blockquote>
+<p>只有最新版本的 Copilot Chat 才会使用 Copilot 服务提供的最新模型，因为即使是小规模的模型升级也需要在扩展程序中进行及时的更改和修复。旧版本的 Copilot Chat 仍将使用最新版本的 Copilot 补全功能。</p>
+</blockquote>
 <h2 id="使用建议">使用建议</h2>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/phantom_111/article/details/132070931">使用 GitHub Copilot 进行 Prompt Engineering 的初学者指南（译）</a></p>
 <ol>
@@ -1706,6 +1709,9 @@
 <p><a target="_blank" rel="noopener" href="https://www.midjourney.com/">MidJourney</a>: 如果您热衷于 AI 图像生成，MidJourney 是迄今为止适合此用例的最佳 AI；它的图像质量远远领先于 Stable Diffusion、Open AI 的 Dall-E 或 Adobe Firefly。</p>
 </li>
 <li>
+<p><a target="_blank" rel="noopener" href="https://openrouter.ai/">OpenRouter</a>: 一个统一的 API 服务平台，让使用者透过单一介面访问多种大型语言模型（LLM）。</p>
+</li>
+<li>
 <p><a target="_blank" rel="noopener" href="https://tongyi.aliyun.com/">通义千问</a>：由阿里巴巴集团旗下的云端运算服务的科技公司阿里云开发的聊天机器人，能够与人交互、回答问题及协作创作。</p>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://tongyi.aliyun.com/lingma/">通义灵码</a>：基于通义大模型，提供代码智能生成、研发智能问答能力。</li>
@@ -1728,6 +1734,12 @@
 <li><a target="_blank" rel="noopener" href="https://towardsdatascience.com/the-smarter-way-of-using-ai-in-programming-0492ac610385">The Smarter Way of Using AI in Programming</a></li>
 </ul>
 </blockquote>
+<h1 id="使用心得">使用心得</h1>
+<ul>
+<li>Claude AI模型埋头工作，总喜欢省略输出，说话就像个领导；Gemini的回答又事无巨细特别详尽；OpenAI折中。</li>
+<li>原始框架用Gemini 2.5 Pro写，Gemini有些时候代码出错搞不定就让Claude Sonnet 4来修，它的修复率最高。</li>
+<li>OpenAI o3在C++编程方面比Gemini 2.5 Pro表现要好。</li>
+</ul>
 
                 
               </div>

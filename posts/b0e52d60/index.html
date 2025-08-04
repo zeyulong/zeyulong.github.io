@@ -24,7 +24,7 @@
 <meta property="og:description" content="本文主要总结整理了网上分享的ChatGPT、 GitHub Copilot等大模型及集成交互接口gpt_academic的使用技巧，尽可能做到物尽其用，在使用大模型时充分发挥出其优势和性能，以更好地解决问题。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-01-03T09:59:29.000Z">
-<meta property="article:modified_time" content="2025-07-10T03:37:57.010Z">
+<meta property="article:modified_time" content="2025-08-04T02:17:46.121Z">
 <meta property="article:author" content="龙泽雨">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -319,7 +319,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          20k 字
+          21k 字
         
       </span>
     
@@ -330,7 +330,7 @@
         
         
         
-          170 分钟
+          176 分钟
         
       </span>
     
@@ -372,7 +372,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2025年7月10日 中午
+                    本文最后更新于 2025年8月4日 上午
                   
                 
               </p>
@@ -1053,7 +1053,9 @@
 </ol>
 </blockquote>
 </li>
-<li></li>
+<li>
+<p>完成。</p>
+</li>
 </ol>
 <h2 id="安装运行">安装运行</h2>
 <h3 id="安装方法I：直接运行-Windows-Linux-or-MacOS">安装方法I：直接运行 (Windows, Linux or MacOS)</h3>
@@ -1430,7 +1432,299 @@
 <blockquote>
 <p>只有最新版本的 Copilot Chat 才会使用 Copilot 服务提供的最新模型，因为即使是小规模的模型升级也需要在扩展程序中进行及时的更改和修复。旧版本的 Copilot Chat 仍将使用最新版本的 Copilot 补全功能。</p>
 </blockquote>
-<h2 id="使用建议">使用建议</h2>
+<h2 id="计费事项">计费事项</h2>
+<h3 id="付费计划">付费计划</h3>
+<p><a target="_blank" rel="noopener" href="https://docs.github.com/en/copilot/concepts/billing/individual-plans">关于个人 Copilot 计划和福利</a></p>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>GitHub Copilot Free</th>
+<th>GitHub Copilot Pro</th>
+<th>GitHub Copilot Pro+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Price</td>
+<td>Free</td>
+<td><code>$10</code> USD per month, or <code>$100</code> USD per year (<a target="_blank" rel="noopener" href="https://docs.github.com/en/copilot/managing-copilot/managing-copilot-as-an-individual-subscriber/getting-started-with-copilot-on-your-personal-account/getting-free-access-to-copilot-pro-as-a-student-teacher-or-maintainer">free</a> for some users)</td>
+<td>$39 USD per month, or $390 USD per year</td>
+</tr>
+<tr>
+<td>Real-time code suggestions with included models</td>
+<td>Up to 2,000 per month</td>
+<td>Unlimited</td>
+<td>Unlimited</td>
+</tr>
+<tr>
+<td>Premium requests</td>
+<td>50 per month</td>
+<td>300 per month</td>
+<td>1,500 per month</td>
+</tr>
+<tr>
+<td>Purchase additional premium requests at $0.04 USD per request</td>
+<td></td>
+<td>√</td>
+<td>√</td>
+</tr>
+<tr>
+<td>Copilot Chat interactions</td>
+<td>Up to 50 per month</td>
+<td>Unlimited with included models</td>
+<td>Unlimited with included models</td>
+</tr>
+<tr>
+<td>Access to premium models</td>
+<td></td>
+<td>√</td>
+<td>√ Full access</td>
+</tr>
+</tbody>
+</table>
+<p>有关功能和优势的详细比较，请参阅 <a target="_blank" rel="noopener" href="https://docs.github.com/en/copilot/about-github-copilot/subscription-plans-for-github-copilot">GitHub Copilot 计划 </a>。</p>
+<ol>
+<li><strong>GitHub Copilot 免费版</strong>面向无法通过组织或企业访问 Copilot 的个人开发者。此免费方案包含部分 Copilot 功能的有限访问权限，让您可以免费试用 AI 驱动的编码辅助功能。</li>
+<li><strong>GitHub Copilot Pro</strong> 专为追求更高灵活性的个人设计。此付费套餐包含无限次完成、访问 Copilot Chat 中的高级模型、访问 Copilot 编码代理以及每月高级请求限额。经过验证的学生、教师和流行开源项目的维护者可能有资格免费访问。</li>
+<li><strong>GitHub Copilot Pro+</strong> 为个人开发者提供最高级别的访问权限。除了 Copilot Pro 的所有功能外，此方案还包含更大的高级请求限额，以及对 Copilot Chat 中所有可用模型的完全访问权限。非常适合想要获得最先进功能的 AI 高级用户。</li>
+</ol>
+<h3 id="可用模型">可用模型</h3>
+<p><a target="_blank" rel="noopener" href="https://docs.github.com/en/copilot/about-github-copilot/subscription-plans-for-github-copilot">GitHub Copilot 计划 </a></p>
+<table>
+<thead>
+<tr>
+<th>Available models in chat</th>
+<th>Copilot Free</th>
+<th>Copilot Pro</th>
+<th>Copilot Pro+</th>
+<th>Copilot Business</th>
+<th>Copilot Enterprise</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GPT-4.1</td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+</tr>
+<tr>
+<td>GPT-4o</td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+</tr>
+<tr>
+<td>o3</td>
+<td></td>
+<td></td>
+<td>√</td>
+<td></td>
+<td>√</td>
+</tr>
+<tr>
+<td>o4-mini</td>
+<td></td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+</tr>
+<tr>
+<td>Claude Opus 4</td>
+<td></td>
+<td></td>
+<td>√</td>
+<td></td>
+<td>√</td>
+</tr>
+<tr>
+<td>Claude Sonnet 3.5</td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+</tr>
+<tr>
+<td>Claude Sonnet 3.7</td>
+<td></td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+</tr>
+<tr>
+<td>Claude Sonnet 3.7 Thinking</td>
+<td></td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+</tr>
+<tr>
+<td>Claude Sonnet 4</td>
+<td></td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+</tr>
+<tr>
+<td>Gemini 2.5 Pro</td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+</tr>
+<tr>
+<td>Gemini 2.0 Flash</td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+</tr>
+</tbody>
+</table>
+<h3 id="高级请求">高级请求</h3>
+<p><a target="_blank" rel="noopener" href="https://docs.github.com/en/copilot/concepts/billing/copilot-requests">GitHub Copilot 中的请求</a></p>
+<ol>
+<li>
+<p>请求是指您要求 Copilot 为您执行某项操作的任何交互，无论是生成代码、回答问题，还是帮助您使用扩展程序。每次您在聊天窗口中发送提示或触发 Copilot 的响应时，您都在发出请求。</p>
+</li>
+<li>
+<p>部分 Copilot 功能需要使用更高级的处理能力，因此计为高级请求。每项功能消耗的高级请求数量可能因功能本身和所使用的 AI 模型而异。</p>
+</li>
+<li>
+<p>如果您使用 <strong>Copilot Free</strong> ，您的套餐每月最多可获得 2,000 个代码补全请求和 50 个高级请求。所有聊天互动均计入高级请求。</p>
+</li>
+<li>
+<p>如果您使用的是<strong>付费套餐</strong> ，则可以使用包含的模型（GPT-4.1 和 GPT-4o）进行无限次代码补全和聊天交互。为了满足高需求，我们设置了速率限制。请参阅 <a target="_blank" rel="noopener" href="https://docs.github.com/en/copilot/concepts/rate-limits">GitHub Copilot 的速率限制 </a>。</p>
+</li>
+<li>
+<p>付费计划每月还会获得一定额度的高级请求，可用于高级聊天交互、使用高级模型的代码补全以及其他高级功能。有关每个计划包含的高级请求数量的概览，请参阅 <a target="_blank" rel="noopener" href="https://docs.github.com/en/copilot/about-github-copilot/subscription-plans-for-github-copilot#comparing-copilot-plans">GitHub Copilot 计划 </a>。</p>
+</li>
+<li>
+<p>高级请求计数器每月 1 日 00:00:00 UTC 重置。上个月未使用的请求不会结转到下个月。</p>
+</li>
+<li>
+<p>每个模型都有一个高级请求乘数，该乘数取决于其复杂性和资源使用情况。如果您使用的是付费版 Copilot 套餐，您的高级请求限额将根据此乘数扣除。</p>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Multiplier for <strong>paid plans</strong></th>
+<th>Multiplier for <strong>Copilot Free</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GPT-4.1</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td>GPT-4o</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Claude Sonnet 3.5</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Claude Sonnet 3.7</td>
+<td>1</td>
+<td>Not applicable</td>
+</tr>
+<tr>
+<td>Claude Sonnet 3.7 Thinking</td>
+<td>1.25</td>
+<td>Not applicable</td>
+</tr>
+<tr>
+<td>Claude Sonnet 4</td>
+<td>1</td>
+<td>Not applicable</td>
+</tr>
+<tr>
+<td>Claude Opus 4</td>
+<td>10</td>
+<td>Not applicable</td>
+</tr>
+<tr>
+<td>Gemini 2.0 Flash</td>
+<td>0.25</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Gemini 2.5 Pro</td>
+<td>1</td>
+<td>Not applicable</td>
+</tr>
+<tr>
+<td>o3</td>
+<td>1</td>
+<td>Not applicable</td>
+</tr>
+<tr>
+<td>o4-mini</td>
+<td>0.33</td>
+<td>Not applicable</td>
+</tr>
+</tbody>
+</table>
+<p>高级请求使用量取决于模型的乘数和您所使用的功能。例如：</p>
+<ul>
+<li><strong>在 Copilot 聊天中使用 Claude Opus 4</strong> ：使用 10 倍乘数，一次互动计为 10 个高级请求。</li>
+<li><strong>在 Copilot Free 上使用 GPT-4.1</strong> ：每次互动都算作 1 个高级请求。</li>
+<li><strong>在付费计划中使用 GPT-4.1</strong> ：不会消耗任何高级请求。</li>
+</ul>
+</li>
+<li>
+<p>等等。</p>
+</li>
+</ol>
+<h3 id="模型选择">模型选择</h3>
+<blockquote>
+<p>不同型号的高级请求乘数不同，这会影响您每月使用限额的消耗。有关详情，请参阅<a href="#%E9%AB%98%E7%BA%A7%E8%AF%B7%E6%B1%82">高级请求</a>。</p>
+</blockquote>
+<p><a target="_blank" rel="noopener" href="https://docs.github.com/en/copilot/using-github-copilot/ai-models/choosing-the-right-ai-model-for-your-task">Choosing the right AI model for your task</a></p>
+<p>最佳模型取决于用例：</p>
+<ul>
+<li>为了在<strong>成本和性能之间取得平衡</strong> ，请尝试 GPT-4.1 或 Claude 3.7 Sonnet。</li>
+<li>要获得<strong>快速、低成本的基本任务支持</strong> ，请尝试 o4-mini 或 Claude 3.5 Sonnet。</li>
+<li>对于<strong>深度推理或复杂的编码挑战</strong> ，请尝试 o3、GPT-4.5 或 Claude 3.7 Sonnet。</li>
+<li>对于<strong>多模式输入和实时性能</strong> ，请尝试 Gemini 2.0 Flash 或 GPT-4.1。</li>
+</ul>
+<p>模型比较：</p>
+<ul>
+<li>GPT-4.1 全面超越 GPT-4o，在编码、指令遵循和长上下文理解方面均有显著提升。对于受益于速度、响应能力和通用推理的常见开发任务来说，该模型是一个强有力的默认选择。
+<ul>
+<li>多步骤推理或算法、复杂的重构、系统审查或架构：GPT-4.5 或 Claude 3.7 Sonnet 提供了更好的逐步思考、更稳健地处理上下文和代码依赖关系、更深入的分析。</li>
+</ul>
+</li>
+<li>与 GPT-4.1 相比，GPT-4.5 在多步推理、长篇内容和复杂问题解决方面能产生更一致的结果。与 GPT-4.1 和其他较小模型相比，GPT-4.5 的延迟和成本可能略高。</li>
+<li>OpenAI o1 是一个较老的推理模型，支持复杂、多步骤的任务和深度逻辑推理以找到最佳解决方案。对于需要深度逻辑推理的任务，o1 是一个不错的选择。它能够通过复杂的逻辑进行推理，使 Copilot 能够将问题分解为清晰、可操作的步骤。这使得 o1 特别适合调试。</li>
+<li>OpenAI o3 是 o 系列中功能最强大的推理模型。它非常适合深度编码工作流程以及复杂的多步骤任务。</li>
+<li>OpenAI o3-mini 是一种快速、经济高效的推理模型，旨在提供编码性能，同时保持较低的延迟和资源使用率。o3-mini 在编码基准测试中优于 o1，响应时间与 o1-mini 相当。</li>
+<li>Claude 3.7 Sonnet 是一个功能强大的模型，在需要跨大型或复杂代码库进行结构化推理的开发任务中表现出色。</li>
+<li>Gemini 2.5 Pro 非常适合高级编码任务，例如开发复杂算法或调试复杂的代码库。它可以通过分析数据并生成跨学科的洞察来协助科学研究。（20250610：Gemini 2.5 Pro在跨多个文件处理高级任务中，实测分布处理的思路更清晰、考虑得更全面、一次生成的代码更完善。在VSCode中表现优于GPT-4.1和O1）。</li>
+</ul>
+<h2 id="安装配置">安装配置</h2>
+<p><a target="_blank" rel="noopener" href="https://docs.github.com/zh/copilot/using-github-copilot/getting-started-with-github-copilot">开始使用 GitHub Copilot</a></p>
+<p><a target="_blank" rel="noopener" href="https://docs.github.com/zh/copilot/configuring-github-copilot/configuring-github-copilot-in-your-environment">在环境中配置 GitHub Copilot</a></p>
+<p><a target="_blank" rel="noopener" href="https://docs.github.com/zh/copilot/configuring-github-copilot/configuring-network-settings-for-github-copilot">为 GitHub Copilot 配置网络设置</a></p>
+<p><a target="_blank" rel="noopener" href="https://juejin.cn/post/7315347551687147539">其他使用方法参考</a></p>
+<h2 id="使用建议-1">使用建议-1</h2>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/phantom_111/article/details/132070931">使用 GitHub Copilot 进行 Prompt Engineering 的初学者指南（译）</a></p>
 <ol>
 <li>
@@ -1464,15 +1758,11 @@
 <li>
 <p>声明变量或函数时，使用指定用于变量用途的名称。这将帮助 GitHub Copilot 了解变量的上下文并生成更多相关建议。例如，不要使用「value」等通用变量名称，而应使用「input_string」或 「output_file」。GitHub Copilot 还将使用在代码中使用的命名约定。例如，如果使用驼峰式命名变量，GitHub Copilot 将建议驼峰式命名变量。如果你使用 snake_case 作为变量，GitHub Copilot 将建议 snake_case 变量。</p>
 </li>
-<li></li>
+<li>
+<p>等等。</p>
+</li>
 </ol>
-<h2 id="GitHub-Copilot-2">GitHub Copilot</h2>
-<h3 id="安装配置">安装配置</h3>
-<p><a target="_blank" rel="noopener" href="https://docs.github.com/zh/copilot/using-github-copilot/getting-started-with-github-copilot">开始使用 GitHub Copilot</a></p>
-<p><a target="_blank" rel="noopener" href="https://docs.github.com/zh/copilot/configuring-github-copilot/configuring-github-copilot-in-your-environment">在环境中配置 GitHub Copilot</a></p>
-<p><a target="_blank" rel="noopener" href="https://docs.github.com/zh/copilot/configuring-github-copilot/configuring-network-settings-for-github-copilot">为 GitHub Copilot 配置网络设置</a></p>
-<p><a target="_blank" rel="noopener" href="https://juejin.cn/post/7315347551687147539">其他使用方法参考</a></p>
-<h3 id="使用-2">使用</h3>
+<h2 id="使用建议-2">使用建议-2</h2>
 <ol>
 <li>
 <p>基于上下文的自动补全建议。</p>
@@ -1538,32 +1828,6 @@
 <li>若要生成文件用途的说明，请询问类似于 <code>What does this file do?</code> 的问题。</li>
 <li>若要为文件生成单元测试，请键入类似于 <code>Write a unit test for this file</code> 的请求。 或者，突出显示要为其生成单元测试的代码，然后询问类似于 <code>Write a unit test for this code</code> 的问题。</li>
 <li>若要为文件中的 bug 生成修复，请键入类似于 <code>Fix this bug</code> 的请求。</li>
-</ul>
-<h3 id="模型选择">模型选择</h3>
-<blockquote>
-<p>不同型号的高级请求乘数不同，这会影响您每月使用限额的消耗。有关详情，请参阅<a target="_blank" rel="noopener" href="https://docs.github.com/en/copilot/managing-copilot/monitoring-usage-and-entitlements/about-premium-requests">了解和管理 Copilot 中的请求 </a>。</p>
-</blockquote>
-<p><a target="_blank" rel="noopener" href="https://docs.github.com/en/copilot/using-github-copilot/ai-models/choosing-the-right-ai-model-for-your-task">Choosing the right AI model for your task</a></p>
-<p>最佳模型取决于用例：</p>
-<ul>
-<li>为了在<strong>成本和性能之间取得平衡</strong> ，请尝试 GPT-4.1 或 Claude 3.7 Sonnet。</li>
-<li>要获得<strong>快速、低成本的基本任务支持</strong> ，请尝试 o4-mini 或 Claude 3.5 Sonnet。</li>
-<li>对于<strong>深度推理或复杂的编码挑战</strong> ，请尝试 o3、GPT-4.5 或 Claude 3.7 Sonnet。</li>
-<li>对于<strong>多模式输入和实时性能</strong> ，请尝试 Gemini 2.0 Flash 或 GPT-4.1。</li>
-</ul>
-<p>模型比较：</p>
-<ul>
-<li>GPT-4.1 全面超越 GPT-4o，在编码、指令遵循和长上下文理解方面均有显著提升。对于受益于速度、响应能力和通用推理的常见开发任务来说，该模型是一个强有力的默认选择。
-<ul>
-<li>多步骤推理或算法、复杂的重构、系统审查或架构：GPT-4.5 或 Claude 3.7 Sonnet 提供了更好的逐步思考、更稳健地处理上下文和代码依赖关系、更深入的分析。</li>
-</ul>
-</li>
-<li>与 GPT-4.1 相比，GPT-4.5 在多步推理、长篇内容和复杂问题解决方面能产生更一致的结果。与 GPT-4.1 和其他较小模型相比，GPT-4.5 的延迟和成本可能略高。</li>
-<li>OpenAI o1 是一个较老的推理模型，支持复杂、多步骤的任务和深度逻辑推理以找到最佳解决方案。对于需要深度逻辑推理的任务，o1 是一个不错的选择。它能够通过复杂的逻辑进行推理，使 Copilot 能够将问题分解为清晰、可操作的步骤。这使得 o1 特别适合调试。</li>
-<li>OpenAI o3 是 o 系列中功能最强大的推理模型。它非常适合深度编码工作流程以及复杂的多步骤任务。</li>
-<li>OpenAI o3-mini 是一种快速、经济高效的推理模型，旨在提供编码性能，同时保持较低的延迟和资源使用率。o3-mini 在编码基准测试中优于 o1，响应时间与 o1-mini 相当。</li>
-<li>Claude 3.7 Sonnet 是一个功能强大的模型，在需要跨大型或复杂代码库进行结构化推理的开发任务中表现出色。</li>
-<li>Gemini 2.5 Pro 非常适合高级编码任务，例如开发复杂算法或调试复杂的代码库。它可以通过分析数据并生成跨学科的洞察来协助科学研究。（20250610：Gemini 2.5 Pro在跨多个文件处理高级任务中，实测分布处理的思路更清晰、考虑得更全面、一次生成的代码更完善。在VSCode中表现优于GPT-4.1和O1）</li>
 </ul>
 <h3 id="三种模式">三种模式</h3>
 <p>在聊天视图中，您将看到一个具有三种模式的下拉菜单：</p>

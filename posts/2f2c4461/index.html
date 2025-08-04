@@ -24,7 +24,7 @@
 <meta property="og:description" content="本文主要分享了 Microsoft Office 的排版与技巧。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-10-17T03:12:52.000Z">
-<meta property="article:modified_time" content="2025-03-24T14:03:34.484Z">
+<meta property="article:modified_time" content="2025-07-29T12:06:55.635Z">
 <meta property="article:author" content="龙泽雨">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -319,7 +319,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          4.5k 字
+          5.2k 字
         
       </span>
     
@@ -330,7 +330,7 @@
         
         
         
-          38 分钟
+          44 分钟
         
       </span>
     
@@ -372,7 +372,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2025年3月24日 晚上
+                    本文最后更新于 2025年7月29日 晚上
                   
                 
               </p>
@@ -731,11 +731,35 @@
 <p>完成。</p>
 </li>
 </ol>
+<h1 id="快捷键">快捷键</h1>
+<h2 id="Excel">Excel</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">功能</th>
+<th style="text-align:center">快捷键</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">选中当前单元格所在的整行</td>
+<td style="text-align:center">Shift + 空格键</td>
+</tr>
+<tr>
+<td style="text-align:center">选中当前单元格所在的整列</td>
+<td style="text-align:center">Ctrl + 空格键</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+</tbody>
+</table>
 <h1 id="小技巧">小技巧</h1>
 <h2 id="设置默认字体">设置默认字体</h2>
 <h3 id="Word">Word</h3>
 <p>新建 Word 文档，字体-设置字体-设置为默认值。</p>
-<h3 id="Excel">Excel</h3>
+<h3 id="Excel-2">Excel</h3>
 <p>通过修改 Excel 的文件<code>EXCEL12.XLSX</code>模板文件实现 Excel 默认字体的设置：</p>
 <ol>
 <li>不同的操作系统或者 Office 版本下，EXCEL12 文件位置不一样，通常在<code>C:\\Windows\\SHELLNEW\\EXCEL12</code>下面。<code>C:\Program Files\Microsoft Office\root\vfs\Windows\SHELLNEW</code></li>
@@ -805,6 +829,142 @@
 <h2 id="修改Excel单元格的内容">修改Excel单元格的内容</h2>
 <p>光标定位单元格后，按F2键就可以把光标定位到单元格中最后一个字符后面。</p>
 <p>在单元格内按Alt+Enter可以实现在单元格内换行。</p>
+<h2 id="Excel排序时忽略首行">Excel排序时忽略首行</h2>
+<ul>
+<li>在排序对话框中勾选“数据包含标题”。</li>
+</ul>
+<h2 id="Excel添加选项框">Excel添加选项框</h2>
+<ol>
+<li>选中要添加选项框的单元格-工具栏-数据-数据工具-数据验证-数据验证。</li>
+<li>验证条件-允许：序列</li>
+<li>验证条件-来源，添加关键词，使用英文逗号做分隔。</li>
+<li>确定。</li>
+</ol>
+<h2 id="Excel多属性筛选">Excel多属性筛选</h2>
+<blockquote>
+<ul>
+<li>若你注重 <strong>便捷录入</strong> 和人眼可读性，且筛选统计需求普通，选择 <strong>方案一（单列，多属性用逗号分隔）</strong>。</li>
+<li>若你重视 <strong>后续精确分析、筛选、多属性统计与排序等高级功能</strong>，建议改为 <strong>方案二（多列法）</strong>。</li>
+</ul>
+</blockquote>
+<h3 id="方案一：属性多值合并于单元格，分隔符规范">方案一：属性多值合并于单元格，分隔符规范</h3>
+<p>推荐原因：</p>
+<ul>
+<li><strong>便于阅读</strong>，不增加表格宽度</li>
+<li>满足多数“单属性和简单多属性”筛选需求</li>
+</ul>
+<p>推荐分隔符：<strong>英文逗号 <code>,</code></strong> 或 <strong>英文分号 <code>;</code></strong>，建议整个表格统一。以 <code>,</code> 为例。</p>
+<h4 id="示例">示例</h4>
+<table>
+<thead>
+<tr>
+<th>事物名</th>
+<th>属性</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>属性1,属性2</td>
+</tr>
+<tr>
+<td>B</td>
+<td>属性2,属性3</td>
+</tr>
+<tr>
+<td>C</td>
+<td>属性1</td>
+</tr>
+<tr>
+<td>D</td>
+<td>属性1,属性2,属性3</td>
+</tr>
+</tbody>
+</table>
+<p>操作方法：</p>
+<ol>
+<li>
+<p>单属性筛选。使用“文本筛选”功能，筛选包含某个词的行即可：</p>
+<ul>
+<li>筛选→文本筛选→包含…（输入“属性1”等）</li>
+</ul>
+</li>
+<li>
+<p>多属性筛选（如“属性1+属性2”）。可以继续用“文本筛选”，选择“包含”两个条件，分别输入“属性1”和“属性2”，设为“并且”的关系即可。</p>
+</li>
+<li>
+<p>排序</p>
+<ul>
+<li>按属性列排序，就是按属性字符串的首字母排序，不一定有实质意义。</li>
+<li>若要求复杂排序（如排序“车企”优先），可以新插一列，用公式如<code>=IF(ISNUMBER(SEARCH(&quot;属性1&quot;,B2)),1,0)</code>辅助排序。</li>
+</ul>
+</li>
+<li>
+<p>分类统计与计数。可以配合<code>COUNTIF</code>、<code>SEARCH</code>等进行，示例：</p>
+<ul>
+<li><code>=COUNTIF(B:B,&quot;*属性1*&quot;)</code> 统计含“属性1”的数量。</li>
+</ul>
+</li>
+<li>
+<p>注意事项</p>
+<ul>
+<li>推荐属性词语之间 <strong>不要加空格</strong>，统一数据风格。</li>
+<li>最大劣势：不能很好处理严格的单个属性排序，也不适用于复杂的多属性联合分析。</li>
+</ul>
+</li>
+<li>
+<p>完成。</p>
+</li>
+</ol>
+<h3 id="“哑变量”（多列法-One-hot编码）">“哑变量”（多列法/One-hot编码）</h3>
+<h3 id="推荐原因">推荐原因</h3>
+<ul>
+<li><strong>利于严谨的属性统计</strong>、分类、排序和数据分析</li>
+<li>适合少量固定属性的情况</li>
+</ul>
+<h4 id="示例结构">示例结构</h4>
+<table>
+<thead>
+<tr>
+<th>事物名</th>
+<th>属性1</th>
+<th>属性2</th>
+<th>属性3</th>
+<th>属性4</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr>
+<td>B</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td>C</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td>D</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p>填写时，“拥有该属性”则为1，否则为0。</p>
 <h1 id="参考链接">参考链接</h1>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://blog.csdn.net/QAQ_King/article/details/128776411">Word字体大小对照换算表(字号、磅、英寸、像素)</a></li>

@@ -1,0 +1,895 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" >
+
+
+
+<head><!-- hexo injector head_begin start --><progress id="content_progress" value="0"></progress><!-- hexo injector head_begin end -->
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/theme/TamakoAvatar-new-zip.png">
+  <link rel="icon" href="/img/theme/TamakoAvatar-new-zip.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#000000">
+  <meta name="author" content="龙泽雨">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="本文主要分享了在Windows系统下编译和运行C++的方法。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Windows下运行C++">
+<meta property="og:url" content="http://zeyulong.com/posts/f92e710b/index.html">
+<meta property="og:site_name" content="龙泽雨的博客">
+<meta property="og:description" content="本文主要分享了在Windows系统下编译和运行C++的方法。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-08-04T02:37:43.000Z">
+<meta property="article:modified_time" content="2025-08-04T03:15:15.174Z">
+<meta property="article:author" content="龙泽雨">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>Windows下运行C++ - 龙泽雨的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/custom/Markdown/macpanel.css">
+<link rel="stylesheet" href="/custom/Fonts/CodeFont.css">
+<link rel="stylesheet" href="/custom/Fonts/inlinecode-bg-color.css">
+<link rel="stylesheet" href="/custom/live2d/font-awesome.min.css">
+<link rel="stylesheet" href="/custom/LoadingBar/pace-theme-corner-indicator.css">
+<link rel="stylesheet" href="/custom/ReadingProgress/ReadingProgress.css">
+<link rel="stylesheet" href="/custom/SelectBackgroundColor/SelectBackgroundColor.css">
+<link rel="stylesheet" href="/custom/waline/gif.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"zeyulong.com","root":"/","version":"1.9.7","typing":{"enable":false,"typeSpeed":100,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"8gUBTaCjmaSbnf4genwggan3-MdYXbMMI","app_key":"2WRxjgxRXIWRBo8EA4205Wfm","server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<!-- hexo injector head_end start --><link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@200;300;400;500;600;700;900&display=swap" rel="stylesheet"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.0.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Happy every day!</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-steam"></i>
+                <span>摸鱼</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/2048" target="_self">
+                    
+                    <span>2048</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/bcbk/1" target="_self">
+                    
+                    <span>别踩白块-1</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/bcbk/2" target="_self">
+                    
+                    <span>别踩白块-2</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/dblk" target="_self">
+                    
+                    <span>躲避绿块</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/dr" target="_self">
+                    
+                    <span>恐龙快跑</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://mario-kart-3-js.vercel.app/" target="_self">
+                    
+                    <span>马里奥赛车</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/mf" target="_self">
+                    
+                    <span>魔方</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/cat" target="_self">
+                    
+                    <span>圈小猫</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/sl" target="_self">
+                    
+                    <span>扫雷</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/txz" target="_self">
+                    
+                    <span>推箱子</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/wzq" target="_self">
+                    
+                    <span>五子棋</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/theme/GirlWithCat-cut.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle">Windows下运行C++</span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        龙泽雨
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-08-04 10:37" pubdate>
+          2025年8月4日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.5k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          13 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Windows下运行C++</h1>
+            
+              <p id="updated-time" class="note note-info" style="">
+                
+                  
+                    本文最后更新于 2025年8月4日 上午
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <p>本文主要分享了在Windows系统下编译和运行C++的方法。</p>
+<span id="more"></span>
+<h1 id="安装MinGW-w64">安装MinGW-w64</h1>
+<blockquote>
+<p>MinGW-w64是Windows平台上的GNU编译器集合，提供了GCC编译器和GDB调试器。推荐通过MSYS2安装，以获得最新版本和便捷的包管理。</p>
+</blockquote>
+<blockquote>
+<p><strong>GCC</strong>（GNU Compiler Collection）是一个包含多个编译器的工具集合，因此可以被称为编译器套件或编译器集合。 它是由GNU项目开发的，其中包括C、C++、Objective-C、Fortran、Ada和其他语言的编译器。 GCC包含了多个编译器，如： GCC（GNU C Compiler）：用于编译C语言源代码。 G++（GNU C++ Compiler）：用于编译C++语言源代码。 GFortran（GNU Fortran Compiler）：用于编译Fortran语言源代码。 GDC（GNU D Compiler）：用于编译D语言源代码。</p>
+</blockquote>
+<blockquote>
+<p>Windows下C/C++程序开发的差劲开发体验：</p>
+<ul>
+<li>首先需要安装≈20 GB的Visual Studio（大型团队项目，还是需要VS的）。</li>
+<li>然后，很多第三方库，需要自己去GitHub或者相应的官网上下载源码，然后进行编译，而编译过程会遇到各种版本不兼容、缺少依赖、代码错误、需修改makefile文件等问题……至此库尚未编译成功，开发人员早已经被这差劲的体验劝退……</li>
+</ul>
+</blockquote>
+<blockquote>
+<p><strong>MSYS2</strong>（Minimal SYStem 2）是一个开源软件包集合，集成了大量的GNU工具链、工具和库，提供了一个类似于Linux的shell环境，可以在Windows系统中编译和运行许多Linux应用程序和工具。MSYS2基于MinGW-w64平台，提供了一个完整的开发环境，包括GCC编译器、GDB调试器、Make、Git版本控制系统和许多其他开发工具。</p>
+</blockquote>
+<blockquote>
+<p>MSYS2有三个优点：</p>
+<ul>
+<li>仿Linux的终端交互环境，可以使用Linux下的终端命令和快捷方式。</li>
+<li>自带pacman软件管理包，让您将精力放到C<ins>代码的编写上，而不是复杂的依赖环境的搭建和编译。如：GDAL、OpenCV等第三方C/C</ins>库，无须再去踩各种坑、艰难地编译而是直接一个命令就安装到了本地。</li>
+<li>复用自己在Linux下的开发经验。使用g<ins>进行库的链接、源码编译等操作，可更进一步了解C</ins>代码的编译过程。</li>
+</ul>
+</blockquote>
+<ol>
+<li>
+<p>下载安装<a target="_blank" rel="noopener" href="https://www.msys2.org/">MSYS2</a>。</p>
+<blockquote>
+<p>如果安装过程卡在50%（Updating trust database...），则”返回”上一步，关闭外网代理（甚至是断网）后，重新执行“下一步”安装。</p>
+</blockquote>
+</li>
+<li>
+<p>编辑镜像配置文件，打开<code>C:\msys64\mingw64\bin\etc\pacman.d\mirrorlist.mingw</code>（根据实际安装路径调整）。在文件开头添加清华大学镜像源：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mingw">Server = https://mirrors.tuna.tsinghua.edu.cn/msys2/mingw/$repo/<br></code></pre></td></tr></table></figure>
+<p>保存文件。</p>
+</li>
+<li>
+<p>打开MSYS2终端：</p>
+<blockquote>
+<p>在电脑开始菜单的 MSYS2 文件夹（默认）下，有多个 MSYS2 提供的环境，主要区别如下：</p>
+<ul>
+<li><strong>MSYS2 MSYS</strong>：主要用于运行 Bash 脚本和一些基本的 Unix 工具，不建议用来编译 C/C++ 程序。</li>
+<li><strong>MSYS2 MINGW64</strong>：用于 64 位 Windows 平台的 GCC（g++/gcc）编译环境，<strong>推荐用于大多数 C/C++ 开发</strong>。</li>
+<li><strong>MSYS2 UCRT64</strong>：也是 64 位环境，使用 UCRT 运行时，兼容性更好，适合需要 UCRT 的项目。</li>
+<li><strong>MSYS2 CLANG64</strong>：64 位 Clang/LLVM 编译环境。</li>
+<li><strong>MSYS2 CLANGARM64</strong>：用于 ARM64 架构的 Clang 环境（一般用不到）。</li>
+</ul>
+<p><strong>建议：</strong> 如果你是普通 Windows 64 位 C/C++ 开发者，<strong>请选择 <code>MSYS2 MINGW64</code></strong>。如需用 Clang 或 UCRT，可根据项目需求选择 <code>CLANG64</code> 或 <code>UCRT64</code>。一般情况下，<code>MINGW64</code> 就足够了。</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">pacman -Syu<br><span class="hljs-comment"># 过程中，MSYS2可能会因为安装更新而自动关闭，此时，可再次打开，然后再次执行“pacman -Syu”命令。</span><br>pacman -Syu  <span class="hljs-comment"># 重复执行直到提示 there is nothing to do</span><br>pacman -Su  <span class="hljs-comment"># 重复执行直到提示 there is nothing to do</span><br>pacman -S --needed base-devel mingw-w64-x86_64-toolchain<br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>MSYS2终端默认Ctrl+INS为复制，Shift+INS为粘贴。</p>
+</blockquote>
+</li>
+<li>
+<p>编辑环境变量，高级-环境变量-系统变量-Path-编辑-新建-<code>C:\msys64\mingw64\bin</code>（根据实际安装路径调整）-确定。</p>
+</li>
+<li>
+<p>验证安装。重新打开MSYS2终端：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">g++ --version<br>gdb --version<br></code></pre></td></tr></table></figure>
+<p>若显示版本信息，则安装成功。</p>
+</li>
+<li>
+<p>完成。</p>
+</li>
+</ol>
+<h1 id="编译运行">编译运行</h1>
+<h2 id="使用MSYS2终端">使用MSYS2终端</h2>
+<ol>
+<li>
+<p>打开MSYS2终端：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">touch</span> test.cpp  <span class="hljs-comment"># 在~下新建test.cpp文件，具体路径可自定义</span><br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>编写<code>test.cpp</code>文件，示例：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;vector&gt;</span></span><br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    std::vector&lt;<span class="hljs-type">int</span>&gt; numbers = &#123;<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>&#125;;<br>    <span class="hljs-type">int</span> sum = <span class="hljs-number">0</span>;<br>    <br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> num : numbers) &#123;<br>        sum += num;<br>    &#125;<br>    <br>    std::cout &lt;&lt; <span class="hljs-string">&quot;Hello, VS Code with MinGW!&quot;</span> &lt;&lt; std::endl;<br>    std::cout &lt;&lt; <span class="hljs-string">&quot;Sum of numbers: &quot;</span> &lt;&lt; sum &lt;&lt; std::endl;<br>    <br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>在MSYS2终端下执行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">g++ test.cpp -o <span class="hljs-built_in">test</span><br>.\test.exe<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>完成。</p>
+</li>
+</ol>
+<h2 id="使用PowerShell">使用PowerShell</h2>
+<h3 id="问题与解决">问题与解决</h3>
+<p>虽然设置环境变量后，PowerShell可以找到g++（<code>g++ --version</code>），但是当我使用PowerShell在本地路径下执行<code>g++ test.cpp -o test</code>后却没有生成可执行文件。</p>
+<p>因此，如果想编译运行本地路径下的<code>*.cpp</code>文件，而不必须把文件放在``C:\msys64<code>（根据实际安装路径调整）路径下，则需要在MSYS2终端内使用</code>powershell<code>命令，这样启动的 PowerShell 能继承 MSYS2 的环境变量。另，使用</code>exit`命令退出PowerShell。</p>
+<h3 id="问题原因分析">问题原因分析</h3>
+<ol>
+<li>MSYS2 终端自动补全了大量环境变量：
+<ul>
+<li><strong>MSYS2 的 bash 启动 PowerShell 时，PowerShell 会继承 MSYS2 环境变量。</strong></li>
+<li>这些变量不仅仅包括 PATH，还包含了 MSYS2 运行依赖的各种 DLL 路径、TEMP 目录、可能还有 locale、MSYSTEM 等等。</li>
+<li>这让 g++ 能正常找到自身依赖和临时目录，所以编译能成功且 exe 能生成。</li>
+</ul>
+</li>
+<li>在纯 Windows PowerShell 下缺少了这些关键环境变量：
+<ul>
+<li>仅仅在 PATH 里加上 <code>mingw64\bin</code>，<strong>并不能完全模拟 MSYS2 终端的环境</strong>。</li>
+<li>很多 g++/gcc 的 DLL 依赖、临时文件位置、甚至 C++ 运行时的加载机制，可能都依赖于这些环境变量。</li>
+<li>这也是为什么在“裸”PowerShell 下编译没有输出、没有 exe，而在 MSYS2 bash 下打开 PowerShell 却没问题。</li>
+</ul>
+</li>
+<li>结论：
+<ul>
+<li><strong>MSYS2 的 g++/gcc 最推荐的调用环境就是 MSYS2 的 bash/mingw64 终端。</strong></li>
+<li>如果你一定要在 PowerShell 里用，必须保证：
+<ul>
+<li>全部 MSYS2 相关的环境变量都被正确设置（不仅仅是 PATH）。</li>
+<li>这其实很复杂，远不如直接用 MSYS2 自己的终端来得省心。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>等等。</li>
+</ol>
+<h1 id="参考链接">参考链接</h1>
+<p><a target="_blank" rel="noopener" href="https://blog.51cto.com/lizhuo6/14069047">在Windows上使用VS Code和MinGW配置C++开发环境</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/ScienceRui/article/details/117392080">基于MSYS2的Mingw-w64 GCC搭建Windows下C++开发环境</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/77645306">windows 10上使用vscode编译运行和调试C/C++</a></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7%E5%BA%93/" class="category-chain-item">软件工具库</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Windows下运行C++</div>
+      <div>http://zeyulong.com/posts/f92e710b/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>龙泽雨</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年8月4日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/650f7f0a/" title="常用软件的安装与配置">
+                        <span class="hidden-mobile">常用软件的安装与配置</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="waline"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#waline', function() {
+      Fluid.utils.createCssLink('https://cdn.staticfile.org/waline/2.15.5/waline.min.css')
+      Fluid.utils.createScript('https://cdn.staticfile.org/waline/2.15.5/waline.min.js', function() {
+        var options = Object.assign(
+          {"serverURL":"https://www.zeyulong.cn/","path":"window.location.pathname","meta":["nick","mail","link"],"requiredMeta":["nick"],"lang":"zh-CN","emoji":["https://cdn.jsdelivr.net/gh/walinejs/emojis/weibo"],"dark":"html[data-user-color-scheme=\"dark\"]","wordLimit":0,"pageSize":10,"reaction":true,"locale":{"placeholder":"花径不曾缘客扫，蓬门今始为君开。"}},
+          {
+            el: '#waline',
+            path: window.location.pathname
+          }
+        )
+        Waline.init(options);
+        Fluid.utils.waitElementVisible('#waline .vcontent', () => {
+          var imgSelector = '#waline .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> <div style="font-size: 0.85rem"> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/custom/RunTime/RunTime.js"></script> </div> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  
+<script src="/custom/live2d/live2d-widget/autoload.js"></script>
+<script src="/custom/live2d/jquery.min.js"></script>
+<script src="/custom/LabelPage/LabelPage.js"></script>
+<script src="/custom/LoadingBar/pace.min.js"></script>
+<script src="/custom/ReadingProgress/ReadingProgress.js"></script>
+<script src="/custom/typing-effect/typing-effect.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  <canvas
+    class="fireworks"
+    style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 32767"
+></canvas>
+<script type="text/javascript" src="/custom/fireworks/anime.min.js"></script> 
+<script type="text/javascript" src="/custom/fireworks/fireworks.js"></script>
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

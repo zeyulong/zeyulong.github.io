@@ -24,7 +24,7 @@
 <meta property="og:description" content="本文主要分享了Linux和Windows系统的配置。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-01-31T16:27:11.000Z">
-<meta property="article:modified_time" content="2025-07-07T07:44:13.961Z">
+<meta property="article:modified_time" content="2025-08-04T02:36:18.145Z">
 <meta property="article:author" content="龙泽雨">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -319,7 +319,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.6k 字
+          4.6k 字
         
       </span>
     
@@ -330,7 +330,7 @@
         
         
         
-          31 分钟
+          39 分钟
         
       </span>
     
@@ -372,7 +372,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2025年7月7日 下午
+                    本文最后更新于 2025年8月4日 上午
                   
                 
               </p>
@@ -864,6 +864,77 @@
 <h3 id="编辑器Ctrl-Shift-F快捷键失效">编辑器Ctrl+Shift+F快捷键失效</h3>
 <p>禁用搜狗输入法的简/繁切换快捷键Ctrl+Shift+F。</p>
 <h1 id="Windows系统配置">Windows系统配置</h1>
+<h2 id="更新显卡驱动">更新显卡驱动</h2>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/410336882">一看就会，教你更新Intel、AMD、Nvidia驱动</a></p>
+<h3 id="Intel">Intel</h3>
+<ol>
+<li>浏览器打开英特尔的官网：<a target="_blank" rel="noopener" href="http://www.intel.com">http://www.intel.com</a>。点击上面的“支持”再点击“自动更新您的驱动程序”，然后下载“英特尔驱动程序和支持助手”。</li>
+<li>安装后，在右下角的图标上双击就会打开浏览器，并寻找驱动更新。如果电脑上有Intel的CPU、核显以及其它的Intel设备更新都会列出来。</li>
+<li>点击“下载”，再点击“安装”就行了。</li>
+</ol>
+<h3 id="Nvidia">Nvidia</h3>
+<h4 id="自动">自动</h4>
+<ol>
+<li>打开随驱动安装的“GeForce Experience”这个软件。</li>
+<li>打开软件就可以看到“驱动程序”这个选项。</li>
+<li>如果有新的显卡驱动就会在这里提示，点击“快速安装”按钮就会自动更新显卡驱动了。
+<ol>
+<li>点击右上角的**“三个点”**。还可以根据需求，选择针对游戏或者图形制作的最佳驱动。</li>
+<li>普通玩家选择“Game Ready”驱动就行了，而“Studio”驱动是给需要稳定性更好的图形制作者准备的。</li>
+</ol>
+</li>
+</ol>
+<h4 id="手动">手动</h4>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_42257666/article/details/128025063">Windows更新NVIDIA显卡驱动</a></p>
+<ol>
+<li>
+<p>浏览器打开英伟达的官网：<a target="_blank" rel="noopener" href="http://www.nvidia.cn">http://www.nvidia.cn</a>。然后点击右上角的“驱动程序”。</p>
+</li>
+<li>
+<p>选择自己显卡的具体型号，都选择正确点击“搜索”就会列出最新的驱动。</p>
+<blockquote>
+<p>建议不要下载最新的驱动版本（不稳定），可以选再早一个月的，然后下载到本地。</p>
+</blockquote>
+<blockquote>
+<p>普通玩家选择“Game Ready”驱动就行了，而“Studio”驱动是给需要稳定性更好的图形制作者准备的。</p>
+</blockquote>
+</li>
+<li>
+<p>打开下载好的exe程序，会让你选择文件夹进行解压，一般更换到非C盘。NVIDIA显卡驱动实际上就是NVIDIA图形驱动程序，GeForce Experience主要用于显卡的配置、更新。</p>
+</li>
+<li>
+<p>精简安装和自定义安装的区别主要在于你可以选择清洁安装，如果不选择其实和精简安装方式相同。其实GPU也没什么配置内容，清洁安装可选可不选，然后下一步。</p>
+</li>
+<li>
+<p>大约3分钟安装完成，安装过程中会出现闪烁现象属于正常。</p>
+</li>
+<li>
+<p>安装完成，可以看到右下角的NVIDIA图标，我们重启下电脑。至此，显卡驱动安装完成！</p>
+</li>
+</ol>
+<h4 id="降级">降级</h4>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/opus/507450055320131939">英伟达显卡驱动降级安装教程</a></p>
+<ol>
+<li>直接覆盖安装。</li>
+</ol>
+<h4 id="卸载">卸载</h4>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/354742852">NVIDIA显卡驱动程序安装与卸载流程（台式机/笔记本通用）</a></p>
+<blockquote>
+<p>当电脑出现游戏性能变卡、NVIDIA程序报错时，我们可以考虑卸载NVIDIA显卡相关驱动程序与应用，重新安装NVIDIA驱动程序恢复使用。</p>
+</blockquote>
+<ol>
+<li>卸载路径：系统设置-应用-应用和功能。</li>
+<li>为避免不必要的应用残留文件，建议选择将系统中除“NVIDIA Control Panel/NVIDIA控制面板”外所有带“NVIDIA”字样的应用全部卸载后，再重新开始NVIDIA驱动程序安装流程。</li>
+<li>卸载过程中，可能会遇到多个NVIDIA程序卸载无法继续的情况，选择重启电脑后再次卸载即可。</li>
+<li>另：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/612847358">DDU如何彻底清除显卡驱动？DDU软件彻底清除显卡驱动方法</a></li>
+</ol>
+<h3 id="AMD">AMD</h3>
+<ol>
+<li>浏览器打开AMD的官网：<a target="_blank" rel="noopener" href="http://www.amd.com">http://www.amd.com</a>。然后点击“驱动与支持”。</li>
+<li>和英特尔一样同样具有自动检测软件。下载这个安装后就可以自动更新驱动了。</li>
+<li>如果不想安装“自动检测软件”，下面同样可以像Nvidia一样选择自己的CPU或者显卡型号，就会出现最新的驱动程序。下载安装就行了。</li>
+<li>另外，AMD显卡也可以通过显卡自带的软件进行驱动更新，就和Nvidia一样。</li>
+</ol>
 <h2 id="取消快速访问">取消快速访问</h2>
 <p>控制面板-查看方式：小图标-文件资源管理器选项</p>
 <ul>

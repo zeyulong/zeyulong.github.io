@@ -24,7 +24,7 @@
 <meta property="og:description" content="本文主要分享了PyTorch的基础知识。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-08-07T13:27:43.000Z">
-<meta property="article:modified_time" content="2025-08-07T13:38:52.621Z">
+<meta property="article:modified_time" content="2025-08-07T13:44:31.667Z">
 <meta property="article:author" content="龙泽雨">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -319,7 +319,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.7k 字
+          3.6k 字
         
       </span>
     
@@ -454,7 +454,7 @@
 <p>等等。</p>
 </li>
 </ol>
-<h2 id="保存模型的方法">保存模型的方法</h2>
+<h2 id="保存模型的方式">保存模型的方式</h2>
 <p>PyTorch 保存模型通常以下几种方式：</p>
 <table>
 <thead>
@@ -566,7 +566,7 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 保存</span><br>torch.save(&#123;<br>    <span class="hljs-string">&#x27;model_state_dict&#x27;</span>: model.state_dict(),<br>    <span class="hljs-string">&#x27;optimizer_state_dict&#x27;</span>: optimizer.state_dict(),<br>&#125;, <span class="hljs-string">&quot;checkpoint.pth&quot;</span>)<br><br><span class="hljs-comment"># 加载</span><br>checkpoint = torch.load(<span class="hljs-string">&quot;checkpoint.pth&quot;</span>)<br>model.load_state_dict(checkpoint[<span class="hljs-string">&#x27;model_state_dict&#x27;</span>])<br>optimizer.load_state_dict(checkpoint[<span class="hljs-string">&#x27;optimizer_state_dict&#x27;</span>])<br></code></pre></td></tr></table></figure>
 </li>
 <li>
-<p><mark>转ONXX（需要链接到《ONXX知识点》）。</mark></p>
+<p><a href="https://zeyulong.com/posts/8b56b9a/#PyTorch-%3EONXX">转ONNX</a>。</p>
 </li>
 <li>
 <p>等等。</p>

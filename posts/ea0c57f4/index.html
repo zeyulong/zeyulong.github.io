@@ -1,0 +1,1134 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" >
+
+
+
+<head><!-- hexo injector head_begin start --><progress id="content_progress" value="0"></progress><!-- hexo injector head_begin end -->
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/theme/TamakoAvatar-new-zip.png">
+  <link rel="icon" href="/img/theme/TamakoAvatar-new-zip.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#000000">
+  <meta name="author" content="龙泽雨">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="本文主要分享了PyTorch的基础知识。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PyTorch知识点">
+<meta property="og:url" content="http://zeyulong.com/posts/ea0c57f4/index.html">
+<meta property="og:site_name" content="龙泽雨的博客">
+<meta property="og:description" content="本文主要分享了PyTorch的基础知识。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-08-07T13:27:43.000Z">
+<meta property="article:modified_time" content="2025-08-07T13:38:52.621Z">
+<meta property="article:author" content="龙泽雨">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>PyTorch知识点 - 龙泽雨的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/custom/Markdown/macpanel.css">
+<link rel="stylesheet" href="/custom/Fonts/CodeFont.css">
+<link rel="stylesheet" href="/custom/Fonts/inlinecode-bg-color.css">
+<link rel="stylesheet" href="/custom/live2d/font-awesome.min.css">
+<link rel="stylesheet" href="/custom/LoadingBar/pace-theme-corner-indicator.css">
+<link rel="stylesheet" href="/custom/ReadingProgress/ReadingProgress.css">
+<link rel="stylesheet" href="/custom/SelectBackgroundColor/SelectBackgroundColor.css">
+<link rel="stylesheet" href="/custom/waline/gif.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"zeyulong.com","root":"/","version":"1.9.7","typing":{"enable":false,"typeSpeed":100,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"8gUBTaCjmaSbnf4genwggan3-MdYXbMMI","app_key":"2WRxjgxRXIWRBo8EA4205Wfm","server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<!-- hexo injector head_end start --><link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@200;300;400;500;600;700;900&display=swap" rel="stylesheet"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.0.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Happy every day!</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-steam"></i>
+                <span>摸鱼</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/2048" target="_self">
+                    
+                    <span>2048</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/bcbk/1" target="_self">
+                    
+                    <span>别踩白块-1</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/bcbk/2" target="_self">
+                    
+                    <span>别踩白块-2</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/dblk" target="_self">
+                    
+                    <span>躲避绿块</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/dr" target="_self">
+                    
+                    <span>恐龙快跑</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://mario-kart-3-js.vercel.app/" target="_self">
+                    
+                    <span>马里奥赛车</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/mf" target="_self">
+                    
+                    <span>魔方</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/cat" target="_self">
+                    
+                    <span>圈小猫</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/sl" target="_self">
+                    
+                    <span>扫雷</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/txz" target="_self">
+                    
+                    <span>推箱子</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/wzq" target="_self">
+                    
+                    <span>五子棋</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/theme/GirlWithCat-cut.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle">PyTorch知识点</span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        龙泽雨
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-08-07 21:27" pubdate>
+          2025年8月7日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3.7k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          31 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">PyTorch知识点</h1>
+            
+              <p id="updated-time" class="note note-info" style="">
+                
+                  
+                    本文最后更新于 2025年8月7日 晚上
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <p>本文主要分享了PyTorch的基础知识。</p>
+<span id="more"></span>
+<h1 id="管理模型的行为">管理模型的行为</h1>
+<ul>
+<li><strong>训练模式</strong>：<code>model.train()</code></li>
+<li><strong>评估模式：</strong><code>model.eval()</code></li>
+<li><strong>禁用梯度计算</strong>：<code>torch.no_grad()</code></li>
+<li><strong>启用梯度计算</strong>：<code>torch.enable_grad()</code></li>
+<li><strong>冻结或解冻参数</strong>：<code>model.requires_grad_(True/False)</code></li>
+<li><strong>切换设备</strong>：<code>model.to()</code></li>
+<li><strong>半精度模式</strong>：<code>model.half()</code> 和 <code>torch.cuda.amp.autocast()</code></li>
+<li><strong>分层模式切换</strong>：对特定层使用 <code>train()</code> 或 <code>eval()</code>。</li>
+</ul>
+<h1 id="保存模型">保存模型</h1>
+<h2 id="保存模型的命名">保存模型的命名</h2>
+<p><code>.pt</code> 和 <code>.pth</code> 都是 PyTorch 预训练模型常见的文件后缀，实际在 PyTorch 官方和社区中<strong>没有严格的技术区别</strong>，只是约定俗成的命名习惯：</p>
+<ul>
+<li>
+<p><code>.pt</code> 后缀</p>
+<ul>
+<li>
+<p><strong>全称</strong>：PyTorch</p>
+</li>
+<li>
+<p><strong>常见用法</strong>：通常用于保存完整的模型（包括结构和参数），也用于保存模型参数（state_dict）。</p>
+</li>
+<li>
+<p><strong>示例</strong>：<code>torch.save(model, 'model.pt')</code> 或 <code>torch.save(model.state_dict(), 'model.pt')</code></p>
+</li>
+<li>
+<p><strong>官方文档</strong>：PyTorch 官方示例常用 <code>.pt</code> 作为后缀。</p>
+</li>
+</ul>
+</li>
+<li>
+<p><code>.pth</code> 后缀</p>
+<ul>
+<li>
+<p><strong>全称</strong>：PyTorch</p>
+</li>
+<li>
+<p><strong>常见用法</strong>：更早期 PyTorch 社区中流行的后缀，经常用于保存模型参数字典（state_dict）。</p>
+</li>
+<li>
+<p><strong>示例</strong>：<code>torch.save(model.state_dict(), 'model.pth')</code></p>
+</li>
+<li>
+<p><strong>很多第三方项目、开源项目常用 <code>.pth</code></strong></p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="保存模型的位置">保存模型的位置</h2>
+<ol>
+<li>
+<p><strong>在训练完成后保存模型</strong>。当模型训练完成后，可以保存最终的完整模型。这样可以在推理或部署时直接加载完整的模型，而无需重新定义网络结构。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 假设 model 是你的神经网络</span><br>model = MyModel()<br><br><span class="hljs-comment"># 定义损失函数和优化器</span><br>criterion = torch.nn.CrossEntropyLoss()<br>optimizer = torch.optim.Adam(model.parameters(), lr=<span class="hljs-number">0.001</span>)<br><br><span class="hljs-comment"># 模拟训练循环</span><br><span class="hljs-keyword">for</span> epoch <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(num_epochs):<br>    <span class="hljs-keyword">for</span> inputs, labels <span class="hljs-keyword">in</span> train_loader:<br>        optimizer.zero_grad()<br>        outputs = model(inputs)<br>        loss = criterion(outputs, labels)<br>        loss.backward()<br>        optimizer.step()<br><br><span class="hljs-comment"># 训练结束后保存完整模型</span><br>torch.save(model, <span class="hljs-string">&quot;model_complete.pt&quot;</span>)<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p><strong>在中断训练前保存（检查点保存）</strong>。如果训练可能会中断（如在分布式训练中），你可以定期保存模型，以便从中断处恢复。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 保存模型检查点</span><br>torch.save(model, <span class="hljs-string">f&quot;checkpoint_epoch_<span class="hljs-subst">&#123;epoch&#125;</span>.pt&quot;</span>)<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p><strong>在验证性能后保存最佳模型</strong>。如果你在训练过程中验证模型性能，可以设置一个条件，只保存性能最好的模型。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs python">best_accuracy = <span class="hljs-number">0.0</span><br><br><span class="hljs-keyword">for</span> epoch <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(num_epochs):<br>    <span class="hljs-keyword">for</span> inputs, labels <span class="hljs-keyword">in</span> train_loader:<br>        <span class="hljs-comment"># 训练逻辑</span><br>        <span class="hljs-keyword">pass</span><br><br>    <span class="hljs-comment"># 验证模型性能</span><br>    accuracy = validate(model, val_loader)<br><br>    <span class="hljs-comment"># 如果当前模型表现更好，则保存</span><br>    <span class="hljs-keyword">if</span> accuracy &gt; best_accuracy:<br>        best_accuracy = accuracy<br>        torch.save(model, <span class="hljs-string">&quot;best_model.pt&quot;</span>)<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p><strong>在模型导出或部署前保存</strong>。训练完成后，如果需要将模型导出到生产环境，通常在推理或部署前保存完整模型。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 切换到评估模式</span><br>model.<span class="hljs-built_in">eval</span>()<br><br><span class="hljs-comment"># 保存模型用于生产部署</span><br>torch.save(model, <span class="hljs-string">&quot;model_for_deployment.pt&quot;</span>)<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>等等。</p>
+</li>
+</ol>
+<h2 id="保存模型的方法">保存模型的方法</h2>
+<p>PyTorch 保存模型通常以下几种方式：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">方法</th>
+<th style="text-align:center">优点</th>
+<th style="text-align:center">缺点</th>
+<th style="text-align:center">使用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><strong>保存权重 (<code>state_dict</code>)</strong></td>
+<td style="text-align:center">文件小，灵活性高</td>
+<td style="text-align:center">需要重新定义网络结构</td>
+<td style="text-align:center">训练、部署、迁移</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>保存整个模型</strong></td>
+<td style="text-align:center">加载简单，包含网络结构和权重</td>
+<td style="text-align:center">文件较大，可能因环境变化导致加载失败</td>
+<td style="text-align:center">快速加载模型进行推理</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>TorchScript</strong></td>
+<td style="text-align:center">独立于 Python 环境，适合 C++ 部署</td>
+<td style="text-align:center">不支持某些动态操作</td>
+<td style="text-align:center">部署到生产环境或 C++ 使用</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>保存优化器状态</strong></td>
+<td style="text-align:center">可恢复训练</td>
+<td style="text-align:center">仅适用于训练场景</td>
+<td style="text-align:center">训练中断后继续训练</td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li>
+<p><strong>只保存模型的状态字典</strong> (<code>state_dict</code>)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 保存</span><br>torch.save(model.state_dict(), <span class="hljs-string">&quot;model_weights.pth&quot;</span>)  <span class="hljs-comment"># 这种方式只保存了模型的权重参数，而不包含网络结构。加载时需要重新定义网络结构。</span><br><br><span class="hljs-comment"># 加载</span><br>model = MyModel()  <span class="hljs-comment"># 重新定义网络结构</span><br>model.load_state_dict(torch.load(<span class="hljs-string">&quot;model_weights.pth&quot;</span>))<br>model.<span class="hljs-built_in">eval</span>()  <span class="hljs-comment"># 切换到推理模式</span><br></code></pre></td></tr></table></figure>
+<p>（可选）在C++中加载：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;torch/torch.h&gt;</span></span><br><br>torch::<span class="hljs-built_in">load</span>(model, <span class="hljs-string">&quot;model_weights.pth&quot;</span>);<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p><strong>保存整个模型</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 保存</span><br>torch.save(model, <span class="hljs-string">&quot;model_complete.pt&quot;</span>)<br><br><span class="hljs-comment"># 加载</span><br>model = torch.load(<span class="hljs-string">&quot;model_complete.pt&quot;</span>)<br>model.<span class="hljs-built_in">eval</span>()  <span class="hljs-comment"># 切换到推理模式</span><br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>保存完整模型时，由于网络结构直接序列化为 Python 对象，跨环境加载时可能会出现问题（如类定义路径不同）。</p>
+</blockquote>
+</li>
+<li>
+<p><strong>使用 TorchScript 脚本化模型</strong>。TorchScript 是 PyTorch 提供的一种将模型转换为静态图的方法，适用于部署场景。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 保存</span><br>scripted_model = torch.jit.script(model)    <span class="hljs-comment"># 或 torch.jit.trace(model, example_input)</span><br>scripted_model.save(<span class="hljs-string">&quot;model_scripted.pt&quot;</span>)<br><br><span class="hljs-comment"># 加载</span><br>model = torch.jit.load(<span class="hljs-string">&quot;model_scripted.pt&quot;</span>)<br>model.<span class="hljs-built_in">eval</span>()  <span class="hljs-comment"># 切换到推理模式</span><br></code></pre></td></tr></table></figure>
+<p>（可选）在C++中加载：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;torch/torch.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;torch/script.h&gt;</span> <span class="hljs-comment">// 用于 torch::jit::load</span></span><br><br>torch::jit::script::Module <span class="hljs-keyword">module</span> = torch::jit::<span class="hljs-built_in">load</span>(<span class="hljs-string">&quot;model_scripted.pt&quot;</span>);<br></code></pre></td></tr></table></figure>
+<blockquote>
+<p><code>torch.jit.script()</code> 和 <code>torch.jit.trace()</code> 是 PyTorch 中将模型转换为 <strong>TorchScript</strong> 的两种方法。两者在原理和适用场景上有很大的区别。</p>
+<table>
+<thead>
+<tr>
+<th><strong>特性</strong></th>
+<th><strong><code>torch.jit.script()</code></strong></th>
+<th><strong><code>torch.jit.trace()</code></strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>工作原理</strong></td>
+<td>基于代码解析，捕获模型的完整逻辑</td>
+<td>基于跟踪，通过示例输入记录计算图</td>
+</tr>
+<tr>
+<td><strong>动态控制流支持</strong></td>
+<td>支持（包括 <code>if-else</code>、循环等动态逻辑）</td>
+<td>不支持（只能捕获固定的计算逻辑）</td>
+</tr>
+<tr>
+<td><strong>依赖输入数据</strong></td>
+<td>不依赖</td>
+<td>依赖具体的示例输入</td>
+</tr>
+<tr>
+<td><strong>模型适用性</strong></td>
+<td>适用于动态和静态模型</td>
+<td>仅适用于静态模型</td>
+</tr>
+<tr>
+<td><strong>复杂模型支持</strong></td>
+<td>支持复杂的动态模型</td>
+<td>对动态模型支持有限</td>
+</tr>
+<tr>
+<td><strong>使用难度</strong></td>
+<td>需要检查代码是否可解析</td>
+<td>简单，只需提供示例输入</td>
+</tr>
+<tr>
+<td><strong>输出 TorchScript 的行为</strong></td>
+<td>静态图，完全保留模型的动态行为</td>
+<td>静态图，固定行为，不能动态调整</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+</li>
+<li>
+<p><strong>保存优化器状态</strong>。在训练过程中，可以同时保存优化器的状态，以便在中断后继续训练。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 保存</span><br>torch.save(&#123;<br>    <span class="hljs-string">&#x27;model_state_dict&#x27;</span>: model.state_dict(),<br>    <span class="hljs-string">&#x27;optimizer_state_dict&#x27;</span>: optimizer.state_dict(),<br>&#125;, <span class="hljs-string">&quot;checkpoint.pth&quot;</span>)<br><br><span class="hljs-comment"># 加载</span><br>checkpoint = torch.load(<span class="hljs-string">&quot;checkpoint.pth&quot;</span>)<br>model.load_state_dict(checkpoint[<span class="hljs-string">&#x27;model_state_dict&#x27;</span>])<br>optimizer.load_state_dict(checkpoint[<span class="hljs-string">&#x27;optimizer_state_dict&#x27;</span>])<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p><mark>转ONXX（需要链接到《ONXX知识点》）。</mark></p>
+</li>
+<li>
+<p>等等。</p>
+</li>
+</ol>
+<h2 id="保存模型的内容">保存模型的内容</h2>
+<ol>
+<li>
+<p><strong>使用 <code>state_dict</code> 保存的权重文件</strong></p>
+<ul>
+<li>
+<p><strong>模型参数</strong>： 权重文件中保存的是一个字典（<code>state_dict</code>），其键为模型中每一层的名称（如 <code>layer1.weight</code>），值为相应的张量（<code>torch.Tensor</code>）。</p>
+</li>
+<li>
+<p><strong>格式</strong>：</p>
+<ul>
+<li>基于 PyTorch 的序列化格式，底层使用 Python 的 <code>pickle</code> 序列化。</li>
+<li>文件本质是一个二进制文件。</li>
+</ul>
+</li>
+<li>
+<p>示例：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python">&#123;<br>    <span class="hljs-string">&quot;conv1.weight&quot;</span>: tensor([[...], [...]]),  <span class="hljs-comment"># 卷积层的权重</span><br>    <span class="hljs-string">&quot;conv1.bias&quot;</span>: tensor([...]),            <span class="hljs-comment"># 卷积层的偏置</span><br>    <span class="hljs-string">&quot;fc.weight&quot;</span>: tensor([[...], [...]]),    <span class="hljs-comment"># 全连接层的权重</span><br>    <span class="hljs-string">&quot;fc.bias&quot;</span>: tensor([...])                <span class="hljs-comment"># 全连接层的偏置</span><br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>等等。</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>保存完整模型</strong></p>
+<ul>
+<li><strong>网络结构</strong>： 包括模型的类（<code>nn.Module</code>）定义和网络的具体拓扑结构。</li>
+<li><strong>模型参数</strong>： 包括网络中每一层的权重和偏置。</li>
+<li><strong>格式</strong>：
+<ul>
+<li>同样基于 PyTorch 的 <code>pickle</code> 序列化。</li>
+<li>文件本质是一个二进制文件。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>使用 TorchScript 保存的模型</strong></p>
+<ul>
+<li><strong>网络结构</strong>： 使用 TorchScript 表示网络结构为静态计算图。</li>
+<li><strong>模型参数</strong>： 包括网络中每一层的权重和偏置。</li>
+<li><strong>格式</strong>：
+<ul>
+<li>文件以 TorchScript 的序列化格式保存。</li>
+<li>支持跨环境加载（如在 C++ 中使用）。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>等等。</p>
+</li>
+</ol>
+<h1 id="推理">推理</h1>
+<h2 id="常见的推理流程">常见的推理流程</h2>
+<p>在 PyTorch 中，模型的权重（如 <code>.pt</code> 文件）通常只包含网络的参数（权重和偏置），而不包含模型的<strong>网络结构定义</strong>。因此，在加载权重并进行推理之前，必须重新定义模型的架构，以便 PyTorch 知道如何将权重加载到对应的网络结构中。</p>
+<ol>
+<li>
+<p><strong>定义模型的网络结构</strong>。在 PyTorch 中，网络结构通常是一个继承自 <code>torch.nn.Module</code> 的类。例如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> torch<br><span class="hljs-keyword">import</span> torch.nn <span class="hljs-keyword">as</span> nn<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">MyModel</span>(nn.Module):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-built_in">super</span>(MyModel, self).__init__()<br>        self.fc = nn.Linear(<span class="hljs-number">10</span>, <span class="hljs-number">2</span>)<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">forward</span>(<span class="hljs-params">self, x</span>):<br>        <span class="hljs-keyword">return</span> self.fc(x)<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p><strong>加载预训练的权重</strong>。使用 <code>torch.load</code> 或 <code>model.load_state_dict</code> 方法加载保存的权重到定义好的模型中：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">model = MyModel()  <span class="hljs-comment"># 定义网络结构</span><br>model.load_state_dict(torch.load(<span class="hljs-string">&quot;model_weights.pt&quot;</span>))  <span class="hljs-comment"># 加载权重</span><br>model.<span class="hljs-built_in">eval</span>()  <span class="hljs-comment"># 设置为推理模式</span><br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p><strong>进行推理</strong>。将输入传入模型，进行前向传播以获得推理结果：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">input_tensor = torch.randn(<span class="hljs-number">1</span>, <span class="hljs-number">10</span>)  <span class="hljs-comment"># 示例输入</span><br>output = model(input_tensor)<br><span class="hljs-built_in">print</span>(output)<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>完成。</p>
+</li>
+</ol>
+<h2 id="判断-pt文件中是否包含网络结构">判断.pt文件中是否包含网络结构</h2>
+<p>要判断 <code>.pt</code> 文件中是否包含网络结构，可以尝试加载文件并观察行为：</p>
+<ol>
+<li>
+<p><strong>使用 <code>torch.load</code> 尝试直接加载模型</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> torch<br><br>model = torch.load(<span class="hljs-string">&quot;model.pt&quot;</span>)  <span class="hljs-comment"># 尝试直接加载</span><br><span class="hljs-built_in">print</span>(model)  <span class="hljs-comment"># 如果文件中包含网络结构，torch.load 将直接返回一个完整的模型对象。</span><br><span class="hljs-keyword">if</span> <span class="hljs-built_in">isinstance</span>(model, <span class="hljs-built_in">dict</span>):<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;该文件只包含权重参数（state_dict）&quot;</span>)<br><span class="hljs-keyword">else</span>:<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;该文件包含完整的模型（网络结构和权重）&quot;</span>)<br></code></pre></td></tr></table></figure>
+<ul>
+<li>如果成功加载并可以直接推理，说明文件中包含了网络结构。</li>
+<li>如果报错或返回的是一个字典（<code>state_dict</code>），说明文件中只包含权重而没有网络结构。</li>
+</ul>
+</li>
+<li>
+<p><strong>使用 <code>model.load_state_dict</code> 尝试加载权重</strong></p>
+<p>如果你知道模型的网络结构，可以先定义模型，然后尝试加载权重：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> torch<br><span class="hljs-keyword">import</span> torch.nn <span class="hljs-keyword">as</span> nn<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">MyModel</span>(nn.Module):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-built_in">super</span>(MyModel, self).__init__()<br>        self.fc = nn.Linear(<span class="hljs-number">10</span>, <span class="hljs-number">2</span>)<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">forward</span>(<span class="hljs-params">self, x</span>):<br>        <span class="hljs-keyword">return</span> self.fc(x)<br><br>model = MyModel()  <span class="hljs-comment"># 定义网络结构</span><br>state_dict = torch.load(<span class="hljs-string">&quot;model.pt&quot;</span>)  <span class="hljs-comment"># 尝试加载</span><br>model.load_state_dict(state_dict)  <span class="hljs-comment"># 尝试将权重加载到定义的模型中</span><br></code></pre></td></tr></table></figure>
+<ul>
+<li>如果 <code>.pt</code> 文件中只包含权重，这种方式会正常工作。</li>
+</ul>
+</li>
+<li>
+<p>等等。</p>
+</li>
+</ol>
+<h2 id="如果没有网络结构定义怎么办？">如果没有网络结构定义怎么办？</h2>
+<ol>
+<li>
+<p><strong>使用 PyTorch 的脚本化模型或 TorchScript</strong>。如果模型在保存时已经被脚本化（TorchScript），那么 <code>.pt</code> 文件中不仅包含权重，还包含网络结构。可以直接加载脚本化模型并进行推理：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python">scripted_model = torch.jit.load(<span class="hljs-string">&quot;scripted_model.pt&quot;</span>)<br>scripted_model.<span class="hljs-built_in">eval</span>()<br>output = scripted_model(torch.randn(<span class="hljs-number">1</span>, <span class="hljs-number">10</span>))<br><span class="hljs-built_in">print</span>(output)<br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>如果模型不是脚本化的，你需要找到模型的代码定义（通常是一个 Python 文件或类）。如果没有现成定义，可以尝试从文档或原始开发者处获取。</p>
+</blockquote>
+</li>
+<li>
+<p><strong>使用 ONNX</strong>。如果模型已经被导出为 ONNX 格式，则可以绕过 PyTorch，直接使用 ONNX Runtime 进行推理，无需重新定义网络结构。</p>
+</li>
+</ol>
+<h2 id="只有（-使用）-pt文件中的权重并自定义网络结构">只有（/使用）.pt文件中的权重并自定义网络结构</h2>
+<h3 id="基本流程">基本流程</h3>
+<ol>
+<li>
+<p><strong>加载权重文件</strong>。即使 <code>.pt</code> 文件中包含完整的模型（网络结构和权重），你仍然可以加载文件并从中提取权重（<code>state_dict</code>）。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> torch<br><br><span class="hljs-comment"># 加载包含网络结构和权重的模型</span><br>saved_model = torch.load(<span class="hljs-string">&quot;model.pt&quot;</span>)<br><br><span class="hljs-comment"># 提取权重（state_dict）</span><br>state_dict = saved_model.state_dict()<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p><strong>自定义网络结构</strong>。你需要在代码中定义你希望使用的自定义网络结构。确保网络结构的参数名称和形状与提取的权重匹配。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> torch.nn <span class="hljs-keyword">as</span> nn<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">MyCustomModel</span>(nn.Module):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-built_in">super</span>(MyCustomModel, self).__init__()<br>        self.fc = nn.Linear(<span class="hljs-number">10</span>, <span class="hljs-number">2</span>)  <span class="hljs-comment"># 根据你的需求定义结构</span><br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">forward</span>(<span class="hljs-params">self, x</span>):<br>        <span class="hljs-keyword">return</span> self.fc(x)<br><br><span class="hljs-comment"># 实例化你的自定义模型</span><br>custom_model = MyCustomModel()<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p><strong>加载权重到自定义网络结构</strong>。使用 <code>load_state_dict</code> 方法将提取的权重加载到自定义的网络结构中。如果权重名称和形状不完全匹配，你可以设置 <code>strict=False</code> 来跳过不匹配的部分（通常会打印相关警告）。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 加载权重</span><br>custom_model.load_state_dict(state_dict, strict=<span class="hljs-literal">False</span>)<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p><strong>切换到推理模式并进行测试</strong>。在加载权重后，切换模型到推理模式，并进行测试。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs python">custom_model.<span class="hljs-built_in">eval</span>()  <span class="hljs-comment"># 切换到推理模式</span><br><br><span class="hljs-comment"># 创建测试输入</span><br>input_tensor = torch.randn(<span class="hljs-number">1</span>, <span class="hljs-number">10</span>)  <span class="hljs-comment"># 假设输入形状是 [1, 10]</span><br><br><span class="hljs-comment"># 推理</span><br>output = custom_model(input_tensor)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;推理输出：&quot;</span>, output)<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>（可选）<a href="#%E4%BF%9D%E5%AD%98%E6%A8%A1%E5%9E%8B">保存模型</a></p>
+</li>
+<li>
+<p>完成。</p>
+</li>
+</ol>
+<h3 id="注意事项">注意事项</h3>
+<ol>
+<li>
+<p><strong>权重匹配问题</strong>：自定义网络结构的参数名称和形状必须与原始模型的权重一致。如果不一致，你需要手动修改网络结构或转换权重的名称。例如，如果原始模型的层名称是 <code>layer1.weight</code>，但你的自定义模型中是 <code>fc.weight</code>，需要映射它们。示例：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 修改 state_dict 的键名</span><br>new_state_dict = &#123;&#125;<br><span class="hljs-keyword">for</span> key, value <span class="hljs-keyword">in</span> state_dict.items():<br>    new_key = key.replace(<span class="hljs-string">&quot;layer1&quot;</span>, <span class="hljs-string">&quot;fc&quot;</span>)  <span class="hljs-comment"># 根据实际情况调整</span><br>    new_state_dict[new_key] = value<br><br><span class="hljs-comment"># 加载修改后的权重</span><br>custom_model.load_state_dict(new_state_dict, strict=<span class="hljs-literal">False</span>)<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p><strong>参数形状问题</strong>：如果自定义网络结构的形状和原始模型不一致（例如，层的输入/输出大小不同），需要手动调整网络代码或重新训练部分参数。</p>
+</li>
+<li>
+<p><strong>删除原始模型的网络结构</strong>：如果你希望 <code>.pt</code> 文件中只包含权重，可以重新保存提取的 <code>state_dict</code>：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 保存权重为新的文件</span><br>torch.save(state_dict, <span class="hljs-string">&quot;model_weights_only.pt&quot;</span>)<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>等等。</p>
+</li>
+</ol>
+<h3 id="网络结构可以有区别的情况">网络结构可以有区别的情况</h3>
+<p>虽然权重文件中的参数是固定的，但在以下情况下，自定义网络结构可以与原始网络结构有一定的区别：</p>
+<ol>
+<li>
+<p><strong>网络中新增的部分不加载权重</strong>。如果你在网络中新增了某些层，而这些层不需要加载预训练权重，PyTorch 会忽略这些层，并只加载权重文件中匹配的部分。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">CustomModelWithExtraLayer</span>(nn.Module):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-built_in">super</span>(CustomModelWithExtraLayer, self).__init__()<br>        self.fc = nn.Linear(<span class="hljs-number">10</span>, <span class="hljs-number">2</span>)  <span class="hljs-comment"># 与原始网络一致</span><br>        self.extra_layer = nn.Linear(<span class="hljs-number">2</span>, <span class="hljs-number">3</span>)  <span class="hljs-comment"># 新增的层。extra_layer 的权重不会从文件中加载，而是会被随机初始化。</span><br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">forward</span>(<span class="hljs-params">self, x</span>):<br>        x = self.fc(x)<br>        <span class="hljs-keyword">return</span> self.extra_layer(x)  <span class="hljs-comment"># 使用新层</span><br><br><span class="hljs-comment"># 加载权重（strict=False 会忽略不匹配的部分）</span><br>model = CustomModelWithExtraLayer()<br>model.load_state_dict(torch.load(<span class="hljs-string">&quot;model_weights.pt&quot;</span>), strict=<span class="hljs-literal">False</span>)<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p><strong>对部分参数重命名或调整</strong>。如果你需要加载的网络结构与训练时的网络结构有一些参数名称不同，可以手动修改权重文件的 <code>state_dict</code>，以适配自定义网络结构。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 假设原始权重文件的参数名称是 &quot;fc.weight&quot; 和 &quot;fc.bias&quot;</span><br>state_dict = torch.load(<span class="hljs-string">&quot;model_weights.pt&quot;</span>)<br><br><span class="hljs-comment"># 修改参数名称为自定义网络结构的名称</span><br>new_state_dict = &#123;&#125;<br><span class="hljs-keyword">for</span> key, value <span class="hljs-keyword">in</span> state_dict.items():<br>    new_key = key.replace(<span class="hljs-string">&quot;fc&quot;</span>, <span class="hljs-string">&quot;custom_fc&quot;</span>)  <span class="hljs-comment"># 假设新网络结构的名称是 &quot;custom_fc&quot;</span><br>    new_state_dict[new_key] = value<br><br><span class="hljs-comment"># 自定义网络结构</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">CustomModel</span>(nn.Module):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-built_in">super</span>(CustomModel, self).__init__()<br>        self.custom_fc = nn.Linear(<span class="hljs-number">10</span>, <span class="hljs-number">2</span>)<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">forward</span>(<span class="hljs-params">self, x</span>):<br>        <span class="hljs-keyword">return</span> self.custom_fc(x)<br><br><span class="hljs-comment"># 加载权重</span><br>model = CustomModel()<br>model.load_state_dict(new_state_dict)<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p><strong>部分层的形状可以不匹配（微调）</strong>。如果你希望调整某些层（例如改变输出类别数目），可以通过加载匹配的部分权重，然后对新层进行随机初始化或微调。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">CustomModel</span>(nn.Module):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-built_in">super</span>(CustomModel, self).__init__()<br>        self.fc = nn.Linear(<span class="hljs-number">10</span>, <span class="hljs-number">5</span>)  <span class="hljs-comment"># 假设原始网络输出为 2，这里调整为 5</span><br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">forward</span>(<span class="hljs-params">self, x</span>):<br>        <span class="hljs-keyword">return</span> self.fc(x)<br><br><span class="hljs-comment"># 加载权重时忽略形状不匹配的部分</span><br>model = CustomModel()<br>pretrained_dict = torch.load(<span class="hljs-string">&quot;model_weights.pt&quot;</span>)<br><br><span class="hljs-comment"># 过滤掉不匹配的参数</span><br><span class="hljs-comment"># fc 层（模型最后一层）的权重会被随机初始化，而其他层的权重会从文件中加载。</span><br>model_dict = model.state_dict()<br>pretrained_dict = &#123;k: v <span class="hljs-keyword">for</span> k, v <span class="hljs-keyword">in</span> pretrained_dict.items() <span class="hljs-keyword">if</span> k <span class="hljs-keyword">in</span> model_dict <span class="hljs-keyword">and</span> v.size() == model_dict[k].size()&#125;<br><br><span class="hljs-comment"># 更新现有模型的权重</span><br>model_dict.update(pretrained_dict)<br>model.load_state_dict(model_dict)<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>等等。</p>
+</li>
+</ol>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/" class="category-chain-item">技术分享</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>PyTorch知识点</div>
+      <div>http://zeyulong.com/posts/ea0c57f4/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>龙泽雨</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年8月7日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/8b56b9a/" title="ONNX知识点">
+                        <span class="hidden-mobile">ONNX知识点</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="waline"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#waline', function() {
+      Fluid.utils.createCssLink('https://cdn.staticfile.org/waline/2.15.5/waline.min.css')
+      Fluid.utils.createScript('https://cdn.staticfile.org/waline/2.15.5/waline.min.js', function() {
+        var options = Object.assign(
+          {"serverURL":"https://www.zeyulong.cn/","path":"window.location.pathname","meta":["nick","mail","link"],"requiredMeta":["nick"],"lang":"zh-CN","emoji":["https://cdn.jsdelivr.net/gh/walinejs/emojis/weibo"],"dark":"html[data-user-color-scheme=\"dark\"]","wordLimit":0,"pageSize":10,"reaction":true,"locale":{"placeholder":"花径不曾缘客扫，蓬门今始为君开。"}},
+          {
+            el: '#waline',
+            path: window.location.pathname
+          }
+        )
+        Waline.init(options);
+        Fluid.utils.waitElementVisible('#waline .vcontent', () => {
+          var imgSelector = '#waline .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> <div style="font-size: 0.85rem"> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/custom/RunTime/RunTime.js"></script> </div> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  
+<script src="/custom/live2d/live2d-widget/autoload.js"></script>
+<script src="/custom/live2d/jquery.min.js"></script>
+<script src="/custom/LabelPage/LabelPage.js"></script>
+<script src="/custom/LoadingBar/pace.min.js"></script>
+<script src="/custom/ReadingProgress/ReadingProgress.js"></script>
+<script src="/custom/typing-effect/typing-effect.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  <canvas
+    class="fireworks"
+    style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 32767"
+></canvas>
+<script type="text/javascript" src="/custom/fireworks/anime.min.js"></script> 
+<script type="text/javascript" src="/custom/fireworks/fireworks.js"></script>
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

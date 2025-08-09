@@ -24,7 +24,7 @@
 <meta property="og:description" content="本文主要分享了在Linux下DboW3和DBoW2的编译和示例运行。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-06-03T14:49:12.000Z">
-<meta property="article:modified_time" content="2025-08-04T08:22:01.904Z">
+<meta property="article:modified_time" content="2025-08-08T11:34:14.436Z">
 <meta property="article:author" content="龙泽雨">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -319,7 +319,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.3k 字
+          1.5k 字
         
       </span>
     
@@ -330,7 +330,7 @@
         
         
         
-          12 分钟
+          13 分钟
         
       </span>
     
@@ -372,7 +372,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2025年8月4日 下午
+                    本文最后更新于 2025年8月8日 晚上
                   
                 
               </p>
@@ -384,6 +384,14 @@
 <span id="more"></span>
 <h1 id="概述">概述</h1>
 <p>DBoW2 和 DBoW3 都是用于图像检索与定位的<strong>视觉词袋（Bag-of-Words, BoW）库</strong>，主要应用于计算机视觉领域，尤其在 <strong>SLAM（同步定位与建图）</strong>、<strong>图像检索</strong>、<strong>视觉定位</strong>等任务中。它们的核心思想是将图像特征描述子（如 ORB、SIFT 等）量化成“视觉词汇”，然后用词袋模型表示整幅图像，实现高效的图像匹配与检索。</p>
+<blockquote>
+<p>**DBoW2 和 DBoW3 都支持二进制描述符和浮点描述符。**常见支持的类型有：</p>
+<ul>
+<li>二进制：ORB、BRIEF、BRISK</li>
+<li>浮点：SIFT、SURF</li>
+</ul>
+<p>你只需在初始化词袋对象时指定描述符类型即可。</p>
+</blockquote>
 <h2 id="DBoW2">DBoW2</h2>
 <ul>
 <li><strong>全称</strong>：DBoW2（Database of Bag of Words 2）</li>
@@ -406,9 +414,24 @@
 <li><strong>语言</strong>：C++</li>
 <li>功能：
 <ul>
-<li>是 DBoW2 的升级版，API 更加现代化，易于集成，支持 C++11。</li>
-<li>性能优化，部分功能简化，代码更易维护。</li>
-<li>去除了对 OpenCV 2.x 的依赖，支持 OpenCV 3 及更新版本。</li>
+<li>是 DBoW2 的升级版，API 更加现代化，易于集成，支持 C++11。
+<ul>
+<li>DBoW3 可以在 Linux 和 Windows 上编译。</li>
+<li>与 DBoW2 yml 文件兼容。</li>
+</ul>
+</li>
+<li>性能优化，部分功能简化，代码更易维护。
+<ul>
+<li>DBoW3 能够开箱即用地使用二进制和浮点描述符。无需为任何描述符重新实现任何类。</li>
+<li>重写了部分代码以优化速度。DBoW3 的界面也得到了简化。</li>
+<li>可以使用二进制文件。二进制文件的加载/保存速度比 yml 文件快 4-5 倍。此外，二进制文件还可以压缩。</li>
+</ul>
+</li>
+<li>去除了对 OpenCV 2.x 的依赖，支持 OpenCV 3 及更新版本。
+<ul>
+<li>DBoW3 仅需要 OpenCV。DBoW2 对 DLIB 的依赖已被移除。</li>
+</ul>
+</li>
 <li>仍可用于图像检索、回环检测等任务。</li>
 </ul>
 </li>

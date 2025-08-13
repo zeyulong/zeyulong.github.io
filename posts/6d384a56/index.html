@@ -24,7 +24,7 @@
 <meta property="og:description" content="本文主要记录了自己搭建Hexo博客的流程，主要包括搭建Hexo博客、插件安装和主题美化。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-01-03T12:18:38.000Z">
-<meta property="article:modified_time" content="2025-04-27T02:28:33.616Z">
+<meta property="article:modified_time" content="2025-08-12T08:16:55.202Z">
 <meta property="article:author" content="龙泽雨">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -214,7 +214,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          726 字
+          2k 字
         
       </span>
     
@@ -225,7 +225,7 @@
         
         
         
-          7 分钟
+          17 分钟
         
       </span>
     
@@ -267,7 +267,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2025年4月27日 上午
+                    本文最后更新于 2025年8月12日 下午
                   
                 
               </p>
@@ -386,6 +386,185 @@
 <p>大功告成。</p>
 </li>
 </ol>
+<h1 id="博客框架">博客框架</h1>
+<h2 id="部署方式">部署方式</h2>
+<h3 id="静态部署">静态部署</h3>
+<p><strong>静态部署</strong>是指将网站的所有页面和资源（如 HTML、CSS、JS、图片等）提前生成为静态文件，然后直接放在服务器上供用户访问。用户访问网站时，服务器只需要把这些静态文件返回给浏览器，无需运行后端程序或数据库查询。</p>
+<h3 id="动态部署">动态部署</h3>
+<p><strong>动态部署</strong>，指的是网站内容不是提前生成好的静态文件，而是由服务器在用户访问时<strong>动态生成网页</strong>。</p>
+<ul>
+<li>例如：传统的 WordPress 博客、论坛系统等，都是动态网站。</li>
+<li>用户访问时，服务器会执行后端程序（如 PHP、Node.js、Python），查询数据库，生成 HTML 页面，然后返回给用户。</li>
+<li>动态网站可以实现复杂的交互，比如用户登录、评论、后台管理等。</li>
+</ul>
+<h3 id="对比">对比</h3>
+<table>
+<thead>
+<tr>
+<th>静态部署（如 Hexo）</th>
+<th>动态部署（如 WordPress）</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>网页生成方式</td>
+<td>预先生成好所有网页</td>
+<td>用户访问时实时生成网页</td>
+</tr>
+<tr>
+<td>服务器负载</td>
+<td>很低，直接返回文件</td>
+<td>通常偏高，需要运行后端程序</td>
+</tr>
+<tr>
+<td>内容更新</td>
+<td>需重新生成并部署</td>
+<td>可直接在后台编辑</td>
+</tr>
+<tr>
+<td>安全性</td>
+<td>较高，无数据库和后台入口</td>
+<td>有数据库和后台，需防护</td>
+</tr>
+<tr>
+<td>交互能力</td>
+<td>一般较弱，适合浏览展示</td>
+<td>强，支持互动和复杂功能</td>
+</tr>
+</tbody>
+</table>
+<h2 id="常见的静态博客框架">常见的静态博客框架</h2>
+<h3 id="Hexo">Hexo</h3>
+<p>Hexo 是一个基于 Node.js 的快速、简单且强大的<strong>静态博客框架</strong>。它广受开发者和技术爱好者欢迎，适合搭建个人博客、技术文档、作品集等网站。</p>
+<h4 id="主要特点">主要特点</h4>
+<ol>
+<li>静态网站生成：Hexo 会将你的 Markdown 或其他格式的内容，生成静态 HTML、CSS、JS 文件，方便部署到各种静态托管服务（如 GitHub Pages、Vercel、Netlify 等）。</li>
+<li>极速构建：生成网站速度快，即使内容较多也能在几秒内完成构建。</li>
+<li>Markdown 支持：原生支持 Markdown 格式，写作体验流畅，方便技术写作者。</li>
+<li>丰富的主题与插件：拥有大量高质量主题和插件，可以自定义外观和功能（如评论、搜索、SEO优化、社交分享等）。</li>
+<li>易于部署：支持一键部署到多种平台，维护简单，无需服务器和数据库。</li>
+<li>强大的中文社区：有丰富的中文文档和教程，新手入门容易，遇到问题也能很快获得帮助。</li>
+</ol>
+<h4 id="适合人群">适合人群</h4>
+<ul>
+<li>想要快速搭建个人博客的开发者或技术爱好者</li>
+<li>追求简洁、无需复杂后台和数据库的内容发布者</li>
+<li>希望自定义网站风格和功能的用户</li>
+</ul>
+<h3 id="其它">其它</h3>
+<p>除了 Hexo 之外，常见的静态博客框架还有以下几种：</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>语言和环境</th>
+<th>特点</th>
+<th>适合人群</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Jekyll</td>
+<td>Ruby</td>
+<td>GitHub Pages 原生支持；广泛的主题和插件生态；Markdown 支持好。</td>
+<td>习惯 Ruby 或 GitHub Pages 用户。</td>
+</tr>
+<tr>
+<td>Hugo</td>
+<td>Go</td>
+<td>极快的生成速度（静态文件秒级生成）；支持多语言；主题丰富。</td>
+<td>对构建速度有极高要求的用户。</td>
+</tr>
+<tr>
+<td>Gatsby</td>
+<td>JavaScript（基于 React）</td>
+<td>支持动态数据（GraphQL）；可生成静态和动态页面；高度可扩展。</td>
+<td>前端开发者，喜欢 React 技术栈。</td>
+</tr>
+<tr>
+<td>VuePress</td>
+<td>JavaScript（基于 Vue）</td>
+<td>易于与 Vue 项目集成；适合文档和博客；主题配置灵活。</td>
+<td>Vue 用户、文档驱动型网站。</td>
+</tr>
+<tr>
+<td>Pelican</td>
+<td>Python</td>
+<td>Python 用户友好；插件丰富；支持 Markdown 和 reStructuredText。</td>
+<td>Python 开发者。</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>与 Jekyll 比</strong>：Hexo 安装更简单，中文文档更丰富，但 GitHub Pages 原生支持更好的是 Jekyll。</li>
+<li><strong>与 Hugo 比</strong>：Hugo 生成速度更快，适合大规模内容，Hexo 更易定制和二次开发。</li>
+<li><strong>与 Gatsby/VuePress 比</strong>：Gatsby/VuePress 更适合前端开发者，支持现代 JS 框架，Hexo 则更轻量，易于部署。</li>
+<li><strong>与 Pelican 比</strong>：Pelican 适合 Python 用户，Hexo 对 Node.js 用户更友好。</li>
+<li>Hexo 适合希望快速搭建、易于定制、中文社区活跃的个人或中小型博客用户。如果你追求速度极致、或有特定语言/框架偏好，可以考虑 Hugo、Jekyll、Gatsby、VuePress 等。</li>
+</ul>
+<h2 id="常见的动态博客框架">常见的动态博客框架</h2>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>语言</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>WordPress</td>
+<td>PHP + MySQL</td>
+<td>全球最流行的博客和网站系统，插件和主题丰富。</td>
+</tr>
+<tr>
+<td>Typecho</td>
+<td>PHP + MySQL</td>
+<td>轻量级中文博客系统，简单易用，扩展性强。</td>
+</tr>
+<tr>
+<td>Ghost</td>
+<td>Node.js + SQLite/MySQL</td>
+<td>专注于写作和内容发布，界面现代，支持会员和订阅。</td>
+</tr>
+<tr>
+<td>Drupal</td>
+<td>PHP + MySQL</td>
+<td>强大的内容管理系统，适合大型网站和社区，博客只是其功能之一。</td>
+</tr>
+<tr>
+<td>Joomla</td>
+<td>PHP + MySQL</td>
+<td>功能强大的 CMS，适合多种类型网站，包括博客。</td>
+</tr>
+<tr>
+<td>Movable Type</td>
+<td>Perl/PHP + MySQL</td>
+<td>曾经流行的博客系统，支持静态和动态发布。</td>
+</tr>
+<tr>
+<td>Serendipity</td>
+<td>PHP + MySQL</td>
+<td>轻量级博客平台，插件丰富，易于定制。</td>
+</tr>
+<tr>
+<td>Dotclear</td>
+<td>PHP + MySQL</td>
+<td>法国开发的博客系统，注重易用性和多用户支持。</td>
+</tr>
+<tr>
+<td>Textpattern</td>
+<td>PHP + MySQL</td>
+<td>简洁灵活，适合内容丰富的网站和博客。</td>
+</tr>
+<tr>
+<td>Mezzanine</td>
+<td>Python + Django</td>
+<td>开源 CMS，适合博客和内容网站，扩展性好。</td>
+</tr>
+</tbody>
+</table>
 
                 
               </div>

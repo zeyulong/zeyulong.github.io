@@ -32,7 +32,7 @@
 <meta property="og:image" content="http://zeyulong.com/posts/c4541b88/%E8%8A%82%E7%82%B9%E5%88%86%E7%BB%84%E7%BB%93%E6%9E%9C.png">
 <meta property="og:image" content="http://zeyulong.com/posts/c4541b88/rosconsole%E7%95%8C%E9%9D%A2.png">
 <meta property="article:published_time" content="2024-03-05T03:00:35.000Z">
-<meta property="article:modified_time" content="2025-08-11T08:00:01.021Z">
+<meta property="article:modified_time" content="2025-08-13T02:46:19.697Z">
 <meta property="article:author" content="龙泽雨">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://zeyulong.com/posts/c4541b88/rosgraph_dv.png">
@@ -276,7 +276,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2025年8月11日 下午
+                    本文最后更新于 2025年8月13日 上午
                   
                 
               </p>
@@ -433,7 +433,9 @@
 <p>指定使用到的gcc和g++版本：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">catkin build --cmake-args -DCMAKE_C_COMPILER=gcc-10 -DCMAKE_CXX_COMPILER=g++-10<br></code></pre></td></tr></table></figure>
 </li>
-<li></li>
+<li>
+<p>等等。</p>
+</li>
 </ul>
 <h4 id="编译第三方开源软件需要下载的问题">编译第三方开源软件需要下载的问题</h4>
 <blockquote>
@@ -564,7 +566,7 @@
 <p><strong>使用ROS的rostopic和rosnode命令</strong>：这些命令可以帮助你查看当前运行的节点和主题，以及主题的数据。例如，你可以使用<code>rostopic echo /topic_name</code>来查看某个主题的数据，使用<code>rosnode info /node_name</code>来查看某个节点的详细信息。</p>
 </li>
 <li>
-<p><strong>使用GDB或其他调试工具</strong>：如果你的ROS程序是用C<ins>编写的，你可以使用GDB或其他C</ins>调试工具来进行断点调试。你可以在程序的关键位置设置断点，然后逐步执行程序，查看变量的值，理解程序的运行流程。</p>
+<p><strong>使用GDB或其他调试工具</strong>：如果你的ROS程序是用<code>C++</code>编写的，你可以使用GDB或其他<code>C++</code>调试工具来进行断点调试。你可以在程序的关键位置设置断点，然后逐步执行程序，查看变量的值，理解程序的运行流程。</p>
 </li>
 <li>
 <p><strong>使用print或ROS_INFO输出调试信息</strong>：在程序的关键位置输出一些调试信息，可以帮助你理解程序的运行情况。例如，你可以输出某个变量的值，或者输出一些提示信息来表示程序运行到了某个位置。</p>
@@ -954,9 +956,9 @@
 <h2 id="发布者节点和订阅者节点的创建和运行">发布者节点和订阅者节点的创建和运行</h2>
 <blockquote>
 <p>订阅：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">ros::Subscriber 订阅者 = n.subscribe(订阅的主题, 信息队列大小, 回调函数);  <span class="hljs-comment"># 声明</span><br>void 回调函数()  <span class="hljs-comment"># 定义</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c++">ros::Subscriber 订阅者 = n.<span class="hljs-built_in">subscribe</span>(订阅的主题, 信息队列大小, 回调函数);  # 声明<br><span class="hljs-type">void</span> 回调函数()  # 定义<br></code></pre></td></tr></table></figure>
 <p>发布：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">ros::Publisher 发布者;  <span class="hljs-comment"># 声明</span><br>发布者 = n.advertise&lt;消息类型&gt;(发布主题, 信息队列大小);<br>发布者.publish(要发布的消息);  <span class="hljs-comment"># 定义</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c++">ros::Publisher 发布者;  # 声明<br>发布者 = n.<span class="hljs-built_in">advertise</span>&lt;消息类型&gt;(发布主题, 信息队列大小);<br>发布者.<span class="hljs-built_in">publish</span>(要发布的消息);  # 定义<br></code></pre></td></tr></table></figure>
 </blockquote>
 <h3 id="函数语法">函数语法</h3>
 <p>订阅函数：</p>
@@ -1175,7 +1177,7 @@
 </li>
 <li>
 <p>写入内容，例如：</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs sh"><span class="hljs-meta">#!/bin/bash</span><br>gnome-terminal --window -- bash -c <span class="hljs-string">&quot;source ./devel/setup.bash &amp;&amp; roslaunch PACKAGE_NAME *.launch; exec bash&quot;</span><br><span class="hljs-built_in">sleep</span> 3s<br>gnome-terminal --window -- bash -c <span class="hljs-string">&quot;source ./devel/setup.bash &amp;&amp; rosrun PACKAGE_NAME NODE_NAME *.yaml; exec bash&quot;</span><br><span class="hljs-built_in">sleep</span> 3s<br>gnome-terminal --window -- bash -c <span class="hljs-string">&quot;rosbag play /yourfolder/*.bag; exec bash&quot;</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-meta">#!/bin/bash</span><br>gnome-terminal --window -- bash -c <span class="hljs-string">&quot;source ./devel/setup.bash &amp;&amp; roslaunch PACKAGE_NAME *.launch; exec bash&quot;</span><br><span class="hljs-built_in">sleep</span> 3s<br>gnome-terminal --window -- bash -c <span class="hljs-string">&quot;source ./devel/setup.bash &amp;&amp; rosrun PACKAGE_NAME NODE_NAME *.yaml; exec bash&quot;</span><br><span class="hljs-built_in">sleep</span> 3s<br>gnome-terminal --window -- bash -c <span class="hljs-string">&quot;rosbag play /yourfolder/*.bag; exec bash&quot;</span><br></code></pre></td></tr></table></figure>
 <p>需要什么节点按照这个模块添加即可。</p>
 </li>
 <li>
@@ -1208,7 +1210,7 @@
 </blockquote>
 <h4 id="Terminator终端和zsh-shell">Terminator终端和zsh shell</h4>
 <p>修改<code>runROS.sh</code>文件内容为：</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs sh"><span class="hljs-meta">#!/bin/zsh</span><br>terminator -e <span class="hljs-string">&quot;zsh -c &#x27;source ./devel/setup.zsh &amp;&amp; roslaunch PACKAGE_NAME *.launch; exec zsh&#x27;&quot;</span><br><span class="hljs-built_in">sleep</span> 3s<br>terminator -e <span class="hljs-string">&quot;zsh -c &#x27;source ./devel/setup.zsh &amp;&amp; rosrun PACKAGE_NAME NODE_NAME *.yaml; exec zsh&#x27;&quot;</span><br><span class="hljs-built_in">sleep</span> 3s<br>terminator -e <span class="hljs-string">&quot;zsh -c &#x27;source ./devel/setup.zsh &amp;&amp; rosbag play /yourfolder/*.bag; exec zsh&#x27;&quot;</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-meta">#!/bin/zsh</span><br>terminator -e <span class="hljs-string">&quot;zsh -c &#x27;source ./devel/setup.zsh &amp;&amp; roslaunch PACKAGE_NAME *.launch; exec zsh&#x27;&quot;</span><br><span class="hljs-built_in">sleep</span> 3s<br>terminator -e <span class="hljs-string">&quot;zsh -c &#x27;source ./devel/setup.zsh &amp;&amp; rosrun PACKAGE_NAME NODE_NAME *.yaml; exec zsh&#x27;&quot;</span><br><span class="hljs-built_in">sleep</span> 3s<br>terminator -e <span class="hljs-string">&quot;zsh -c &#x27;source ./devel/setup.zsh &amp;&amp; rosbag play /yourfolder/*.bag; exec zsh&#x27;&quot;</span><br></code></pre></td></tr></table></figure>
 <blockquote>
 <p>这里播放<code>rosbag</code>前面需要加上<code>source ./devel/setup.zsh</code>，否则会报错<code>zsh:1: command not found: rosbag</code>。</p>
 </blockquote>
@@ -1223,7 +1225,7 @@
 <h4 id="提高脚本的扩展性">提高脚本的扩展性</h4>
 <p><a target="_blank" rel="noopener" href="https://www.runoob.com/linux/linux-shell.html">Shell脚本语法教程</a></p>
 <p>主要解决播放不同rosbag包的需求，<code>runROS.sh</code>文件的内容修改如下：</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs sh"><span class="hljs-meta">#!/bin/zsh</span><br><br><span class="hljs-keyword">case</span> <span class="hljs-string">&quot;<span class="hljs-variable">$1</span>&quot;</span> <span class="hljs-keyword">in</span><br>   1) bag_name=<span class="hljs-string">&quot;dynamic_6dof&quot;</span><br>   ;;<br>   2) bag_name=<span class="hljs-string">&quot;boxes_6dof&quot;</span><br>   ;;<br>   *) bag_name=<span class="hljs-string">&quot;dynamic_6dof&quot;</span><br>   ;;<br><span class="hljs-keyword">esac</span><br><br><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;<span class="hljs-variable">$&#123;bag_name&#125;</span>&quot;</span><br><br>terminator -e <span class="hljs-string">&quot;zsh -c &#x27;source ./devel/setup.zsh &amp;&amp; roslaunch vins vins_rviz.launch; exec zsh&#x27;&quot;</span><br><span class="hljs-built_in">sleep</span> 3s<br>terminator -e <span class="hljs-string">&quot;zsh -c &#x27;source ./devel/setup.zsh &amp;&amp; rosrun vins vins_node ./src/VINS-Fusion/config/rpg_davis/rpg_davis_VINS.yaml; exec zsh&#x27;&quot;</span><br><span class="hljs-built_in">sleep</span> 3s<br>terminator -e <span class="hljs-string">&quot;zsh -c &#x27;source ./devel/setup.zsh &amp;&amp; rosbag play -r 0.5 /Dataset/rpg_davis/<span class="hljs-variable">$&#123;bag_name&#125;</span>/<span class="hljs-variable">$&#123;bag_name&#125;</span>.bag; exec zsh&#x27;&quot;</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-meta">#!/bin/zsh</span><br><br><span class="hljs-keyword">case</span> <span class="hljs-string">&quot;<span class="hljs-variable">$1</span>&quot;</span> <span class="hljs-keyword">in</span><br>   1) bag_name=<span class="hljs-string">&quot;dynamic_6dof&quot;</span><br>   ;;<br>   2) bag_name=<span class="hljs-string">&quot;boxes_6dof&quot;</span><br>   ;;<br>   *) bag_name=<span class="hljs-string">&quot;dynamic_6dof&quot;</span><br>   ;;<br><span class="hljs-keyword">esac</span><br><br><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;<span class="hljs-variable">$&#123;bag_name&#125;</span>&quot;</span><br><br>terminator -e <span class="hljs-string">&quot;zsh -c &#x27;source ./devel/setup.zsh &amp;&amp; roslaunch vins vins_rviz.launch; exec zsh&#x27;&quot;</span><br><span class="hljs-built_in">sleep</span> 3s<br>terminator -e <span class="hljs-string">&quot;zsh -c &#x27;source ./devel/setup.zsh &amp;&amp; rosrun vins vins_node ./src/VINS-Fusion/config/rpg_davis/rpg_davis_VINS.yaml; exec zsh&#x27;&quot;</span><br><span class="hljs-built_in">sleep</span> 3s<br>terminator -e <span class="hljs-string">&quot;zsh -c &#x27;source ./devel/setup.zsh &amp;&amp; rosbag play -r 0.5 /Dataset/rpg_davis/<span class="hljs-variable">$&#123;bag_name&#125;</span>/<span class="hljs-variable">$&#123;bag_name&#125;</span>.bag; exec zsh&#x27;&quot;</span><br></code></pre></td></tr></table></figure>
 <p>对程序简单地说明：</p>
 <ul>
 <li>当执行命令<code>./runROS.sh 1</code>时，会播放<code>dynamic_6dof.bag</code>；</li>
@@ -1498,9 +1500,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/posts/df5eb46/" title="Anaconda、CUDA、cuDNN和PyTorch包的安装">
+                      <a href="/posts/df5eb46/" title="Anaconda、NVIDIA显卡驱动、CUDA、cuDNN和PyTorch包的安装">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Anaconda、CUDA、cuDNN和PyTorch包的安装</span>
+                        <span class="hidden-mobile">Anaconda、NVIDIA显卡驱动、CUDA、cuDNN和PyTorch包的安装</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     

@@ -34,7 +34,7 @@
 <meta property="og:image" content="http://zeyulong.com/posts/5b8fd703/feature_branch_diverge_from_master_diagram.png">
 <meta property="og:image" content="http://zeyulong.com/posts/5b8fd703/rebase_result_diagram.png">
 <meta property="article:published_time" content="2024-05-09T03:34:55.000Z">
-<meta property="article:modified_time" content="2025-08-11T08:02:19.715Z">
+<meta property="article:modified_time" content="2025-08-13T02:57:00.756Z">
 <meta property="article:author" content="龙泽雨">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://zeyulong.com/posts/5b8fd703/Git%E6%B5%81%E7%A8%8B-1.png">
@@ -278,7 +278,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2025年8月11日 下午
+                    本文最后更新于 2025年8月13日 上午
                   
                 
               </p>
@@ -748,7 +748,9 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">revert: feat(pencil): add <span class="hljs-string">&#x27;graphiteWidth&#x27;</span> option<br><br>This reverts commit 667ecc1654a317a13331b17617d973392f415f02.<br></code></pre></td></tr></table></figure>
 <p>Body部分的格式是固定的，必须写成<code>This reverts commit &lt;hash&gt;.</code>，其中的<code>hash</code>是被撤销 commit 的 SHA 标识符。</p>
 </li>
-<li></li>
+<li>
+<p>等等。</p>
+</li>
 </ol>
 <h3 id="举例">举例</h3>
 <ol>
@@ -772,7 +774,9 @@
 <p>添加用户配置文件编辑功能：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs bash">feat(UserProfile): add user profile editing feature<br><br>This commit introduces a new feature that allows <span class="hljs-built_in">users</span> to edit their profiles<br>directly from the user interface. The motivation behind this change is to<br>enhance user interaction and provide a more seamless experience.<br><br>Previously, <span class="hljs-built_in">users</span> had to navigate to a separate editing page to update their<br>profile information. With this new feature, <span class="hljs-built_in">users</span> can now make changes<br>efficiently from their profile page, eliminating unnecessary steps <span class="hljs-keyword">in</span> the<br>workflow.<br><br>Changes included <span class="hljs-keyword">in</span> this commit:<br>- Added a new <span class="hljs-string">&#x27;Edit Profile&#x27;</span> button on the user profile page.<br>- Implemented frontend components <span class="hljs-keyword">for</span> profile editing.<br>- Updated backend API to handle profile updates securely.<br><br>By streamlining the profile editing process, we aim to improve overall user<br>satisfaction and make our application more user-friendly. This enhancement is<br><span class="hljs-keyword">in</span> response to user feedback, addressing the need <span class="hljs-keyword">for</span> a more intuitive and<br>accessible way to modify profile details.<br><br>Closes <span class="hljs-comment">#234</span><br></code></pre></td></tr></table></figure>
 </li>
-<li></li>
+<li>
+<p>等等。</p>
+</li>
 </ol>
 <h3 id="设置git-commit模板（不推荐）">设置<code>git commit</code>模板（不推荐）</h3>
 <ol>

@@ -24,7 +24,7 @@
 <meta property="og:description" content="本文主要分享了自己在使用Linux和Windows系统过程中常用的命令及快捷键。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-03-05T14:33:19.000Z">
-<meta property="article:modified_time" content="2025-07-04T07:46:08.171Z">
+<meta property="article:modified_time" content="2025-08-22T07:12:50.789Z">
 <meta property="article:author" content="龙泽雨">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -225,7 +225,7 @@
         
         
         
-          183 分钟
+          184 分钟
         
       </span>
     
@@ -267,7 +267,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2025年7月4日 下午
+                    本文最后更新于 2025年8月22日 下午
                   
                 
               </p>
@@ -1807,14 +1807,43 @@
 <h3 id="命名规范">命名规范</h3>
 <p>为了确保日常使用的方便与系统兼容性，个人电脑上的文件夹和文件命名应遵循一定的规范。以下是一些通用的指导原则和最佳实践：</p>
 <ol>
-<li><strong>简洁明了</strong>：命名应简单且直接表达文件内容或文件夹用途，避免过长或含糊不清的名称。</li>
-<li><strong>避免使用特殊字符</strong>：一般来说，文件名中不应包含如下字符：<code>\/:*?&quot;&lt;&gt;|</code>。这些特殊字符在多数操作系统中有特定用途，可能导致错误或不被识别。</li>
-<li><strong>使用合适的文件扩展名</strong>：文件扩展名反映了文件的类型，如 <code>.txt</code> 表示文本文件，<code>.jpg</code> 表示JPEG图像文件。正确的扩展名有助于操作系统正确识别和打开文件。</li>
-<li><strong>利用日期和版本控制</strong>：在文件名中包含日期（如 <code>2023-03-15</code>）可以帮助管理文件版本。对于频繁更新的文档，可能还需要添加版本号（如 <code>v1.0</code>、<code>v2.0</code>）。</li>
-<li><strong>避免空格</strong>：虽然大多数现代操作系统可以很好地处理文件名中的空格，但在某些情况下（如命令行操作或网络传输）可能会引起问题。可以使用下划线（_）或破折号（-）来代替空格。</li>
-<li><strong>区分大小写</strong>：虽然Windows系统的文件名不区分大小写，但Linux和macOS区分大小写。为了兼容性，最好在命名时注意大小写的一致性。</li>
-<li><strong>组织性和易读性</strong>：对于包含多个文件的文件夹，可以采用有组织的命名体系，如按功能、日期或项目分类。</li>
-<li><strong>国际化和本地化</strong>：如果你的文件可能会被不同语言的用户访问，避免使用特定语言的字符，尽量使用英文和国际通用的符号。</li>
+<li>
+<p><strong>简洁明了</strong>：命名应简单且直接表达文件内容或文件夹用途，避免过长或含糊不清的名称。</p>
+</li>
+<li>
+<p>建议用复数形式。如：<code>Documents</code>、<code>Images</code>、<code>Videos</code>、<code>Scripts</code>。</p>
+<ol>
+<li>如果文件夹专门存一个特定项目或唯一实例（比如文件夹只用于存储一本特定的电子书的相关资料），用单数也合理。例如：<code>Resume</code>（如果只存你的简历），<code>Contract</code>（只有一个合同文件）。</li>
+</ol>
+</li>
+<li>
+<p><strong>避免使用特殊字符</strong>：一般来说，文件名中不应包含如下字符：<code>\/:*?&quot;&lt;&gt;|</code>。这些特殊字符在多数操作系统中有特定用途，可能导致错误或不被识别。</p>
+</li>
+<li>
+<p><strong>使用合适的文件扩展名</strong>：文件扩展名反映了文件的类型，如 <code>.txt</code> 表示文本文件，<code>.jpg</code> 表示JPEG图像文件。正确的扩展名有助于操作系统正确识别和打开文件。</p>
+</li>
+<li>
+<p><strong>利用日期和版本控制</strong>：在文件名中包含日期（如 <code>2023-03-15</code>）可以帮助管理文件版本。对于频繁更新的文档，可能还需要添加版本号（如 <code>v1.0</code>、<code>v2.0</code>）。</p>
+</li>
+<li>
+<p><strong>避免空格</strong>：虽然大多数现代操作系统可以很好地处理文件名中的空格，但在某些情况下（如命令行操作或网络传输）可能会引起问题。可以使用下划线（_）或破折号（-）来代替空格。</p>
+</li>
+<li>
+<p><strong>区分大小写</strong>：虽然Windows系统的文件名不区分大小写，但Linux和macOS区分大小写。为了兼容性，最好在命名时注意大小写的一致性。</p>
+<ol>
+<li>如果你希望和操作系统习惯统一、美观整齐，并拥有更好的视觉识别性，推荐采用首字母大写。</li>
+<li>如果你更倾向于命令行操作、追求极简输入、对区分大小写敏感，则可采用全小写。</li>
+</ol>
+</li>
+<li>
+<p><strong>组织性和易读性</strong>：对于包含多个文件的文件夹，可以采用有组织的命名体系，如按功能、日期或项目分类。</p>
+</li>
+<li>
+<p><strong>国际化和本地化</strong>：如果你的文件可能会被不同语言的用户访问，避免使用特定语言的字符，尽量使用英文和国际通用的符号。</p>
+</li>
+<li>
+<p>重要的是保持统一风格。无论选择哪种方案，整个文件管理体系都应保持一致。</p>
+</li>
 </ol>
 <p>遵循这些基本原则可以帮助提升文件管理的效率和降低因命名不当引起的问题。如果有特定的组织或项目命名规则，也应优先遵守这些专业指导标准。</p>
 <h3 id="命名方法">命名方法</h3>

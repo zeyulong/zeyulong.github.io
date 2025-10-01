@@ -24,7 +24,7 @@
 <meta property="og:description" content="本文主要分享了编程过程中积累的知识点。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-01-08T02:37:36.000Z">
-<meta property="article:modified_time" content="2025-09-07T11:33:59.003Z">
+<meta property="article:modified_time" content="2025-09-17T14:31:42.580Z">
 <meta property="article:author" content="龙泽雨">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -225,7 +225,7 @@
         
         
         
-          311 分钟
+          313 分钟
         
       </span>
     
@@ -267,7 +267,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2025年9月7日 晚上
+                    本文最后更新于 2025年9月17日 晚上
                   
                 
               </p>
@@ -1694,6 +1694,9 @@
 <h2 id="std-mutex">std::mutex</h2>
 <p>用于线程之间的互斥，防止多个线程同时访问共享资源。</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;thread&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;mutex&gt;</span></span><br><br><span class="hljs-type">int</span> counter = <span class="hljs-number">0</span>;<br>std::mutex mtx;<br><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">increase</span><span class="hljs-params">()</span> </span>&#123;<br>    mtx.<span class="hljs-built_in">lock</span>();<br>    ++counter;<br>    mtx.<span class="hljs-built_in">unlock</span>();<br>&#125;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-function">std::thread <span class="hljs-title">t1</span><span class="hljs-params">(increase)</span></span>;<br>    <span class="hljs-function">std::thread <span class="hljs-title">t2</span><span class="hljs-params">(increase)</span></span>;<br>    t1.<span class="hljs-built_in">join</span>();<br>    t2.<span class="hljs-built_in">join</span>();<br>    std::cout &lt;&lt; counter &lt;&lt; std::endl; <span class="hljs-comment">// 输出2</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>也可以使用<a href="#std::atomic">std::atomic</a>实现。</p>
+</blockquote>
 <h2 id="std-lock-guard和std-unique-lock">std::lock_guard和std::unique_lock</h2>
 <p>简化互斥锁管理，用于管理锁的获取和释放。</p>
 <blockquote>
@@ -1706,6 +1709,9 @@
 <h2 id="std-atomic">std::atomic</h2>
 <p>实现数据的原子安全访问，避免竞争。</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;thread&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;atomic&gt;</span></span><br><br><span class="hljs-function">std::atomic&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">counter</span><span class="hljs-params">(<span class="hljs-number">0</span>)</span></span>;<br><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">increment</span><span class="hljs-params">()</span> </span>&#123;<br>    counter++;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-function">std::thread <span class="hljs-title">t1</span><span class="hljs-params">(increment)</span></span>;<br>    <span class="hljs-function">std::thread <span class="hljs-title">t2</span><span class="hljs-params">(increment)</span></span>;<br>    t1.<span class="hljs-built_in">join</span>();<br>    t2.<span class="hljs-built_in">join</span>();<br>    std::cout &lt;&lt; counter &lt;&lt; std::endl; <span class="hljs-comment">// 输出2</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>也可以使用<a href="#std::mutex">std::mutex</a>实现。</p>
+</blockquote>
 <h2 id="join-和detach">join()和detach()</h2>
 <blockquote>
 <ul>
@@ -1815,6 +1821,13 @@
 <h3 id="Matrix类与Array类">Matrix类与Array类</h3>
 <p>相对于Matrix类提供的线性代数（矩阵）运算，Array类提供了更为一般的数组功能。Array类为元素级的操作提供了有效途径，比如点加（每个元素加值）或两个数据相应元素的点乘。</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c++">Eigen::Matrix&lt;<span class="hljs-type">float</span>, N, N&gt; FFT;<br>(FFT.<span class="hljs-built_in">array</span>().<span class="hljs-built_in">arg</span>()).<span class="hljs-built_in">matrix</span>();  <span class="hljs-comment">// 将FFT矩阵转换为数组，然后调用arg()函数计算每个元素的相位（即复数的角度），最后再将结果转换回矩阵。</span><br></code></pre></td></tr></table></figure>
+<h2 id="赋值方法">赋值方法</h2>
+<h3 id="流式赋值">流式赋值</h3>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c++">Eigen::Matrix3d A;<br>A &lt;&lt; <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>,   <span class="hljs-comment">// x1, y1, z1</span><br><span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>,   <span class="hljs-comment">// x2, y2, z2</span><br><span class="hljs-number">7</span>, <span class="hljs-number">8</span>, <span class="hljs-number">9</span>;   <span class="hljs-comment">// x3, y3, z3</span><br></code></pre></td></tr></table></figure>
+<h3 id="按元素赋值">按元素赋值</h3>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c++">Eigen::Matrix3d A;<br><span class="hljs-built_in">A</span>(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>) = x1;  <span class="hljs-built_in">A</span>(<span class="hljs-number">0</span>, <span class="hljs-number">1</span>) = y1;  <span class="hljs-built_in">A</span>(<span class="hljs-number">0</span>, <span class="hljs-number">2</span>) = z1;<br><span class="hljs-built_in">A</span>(<span class="hljs-number">1</span>, <span class="hljs-number">0</span>) = x2;  <span class="hljs-built_in">A</span>(<span class="hljs-number">1</span>, <span class="hljs-number">1</span>) = y2;  <span class="hljs-built_in">A</span>(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>) = z2;<br><span class="hljs-built_in">A</span>(<span class="hljs-number">2</span>, <span class="hljs-number">0</span>) = x3;  <span class="hljs-built_in">A</span>(<span class="hljs-number">2</span>, <span class="hljs-number">1</span>) = y3;  <span class="hljs-built_in">A</span>(<span class="hljs-number">2</span>, <span class="hljs-number">2</span>) = z3;<br></code></pre></td></tr></table></figure>
+<h3 id="用行-列向量赋值">用行/列向量赋值</h3>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs c++">A.<span class="hljs-built_in">row</span>(<span class="hljs-number">0</span>) &lt;&lt; x1, y1, z1;<br>A.<span class="hljs-built_in">row</span>(<span class="hljs-number">1</span>) &lt;&lt; x2, y2, z2;<br>A.<span class="hljs-built_in">row</span>(<span class="hljs-number">2</span>) &lt;&lt; x3, y3, z3;<br><br>A.<span class="hljs-built_in">col</span>(<span class="hljs-number">0</span>) &lt;&lt; x1, x2, x3;<br>A.<span class="hljs-built_in">col</span>(<span class="hljs-number">1</span>) &lt;&lt; y1, y2, y3;<br>A.<span class="hljs-built_in">col</span>(<span class="hljs-number">2</span>) &lt;&lt; z1, z2, z3;<br></code></pre></td></tr></table></figure>
 <h2 id="OpenCV">OpenCV</h2>
 <blockquote>
 <p>在 OpenCV 中，<code>cv::Mat::at</code>函数的参数顺序是<code>(row, column)</code>，对应于<code>(y, x)</code>，而不是通常的<code>(x, y)</code>。这是因为在图像处理中，我们通常将图像视为一个二维数组，其中第一个维度是行（对应于y坐标），第二个维度是列（对应于x坐标）。</p>

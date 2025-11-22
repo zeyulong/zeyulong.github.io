@@ -24,7 +24,7 @@
 <meta property="og:description" content="本文主要分享了编程过程中积累的知识点。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-01-08T02:37:36.000Z">
-<meta property="article:modified_time" content="2025-09-17T14:31:42.580Z">
+<meta property="article:modified_time" content="2025-10-18T12:20:32.596Z">
 <meta property="article:author" content="龙泽雨">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -214,7 +214,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          37k 字
+          38k 字
         
       </span>
     
@@ -225,7 +225,7 @@
         
         
         
-          313 分钟
+          317 分钟
         
       </span>
     
@@ -267,7 +267,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2025年9月17日 晚上
+                    本文最后更新于 2025年10月18日 晚上
                   
                 
               </p>
@@ -1131,6 +1131,18 @@
 <p>等等。</p>
 </li>
 </ol>
+<h3 id="const">const</h3>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">MyClass</span> &#123;<br><span class="hljs-keyword">private</span>:<br>    <span class="hljs-type">int</span> value;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">getValue</span><span class="hljs-params">()</span> <span class="hljs-type">const</span></span>;   <span class="hljs-comment">// 常量成员函数</span><br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">setValue</span><span class="hljs-params">(<span class="hljs-type">int</span> v)</span></span>;   <span class="hljs-comment">// 普通成员函数</span><br>&#125;;<br><br><span class="hljs-comment">// 常量成员函数定义</span><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">MyClass::getValue</span><span class="hljs-params">()</span> <span class="hljs-type">const</span> </span>&#123;<br>    <span class="hljs-keyword">return</span> value;           <span class="hljs-comment">// 只能访问成员变量，不能修改</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<ul>
+<li><code>int getValue() const</code>: getValue是“常量成员函数”，保证不会修改类的成员变量。</li>
+<li><code>const int getValue()</code>: 返回一个“常量int”，但<strong>不是常量成员函数</strong>，可以修改成员变量。
+<ul>
+<li>修饰返回值（常量返回值），对于内置类型（如<code>int</code>），加<code>const</code>意义不大；对于引用/指针，避免返回值被外部代码修改。</li>
+</ul>
+</li>
+<li>在 C++ 中，只有<strong>类的成员函数</strong>才能在声明和定义时末尾加上<code>const</code>关键字，表示该函数不会修改对象的成员变量（即对象的状态）。</li>
+<li>普通的<strong>全局函数</strong>或静态成员函数<strong>不能</strong>加在函数声明尾部<code>const</code>，因为它们没有与某个对象状态相关联。</li>
+</ul>
 <h2 id="禁用拷贝构造函数和拷贝赋值运算符">禁用拷贝构造函数和拷贝赋值运算符</h2>
 <p><strong>禁用拷贝构造函数和拷贝赋值运算符</strong>，即禁止对象被拷贝（包括显式和隐式拷贝）。这样做可以防止对象被意外复制，避免资源（如指针、线程等）被多次释放或出现悬挂指针等问题。</p>
 <p><strong>一般用法：</strong></p>
@@ -1969,6 +1981,21 @@
 <h3 id="sys-stdin-read">sys.stdin.read()</h3>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> sys<br>data = sys.stdin.read()<br></code></pre></td></tr></table></figure>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> sys<br><br><span class="hljs-comment"># 一次性读取全部输入</span><br>data = sys.stdin.read()  <span class="hljs-comment"># &#x27;6 2\n6\n5 3 6 2\n&#x27;</span><br><br><span class="hljs-comment"># 按行分割</span><br>lines = data.strip().split(<span class="hljs-string">&#x27;\n&#x27;</span>)  <span class="hljs-comment"># [&#x27;6 2&#x27;, &#x27;6&#x27;, &#x27;5 3 6 2&#x27;]</span><br><br><span class="hljs-comment"># 第一行：两个参数</span><br>a, b = <span class="hljs-built_in">map</span>(<span class="hljs-built_in">int</span>, lines[<span class="hljs-number">0</span>].split())<br><br><span class="hljs-comment"># 第二行：一个参数</span><br>c = <span class="hljs-built_in">int</span>(lines[<span class="hljs-number">1</span>])<br><br><span class="hljs-comment"># 第三行：四个参数（列表）</span><br>d_list = <span class="hljs-built_in">list</span>(<span class="hljs-built_in">map</span>(<span class="hljs-built_in">int</span>, lines[<span class="hljs-number">2</span>].split()))<br></code></pre></td></tr></table></figure>
+<h2 id="嵌套函数">嵌套函数</h2>
+<p>在Python中，**嵌套函数（Nested Function）**是指在一个函数的内部定义另一个函数。嵌套函数也被称为“内部函数（inner function）”或“局部函数（local function）”。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">outer</span>():<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;这是外部函数&quot;</span>)<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">inner</span>():<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;这是内部函数&quot;</span>)<br>    inner()  <span class="hljs-comment"># 调用内部函数</span><br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>在这个例子中，<code>inner()</code>是在<code>outer()</code>函数体内定义的，只能在<code>outer()</code>的作用范围内使用。</p>
+</blockquote>
+<p>嵌套函数的作用：</p>
+<ol>
+<li><strong>封装与隐藏</strong><br>
+内部函数只能在外部函数内部访问，外部无法直接调用，用于隐藏实现细节。</li>
+<li><strong>闭包（Closure）</strong><br>
+内部函数可以引用其外部函数的变量，即使外部函数已经执行结束，内部函数依然可以访问外部函数的局部变量。这就是闭包的基础。</li>
+<li><strong>代码组织</strong><br>
+用嵌套函数可以让代码更模块化、结构更清晰。</li>
+</ol>
 <h1 id="tips">tips</h1>
 <h2 id="条件编译">条件编译</h2>
 <h3 id="if">#if</h3>
@@ -2540,6 +2567,14 @@
 <li>
 <p>打印：</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c++">std::cerr &lt;&lt; <span class="hljs-string">&quot;[SPDetector] mProb_ shape: (&quot;</span> &lt;&lt; prob_height_ &lt;&lt; <span class="hljs-string">&quot;, &quot;</span><br>              &lt;&lt; prob_width_ &lt;&lt; <span class="hljs-string">&quot;)&quot;</span> &lt;&lt; std::endl;  <span class="hljs-comment">// 模块加[]框住。</span><br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p><code>cout</code>换行：</p>
+<ul>
+<li><code>cout &lt;&lt; '\n';</code> —— 更快，只换行。</li>
+<li><code>cout &lt;&lt; endl;</code> —— 更慢，换行+刷新缓冲区。</li>
+<li><strong>通常用<code>'\n'</code>，只有在需要立即输出时用<code>endl</code>。</strong></li>
+</ul>
 </li>
 <li>
 <p>等等。</p>

@@ -32,7 +32,7 @@
 <meta property="og:image" content="http://zeyulong.com/posts/c4541b88/%E8%8A%82%E7%82%B9%E5%88%86%E7%BB%84%E7%BB%93%E6%9E%9C.png">
 <meta property="og:image" content="http://zeyulong.com/posts/c4541b88/rosconsole%E7%95%8C%E9%9D%A2.png">
 <meta property="article:published_time" content="2024-03-05T03:00:35.000Z">
-<meta property="article:modified_time" content="2025-08-13T02:46:19.697Z">
+<meta property="article:modified_time" content="2025-11-22T04:54:56.641Z">
 <meta property="article:author" content="龙泽雨">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://zeyulong.com/posts/c4541b88/rosgraph_dv.png">
@@ -234,7 +234,7 @@
         
         
         
-          177 分钟
+          178 分钟
         
       </span>
     
@@ -276,7 +276,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2025年8月13日 上午
+                    本文最后更新于 2025年11月22日 下午
                   
                 
               </p>
@@ -286,13 +286,25 @@
                 
                 <p>本文主要积累了平时使用到的ROS知识。</p>
 <span id="more"></span>
+<h1 id="概述">概述</h1>
+<p>不同的Ubuntu版本对应不同版本的ROS，具体可查询<a target="_blank" rel="noopener" href="http://wiki.ros.org/ROS/Installation">ROS官网</a>：</p>
+<ul>
+<li>Ubuntu 16.04 以及更老的版本对应<a target="_blank" rel="noopener" href="http://wiki.ros.org/kinetic/Installation">ROS Kinetic Kame</a></li>
+<li>Ubuntu 18.04 对应<a target="_blank" rel="noopener" href="http://wiki.ros.org/melodic/Installation">ROS Melodic Morenia</a></li>
+<li>Ubuntu 20.04 对应<a target="_blank" rel="noopener" href="http://wiki.ros.org/noetic/Installation">ROS Noetic Ninjemys</a></li>
+<li>...</li>
+</ul>
 <h1 id="代码编译和运行">代码编译和运行</h1>
 <h2 id="示范">示范</h2>
 <ol>
 <li>
 <p>新建工作区</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> youfolder/<br><span class="hljs-built_in">mkdir</span> -p catkin_ws/src  <span class="hljs-comment"># catkin_ws可改名</span><br><br><span class="hljs-built_in">cd</span> catkin_ws<br>catkin config --init --mkdirs --extend /opt/ros/melodic --merge-devel --cmake-args -DCMAKE_BUILD_TYPE=Release<br><br><span class="hljs-built_in">cd</span> src<br>catkin_init_workspace  <span class="hljs-comment"># 创建顶层CMakeLists.txt文件，CLion利用此文件打开项目</span><br><br><span class="hljs-built_in">cd</span> ..<br>catkin build  <span class="hljs-comment"># 编译生成完整工作区</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> youfolder/<br><span class="hljs-built_in">mkdir</span> -p catkin_ws/src/  <span class="hljs-comment"># catkin_ws可改名</span><br><br><span class="hljs-built_in">cd</span> catkin_ws/<br>catkin config --init --mkdirs --extend /opt/ros/melodic --merge-devel --cmake-args -DCMAKE_BUILD_TYPE=Release<br><br><span class="hljs-built_in">cd</span> src/<br>catkin_init_workspace  <span class="hljs-comment"># 创建顶层CMakeLists.txt文件，CLion利用此文件打开项目</span><br><br><span class="hljs-built_in">cd</span> ..<br>catkin build  <span class="hljs-comment"># 编译生成完整工作区</span><br></code></pre></td></tr></table></figure>
 <p>此时，<code>./catkin_ws</code>文件夹下有<code>build</code>、<code>devel</code>、<code>logs</code>和<code>src</code>四个文件夹。</p>
+<blockquote>
+<p>配置<a target="_blank" rel="noopener" href="https://www.runoob.com/linux/linux-comm-alias.html">快捷命令（别名）</a>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">alias</span> init_ros=<span class="hljs-string">&#x27;mkdir -p catkin_ws/src/ &amp;&amp; cd catkin_ws/ &amp;&amp; catkin config --init --mkdirs --extend /opt/ros/melodic --merge-devel --cmake-args -DCMAKE_BUILD_TYPE=Release &amp;&amp; cd src/ &amp;&amp; catkin_init_workspace &amp;&amp; cd .. &amp;&amp; catkin build&#x27;</span><br></code></pre></td></tr></table></figure>
+</blockquote>
 </li>
 <li>
 <p>编译代码</p>

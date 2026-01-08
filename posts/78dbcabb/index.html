@@ -26,7 +26,7 @@
 <meta property="og:image" content="http://zeyulong.com/posts/78dbcabb/vi-vim-cheat-sheet-sch.gif">
 <meta property="og:image" content="http://zeyulong.com/posts/78dbcabb/vim-vi-workmodel.png">
 <meta property="article:published_time" content="2025-07-02T13:04:52.000Z">
-<meta property="article:modified_time" content="2025-10-27T02:25:47.879Z">
+<meta property="article:modified_time" content="2025-12-21T14:53:47.203Z">
 <meta property="article:author" content="龙泽雨">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://zeyulong.com/posts/78dbcabb/vi-vim-cheat-sheet-sch.gif">
@@ -228,7 +228,7 @@
         
         
         
-          89 分钟
+          90 分钟
         
       </span>
     
@@ -270,7 +270,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2025年10月27日 上午
+                    本文最后更新于 2025年12月21日 晚上
                   
                 
               </p>
@@ -677,7 +677,7 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 安装 mamba</span><br>conda install mamba -n base -c conda-forge<br></code></pre></td></tr></table></figure>
 <h2 id="环境管理">环境管理</h2>
 <h3 id="Linux">Linux</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash">conda create -n cpp_test_env  <span class="hljs-comment"># 创建环境</span><br><span class="hljs-comment"># conda create -n cpp_test_env python=3.6</span><br>conda activate cpp_test_env  <span class="hljs-comment"># 激活环境，激活成功会出现一个小括号（环境名字，cpp_test_env）</span><br>conda deactivate  <span class="hljs-comment"># 退出环境，后面不需要加环境的名字</span><br>conda clean （参数）  <span class="hljs-comment"># 清空缓存</span><br>conda remove -n env_name --all  <span class="hljs-comment"># 删除环境，有一个参数</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash">conda create -n cpp_test_env  <span class="hljs-comment"># 创建环境</span><br><span class="hljs-comment"># conda create -n cpp_test_env python=3.6</span><br>conda activate cpp_test_env  <span class="hljs-comment"># 激活环境，激活成功会出现一个小括号（环境名字，cpp_test_env）</span><br>conda deactivate  <span class="hljs-comment"># 退出环境，后面不需要加环境的名字</span><br>conda clean （参数）  <span class="hljs-comment"># 清空缓存</span><br>conda remove -n env_name --all  <span class="hljs-comment"># 删除环境，有一个参数all</span><br></code></pre></td></tr></table></figure>
 <h2 id="Windows">Windows</h2>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># conda默认使用了hardlink，如果同时使用conda和pip的情况下，我个人建议加上 --copy 选项</span><br>conda create --copy -n envname python=3.9<br><span class="hljs-comment"># 打开新建环境下的lib文件夹的site.py文件(C:\Users\username\.conda\envs\conda_env\Lib\site.py), 找到USER_SITE、USER_BASE那两行, 默认是None, 修改后如下:</span><br>USER_SITE = r<span class="hljs-string">&quot;C:\Users\username\.conda\envs\conda_env\Lib\site-packages&quot;</span><br>USER_BASE = r<span class="hljs-string">&quot;C:\Users\username\.conda\envs\conda_env\Scripts&quot;</span><br><span class="hljs-comment"># 记得加上r抑制转义, 否则有可能因为非法转义报错, 导致进入不了虚拟环境。</span><br></code></pre></td></tr></table></figure>
 <h2 id="库-包管理">库/包管理</h2>
@@ -1864,6 +1864,11 @@
 </ol>
 <h3 id="重启窗口">重启窗口</h3>
 <p><code>Ctrl+Shift+P</code>-输入：Reload Window</p>
+<h3 id="全局搜索时排除指定文件">全局搜索时排除指定文件</h3>
+<ol>
+<li>点击全局搜索框右下角的三个点：切换搜索详细信息。就会显示出“包含的文件”和“排除的文件”这两个选项。</li>
+<li>也可以在设置项中配置<code>search.exclude</code>。</li>
+</ol>
 <h3 id="其它-2">其它</h3>
 <ol>
 <li>在“资源管理器”视图中查看当前文件并输入 F2 或者 Enter 选择文件名文本：

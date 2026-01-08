@@ -24,7 +24,7 @@
 <meta property="og:description" content="本文主要总结整理了网上分享的ChatGPT、 GitHub Copilot等大模型及集成交互接口gpt_academic的使用技巧。尽可能做到物尽其用，在使用大模型时充分发挥出其优势和性能，以更好地解决问题。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-01-03T09:59:29.000Z">
-<meta property="article:modified_time" content="2025-08-23T15:26:37.978Z">
+<meta property="article:modified_time" content="2026-01-08T12:51:27.099Z">
 <meta property="article:author" content="龙泽雨">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -214,7 +214,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          21k 字
+          23k 字
         
       </span>
     
@@ -225,7 +225,7 @@
         
         
         
-          177 分钟
+          188 分钟
         
       </span>
     
@@ -267,7 +267,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2025年8月23日 晚上
+                    本文最后更新于 2026年1月8日 晚上
                   
                 
               </p>
@@ -1315,6 +1315,11 @@
 <li>[插件-对话] 对话保存功能。在函数插件区调用 <code>保存当前的对话</code> 即可将当前对话保存为可读+可复原的html文件， 另外在函数插件区（下拉菜单）调用 <code>载入对话历史存档</code> ，即可还原之前的会话。 Tip：不指定文件直接点击 <code>载入对话历史存档</code> 可以查看历史html存档缓存。</li>
 <li>……</li>
 </ul>
+<h2 id="支持新增模型">支持新增模型</h2>
+<p>gpt_academic可能没有支持一些新增的模型，这会在调用时报错，那么，可以自定义添加模型。以添加gpt-5.2为例：</p>
+<p>打开<code>.\gpt_academic\request_llms\bridge_all.py</code>，在 model_info 里仿照其它模型的配置新增 &quot;gpt-5.2&quot; 条目：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-string">&quot;gpt-5.2&quot;</span>: &#123;<br>    <span class="hljs-string">&quot;fn_with_ui&quot;</span>: chatgpt_ui,<br>    <span class="hljs-string">&quot;fn_without_ui&quot;</span>: chatgpt_noui,<br>    <span class="hljs-string">&quot;endpoint&quot;</span>: openai_endpoint,<br>    <span class="hljs-string">&quot;has_multimodal_capacity&quot;</span>: <span class="hljs-literal">True</span>,<br>    <span class="hljs-string">&quot;max_token&quot;</span>: <span class="hljs-number">828000</span>,<br>    <span class="hljs-string">&quot;tokenizer&quot;</span>: tokenizer_gpt4,<br>    <span class="hljs-string">&quot;token_cnt&quot;</span>: get_token_num_gpt4,<br>&#125;,<br></code></pre></td></tr></table></figure>
+<p>最后，别忘了把 <code>gpt-5.2</code> 放进<code>.\gpt_academic\config.py</code>的<code>AVAIL_LLM_MODELS</code>里。</p>
 <h2 id="高级代办">高级代办</h2>
 <ul>
 <li>[ ] <a target="_blank" rel="noopener" href="https://github.com/binary-husky/gpt_academic/wiki/%E5%87%BD%E6%95%B0%E6%8F%92%E4%BB%B6%E6%8C%87%E5%8D%97">自定义函数插件</a></li>
@@ -1323,8 +1328,9 @@
 </ul>
 <h1 id="GitHub-Copilot">GitHub Copilot</h1>
 <h2 id="概述-2">概述</h2>
-<p><a target="_blank" rel="noopener" href="https://docs.github.com/zh/copilot">官方说明文档</a></p>
 <p>GitHub Copilot 是 AI 程序员助手。 可以使用 GitHub Copilot 在编辑器中获取整行或整个函数的建议。</p>
+<p><a target="_blank" rel="noopener" href="https://docs.github.com/zh/copilot">官方说明文档</a></p>
+<p><a target="_blank" rel="noopener" href="https://code.visualstudio.com/docs/copilot/reference/copilot-vscode-features">GitHub Copilot 在 VS Code 中的速查表（含键盘快捷键、斜杠命令等）</a></p>
 <blockquote>
 <p>GitHub Copilot 扩展会经常更新，以修复 bug 并添加新功能。请务必使扩展保持最新状态，因为较旧版本的客户端无法与 GitHub Copilot 服务器通信。在安装了 GitHub Copilot 扩展的所有计算机上更新它。</p>
 </blockquote>
@@ -1729,19 +1735,37 @@
 <li>若要为文件中的 bug 生成修复，请键入类似于 <code>Fix this bug</code> 的请求。</li>
 </ul>
 <h3 id="三种模式">三种模式</h3>
+<h4 id="概述-4">概述</h4>
 <p>在聊天视图中，您将看到一个具有三种模式的下拉菜单：</p>
 <ul>
-<li><strong><a target="_blank" rel="noopener" href="https://code.visualstudio.com/docs/copilot/chat/chat-ask-mode">询问 </a></strong>：这与之前的聊天视图相同。使用任何模型询问有关您的工作区或一般编码的问题。使用 <code>@</code> 调用内置聊天参与者或从已安装的[扩展调用 ](<a href="https://marketplace.visualstudio.com/search?term=chat-participant&amp;target=VSCode&amp;category=All">https://marketplace.visualstudio.com/search?term=chat-participant&amp;target=VSCode&amp;category=All</a> categories&amp;sortBy=Relevance)。使用 <code>#</code> 手动附加任何类型的上下文。</li>
-<li><strong><a target="_blank" rel="noopener" href="https://code.visualstudio.com/docs/copilot/chat/chat-agent-mode">代理 </a></strong>：使用一组工具启动代理编码流程，使其能够自主收集上下文、运行终端命令或采取其他操作来完成任务。代理模式已为所有 <a target="_blank" rel="noopener" href="https://code.visualstudio.com/insiders/">VS Code Insiders</a> 用户启用，我们正在向 VS Code Stable 中的更多用户推出该模式。<a target="_blank" rel="noopener" href="https://code.visualstudio.com/docs/copilot/chat/chat-agent-mode#_why-would-i-use-agent-mode-instead-of-edit-mode">为什么我要使用代理模式而不是编辑模式？</a>在编辑模式和代理模式之间进行选择时，请考虑以下标准：
+<li>
+<p><strong><a target="_blank" rel="noopener" href="https://code.visualstudio.com/docs/copilot/chat/chat-ask-mode">询问Ask</a></strong>：这与之前的聊天视图相同。使用任何模型询问有关您的工作区或一般编码的问题。使用 <code>@</code> 调用内置聊天参与者或从已安装的[扩展调用 ](<a href="https://marketplace.visualstudio.com/search?term=chat-participant&amp;target=VSCode&amp;category=All">https://marketplace.visualstudio.com/search?term=chat-participant&amp;target=VSCode&amp;category=All</a> categories&amp;sortBy=Relevance)。使用 <code>#</code> 手动附加任何类型的上下文。</p>
+<ul>
+<li>聊天Ask代理可以扮演不同的角色或身份，以适应特定的任务。您可以在聊天过程中随时切换代理Agent。</li>
+</ul>
+</li>
+<li>
+<p><strong><a target="_blank" rel="noopener" href="https://code.visualstudio.com/docs/copilot/chat/chat-planning">计划plan</a></strong>:计划代理程序专为创建结构化的编码任务实施计划而优化。当您希望在实施前将复杂的功能或变更分解为更小、更易于管理的步骤时，请使用计划代理程序。计划代理人会制定一份详细的计划，列出所需步骤，并提出澄清问题，以确保全面理解任务。之后，您可以将计划移交给执行代理人，或将其用作指导。</p>
+<ul>
+<li>一句话总结差异：Plan = 先规划后动手，Agent = 边想边干。</li>
+<li>预览拟议计划草案并提供反馈意见以进行迭代。计划代理人提供概要说明和步骤细则，包括任何需要澄清的未决问题。</li>
+<li>在实施之前，请保持计划阶段，以便不断完善计划。您可以多次迭代，以明确需求、调整范围或解决未决问题。这可以确保在进行任何代码更改之前，拥有坚实的基础。</li>
+<li>计划最终确定后，可以使用按钮开始实施计划，或者在编辑器中打开计划进行进一步审查。您可以选择在同一聊天会话中实施该计划，或者启动后台或云<a target="_blank" rel="noopener" href="https://code.visualstudio.com/docs/copilot/agents/overview">代理会话，</a> 在后台自主地进行实施。在开始实施该计划时，您仍然可以提供澄清说明，例如“从用户界面开始”或“仅执行步骤 1 和 2”。</li>
+</ul>
+</li>
+<li>
+<p><strong><a target="_blank" rel="noopener" href="https://code.visualstudio.com/docs/copilot/chat/chat-agent-mode">代理Agent</a></strong>：使用一组工具启动代理编码流程，使其能够自主收集上下文、运行终端命令或采取其他操作来完成任务。代理模式已为所有 <a target="_blank" rel="noopener" href="https://code.visualstudio.com/insiders/">VS Code Insiders</a> 用户启用，我们正在向 VS Code Stable 中的更多用户推出该模式。<a target="_blank" rel="noopener" href="https://code.visualstudio.com/docs/copilot/chat/chat-agent-mode#_why-would-i-use-agent-mode-instead-of-edit-mode">为什么我要使用代理模式而不是编辑模式？</a>在编辑模式和代理模式之间进行选择时，请考虑以下标准：</p>
 <ul>
 <li><strong>编辑范围</strong> ：代理模式会自主确定要编辑的相关上下文和文件。在编辑模式下，您需要自行指定上下文。</li>
 <li><strong>任务复杂性</strong> ：代理模式更适合复杂的任务，这些任务不仅需要编辑代码，还需要调用工具和终端命令。</li>
 <li><strong>时长</strong> ：代理模式涉及多个步骤来处理请求，因此可能需要更长时间才能获得响应。例如，确定要编辑的相关上下文和文件，确定行动计划等等。</li>
 <li><strong>自我修复</strong> ：代理模式评估生成的编辑的结果，并可能多次迭代以解决中间问题。</li>
 <li><strong>请求配额</strong> ：在代理模式下，根据任务的复杂性，一个提示可能会导致向后端发出许多请求。</li>
+<li>智能体擅长理解高层需求并将其转化为可运行的代码。他们非常适合实现新功能、重构大段代码或从零开始构建整个应用程序。</li>
 </ul>
 </li>
-<li><strong><a target="_blank" rel="noopener" href="https://code.visualstudio.com/docs/copilot/chat/copilot-edits">编辑 </a></strong>：在编辑模式下，模型可以对多个文件进行定向编辑。附加 <code>#codebase</code> 以使其自动找到要编辑的文件。但它不会运行终端命令或自动执行任何其他操作。<a target="_blank" rel="noopener" href="https://code.visualstudio.com/docs/copilot/chat/copilot-edits">为什么我要使用编辑模式而不是代理模式？</a>在编辑模式和代理模式之间进行选择时，请考虑以下标准：
+<li>
+<p><strong><a target="_blank" rel="noopener" href="https://code.visualstudio.com/docs/copilot/chat/copilot-edits">编辑Edit</a></strong>：在编辑模式下，模型可以对多个文件进行定向编辑。附加 <code>#codebase</code> 以使其自动找到要编辑的文件。但它不会运行终端命令或自动执行任何其他操作。<a target="_blank" rel="noopener" href="https://code.visualstudio.com/docs/copilot/chat/copilot-edits">为什么我要使用编辑模式而不是代理模式？</a>在编辑模式和代理模式之间进行选择时，请考虑以下标准：</p>
 <ul>
 <li><strong>编辑范围</strong> ：如果您的请求仅涉及代码编辑并且您知道更改的确切范围，则您可以使用编辑模式。</li>
 <li><strong>时长</strong> ：代理模式涉及多个步骤来处理请求，因此可能需要更长时间才能获得响应。例如，确定要编辑的相关上下文和文件，确定行动计划等等。</li>
@@ -1753,6 +1777,11 @@
 <blockquote>
 <p><strong>在对话过程中切换模式</strong>：例如，您可能在询问模式下开始集思广益提出应用创意，然后切换到代理模式来执行计划。提示：按 Ctrl+. 可快速切换模式。</p>
 </blockquote>
+<h4 id="使用待办事项列表跟踪进度">使用待办事项列表跟踪进度</h4>
+<p>在处理复杂任务时，VS Code 的智能体会创建一个待办事项列表（todo list）来跟踪进度。该列表会将您的请求分解成各个任务，并在 AI 完成每个步骤后自动更新。</p>
+<p>这有助于监控进度，并使代理在长时间运行的任务中保持专注。</p>
+<p>您可以使用自然语言更新待办事项列表，例如“将步骤 1 修改为执行 x”或“添加另一项任务”。</p>
+<p>如果代理的待办事项不符合预期，您可以清除列表，但除此之外，代理会根据您的反馈和在处理请求时收集的信息自动管理更新。</p>
 <h3 id="使用技巧">使用技巧</h3>
 <ul>
 <li>使用<code>#</code>引用文件、函数、类等。</li>
@@ -1784,13 +1813,56 @@
 <p>虽然微软Copilot表现得像智商只有50的，但实际经过好的调教，它完全可以做到150的智商表现。</p>
 <p>微软Copilot相比Bard的主要优势是可以直接中文对话，可以生成图片。相比GPT-3.5的优势是可以识别图片、生成图片，以及联网搜索新的内容。</p>
 <p>只要通过下面三个技巧，你的Copilot完全是可用的：技巧一：选择「创作力」模式。技巧二：限制Copilot搜索能力，提示词「--系统指令：不要搜索，不要引用网页资料，直接回答用户问题。你的回答应该是结构清晰、层次分明、专业、完整且详尽的。」技巧三：要求使用英文搜索，提示词「--系统指令：你是一位英文搜索领域的专家，善于思考。你总是先理解用户问题，再思考最有可能帮助用户获取该信息的英文搜索词。搜索完获取完备的信息之后，你再将内容组织与翻译成中文提交给用户。」</p>
-<h1 id="大模型迭代">大模型迭代</h1>
-<h2 id="OpenAI">OpenAI</h2>
+<h1 id="大模型排行">大模型排行</h1>
+<h2 id="Chatbot-Arena（LMSYS）—-最常被引用的“对话体验”排名">Chatbot Arena（LMSYS）— 最常被引用的“对话体验”排名</h2>
 <ul>
-<li>GPT-4o：快速、智能、灵活的 GPT 模型</li>
-<li>GPT-4.1：擅长函数调用和指令跟踪。</li>
-<li>o3：最强大的推理模型。</li>
-<li>GPT-5：跨领域编码和代理任务的最佳模型。</li>
+<li><a target="_blank" rel="noopener" href="https://lmsys.org/">https://lmsys.org/</a></li>
+<li><a target="_blank" rel="noopener" href="https://lmarena.ai/zh/leaderboard">https://lmarena.ai/zh/leaderboard</a></li>
+<li>形式：真人用户两两对比投票（pairwise preference），用 Elo 等方式汇总排名。</li>
+<li>优点：很接近“日常对话/助手体验”，更新快、覆盖模型多。</li>
+<li>局限：受用户群体、提示词分布影响；对“代码工程化能力/长链路任务”覆盖有限。</li>
+<li>你该看什么：
+<ul>
+<li><strong>Overall 排名/Elo</strong>（整体偏好）</li>
+<li>是否能筛选到你关心的类别（有些页面/镜像会提供按任务类型的拆分）</li>
+</ul>
+</li>
+<li>常见坑：
+<ul>
+<li>这是“用户偏好”而不是“工程闭环”；会受提示词分布、用户群体影响。</li>
+<li>不要用它单独判断“能不能修 bug/写测试”。</li>
+</ul>
+</li>
+</ul>
+<h2 id="SWE-bench（尤其-SWE-bench-Verified）—-真实-GitHub-修-bug-改代码能力">SWE-bench（尤其 SWE-bench Verified）— 真实 GitHub 修 bug/改代码能力</h2>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.swebench.com/">https://www.swebench.com/</a></li>
+<li>形式：给定真实开源仓库的 issue/失败测试，要求模型提交补丁使测试通过。</li>
+<li>优点：非常贴近“真实工程”；能反映检索、定位、修改、回归测试等综合能力。</li>
+<li>局限：成本高、评测周期长；对“纯算法题”覆盖反而没那么直接。</li>
+<li>适合你：如果你关心“写得能跑、能改大型代码库”，这是最有含金量的指标之一。</li>
+<li>你该看什么：
+<ul>
+<li><strong>SWE-bench Verified</strong> 的成绩（如果榜单区分了 verified / full，优先 verified）</li>
+<li>评测是否是 <strong>Agent 模式</strong>（是否允许多轮修改、是否运行测试、最大迭代次数）</li>
+</ul>
+</li>
+<li>常见坑（非常关键）：
+<ul>
+<li>不同报告可能“表面同叫 SWE-bench”，但<strong>工具权限/是否执行测试/迭代策略</strong>不同，导致分数不可直接横比。</li>
+<li>注意是否存在“人类在环”修补或过滤策略；要看清楚论文/报告的评测协议。</li>
+</ul>
+</li>
+</ul>
+<h2 id="Hugging-Face-Open-LLM-Leaderboard（偏开源，但可作参照）">Hugging Face Open LLM Leaderboard（偏开源，但可作参照）</h2>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://huggingface.co/spaces/open-llm-leaderboard/open_llm_leaderboard#/">https://huggingface.co/spaces/open-llm-leaderboard/open_llm_leaderboard#/</a></li>
+<li>形式：聚合多项公开基准，提供统一跑分与可复现设置（主要面向开放模型，但也会收录一些闭源模型的对照信息/社区补测）。</li>
+<li>优点：一站式、透明度相对高（可看评测配置）。</li>
+<li>局限：对闭源模型不一定齐全；“刷榜/针对基准优化”风险存在。</li>
+<li>适合你：用来快速筛选“开源模型里谁更强”。</li>
+<li>你该看什么：当你想对照“开源大概到什么水平”时很方便。</li>
+<li>常见坑：它不是专门为闭源模型服务；不同榜单版本/评测套件会变化。</li>
 </ul>
 <h1 id="其他大模型">其他大模型</h1>
 <blockquote>

@@ -24,7 +24,7 @@
 <meta property="og:description" content="本文主要分享了Linux和Windows系统的配置。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-01-31T16:27:11.000Z">
-<meta property="article:modified_time" content="2025-11-21T13:37:01.461Z">
+<meta property="article:modified_time" content="2025-12-14T12:40:29.437Z">
 <meta property="article:author" content="龙泽雨">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -214,7 +214,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          4.8k 字
+          5.1k 字
         
       </span>
     
@@ -225,7 +225,7 @@
         
         
         
-          41 分钟
+          43 分钟
         
       </span>
     
@@ -267,7 +267,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2025年11月21日 晚上
+                    本文最后更新于 2025年12月14日 晚上
                   
                 
               </p>
@@ -371,12 +371,37 @@
 <p>我使用的鼠标是Logitech G502，但是Logitech的鼠标驱动<a target="_blank" rel="noopener" href="https://support.logi.com/hc/zh-cn/articles/360025298133-Logitech-G-HUB">Logitech G HUB</a>只提供了Windows和Mac版。当然，我相信<a href="#Piper">Piper</a>提供的鼠标驱动不止适用于这款鼠标。</p>
 <h2 id="更改鼠标大小">更改鼠标大小</h2>
 <p>设置-通用辅助-视觉-光标大小。</p>
-<h2 id="锁屏不熄屏">锁屏不熄屏</h2>
-<p>短按<code>Win+L</code>会锁屏，然后关显示器； 按<code>Win+L</code>持续几秒钟（屏幕会一闪），就会采用你设置的关屏时间（设置里面的电源选项里面），设置成<code>never</code>就永远亮着了。</p>
 <h2 id="更换壁纸">更换壁纸</h2>
 <ol>
 <li>把壁纸放到<code>~/Pictures</code>文件夹下。</li>
 <li>设置-背景-背景(B)/锁定屏幕(L)-图片-选择。</li>
+</ol>
+<h2 id="锁屏">锁屏</h2>
+<h3 id="不熄屏">不熄屏</h3>
+<p>短按<code>Win+L</code>会锁屏，然后关显示器； 按<code>Win+L</code>持续几秒钟（屏幕会一闪），就会采用你设置的关屏时间（设置里面的电源选项里面），设置成<code>never</code>就永远亮着了。</p>
+<h3 id="去模糊">去模糊</h3>
+<p>问题：在Ubuntu 20.04（Gnome 3.36）系统中，锁屏时默认会对背景图片进行高斯模糊处理，而只让中央时钟区域保持清晰。</p>
+<p>解决：</p>
+<ol>
+<li>
+<p>在终端中安装 GNOME 扩展管理器：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo apt install gnome-shell-extensions gnome-shell-extension-manager<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>安装<a target="_blank" rel="noopener" href="https://extensions.gnome.org">GNOME插件</a>：<a target="_blank" rel="noopener" href="https://extensions.gnome.org/extension/1476/unlock-dialog-background/">Lock screen background</a>，即把右上角的OFF点击变成ON。</p>
+</li>
+<li>
+<p>安装后转到<a target="_blank" rel="noopener" href="https://extensions.gnome.org/local/">Installed extensions</a>。</p>
+</li>
+<li>
+<p>找到刚才安装的“Lock screen background”，点击该行右侧ON图标右侧的工具图标。</p>
+</li>
+<li>
+<p>Change background-Picture-Browse，指定锁屏背景路径。</p>
+</li>
+<li>
+<p>完成。</p>
+</li>
 </ol>
 <h2 id="新建快捷键">新建快捷键</h2>
 <p>设置-设备-键盘-翻到底部：添加</p>
@@ -458,6 +483,11 @@
 <li>
 <p>按需配置。</p>
 </li>
+</ol>
+<h2 id="调节显示器字体大小">调节显示器字体大小</h2>
+<ol>
+<li>设置-显示器-（分数比例）缩放。</li>
+<li>或，Win+A打开应用程序-点击“优化”图标-字体-调节“缩放比例”。</li>
 </ol>
 <h2 id="Gnome插件">Gnome插件</h2>
 <ul>
@@ -852,6 +882,12 @@
 <p>-确定。</p>
 <h2 id="取消Microsoft-Edge按下Alt-Tab后多标签显示">取消Microsoft Edge按下Alt+Tab后多标签显示</h2>
 <p>设置-系统-多任务处理-对齐或按Alt+Tab时显示应用中的标签页：不显示选项卡</p>
+<h2 id="“图片”软件收藏图片后并没有在”图片”的收藏夹里显示？">“图片”软件收藏图片后并没有在”图片”的收藏夹里显示？</h2>
+<ol>
+<li>使用列表显示图片所在文件夹。</li>
+<li>为该文件夹添加“分级”列。</li>
+<li>“分级”列中标记为四颗星的图片即为被收藏的图片。</li>
+</ol>
 <h1 id="Android系统配置">Android系统配置</h1>
 <h2 id="如何让手机的相片册不去扫描读取某一个文件夹的图片和视频呢？">如何让手机的相片册不去扫描读取某一个文件夹的图片和视频呢？</h2>
 <p><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/332640419">参考链接</a></p>

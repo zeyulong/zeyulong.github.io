@@ -24,7 +24,7 @@
 <meta property="og:description" content="本文主要总结整理了网上分享的ChatGPT、 GitHub Copilot等大模型及集成交互接口gpt_academic的使用技巧。尽可能做到物尽其用，在使用大模型时充分发挥出其优势和性能，以更好地解决问题。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-01-03T09:59:29.000Z">
-<meta property="article:modified_time" content="2026-01-08T12:51:27.099Z">
+<meta property="article:modified_time" content="2026-02-16T14:42:51.136Z">
 <meta property="article:author" content="龙泽雨">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -225,7 +225,7 @@
         
         
         
-          188 分钟
+          191 分钟
         
       </span>
     
@@ -267,7 +267,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2026年1月8日 晚上
+                    本文最后更新于 2026年2月16日 晚上
                   
                 
               </p>
@@ -285,6 +285,8 @@
 </ol>
 </blockquote>
 <h1 id="提问技巧">提问技巧</h1>
+<h2 id="系统提示词">系统提示词</h2>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs txt">Serve me as a writing and programming assistant. Please ask me any clarifying questions you have about my question before every answer so that I can provide you with more information. Please be extremely comprehensive.<br></code></pre></td></tr></table></figure>
 <h2 id="总体提问流程">总体提问流程</h2>
 <p>结合BRTR原则和提问技巧：</p>
 <ol>
@@ -1750,7 +1752,16 @@
 <li>一句话总结差异：Plan = 先规划后动手，Agent = 边想边干。</li>
 <li>预览拟议计划草案并提供反馈意见以进行迭代。计划代理人提供概要说明和步骤细则，包括任何需要澄清的未决问题。</li>
 <li>在实施之前，请保持计划阶段，以便不断完善计划。您可以多次迭代，以明确需求、调整范围或解决未决问题。这可以确保在进行任何代码更改之前，拥有坚实的基础。</li>
-<li>计划最终确定后，可以使用按钮开始实施计划，或者在编辑器中打开计划进行进一步审查。您可以选择在同一聊天会话中实施该计划，或者启动后台或云<a target="_blank" rel="noopener" href="https://code.visualstudio.com/docs/copilot/agents/overview">代理会话，</a> 在后台自主地进行实施。在开始实施该计划时，您仍然可以提供澄清说明，例如“从用户界面开始”或“仅执行步骤 1 和 2”。</li>
+<li>计划最终确定后，可以使用按钮开始实施计划，或者在编辑器中打开计划进行进一步审查。Once finalized, use the buttons to start implementation of the plan or to open the plan in the editor for further review.</li>
+<li>您可以选择在同一聊天会话中实施该计划，或者启动后台或云<a target="_blank" rel="noopener" href="https://code.visualstudio.com/docs/copilot/agents/overview">代理会话</a>，在后台自主地进行实施。在开始实施该计划时，您仍然可以提供澄清说明，例如“从用户界面开始”或“仅执行步骤 1 和 2”。You can choose to implement the plan in the same chat session, or start a background or cloud agent session to work on the implementation autonomously in the background.</li>
+<li>使用心得：
+<ul>
+<li>对于大功能的开发，先使用plan模式与LLM来回对话商定细节后再开始让llm开始agent，更好。小问题以及bug的修复，不太用得着plan，直接实施就行。</li>
+<li>使用plan模式与LLM进行交流，可以多交流出自己没有想到的具体实现细节，甚至是更好的实现方案，这样就不算完全指望LLM能从大概意思上一次实现自己的需求了。值得多使用该模式。</li>
+<li>使用plan模式后，一旦确定完细节，点击消息左下方、聊天框左上方的“start implementation”按钮，聊天框中出现就会垂涎“start implementation”字段，聊天框左下方的模式选择也会由”plan“变成”agent“。点击聊天框右下角”发送“后开始使用agent模式实施处理。</li>
+<li>plan模式与agent模式类似，LLM会根据需要自行读取文件，可能不需要一次对话主动引用一次文件。开始一个新功能时，第一次对话主动手动引用一次，最好？</li>
+</ul>
+</li>
 </ul>
 </li>
 <li>

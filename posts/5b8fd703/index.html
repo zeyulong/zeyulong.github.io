@@ -34,7 +34,7 @@
 <meta property="og:image" content="http://zeyulong.com/posts/5b8fd703/feature_branch_diverge_from_master_diagram.png">
 <meta property="og:image" content="http://zeyulong.com/posts/5b8fd703/rebase_result_diagram.png">
 <meta property="article:published_time" content="2024-05-09T03:34:55.000Z">
-<meta property="article:modified_time" content="2025-12-20T03:12:11.621Z">
+<meta property="article:modified_time" content="2026-02-16T08:26:50.975Z">
 <meta property="article:author" content="龙泽雨">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://zeyulong.com/posts/5b8fd703/Git%E6%B5%81%E7%A8%8B-1.png">
@@ -225,7 +225,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          28k 字
+          29k 字
         
       </span>
     
@@ -236,7 +236,7 @@
         
         
         
-          231 分钟
+          242 分钟
         
       </span>
     
@@ -278,7 +278,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2025年12月20日 上午
+                    本文最后更新于 2026年2月16日 下午
                   
                 
               </p>
@@ -567,7 +567,7 @@
 </ol>
 <h2 id="推送push">推送push</h2>
 <p><code>git push</code>命令用于从将本地的分支版本上传到远程并合并。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash">git push &lt;远程主机名&gt; &lt;本地分支名&gt;:&lt;远程分支名&gt;<br><span class="hljs-comment"># 如果本地分支名与远程分支名相同，则可以省略冒号：</span><br>git push &lt;远程主机名&gt; &lt;本地分支名&gt;<br>git push origin master  <span class="hljs-comment"># 将本地的 master 分支推送到 origin 主机的 master 分支，相当于：</span><br>git push origin master:master<br><span class="hljs-comment"># 如果本地版本与远程版本有差异，但又要强制推送可以使用 --force 参数：</span><br>git push --force origin master<br>git push [remote] --all  <span class="hljs-comment"># 推送所有分支到远程仓库</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs bash">git push &lt;远程主机名&gt; &lt;本地分支名&gt;:&lt;远程分支名&gt;<br><span class="hljs-comment"># 如果本地分支名与远程分支名相同，则可以省略冒号：</span><br>git push &lt;远程主机名&gt; &lt;本地分支名&gt;<br>git push origin master  <span class="hljs-comment"># 将本地的 master 分支推送到 origin 主机的 master 分支，相当于：</span><br>git push origin master:master<br><span class="hljs-comment"># 如果本地版本与远程版本有差异，但又要强制推送可以使用 --force 参数：</span><br>git push --force origin master<br>git push [remote] --all  <span class="hljs-comment"># 推送所有分支到远程仓库。只会推送你本地当前存在的所有分支到远程仓库，但不会删除远程上那些你本地已经删掉的分支。</span><br><span class="hljs-comment"># 必须显式执行如下命令才能删远程分支</span><br>git push origin --delete branch-name<br></code></pre></td></tr></table></figure>
 <h2 id="克隆clone">克隆clone</h2>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs bash">git <span class="hljs-built_in">clone</span> [url]  <span class="hljs-comment"># [url] 是你要拷贝的项目</span><br><span class="hljs-comment"># 执行完上述步骤后，Git 会克隆远程仓库到本地，并在当前目录下创建一个与远程仓库同名的文件夹</span><br><span class="hljs-comment"># 上述操作将复制该项目的全部记录</span><br><br>git <span class="hljs-built_in">clone</span> &lt;repository-url&gt; &lt;local-directory&gt;<br><span class="hljs-comment"># &lt;repository-url&gt; 是你想克隆的远程 Git 仓库的 URL</span><br><span class="hljs-comment"># &lt;local-directory&gt; 是你想创建本地副本的目录路径</span><br><br><span class="hljs-comment"># 克隆特定分支</span><br>git <span class="hljs-built_in">clone</span> --branch my-branch https://github.com/my-username/my-repository.git<br><span class="hljs-comment"># 克隆特定标签</span><br>git <span class="hljs-built_in">clone</span> --branch v1.0.0 https://github.com/my-username/my-repository.git<br><span class="hljs-comment"># 克隆特定提交</span><br>git <span class="hljs-built_in">clone</span> --branch 4c4ba1d https://github.com/my-username/my-repository.git<br><span class="hljs-comment"># 克隆子目录</span><br>git <span class="hljs-built_in">clone</span> --depth 1 --filter=blob:none https://github.com/my-username/my-repository.git my-subdirectory  <span class="hljs-comment"># 这个命令将创建 my-repository 仓库的 my-subdirectory 子目录中的文件的本地副本</span><br><span class="hljs-comment"># depth 用于指定克隆深度，为1即表示只克隆最近一次commit</span><br><br><span class="hljs-comment"># 只 clone 一个 GitHub 仓库的 main 分支，且只获取最近的一次提交（不会下载完整的历史）</span><br>git <span class="hljs-built_in">clone</span> --branch main --single-branch --depth 1 &lt;repo-url&gt;  <span class="hljs-comment"># 现代 git 新版中有时只写 --branch 也能生效，但写上 --single-branch 更保险、兼容老版本 git，也更清晰明确。</span><br><br>git <span class="hljs-built_in">clone</span> --bare &lt;url&gt; [&lt;directory&gt;]  <span class="hljs-comment"># 它将克隆一个裸仓库（bare repository）。裸仓库是一个没有工作目录的Git仓库，只包含版本对象和引用，不保存源代码的修改历史，非常适合用作中央仓库或备份</span><br>git <span class="hljs-built_in">clone</span> --bare https://github.com/username/repository.git<br><br>git <span class="hljs-built_in">clone</span> --recursive &lt;repository_url&gt;  <span class="hljs-comment"># 我们在一个项目中使用了开源库或第三方库，而这些库通常会作为子模块嵌入到我们的项目中。如果我们使用普通的 Git Clone 命令只会将主项目克隆下来，而不会将子模块一同克隆。这时候，我们就可以使用 Git Clone –recursive 来克隆主项目和子模块。</span><br><span class="hljs-comment"># if you forgot the `--recursive` options, you can run below git commands after cloning:</span><br><span class="hljs-comment">#   git submodule sync --recursive</span><br><span class="hljs-comment">#   git submodule update --init --recursive --force</span><br><span class="hljs-comment"># --force</span><br><span class="hljs-comment"># 作用：即使当前子模块的工作目录有改动或者不是“干净的”状态，也会强制覆盖并切换到主项目要求的提交。</span><br><span class="hljs-comment"># 没有 --force 的话，如果子模块有未提交/未保存的变更，git 会提示并拒绝 checkout。</span><br><span class="hljs-comment"># 加了 --force，这些变更会被舍弃（但未追踪的文件保留），让子模块回到主仓库要求的提交，保证主项目的子模块内容和记录一致。</span><br></code></pre></td></tr></table></figure>
 <blockquote>
@@ -1017,7 +1017,22 @@ Aborting</p>
 <p>通用的Git分支命名规范示例：</p>
 <blockquote>
 <p>推荐使用小写字母来命名分支，并使用连字符（<code>-</code>）来替代空格或其他符号，以保持URL的友好性。</p>
-<p>除连字符外，应避免使用其他特殊字符如空格、波折号（<code>_</code>）等，因为这些字符可能在不同系统或脚本中引起歧义。</p>
+<p>除连字符外，应避免使用其他特殊字符如空格、波折号、下划线<code>_</code>等，因为这些字符可能在不同系统或脚本中引起歧义。</p>
+</blockquote>
+<blockquote>
+<p><strong>Git 分支命名主流和推荐风格是使用连字符（kebab-case）而不是驼峰式（CamelCase）命名法。</strong><br>
+建议写成 <code>feature/add-user</code>，不要写成 <code>feature/AddUser</code> 或 <code>feature/addUser</code></p>
+</blockquote>
+<blockquote>
+<p><code>/</code>在 Git 分支命名中的作用是分组/层级组织，推荐使用。</p>
+<ul>
+<li>完全允许、也有实际场景会用到多个 <code>/</code>，比如在大型项目/多人团队，结合模块/域/角色分支：
+<ul>
+<li><code>feature/login-page/ui-tweak</code> （登录页的UI微调）</li>
+<li><code>feature/login-page/logic-optimize</code> （登录页逻辑优化）</li>
+</ul>
+</li>
+</ul>
 </blockquote>
 <ul>
 <li>
@@ -1074,7 +1089,7 @@ Aborting</p>
 </li>
 </ul>
 <h4 id="基本语法-3">基本语法</h4>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs bash">git checkout -h  <span class="hljs-comment"># 帮助</span><br><br><span class="hljs-comment"># 创建分支</span><br>git branch otherBranch  <span class="hljs-comment"># 创建了一个名为otherBranch的分支，但依然停留在当前分支</span><br>git checkout otherBranch  <span class="hljs-comment"># 切换到otherBranch分支，并更新工作区</span><br>git checkout -b otherBranch  <span class="hljs-comment"># 直接创建并切换到了一个名为otherBranch的分支</span><br>git checkout --orphan &lt;new-branch&gt;  <span class="hljs-comment"># 创建一个全新的分支，不包含原分支的提交历史</span><br><br>git checkout -  <span class="hljs-comment"># 快速切换回前一个分支，无需记住分支名称</span><br><br><br>git branch [branch] [commit]  <span class="hljs-comment"># 新建一个分支，指向指定commit</span><br>git checkout -b [branch] [tag]  <span class="hljs-comment"># 新建一个分支，指向某个tag</span><br><br>git branch --track [branch] [remote-branch]  <span class="hljs-comment"># 新建一个分支，与指定的远程分支建立追踪关系</span><br>git branch --set-upstream [branch] [remote-branch]  <span class="hljs-comment"># 建立追踪关系，在现有分支与指定的远程分支之间</span><br><br>git checkout -- &lt;file&gt;  <span class="hljs-comment"># 将指定文件 &lt;file&gt; 恢复到最新的提交状态，丢弃所有未提交的更改，这对于撤销不需要的更改非常有用</span><br>git checkout .  <span class="hljs-comment"># 放弃工作区中全部的修改</span><br><br>git checkout &lt;commit-hash&gt;  <span class="hljs-comment"># 切换到特定提交。你可以使用提交的哈希值 &lt;commit-hash&gt; 来切换到特定的提交状态。这将使你进入&quot;分离头指针&quot;状态，只能查看历史记录，而不能进行分支操作。通常情况下，不建议在分离头指针状态下工作，因为更改可能会丢失。</span><br>git checkout tags/&lt;tag-name&gt;  <span class="hljs-comment"># 切换到标签。如果你有一个标签 &lt;tag-name&gt;，你可以使用这个命令来切换到该标签所指向的提交状态。</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs bash">git checkout -h  <span class="hljs-comment"># 帮助</span><br><br><span class="hljs-comment"># 创建分支</span><br>git branch otherBranch  <span class="hljs-comment"># 创建了一个名为otherBranch的分支，但依然停留在当前分支</span><br>git checkout otherBranch  <span class="hljs-comment"># 切换到otherBranch分支，并更新工作区</span><br>git checkout -b otherBranch  <span class="hljs-comment"># 直接创建并切换到了一个名为otherBranch的分支</span><br>git checkout --orphan &lt;new-branch&gt;  <span class="hljs-comment"># 创建一个全新的分支，不包含原分支的提交历史</span><br><br>git checkout -  <span class="hljs-comment"># 快速切换回前一个分支，无需记住分支名称</span><br><br><br>git branch [branch] [commit]  <span class="hljs-comment"># 新建一个分支，指向指定commit</span><br>git checkout -b [branch] [commit]<br>git checkout -b [branch] [tag]  <span class="hljs-comment"># 新建一个分支，指向某个tag</span><br><br>git branch --track [branch] [remote-branch]  <span class="hljs-comment"># 新建一个分支，与指定的远程分支建立追踪关系</span><br>git branch --set-upstream [branch] [remote-branch]  <span class="hljs-comment"># 建立追踪关系，在现有分支与指定的远程分支之间</span><br><br>git checkout -- &lt;file&gt;  <span class="hljs-comment"># 将指定文件 &lt;file&gt; 恢复到最新的提交状态，丢弃所有未提交的更改，这对于撤销不需要的更改非常有用</span><br>git checkout .  <span class="hljs-comment"># 放弃工作区中全部的修改</span><br><br>git checkout &lt;commit-hash&gt;  <span class="hljs-comment"># 切换到特定提交。你可以使用提交的哈希值 &lt;commit-hash&gt; 来切换到特定的提交状态。这将使你进入&quot;分离头指针&quot;状态，只能查看历史记录，而不能进行分支操作。通常情况下，不建议在分离头指针状态下工作，因为更改可能会丢失。</span><br>git checkout tags/&lt;tag-name&gt;  <span class="hljs-comment"># 切换到标签。如果你有一个标签 &lt;tag-name&gt;，你可以使用这个命令来切换到该标签所指向的提交状态。</span><br></code></pre></td></tr></table></figure>
 <h3 id="合并分支">合并分支</h3>
 <h4 id="合并merge">合并merge</h4>
 <h5 id="基本语法-4">基本语法</h5>
@@ -1822,6 +1837,10 @@ Aborting</p>
 <p>完成。</p>
 </li>
 </ol>
+<h2 id="其它小技巧">其它小技巧</h2>
+<ul>
+<li>如果在合并等处理等怕会影响到自己当前分支，可以在当前分支新开一个分支出来执行合并。成功后再合并回来。虽然有点重复，git也有防止特殊情况发生的处理方法，比如<code>reflog</code>命令。但是，保险是第一准则。这个技巧也不需要掌握更高阶的操作技巧，毕竟不熟悉就可能出错。</li>
+</ul>
 <h1 id="问题与解决-2">问题与解决</h1>
 <h2 id="只修改了一个文件，git却显示所有文件被修改了？">只修改了一个文件，git却显示所有文件被修改了？</h2>
 <p>原因：不同操作系统使用的换行符是不一样的。Unix/Linux使用的是LF，Mac后期也采用了LF，但Windows一直使用CRLF【回车(CR, ASCII 13, r) 换行(LF, ASCII 10, n)】作为换行符。而git入库的代码采用的是LF格式，它考虑到了跨平台协作的场景，提供了“换行符自动转换”的功能。在Windows下使用git，在拉取文件时，会自动将LF换行符替换为CRLF；在提交时，又会将CRLF转回LF。就是这个转换有问题的。</p>
@@ -2116,7 +2135,7 @@ Aborting</p>
 <li>远程仓库名：<code>origin</code>（默认）</li>
 <li>主要开发分支：<code>dev</code></li>
 </ul>
-<p>推荐团队协作流程（以 dev 分支为例）：</p>
+<h2 id="推荐的团队协作流程（以-dev-分支为例）：">推荐的团队协作流程（以 dev 分支为例）：</h2>
 <ol>
 <li>
 <p>克隆远程仓库：</p>
@@ -2152,6 +2171,74 @@ Aborting</p>
 </li>
 <li>
 <p>完成。</p>
+</li>
+</ol>
+<h2 id="参考流程">参考流程</h2>
+<p><a target="_blank" rel="noopener" href="https://docs.openwebui.com/getting-started/development/#contributing-to-open-webui">为 Open WebUI 做贡献</a></p>
+<p>我们热烈欢迎您为 Open WebUI 做出贡献！您的帮助对项目的完善至关重要。以下是帮助您顺利高效地完成贡献流程的简要指南：</p>
+<ol>
+<li>
+<p><strong>了解项目结构：</strong> 花些时间熟悉项目的目录结构，特别是 <code>frontend</code> 和 <code>backend</code> 文件夹。查看代码、配置文件和文档，了解项目的组织方式。</p>
+</li>
+<li>
+<p><strong>从小贡献开始：</strong> 如果您是项目新手，请考虑从较小的贡献开始，例如：</p>
+<ul>
+<li><strong>文档改进：</strong> 修正拼写错误，澄清解释，为文档添加更多细节。</li>
+<li><strong>漏洞修复：</strong> 解决已报告的漏洞或问题。</li>
+<li><strong>小型用户界面改进：</strong> 优化样式，修复一些布局问题。这些小的贡献是熟悉代码库和贡献流程的绝佳途径。</li>
+</ul>
+</li>
+<li>
+<p><strong>重大变更前务必先进行讨论：</strong> 如果您计划实现一项重要的新功能或进行实质性变更，强烈建议您<strong>先与项目维护者或社区成员讨论您的想法。</strong> 您可以通过以下方式进行讨论：</p>
+<ul>
+<li>在 GitHub 代码库中<strong>提交 issue</strong> 来提出您的功能建议或更改。</li>
+<li><strong>加入 Open WebUI 社区频道</strong> （如有，请查看项目 README 或网站获取链接），并在那里讨论你的想法。这有助于确保你的贡献与项目目标保持一致，避免在可能不会被合并的功能上浪费精力。</li>
+</ul>
+</li>
+<li>
+<p><strong>为你的工作创建单独的分支：</strong> <strong>永远不要直接提交到 <code>dev</code> 分支。</strong> 务必为你正在开发的每个功能或修复的每个错误创建一个新分支。这样可以确保你的更改与其他分支隔离，并简化管理和提交拉取请求的过程。</p>
+<ul>
+<li>
+<p>要基于 <code>dev</code> 分支创建一个新分支（例如，命名为 <code>my-feature-branch</code> ）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">git checkout dev<br>git pull origin dev <span class="hljs-comment"># Ensure your local dev branch is up-to-date</span><br>git checkout -b my-feature-branch<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>等等。</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>频繁提交更改并编写清晰的提交信息：</strong> 在开发新功能或修复错误时，进行小而合理的提交。 <strong>编写清晰简洁的提交信息</strong> ，解释你做了哪些更改以及原因。良好的提交信息有助于理解更改历史，对协作至关重要。</p>
+<ul>
+<li>一个好的提交信息示例： <code>Fix: Corrected typo in documentation for backend setup</code></li>
+<li>一个好的提交信息示例： <code>Feat: Implemented user profile page with basic information display</code></li>
+</ul>
+</li>
+<li>
+<p><strong>定期与 <code>dev</code> 分支保持同步：</strong> 在开发分支时，定期将分支与 <code>dev</code> 分支的最新更改同步，以最大程度地减少后续的合并冲突：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">git checkout dev<br>git pull origin dev<br>git checkout my-feature-branch<br>git merge dev<br></code></pre></td></tr></table></figure>
+<p>解决 <code>git merge</code> 步骤中出现的任何合并冲突。</p>
+</li>
+<li>
+<p><strong>推送代码前运行测试（如有）：</strong> 虽然本指南没有详细介绍 Open WebUI 的具体测试流程，但最佳实践是在推送代码前运行所有可用的测试。请查看项目文档或 <code>package.json</code> （前端）和后端文件中的测试相关命令（例如， <code>npm run test</code> 、 <code>pytest</code> 等）。运行测试有助于确保您的更改没有引入回归问题或破坏现有功能。</p>
+</li>
+<li>
+<p><strong>提交拉取请求（PR）：</strong> 完成工作、测试（如果适用）并准备好贡献更改后，请向 GitHub 上 Open WebUI 存储库的 <code>dev</code> 分支提交拉取请求（PR）。</p>
+<ol>
+<li><strong>前往 GitHub 上的 Open WebUI 代码库。</strong></li>
+<li><strong>前往您的branch。</strong></li>
+<li><strong>点击“Contribute”或“Pull Request”按钮</strong> （通常为绿色）。</li>
+<li><strong>填写PR表格：</strong>
+<ol>
+<li><strong>标题：</strong> 请为您的 PR 添加一个清晰且描述性的标题，以概括您的更改（例如，“修复：解决了登录表单验证问题”）。</li>
+<li><strong>描述：</strong> 请提供更详细的更改描述、您要解决的问题（如适用）以及任何相关的背景信息。如有任何相关问题，请提供链接。</li>
+<li><strong>提交 PR。</strong></li>
+</ol>
+</li>
+</ol>
+</li>
+<li>
+<p>项目维护者会审核您的拉取请求，提供反馈，并可能合并您的更改。请积极回应反馈，并做好根据要求进行修改的准备。。</p>
 </li>
 </ol>
 <h1 id="Gerrit">Gerrit</h1>

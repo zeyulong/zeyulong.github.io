@@ -1,0 +1,776 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" >
+
+
+
+<head><!-- hexo injector head_begin start --><progress id="content_progress" value="0"></progress><!-- hexo injector head_begin end -->
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/theme/TamakoAvatar-new-zip.png">
+  <link rel="icon" href="/img/theme/TamakoAvatar-new-zip.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#000000">
+  <meta name="author" content="龙泽雨">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="本文主要分享了对deep research的使用。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="deep research的使用">
+<meta property="og:url" content="http://zeyulong.com/posts/58d851b3/index.html">
+<meta property="og:site_name" content="龙泽雨的博客">
+<meta property="og:description" content="本文主要分享了对deep research的使用。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-03-01T03:19:32.000Z">
+<meta property="article:modified_time" content="2026-03-01T04:19:25.280Z">
+<meta property="article:author" content="龙泽雨">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>deep research的使用 - 龙泽雨的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/custom/Markdown/macpanel.css">
+<link rel="stylesheet" href="/custom/Fonts/CodeFont.css">
+<link rel="stylesheet" href="/custom/Fonts/inlinecode-bg-color.css">
+<link rel="stylesheet" href="/custom/LoadingBar/pace-theme-corner-indicator.css">
+<link rel="stylesheet" href="/custom/ReadingProgress/ReadingProgress.css">
+<link rel="stylesheet" href="/custom/SelectBackgroundColor/SelectBackgroundColor.css">
+<link rel="stylesheet" href="/custom/waline/gif.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"zeyulong.com","root":"/","version":"1.9.7","typing":{"enable":false,"typeSpeed":100,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"8gUBTaCjmaSbnf4genwggan3-MdYXbMMI","app_key":"2WRxjgxRXIWRBo8EA4205Wfm","server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<!-- hexo injector head_end start --><link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@200;300;400;500;600;700;900&display=swap" rel="stylesheet"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.0.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Hello, world!</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/theme/GirlWithCat-cut.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle">deep research的使用</span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        龙泽雨
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-03-01 11:19" pubdate>
+          2026年3月1日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.4k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          12 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">deep research的使用</h1>
+            
+              <p id="updated-time" class="note note-info" style="">
+                
+                  
+                    本文最后更新于 2026年3月1日 中午
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <p>本文主要分享了对deep research的使用。</p>
+<span id="more"></span>
+<h1 id="deep-research">deep research</h1>
+<h2 id="概述">概述</h2>
+<p>在大模型产品里，“Deep Research / 深度研究”通常指一种 <strong>“代理式研究（agentic research）模式”</strong> ：模型不只回答一次，而是像研究员一样，<strong>先制定计划→多轮检索/阅读→提取证据→交叉核验→综合成报告，并给出引用来源</strong>。</p>
+<h2 id="它和普通对话-联网搜索的区别">它和普通对话/联网搜索的区别</h2>
+<ul>
+<li>
+<p><strong>普通对话</strong>：主要依赖模型已有知识；输出快，但容易“凭记忆”。</p>
+</li>
+<li>
+<p><strong>联网搜索</strong>：往往是“搜到几条结果+简单总结”，深度有限。</p>
+</li>
+<li>
+<p>Deep Research</p>
+<p>：会做多步工作流，典型特征是</p>
+<ol>
+<li><strong>先澄清问题与研究范围</strong>（时间、地区、口径、指标）</li>
+<li><strong>自动拆解子问题</strong>（例如市场规模→增长率→驱动因素→竞争格局→风险）</li>
+<li><strong>多轮浏览/打开网页/读文档</strong>（不仅看搜索摘要）</li>
+<li><strong>做笔记与信息抽取</strong>（关键数据、方法、原话、定义）</li>
+<li><strong>交叉验证与冲突处理</strong>（同一数据多源比对，指出差异原因/口径）</li>
+<li><strong>输出结构化报告</strong>（结论、证据链、引用、局限与下一步</li>
+</ol>
+</li>
+</ul>
+<h2 id="你可以期待它产出什么">你可以期待它产出什么</h2>
+<p>常见输出形态包括：</p>
+<ul>
+<li><strong>研究报告</strong>：摘要（TL;DR）+ 方法 + 主要发现 + 数据表 + 引用链接</li>
+<li><strong>对比矩阵</strong>：竞品/方案对比表、优劣势与适用场景</li>
+<li><strong>时间线/政策梳理</strong>：关键事件、条款变化、影响分析</li>
+<li><strong>可执行建议</strong>：下一步要验证的假设、需要补采的数据、风险清单</li>
+</ul>
+<h2 id="典型限制（需要特别注意）">典型限制（需要特别注意）</h2>
+<ol>
+<li><strong>引用不等于正确</strong>：它可能“引用了页面”，但<strong>结论的推导仍可能出错</strong>或断章取义。</li>
+<li><strong>信息覆盖不保证完整</strong>：搜索受限于索引、语言、地区、付费墙、反爬、登录要求。</li>
+<li><strong>口径冲突很常见</strong>：市场规模/用户数/财务指标可能来自不同定义与时间点，需要你确认“采用哪一种口径”。</li>
+<li><strong>时效性与更新</strong>：有的产品抓到的是缓存/旧文；对快速变化领域要加“截至日期”。</li>
+<li><strong>合规与隐私</strong>：上传内部资料做 deep research 可能触及数据外泄风险，需看产品的企业设置与数据政策。</li>
+</ol>
+<h2 id="怎么用它更“像研究”而不是“像搜索”">怎么用它更“像研究”而不是“像搜索”</h2>
+<p>你提问时尽量给这些约束，它会明显变好：</p>
+<ul>
+<li><strong>研究目标</strong>：我要做决策/写报告/做投资备忘录/做竞品分析？</li>
+<li><strong>范围</strong>：国家/行业/时间段/人群/口径（例如“按GMV还是按收入”）</li>
+<li><strong>输出格式</strong>：要表格、要引用、要按章节、要结论+证据+反例</li>
+<li><strong>可信来源偏好</strong>：优先官方统计、论文、监管文件、公司年报等</li>
+<li><strong>必须回答的问题清单</strong>：列 5–10 个你最关心的子问题</li>
+</ul>
+<h1 id="排名榜单">排名榜单</h1>
+<blockquote>
+<p>openrouter里提供了一些支持deep research的模型，直接<a target="_blank" rel="noopener" href="https://openrouter.ai/models?q=deep+research">搜索“deep research”</a>即可。</p>
+</blockquote>
+<h2 id="当前主流产品形态">当前主流产品形态</h2>
+<ul>
+<li>OpenAI Deep Research
+<ul>
+<li><strong>依托模型</strong>：基于 o3/o4 系列推理模型。</li>
+<li><strong>特点</strong>：该功能的开创者。拥有极强的自主规划能力，能进行数十轮迭代搜索，擅长处理极其复杂的逻辑推理和跨领域综合分析。其报告结构严谨，引用准确，是目前的行业标杆。</li>
+<li><strong>适用场景</strong>：高难度的行业分析、学术综述、复杂决策支持。</li>
+</ul>
+</li>
+<li>Google Gemini Deep Research
+<ul>
+<li><strong>依托模型</strong>：Gemini 2.5 Pro / Gemini 3。</li>
+<li><strong>特点</strong>：依托 Google 强大的搜索生态和超长上下文窗口（可一次性阅读数百页文档）。它在处理海量信息检索、多模态内容（图表、视频）分析以及实时新闻整合方面表现卓越。</li>
+<li><strong>适用场景</strong>：需要大量阅读PDF/网页的文献调研、实时事件追踪、多模态数据分析。</li>
+</ul>
+</li>
+<li>Perplexity Deep Research
+<ul>
+<li><strong>依托模型</strong>：ppl-sonar-reasoning-pro 等。</li>
+<li><strong>特点</strong>：以“快”和“准”著称。虽然深度略逊于 OpenAI 的超长推理，但其搜索速度极快，引用来源展示最清晰，非常适合快速生成带有详实出处的调研报告。部分功能对免费用户开放。</li>
+<li><strong>适用场景</strong>：快速事实核查、竞品分析、新闻汇总。</li>
+</ul>
+</li>
+<li>Anthropic Claude Research (Extended Thinking + Search)
+<ul>
+<li><strong>依托模型</strong>：Claude Opus 4.5。</li>
+<li><strong>特点</strong>：虽然在独立“Deep Research”产品名称上较晚跟进，但其“扩展思维”结合搜索工具的能力在代码研究、技术文档分析和逻辑严密的写作上表现极强，被许多开发者视为首选。</li>
+</ul>
+</li>
+</ul>
+<h2 id="排行榜">排行榜</h2>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/Ayanami0730/deep_research_bench%EF%BC%9A%E6%B7%B1%E5%BA%A6%E7%A0%94%E7%A9%B6%E4%BB%A3%E7%90%86%E7%9A%84%E7%BB%BC%E5%90%88%E5%9F%BA%E5%87%86%E6%B5%8B%E8%AF%95">https://github.com/Ayanami0730/deep_research_bench：深度研究代理的综合基准测试</a>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://huggingface.co/spaces/muset-ai/DeepResearch-Bench-Leaderboard">https://huggingface.co/spaces/muset-ai/DeepResearch-Bench-Leaderboard</a></li>
+</ul>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/SalesforceAIResearch/LiveResearchBench%EF%BC%9A%E4%B8%80%E4%B8%AA%E7%94%A8%E4%BA%8E%E5%9C%A8%E5%AE%9E%E9%99%85%E7%8E%AF%E5%A2%83%E4%B8%AD%E8%BF%9B%E8%A1%8C%E5%BC%80%E6%94%BE%E5%BC%8F%E6%B7%B1%E5%BA%A6%E7%A0%94%E7%A9%B6%E7%9A%84%E5%AE%9E%E6%97%B6%E5%9F%BA%E5%87%86%E6%B5%8B%E8%AF%95%E5%92%8C%E8%AF%84%E4%BC%B0%E6%A1%86%E6%9E%B6%E3%80%82">https://github.com/SalesforceAIResearch/LiveResearchBench：一个用于在实际环境中进行开放式深度研究的实时基准测试和评估框架。</a>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://livedeepresearch.github.io/">https://livedeepresearch.github.io/</a></li>
+</ul>
+</li>
+</ul>
+<h1 id="使用LLM写文献总结的技巧">使用LLM写文献总结的技巧</h1>
+<ul>
+<li>严防“幻觉”引用：
+<ul>
+<li>如果大模型直接生成了参考文献列表，<strong>90%的概率其中包含不存在的论文</strong>。务必拿着AI生成的标题去数据库核实。</li>
+<li><strong>最佳实践：</strong> 您可以将下载好的论文（可以由大模型的deep research产出列表）摘要、结论部分（或全文PDF，如果您的AI工具支持上传文件）投喂给大模型。大模型只负责帮你组织和表达。</li>
+</ul>
+</li>
+<li>时效性问题：
+<ul>
+<li>大模型的知识库有截止日期。对于2024-2026年的最新研究，大模型可能不知道。</li>
+<li><strong>解决：</strong> 您必须通过联网搜索或最新数据库补充近1-2年的文献，然后手动输入给大模型进行整合。</li>
+</ul>
+</li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/" class="category-chain-item">技术分享</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>deep research的使用</div>
+      <div>http://zeyulong.com/posts/58d851b3/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>龙泽雨</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2026年3月1日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/5f9038bc/" title="openrouter的使用">
+                        <span class="hidden-mobile">openrouter的使用</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="waline"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#waline', function() {
+      Fluid.utils.createCssLink('https://cdn.staticfile.org/waline/2.15.5/waline.min.css')
+      Fluid.utils.createScript('https://cdn.staticfile.org/waline/2.15.5/waline.min.js', function() {
+        var options = Object.assign(
+          {"serverURL":"https://www.zeyulong.cn/","path":"window.location.pathname","meta":["nick","mail","link"],"requiredMeta":["nick"],"lang":"zh-CN","emoji":["https://cdn.jsdelivr.net/gh/walinejs/emojis/weibo"],"dark":"html[data-user-color-scheme=\"dark\"]","wordLimit":0,"pageSize":10,"reaction":true,"locale":{"placeholder":"花径不曾缘客扫，蓬门今始为君开。"}},
+          {
+            el: '#waline',
+            path: window.location.pathname
+          }
+        )
+        Waline.init(options);
+        Fluid.utils.waitElementVisible('#waline .vcontent', () => {
+          var imgSelector = '#waline .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> <div style="font-size: 0.85rem"> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/custom/RunTime/RunTime.js"></script> </div> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  
+<script src="/custom/LabelPage/LabelPage.js"></script>
+<script src="/custom/LoadingBar/pace.min.js"></script>
+<script src="/custom/ReadingProgress/ReadingProgress.js"></script>
+<script src="/custom/typing-effect/typing-effect.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  <canvas
+    class="fireworks"
+    style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 32767"
+></canvas>
+<script type="text/javascript" src="/custom/fireworks/anime.min.js"></script> 
+<script type="text/javascript" src="/custom/fireworks/fireworks.js"></script>
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

@@ -1,0 +1,851 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" >
+
+
+
+<head><!-- hexo injector head_begin start --><progress id="content_progress" value="0"></progress><!-- hexo injector head_begin end -->
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/theme/TamakoAvatar-new-zip.png">
+  <link rel="icon" href="/img/theme/TamakoAvatar-new-zip.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#000000">
+  <meta name="author" content="龙泽雨">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="本文主要根据大模型聚合平台OpenRouter的官方文档摘取了其使用方法。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="openrouter的使用">
+<meta property="og:url" content="http://zeyulong.com/posts/5f9038bc/index.html">
+<meta property="og:site_name" content="龙泽雨的博客">
+<meta property="og:description" content="本文主要根据大模型聚合平台OpenRouter的官方文档摘取了其使用方法。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-02-17T13:29:35.000Z">
+<meta property="article:modified_time" content="2026-02-20T09:44:33.110Z">
+<meta property="article:author" content="龙泽雨">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>openrouter的使用 - 龙泽雨的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/custom/Markdown/macpanel.css">
+<link rel="stylesheet" href="/custom/Fonts/CodeFont.css">
+<link rel="stylesheet" href="/custom/Fonts/inlinecode-bg-color.css">
+<link rel="stylesheet" href="/custom/LoadingBar/pace-theme-corner-indicator.css">
+<link rel="stylesheet" href="/custom/ReadingProgress/ReadingProgress.css">
+<link rel="stylesheet" href="/custom/SelectBackgroundColor/SelectBackgroundColor.css">
+<link rel="stylesheet" href="/custom/waline/gif.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"zeyulong.com","root":"/","version":"1.9.7","typing":{"enable":false,"typeSpeed":100,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"8gUBTaCjmaSbnf4genwggan3-MdYXbMMI","app_key":"2WRxjgxRXIWRBo8EA4205Wfm","server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<!-- hexo injector head_end start --><link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@200;300;400;500;600;700;900&display=swap" rel="stylesheet"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.0.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Hello, world!</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/theme/GirlWithCat-cut.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle">openrouter的使用</span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        龙泽雨
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-02-17 21:29" pubdate>
+          2026年2月17日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          17 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">openrouter的使用</h1>
+            
+              <p id="updated-time" class="note note-info" style="">
+                
+                  
+                    本文最后更新于 2026年2月20日 下午
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <p>本文主要根据大模型聚合平台OpenRouter的<a target="_blank" rel="noopener" href="https://openrouter.ai/docs/quickstart">官方文档</a>摘取了其使用方法。</p>
+<span id="more"></span>
+<h1 id="openrouter">openrouter</h1>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://openrouter.ai/">https://openrouter.ai/</a></li>
+<li><a target="_blank" rel="noopener" href="https://openrouter.ai/docs/quickstart">https://openrouter.ai/docs/quickstart</a></li>
+</ul>
+<h2 id="概述">概述</h2>
+<ul>
+<li>OpenRouter 是<strong>全球规模最大、最知名的 AI 模型 API 聚合平台之一</strong>，在模型数量、用户规模和生态完整性方面处于行业领先地位。</li>
+<li>OpenRouter 提供统一的 API，让您通过单一接口访问数百个 AI 模型。</li>
+</ul>
+<h2 id="使用">使用</h2>
+<ol>
+<li>首先，创建一个账户并<a href="#%E5%85%85%E5%80%BC">充值</a>。 积分是您存入 OpenRouter 的资金，用于 LLM 推理。当您使用 API 或聊天界面时，我们会从您的积分中扣除请求费用。每个模型和提供商的每百万代币价格都不同。</li>
+<li>获得积分后，您可以使用聊天室，也可以创建 API 密钥并开始使用 API。您可以阅读我们的<a target="_blank" rel="noopener" href="https://openrouter.ai/docs/quickstart">快速入门指南</a>或<a target="_blank" rel="noopener" href="https://openrouter.ai/docs/enterprise-quickstart">企业指南</a>，其中包含代码示例等更多信息。</li>
+</ol>
+<h2 id="充值">充值</h2>
+<p>您可以通过支付宝或微信为OpenRouter账户充值，具体步骤如下：</p>
+<ol>
+<li>登录账户：首先，访问OpenRouter官方网站并登录您的账户。</li>
+<li>访问余额页面：在页面右上角找到个人头像，悬停后选择“Credits”选项，或者直接访问 余额页面 来查看当前账户余额。</li>
+<li>添加充值金额：点击“Add Credits”按钮。如果您尚未绑定支付方式，系统会提示您添加支付方法。在此界面，勾选“Use checkout page”选项。</li>
+<li>选择支付方式：在生成的支付链接中，您将看到支付宝和微信的支付选项。选择您希望使用的支付方式。</li>
+<li>完成支付：点击“Get Payment Link”按钮，稍等片刻，按钮将变为“Buy Credits”。点击“Buy Credits”后，系统将跳转至支付网关页面，您可以在此完成支付。</li>
+</ol>
+<p>注意事项</p>
+<ul>
+<li>账户余额: 如果您的账户余额低于10美元，您将无法使用免费的模型调用。</li>
+<li>充值金额: 充值金额会在扣除相关交易费用后计入账户，确保您了解费用结构。</li>
+<li>积分有效期: 目前OpenRouter没有设置积分过期时限，但保留一年后过期的权利。</li>
+</ul>
+<h2 id="指定特定的-Provider（供应商）">指定特定的 Provider（供应商）</h2>
+<h3 id="OpenRouter-Provider-路由机制">OpenRouter Provider 路由机制</h3>
+<p>OpenRouter 允许通过 API 请求参数来指定特定的 Provider（供应商）。核心参数如下：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">参数</th>
+<th style="text-align:left">说明</th>
+<th style="text-align:left">示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>provider.order</code></td>
+<td style="text-align:left">指定 Provider 优先级列表</td>
+<td style="text-align:left"><code>[&quot;Anthropic&quot;, &quot;OpenAI&quot;]</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>provider.allow_fallbacks</code></td>
+<td style="text-align:left">是否允许回退到其他 Provider</td>
+<td style="text-align:left"><code>true</code> / <code>false</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>provider.require_parameters</code></td>
+<td style="text-align:left">是否要求特定参数</td>
+<td style="text-align:left"><code>true</code> / <code>false</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="解决方案">解决方案</h3>
+<h4 id="使用模型名称后缀指定（部分有效）">使用模型名称后缀指定（部分有效）</h4>
+<p>某些情况下，OpenRouter 允许在模型名称中指定 Provider：</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs txt"># 格式：provider/model-name<br>anthropic/claude-3.5-sonnet<br>openai/gpt-4o<br>google/gemini-pro-1.5<br></code></pre></td></tr></table></figure>
+<p><strong>在 open-webui 中配置：</strong></p>
+<ol>
+<li>
+<p>进入 <strong>设置 → 连接 → OpenAI API</strong></p>
+</li>
+<li>
+<p>填入 OpenRouter 配置：</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs txt">API Base URL: https://openrouter.ai/api/v1<br>API Key: 您的 OpenRouter API Key<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>添加模型时使用完整模型路径：</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs txt">anthropic/claude-3.5-sonnet<br></code></pre></td></tr></table></figure>
+</li>
+</ol>
+<p><strong>局限性</strong>：这只能指定模型，不能指定同一模型的多个 Provider 中的某一个。</p>
+<h4 id="使用-OpenRouter-的模型特定-ID">使用 OpenRouter 的模型特定 ID</h4>
+<p>OpenRouter 上同一模型的不同 Provider 有时会有<strong>不同的模型 ID</strong>：</p>
+<ol>
+<li><strong>访问 OpenRouter 模型页面</strong>
+<ul>
+<li>网址：<a target="_blank" rel="noopener" href="https://openrouter.ai/models">https://openrouter.ai/models</a></li>
+</ul>
+</li>
+<li><strong>查找目标模型</strong>
+<ul>
+<li>搜索您需要的模型（如 <code>claude-3.5-sonnet</code>）</li>
+</ul>
+</li>
+<li><strong>查看可用 Provider</strong>
+<ul>
+<li>点击模型，查看不同 Provider 的价格和可用性</li>
+</ul>
+</li>
+<li><strong>使用特定 Provider 的模型 ID</strong>
+<ul>
+<li>某些 Provider 会有独特的模型 ID 后缀</li>
+</ul>
+</li>
+</ol>
+<p><strong>示例</strong>：</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs txt"># 同一模型的不同 Provider 可能有不同 ID<br>anthropic/claude-3.5-sonnet        # 默认路由<br>anthropic/claude-3.5-sonnet:beta   # 特定版本<br></code></pre></td></tr></table></figure>
+<h4 id="通过-OpenRouter-网页设置默认-Provider">通过 OpenRouter 网页设置默认 Provider</h4>
+<p>OpenRouter 允许在网页端设置某些模型的<strong>默认 Provider 偏好</strong>：</p>
+<ol>
+<li><strong>登录 OpenRouter 账号</strong>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://openrouter.ai/settings">https://openrouter.ai/settings</a></li>
+</ul>
+</li>
+<li><strong>查找 Provider 偏好设置</strong>
+<ul>
+<li>部分模型可以设置首选 Provider</li>
+</ul>
+</li>
+<li><strong>保存设置</strong>
+<ul>
+<li>这样所有通过您的 API Key 的请求都会优先使用设定的 Provider</li>
+</ul>
+</li>
+</ol>
+<h1 id="相关信息">相关信息</h1>
+<h2 id="模型变体">模型变体</h2>
+<p>变体是可以添加到模型别名中的后缀，以改变其行为。</p>
+<p>静态变体只能与特定模型一起使用，这些模型列在我们的<a target="_blank" rel="noopener" href="https://openrouter.ai/api/v1/models">模型 API</a> 中。</p>
+<ul>
+<li><code>:free</code> - 该模型始终免费提供，且速率限制低。<a target="_blank" rel="noopener" href="https://openrouter.ai/docs/guides/routing/model-variants/free">了解更多</a>。</li>
+<li><code>:extended</code> - 该模型具有比通常更长的上下文长度。<a target="_blank" rel="noopener" href="https://openrouter.ai/docs/guides/routing/model-variants/extended">了解更多</a>。</li>
+<li><code>:exacto</code> - 该模型仅使用 OpenRouter 精选的高质量端点。<a target="_blank" rel="noopener" href="https://openrouter.ai/docs/guides/routing/model-variants/exacto">了解更多</a>。</li>
+<li><code>:thinking</code> - 该模型默认支持推理。<a target="_blank" rel="noopener" href="https://openrouter.ai/docs/guides/routing/model-variants/thinking">了解更多</a>。</li>
+</ul>
+<p>动态变体可用于所有模型，它们会改变请求的路由或使用方式。</p>
+<ul>
+<li><code>:online</code> - 所有请求都会运行查询以提取附加到提示符的网页结果。<a target="_blank" rel="noopener" href="https://openrouter.ai/docs/guides/routing/model-variants/online">了解更多</a>。</li>
+<li><code>:nitro</code> - 服务提供商将按吞吐量排序，而非默认排序方式，从而优化响应速度。<a target="_blank" rel="noopener" href="https://openrouter.ai/docs/guides/routing/provider-selection#nitro-shortcut">了解更多</a>。</li>
+<li><code>:floor</code> - 供应商将按价格排序，而非默认排序方式，优先显示最具性价比的选项。<a target="_blank" rel="noopener" href="https://openrouter.ai/docs/guides/routing/provider-selection#floor-price-shortcut">了解更多</a>。</li>
+</ul>
+<p>使用方法，示例：在任何模型 ID 后添加 <code>:free</code> ：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><br>  <span class="hljs-attr">&quot;model&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;meta-llama/llama-3.2-3b-instruct:free&quot;</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+<h2 id="如果某个提供商不可用，模型回退机制是如何运作的？">如果某个提供商不可用，模型回退机制是如何运作的？</h2>
+<p>如果某个路由提供商返回错误，OpenRouter 会自动回退到下一个提供商。此过程对用户透明，并能显著提高生产环境应用的容错能力。OpenRouter 提供了丰富的选项来配置路由提供商的行为。</p>
+<p>完整文档请点击此处<a target="_blank" rel="noopener" href="https://openrouter.ai/docs/guides/routing/provider-selection">查看</a>。</p>
+<h2 id="如何计算速率限制？">如何计算速率限制？</h2>
+<p>所有新用户都会获得少量免费额度，用于试用 OpenRouter。</p>
+<p>对于免费模型，速率限制取决于您购买的积分数量。如果您购买了至少 10 个积分，则您的免费模型每日请求速率限制为 1000 次。否则，您的免费模型 API 请求速率限制为每日 50 次。</p>
+<p>一些热门型号包括：</p>
+<ul>
+<li><strong>DeepSeek R1（免费）</strong> - DeepSeek 的推理模型</li>
+<li><strong>Llama models (free)</strong> - 各种 Meta Llama 模型</li>
+<li><strong>Qwen models (free)</strong> - 阿里巴巴的 Qwen 系列</li>
+<li>以及其他社区贡献的免费模型</li>
+</ul>
+<p>您可以在我们的<a target="_blank" rel="noopener" href="https://openrouter.ai/docs/api/reference/limits">费率限制文档</a>中了解更多关于付费账户费率限制运作方式的信息。</p>
+<h2 id="免费模型使用指南">免费模型使用指南</h2>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://openrouter.ai/docs/guides/guides/free-models-router-playground">https://openrouter.ai/docs/guides/guides/free-models-router-playground</a></li>
+</ul>
+<p>要检查 API 密钥的速率限制或剩余积分，请向 <code>https://openrouter.ai/api/v1/key</code> 发出 GET 请求。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> requests<br><span class="hljs-keyword">import</span> json<br><br>response = requests.get(<br>  url=<span class="hljs-string">&quot;https://openrouter.ai/api/v1/key&quot;</span>,<br>  headers=&#123;<br>    <span class="hljs-string">&quot;Authorization&quot;</span>: <span class="hljs-string">f&quot;Bearer &lt;OPENROUTER_API_KEY&gt;&quot;</span><br>  &#125;<br>)<br><br><span class="hljs-built_in">print</span>(json.dumps(response.json(), indent=<span class="hljs-number">2</span>))<br></code></pre></td></tr></table></figure>
+<p>如果您提交了有效的 API 密钥，您应该会收到如下形式的响应：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">type</span> <span class="hljs-title class_">Key</span> = &#123;<br>  <span class="hljs-attr">data</span>: &#123;<br>    <span class="hljs-attr">label</span>: <span class="hljs-built_in">string</span>;<br>    <span class="hljs-attr">limit</span>: <span class="hljs-built_in">number</span> | <span class="hljs-literal">null</span>; <span class="hljs-comment">// Credit limit for the key, or null if unlimited</span><br>    <span class="hljs-attr">limit_reset</span>: <span class="hljs-built_in">string</span> | <span class="hljs-literal">null</span>; <span class="hljs-comment">// Type of limit reset for the key, or null if never resets</span><br>    <span class="hljs-attr">limit_remaining</span>: <span class="hljs-built_in">number</span> | <span class="hljs-literal">null</span>; <span class="hljs-comment">// Remaining credits for the key, or null if unlimited</span><br>    <span class="hljs-attr">include_byok_in_limit</span>: <span class="hljs-built_in">boolean</span>;  <span class="hljs-comment">// Whether to include external BYOK usage in the credit limit</span><br><br>    <span class="hljs-attr">usage</span>: <span class="hljs-built_in">number</span>; <span class="hljs-comment">// Number of credits used (all time)</span><br>    <span class="hljs-attr">usage_daily</span>: <span class="hljs-built_in">number</span>; <span class="hljs-comment">// Number of credits used (current UTC day)</span><br>    <span class="hljs-attr">usage_weekly</span>: <span class="hljs-built_in">number</span>; <span class="hljs-comment">// ... (current UTC week, starting Monday)</span><br>    <span class="hljs-attr">usage_monthly</span>: <span class="hljs-built_in">number</span>; <span class="hljs-comment">// ... (current UTC month)</span><br><br>    <span class="hljs-attr">byok_usage</span>: <span class="hljs-built_in">number</span>; <span class="hljs-comment">// Same for external BYOK usage</span><br>    <span class="hljs-attr">byok_usage_daily</span>: <span class="hljs-built_in">number</span>;<br>    <span class="hljs-attr">byok_usage_weekly</span>: <span class="hljs-built_in">number</span>;<br>    <span class="hljs-attr">byok_usage_monthly</span>: <span class="hljs-built_in">number</span>;<br><br>    <span class="hljs-attr">is_free_tier</span>: <span class="hljs-built_in">boolean</span>; <span class="hljs-comment">// Whether the user has paid for credits before</span><br>    <span class="hljs-comment">// rate_limit: &#123; ... &#125; // A deprecated object in the response, safe to ignore</span><br>  &#125;;<br>&#125;;<br><br></code></pre></td></tr></table></figure>
+<p>无论账户状态如何，某些类型的请求都会受到一些速率限制：</p>
+<ul>
+<li>免费使用限制：如果您使用的是免费型号（ID 以 <code>:free</code> 结尾），则每分钟最多可以发出 20 个请求。每日限制如下：</li>
+<li>如果您购买的积分少于 10 个，则每天最多只能进行 50 次 <code>:free</code> 模型请求。</li>
+<li>如果您购买至少 10 个积分，您的每日限额将增加到每天 1000 次 <code>:free</code> 模型请求。</li>
+<li><strong>DDoS 防护</strong> ：Cloudflare 的 DDoS 防护功能将阻止严重超出合理使用量的请求。</li>
+<li>如果您的账户余额为负数，您可能会看到 <code>402</code> 错误，包括免费模型。充值使余额大于零后，您就可以再次使用这些模型。</li>
+</ul>
+<h2 id="其它链接">其它链接</h2>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://openrouter.ai/docs/guides/overview/multimodal/pdfs">PDF Inputs</a></li>
+<li><a target="_blank" rel="noopener" href="https://openrouter.ai/docs/guides/overview/auth/management-api-keys">Management API Keys</a></li>
+<li><a target="_blank" rel="noopener" href="https://openrouter.ai/docs/guides/routing/provider-selection">Provider Routing</a></li>
+<li><a target="_blank" rel="noopener" href="https://openrouter.ai/docs/guides/features/presets">Presets</a>：<a target="_blank" rel="noopener" href="https://openrouter.ai/settings/presets">预设功能</a>允许您将 LLM 配置与代码分离。通过 OpenRouter Web 应用程序创建和管理预设，以控制提供商路由、模型选择、系统提示和其他参数，然后在 OpenRouter API 请求中引用它们。</li>
+<li><a target="_blank" rel="noopener" href="https://openrouter.ai/docs/guides/features/plugins/overview">Plugins</a>：OpenRouter 插件通过添加实时网页搜索、PDF 处理和自动 JSON 修复等功能，扩展了任何型号的功能。插件可以通过 API 逐个请求启用，也可以通过 <a target="_blank" rel="noopener" href="https://openrouter.ai/settings/plugins">“插件设置”页面</a>配置为所有 API 请求的默认插件。</li>
+<li><a target="_blank" rel="noopener" href="https://openrouter.ai/docs/api/reference/errors-and-debugging">Errors and Debugging</a>：详细解释了调用API时的报错的含义。</li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7%E5%BA%93/" class="category-chain-item">软件工具库</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>openrouter的使用</div>
+      <div>http://zeyulong.com/posts/5f9038bc/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>龙泽雨</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2026年2月17日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/posts/58d851b3/" title="deep research的使用">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">deep research的使用</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/86ad89de/" title="ffmpeg的安装">
+                        <span class="hidden-mobile">ffmpeg的安装</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="waline"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#waline', function() {
+      Fluid.utils.createCssLink('https://cdn.staticfile.org/waline/2.15.5/waline.min.css')
+      Fluid.utils.createScript('https://cdn.staticfile.org/waline/2.15.5/waline.min.js', function() {
+        var options = Object.assign(
+          {"serverURL":"https://www.zeyulong.cn/","path":"window.location.pathname","meta":["nick","mail","link"],"requiredMeta":["nick"],"lang":"zh-CN","emoji":["https://cdn.jsdelivr.net/gh/walinejs/emojis/weibo"],"dark":"html[data-user-color-scheme=\"dark\"]","wordLimit":0,"pageSize":10,"reaction":true,"locale":{"placeholder":"花径不曾缘客扫，蓬门今始为君开。"}},
+          {
+            el: '#waline',
+            path: window.location.pathname
+          }
+        )
+        Waline.init(options);
+        Fluid.utils.waitElementVisible('#waline .vcontent', () => {
+          var imgSelector = '#waline .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> <div style="font-size: 0.85rem"> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/custom/RunTime/RunTime.js"></script> </div> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  
+<script src="/custom/LabelPage/LabelPage.js"></script>
+<script src="/custom/LoadingBar/pace.min.js"></script>
+<script src="/custom/ReadingProgress/ReadingProgress.js"></script>
+<script src="/custom/typing-effect/typing-effect.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  <canvas
+    class="fireworks"
+    style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 32767"
+></canvas>
+<script type="text/javascript" src="/custom/fireworks/anime.min.js"></script> 
+<script type="text/javascript" src="/custom/fireworks/fireworks.js"></script>
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

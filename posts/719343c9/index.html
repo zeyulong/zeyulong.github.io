@@ -1,0 +1,2037 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" >
+
+
+
+<head><!-- hexo injector head_begin start --><progress id="content_progress" value="0"></progress><!-- hexo injector head_begin end -->
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/theme/TamakoAvatar-new-zip.png">
+  <link rel="icon" href="/img/theme/TamakoAvatar-new-zip.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#000000">
+  <meta name="author" content="龙泽雨">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="本文主要根据大模型集成交互界面open-webui的官方文档摘取了其配置和使用方法。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="open-webui的部署和使用">
+<meta property="og:url" content="http://zeyulong.com/posts/719343c9/index.html">
+<meta property="og:site_name" content="龙泽雨的博客">
+<meta property="og:description" content="本文主要根据大模型集成交互界面open-webui的官方文档摘取了其配置和使用方法。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-02-17T07:54:50.000Z">
+<meta property="article:modified_time" content="2026-03-13T03:18:16.740Z">
+<meta property="article:author" content="龙泽雨">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>open-webui的部署和使用 - 龙泽雨的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/custom/Markdown/macpanel.css">
+<link rel="stylesheet" href="/custom/Fonts/CodeFont.css">
+<link rel="stylesheet" href="/custom/Fonts/inlinecode-bg-color.css">
+<link rel="stylesheet" href="/custom/LoadingBar/pace-theme-corner-indicator.css">
+<link rel="stylesheet" href="/custom/ReadingProgress/ReadingProgress.css">
+<link rel="stylesheet" href="/custom/SelectBackgroundColor/SelectBackgroundColor.css">
+<link rel="stylesheet" href="/custom/waline/gif.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"zeyulong.com","root":"/","version":"1.9.7","typing":{"enable":false,"typeSpeed":100,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"8gUBTaCjmaSbnf4genwggan3-MdYXbMMI","app_key":"2WRxjgxRXIWRBo8EA4205Wfm","server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<!-- hexo injector head_end start --><link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@200;300;400;500;600;700;900&display=swap" rel="stylesheet"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.0.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Hello, world!</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/theme/GirlWithCat-cut.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle">open-webui的部署和使用</span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        龙泽雨
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-02-17 15:54" pubdate>
+          2026年2月17日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          19k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          155 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">open-webui的部署和使用</h1>
+            
+              <p id="updated-time" class="note note-info" style="">
+                
+                  
+                    本文最后更新于 2026年3月13日 上午
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <p>本文主要根据大模型集成交互界面open-webui的<a target="_blank" rel="noopener" href="https://docs.openwebui.com/">官方文档</a>摘取了其配置和使用方法。</p>
+<span id="more"></span>
+<h1 id="open-webui">open-webui</h1>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/open-webui/open-webui">https://github.com/open-webui/open-webui</a></li>
+<li><a target="_blank" rel="noopener" href="https://openwebui.com">https://openwebui.com</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.openwebui.com/">https://docs.openwebui.com/</a></li>
+</ul>
+<h2 id="概述">概述</h2>
+<ul>
+<li>Open WebUI 是一个让您能够按照自己的方式运行 AI 的平台。您可以连接到任何模型——无论是本地模型还是云端模型。</li>
+<li>可连接 Ollama、OpenAI、Anthropic 或任何兼容平台。支持本地运行、云端运行或两者兼备。数据始终保留在它应该在的地方。</li>
+<li>语音、视觉、检索、生成、搜索。支持 Python 扩展。即刻可用。</li>
+<li><strong>Open WebUI 是一个<a target="_blank" rel="noopener" href="https://docs.openwebui.com/features/extensibility/plugin/">可扩展</a>、功能丰富且用户友好的自托管 AI 平台，旨在完全离线运行。</strong> 它基于通用标准构建，支持 <strong>Ollama</strong> 和 <strong>OpenAI 兼容协议</strong> （特别是聊天补全）。这种协议优先的方法使其成为一个功能强大、与提供商无关的 AI 部署解决方案，适用于本地和云端模型。</li>
+<li>文档和功能完善，且扩展性（企业级多用户）高。</li>
+</ul>
+<h2 id="主要特性">主要特性</h2>
+<ul>
+<li>🚀 <strong>轻松安装</strong> ：使用 Docker 或 Kubernetes（kubectl、kustomize 或 helm）无缝安装，享受轻松体验，同时支持 <code>:ollama</code> 和 <code>:cuda</code> 标签的镜像。</li>
+<li>🤝 <strong>Ollama/OpenAI API 集成</strong> ：轻松集成兼容 OpenAI 的 API，实现与 Ollama 模型的多样化对话。自定义 OpenAI API URL，以连接 <strong>LMStudio、GroqCloud、Mistral、OpenRouter 等</strong> 。</li>
+<li>📱 <strong>响应式设计</strong> ：在台式电脑、笔记本电脑和移动设备上享受无缝体验。</li>
+<li>📱 <strong>移动端渐进式 Web 应用 (PWA)</strong> ：使用我们的 PWA，在您的移动设备上享受类似原生应用的体验，提供本地主机上的离线访问和无缝的用户界面。</li>
+<li>📱 <strong>移动端渐进式 Web 应用</strong> ：在您的移动设备上享受原生渐进式 Web 应用体验，支持在 <code>localhost</code> 或个人域名上离线访问，并拥有流畅的用户界面。为了确保我们的 PWA 能够安装在您的设备上，它必须在安全的环境中运行。这通常意味着它必须通过 HTTPS 提供服务。</li>
+<li>✒️🔢 <strong>完全支持 Markdown 和 LaTeX</strong> ：通过全面的 Markdown 和 LaTeX 功能提升您的 LLM 体验，实现更丰富的交互。</li>
+<li>🌐 <strong>网页浏览功能</strong> ：使用 <code>#</code> 命令后跟网址，即可将网站无缝集成到聊天体验中。此功能允许您将网页内容直接融入对话，从而丰富和深入地促进互动。</li>
+<li>🎨 <strong>图像生成与编辑集成</strong> ：使用多个引擎创建和编辑图像，包括 OpenAI 的 DALL-E、Gemini、ComfyUI（本地）和 AUTOMATIC1111（本地），支持生成和基于提示的编辑工作流程。</li>
+<li>⚙️ <strong>多模型对话</strong> ：轻松同时与多个模型互动，充分利用它们的独特优势，获得最佳反馈。并行使用多种模型，提升您的体验。</li>
+<li>🛠️ <strong>引导式初始设置</strong> ：清晰地完成设置过程，包括在首次设置期间明确指示创建管理员帐户。</li>
+<li>📂 <strong>集中式文件管理</strong> ：统一的控制面板，方便您在一个地方搜索、查看和管理所有已上传的文档。删除文件时，会自动清理知识库关联和矢量嵌入。<a target="_blank" rel="noopener" href="https://docs.openwebui.com/features/chat-conversations/data-controls/files">了解更多文件管理信息</a>。
+<ul>
+<li>通过上传文档（PDF、Word 文档、文本文件等），您可以将 AI 的响应建立在您自己的数据之上。
+<ul>
+<li><strong>聊天上传</strong> ：只需将文件拖放到聊天中，或使用上传图标即可。</li>
+<li><strong>知识库</strong> ：将文件添加到结构化集合中，以便更永久、更有条理地检索。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>📄 <strong>使用多个引擎进行高级文档提取</strong> ：使用您选择的提取引擎（Apache Tika、Docling、Azure Document Intelligence、Mistral OCR 或外部自定义（自建）内容提取引擎/文档加载器）从各种文档格式（包括 PDF、Word 文档、Excel 电子表格、PowerPoint 演示文稿等）中提取文本和数据。高级文档处理功能可与您的知识库无缝集成，在保留文档结构和格式的同时，支持对扫描文档和图像进行光学字符识别 (OCR)。<a target="_blank" rel="noopener" href="https://docs.openwebui.com/features/chat-conversations/rag/document-extraction">了解更多关于文档提取的信息</a>。</li>
+<li>🔍 <strong>网络搜索助力 RAG 和智能搜索研究</strong> ：使用包括 SearXNG、Google PSE、Brave Search、Kagi、Mojeek、Bocha、Tavily、Perplexity 等在内的 15 多个搜索提供商执行网络搜索。使用<strong>原生函数调用</strong>时，模型可以按顺序执行多个搜索，并使用 <code>fetch_url</code> 工具读取完整页面内容以进行深度研究。<a target="_blank" rel="noopener" href="https://docs.openwebui.com/features/chat-conversations/web-search/agentic-search">了解智能搜索</a>。</li>
+<li>🎨 <strong>图像生成与编辑集成</strong> ：使用 DALL-E、Gemini、ComfyUI 和 AUTOMATIC1111 等引擎无缝创建和编辑图像。支持<strong>原生工具调用</strong> ，允许模型在对话过程中独立生成和优化图像。<a target="_blank" rel="noopener" href="https://docs.openwebui.com/category/create--edit-images">了解更多关于图像生成的信息</a>。</li>
+<li>🔍 <strong>文本选择快速操作</strong> ：当 LLM 响应中的文本被突出显示时，会出现浮动按钮，提供“提问”或“解释”等更深入的交互，从而增强整体用户体验。</li>
+<li>🔄 <strong>便携式导入/导出</strong> ：轻松导入和导出 Open WebUI 配置，简化跨多个系统复制设置的过程。</li>
+<li>💬 <strong>真正的异步聊天</strong> ：享受不间断的多任务处理，支持真正的异步聊天，您可以创建聊天，离开聊天室，随时返回聊天室，回复内容已准备就绪。</li>
+</ul>
+<h1 id="部署">部署</h1>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/open-webui/open-webui?tab=readme-ov-file#how-to-install-">https://github.com/open-webui/open-webui?tab=readme-ov-file#how-to-install-</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.openwebui.com/getting-started/updating/">https://docs.openwebui.com/getting-started/updating/</a></li>
+</ul>
+<h2 id="部署方式">部署方式</h2>
+<ul>
+<li><strong>Docker：</strong> <strong>官方支持，并推荐给大多数用户使用</strong></li>
+<li><strong>Python：</strong> 适合资源匮乏的环境或需要手动设置的用户</li>
+<li><strong>Kubernetes：</strong> 非常适合需要扩展和编排的企业级部署</li>
+</ul>
+<p>我们提供多种安装方式，包括非 Docker 原生安装方法、Docker Compose、Kustomize 和 Helm。请访问我们的 <a target="_blank" rel="noopener" href="https://docs.openwebui.com/getting-started/">Open WebUI 文档</a>或加入我们的 <a target="_blank" rel="noopener" href="https://discord.gg/5rJgQTnV4s">Discord 社区</a>获取更全面的指导。</p>
+<h2 id="Docker">Docker</h2>
+<p><a target="_blank" rel="noopener" href="https://docs.openwebui.com/faq#q-why-does-open-webui-emphasize-the-use-of-docker">为什么 Open WebUI 强调使用 Docker？</a></p>
+<blockquote>
+<p>使用docker部署open-webui更方便使用官方支持的各种功能，比如<a target="_blank" rel="noopener" href="https://docs.openwebui.com/features/chat-conversations/rag/document-extraction/">文档提取</a>。推荐使用此部署方式，一劳永逸。</p>
+</blockquote>
+<h3 id="安装指南">安装指南</h3>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/open-webui/open-webui?tab=readme-ov-file#how-to-install-">https://github.com/open-webui/open-webui?tab=readme-ov-file#how-to-install-</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.openwebui.com/">https://docs.openwebui.com/</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.openwebui.com/getting-started/quick-start/">https://docs.openwebui.com/getting-started/quick-start/</a></li>
+</ul>
+<h3 id="安装">安装</h3>
+<blockquote>
+<p>使用 Docker 安装 Open WebUI 时，请务必在 Docker 命令中包含 <code>-v open-webui:/app/backend/data</code> 。这一步至关重要，它可以确保数据库正确挂载，防止数据丢失。</p>
+</blockquote>
+<blockquote>
+<p>如果您希望使用包含 Ollama 或 CUDA 加速的 Open WebUI，我们建议您使用带有 <code>:cuda</code> 或 <code>:ollama</code> 标签的官方镜像。要启用 CUDA，您必须在 Linux/WSL 系统上安装 <a target="_blank" rel="noopener" href="https://docs.nvidia.com/dgx/nvidia-container-runtime-upgrade/">Nvidia CUDA 容器工具包 </a>。</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 如果您的电脑上安装了 Ollama ，请使用以下命令（一般情况）：</span><br>docker run -d -p 3000:8080 --add-host=host.docker.internal:host-gateway -v open-webui:/app/backend/data --name open-webui --restart always ghcr.io/open-webui/open-webui:main<br><br><span class="hljs-comment"># 如果 Ollama 位于其他服务器上 ，请使用以下命令：</span><br><span class="hljs-comment"># 要连接到另一台服务器上的 Ollama，请将 `OLLAMA_BASE_URL` 更改为服务器的 URL：</span><br>docker run -d -p 3000:8080 -e OLLAMA_BASE_URL=https://example.com -v open-webui:/app/backend/data --name open-webui --restart always ghcr.io/open-webui/open-webui:main<br><br><span class="hljs-comment"># 要运行支持 Nvidia GPU 的 Open WebUI ，请使用以下命令：</span><br>docker run -d -p 3000:8080 --gpus all --add-host=host.docker.internal:host-gateway -v open-webui:/app/backend/data --name open-webui --restart always ghcr.io/open-webui/open-webui:cuda<br><br><span class="hljs-comment"># 如果您仅使用 OpenAI API ，请使用以下命令：</span><br>docker run -d -p 3000:8080 -e OPENAI_API_KEY=your_secret_key -v open-webui:/app/backend/data --name open-webui --restart always ghcr.io/open-webui/open-webui:main<br><br><span class="hljs-comment"># 安装带有捆绑 Ollama 支持的 Open WebUI</span><br><span class="hljs-comment"># 支持 GPU ：运行以下命令即可利用 GPU 资源：</span><br>docker run -d -p 3000:8080 --gpus=all -v ollama:/root/.ollama -v open-webui:/app/backend/data --name open-webui --restart always ghcr.io/open-webui/open-webui:ollama<br><span class="hljs-comment"># 仅使用 CPU ：如果您未使用 GPU，请改用以下命令：</span><br>docker run -d -p 3000:8080 -v ollama:/root/.ollama -v open-webui:/app/backend/data --name open-webui --restart always ghcr.io/open-webui/open-webui:ollama<br><br><span class="hljs-comment">## 等等，其它场景请见官方文档</span><br></code></pre></td></tr></table></figure>
+<p>安装完成后，您可以通过 <a target="_blank" rel="noopener" href="http://localhost:3000/">http://localhost:3000</a> 访问 Open WebUI。祝您使用愉快！😄</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs powershell">docker tag ghcr.io/<span class="hljs-built_in">open-webui</span>/<span class="hljs-built_in">open-webui</span>:main ghcr.io/<span class="hljs-built_in">open-webui</span>/<span class="hljs-built_in">open-webui</span>:v1.<span class="hljs-number">1.1</span>  <span class="hljs-comment"># （可选）备份当前image版本</span><br></code></pre></td></tr></table></figure>
+<p>可能的报错：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/open-webui/open-webui?tab=readme-ov-file#open-webui-server-connection-error">打开 WebUI 时出现服务器连接错误</a></li>
+</ul>
+<h3 id="在生产环境中使用图像标签">在生产环境中使用图像标签</h3>
+<p>如果您希望始终运行最新版本的 Open WebUI，可以根据您的配置使用 <code>:main</code> 、 <code>:cuda</code> 或 <code>:ollama</code> 镜像标签，如上例所示。对于稳定性和可复现性至关重要的 <code>production environments</code> ，建议锁定特定版本，而不是使用这些浮动标签。版本化镜像遵循以下格式：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">ghcr.io/open-webui/open-webui:&lt;RELEASE_VERSION&gt;-&lt;TYPE&gt;<br></code></pre></td></tr></table></figure>
+<p>示例（图中所示版本仅用于说明目的）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">ghcr.io/open-webui/open-webui:v0.8.0<br>ghcr.io/open-webui/open-webui:v0.8.0-ollama<br>ghcr.io/open-webui/open-webui:v0.8.0-cuda<br></code></pre></td></tr></table></figure>
+<h3 id="（可选）配置网络代理">（可选）配置网络代理</h3>
+<p>v2rayN 必须允许来自 Docker 的连接</p>
+<p><strong>问题</strong>：v2rayN 默认可能只监听 <code>127.0.0.1</code>，而 Docker 容器通过 <code>host.docker.internal</code> 访问时，来源 IP 是 Docker 网关（如 <code>172.17.0.1</code>）。</p>
+<p>检查方法：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs powershell"><span class="hljs-comment"># 检查 v2rayN 监听地址</span><br>netstat <span class="hljs-literal">-ano</span> | findstr <span class="hljs-string">&quot;10808&quot;</span><br></code></pre></td></tr></table></figure>
+<p>预期输出：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs powershell"><span class="hljs-comment"># ✅ 正确：监听所有接口</span><br>TCP    <span class="hljs-number">0.0</span>.<span class="hljs-number">0.0</span>:<span class="hljs-number">10808</span>          <span class="hljs-number">0.0</span>.<span class="hljs-number">0.0</span>:<span class="hljs-number">0</span>              LISTENING<br><br><span class="hljs-comment"># ⚠️ 可能有问题：只监听本地</span><br>TCP    <span class="hljs-number">127.0</span>.<span class="hljs-number">0.1</span>:<span class="hljs-number">10808</span>        <span class="hljs-number">0.0</span>.<span class="hljs-number">0.0</span>:<span class="hljs-number">0</span>              LISTENING<br></code></pre></td></tr></table></figure>
+<p>解决方案（如果需要）：</p>
+<ol>
+<li>v2rayN 设置 → 参数设置 → 允许来自局域网的连接 → 启用 → 确定。</li>
+</ol>
+<h3 id="完整的启动脚本">完整的启动脚本</h3>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br></pre></td><td class="code"><pre><code class="hljs powershell"><span class="hljs-comment"># =========================</span><br><span class="hljs-comment"># Open WebUI via docker run</span><br><span class="hljs-comment"># =========================</span><br><br><span class="hljs-comment"># ---- 可修改区：按需改成你的值 ----</span><br><br><span class="hljs-comment"># 安全配置（JWT 密钥）</span><br><span class="hljs-comment"># 重要：首次设置后不要随意更改，否则用户会话会失效</span><br><span class="hljs-variable">$WEBUI_SECRET_KEY</span> = <span class="hljs-string">&quot;your-secure-random-key-change-this&quot;</span><br><br><span class="hljs-comment"># 数据目录（强烈建议用本机目录，而不是匿名 volume，方便备份/迁移）</span><br><span class="hljs-variable">$DataDir</span>       = <span class="hljs-string">&quot;C:\xxx\data&quot;</span><br><br><span class="hljs-comment"># 容器基础配置</span><br><span class="hljs-variable">$ContainerName</span> = <span class="hljs-string">&quot;open-webui&quot;</span><br><span class="hljs-variable">$Image</span>         = <span class="hljs-string">&quot;ghcr.io/open-webui/open-webui:main&quot;</span><br><br><span class="hljs-comment"># WebUI 对外端口：浏览器访问 http://localhost:3000</span><br><span class="hljs-variable">$HostPort</span>      = <span class="hljs-number">3000</span><br><span class="hljs-variable">$ContainerPort</span> = <span class="hljs-number">8080</span><br><br><span class="hljs-comment"># 代理配置（v2rayN 默认端口 10808 或 10809）</span><br><span class="hljs-comment"># 如果你需要让容器内访问 HuggingFace / GitHub 等走代理</span><br><span class="hljs-variable">$PROXY_HOST</span> = <span class="hljs-string">&quot;host.docker.internal&quot;</span><br><span class="hljs-variable">$PROXY_PORT</span> = <span class="hljs-string">&quot;10808&quot;</span><br><br><span class="hljs-comment"># HuggingFace 镜像</span><br><span class="hljs-comment"># 解决报错：huggingface_hub.utils._errors.LocalEntryNotFoundError</span><br><span class="hljs-variable">$HfEndpoint</span>    = <span class="hljs-string">&quot;https://hf-mirror.com&quot;</span><br><br><span class="hljs-comment"># CORS：允许哪些前端 Origin 访问后端（通常你只在本机用 3000 就够了）</span><br><span class="hljs-comment"># 注意：Open WebUI 默认前端就是同源，只有在“前后端分离/反向代理/端口不同”时更需要配置</span><br><span class="hljs-comment"># https://docs.openwebui.com/reference/env-configuration/#cors_allow_origin</span><br><span class="hljs-comment"># 解决警告：WARNING: CORS_ALLOW_ORIGIN IS SET TO &#x27;*&#x27; - NOT RECOMMENDED FOR PRODUCTION DEPLOYMENTS.</span><br><span class="hljs-variable">$CorsAllowOrigin</span> = <span class="hljs-string">&quot;http://localhost:<span class="hljs-variable">$HostPort</span>;http://127.0.0.1:<span class="hljs-variable">$HostPort</span>&quot;</span><br><br><span class="hljs-comment"># 解决警告：WARNI [langchain_community.utils.user_agent] USER_AGENT environment variable not set, consider setting it to identify your requests.</span><br><span class="hljs-variable">$UserAgent</span> = <span class="hljs-string">&quot;open-webui/0.8.3 (https://github.com/open-webui/open-webui)&quot;</span><br><br><span class="hljs-comment"># 启用[KV 缓存优化](https://docs.openwebui.com/features/chat-conversations/rag/#kv-cache-optimization-performance-tip-)</span><br><span class="hljs-variable">$RagSystemContext</span> = <span class="hljs-string">&quot;True&quot;</span><br><br><span class="hljs-comment"># ---- 准备工作：测试网络 ----</span><br><span class="hljs-built_in">Test-NetConnection</span> <span class="hljs-number">127.0</span>.<span class="hljs-number">0.1</span> <span class="hljs-literal">-Port</span> <span class="hljs-variable">$PROXY_PORT</span><br>python C:\xxx\test_proxy.py<br><br><span class="hljs-comment"># ---- 准备工作：检查数据目录必须已存在，否则报错退出 ----</span><br><span class="hljs-keyword">if</span> (!(<span class="hljs-built_in">Test-Path</span> <span class="hljs-literal">-LiteralPath</span> <span class="hljs-variable">$DataDir</span>)) &#123;<br>  <span class="hljs-built_in">Write-Error</span> <span class="hljs-string">&quot;DATA_DIR does not exist: <span class="hljs-variable">$DataDir</span>. Please create it first (e.g. New-Item -ItemType Directory -Path &#x27;<span class="hljs-variable">$DataDir</span>&#x27;).&quot;</span><br>  <span class="hljs-keyword">exit</span> <span class="hljs-number">1</span><br>&#125;<br><br><span class="hljs-comment"># 防止 $DataDir 指向的是文件而不是目录</span><br><span class="hljs-keyword">if</span> (<span class="hljs-operator">-not</span> (<span class="hljs-built_in">Test-Path</span> <span class="hljs-literal">-LiteralPath</span> <span class="hljs-variable">$DataDir</span> <span class="hljs-literal">-PathType</span> Container)) &#123;<br>  <span class="hljs-built_in">Write-Error</span> <span class="hljs-string">&quot;DATA_DIR exists but is not a directory: <span class="hljs-variable">$DataDir</span>&quot;</span><br>  <span class="hljs-keyword">exit</span> <span class="hljs-number">1</span><br>&#125;<br><br><span class="hljs-comment"># ---- 如果已存在同名容器，先停掉并删除，避免冲突 ----</span><br><span class="hljs-variable">$existing</span> = docker <span class="hljs-built_in">ps</span> <span class="hljs-literal">-a</span> <span class="hljs-literal">--format</span> <span class="hljs-string">&quot;&#123;&#123;.Names&#125;&#125;&quot;</span> | <span class="hljs-built_in">Where-Object</span> &#123; <span class="hljs-variable">$_</span> <span class="hljs-operator">-eq</span> <span class="hljs-variable">$ContainerName</span> &#125;<br><span class="hljs-keyword">if</span> (<span class="hljs-variable">$existing</span>) &#123;<br>  <span class="hljs-built_in">Write-Host</span> <span class="hljs-string">&quot;Stopping existing container: <span class="hljs-variable">$ContainerName</span>&quot;</span><br>  docker stop <span class="hljs-variable">$ContainerName</span> | <span class="hljs-built_in">Out-Null</span><br>  <span class="hljs-built_in">Write-Host</span> <span class="hljs-string">&quot;Removing existing container: <span class="hljs-variable">$ContainerName</span>&quot;</span><br>  docker <span class="hljs-built_in">rm</span> <span class="hljs-variable">$ContainerName</span>   | <span class="hljs-built_in">Out-Null</span><br>&#125;<br><br><span class="hljs-comment"># ---- 在默认浏览器中打开网址 ----</span><br><span class="hljs-built_in">Start-Process</span> <span class="hljs-string">&quot;http://localhost:<span class="hljs-variable">$HostPort</span>&quot;</span><br><br><span class="hljs-comment"># ---- 创建并运行容器 ----</span><br>docker run <span class="hljs-literal">-d</span> `<br>  <span class="hljs-literal">--name</span> <span class="hljs-variable">$ContainerName</span> `<br>  <span class="hljs-literal">--restart</span> no `<br>  <span class="hljs-literal">-p</span> <span class="hljs-variable">$</span>&#123;HostPort&#125;:<span class="hljs-variable">$</span>&#123;ContainerPort&#125; `<br>  <span class="hljs-literal">--add-host</span>=host.docker.internal:host<span class="hljs-literal">-gateway</span> `<br>  <span class="hljs-literal">-v</span> <span class="hljs-string">&quot;<span class="hljs-variable">$</span>&#123;DataDir&#125;:/app/backend/data&quot;</span> `<br>  <span class="hljs-literal">-e</span> HTTP_PROXY=http://<span class="hljs-variable">$</span>&#123;PROXY_HOST&#125;:<span class="hljs-variable">$</span>&#123;PROXY_PORT&#125; `<br>  <span class="hljs-literal">-e</span> HTTPS_PROXY=http://<span class="hljs-variable">$</span>&#123;PROXY_HOST&#125;:<span class="hljs-variable">$</span>&#123;PROXY_PORT&#125; `<br>  <span class="hljs-literal">-e</span> NO_PROXY=<span class="hljs-string">&quot;localhost,127.0.0.1,::1,0.0.0.0,.local,.lan,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16,host.docker.internal&quot;</span> `<br>  <span class="hljs-literal">-e</span> HF_ENDPOINT=<span class="hljs-variable">$HfEndpoint</span> `<br>  <span class="hljs-literal">-e</span> DATA_DIR=<span class="hljs-string">&quot;/app/backend/data&quot;</span> `<br>  <span class="hljs-literal">-e</span> CORS_ALLOW_ORIGIN=<span class="hljs-variable">$CorsAllowOrigin</span> `<br>  <span class="hljs-literal">-e</span> USER_AGENT=<span class="hljs-variable">$UserAgent</span> `<br>  <span class="hljs-literal">-e</span> RAG_SYSTEM_CONTEXT=<span class="hljs-variable">$RagSystemContext</span> `<br>  <span class="hljs-literal">-e</span> WEBUI_SECRET_KEY=<span class="hljs-variable">$WEBUI_SECRET_KEY</span> `<br>  <span class="hljs-variable">$Image</span><br><br><span class="hljs-built_in">Write-Host</span> <span class="hljs-string">&quot;&quot;</span><br><span class="hljs-built_in">Write-Host</span> <span class="hljs-string">&quot;Open WebUI is starting...&quot;</span><br><span class="hljs-built_in">Write-Host</span> <span class="hljs-string">&quot;URL: http://localhost:<span class="hljs-variable">$HostPort</span>&quot;</span><br><span class="hljs-built_in">Write-Host</span> <span class="hljs-string">&quot;&quot;</span><br><span class="hljs-built_in">Write-Host</span> <span class="hljs-string">&quot;Logs: docker logs -f <span class="hljs-variable">$ContainerName</span>&quot;</span><br><span class="hljs-built_in">Write-Host</span> <span class="hljs-string">&quot;&quot;</span><br><br>(docker exec <span class="hljs-built_in">open-webui</span> env | <span class="hljs-built_in">Select-String</span> <span class="hljs-string">&quot;PROXY&quot;</span>).Line<br><span class="hljs-built_in">Write-Host</span> <span class="hljs-string">&quot;&quot;</span><br><br>docker logs <span class="hljs-operator">-f</span> <span class="hljs-variable">$ContainerName</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs powershell"><span class="hljs-comment"># 停止容器（两种策略都可以）</span><br>docker stop <span class="hljs-built_in">open-webui</span><br><br><span class="hljs-comment"># （可选）备份当前image版本</span><br>docker tag ghcr.io/<span class="hljs-built_in">open-webui</span>/<span class="hljs-built_in">open-webui</span>:main ghcr.io/<span class="hljs-built_in">open-webui</span>/<span class="hljs-built_in">open-webui</span>:v1.<span class="hljs-number">1.1</span><br><br><span class="hljs-comment"># 验证状态</span><br>docker <span class="hljs-built_in">ps</span> <span class="hljs-literal">--filter</span> name=<span class="hljs-built_in">open-webui</span><br><span class="hljs-comment"># 输出：无（容器已停止）</span><br></code></pre></td></tr></table></figure>
+<h3 id="更新">更新</h3>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://docs.openwebui.com/getting-started/updating#manual-update">https://docs.openwebui.com/getting-started/updating#manual-update</a></li>
+</ul>
+<blockquote>
+<p>原版 <code>containrrr/watchtower</code> <strong>已停止维护</strong> ，可能无法兼容较新的 Docker 版本。我们建议使用 <code>nickfedor/watchtower</code> 分支。</p>
+</blockquote>
+<blockquote>
+<p>如果容器名称不同，请将 <code>open-webui</code> 替换为您的容器名称。</p>
+</blockquote>
+<p>使用 <a target="_blank" rel="noopener" href="https://docs.openwebui.com/getting-started/updating#option-1-watchtower-community-fork">Watchtower</a> 手动更新 Docker 容器：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">docker run --<span class="hljs-built_in">rm</span> -v /var/run/docker.sock:/var/run/docker.sock nickfedor/watchtower --run-once open-webui<br></code></pre></td></tr></table></figure>
+<p>或，每 5 分钟自动更新一次容器：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">docker run -d --name watchtower --restart unless-stopped -v /var/run/docker.sock:/var/run/docker.sock nickfedor/watchtower --interval 300 open-webui<br></code></pre></td></tr></table></figure>
+<p>或，</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs bash">docker images  <span class="hljs-comment"># 查看镜像</span><br><br>docker tag ghcr.io/open-webui/open-webui:main ghcr.io/open-webui/open-webui:v1.1.1  <span class="hljs-comment"># （可选）备份当前image版本</span><br><br>docker pull ghcr.io/open-webui/open-webui:main  <span class="hljs-comment"># 拉取最新版本</span><br><br>docker tag ghcr.io/open-webui/open-webui:main ghcr.io/open-webui/open-webui:v1.1.2  <span class="hljs-comment"># （可选）标记更新后的image版本</span><br><br><span class="hljs-comment"># 停止并移除当前容器</span><br>docker stop open-webui<br>docker <span class="hljs-built_in">rm</span> open-webui<br><br>docker run --name open-webui ghcr.io/open-webui/open-webui:main  <span class="hljs-comment"># 重新启动容器（请对照实际运行命令）</span><br></code></pre></td></tr></table></figure>
+<h3 id="卸载">卸载</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">docker <span class="hljs-built_in">rm</span> -f open-webui  <span class="hljs-comment"># 停止并移除容器</span><br>docker rmi ghcr.io/open-webui/open-webui:main  <span class="hljs-comment"># 移除Image（可选）</span><br>docker volume <span class="hljs-built_in">rm</span> open-webui  <span class="hljs-comment"># 删除卷（可选，警告：删除所有数据）： 如果您想彻底删除您的数据（聊天记录、设置等）</span><br></code></pre></td></tr></table></figure>
+<h2 id="conda">conda</h2>
+<h3 id="安装-2">安装</h3>
+<ol>
+<li>创建环境与安装open-webui：</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># Linux</span><br>conda create --name open-webui python=3.11  <br><br><span class="hljs-comment"># Windows</span><br>conda create --copy --name open-webui python=3.11  <br><span class="hljs-comment"># 打开新建环境下的Lib文件夹的site.py文件(C:\Users\username\.conda\envs\conda_env\Lib\site.py), 找到USER_SITE、USER_BASE那两行, 默认是None, 修改后如下:</span><br>USER_SITE = r<span class="hljs-string">&quot;C:\Users\username\.conda\envs\conda_env\Lib\site-packages&quot;</span><br>USER_BASE = r<span class="hljs-string">&quot;C:\Users\username\.conda\envs\conda_env\Scripts&quot;</span><br><span class="hljs-comment"># 记得加上r抑制转义, 否则有可能因为非法转义报错, 导致进入不了虚拟环境。</span><br><br>conda activate open-webui<br><br>pip install open-webui -i https://pypi.tuna.tsinghua.edu.cn/simple  <span class="hljs-comment"># 临时换源（清华源）</span><br></code></pre></td></tr></table></figure>
+<ol start="2">
+<li>配置环境变量：</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-variable">$env</span>:DATA_DIR=<span class="hljs-string">&quot;C:\xxx\open-webui\data&quot;</span>  <span class="hljs-comment"># 设置 DATA_DIR 环境变量设置指定文件夹</span><br><span class="hljs-variable">$env</span>:DATA_DIR  <span class="hljs-comment"># 查看环境变量的值（的方法）</span><br>Write-Host <span class="hljs-string">&quot;DATA_DIR: <span class="hljs-variable">$env</span>:DATA_DIR&quot;</span> -ForegroundColor Green  <span class="hljs-comment"># 使用 Write-Host 打印消息（带颜色）</span><br><span class="hljs-comment"># https://docs.openwebui.com/reference/env-configuration/#cors_allow_origin</span><br><span class="hljs-variable">$env</span>:CORS_ALLOW_ORIGIN=<span class="hljs-string">&quot;http://localhost:8080;http://127.0.0.1:8080&quot;</span>  <span class="hljs-comment"># 解决警告：WARNING: CORS_ALLOW_ORIGIN IS SET TO &#x27;*&#x27; - NOT RECOMMENDED FOR PRODUCTION DEPLOYMENTS.</span><br><span class="hljs-variable">$env</span>:USER_AGENT=<span class="hljs-string">&quot;open-webui/0.8.3 (https://github.com/open-webui/open-webui)&quot;</span>  <span class="hljs-comment"># 解决警告：WARNI [langchain_community.utils.user_agent] USER_AGENT environment variable not set, consider setting it to identify your requests.</span><br><span class="hljs-variable">$env</span>:HF_ENDPOINT=<span class="hljs-string">&quot;https://hf-mirror.com&quot;</span>  <span class="hljs-comment"># 解决报错：huggingface_hub.utils._errors.LocalEntryNotFoundError</span><br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>如果您想将数据存储在特定位置，请使用（Linux/Mac）： <code>DATA_DIR=./data open-webui serve</code> 或（Windows）： <code>$env:DATA_DIR=&quot;.\data&quot;; open-webui serve</code></p>
+</blockquote>
+<ol start="3">
+<li>启动open-webui：</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">open-webui serve  <span class="hljs-comment"># 使用该命令启动服务器</span><br></code></pre></td></tr></table></figure>
+<p>此方法会安装所有必要的依赖项并启动 Open WebUI，从而实现简单高效的设置。安装完成后，您可以通过 <a target="_blank" rel="noopener" href="http://localhost:8080/">http://localhost:8080</a> 访问 Open WebUI（或可尝试 <a target="_blank" rel="noopener" href="http://localhost:3000/">http://localhost:3000</a>）。祝您使用愉快！😄</p>
+<blockquote>
+<p>“OPEN-WEBUI：未找到命令”？</p>
+<p>如果终端显示命令不存在：</p>
+<ol>
+<li>确保您的 conda 环境已<strong>激活</strong> （ <code>conda activate open-webui</code> ）。</li>
+<li>如果仍然出现错误，请尝试直接通过 Python 运行： <code>python -m open_webui serve</code></li>
+</ol>
+</blockquote>
+<h3 id="（可选）配置网络代理-2">（可选）配置网络代理</h3>
+<h4 id="指定open-webui走使用v2rayN配置的网络代理">指定open-webui走使用v2rayN配置的网络代理</h4>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 如果您的 v2rayN 监听在 10808 端口</span><br><span class="hljs-variable">$env</span>:HTTP_PROXY=<span class="hljs-string">&quot;http://127.0.0.1:10808&quot;</span><br><span class="hljs-variable">$env</span>:HTTPS_PROXY=<span class="hljs-string">&quot;http://127.0.0.1:10808&quot;</span><br><span class="hljs-comment"># 建议把本机与常见内网段排除，避免访问本地/局域网服务也走代理导致异常</span><br><span class="hljs-variable">$env</span>:NO_PROXY = <span class="hljs-string">&quot;localhost,127.0.0.1,::1,0.0.0.0,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16&quot;</span><br></code></pre></td></tr></table></figure>
+<ul>
+<li><code>HTTP_PROXY</code>：指定 HTTP 请求的代理服务器。</li>
+<li><code>HTTPS_PROXY</code>：指定 HTTPS 请求的代理服务器。<strong>重要：值仍然是</strong> <code>http://</code> <strong>开头！</strong> <strong>原因</strong>：客户端与代理服务器之间的通信是 HTTP 协议，代理服务器再与目标网站建立 HTTPS 连接（CONNECT 方法）。</li>
+<li><code>NO_PROXY</code>：指定不走代理的地址列表。</li>
+</ul>
+<h4 id="验证-open-webui-是否使用-v2rayN-代理？">验证 open-webui 是否使用 v2rayN 代理？</h4>
+<ul>
+<li>
+<p>测试网络端口是否存在：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs powershell"><span class="hljs-built_in">Test-NetConnection</span> <span class="hljs-number">127.0</span>.<span class="hljs-number">0.1</span> <span class="hljs-literal">-Port</span> <span class="hljs-number">10808</span><br></code></pre></td></tr></table></figure>
+<ul>
+<li><code>TcpTestSucceeded : True</code> → 情况 1（代理端口在）</li>
+<li><code>False</code> → 情况 2（代理端口不在/不可达）</li>
+</ul>
+</li>
+<li>
+<p>运行以下测试脚本：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># test_proxy.py</span><br><span class="hljs-keyword">import</span> requests<br><span class="hljs-keyword">import</span> os<br><br><span class="hljs-comment"># 检查环境变量</span><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;=== 环境变量检查 ===&quot;</span>)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;HTTP_PROXY: <span class="hljs-subst">&#123;os.environ.get(<span class="hljs-string">&#x27;HTTP_PROXY&#x27;</span>, <span class="hljs-string">&#x27;未设置&#x27;</span>)&#125;</span>&quot;</span>)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;HTTPS_PROXY: <span class="hljs-subst">&#123;os.environ.get(<span class="hljs-string">&#x27;HTTPS_PROXY&#x27;</span>, <span class="hljs-string">&#x27;未设置&#x27;</span>)&#125;</span>&quot;</span>)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;NO_PROXY: <span class="hljs-subst">&#123;os.environ.get(<span class="hljs-string">&#x27;NO_PROXY&#x27;</span>, <span class="hljs-string">&#x27;未设置&#x27;</span>)&#125;</span>&quot;</span>)<br><br><span class="hljs-comment"># 测试需要代理的网站</span><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;\n=== 代理连接测试 ===&quot;</span>)<br>test_urls = [<br>    (<span class="hljs-string">&quot;Google&quot;</span>, <span class="hljs-string">&quot;https://www.google.com&quot;</span>),<br>    (<span class="hljs-string">&quot;OpenAI&quot;</span>, <span class="hljs-string">&quot;https://api.openai.com&quot;</span>),<br>    (<span class="hljs-string">&quot;GitHub&quot;</span>, <span class="hljs-string">&quot;https://api.github.com&quot;</span>),<br>]<br><br><span class="hljs-keyword">for</span> name, url <span class="hljs-keyword">in</span> test_urls:<br>    <span class="hljs-keyword">try</span>:<br>        response = requests.get(url, timeout=<span class="hljs-number">5</span>)<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;✅ <span class="hljs-subst">&#123;name&#125;</span>: 成功 (状态码: <span class="hljs-subst">&#123;response.status_code&#125;</span>)&quot;</span>)<br>    <span class="hljs-keyword">except</span> Exception <span class="hljs-keyword">as</span> e:<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;❌ <span class="hljs-subst">&#123;name&#125;</span>: 失败 (<span class="hljs-subst">&#123;<span class="hljs-built_in">str</span>(e)&#125;</span>)&quot;</span>)<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>查看 v2rayN 连接日志是否有新的连接记录，如果看到类似以下日志，说明代理生效：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">2026-02-17 16:30:15 [INFO] 127.0.0.1:xxxxx → api.anthropic.com:443<br>2026-02-17 16:30:15 [INFO] 127.0.0.1:xxxxx → api.openai.com:443<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>在 open-webui 中测试需要代理的 API。在Admin Settings-Connections-OpenAI- Manage-Add New Connection，点开窗口输入URL和API Key后有一个”测试连接“按钮。</p>
+</li>
+<li>
+<p>使用网络监控工具TCPView</p>
+<ol>
+<li><strong>下载 TCPView</strong>（微软官方工具）
+<ul>
+<li>下载地址：<a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/sysinternals/downloads/tcpview">https://learn.microsoft.com/zh-cn/sysinternals/downloads/tcpview</a></li>
+</ul>
+</li>
+<li><strong>运行 TCPView</strong>，筛选（搜索） <code>python</code> 或 <code>open-webui</code> 进程。</li>
+<li><strong>在 open-webui 中触发 API 请求。</strong></li>
+<li><strong>观察连接目标</strong>
+<ul>
+<li>如果看到连接到 <code>127.0.0.1:10808</code>（v2rayN 端口），说明代理生效。</li>
+<li>如果直接连接到外部 IP（如 <code>104.18.x.x</code>），说明未走代理。</li>
+</ul>
+</li>
+</ol>
+</li>
+<li>
+<p>等等。</p>
+</li>
+</ul>
+<h3 id="完整的启动脚本-2">完整的启动脚本</h3>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><code class="hljs powershell"><span class="hljs-comment"># start-open-webui.ps1</span><br><br><span class="hljs-comment"># 激活conda环境</span><br>conda activate <span class="hljs-built_in">open-webui</span><br><br><span class="hljs-comment"># ===== 网络代理配置（控制后端外网请求）=====</span><br><span class="hljs-comment"># 如果您的 v2rayN 监听在 10808 端口</span><br><span class="hljs-variable">$env:HTTP_PROXY</span>=<span class="hljs-string">&quot;http://127.0.0.1:10808&quot;</span><br><span class="hljs-variable">$env:HTTPS_PROXY</span>=<span class="hljs-string">&quot;http://127.0.0.1:10808&quot;</span><br><span class="hljs-comment"># 建议把本机与常见内网段排除，避免访问本地/局域网服务也走代理导致异常</span><br><span class="hljs-variable">$env:NO_PROXY</span> = <span class="hljs-string">&quot;localhost,127.0.0.1,::1,0.0.0.0,.local,.lan,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16&quot;</span><br><span class="hljs-comment"># 使用 Write-Host 打印消息（带颜色）</span><br><span class="hljs-built_in">Write-Host</span> <span class="hljs-string">&quot;HTTP_PROXY: <span class="hljs-variable">$env:HTTP_PROXY</span>&quot;</span> <span class="hljs-literal">-ForegroundColor</span> Green<br><span class="hljs-built_in">Write-Host</span> <span class="hljs-string">&quot;HTTPS_PROXY: <span class="hljs-variable">$env:HTTPS_PROXY</span>&quot;</span> <span class="hljs-literal">-ForegroundColor</span> Green<br><span class="hljs-built_in">Write-Host</span> <span class="hljs-string">&quot;NO_PROXY: <span class="hljs-variable">$env:NO_PROXY</span>&quot;</span> <span class="hljs-literal">-ForegroundColor</span> Green<br><br><span class="hljs-comment"># 从 HTTP_PROXY 中提取主机和端口</span><br><span class="hljs-keyword">if</span> (<span class="hljs-variable">$env:HTTP_PROXY</span> <span class="hljs-operator">-match</span> <span class="hljs-string">&#x27;https?://([^:/]+):(\d+)&#x27;</span>) &#123;<br>    <span class="hljs-variable">$proxyHost</span> = <span class="hljs-variable">$matches</span>[<span class="hljs-number">1</span>]<br>    <span class="hljs-variable">$proxyPort</span> = <span class="hljs-variable">$matches</span>[<span class="hljs-number">2</span>]<br>    <br>    <span class="hljs-comment"># 测试网络端口是否存在</span><br>    <span class="hljs-built_in">Test-NetConnection</span> <span class="hljs-variable">$proxyHost</span> <span class="hljs-literal">-Port</span> <span class="hljs-variable">$proxyPort</span><br>&#125; <span class="hljs-keyword">else</span> &#123;<br>    <span class="hljs-built_in">Write-Host</span> <span class="hljs-string">&quot;无法解析 HTTP_PROXY 格式&quot;</span><br>&#125;<br><br>python C:\xxx\test_proxy.py<br><br><span class="hljs-built_in">Write-Host</span><br><br><span class="hljs-comment"># 解决报错：huggingface_hub.utils._errors.LocalEntryNotFoundError</span><br><span class="hljs-variable">$env:HF_ENDPOINT</span>=<span class="hljs-string">&quot;https://hf-mirror.com&quot;</span><br><span class="hljs-built_in">Write-Host</span> <span class="hljs-string">&quot;HF_ENDPOINT: <span class="hljs-variable">$env:HF_ENDPOINT</span>&quot;</span> <span class="hljs-literal">-ForegroundColor</span> Green<br><br><span class="hljs-comment"># 设置 DATA_DIR 环境变量设置指定文件夹</span><br><span class="hljs-variable">$env:DATA_DIR</span>=<span class="hljs-string">&quot;C:\xxx\open-webui\data&quot;</span><br><span class="hljs-built_in">Write-Host</span> <span class="hljs-string">&quot;DATA_DIR: <span class="hljs-variable">$env:DATA_DIR</span>&quot;</span> <span class="hljs-literal">-ForegroundColor</span> Green<br><br><span class="hljs-comment"># https://docs.openwebui.com/reference/env-configuration/#cors_allow_origin</span><br><span class="hljs-comment"># 解决警告：WARNING: CORS_ALLOW_ORIGIN IS SET TO &#x27;*&#x27; - NOT RECOMMENDED FOR PRODUCTION DEPLOYMENTS.</span><br><span class="hljs-variable">$env:CORS_ALLOW_ORIGIN</span>=<span class="hljs-string">&quot;http://localhost:8080;http://127.0.0.1:8080&quot;</span><br><span class="hljs-built_in">Write-Host</span> <span class="hljs-string">&quot;CORS_ALLOW_ORIGIN: <span class="hljs-variable">$env:CORS_ALLOW_ORIGIN</span>&quot;</span> <span class="hljs-literal">-ForegroundColor</span> Green<br><br><span class="hljs-comment"># 解决警告：WARNI [langchain_community.utils.user_agent] USER_AGENT environment variable not set, consider setting it to identify your requests.</span><br><span class="hljs-variable">$env:USER_AGENT</span>=<span class="hljs-string">&quot;open-webui/0.8.3 (https://github.com/open-webui/open-webui)&quot;</span><br><span class="hljs-built_in">Write-Host</span> <span class="hljs-string">&quot;USER_AGENT: <span class="hljs-variable">$env:USER_AGENT</span>&quot;</span> <span class="hljs-literal">-ForegroundColor</span> Green<br><br><span class="hljs-comment"># 启用[KV 缓存优化](https://docs.openwebui.com/features/chat-conversations/rag/#kv-cache-optimization-performance-tip-)</span><br><span class="hljs-variable">$env:RAG_SYSTEM_CONTEXT</span>=<span class="hljs-string">&quot;True&quot;</span><br><span class="hljs-built_in">Write-Host</span> <span class="hljs-string">&quot;RAG_SYSTEM_CONTEXT: <span class="hljs-variable">$env:RAG_SYSTEM_CONTEXT</span>&quot;</span> <span class="hljs-literal">-ForegroundColor</span> Green<br><br><span class="hljs-built_in">Write-Host</span><br><br><span class="hljs-comment"># 在默认浏览器中打开网址</span><br><span class="hljs-built_in">Start-Process</span> <span class="hljs-string">&quot;http://localhost:8080&quot;</span><br><br><span class="hljs-comment"># 启动服务器</span><br><span class="hljs-built_in">open-webui</span> serve<br></code></pre></td></tr></table></figure>
+<p>在Windows Powershell终端执行该脚本即可：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs powershell">C:\xxx\<span class="hljs-built_in">start-open</span><span class="hljs-literal">-webui</span>.ps1<br></code></pre></td></tr></table></figure>
+<h3 id="更新-2">更新</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">conda activate open-webui<br>pip index versions open-webui  <span class="hljs-comment"># 查看可用版本</span><br>pip install --upgrade open-webui -i https://pypi.tuna.tsinghua.edu.cn/simple <span class="hljs-comment"># 更新</span><br></code></pre></td></tr></table></figure>
+<h3 id="卸载-2">卸载</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">conda remove --name open-webui --all<br><span class="hljs-built_in">rm</span> -rf ~/.open-webui  <span class="hljs-comment"># 删除数据（警告：将删除所有数据），删除您的数据目录（通常为 ~/.open-webui ，除非另有配置）</span><br></code></pre></td></tr></table></figure>
+<h2 id="uv">uv</h2>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://docs.openwebui.com/#1-install-uv">https://docs.openwebui.com/#1-install-uv</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.openwebui.com/getting-started/quick-start/">https://docs.openwebui.com/getting-started/quick-start/</a></li>
+</ul>
+<h2 id="小知识">小知识</h2>
+<ul>
+<li>open-webui 的 <strong>Docker 部署 和 conda 部署使用相同的数据格式</strong>，可以直接复用 <code>DATA_DIR </code>文件夹。
+<ul>
+<li>✅ <strong>先备份数据目录</strong>（以防万一）</li>
+<li>✅ <strong>完全停止 conda 实例</strong>后再启动 Docker</li>
+<li>✅ <strong>使用 <code>-v</code> 挂载现有目录</strong>到容器</li>
+<li>✅ <strong>启动后验证数据完整性</strong></li>
+</ul>
+</li>
+<li>等等。</li>
+</ul>
+<h1 id="快速入门">快速入门</h1>
+<h2 id="其它">其它</h2>
+<ul>
+<li><strong>创建管理员：<strong>在 Open WebUI 上创建的第一个帐户将获得</strong>管理员权限</strong> ，可以控制系统用户管理和系统设置。</li>
+<li>**用户注册：**后续注册均处于 <strong>“待审核”</strong> 状态，需要管理员批准才能访问。</li>
+<li><strong>浏览器缓存：</strong> 有时，即使启用了热刷新，浏览器缓存也会阻止您看到最新更改。请尝试<strong>强制刷新</strong>浏览器：
+<ul>
+<li><strong>Windows/Linux：</strong> Ctrl+Shift+R</li>
+<li><strong>macOS：</strong> Cmd+Shift+R</li>
+<li>或者，您可以尝试清除浏览器缓存或在隐私/隐身浏览器窗口中打开前端。</li>
+</ul>
+</li>
+<li><a target="_blank" rel="noopener" href="https://docs.openwebui.com/faq#q-how-often-is-open-webui-updated-release-schedule">Open WebUI 的更新频率如何？（发布计划）</a>
+<ul>
+<li>我们的目标是<strong>每周发布主要版本</strong> ，并<strong>根据需要发布错误修复和小幅更新</strong> 。但这并非绝对的计划——有些周可能会发布多个版本，而有些周可能一个版本都没有。</li>
+<li>为了随时了解最新信息，您可以关注我们 <a target="_blank" rel="noopener" href="https://github.com/open-webui/open-webui/releases">GitHub Releases 页面</a>上的发行说明和公告。</li>
+</ul>
+</li>
+<li>请查看 <a target="_blank" rel="noopener" href="https://github.com/open-webui/open-webui/releases">https://github.com/open-webui/open-webui/releases</a> 上的<strong>发行说明</strong> ，了解重大变更。</li>
+<li>在进行重大版本更新之前， <strong>请备份数据。</strong></li>
+<li>更新后<strong>请清除浏览器缓存</strong> ，以确保加载最新的网页界面。</li>
+</ul>
+<h2 id="API">API</h2>
+<h3 id="常用的兼容服务器和提供商">常用的兼容服务器和提供商</h3>
+<p>有很多服务器和工具提供与 OpenAI 兼容的 API。选择最适合您工作流程的即可：</p>
+<ul>
+<li><strong>Local Runners</strong>: <a target="_blank" rel="noopener" href="https://ollama.com/">Ollama</a>, <a target="_blank" rel="noopener" href="https://github.com/ggml-org/llama.cpp">Llama.cpp</a>, <a target="_blank" rel="noopener" href="https://lmstudio.ai/">LM Studio</a>, <a target="_blank" rel="noopener" href="https://docs.vllm.ai/en/latest/serving/openai_compatible_server.html">vLLM</a>, <a target="_blank" rel="noopener" href="https://localai.io/">LocalAI</a>, <a target="_blank" rel="noopener" href="https://lemonade-server.ai/">Lemonade</a>, <a target="_blank" rel="noopener" href="https://docs.docker.com/ai/model-runner/">Docker Model Runner</a>.</li>
+<li><strong>Cloud Providers</strong>: <a target="_blank" rel="noopener" href="https://groq.com/">Groq</a>, <a target="_blank" rel="noopener" href="https://mistral.ai/">Mistral AI</a>, <a target="_blank" rel="noopener" href="https://www.perplexity.ai/">Perplexity</a>, <a target="_blank" rel="noopener" href="https://platform.minimax.io/">MiniMax</a>, <a target="_blank" rel="noopener" href="https://platform.deepseek.com/">DeepSeek</a>, <a target="_blank" rel="noopener" href="https://openrouter.ai/">OpenRouter</a>, <a target="_blank" rel="noopener" href="https://docs.litellm.ai/">LiteLLM</a>.</li>
+<li>Major Model Ecosystems:
+<ul>
+<li><strong>Google Gemini</strong>: <a target="_blank" rel="noopener" href="https://generativelanguage.googleapis.com/v1beta/openai/">OpenAI Endpoint</a> (requires a Gemini API key).</li>
+<li><strong>Anthropic</strong>: While they primarily use a proprietary API, they offer a <a target="_blank" rel="noopener" href="https://platform.claude.com/docs/en/api/openai-sdk">Chat Completions compatible endpoint</a> for easier integration.</li>
+<li><strong>Azure OpenAI</strong>: Enterprise-grade OpenAI hosting via Microsoft Azure.</li>
+</ul>
+</li>
+</ul>
+<h3 id="必需的-API-端点">必需的 API 端点</h3>
+<p>为确保与 Open WebUI 完全兼容，您的服务器应实现以下 OpenAI 标准端点：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Endpoint</th>
+<th style="text-align:left">Method</th>
+<th style="text-align:left">Required?</th>
+<th style="text-align:left">Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>/v1/models</code></td>
+<td style="text-align:left"><code>GET</code></td>
+<td style="text-align:left"><strong>Yes</strong></td>
+<td style="text-align:left">Used for model discovery and selecting models in the UI.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>/v1/chat/completions</code></td>
+<td style="text-align:left"><code>POST</code></td>
+<td style="text-align:left"><strong>Yes</strong></td>
+<td style="text-align:left">The core endpoint for chat, supporting streaming and parameters like temperature.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>/v1/embeddings</code></td>
+<td style="text-align:left"><code>POST</code></td>
+<td style="text-align:left">No</td>
+<td style="text-align:left">Required if you want to use this provider for RAG (Retrieval Augmented Generation).</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>/v1/audio/speech</code></td>
+<td style="text-align:left"><code>POST</code></td>
+<td style="text-align:left">No</td>
+<td style="text-align:left">Required for Text-to-Speech (TTS) functionality.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>/v1/audio/transcriptions</code></td>
+<td style="text-align:left"><code>POST</code></td>
+<td style="text-align:left">No</td>
+<td style="text-align:left">Required for Speech-to-Text (STT/Whisper) functionality.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>/v1/images/generations</code></td>
+<td style="text-align:left"><code>POST</code></td>
+<td style="text-align:left">No</td>
+<td style="text-align:left">Required for Image Generation (DALL-E) functionality.</td>
+</tr>
+</tbody>
+</table>
+<p>Open WebUI 会传递标准的 OpenAI 参数，例如 <code>temperature</code> 、 <code>top_p</code> 、 <code>max_tokens</code> （或 <code>max_completion_tokens</code> ）、 <code>stop</code> 、 <code>seed</code> 和 <code>logit_bias</code> 。如果您的模型和服务器支持 <code>tools</code> 和 <code>tool_choice</code> 参数，它还支持<strong>工具使用</strong> （函数调用）。</p>
+<h3 id="配置">配置</h3>
+<blockquote>
+<p>Open WebUI 不仅适用于 OpenAI/Ollama/Llama.cpp，它还可以连接<strong>任何实现了 OpenAI 兼容 API 的服务器</strong> ，无论服务器是本地运行还是远程运行。如果您想运行不同的语言模型，或者您已经有了自己喜欢的后端或生态系统，那么 Open WebUI 就是您的理想之选。</p>
+<ul>
+<li><strong>我们支持的协议</strong> ：任何遵循广泛采用的 API 标准（例如 Groq、OpenRouter、OpenAI、Mistral、Perplexity 等）的提供商都受到原生支持。我们也对 <strong><a target="_blank" rel="noopener" href="https://www.openresponses.org/">OpenResponse</a></strong> 提供实验性支持。</li>
+<li><strong>我们避免使用专有 API</strong> ：为了维护通用且易于维护的代码库，我们不会在核心代码中实现特定于提供商的非标准 API。对于不受支持的提供商，请使用管道或中间件代理。</li>
+<li>如果您使用的提供商需要专有 API，我们建议使用**<a target="_blank" rel="noopener" href="https://docs.openwebui.com/features/extensibility/plugin/functions/pipe">管道 </a>**（浏览<a target="_blank" rel="noopener" href="https://openwebui.com/">社区管道 </a>）或像 LiteLLM 或 OpenRouter 这样的中间件代理，将它们桥接到受支持的协议。</li>
+</ul>
+</blockquote>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://docs.openwebui.com/getting-started/quick-start/connect-a-provider/starting-with-open-responses">Open WebUI 对 Open Responses 提供实验性支持</a>，Open Responses 是一种用于多提供商、可互操作 LLM 接口的开放规范。</p>
+</blockquote>
+<blockquote>
+<p>为避免每次更新后都被注销，您必须设置一个持久的 <code>WEBUI_SECRET_KEY</code> 。在 Docker Compose 或环境配置中将 <code>WEBUI_SECRET_KEY</code> 设置为一个固定的安全字符串。<a target="_blank" rel="noopener" href="https://docs.openwebui.com/getting-started/updating#persistent-login-sessions">长期登录会话</a></p>
+<p>使用<a href="#conda">conda部署</a>后第一次启动时，会提示：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">Loading WEBUI_SECRET_KEY from file, not provided as an environment variable.<br>Generating a new secret key and saving it to C:\Users\xxx\.webui_secret_key<br>Loading WEBUI_SECRET_KEY from C:\Users\xxx\.webui_secret_key<br></code></pre></td></tr></table></figure>
+</blockquote>
+<p>Open WebUI 让您轻松连接和使用 OpenAI 及其他兼容 OpenAI 的 API。本指南将引导您完成添加 API 密钥、设置正确的端点以及选择模型等步骤，让您可以立即开始交互。</p>
+<blockquote>
+<p>Open WebUI 是一个<strong>以协议为中心的</strong>平台。虽然我们为 OpenAI 模型提供一流的支持，但我们主要通过 <strong>OpenAI Chat Completions API 协议</strong>来实现这一点。</p>
+<p>我们专注于数十家供应商共享的通用标准，并对诸如 <strong><a target="_blank" rel="noopener" href="https://www.openresponses.org/">Open Responses</a></strong> 等新兴标准提供实验性支持。有关详细说明，请参阅我们的**<a target="_blank" rel="noopener" href="https://docs.openwebui.com/faq#q-why-doesnt-open-webui-natively-support-provider-xs-proprietary-api">协议支持常见问题解答 </a>**。</p>
+</blockquote>
+<p>在 Open WebUI 中添加 API 链接：</p>
+<ol>
+<li>
+<p>Open WebUI 运行后，前往⚙️ <strong>Admin Settings</strong> 。</p>
+</li>
+<li>
+<p>导航至 <strong>Connections &gt; OpenAI &gt; Manage</strong> （查找扳手图标）。</p>
+</li>
+<li>
+<p>点击➕ <strong>Add New Connection</strong> 。</p>
+<ul>
+<li>
+<p><strong>连接类型</strong> ：External</p>
+</li>
+<li>
+<p><strong>URL</strong> ： <code>https://api.openai.com/v1</code> （或您的服务提供商的端点）</p>
+</li>
+<li>
+<p><strong>API Key</strong> ：您的私钥（通常以 <code>sk-...</code> 开头）</p>
+</li>
+<li>
+<p><strong>Model IDs (Filter)</strong> ：<em>默认值（空）</em> ：自动检测提供商提供的所有可用型号。<em>设置</em> ：用作<strong>Allowlist</strong> 。只有您在此处输入的特定型号 ID 才会对用户可见。使用此功能可以隐藏较旧或价格较高的型号。</p>
+<blockquote>
+<p>使用 <strong>OpenRouter</strong> 时，我们<strong>强烈建议</strong> ：</p>
+<ol>
+<li>**使用allowlist ** （添加特定的模型 ID）。OpenRouter 会公开数千个模型，如果不进行过滤，这些模型会使模型选择器变得杂乱无章，并降低管理面板的运行速度。</li>
+<li><strong>启用模型缓存</strong> （ <code>Settings &gt; Connections &gt; Cache Base Model List</code> 或 <code>ENABLE_BASE_MODELS_CACHE=True</code> ）。如果没有缓存，由于需要查询大量模型，页面首次加载可能需要 10-15 秒甚至更久。更多详情请参阅<a target="_blank" rel="noopener" href="https://docs.openwebui.com/troubleshooting/performance">性能指南</a>。</li>
+</ol>
+</blockquote>
+<blockquote>
+<p>某些提供商（例如 <strong>MiniMax</strong> ）不通过 <code>/models</code> 端点公开其模型。对于这些提供商，您<strong>必须</strong>手动将模型 ID（例如 <code>MiniMax-M2.5</code> ）添加到<strong>模型 ID（筛选器）</strong> 列表中，才能使其显示在用户界面中。</p>
+</blockquote>
+</li>
+<li>
+<p><strong>Prefix ID</strong>：如果您连接了多个提供同名模型的供应商（例如，两个供应商都提供 <code>llama3</code> ），请在此处添加前缀（例如， <code>groq/</code> ）以区分它们。模型将显示为 <code>groq/llama3</code> 。</p>
+</li>
+<li>
+<p>Click <strong>Save</strong> ✅。</p>
+</li>
+<li>
+<p>等等。</p>
+</li>
+</ul>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://docs.openwebui.com/getting-started/quick-start/connect-a-provider/starting-with-openai#step-2-add-the-api-connection-in-open-webui">适用于 Microsoft Azure OpenAI 部署。</a></p>
+</blockquote>
+</li>
+<li>
+<p>完成。</p>
+</li>
+</ol>
+<blockquote>
+<p>如果您的 API 提供商响应缓慢或遇到超时问题，您可以调整模型列表获取超时时间：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># Increase timeout for slow networks (default is 10 seconds)</span><br>AIOHTTP_CLIENT_TIMEOUT_MODEL_LIST=15<br></code></pre></td></tr></table></figure>
+<p>如果您保存了一个无法访问的 URL，并且用户界面变得无响应，请参阅 <a target="_blank" rel="noopener" href="https://docs.openwebui.com/troubleshooting/connection-error#%EF%B8%8F-model-list-loading-issues-slow-ui--unreachable-endpoints">“模型列表加载问题</a>故障排除指南”以获取恢复选项。</p>
+</blockquote>
+<h2 id="自动补全">自动补全</h2>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://docs.openwebui.com/features/chat-conversations/chat-features/autocomplete/">官方资料</a></li>
+</ul>
+<p>Open WebUI 提供了一项基于人工智能的自动完成功能，可在您输入提示时实时提供文本补全建议。它就像您聊天输入的“副驾驶”，帮助您使用已配置的任务模型更快地创建提示。</p>
+<p>启用后，Open WebUI 会监控您在聊天框中的输入。当您停止输入时，它会将您当前的文本发送到一个轻量级任务模型 。该模型会预测接下来可能出现的单词或句子，这些预测会以“幽灵文本”的形式叠加在您的输入之上。</p>
+<ul>
+<li><strong>接受建议</strong> ：按 <code>Tab</code> （或 <code>Right Arrow</code> 键）接受建议。</li>
+<li><strong>拒绝/忽略</strong> ：只需继续输入即可覆盖建议。</li>
+</ul>
+<blockquote>
+<p>自动完成功能很大程度上依赖于<strong>任务模型</strong>的响应速度。我们建议使用小型、快速、<strong>非推理</strong>模型，以确保建议能够即时显示。</p>
+<p>推荐型号：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://openrouter.ai/meta-llama/llama-3.2-3b-instruct:free">Llama 3.2 (1B or 3B)</a></li>
+<li><a target="_blank" rel="noopener" href="https://openrouter.ai/qwen/qwen3-4b:free">Qwen 3 (0.6B or 3B)</a></li>
+<li><a target="_blank" rel="noopener" href="https://openrouter.ai/google/gemma-3-4b-it:free">Gemma 3 (1B or 4B)</a></li>
+<li><a target="_blank" rel="noopener" href="https://openrouter.ai/openai/gpt-5-nano">GPT-5 Nano (Optimized for low latency)</a></li>
+</ul>
+</blockquote>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://docs.openwebui.com/reference/env-configuration#tasks">任务模型</a>:</p>
+<ul>
+<li><code>TASK_MODEL</code>：在使用 Ollama 模型时，用于生成标题和网络搜索查询等任务的默认模型。</li>
+<li><code>TASK_MODEL_EXTERNAL</code>：在使用 OpenAI 兼容端点时，用于标题和网络搜索查询生成等任务的默认模型。</li>
+</ul>
+</blockquote>
+<p>配置方法：</p>
+<ol>
+<li>
+<p><strong>Admin Panel Settings:</strong> Go to <strong>Admin Settings &gt; Interface &gt; Task Model</strong> and toggle <strong>Autocomplete Generation</strong>.</p>
+<blockquote>
+<p>Go to <strong>Admin Settings &gt; Interface</strong> and verify a <strong>Task Model</strong> is selected. 如果未选择模型，则该功能无法生成预测。</p>
+</blockquote>
+<blockquote>
+<p><strong>推理模型</strong> ：请确保您<strong>未</strong>使用“推理”模型（如 o1 或 o3），因为它们的内部思维过程会产生过大的延迟，从而破坏实时自动完成功能。</p>
+</blockquote>
+<blockquote>
+<p>自动完成功能会在你每次暂停输入时向你的 LLM 发送请求。</p>
+<p><strong>API 提供商</strong> ：这将产生大量的 API 调用（尽管通常令牌数量很短）。请注意提供商的 <strong>Rate Limits</strong> (Requests Per Minute/RPM and Tokens Per Minute/TPM) ，以避免服务中断。</p>
+</blockquote>
+</li>
+<li>
+<p>账户-设置-界面-输入-勾选“自动补全提示词”。</p>
+</li>
+<li>
+<p>完成。</p>
+</li>
+</ol>
+<h1 id="工具和功能">工具和功能</h1>
+<ul>
+<li>
+<p><a target="_blank" rel="noopener" href="https://docs.openwebui.com/features/extensibility/plugin/">https://docs.openwebui.com/features/extensibility/plugin/</a></p>
+</li>
+<li>
+<p><a target="_blank" rel="noopener" href="https://openwebui.com/search">社区资源获取</a></p>
+</li>
+<li>
+<p>工具扩展了 LLM 的功能，使其能够收集真实世界的实时数据，例如天气、股票价格等。</p>
+<ul>
+<li><strong>工具</strong>是指允许 LLM <strong>执行超出其默认能力范围的更多操作</strong> （例如检索实时信息或根据外部数据执行自定义任务）的事物。</li>
+</ul>
+</li>
+<li>
+<p>函数扩展了 Open WebUI 本身的功能，使您能够添加新的 AI 模型支持（如 Anthropic 或 Vertex AI）或改进可用性（如创建自定义按钮或过滤器）。<a target="_blank" rel="noopener" href="https://docs.openwebui.com/getting-started/quick-start/connect-a-provider/starting-with-functions">使用文档</a></p>
+<ul>
+<li><strong>函数</strong>可以帮助 WebUI 本身<strong>执行更多操作</strong> ，例如添加新的 AI 模型或创建更智能的数据筛选方式。</li>
+<li><a target="_blank" rel="noopener" href="https://openwebui.com/posts/auto_memory_bfc5a58b">Auto Memory</a>：自动记忆功能会监听你的对话，并检测事实、偏好、关键时刻或任何对助手有用的信息，以便它记住你。它将这些信息存储为单独的记忆，因此未来的 AI 交互将保持个性化和情境感知—— 无需您进行微观管理 。</li>
+<li><a target="_blank" rel="noopener" href="https://openwebui.com/posts/advanced_context_manager_2382208e">Advanced Context Manager</a>：这个OpenWebUI插件通过递归总结技术智能管理长对话上下文，避免传统截断方法导致的信息丢失。</li>
+</ul>
+</li>
+<li>
+<p>Pipelines 更适合希望将 Open WebUI 功能转换为 API 兼容的工作流的高级用户——主要用于卸载繁重的处理任务。</p>
+</li>
+<li>
+<p>使用 Tools and Functions 非常简单，因为所有功能都已内置于核心系统中！您只需点击一个按钮 ，即可直接从社区导入这些功能 ，无需任何编码或复杂的技术工作。</p>
+</li>
+</ul>
+<h1 id="文档长期记忆">文档长期记忆</h1>
+<h2 id="怎样确保它能记住？">怎样确保它能记住？</h2>
+<p>为了保险起见，建议你采取以下操作：</p>
+<ol>
+<li><strong>查看设置</strong>：检查你使用的平台是否有“开启记忆”、“保存到知识库”或“创建智能体”的选项，并确保它是打开的。</li>
+<li><strong>主动“投喂”</strong>：如果不确定它是否记得，最简单的方法是<strong>重新上传文档</strong>，或者在对话开始时提醒它：“请参考我之前上传的那份关于XX的文档”。</li>
+<li><strong>使用“文件上传”功能而非复制粘贴</strong>：很多平台现在支持“上传文件”并将其固定在侧边栏。这种上传方式通常比单纯复制粘贴文本更容易被系统识别为“长期知识”，因为它作为一个独立文件被存储了。</li>
+</ol>
+<h2 id="如何让你的开源界面也能“记住”？">如何让你的开源界面也能“记住”？</h2>
+<p>如果你想让你的开源项目也具备“过几天还能记得文档”的能力，你需要做额外的开发工作（这正是商业平台的核心价值之一）：</p>
+<ol>
+<li><strong>建立外部数据库（你的“硬盘”）</strong>：
+<ul>
+<li>当你第一次上传文档并聊天时，不仅要调用 API，还要把<strong>文档的关键信息（或向量化后的摘要）<strong>和</strong>对话历史</strong>存到数据库（如 SQLite, MongoDB, 或向量数据库）里。</li>
+</ul>
+</li>
+<li><strong>实现“会话 ID”机制</strong>：
+<ul>
+<li>给每个用户或每个对话窗口分配一个唯一的 ID。当你过几天再次在这个窗口聊天时，你的开源界面需要通过这个 ID 去数据库里检索“上次我们聊了什么”。</li>
+</ul>
+</li>
+<li><strong>自动拼接上下文（RAG）</strong>：
+<ul>
+<li>在你按下发送键的那一刻，你的开源界面需要先去数据库把“旧文档内容”找回来，把它<strong>插入</strong>到你当前的问题前面，组成一个新的、包含历史信息的 Prompt，然后再调用 API。</li>
+</ul>
+</li>
+</ol>
+<h2 id="用户如何缓解大模型的“上下文窗口”长度限制？">用户如何缓解大模型的“上下文窗口”长度限制？</h2>
+<p>对于非技术用户（普通用户）来说，虽然无法像开发者那样去修改模型代码或搭建向量数据库，但依然可以通过**“巧用工具”<strong>和</strong>“改变提问策略”**来有效缓解上下文窗口的限制。</p>
+<p>结合当前主流大模型（如 GPT-4o, Claude-3, 通义千问等）的功能，我为你总结了以下 4 个实操性极强的方法：</p>
+<h3 id="1-善用“文件分析”模式（最省心的方法）">1. 善用“文件分析”模式（最省心的方法）</h3>
+<p>不要把长文档内容直接复制粘贴到对话框里，而是利用平台原生的<strong>文件上传</strong>功能。</p>
+<ul>
+<li><strong>为什么有效</strong>：像 ChatGPT Plus、Claude 或 Kimi 这样的成熟平台，当你上传 PDF、Word 或 TXT 文件时，它们在后台并不是简单地把全文塞进上下文窗口。它们通常会先对文件进行<strong>预处理（切片和向量化）</strong>，当你提问时，系统只把与问题最相关的片段提取出来给模型看。</li>
+<li><strong>怎么做</strong>：点击输入框旁边的“回形针”或“上传”图标，把文件传上去，然后直接问：“请根据我上传的文档，总结核心观点”。</li>
+</ul>
+<h3 id="2-主动进行“人工摘要”（给模型减负）">2. 主动进行“人工摘要”（给模型减负）</h3>
+<p>当你进行多轮长对话时，上下文会越来越臃肿。你需要像导演一样，手动清理黑板。</p>
+<ul>
+<li><strong>为什么有效</strong>：模型的“短期记忆”有限，太早的信息会被挤出窗口。你需要把早期的关键信息“压缩”成摘要，确保它始终在视野内。</li>
+<li><strong>怎么做</strong>：
+<ol>
+<li>当一段讨论告一段落时，<strong>主动让模型生成一个摘要</strong>。例如，输入指令：“请用 300 字总结我们刚才讨论的方案要点。”</li>
+<li><strong>复制</strong>这个摘要。</li>
+<li><strong>开启一个新对话</strong>（或者在当前对话靠前的位置），先把摘要发给模型，再继续讨论新问题。这相当于手动给模型续上了“长期记忆”。</li>
+</ol>
+</li>
+</ul>
+<h3 id="3-改变提问话术：明确“关注重点”">3. 改变提问话术：明确“关注重点”</h3>
+<p>当上下文很长时，模型可能会“注意力分散”。你需要通过指令（Prompt）明确告诉它该看哪里。</p>
+<ul>
+<li><strong>为什么有效</strong>：通过指令强制模型去“检索”和“聚焦”，可以绕过部分上下文长度的限制。</li>
+<li><strong>怎么做</strong>：
+<ul>
+<li><strong>加粗关键信息</strong>：在输入框里，把你最不想让它忘记的信息用 <code>**</code> 标记（如果界面支持 Markdown）。</li>
+<li><strong>使用明确指令</strong>：在问题末尾加上类似的话：“<strong>请务必参考上文中的‘需求规格’章节来回答，不要遗漏细节。</strong>”</li>
+<li><strong>分段处理</strong>：如果要分析一篇超长文章，不要问“全文讲了什么”，而是分段让它处理：“请分析第 1-3 段的逻辑，然后我们再看后面的。”</li>
+</ul>
+</li>
+</ul>
+<h3 id="4-选择“长文本”专用模型（选对工具）">4. 选择“长文本”专用模型（选对工具）</h3>
+<p>不同的模型，上下文窗口大小天差地别。</p>
+<ul>
+<li><strong>为什么有效</strong>：与其在小池塘里挤，不如去大海里游。</li>
+<li><strong>怎么做</strong>：
+<ul>
+<li>如果你需要处理几万字的报告，<strong>优先选择</strong>宣称支持“长上下文”的模型，如 <strong>Claude-3 (支持 200K)</strong>、<strong>GPT-4o (支持 128K)</strong> 或国内的 <strong>Kimi (支持 200K+)</strong>。</li>
+<li>避免使用那些主要针对代码或短对话优化的轻量级模型（通常只有 4K-8K 窗口）。</li>
+</ul>
+</li>
+</ul>
+<h3 id="💡-总结">💡 总结</h3>
+<p>作为普通用户，你不需要懂技术原理，只需要记住这三点：</p>
+<ol>
+<li><strong>上传文件</strong>优于复制粘贴。</li>
+<li>聊久了就<strong>手动总结</strong>一下，开启新对话。</li>
+<li>问问题时<strong>指令要明确</strong>，帮模型“划重点”。</li>
+</ol>
+<h2 id="Open-WebUI-的记忆机制">Open WebUI 的记忆机制</h2>
+<p>简单来说，Open WebUI 就像一个<strong>带笔记本（数据库）的助手</strong>。虽然它不像某些商业 APP 那样拥有“黑科技”般的全自动长期记忆，但它通过技术手段实现了非常实用的持久化记忆。</p>
+<p>具体表现如下：</p>
+<h3 id="1-对话历史记忆：✅-能记住（靠数据库）"><strong>1. 对话历史记忆：✅ 能记住（靠数据库）</strong></h3>
+<p><strong>表现：</strong> 如果你过几天再打开同一个对话窗口（Conversation），Open WebUI <strong>会自动加载之前的聊天记录</strong>，并把它们作为上下文发送给大模型。</p>
+<ul>
+<li><strong>原理</strong>：Open WebUI 默认会将你的所有聊天记录加密存储在本地的数据库中（如 SQLite）。当你点击那个旧的对话窗口时，它会自动从数据库里把历史消息（messages）读出来，拼接到新的请求里发送给 Ollama 或 API。</li>
+<li><strong>限制</strong>：这依赖于“上下文窗口”的长度。如果你们之前的聊天内容太长（比如几万字），超出了模型的处理范围，最前面的内容会被“挤”出窗口，导致模型“忘记”开头的部分。</li>
+</ul>
+<h3 id="2-文档-文件内容记忆：❌-不能自动记住（需手动处理）"><strong>2. 文档/文件内容记忆：❌ 不能自动记住（需手动处理）</strong></h3>
+<p><strong>表现：</strong> 这是你最关心的一点。如果你上次上传了一个 PDF 或 TXT 文件，聊完就关了。过几天回来，<strong>模型不会自动“记得”那个文件的内容</strong>。</p>
+<ul>
+<li><strong>原因</strong>：Open WebUI 默认的“记忆”是基于<strong>文本对话历史</strong>的。它存储了你们聊了什么，但通常不会自动把上次上传的文件内容“注入”到这次的对话中。</li>
+<li><strong>除非</strong>：你使用了它的 <strong>RAG（检索增强生成）</strong> 功能或向量数据库插件（如 ChromaDB）。如果你在管理员设置里配置了知识库，并将文件存入了知识库，那么过几天回来，你可以通过提问触发检索，从而“唤醒”对文档的记忆。</li>
+</ul>
+<h3 id="3-个性化记忆：✅-可以手动设置"><strong>3. 个性化记忆：✅ 可以手动设置</strong></h3>
+<p>Open WebUI 还有一个**“记忆（实验性）”**功能（通常在设置 -&gt; 个性化里）。</p>
+<ul>
+<li><strong>表现</strong>：你可以手动添加一些关于你自己的信息（例如：“我是张三，我是一名程序员，我喜欢喝咖啡”）。</li>
+<li><strong>原理</strong>：这些信息会被作为**系统提示词（System Prompt）**的一部分，永远跟随你的每一次对话。所以，哪怕隔一年，它依然记得你的名字和职业。</li>
+</ul>
+<h2 id="使用Open-WebUI实现长期记忆">使用Open WebUI实现长期记忆</h2>
+<p>要在 Open WebUI 中实现长期记忆（特别是针对上传文档的记忆），核心方法就是利用 <strong>RAG（检索增强生成）</strong> 技术来创建和管理<strong>知识库</strong>。</p>
+<p>简单来说，你需要把文档“喂”给知识库，这样即使过了几天，在新的对话中，模型也能实时从这个“硬盘”里检索信息，而不是依赖容易溢出的“短期记忆”（上下文窗口）。</p>
+<p>以下是具体的操作步骤：</p>
+<h3 id="📚-第一步：创建并上传知识库">📚 第一步：创建并上传知识库</h3>
+<p>这是最关键的一步，相当于给你的 AI 建立一个可以随时查阅的“图书馆”。</p>
+<ol>
+<li><strong>进入知识库管理页面</strong>：
+<ul>
+<li>登录 Open WebUI 后，在左侧菜单栏找到并点击 <strong><code>工作空间</code></strong> (Workspace)，然后选择 <strong><code>知识库</code></strong> (Knowledge)。</li>
+</ul>
+</li>
+<li><strong>新建知识库</strong>：
+<ul>
+<li>点击 <strong><code>+ 新建知识库</code></strong> (New Knowledge Base)。</li>
+<li>为你的知识库输入一个名称（建议使用英文或数字，避免特殊字符），例如 <code>CompanyDocs</code> 或 <code>StudyNotes</code>。</li>
+<li>点击确认创建。</li>
+</ul>
+</li>
+<li><strong>上传文档</strong>：
+<ul>
+<li>进入你刚创建的知识库页面，点击 <strong><code>上传文件</code></strong> (Upload Files)。</li>
+<li>选择你想要长期记忆的文档。Open WebUI 支持多种格式，如 <strong>PDF、Word (.docx)、TXT、Markdown (.md)</strong> 等。</li>
+<li>上传成功后，系统会自动对文档进行索引处理（分块和向量化），你可以在状态栏看到处理进度。</li>
+</ul>
+</li>
+</ol>
+<h3 id="💬-第二步：在对话中调用知识库">💬 第二步：在对话中调用知识库</h3>
+<p>完成了知识库的建立，你就有两种方式在对话中使用它：</p>
+<h4 id="方式一：使用标签-调用（推荐）">方式一：使用标签 <code>#</code> 调用（推荐）</h4>
+<p>这是最直接的方法，可以确保模型引用你指定的知识库内容。</p>
+<ul>
+<li><strong>操作</strong>：在输入框中提问时，在问题末尾加上 <code>#</code> 符号和你创建的知识库名称。</li>
+<li><strong>示例</strong>：假设你创建了一个名为 <code>ProductManual</code> 的知识库，你可以这样问：
+<blockquote>
+<p>“请总结一下我们产品的核心功能 #ProductManual”</p>
+</blockquote>
+</li>
+<li><strong>效果</strong>：模型会自动检索 <code>ProductManual</code> 知识库中的相关内容，并基于这些内容来回答你，从而实现了跨越时间的“长期记忆”。</li>
+</ul>
+<h4 id="方式二：启用插件自动检索">方式二：启用插件自动检索</h4>
+<p>你可以开启 RAG 插件，让它在后台自动判断是否需要检索知识库。</p>
+<ul>
+<li><strong>操作</strong>：在聊天界面的插件中心（通常在输入框上方或侧边栏），找到名为 <strong><code>Retrieval Augmentation</code></strong> (检索增强) 或类似的插件并启用它。</li>
+<li><strong>效果</strong>：开启后，当你提问涉及已上传知识的内容时，系统会自动尝试从知识库中检索相关信息片段，辅助模型生成更准确的答案。</li>
+</ul>
+<h3 id="🧠-补充：设置个性化记忆（针对个人信息）">🧠 补充：设置个性化记忆（针对个人信息）</h3>
+<p>如果你希望模型长期记住关于你自己的信息（例如你的名字、职业、喜好），可以使用“个性化记忆”功能。这相当于给模型设置一个永久的“备注”。</p>
+<ul>
+<li><strong>路径</strong>：点击左下角你的头像 -&gt; <strong><code>设置</code></strong> (Settings) -&gt; <strong><code>个性化</code></strong> (Personalization)。</li>
+<li><strong>操作</strong>：在“记忆（实验性）”区域，点击 <strong><code>管理</code></strong>，然后添加关于你自己的详细信息（例如：“我是张三，我是一名软件工程师，我正在研究大模型应用”）。</li>
+<li><strong>效果</strong>：这些信息会被作为系统提示词的一部分，跟随每一次对话，确保模型始终“记得你是谁”。</li>
+</ul>
+<p>通过以上步骤，你就可以充分利用 Open WebUI 的知识库功能，彻底解决文档记忆的问题。</p>
+<h1 id="创建知识库并使用">创建知识库并使用</h1>
+<h2 id="知识">知识</h2>
+<p>摘自<a target="_blank" rel="noopener" href="https://docs.openwebui.com/features/ai-knowledge/knowledge">Knowledge</a>。</p>
+<p><strong>知识库</strong>是 Open WebUI 中的一个部分，您可以在其中存储结构化信息，以便系统在您与系统交互时可以参考这些信息。</p>
+<p>想象一下，你正在进行一个长期项目，希望系统能够记住某些参数、设置，甚至是项目的关键信息，而无需每次都手动提醒。或者，你可能希望它记住你在聊天和回复方面的特定个人偏好。</p>
+<p>知识库部分用于存储此类<strong>持久信息</strong> ，以便 Open WebUI 可以在未来的对话中引用它，从而创造更<strong>连贯、更个性化的体验</strong> 。</p>
+<p>以下是一些您可以将内容存储在知识库中的示例：</p>
+<ul>
+<li>重要的项目参数或您将经常参考的具体数据点。</li>
+<li>您想要应用的自定义命令、工作流程或设置。</li>
+<li>Open WebUI 在每次聊天中可以遵循的个人偏好、准则或规则。</li>
+</ul>
+<blockquote>
+<p>Open WebUI 的知识库（Knowledge Base / RAG）适合的场景可以概括为一句话：<strong>当你希望模型回答“以你提供的资料为准”，并且这些资料量大、分散、经常要查证时</strong>。</p>
+</blockquote>
+<p>在聊天中访问已存储的知识非常简单！只需引用已保存的内容（在名称前使用“#”），Open WebUI 即可提取数据或遵循您在知识部分设置的特定准则。</p>
+<p>管理员可以将整个知识库导出为可下载的 zip 文件。这对于备份知识库、在不同实例之间迁移数据或与他人共享精心整理的知识库非常有用。</p>
+<h2 id="内容提取引擎">内容提取引擎</h2>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://docs.openwebui.com/features/chat-conversations/rag/document-extraction/">文档提取</a>：文档提取对于将非结构化文档内容转换为语言模型可以有效使用的结构化数据至关重要。Open WebUI 提供强大的文档提取功能，使您能够在 RAG（检索增强生成）工作流程中处理和分析各种类型的文档。</li>
+</ul>
+<blockquote>
+<p>内容提取引擎用于知识库、聊天中的单个文件上传和网络搜索结果。</p>
+</blockquote>
+<h3 id="引擎选择逻辑">引擎选择逻辑</h3>
+<p>Open WebUI 通过 <code>get_loader</code> 函数实现智能引擎选择，源码位于：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">backend/open_webui/retrieval/loaders/main.py<br></code></pre></td></tr></table></figure>
+<p>Navigate to <strong>Admin Panel</strong> → <strong>Settings</strong> → <strong>Documents</strong> → 通用 → 内容提取引擎。支持的提取引擎有：</p>
+<ul>
+<li>默认</li>
+<li>外部</li>
+<li><a target="_blank" rel="noopener" href="https://docs.openwebui.com/features/chat-conversations/rag/document-extraction/apachetika">Apache Tika</a>（综合排名2）</li>
+<li><a target="_blank" rel="noopener" href="https://docs.openwebui.com/features/chat-conversations/rag/document-extraction/docling">Docling</a>（综合排名1）</li>
+<li>Datalab Marker API</li>
+<li>Document Intelligence（综合排名3）</li>
+<li><a target="_blank" rel="noopener" href="https://docs.openwebui.com/features/chat-conversations/rag/document-extraction/mistral-ocr">Mistral OCR</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/opendatalab/MinerU">MinerU</a>（综合排名3）</li>
+<li>...</li>
+</ul>
+<p>引擎选择逻辑：</p>
+<ul>
+<li>
+<p>open-webui 的设计是：<strong>先由配置项 <code>CONTENT_EXTRACTION_ENGINE</code> 选一个大引擎（external/tika/docling/...）</strong>，然后在这个引擎分支内部，再根据文件是否是“纯文本/代码类”决定走 <code>TextLoader</code> （<code>main.py</code> 顶部直接从 <code>langchain_community.document_loaders</code> 导入了 <code>TextLoader</code>）还是走该引擎的二进制解析/OCR能力；若不满足该引擎的启用条件，再 fallback 到默认的本地 loader（PDF/Office/unstructured 等）。</p>
+</li>
+<li>
+<p>“纯文本/代码类”快速通道：<code>_is_text_file(...)</code>：它维护了一个 <code>known_source_ext</code>（包含大量源码/配置/日志/JSON 等扩展名），或 MIME 是 <code>text/*</code>（但排除 html）就认为是 text file，然后在很多引擎里会直接用 <code>TextLoader</code>，避免把源码/文本丢进 OCR/复杂解析。</p>
+<blockquote>
+<ul>
+<li>使用“默认”选项时，<code>*.tex</code>文件和<code>*.md</code>文件保持原内容。</li>
+<li>实测<a href="#docling%E6%9C%AC%E5%9C%B0%E9%83%A8%E7%BD%B2">启用docling</a>后，<code>*.tex</code>文件被docling转成了markdown格式（且自动去掉了原文中的注释），而没有被<code>TextLoader</code>处理。<code>*.md</code>文件同样。</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li><a href="https://zeyulong.com/posts/78dbcabb/#Pandoc">pandoc latex转markdown</a>表现出的效果（排版，图表、标题链接转换，等）要好于<a target="_blank" rel="noopener" href="https://github.com/docling-project/docling">docling</a>。</li>
+<li>（双栏）pdf转markdown推荐使用<a target="_blank" rel="noopener" href="https://github.com/docling-project/docling">docling</a>、<a target="_blank" rel="noopener" href="https://github.com/opendatalab/MinerU">MinerU</a>。</li>
+<li>word文档转markdown推荐使用<a target="_blank" rel="noopener" href="https://pandoc.org/">pandoc</a>、<a href="#docling%E6%9C%AC%E5%9C%B0%E9%83%A8%E7%BD%B2">docling</a>。</li>
+<li>对于个人使用而言，为了更好的内容提取效果，在可行范围内，可以在本地使用更好的转换器把文档转成markdown格式后，在使用“默认”内容提取引擎上传到知识库？</li>
+</ul>
+</blockquote>
+<ul>
+<li>
+<pre><code class="language-python">def _is_text_file(self, file_ext: str, file_content_type: str) -&gt; bool:
+    return file_ext in known_source_ext or (
+        file_content_type
+        and file_content_type.find(&quot;text/&quot;) &gt;= 0
+        # Avoid text/html files being detected as text
+        and not file_content_type.find(&quot;html&quot;) &gt;= 0
+    )
+<figure class="highlight autohotkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs autohotkey"><br>* ```python<br>  known_source_ext = [<span class="hljs-string">&quot;go&quot;</span>,<span class="hljs-string">&quot;py&quot;</span>,<span class="hljs-string">&quot;java&quot;</span>,<span class="hljs-string">&quot;sh&quot;</span>,<span class="hljs-string">&quot;bat&quot;</span>,<span class="hljs-string">&quot;ps1&quot;</span>,<span class="hljs-string">&quot;cmd&quot;</span>,<span class="hljs-string">&quot;js&quot;</span>,<span class="hljs-string">&quot;ts&quot;</span>,<span class="hljs-string">&quot;css&quot;</span>,<span class="hljs-string">&quot;cpp&quot;</span>,<span class="hljs-string">&quot;hpp&quot;</span>,<span class="hljs-string">&quot;h&quot;</span>,<span class="hljs-string">&quot;c&quot;</span>,<span class="hljs-string">&quot;cs&quot;</span>,<span class="hljs-string">&quot;sql&quot;</span>,<span class="hljs-string">&quot;log&quot;</span>,<span class="hljs-string">&quot;ini&quot;</span>,<span class="hljs-string">&quot;pl&quot;</span>,<span class="hljs-string">&quot;pm&quot;</span>,<span class="hljs-string">&quot;r&quot;</span>,<span class="hljs-string">&quot;dart&quot;</span>,<span class="hljs-string">&quot;dockerfile&quot;</span>,<span class="hljs-string">&quot;env&quot;</span>,<span class="hljs-string">&quot;php&quot;</span>,<span class="hljs-string">&quot;hs&quot;</span>,<span class="hljs-string">&quot;hsc&quot;</span>,<span class="hljs-string">&quot;lua&quot;</span>,<span class="hljs-string">&quot;nginxconf&quot;</span>,<span class="hljs-string">&quot;conf&quot;</span>,<span class="hljs-string">&quot;m&quot;</span>,<span class="hljs-string">&quot;mm&quot;</span>,<span class="hljs-string">&quot;plsql&quot;</span>,<span class="hljs-string">&quot;perl&quot;</span>,<span class="hljs-string">&quot;rb&quot;</span>,<span class="hljs-string">&quot;rs&quot;</span>,<span class="hljs-string">&quot;db2&quot;</span>,<span class="hljs-string">&quot;scala&quot;</span>,<span class="hljs-string">&quot;bash&quot;</span>,<span class="hljs-string">&quot;swift&quot;</span>,<span class="hljs-string">&quot;vue&quot;</span>,<span class="hljs-string">&quot;svelte&quot;</span>,<span class="hljs-string">&quot;ex&quot;</span>,<span class="hljs-string">&quot;exs&quot;</span>,<span class="hljs-string">&quot;erl&quot;</span>,<span class="hljs-string">&quot;tsx&quot;</span>,<span class="hljs-string">&quot;jsx&quot;</span>,<span class="hljs-string">&quot;hs&quot;</span>,<span class="hljs-string">&quot;lhs&quot;</span>,<span class="hljs-string">&quot;json&quot;</span>,] <br></code></pre></td></tr></table></figure>
+
+</code></pre>
+</li>
+<li>
+<p>...</p>
+</li>
+</ul>
+</li>
+<li>
+<p><code>tika</code>：Apache Tika Server：</p>
+<ul>
+<li>
+<p>触发条件：<code>engine == &quot;tika&quot;</code> 且 <code>TIKA_SERVER_URL</code> 存在</p>
+</li>
+<li>
+<p>策略：如果 <code>_is_text_file(...)</code> → <code>TextLoader</code>，否则 → <code>TikaLoader</code>（HTTP 调 Tika）</p>
+</li>
+<li>
+<p>open-webui 实际“交给 Tika”的文件类型范围：</p>
+<p><strong>open-webui 并没有显式列出 Tika 支持的扩展名白名单。</strong><br>
+它的策略是：</p>
+<ul>
+<li>只要不是 <code>_is_text_file</code> 判定的文本文件，就<strong>全部</strong>交给 Tika。</li>
+</ul>
+<p>因此在 open-webui 视角下：</p>
+<ul>
+<li><strong>会交给 Tika 的</strong>：几乎所有“二进制/富文档”类型（PDF、Office、图片、EPUB 等），以及任何 MIME 不是 <code>text/*</code> 的文件（并且扩展名不在 <code>known_source_ext</code>）</li>
+<li><strong>不会交给 Tika 的</strong>：源码/配置/日志/JSON 等在 <code>known_source_ext</code> 的文件；以及普通 <code>text/plain</code> 等（但 <code>text/html</code> 例外：HTML 不会被当成 text file，会交给 Tika）</li>
+</ul>
+<p>至于 <strong>Tika 自身到底能不能解析某个文件</strong>（例如某些图片/特殊格式），失败与否要看你的 Tika Server 组件/版本与解析器支持。</p>
+</li>
+</ul>
+</li>
+<li>
+<p><code>docling</code>：Docling 服务（<code>/v1/convert/file</code>）：</p>
+<ul>
+<li>
+<p>触发条件：<code>engine == &quot;docling&quot;</code> 且 <code>DOCLING_SERVER_URL</code> 存在</p>
+</li>
+<li>
+<p>策略：text file → <code>TextLoader</code>；否则 → <code>DoclingLoader</code>（HTTP POST + 可选 params）</p>
+</li>
+<li>
+<p>open-webui 实际“交给 Docling”的文件类型范围：</p>
+<p>和 Tika 一样，<strong>open-webui 没有给 Docling 单独做扩展名白名单</strong>，规则就是：</p>
+<ul>
+<li><strong>非 <code>_is_text_file</code> 的文件</strong> → 都交给 Docling</li>
+<li><code>_is_text_file</code> 的文件 → <code>TextLoader</code> 本地读，不交给 Docling</li>
+</ul>
+<p>所以在 open-webui 视角下，Docling 会接到的类型范围也非常宽（PDF、Office、图片、HTML/EPUB 等）。</p>
+<p>Docling 服务端是否支持、是否能成功转换，取决于 Docling 本身的能力与部署配置；</p>
+</li>
+</ul>
+</li>
+<li>
+<p>其它引擎......</p>
+</li>
+<li>
+<p>如果以上 engine 分支都不触发，代码会走一个“基于文件扩展名/Content-Type 的本地解析器映射”，你可以理解为默认策略：</p>
+<ul>
+<li>pdf → <code>PyPDFLoader</code>（可选 <code>extract_images</code>、<code>mode</code>）</li>
+<li>csv → <code>CSVLoader</code></li>
+<li>rst/xml/html/md/epub/docx/xls/xlsx/ppt/pptx/msg/odt → 各类 Unstructured / BSHTML / Docx2txt 等</li>
+<li><code>_is_text_file(...)</code> → <code>TextLoader</code></li>
+<li>兜底仍然 <code>TextLoader</code>（即使不是 text file 也会强行当文本读）</li>
+</ul>
+</li>
+</ul>
+<h3 id="docling本地部署">docling本地部署</h3>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/docling-project/docling">https://github.com/docling-project/docling</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.openwebui.com/features/chat-conversations/rag/document-extraction/docling">https://docs.openwebui.com/features/chat-conversations/rag/document-extraction/docling</a></li>
+</ul>
+<blockquote>
+<ul>
+<li>在 Windows 上，Docker Desktop 对 GPU (CUDA) 的支持需要 WSL2 后端且配置较复杂。目前 Docling 官方镜像主要优化 CPU 运行。</li>
+</ul>
+</blockquote>
+<ol>
+<li>
+<p>docker部署：</p>
+<ol>
+<li>
+<p>Basic CPU deployment:</p>
+<p>下载模型：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs powershell"><span class="hljs-comment"># (命令行界面 (CLI))[https://hugging-face.cn/docs/huggingface_hub/guides/cli]</span><br>powershell <span class="hljs-literal">-ExecutionPolicy</span> ByPass <span class="hljs-literal">-c</span> <span class="hljs-string">&quot;irm https://hugging-face.cn/cli/install.ps1 | iex&quot;</span>  <span class="hljs-comment"># Windows </span><br><span class="hljs-built_in">curl</span> <span class="hljs-literal">-LsSf</span> https://hugging<span class="hljs-literal">-face</span>.cn/<span class="hljs-built_in">cli</span>/install.sh | bash  <span class="hljs-comment"># macOS and Linux </span><br>hf <span class="hljs-literal">--help</span>  <span class="hljs-comment"># 安装完成后，您可以检查 CLI 是否已正确设置</span><br><br><span class="hljs-variable">$env:HF_ENDPOINT</span>=<span class="hljs-string">&quot;https://hf-mirror.com&quot;</span><br><br>hf download HuggingFaceTB/SmolVLM<span class="hljs-literal">-256M-Instruct</span> <span class="hljs-literal">--local-dir</span> <span class="hljs-string">&quot;C:\xxx\docling\models\HuggingFaceTB--SmolVLM-256M-Instruct&quot;</span><br>hf download docling<span class="hljs-literal">-project</span>/CodeFormulaV2 <span class="hljs-literal">--local-dir</span> <span class="hljs-string">&quot;C:\xxx\docling\models\docling-project--CodeFormulaV2&quot;</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs powershell"><span class="hljs-comment"># ---- 如果已存在同名容器，先停掉并删除，避免冲突 ----</span><br><span class="hljs-variable">$existing</span> = docker <span class="hljs-built_in">ps</span> <span class="hljs-literal">-a</span> <span class="hljs-literal">--format</span> <span class="hljs-string">&quot;&#123;&#123;.Names&#125;&#125;&quot;</span> | <span class="hljs-built_in">Where-Object</span> &#123; <span class="hljs-variable">$_</span> <span class="hljs-operator">-eq</span> <span class="hljs-string">&quot;docling-serve&quot;</span> &#125;<br><span class="hljs-keyword">if</span> (<span class="hljs-variable">$existing</span>) &#123;<br>  <span class="hljs-built_in">Write-Host</span> <span class="hljs-string">&quot;Stopping existing container: docling-serve&quot;</span><br>  docker stop docling<span class="hljs-literal">-serve</span> | <span class="hljs-built_in">Out-Null</span><br>  <span class="hljs-built_in">Write-Host</span> <span class="hljs-string">&quot;Removing existing container: docling-serve&quot;</span><br>  docker <span class="hljs-built_in">rm</span> docling<span class="hljs-literal">-serve</span>   | <span class="hljs-built_in">Out-Null</span><br>&#125;<br><br><span class="hljs-comment"># ---- 创建并运行容器 ----</span><br>docker run <span class="hljs-literal">-d</span> <span class="hljs-literal">--name</span> docling<span class="hljs-literal">-serve</span> <span class="hljs-literal">-p</span> <span class="hljs-number">5001</span>:<span class="hljs-number">5001</span> `<br>  <span class="hljs-literal">--restart</span> no `<br>  <span class="hljs-literal">-e</span> DOCLING_SERVE_ENABLE_UI=true `<br>  <span class="hljs-literal">-e</span> DOCLING_SERVE_ENABLE_REMOTE_SERVICES=true `<br>  <span class="hljs-literal">-e</span> DOCLING_SERVE_MAX_SYNC_WAIT=<span class="hljs-number">600</span> `<br>  <span class="hljs-literal">-e</span> UVICORN_WORKERS=<span class="hljs-number">1</span> `<br>  <span class="hljs-literal">-e</span> HF_ENDPOINT=https://hf<span class="hljs-literal">-mirror</span>.com `<br>  <span class="hljs-literal">-v</span> <span class="hljs-string">&quot;C:\xxx\docling\models\HuggingFaceTB--SmolVLM-256M-Instruct:/opt/app-root/src/.cache/docling/models/HuggingFaceTB--SmolVLM-256M-Instruct&quot;</span> `<br>  <span class="hljs-literal">-v</span> <span class="hljs-string">&quot;C:\xxx\docling\models\docling-project--CodeFormulaV2:/opt/app-root/src/.cache/docling/models/docling-project--CodeFormulaV2&quot;</span> `<br>  quay.io/docling<span class="hljs-literal">-project</span>/docling<span class="hljs-literal">-serve</span>:latest<br>  <br><span class="hljs-built_in">Write-Host</span> <span class="hljs-string">&quot;&quot;</span><br><span class="hljs-built_in">Write-Host</span> <span class="hljs-string">&quot;Docling is starting...&quot;</span><br><span class="hljs-built_in">Write-Host</span> <span class="hljs-string">&quot;URL: http://127.0.0.1:5001/ui/&quot;</span><br><span class="hljs-built_in">Write-Host</span> <span class="hljs-string">&quot;&quot;</span><br><span class="hljs-built_in">Write-Host</span> <span class="hljs-string">&quot;Logs: docker logs -f docling-serve&quot;</span><br><span class="hljs-built_in">Write-Host</span> <span class="hljs-string">&quot;&quot;</span><br><br>docker logs <span class="hljs-operator">-f</span> docling<span class="hljs-literal">-serve</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs powershell">docker tag quay.io/docling<span class="hljs-literal">-project</span>/docling<span class="hljs-literal">-serve</span>:latest quay.io/docling<span class="hljs-literal">-project</span>/docling<span class="hljs-literal">-serve</span>:v1.<span class="hljs-number">1.1</span>  <span class="hljs-comment"># （可选）备份当前image版本</span><br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>（可选）通过<code>docker network</code>可以实现容器通过专用 Docker 网络直接通信，而非通过宿主机中转。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs powershell">docker network create openwebui<span class="hljs-literal">-net</span><br>docker run <span class="hljs-literal">-d</span> `<br>  <span class="hljs-literal">--name</span> docling<span class="hljs-literal">-serve</span> `<br>  <span class="hljs-literal">--network</span> openwebui<span class="hljs-literal">-net</span> `<br>  ...<br>docker run <span class="hljs-literal">-d</span> `<br>  <span class="hljs-literal">--name</span> <span class="hljs-built_in">open-webui</span> `<br>  <span class="hljs-literal">--network</span> openwebui<span class="hljs-literal">-net</span> `<br>  ...<br></code></pre></td></tr></table></figure>
+<ul>
+<li>直接通信：<a target="_blank" rel="noopener" href="http://docling:5001">http://docling:5001</a></li>
+<li>宿主机中转：<a target="_blank" rel="noopener" href="http://host.docker.internal:5001">http://host.docker.internal:5001</a></li>
+</ul>
+</blockquote>
+</li>
+<li>
+<p>GPU deployment (NVIDIA CUDA):</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs powershell">docker run <span class="hljs-literal">--gpus</span> all <span class="hljs-literal">-p</span> <span class="hljs-number">5001</span>:<span class="hljs-number">5001</span> `<br>  <span class="hljs-literal">-e</span> DOCLING_SERVE_ENABLE_UI=true `<br>  quay.io/docling<span class="hljs-literal">-project</span>/docling<span class="hljs-literal">-serve-cu128</span><br></code></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+<li>
+<p>open-webui配置：</p>
+<ol>
+<li><a href="#Docker">登录</a>到您的 Open WebUI 界面。</li>
+<li>Navigate to <strong>Admin Panel</strong> → <strong>Settings</strong> → <strong>Documents</strong></li>
+<li>Change the <strong>Default</strong> content extraction engine dropdown to <strong>Docling</strong></li>
+<li>Set the extraction engine URL to <code>http://host.docker.internal:5001</code> (Docker) or <code>http://localhost:5001</code> (native)</li>
+<li>Save the changes</li>
+</ol>
+</li>
+<li>
+<p>（可选）配置图片描述：</p>
+<ol>
+<li>
+<p>In the <strong>Documents</strong> tab, activate <strong>Describe Pictures in Documents</strong></p>
+</li>
+<li>
+<p>Choose a description mode: <code>local</code> or <code>API</code></p>
+<ul>
+<li>
+<p><strong>本地</strong> ：Vision 模型在 Docling 容器内运行。JSON 配置示例：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><br>  <span class="hljs-attr">&quot;repo_id&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;HuggingFaceTB/SmolVLM-256M-Instruct&quot;</span><span class="hljs-punctuation">,</span><br>  <span class="hljs-attr">&quot;generation_config&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>    <span class="hljs-attr">&quot;max_new_tokens&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">200</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;do_sample&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">false</span></span><br>  <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>  <span class="hljs-attr">&quot;prompt&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Describe this image in a few sentences.&quot;</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p><strong>API</strong> ：Docling 调用外部服务（例如，Ollama、OpenAI 兼容的端点）。API 配置（Ollama）：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><br>  <span class="hljs-attr">&quot;url&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;http://host.docker.internal:11434/v1/chat/completions&quot;</span><span class="hljs-punctuation">,</span><br>  <span class="hljs-attr">&quot;params&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>    <span class="hljs-attr">&quot;model&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;llava:7b&quot;</span><br>  <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>  <span class="hljs-attr">&quot;timeout&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">60</span><span class="hljs-punctuation">,</span><br>  <span class="hljs-attr">&quot;prompt&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Describe this image in great detail.&quot;</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>使用 <code>API</code> 模式（调用 Ollama 等外部服务）时， <strong>必须</strong>在 docling-serve 上设置以下环境变量：<code>DOCLING_SERVE_ENABLE_REMOTE_SERVICES=true</code>。如果没有这个，Docling 将拒绝向外部服务的请求，并返回 <code>OperationNotAllowed</code> 错误。</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+<li>
+<p>Configure via <a target="_blank" rel="noopener" href="https://docs.openwebui.com/features/chat-conversations/rag/document-extraction/docling/#docling-parameters-reference-open-webui">DOCLING_PARAMS</a> JSON in <strong>Admin Settings &gt; Documents</strong> or via environment variable. 示例：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><br>  <span class="hljs-attr">&quot;pdf_backend&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;dlparse_v4&quot;</span><span class="hljs-punctuation">,</span><br>  <span class="hljs-attr">&quot;table_mode&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;accurate&quot;</span><span class="hljs-punctuation">,</span><br>  <span class="hljs-attr">&quot;ocr_engine&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;tesseract&quot;</span><span class="hljs-punctuation">,</span><br>  <span class="hljs-attr">&quot;do_ocr&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">true</span></span><span class="hljs-punctuation">,</span><br>  <span class="hljs-attr">&quot;force_ocr&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">false</span></span><span class="hljs-punctuation">,</span><br>  <span class="hljs-attr">&quot;pipeline&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;standard&quot;</span><span class="hljs-punctuation">,</span><br>  <span class="hljs-attr">&quot;ocr_lang&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">&quot;eng&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;chi_sim&quot;</span><span class="hljs-punctuation">]</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/tesseract-ocr/tesseract">https://github.com/tesseract-ocr/tesseract</a></li>
+</ul>
+</li>
+<li>
+<p>验证集成：<a target="_blank" rel="noopener" href="https://docs.openwebui.com/features/chat-conversations/rag/document-extraction/docling/#troubleshooting">故障排除</a></p>
+<ol>
+<li>
+<p>powershell终端验证：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">curl.exe http://127.0.0.1:5001/health<br>docker <span class="hljs-built_in">exec</span> -it open-webui sh -c <span class="hljs-string">&quot;curl http://host.docker.internal:5001/health&quot;</span><br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>访问 Docling 用户界面，地址为 <a target="_blank" rel="noopener" href="http://127.0.0.1:5001/ui">http://127.0.0.1:5001/ui</a></p>
+</li>
+<li>
+<p>上传测试文档并验证它是否返回 Markdown 输出</p>
+</li>
+<li>
+<p>在 Open WebUI 中，上传文件到知识库并确认处理完成。</p>
+</li>
+</ol>
+</li>
+<li>
+<p>更新：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs powershell">docker images  <span class="hljs-comment"># 查看镜像</span><br><br>docker tag quay.io/docling<span class="hljs-literal">-project</span>/docling<span class="hljs-literal">-serve</span>:latest quay.io/docling<span class="hljs-literal">-project</span>/docling<span class="hljs-literal">-serve</span>:v1.<span class="hljs-number">1.1</span>  <span class="hljs-comment"># （可选）备份当前image版本</span><br><br>docker pull quay.io/docling<span class="hljs-literal">-project</span>/docling<span class="hljs-literal">-serve</span>:latest  <span class="hljs-comment"># 拉取最新版本</span><br><br>docker tag quay.io/docling<span class="hljs-literal">-project</span>/docling<span class="hljs-literal">-serve</span>:latest quay.io/docling<span class="hljs-literal">-project</span>/docling<span class="hljs-literal">-serve</span>:v1.<span class="hljs-number">1.2</span>  <span class="hljs-comment"># （可选）标记更新后的image版本</span><br><br><span class="hljs-comment"># 停止并移除当前容器</span><br>docker stop docling<span class="hljs-literal">-serve</span><br>docker <span class="hljs-built_in">rm</span> docling<span class="hljs-literal">-serve</span><br><br>docker run <span class="hljs-literal">--name</span> docling<span class="hljs-literal">-serve</span> quay.io/docling<span class="hljs-literal">-project</span>/docling<span class="hljs-literal">-serve</span>:latest  <span class="hljs-comment"># 重新启动容器（请对照实际运行命令）</span><br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>完成。</p>
+</li>
+</ol>
+<h2 id="KV-缓存优化">KV 缓存优化</h2>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://docs.openwebui.com/features/chat-conversations/rag/#kv-cache-optimization-performance-tip-">https://docs.openwebui.com/features/chat-conversations/rag/#kv-cache-optimization-performance-tip-</a></li>
+<li>对于专业和高性能的使用场景（尤其是在处理长文档或频繁的后续问题时），启用 <strong>KV 缓存优化</strong>可以显著提高响应时间。</li>
+<li>如果您正在使用 <strong>Ollama</strong> 、 <strong>llama.cpp</strong> 、 <strong>OpenAI</strong> 或 <strong>Vertex AI</strong> ，并且经常“与文档进行对话”，请在您的环境中设置环境变量 <code>RAG_SYSTEM_CONTEXT=True</code> ，以体验更快的后续响应！</li>
+<li><code>$env:RAG_SYSTEM_CONTEXT=&quot;True&quot;</code></li>
+</ul>
+<h2 id="RAG原则">RAG原则</h2>
+<p>RAG（检索增强生成）想“稳定好用”，通常要遵循一些工程化原则。下面按实用性把常见原则整理出来（偏 Open WebUI 这类知识库形态也适用）。</p>
+<h3 id="1-语料治理（Corpus-hygiene）">1) 语料治理（Corpus hygiene）</h3>
+<ol>
+<li>
+<p><strong>把“你自己的材料/必须对齐口径的材料”与“外部参考材料”分开</strong>，避免检索时互相污染。</p>
+</li>
+<li>
+<p><strong>权威源优先、同类材料分层</strong></p>
+<ul>
+<li>最权威、最终定稿、对外口径一致的文档放在“权威层”（比如最终论文、最终制度）。</li>
+<li>草稿/阶段性文档放在“非权威层”，避免与权威层冲突。</li>
+</ul>
+</li>
+<li>
+<p><strong>版本与时间戳明确</strong></p>
+<ul>
+<li>文档名/元数据写清楚版本、日期、适用范围（例如 V1/V2、2025-10、适用于某系统版本）。</li>
+<li>否则检索可能把旧规则当新规则引用。</li>
+</ul>
+</li>
+<li>
+<p><strong>减少噪声：先清洗再入库</strong></p>
+<ul>
+<li>去掉页眉页脚、目录重复、参考文献堆叠、无意义的版权页等。</li>
+<li>PDF 双栏/扫描件尤其要注意，必要时转 Markdown/纯文本再入库。</li>
+</ul>
+</li>
+<li>
+<p><strong>避免“重复与近重复”泛滥</strong></p>
+<ul>
+<li>同一内容的多份拷贝会让检索 Top-K 里充满重复片段，挤掉真正有用的上下文。</li>
+<li>解决：去重、只保留最终版、或在元数据标注“主版本”。</li>
+</ul>
+</li>
+</ol>
+<h3 id="2-切分（Chunking）原则">2) 切分（Chunking）原则</h3>
+<ol start="5">
+<li>
+<p><strong>以“可被引用的最小完整语义单元”为 chunk</strong></p>
+<ul>
+<li>chunk 目标不是越小越好，而是能独立解释清楚一个点（定义、步骤、条款、结论+条件）。</li>
+</ul>
+</li>
+<li>
+<p><strong>保留结构信息</strong></p>
+<ul>
+<li>把标题层级、章节路径（如“3.2 方法 / 3.2.1 模块A”）带进 chunk 元数据或正文前缀。</li>
+<li>这样模型引用时更像“在读文档”，也更利于定位。</li>
+</ul>
+</li>
+<li>
+<p><strong>合理 overlap（重叠）</strong></p>
+<ul>
+<li>适度重叠能避免句子/步骤被切断造成语义缺失；重叠太大则会引入重复、增加上下文成本。</li>
+</ul>
+</li>
+</ol>
+<h3 id="3-检索（Retrieval）原则">3) 检索（Retrieval）原则</h3>
+<ol start="8">
+<li>
+<p><strong>召回要“宁缺毋滥”还是“宁滥毋缺”要按任务选</strong></p>
+<ul>
+<li>写专利/制度问答：更适合“宁缺毋滥”（高精度，没证据就说不知道）。</li>
+<li>头脑风暴/综述初稿：可以“宁滥毋缺”（高召回，再让模型归纳）。</li>
+</ul>
+</li>
+<li>
+<p><strong>混合检索对专有名词更友好（如果可用）</strong></p>
+<ul>
+<li>纯向量检索对“错误码/公式编号/特定术语”可能不如“向量 + 关键词(BM25)”的混合策略稳定。</li>
+</ul>
+</li>
+<li>
+<p><strong>设置阈值与失败策略</strong></p>
+</li>
+</ol>
+<ul>
+<li>有相似度阈值时，用它避免把不相关片段硬塞给模型。</li>
+<li>更进一步：检索不足就触发澄清提问或拒答（而不是编）。</li>
+</ul>
+<h3 id="4-生成（Generation）与可控性原则">4) 生成（Generation）与可控性原则</h3>
+<ol start="11">
+<li><strong>明确“证据优先”规则</strong></li>
+</ol>
+<ul>
+<li>在 system prompt 里要求：结论必须能被检索片段支持；无法支持就标注不确定/需要补充资料。</li>
+</ul>
+<ol start="12">
+<li><strong>要求引用与可追溯</strong></li>
+</ol>
+<ul>
+<li>让模型输出“引用片段/来源标题/章节”，并区分：
+<ul>
+<li>来自知识库的事实</li>
+<li>来自模型常识的解释/推断</li>
+</ul>
+</li>
+</ul>
+<ol start="13">
+<li><strong>把“任务指令”和“资料上下文”分开管理</strong></li>
+</ol>
+<ul>
+<li>任务指令（写作风格、输出格式、限制条件）放 prompt；</li>
+<li>事实依据放检索上下文；</li>
+<li>避免把大量规则写进资料库或把资料当指令。</li>
+</ul>
+<h3 id="5-评估与迭代原则（最容易被忽略）">5) 评估与迭代原则（最容易被忽略）</h3>
+<ol start="14">
+<li><strong>建立一组固定问题做回归测试</strong></li>
+</ol>
+<ul>
+<li>每次改 chunk/embedding/Top-K，就用同一组问题对比命中率、引用质量、回答一致性。</li>
+</ul>
+<ol start="15">
+<li><strong>用“失败案例”反向驱动改库</strong></li>
+</ol>
+<ul>
+<li>典型失败：检索命中但回答仍错、引用不相关、把旧版本当新版本。</li>
+<li>对应措施：清洗/去重/拆库/加版本标签/调阈值/改提示词。</li>
+</ul>
+<h2 id="RAG教程">RAG教程</h2>
+<p>摘自<a target="_blank" rel="noopener" href="https://docs.openwebui.com/tutorials/tips/rag-tutorial/">RAG Tutorial</a>。</p>
+<p>其它参考链接：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://docs.openwebui.com/features/chat-conversations/rag/">检索增强生成（RAG）</a>：检索增强生成（RAG）是一种尖端技术，它通过整合来自各种来源的上下文来增强聊天机器人的对话能力。它的工作原理是从各种来源（例如本地和远程文档、网络内容，甚至是 YouTube 视频等多媒体资源）中检索相关信息。然后，将检索到的文本与预定义的 RAG 模板结合，并添加到用户的提示中，从而提供更明智、更符合上下文的回复。</li>
+</ul>
+<p>在本教程中，您将学习如何使用<strong>检索增强生成 (RAG)</strong> 和 Open WebUI 将真实世界的文档加载为知识库。我们将以最新的 <strong>Open WebUI 文档</strong>为例，逐步演示如何进行此设置。</p>
+<p>检索增强生成（RAG）将逻辑逻辑模型（ <strong>LLM</strong> ）与从外部来源<strong>检索到的知识</strong>相结合。该系统从上传的文档或知识库中检索相关数据，从而提高响应的质量和准确性。</p>
+<ol>
+<li>
+<p>下载<a target="_blank" rel="noopener" href="https://github.com/open-webui/docs/archive/refs/heads/main.zip">文档</a>并解压。</p>
+</li>
+<li>
+<p>创建知识库：</p>
+<ol>
+<li>Navigate to Workspace &gt; Knowledge &gt; + Create a Knowledge Base.</li>
+<li>What are you working on?: <code>Open WebUI Documentation</code></li>
+<li>What are you trying to achieve?: <strong>Assistance</strong></li>
+<li>Visibility: <strong>Private</strong></li>
+<li>Groups: Select a group if needed.</li>
+<li><em>Click</em> <strong>Create Knowledge</strong>.</li>
+<li>上传文件：点击open-webui右上角“+”（添加内容）-上传目录（上传相关文件时推荐创建一个<code>knowledge_bases\</code>文件夹来统一管理，还有“同步目录”功能可选），选择解压文档后的目录。可能遇到的问题及解决：
+<ul>
+<li><a target="_blank" rel="noopener" href="https://docs.openwebui.com/faq#q-im-getting-the-content-provided-is-empty-when-uploading-files-via-the-api-why">我通过 API 上传文件时收到“提供的内容为空”的错误提示。这是为什么？</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.openwebui.com/troubleshooting/rag#9-api-file-upload-the-content-provided-is-empty-error">API 文件上传：“提供的内容为空”错误</a></li>
+<li>上传<code>*.doc</code>文件时报错：Could not detect encoding。可以尝试把<code>*.doc</code>文件另存为<code>*.docx</code>文件。</li>
+</ul>
+</li>
+<li>等待文件上传和知识库创建完成即可。</li>
+</ol>
+</li>
+<li>
+<p>使用知识库创建自定义<a target="_blank" rel="noopener" href="https://docs.openwebui.com/features/ai-knowledge/models/">模型</a>（点击链接以查看详细的配置教程）：</p>
+<ol>
+<li>
+<p>Go to Workspace &gt; Models &gt; + Add New Model.</p>
+</li>
+<li>
+<p>Configure the Model:</p>
+<ol>
+<li>
+<p><strong>Name</strong>: <code>Open WebUI</code></p>
+</li>
+<li>
+<p><strong>Base Model</strong>: <em>(Select the appropriate Llama or other available model)</em></p>
+<blockquote>
+<p><strong>基础模型</strong> ：代理程序底层运行的实际模型。您可以选择<em>任何</em>连接到 Open WebUI 的模型。您可以像创建 <code>llama3</code> 一样轻松地为 <code>gpt-4o</code> 创建自定义预设。</p>
+<ul>
+<li><strong>回退行为</strong> ：如果配置的基础模型不可用，且 <code>ENABLE_CUSTOM_MODEL_FALLBACK</code> 环境变量设置为 <code>True</code> ，系统将自动回退到第一个配置的默认模型（在管理面板 &gt; 设置 &gt; 模型 &gt; 默认模型 中设置）。这确保了即使特定基础模型被移除或暂时不可用，关键任务自定义模型仍能保持功能正常。</li>
+</ul>
+</blockquote>
+</li>
+<li>
+<p><strong>Knowledge Source</strong>: Select <strong>Open WebUI Documentation</strong> from the dropdown.</p>
+<blockquote>
+<p><strong>知识库</strong> ：您无需为每次聊天手动选择文档，而是可以将特定的知识库<strong>集合</strong>或<strong>文件</strong>绑定到此模型。选择此模型后，RAG（检索增强生成）功能将自动针对这些特定文件启用。**点击附加的项目（知识库/文件）**即可在 <strong>“聚焦检索”</strong> （RAG 数据块）和 <strong>“使用整个文档”</strong> （完整内容注入）之间切换。有关详细信息，请参阅 <a target="_blank" rel="noopener" href="https://docs.openwebui.com/features/ai-knowledge/knowledge#full-context-vs-focused-retrieval">“完整上下文与聚焦检索”</a> 。</p>
+</blockquote>
+<blockquote>
+<p>我们 RAG 嵌入功能的可切换混合搜索（hybrid search）子功能，通过 <code>BM25</code> 增强了 RAG 的功能，并利用 <code>CrossEncoder</code> 进行重新排序，同时还提供可配置的相关性评分阈值。这能为您的特定用例提供更精准、更个性化的 RAG 体验。</p>
+<p>管理员面板-设置-文档-检索-混合搜索</p>
+</blockquote>
+</li>
+<li>
+<p><strong>Save the Model</strong>.</p>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>
+<p>示例和用法：</p>
+<ol>
+<li>
+<p>Navigate to <strong>New Chat</strong> and select the <code>Open WebUI</code> model.</p>
+</li>
+<li>
+<p>Example Queries:</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs txt">User: &quot;How do I configure environment variables?&quot;<br>System: &quot;Refer to Section 3.2: Use the `.env` file to manage configurations.&quot;<br></code></pre></td></tr></table></figure>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs txt">User: &quot;How do I update Open WebUI using Docker?&quot;<br>System: &quot;Refer to `docker/updating.md`: Use `docker pull` and restart the container.&quot;<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>启用 RAG 模型后，系统会从文档中检索最相关的部分来回答您的问题。</p>
+</li>
+</ol>
+</li>
+<li>
+<p>后续步骤：<strong>添加更多知识</strong>，通过添加更多文档来不断扩展您的知识库。</p>
+</li>
+</ol>
+<p>通过这种设置，您可以有效地利用 <strong>Open WebUI 文档，</strong> 通过检索与用户查询相关的信息来帮助用户。尽情构建和查询您的自定义知识增强模型吧！</p>
+<h2 id="文件夹功能">文件夹功能</h2>
+<p>摘自<a target="_blank" rel="noopener" href="https://docs.openwebui.com/features/chat-conversations/chat-features/conversation-organization/">Folders &amp; Projects</a>。</p>
+<p>Open WebUI 提供强大的基于文件夹的组织功能，可以将简单的聊天容器转变为功能齐全的<strong>项目工作区</strong> 。文件夹不仅允许您对相关对话进行分组，还可以定义适用于其中所有聊天的特定上下文、系统提示和知识库。</p>
+<h3 id="特性">特性</h3>
+<ul>
+<li><strong>将对话移至文件夹</strong>
+<ul>
+<li><strong>拖放</strong> ：点击并将侧边栏中的任何对话拖到文件夹中。</li>
+<li><strong>右键菜单</strong> ：右键单击对话，然后选择“移动到文件夹”。</li>
+</ul>
+</li>
+<li>文件夹可以嵌套在其他文件夹内，从而创建层级结构。</li>
+<li>点击侧边栏中的文件夹，它就会成为你的<strong>活动工作区</strong>，您发起的任何新聊天记录都会自动创建在此文件夹中。新聊天将<strong>继承文件夹的设置</strong> （系统提示和知识）。</li>
+<li>为文件夹分配一个专用的<strong>系统</strong>提示符，该提示符将自动应用于文件夹中的所有对话：
+<ul>
+<li>系统提示信息会<strong>添加到文件夹中创建的每个新对话的前面</strong> 。</li>
+<li>这样可以针对特定任务或角色调整人工智能的行为。</li>
+<li>系统提示是可选的——即使没有系统提示，您也可以纯粹使用文件夹进行组织。</li>
+</ul>
+</li>
+<li>将<strong>知识库和文件</strong>链接到您的文件夹：
+<ul>
+<li>文件夹中所有附件和知识库都会自动作为<strong>上下文</strong>包含在<strong>每次聊天</strong>中。</li>
+<li>这样就可以对所有文件夹对话启用 RAG（检索增强生成）。</li>
+<li>知识是可选的——文件夹无需附加任何文件即可用于组织文件。</li>
+</ul>
+</li>
+</ul>
+<h3 id="示例">示例</h3>
+<p>假设你正在进行一个 Python 开发项目：</p>
+<ol>
+<li>
+<p><strong>创建一个名为“Python 专家”的文件夹</strong> 。</p>
+</li>
+<li>
+<p><strong>编辑文件夹</strong>并设置系统提示词：</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs txt">You are an expert Python developer. You provide clean, efficient, and well-documented code. When asked for code, prioritize clarity and adherence to PEP 8 standards.<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>通过链接项目的技术规范 PDF 或库文档<strong>来附加知识</strong>。</p>
+</li>
+<li>
+<p><strong>点击文件夹</strong>将其选为当前工作区。</p>
+</li>
+<li>
+<p><strong>开始聊天</strong> ——每一次新的对话都将包含：</p>
+<ul>
+<li>精通 Python 的角色</li>
+<li>访问您的项目文档</li>
+<li>文件夹中的自动整理</li>
+</ul>
+</li>
+</ol>
+<h2 id="引用对话">引用对话</h2>
+<p>在 open-webui 中，<strong>“引用其他对话”</strong>（通常称为 <strong>Context Awareness</strong>、<strong>Memory</strong> 或 <strong>Chat History Reference</strong>）是一个强大的功能，它允许大模型在回答当前问题时，参考您之前的聊天记录或其他特定对话的内容。</p>
+<p>这意味着您可以打破“每次对话都是孤岛”的限制，实现跨话题的知识关联和长期记忆。</p>
+<p>默认情况下，大模型只记得<strong>当前对话窗口</strong>内的历史。开启“引用其他对话”后，系统会：</p>
+<ol>
+<li><strong>检索</strong>您指定的（或所有的）历史对话记录。</li>
+<li><strong>提取</strong>与当前问题相关的片段。</li>
+<li><strong>注入</strong>到当前的 Prompt 中发送给大模型。</li>
+</ol>
+<p>这个功能本质上也是 <strong>RAG（检索增强生成）</strong>：</p>
+<ol>
+<li><strong>索引</strong>：系统把您所有的历史对话也当作“文档”，进行分段和向量化存储。</li>
+<li><strong>检索</strong>：当您提问时，系统不仅在“知识库文档”里搜，也在“历史对话库”里搜。</li>
+<li><strong>生成</strong>：将搜到的<strong>相关历史对话片段</strong> + <strong>当前问题</strong> + <strong>知识库文档片段</strong> 一起发给大模型。</li>
+</ol>
+<blockquote>
+<p>当您引用一个对话时，open-webui <strong>只会发送该对话中的“文本历史记录”</strong>（即您和模型说过的话），而<strong>不会</strong>自动重新提取或发送该对话中曾经上传过的<strong>原始文档文件</strong>或<strong>附加的知识库内容</strong>。</p>
+</blockquote>
+<h2 id="技巧">技巧</h2>
+<h3 id="小知识-2">小知识</h3>
+<ul>
+<li>Open WebUI 的“知识库”（Knowledge / KB）功能，本质上是把 **RAG（Retrieval-Augmented Generation，检索增强生成）**做进聊天界面：你把资料放进去（文档、网页内容、笔记等），系统先把资料切分并向量化建立索引；对话时先检索最相关片段，再把片段连同问题一起发给模型，从而让回答“基于你的资料”，并降低模型胡编的概率。</li>
+<li><strong>更新与重建索引</strong>：新增资料后重新向量化，或对切分/嵌入策略变更后重建。</li>
+<li>在 Open WebUI 里“附加知识库”后，模型<strong>通常不会自动变成只依据知识库</strong>来回答；更准确的说法是：Open WebUI 把“检索到的知识库片段”作为<strong>额外上下文</strong>拼进提示词里交给模型，而模型依然会结合：
+<ul>
+<li><strong>你当前对话内容（问题、上下文）</strong></li>
+<li><strong>知识库检索出来的片段（RAG 上下文）</strong></li>
+<li><strong>模型自身参数里学到的通用知识与推理能力</strong></li>
+<li>至于 <strong>联网搜索</strong>：这不是“模型天然会做”的事，而取决于你的 Open WebUI 是否启用了相应的<strong>工具/函数（如 Web Search）</strong>、工作流或插件，并且该能力是否对当前会话可用。没启用就不会“自己上网找资料”。</li>
+</ul>
+</li>
+</ul>
+<h3 id="经验">经验</h3>
+<ul>
+<li>
+<p>open-webui网页长时间打开后操作卡顿？尝试刷新一下页面。</p>
+</li>
+<li>
+<p>在与大模型的对话中上传文档后，每次对话时，open-webui 会重新检索相关文档片段，并将这些片段（全文）发送给大模型 API。因此，除非是文档内容需要大模型每次都参考，否则，使用对话而不是上传文档更好（节省token）。</p>
+</li>
+<li>
+<p>直接上传文档 VS 先创建知识库再附加到与大模型的对话中：</p>
+<ul>
+<li><strong>一次性/临时任务</strong>：更推荐 <strong>对话里直接上传文档</strong></li>
+<li><strong>反复使用/多人共享/长期维护</strong>：更推荐 <strong>先建知识库（KB）再在对话中附加</strong></li>
+</ul>
+</li>
+<li>
+<p>对于阅读论文等内容，应该使用的是“完整上下文”。否则可能出现论文中连贯的信息读取不全的问题。</p>
+<blockquote>
+<p>使用 <strong>“使用整个文档”</strong> 开关，将单个文件和知识库设置为完全绕过 RAG（红绿灯）机制。这样，无论原生函数调用设置如何，都会将完整的文件内容注入到每条消息中。有关详细信息，请参阅“<a target="_blank" rel="noopener" href="https://docs.openwebui.com/features/ai-knowledge/knowledge#full-context-vs-focused-retrieval"> 完整上下文与聚焦检索”</a> 。</p>
+</blockquote>
+<ul>
+<li>设置方法：账户-管理员页面-设置-文档-通用：
+<ul>
+<li>PDF加载模式：单文档模式</li>
+<li>勾选“绕过嵌入和检索”。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>对于使用conda部署的open-webui，账户-管理员页面-设置-文档-通用-内容提取引擎：默认：</p>
+<blockquote>
+<p>在知识库中把文件上传完成后，可以点击文件查看提取的效果。</p>
+</blockquote>
+<ul>
+<li>对双栏、文字可选择的PDF文档的内容提取效果（包括公式）还可以。</li>
+<li>对于word文档，看起来默认的“内容提取引擎”采取了转文本的方式，这会导致公式出现缺失或显示不全。</li>
+</ul>
+</li>
+<li>
+<p>等等。</p>
+</li>
+</ul>
+<h3 id="推荐上传的文档类型（按优先级-效果大致排序）">推荐上传的文档类型（按优先级/效果大致排序）</h3>
+<ol>
+<li><strong>Markdown（.md）/ 纯文本（.txt）</strong></li>
+</ol>
+<ul>
+<li>优点：文本抽取几乎零损耗；标题层级、列表结构清晰（尤其是 md）；最利于切分与引用。</li>
+<li>适合：技术文档、规范、FAQ、知识手册。</li>
+</ul>
+<ol>
+<li><strong>HTML（.html/.htm）或“网页内容导出为 HTML/Markdown”</strong></li>
+</ol>
+<ul>
+<li>优点：结构化强（标题、段落、链接）；通常比 PDF 更容易抽取。</li>
+<li>注意：可能带导航、页脚等噪声，最好先清洗。</li>
+</ul>
+<ol>
+<li><strong>Word（.docx）</strong></li>
+</ol>
+<ul>
+<li>优点：相对 PDF 更容易拿到“连续的正文文本”和段落结构；表格也往往更可解析。</li>
+<li>注意：如果文档里图片很多、或用了复杂文本框/分栏/浮动对象，抽取效果会变差。</li>
+</ul>
+<ol>
+<li><strong>PDF（.pdf）</strong>（不作为首选，但常见）</li>
+</ol>
+<ul>
+<li>优点：通用、易获取。</li>
+<li>缺点：对“文本抽取”来说不稳定：换行/分页/双栏/页眉页脚/脚注/表格/扫描件 OCR 都可能让抽取文本变碎、顺序错乱或夹杂噪声，影响检索命中率。</li>
+</ul>
+<p>（如果你的 Open WebUI 部署支持更多类型，如 PPTX、XLSX 等，一般也能用，但“可检索知识库”的效果常常不如把内容先转成 Markdown/纯文本再上传。）</p>
+<blockquote>
+<p>如果你能控制资料形态，实践里常见做法是：<strong>把 Word/PDF 先转换为 Markdown（并简单清洗）再入库</strong>。</p>
+</blockquote>
+<h3 id="知识库的具体应用方式">知识库的具体应用方式</h3>
+<ul>
+<li><strong>个人/少量资料、项目化使用</strong>：优先用 <strong>Folders &amp; Projects + 附加知识库</strong><br>
+理由：既能复用，又不会像“基于知识库创建模型”那样把知识绑定得过死；而且对话组织更清晰。</li>
+<li><strong>临时/一次性对话</strong>：用 <strong>对话里直接附加知识库</strong></li>
+<li><strong>要做“固定知识域助手/发布给别人用/强一致口径”</strong>：用 <strong>基于知识库创建模型</strong>
+<ul>
+<li>对于基于知识库的模型，即使对于个人项目来说可能并非绝对必要，而创建一个文件夹来添加额外的提示和整理聊天记录仍然很有用。</li>
+</ul>
+</li>
+</ul>
+<p>在open-webui中其它“在对话中引入文档/资料”的方式：</p>
+<ul>
+<li>
+<p>对话中直接上传文件</p>
+</li>
+<li>
+<p>通过“网页/URL 导入”把在线文档变成可检索上下文</p>
+</li>
+<li>
+<p>通过“联网搜索 / Web Search 工具”把外部资料带入对话</p>
+</li>
+<li>
+<p>通过“工具/函数调用（Tool / Function）”从外部系统拉取文档内容</p>
+<p>Open WebUI 的工具机制可以把第三方内容“读出来”当上下文，例如：</p>
+<ul>
+<li>从内部 HTTP 接口拉取某份文档</li>
+<li>从对象存储/文件服务器取文件并抽取文本</li>
+<li>从 Confluence/Notion/Google Drive/SharePoint 等（若你们有相应 connector 或自建工具）</li>
+</ul>
+<p>适用：企业内部文档系统已经很成熟，不想把文档再搬一份进 KB；或希望“实时取最新版本”。</p>
+</li>
+<li>
+<p>通过“粘贴/引用文本片段”作为对话上下文（手动但很常用）</p>
+</li>
+<li>
+<p>通过“从历史对话/项目资料复用”间接引入文档内容</p>
+</li>
+</ul>
+<h1 id="系统提示词">系统提示词</h1>
+<h2 id="概述-2">概述</h2>
+<p>在大模型API的消息结构中，通常有三种角色：</p>
+<table>
+<thead>
+<tr>
+<th>角色</th>
+<th>英文</th>
+<th>作用</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>系统提示词</td>
+<td><code>system</code></td>
+<td>设定模型行为准则和角色</td>
+<td>&quot;你是一个专业的技术助手，回答要简洁准确&quot;</td>
+</tr>
+<tr>
+<td>用户消息</td>
+<td><code>user</code></td>
+<td>用户的具体问题或指令</td>
+<td>&quot;请解释什么是REST API&quot;</td>
+</tr>
+<tr>
+<td>助手消息</td>
+<td><code>assistant</code></td>
+<td>模型的历史回复</td>
+<td>&quot;REST API是一种...&quot;</td>
+</tr>
+</tbody>
+</table>
+<p>系统提示词是大模型API中的&quot;高级指令&quot;，地位高于普通用户消息。</p>
+<h2 id="open-webui-2">open-webui</h2>
+<p>优先级依次提升：</p>
+<blockquote>
+<ul>
+<li>系统提示词可以设置在多个位置，不是只能设置在一个位置。</li>
+<li>随着优先级的提升，建议系统提示词的具体约束程度逐渐放缓。</li>
+</ul>
+</blockquote>
+<ul>
+<li>工作区-<a target="_blank" rel="noopener" href="https://docs.openwebui.com/features/ai-knowledge/prompts">提示词</a>。
+<ul>
+<li>Open WebUI <code>Workspace</code> 区的 <code>Prompts</code> 部分允许用户创建、管理和共享自定义提示。此功能允许用户保存常用提示，并通过斜杠命令轻松访问这些提示，从而简化与 AI 模型的交互。</li>
+</ul>
+</li>
+<li>对话-对话高级设置-<a target="_blank" rel="noopener" href="https://docs.openwebui.com/features/chat-conversations/chat-features/chat-params#1-per-chat-basis">系统提示词</a>。
+<ul>
+<li>**说明：**单次聊天设置是指为特定聊天实例配置的系统提示和高级参数。这些设置仅适用于当前对话，不会影响后续聊天。</li>
+<li><strong>权限覆盖</strong> ：用户无法覆盖<strong>系统提示</strong>或管理员已针对特定型号设置的特定<strong>高级参数</strong> （ <strong>#2</strong> ）。这确保了设置的一致性和对特定型号设置的遵循。</li>
+<li>适合：用于“本次对话的具体目标/约束”</li>
+</ul>
+</li>
+<li>分组-文件夹-<a target="_blank" rel="noopener" href="https://docs.openwebui.com/features/chat-conversations/chat-features/conversation-organization#system-prompt">系统提示词</a>。
+<ul>
+<li>为文件夹分配一个专用的<strong>系统</strong>提示符，该提示符将自动应用于文件夹中的所有对话。</li>
+<li>适合：该文件夹内对话遵守的同一规范，不会遗漏。</li>
+</ul>
+</li>
+<li>设置-通用-<a target="_blank" rel="noopener" href="https://docs.openwebui.com/features/chat-conversations/chat-features/chat-params#2-per-account-basis">系统提示词</a>。
+<ul>
+<li>在 “<strong>通用</strong>设置”的 **“系统提示符词 ”**字段中，指定您要使用的主要系统提示符（ <strong>即，为 LLM 赋予一个定义性字符</strong> ）。这样，该提示符将在每个帐户级别生效，并可在所有 LLM 中作为系统提示符使用，而无需在 <strong>“工作区”</strong> 部分对模型进行任何调整。</li>
+<li>对于您的辅助系统提示（ <strong>例如，给 LLM 分配任务</strong> ），您可以选择将其放置在<strong>聊天控制</strong>侧边栏的 <strong>“系统提示”</strong> 字段中（按聊天设置），还是放置在<strong>工作</strong>区 <strong>“模型”</strong> 部分的“模型”部分（按模型设置），以便管理员可以直接进行设置。这样，您的帐户级系统提示就可以与<strong>聊天控制</strong>提供的按聊天设置的系统提示或<strong>模型</strong>提供的按模型设置的系统提示协同工作。</li>
+<li><strong>覆盖功能</strong> ：用户可以在自己的帐户上设置自己的系统提示，但他们必须意识到，如果管理员已经针对正在使用的特定型号，按型号设置了<strong>系统提示</strong>或特定的<strong>高级参数，</strong> 则这些参数仍然可以被覆盖。</li>
+<li>适合：建议仅放很轻的个人偏好（如“默认用中文回答”“需要时给出要点列表”），不要放专用的长规则。</li>
+</ul>
+</li>
+<li>工作区-模型-<a target="_blank" rel="noopener" href="https://docs.openwebui.com/features/ai-knowledge/models#system-prompt--dynamic-variables">系统提示词</a>。
+<ul>
+<li>系统提示定义了模型的行为和角色。</li>
+<li>**说明：**基于型号的设置是指为特定型号配置的默认系统提示和高级参数。这些设置适用于使用该型号的所有聊天实例。</li>
+<li><strong>模型优先级：</strong> 如果管理员已在工作区部分预设了某个模型的<strong>系统提示</strong>或特定<strong>高级参数</strong>值， <strong>则用户</strong>帐户在<strong>常规</strong>设置或<strong>聊天控制</strong>部分所做的任何上下文长度更改都将被忽略，该模型将保持预配置值不变。请注意， <strong>管理员</strong>帐户未修改的参数仍可由<strong>用户</strong>帐户手动调整，且调整范围可以是每个帐户或每个聊天。</li>
+<li>对于基于知识库的模型，即使对于个人项目来说可能并非绝对必要，而创建一个文件夹来添加额外的提示和整理聊天记录仍然很有用。</li>
+</ul>
+</li>
+</ul>
+<p>为了避免不同层级互相打架，推荐你把提示词拆成：</p>
+<ul>
+<li><strong>身份/原则（长期稳定）</strong>：放在 <em>模型级</em> 或 <em>文件夹/项目级</em>（或账号级默认）</li>
+<li><strong>任务指令（一次性/短期）</strong>：放在 <em>单对话 system prompt</em> 或直接用 Workspace Prompts 模板插入</li>
+</ul>
+<p>这样既稳定又灵活，也更符合你提到的“协同工作”的思路。</p>
+<h2 id="示例-2">示例</h2>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs txt">Serve me as a writing and programming assistant. Please ask me any clarifying questions you have about my question before every answer so that I can provide you with more information. Please be extremely comprehensive.<br></code></pre></td></tr></table></figure>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs txt">You are a professional writing assistant. Please follow these guidelines:<br><br>1. **Language**: Always respond in Chinese (简体中文).<br><br>2. **Clarification Process**: Before providing each answer, ask me clarifying questions to gather more context and details. This ensures your responses are accurate and comprehensive.<br><br>3. **Technical Documentation**: When writing technical content (such as academic papers, patents, technical reports, etc.):<br>   - Use mathematical formulas to explain concepts whenever applicable.<br>   - **Proactive Formulation**: You are authorized and encouraged to derive or construct new mathematical formulas if existing descriptions are insufficient to clarify a concept. Do not limit yourself to only restating provided formulas.<br>   - All formulas must be written in LaTeX format (inline: `$...$`, display: `$$...$$`)<br>   - Ensure formulas are properly formatted and renderable<br><br>4. **Incremental Generation**: When writing lengthy documents or chapters:<br>   - Generate content incrementally (one section at a time)<br>   - Wait for user confirmation before proceeding to the next section<br>   - This ensures accuracy and allows for course correction<br><br>5. **Response Quality**: <br>   - Be thorough and comprehensive in your explanations<br>   - Use Markdown format for structured output (headings, lists, code blocks)<br>   - Prioritize clarity and precision over brevity<br></code></pre></td></tr></table></figure>
+<h1 id="其它资料">其它资料</h1>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://docs.openwebui.com/getting-started/advanced-topics/logging">日志功能</a>：日志记录对于调试、监控和了解 Open WebUI 的运行状况至关重要。本指南解释了<strong>浏览器客户端</strong> （前端）和<strong>应用服务器/后端</strong>中的日志记录工作原理。</li>
+<li><a target="_blank" rel="noopener" href="https://docs.openwebui.com/reference/env-configuration/#">环境变量介绍</a>：Open WebUI 提供了丰富的环境变量，允许您自定义和配置应用程序的各个方面。本页面全面介绍了所有可用的环境变量，包括它们的类型、默认值和描述。</li>
+<li><a target="_blank" rel="noopener" href="https://docs.openwebui.com/features/ai-knowledge/notes">Notes</a>：Open WebUI 中的 <strong>“笔记”</strong> 功能提供了一个专门用于内容创建和知识管理的工作空间。Open WebUI 中的普通聊天会保留您的线性对话，而 <strong>“笔记”功能</strong>允许您整理特定内容，例如长篇草稿或代码速查表，这些内容独立于任何单个对话。<strong>您可以使用 LLM（逻辑逻辑模块）编写和完善这些笔记，并将其无缝地作为上下文插入到新的聊天中。</strong></li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7%E5%BA%93/" class="category-chain-item">软件工具库</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>open-webui的部署和使用</div>
+      <div>http://zeyulong.com/posts/719343c9/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>龙泽雨</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2026年2月17日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/posts/86ad89de/" title="ffmpeg的安装">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">ffmpeg的安装</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/87fd2580/" title="Claude Code的使用">
+                        <span class="hidden-mobile">Claude Code的使用</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="waline"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#waline', function() {
+      Fluid.utils.createCssLink('https://cdn.staticfile.org/waline/2.15.5/waline.min.css')
+      Fluid.utils.createScript('https://cdn.staticfile.org/waline/2.15.5/waline.min.js', function() {
+        var options = Object.assign(
+          {"serverURL":"https://www.zeyulong.cn/","path":"window.location.pathname","meta":["nick","mail","link"],"requiredMeta":["nick"],"lang":"zh-CN","emoji":["https://cdn.jsdelivr.net/gh/walinejs/emojis/weibo"],"dark":"html[data-user-color-scheme=\"dark\"]","wordLimit":0,"pageSize":10,"reaction":true,"locale":{"placeholder":"花径不曾缘客扫，蓬门今始为君开。"}},
+          {
+            el: '#waline',
+            path: window.location.pathname
+          }
+        )
+        Waline.init(options);
+        Fluid.utils.waitElementVisible('#waline .vcontent', () => {
+          var imgSelector = '#waline .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> <div style="font-size: 0.85rem"> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/custom/RunTime/RunTime.js"></script> </div> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  
+<script src="/custom/LabelPage/LabelPage.js"></script>
+<script src="/custom/LoadingBar/pace.min.js"></script>
+<script src="/custom/ReadingProgress/ReadingProgress.js"></script>
+<script src="/custom/typing-effect/typing-effect.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  <canvas
+    class="fireworks"
+    style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 32767"
+></canvas>
+<script type="text/javascript" src="/custom/fireworks/anime.min.js"></script> 
+<script type="text/javascript" src="/custom/fireworks/fireworks.js"></script>
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

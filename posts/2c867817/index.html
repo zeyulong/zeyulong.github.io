@@ -24,7 +24,7 @@
 <meta property="og:description" content="本文主要介绍了Docker的安装与使用。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-12-04T09:13:55.000Z">
-<meta property="article:modified_time" content="2026-01-25T11:19:54.497Z">
+<meta property="article:modified_time" content="2026-03-10T14:28:04.173Z">
 <meta property="article:author" content="龙泽雨">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -214,7 +214,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.4k 字
+          4.2k 字
         
       </span>
     
@@ -225,7 +225,7 @@
         
         
         
-          20 分钟
+          36 分钟
         
       </span>
     
@@ -267,7 +267,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2026年1月25日 晚上
+                    本文最后更新于 2026年3月10日 晚上
                   
                 
               </p>
@@ -390,6 +390,234 @@
 </ol>
 <h2 id="Ubuntu-18-04">Ubuntu 18.04</h2>
 <p>TODO</p>
+<h2 id="报错">报错</h2>
+<h3 id="WSL-integration-with-distro-Ubuntu-unexpectedly-stopped-Do-you-want-to-restart-it">WSL integration with distro 'Ubuntu' unexpectedly stopped. Do you want to restart it?</h3>
+<p>解决：</p>
+<blockquote>
+<p>下面是一套从低风险到“重置”的排查顺序。建议按顺序做；每一步做完都尝试重新启动 Docker Desktop。</p>
+</blockquote>
+<ol>
+<li>
+<p>先确认：你的发行版名是不是 Ubuntu 还是 ubuntu：</p>
+<ol>
+<li>
+<p>Docker 的日志里出现了 <code>-d ubuntu</code>，但你系统里发行版名称可能是 <code>Ubuntu</code>（大写 U）。在 PowerShell（管理员或普通都行）执行：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs powershell">wsl <span class="hljs-literal">-l</span> <span class="hljs-literal">-v</span><br></code></pre></td></tr></table></figure>
+<p>看列表里 Ubuntu 的 <strong>NAME</strong> 是不是 <code>Ubuntu</code>、<code>Ubuntu-22.04</code>、<code>Ubuntu-24.04</code> 等。</p>
+</li>
+<li>
+<p>如果你根本没有名为 <code>ubuntu</code> 的发行版，而是 <code>Ubuntu</code>（或别的名字），那 Docker Desktop 可能绑定了错误的 distro 名称。</p>
+</li>
+<li>
+<p>解决：Docker Desktop → <strong>Settings → Resources → WSL integration</strong>，把对应的 Ubuntu 勾选取消再勾上，必要时对正确的发行版启用集成。</p>
+</li>
+</ol>
+</li>
+<li>
+<p>完全关闭 WSL 和 Docker Desktop 后重启：</p>
+<ol>
+<li>
+<p>退出 Docker Desktop（托盘右键 Quit）。</p>
+</li>
+<li>
+<p>PowerShell 执行：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs powershell">wsl <span class="hljs-literal">--shutdown</span><br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>再启动 Docker Desktop。</p>
+</li>
+<li>
+<p>很多“WSL integration unexpectedly stopped”是 WSL 内部残留进程/挂载没清理干净，这一步就能恢复。</p>
+</li>
+</ol>
+</li>
+<li>
+<p>检查 Ubuntu 在 WSL 里是否能正常启动、root 是否可用：</p>
+<ol>
+<li>
+<p>Docker 用的是 <code>-u root</code>。如果你的 Ubuntu 被你改坏了（比如 <code>/etc/wsl.conf</code>、root 被锁、文件系统错误等），就会导致它启动命令失败。</p>
+</li>
+<li>
+<p>测试：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs powershell">wsl <span class="hljs-literal">-d</span> Ubuntu<br><span class="hljs-comment"># 以及 root：</span><br>wsl <span class="hljs-literal">-d</span> Ubuntu <span class="hljs-literal">-u</span> root <span class="hljs-literal">-e</span> sh <span class="hljs-literal">-lc</span> <span class="hljs-string">&quot;id &amp;&amp; uname -a &amp;&amp; ls -la /&quot;</span><br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>把上面命令里的 <code>Ubuntu</code> 替换成你在 <code>wsl -l -v</code> 里看到的实际名字。</p>
+</blockquote>
+</li>
+<li>
+<p>如果 <strong>Ubuntu 进不去</strong> 或 <strong>root 执行就失败</strong>：先把 Ubuntu 修好（例如文件系统、wsl.conf、发行版损坏）。</p>
+</li>
+<li>
+<p>如果你看到输出正常，继续下一步。</p>
+</li>
+</ol>
+</li>
+<li>
+<p>检查并修复 WSL 组件：</p>
+<ol>
+<li>
+<p>Windows 11 上 Docker Desktop 对 WSL2 依赖很重。你可以直接更新/修复：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs powershell">wsl <span class="hljs-literal">--update</span><br>wsl <span class="hljs-literal">--status</span><br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>然后重启电脑，再试 Docker Desktop。</p>
+</li>
+</ol>
+</li>
+<li>
+<p>是否开启了 systemd / 自定义了 wsl.conf（会引发 Docker 集成异常）：</p>
+<ol>
+<li>
+<p>如果你在 Ubuntu 里启用了 systemd 或做过特殊配置，有时会影响 Docker Desktop 的代理启动。</p>
+</li>
+<li>
+<p>在 Ubuntu 里检查：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs powershell"><span class="hljs-built_in">cat</span> /etc/wsl.conf <span class="hljs-number">2</span>&gt;/dev/null || true<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>如果你看到类似：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs powershell">[<span class="hljs-type">boot</span>]<br>systemd=true<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>建议先临时关闭验证（把 <code>systemd=true</code> 注释/改为 false），然后在 Windows 执行：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs powershell">wsl <span class="hljs-literal">--shutdown</span><br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>再试 Docker Desktop。</p>
+</li>
+</ol>
+</li>
+<li>
+<p>重置 Docker Desktop 的 WSL 发行版（最有效，但会清掉镜像/容器数据）：</p>
+<ol>
+<li>
+<p>如果上面都正常，最常见的最终修复是：docker-desktop 或 docker-desktop-data 这两个 WSL 发行版坏了。重置它们通常立刻解决，但代价是 Docker 数据会被清空（镜像、容器、volume 等会丢）。</p>
+</li>
+<li>
+<p>先看看它们是否存在：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs powershell">wsl <span class="hljs-literal">-l</span> <span class="hljs-literal">-v</span><br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>如果看到：</p>
+<ul>
+<li><code>docker-desktop</code></li>
+<li><code>docker-desktop-data</code></li>
+</ul>
+</li>
+<li>
+<p>执行（会清数据）：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs powershell">wsl <span class="hljs-literal">--shutdown</span><br>wsl <span class="hljs-literal">--unregister</span> docker<span class="hljs-literal">-desktop</span><br>wsl <span class="hljs-literal">--unregister</span> docker<span class="hljs-literal">-desktop-data</span><br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>然后重新启动 Docker Desktop，它会自动重建这两个发行版。</p>
+</li>
+</ol>
+</li>
+<li>
+<p>如果你不想清数据：先导出再重置（保守方案）：</p>
+<ol>
+<li>
+<p>如果你很在意 <code>docker-desktop-data</code> 里的数据，可以先 export（需要磁盘空间）：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs powershell">wsl <span class="hljs-literal">--shutdown</span><br>wsl <span class="hljs-literal">--export</span> docker<span class="hljs-literal">-desktop-data</span> <span class="hljs-string">&quot;<span class="hljs-variable">$env:USERPROFILE</span>\Desktop\docker-desktop-data.tar&quot;</span><br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>然后再执行上一步 unregister，之后理论上也可以 <code>--import</code> 恢复，但恢复路径和 Docker Desktop 的期望布局可能不完全兼容；通常更推荐接受“重置数据”，或者改走 Docker Desktop 自带的备份/镜像仓库方案。</p>
+</li>
+</ol>
+</li>
+<li>
+<p>完成。</p>
+</li>
+</ol>
+<h3 id="docker-Error-response-from-daemon-ports-are-not-available">docker: Error response from daemon: ports are not available</h3>
+<p><strong>核心原因</strong>：端口 <code>3000</code> 被占用了，或者更具体地说，<strong>Windows 系统保留了一段端口范围（Hyper-V / WSL2 动态端口），而 3000 恰好落在这个范围内</strong>，导致 Docker 无法绑定该端口。</p>
+<p>解决：</p>
+<ol>
+<li>
+<p>方案一：重启 Windows NAT 服务（最快，临时有效）：</p>
+<ol>
+<li>
+<p>以 管理员身份 打开 PowerShell 或 CMD。</p>
+</li>
+<li>
+<p>依次执行以下两条命令：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs powershell">net stop winnat<br>net <span class="hljs-built_in">start</span> winnat<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>重新运行你的 Docker 启动命令。</p>
+</li>
+</ol>
+<blockquote>
+<p>如果重启后过一段时间又出现这个问题，说明系统再次将 3000 划入了保留范围，请尝试方案二。</p>
+</blockquote>
+</li>
+<li>
+<p>方案二：修改 Docker 映射端口（最稳妥）：</p>
+<ol>
+<li>
+<p>既然 3000 被系统占用了，最简单的办法是换一个宿主机端口。</p>
+</li>
+<li>
+<p>如果你的命令是：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs powershell">docker run <span class="hljs-literal">-p</span> <span class="hljs-number">3000</span>:<span class="hljs-number">3000</span> ...<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>将其改为其他端口（例如 3001）：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs powershell">docker run <span class="hljs-literal">-p</span> <span class="hljs-number">3001</span>:<span class="hljs-number">3000</span> ...<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>然后通过 <code>http://localhost:3001</code> 访问即可。</p>
+</li>
+</ol>
+</li>
+<li>
+<p>方案三：排除保留端口范围（永久解决）：</p>
+<ol>
+<li>
+<p>如果你必须使用 3000 端口，且方案一无效，你需要告诉 Windows 不要保留 3000 这个端口。</p>
+</li>
+<li>
+<p><strong>查看当前保留的端口范围</strong>：在管理员 PowerShell 中运行：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs powershell">netsh interface ipv4 show excludedportrange protocol=tcp<br></code></pre></td></tr></table></figure>
+<p>你会看到类似这样的输出：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs powershell">Protocol tcp Port Exclusion Ranges<br><br><span class="hljs-built_in">Start</span> Port    <span class="hljs-keyword">End</span> Port<br><span class="hljs-literal">----------</span>    <span class="hljs-literal">--------</span><br>      <span class="hljs-number">3000</span>        <span class="hljs-number">3099</span>  &lt;<span class="hljs-literal">--</span> 如果 <span class="hljs-number">3000</span> 在这里面，就是问题所在<br>...<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p><strong>添加排除项（将 3000 从保留区移除）</strong>：我们需要先保留一个临时的范围覆盖住 3000，然后重启 WinNAT 服务来重置随机分配，最后删除临时范围。</p>
+<p>步骤 A：强制保留 3000（防止系统随机分配它）</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs powershell">netsh int ipv4 add excludedportrange protocol=tcp startport=<span class="hljs-number">3000</span> numberofports=<span class="hljs-number">1</span><br></code></pre></td></tr></table></figure>
+<p>步骤 B：重启 WinNAT 服务（应用更改并清除之前的随机保留）</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs powershell">net stop winnat<br>net <span class="hljs-built_in">start</span> winnat<br></code></pre></td></tr></table></figure>
+<p>步骤 C：现在 3000 应该可用了。你可以选择删除刚才添加的排除项（可选，通常不需要删，留着也没事）</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs powershell">netsh int ipv4 delete excludedportrange protocol=tcp startport=<span class="hljs-number">3000</span> numberofports=<span class="hljs-number">1</span><br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>有些情况下，只要执行完步骤 A 和 B，Docker 就能正常启动了，不需要执行步骤 C。</p>
+</blockquote>
+</li>
+<li>
+<p>完成。</p>
+</li>
+</ol>
+</li>
+<li>
+<p>方案四：检查是否有其他程序占用</p>
+<ol>
+<li>
+<p>虽然概率较小（因为报错是 &quot;forbidden by access permissions&quot; 而不是 &quot;address already in use&quot;），但也可能是某个程序真的占用了 3000。</p>
+</li>
+<li>
+<p>查找占用端口的进程：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs powershell">netstat <span class="hljs-literal">-ano</span> | findstr :<span class="hljs-number">3000</span><br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>如果有输出，记下最后的 PID（进程ID），然后在任务管理器中结束该进程，或者使用 <code>taskkill /PID &lt;进程ID&gt; /F</code>。</p>
+</li>
+</ol>
+</li>
+<li>
+<p>完成。</p>
+</li>
+</ol>
 <h1 id="使用">使用</h1>
 <h2 id="概述">概述</h2>
 <p>Docker 包括三个基本概念:</p>
@@ -405,7 +633,61 @@
 </li>
 </ul>
 <h2 id="常用命令">常用命令</h2>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs bash">docker images -a  <span class="hljs-comment"># 列出所有镜像</span><br>docker ps  <span class="hljs-comment"># 显示正在运行的容器</span><br>docker ps -a  <span class="hljs-comment"># 显示所有（包括已停止）容器</span><br><br>docker commit --pause=<span class="hljs-literal">false</span> &lt;container_id&gt; &lt;new_image_name&gt;  <span class="hljs-comment"># （在不暂停容器的情况下）将容器的当前状态保存为新的Docker镜像</span><br><br><span class="hljs-comment"># 删除</span><br>docker stop container_name_or_id<br>docker <span class="hljs-built_in">rm</span> container_name_or_id<br>docker rmi &lt;image_1_id_or_name&gt; &lt;image_2_id_or_name&gt; &lt;image_3_id_or_name&gt;<br></code></pre></td></tr></table></figure>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.runoob.com/docker/docker-run-command.html">docker run</a>（需要完整的配置参数） = (<a target="_blank" rel="noopener" href="https://www.runoob.com/docker/docker-pull-command.html">docker pull</a>) + <a target="_blank" rel="noopener" href="https://www.runoob.com/docker/docker-create-command.html">docker create</a>（需要完整的配置参数） + <a target="_blank" rel="noopener" href="https://www.runoob.com/docker/docker-start-stop-restart-command.html">docker start</a>（只需要容器名）</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><code class="hljs bash">docker images -a  <span class="hljs-comment"># 列出所有镜像</span><br>docker images --digests  <span class="hljs-comment"># 显示镜像的摘要信息</span><br>docker ps  <span class="hljs-comment"># 显示正在运行的容器</span><br>docker ps -a  <span class="hljs-comment"># 显示所有（包括已停止）容器</span><br><br>docker commit --pause=<span class="hljs-literal">false</span> &lt;container_id&gt; &lt;new_image_name&gt;  <span class="hljs-comment"># （在不暂停容器的情况下）将容器的当前状态保存为新的Docker镜像</span><br><br><span class="hljs-comment"># 打标签</span><br>docker tag SOURCE_IMAGE[:TAG] TARGET_IMAGE[:TAG]<br><br><span class="hljs-comment"># 拉取</span><br>docker pull [OPTIONS] NAME[:TAG|@DIGEST]  <span class="hljs-comment"># 增量更新：第二次拉取或更新镜像时速度很快的原因</span><br><span class="hljs-comment"># 旧image：确实还留在硬盘上。Docker 不会删除它们，因为 Docker 的机制是“追加新层”，而不是“原地修改”。</span><br><span class="hljs-comment"># 但是，如果您没有提前执行 docker tag 且 不记得Image ID，则无法再使用旧image。</span><br>docker tag SOURCE_IMAGE[:TAG] TARGET_IMAGE[:TAG]  <span class="hljs-comment"># （可选）打标签备份当前版本</span><br><br><span class="hljs-comment"># 运行</span><br>docker run [OPTIONS] IMAGE [COMMAND] [ARG...]<br>docker run -d <span class="hljs-comment"># 后台运行容器。关闭终端后容器继续正常运行</span><br>docker tag SOURCE_IMAGE[:TAG] TARGET_IMAGE[:TAG]  <span class="hljs-comment"># （可选）打标签备份当前版本</span><br><br><span class="hljs-comment"># 更新</span><br>docker tag ghcr.io/open-webui/open-webui:main ghcr.io/open-webui/open-webui:v1.1.1  <span class="hljs-comment"># （可选）备份当前image版本</span><br>docker pull ghcr.io/open-webui/open-webui:main  <span class="hljs-comment"># 只需要重新拉取新的image即可（增量更新）</span><br>docker tag ghcr.io/open-webui/open-webui:main ghcr.io/open-webui/open-webui:v1.1.2  <span class="hljs-comment"># （可选）标记更新后的image版本</span><br><span class="hljs-comment"># 停止并删除旧容器</span><br>docker stop open-webui<br>docker <span class="hljs-built_in">rm</span> open-webui<br><span class="hljs-comment"># 重新创建新容器</span><br>docker run -d --name open-webui ... (完整命令)<br><br><span class="hljs-comment"># 删除</span><br>docker stop container_name_or_id<br>docker <span class="hljs-built_in">rm</span> container_name_or_id<br>docker rmi &lt;image_1_id_or_name&gt; &lt;image_2_id_or_name&gt; &lt;image_3_id_or_name&gt;<br>docker image prune  <span class="hljs-comment"># 移除没有标签（docker images --digests）并且没有被容器引用（docker ps -a）的镜像，这种镜像被称为 dangling(摇晃的) 镜像</span><br><span class="hljs-comment"># -a: Deletes all images not used by any container, not just dangling ones.</span><br><br><span class="hljs-comment"># 日志</span><br>docker logs -f CONTAINER  <span class="hljs-comment"># docker run 输出 和 docker logs 内容来源相同，但受缓冲、驱动、配置等影响，实际输出可能有差异。生产环境建议依赖 docker logs 更可靠！</span><br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>推荐“删容器再新建”主要是因为 <strong>Docker 容器本质上更适合当作不可变运行实例（immutable runtime）</strong>：你想变更的大多数东西（端口映射、挂载、<code>--add-host</code>、很多环境变量）在容器创建后基本都<strong>改不了或改起来很别扭</strong>。重建反而最简单、最可控。</p>
+</blockquote>
+<h2 id="restart参数">restart参数</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">docker run(/create) --restart no<br></code></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>策略</th>
+<th>容器崩溃</th>
+<th>Docker 重启</th>
+<th>系统重启</th>
+<th>手动 stop 后 Docker 重启后</th>
+<th>推荐场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>no</code>（默认）</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>临时测试</td>
+</tr>
+<tr>
+<td><code>on-failure</code></td>
+<td>✅</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>开发环境</td>
+</tr>
+<tr>
+<td><code>always</code></td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅ 自动启动</td>
+<td>生产服务器</td>
+</tr>
+<tr>
+<td><code>unless-stopped</code></td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>❌ 保持停止</td>
+<td>个人使用⭐</td>
+</tr>
+</tbody>
+</table>
 <h2 id="容器的使用">容器的使用</h2>
 <p>只要你<strong>没有删除容器</strong>，关闭（停止）后再次启动<strong>同一个容器</strong>，你在容器内部所做的更改（包括文件的增删改、软件的安装等）都会被<strong>保留</strong>。如需持久化重要数据，建议用<strong>挂载卷（volume）</strong>，这样即使容器被删数据也不会丢失。最佳实践建议：</p>
 <ul>

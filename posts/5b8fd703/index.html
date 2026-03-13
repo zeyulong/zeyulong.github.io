@@ -34,7 +34,7 @@
 <meta property="og:image" content="http://zeyulong.com/posts/5b8fd703/feature_branch_diverge_from_master_diagram.png">
 <meta property="og:image" content="http://zeyulong.com/posts/5b8fd703/rebase_result_diagram.png">
 <meta property="article:published_time" content="2024-05-09T03:34:55.000Z">
-<meta property="article:modified_time" content="2026-02-16T08:26:50.975Z">
+<meta property="article:modified_time" content="2026-03-09T09:22:19.610Z">
 <meta property="article:author" content="龙泽雨">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://zeyulong.com/posts/5b8fd703/Git%E6%B5%81%E7%A8%8B-1.png">
@@ -278,7 +278,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2026年2月16日 下午
+                    本文最后更新于 2026年3月9日 下午
                   
                 
               </p>
@@ -921,7 +921,7 @@
 <li><code>.gitignore</code> 只对未被 Git 跟踪的内容生效，对已经被跟踪的内容无效。</li>
 </ul>
 <p>解决：这时候我们就应该先把本地缓存删除，然后再进行git的提交，这样就不会出现忽略的文件了。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">git <span class="hljs-built_in">rm</span> -r --cached .  <span class="hljs-comment"># or</span><br><span class="hljs-comment"># git rm --cached directory/.env  # 只删除特定文件的缓存</span><br>git add .<br>git commit -m <span class="hljs-string">&#x27;update .gitignore&#x27;</span><br>git push -u origin master<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash">git <span class="hljs-built_in">rm</span> -r --cached .  <span class="hljs-comment"># 执行该命令后可能会跳出一堆文件在未暂存区和已暂存区</span><br><span class="hljs-comment"># or</span><br><span class="hljs-comment"># git rm --cached directory/.env  # 只删除特定文件的缓存</span><br>git add .  <span class="hljs-comment"># 执行该命令后就只剩下当前已修改的文件和更新.gitignore后指定要忽略的文件了</span><br>git commit -m <span class="hljs-string">&#x27;update .gitignore&#x27;</span><br>git push -u origin master<br></code></pre></td></tr></table></figure>
 <p><mark>问题2：</mark></p>
 <p>需求：在使用<code>.gitignore</code>文件后如何删除远程仓库中以前上传的此类文件而保留本地文件。在使用git和github的时候，之前没有写<code>.gitignore</code>文件，就上传了一些没有必要的文件，在添加了<code>·</code>文件后，就想删除远程仓库中的文件却想保存本地的文件。</p>
 <p>解决：这时候不可以直接使用<code>git rm directory</code>，这样会删除本地仓库的文件。可以使用<code>git rm -r –-cached directory</code>来删除缓冲，然后进行<code>git commit</code>和<code>git push</code>。这样会发现远程仓库中的不必要文件就被删除了，以后可以直接使用<code>git add -A</code>来添加修改的内容，上传的文件就会受到<code>.gitignore</code>文件的内容约束。</p>

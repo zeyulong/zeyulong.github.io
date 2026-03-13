@@ -26,7 +26,7 @@
 <meta property="og:image" content="http://zeyulong.com/posts/78dbcabb/vi-vim-cheat-sheet-sch.gif">
 <meta property="og:image" content="http://zeyulong.com/posts/78dbcabb/vim-vi-workmodel.png">
 <meta property="article:published_time" content="2025-07-02T13:04:52.000Z">
-<meta property="article:modified_time" content="2026-02-16T01:03:07.566Z">
+<meta property="article:modified_time" content="2026-03-11T07:09:36.549Z">
 <meta property="article:author" content="龙泽雨">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://zeyulong.com/posts/78dbcabb/vi-vim-cheat-sheet-sch.gif">
@@ -217,7 +217,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          11k 字
+          14k 字
         
       </span>
     
@@ -228,7 +228,7 @@
         
         
         
-          90 分钟
+          121 分钟
         
       </span>
     
@@ -270,7 +270,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2026年2月16日 上午
+                    本文最后更新于 2026年3月11日 下午
                   
                 
               </p>
@@ -1102,6 +1102,34 @@
 </tr>
 </tbody>
 </table>
+<h1 id="Pandoc">Pandoc</h1>
+<h2 id="latex转markdown">latex转markdown</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash">pandoc paper.tex \<br>  -f latex \<br>  -t gfm \<br>  --wrap=none \<br>  --extract-media=media \<br>  -o paper.md<br></code></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs powersehll">pandoc paper.tex `<br>  -f latex `<br>  -t gfm `<br>  --wrap=none `<br>  --extract-media=media `<br>  -o paper.md<br></code></pre></td></tr></table></figure>
+<ul>
+<li><code>-t gfm</code>：输出 GitHub Flavored Markdown（表格/代码块更兼容）。也可以用 <code>-t markdown</code>（更“纯”）</li>
+<li><code>--extract-media=media</code>：把 <code>\includegraphics&#123;&#125;</code> 的图片抽出来，Markdown 里自动链接</li>
+<li><code>--wrap=none</code>：不强制换行，减少 diff 噪声</li>
+</ul>
+<p>注意：</p>
+<ul>
+<li>
+<p><strong>自定义宏/模板/包</strong>：Pandoc 不一定完全理解。解决思路：尽量让 <code>.tex</code> 是“可独立编译”的；把宏定义（<code>\newcommand</code>）保留在同一个文件或能被 <code>\input</code> 到；必要时做预处理（见方法 2）。</p>
+</li>
+<li>
+<p><strong>BibTeX 引用</strong>：想把 <code>\cite&#123;&#125;</code> 变成 Markdown 引用，通常需要配合 <code>--citeproc</code> 或走 CSL / bib 导出；否则可能只保留成文本。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">pandoc main.tex -f latex -t gfm -o main.md \<br>  --citeproc \<br>  --bibliography=refs.bib \<br>  --wrap=none<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>对于RAG（检索增强生成）场景，转换后建议进行<strong>后期清理</strong>（移除残留命令、规范公式格式），以获得最佳检索效果。</p>
+<ul>
+<li>通常不要把参考文献整段塞进去：可以在转换前把 bibliography 部分拆掉或在转换后删掉 References 段。</li>
+</ul>
+</li>
+<li>
+<p>等等。</p>
+</li>
+</ul>
 <h1 id="TeXstudio">TeXstudio</h1>
 <table>
 <thead>
@@ -1220,6 +1248,515 @@
 <ol>
 <li>有序列表回车后按再按回车：取消缩进，回到行首，取消继续编号；按 TAB，新建下级列表；按Backspace，取消继续编号，可在保持缩进的情况下输入内容。</li>
 <li>在列表中第一次回车，取消当前列表，第二次回车，创建上级列表（没有上级列表就是正文的回车）。按下TAB与Shift+TAB效果类似。</li>
+</ol>
+<h1 id="v2rayN">v2rayN</h1>
+<h2 id="官网">官网</h2>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/2dust/v2rayN">https://github.com/2dust/v2rayN</a></li>
+<li><a target="_blank" rel="noopener" href="https://v2rayn.2dust.link/">https://v2rayn.2dust.link/</a></li>
+</ul>
+<h2 id="网络代理模式">网络代理模式</h2>
+<h3 id="1-清除系统代理-🧹">1. 清除系统代理 🧹</h3>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>功能</strong></td>
+<td>移除 Windows 系统中所有代理设置</td>
+</tr>
+<tr>
+<td><strong>效果</strong></td>
+<td>所有应用直接连接网络，不经过 v2rayN</td>
+</tr>
+<tr>
+<td><strong>适用场景</strong></td>
+<td>不需要代理时、退出 v2rayN 前、网络故障排查</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs">系统代理设置 → 空白（无代理）<br>所有流量 → 直连互联网<br></code></pre></td></tr></table></figure>
+<hr>
+<h3 id="2-自动配置系统代理-⚙️">2. 自动配置系统代理 ⚙️</h3>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>功能</strong></td>
+<td>自动将系统代理指向 v2rayN 本地监听端口（默认 10808）</td>
+</tr>
+<tr>
+<td><strong>效果</strong></td>
+<td>支持系统代理的应用会走 v2rayN 代理</td>
+</tr>
+<tr>
+<td><strong>工作层次</strong></td>
+<td><strong>应用层</strong> (HTTP/SOCKS 代理)</td>
+</tr>
+<tr>
+<td><strong>适用场景</strong></td>
+<td>日常浏览网页、大多数常规应用</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs dns">系统代理设置 → <span class="hljs-number">127.0.0.1</span>:<span class="hljs-number">10808</span><br>支持代理的应用 → v2rayN → 代理服务器<br>不支持代理的应用 → 直连（不走代理）<br></code></pre></td></tr></table></figure>
+<p>⚠️ <strong>局限性</strong>：部分应用（如命令行工具 git、某些游戏、UWP 应用）可能不遵循系统代理设置</p>
+<hr>
+<h3 id="3-不改变系统代理-🔒">3. 不改变系统代理 🔒</h3>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>功能</strong></td>
+<td>保持现有系统代理设置不变</td>
+</tr>
+<tr>
+<td><strong>效果</strong></td>
+<td>v2rayN 仅作为后台服务运行，不修改系统配置</td>
+</tr>
+<tr>
+<td><strong>适用场景</strong></td>
+<td>已有其他代理工具、需要手动配置代理的应用、多代理工具共存</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs smali">系统代理设置 → 保持不变<br>v2rayN → 仅监听端口，等待应用主动连接<br></code></pre></td></tr></table></figure>
+<hr>
+<h3 id="4-PAC-模式-📋">4. PAC 模式 📋</h3>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>功能</strong></td>
+<td>使用 PAC (Proxy Auto-Config) 脚本自动判断流量走向</td>
+</tr>
+<tr>
+<td><strong>效果</strong></td>
+<td>根据规则列表决定：国内直连 / 国外代理</td>
+</tr>
+<tr>
+<td><strong>工作层次</strong></td>
+<td><strong>应用层</strong> + 规则判断</td>
+</tr>
+<tr>
+<td><strong>适用场景</strong></td>
+<td>需要智能分流、访问国内外混合内容</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">PAC</span> 规则判断：<br>├── 国内网站 → 直连<br>├── 被墙网站 → 走代理<br>└── 其他流量 → 按规则处理<br></code></pre></td></tr></table></figure>
+<p>✅ <strong>优点</strong>：智能分流，国内访问速度快，国外自动代理<br>
+❌ <strong>缺点</strong>：规则列表需要更新，部分应用可能不遵循 PAC</p>
+<hr>
+<h3 id="5-Tun-模式-🎯">5. Tun 模式 🎯</h3>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>功能</strong></td>
+<td>创建虚拟网卡 (TUN/TAP)，在系统底层捕获所有网络流量</td>
+</tr>
+<tr>
+<td><strong>效果</strong></td>
+<td><strong>所有应用流量强制走代理</strong>，包括命令行、游戏、UWP 应用等</td>
+</tr>
+<tr>
+<td><strong>工作层次</strong></td>
+<td><strong>传输层/网络层</strong> (虚拟网卡)</td>
+</tr>
+<tr>
+<td><strong>适用场景</strong></td>
+<td>需要全局代理、游戏代理、不支持代理的应用</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash">虚拟网卡创建 → 所有系统流量<br>├── 浏览器 → 走代理<br>├── 命令行 (git/terminal) → 走代理<br>├── 游戏 → 走代理<br>├── UWP 应用 → 走代理<br>└── 其他所有应用 → 走代理<br></code></pre></td></tr></table></figure>
+<p>✅ <strong>优点</strong>：</p>
+<ul>
+<li>代理最彻底，几乎所有流量都能接管</li>
+<li>无需逐个配置应用</li>
+<li>支持 UDP 流量（游戏、视频通话等）</li>
+</ul>
+<p>❌ <strong>缺点</strong>：</p>
+<ul>
+<li>需要管理员权限</li>
+<li>可能安装虚拟网卡驱动</li>
+<li>资源消耗略高</li>
+<li>配置相对复杂</li>
+</ul>
+<hr>
+<h2 id="五种模式对比总结">五种模式对比总结</h2>
+<table>
+<thead>
+<tr>
+<th>模式</th>
+<th>工作层次</th>
+<th>代理范围</th>
+<th>需要管理员</th>
+<th>推荐场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>清除系统代理</td>
+<td>-</td>
+<td>无代理</td>
+<td>❌</td>
+<td>不使用代理时</td>
+</tr>
+<tr>
+<td>自动配置系统代理</td>
+<td>应用层</td>
+<td>支持代理的应用</td>
+<td>❌</td>
+<td>日常浏览</td>
+</tr>
+<tr>
+<td>不改变系统代理</td>
+<td>应用层</td>
+<td>手动配置的应用</td>
+<td>❌</td>
+<td>多工具共存</td>
+</tr>
+<tr>
+<td>PAC 模式</td>
+<td>应用层+规则</td>
+<td>按规则分流</td>
+<td>❌</td>
+<td>智能分流</td>
+</tr>
+<tr>
+<td>Tun 模式</td>
+<td>网络层</td>
+<td>所有系统流量</td>
+<td>✅</td>
+<td>全局代理/游戏</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="选择建议">选择建议</h2>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs stata">📌 普通用户日常使用 → 自动配置系统代理<br>📌 需要访问国内外混合内容 → <span class="hljs-keyword">PAC</span> 模式<br>📌 游戏/命令行工具需要代理 → Tun 模式<br>📌 已有其他代理工具 → 不改变系统代理<br>📌 临时关闭代理 → 清除系统代理<br></code></pre></td></tr></table></figure>
+<p>⚠️ <strong>注意</strong>：Tun 模式需要以<strong>管理员身份运行</strong> v2rayN，首次使用可能需要安装虚拟网卡驱动。</p>
+<h2 id="路由模式">路由模式</h2>
+<h3 id="一、三种路由模式对比">一、三种路由模式对比</h3>
+<table>
+<thead>
+<tr>
+<th>路由模式</th>
+<th>工作原理</th>
+<th>国内网站</th>
+<th>国外网站</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>全局</strong></td>
+<td>所有流量都走代理</td>
+<td>走代理</td>
+<td>走代理</td>
+<td>特殊需求、测试</td>
+</tr>
+<tr>
+<td><strong>绕过大陆</strong></td>
+<td>大陆IP直连，其他走代理</td>
+<td>直连</td>
+<td>走代理</td>
+<td><strong>最常用</strong>，日常使用</td>
+</tr>
+<tr>
+<td><strong>黑名单</strong></td>
+<td>仅列表内网站走代理</td>
+<td>直连</td>
+<td>仅被墙网站走代理</td>
+<td>精准控制、节省流量</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="二、详细解析">二、详细解析</h3>
+<h4 id="1-全局模式-🌐">1. 全局模式 🌐</h4>
+<figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs gcode">所有流量 ────────────────→ 代理服务器<br>         <span class="hljs-comment">(无差别转发)</span><br></code></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>规则</strong></td>
+<td>不区分国内外，100% 流量走代理</td>
+</tr>
+<tr>
+<td><strong>优点</strong></td>
+<td>配置简单，不会漏代理</td>
+</tr>
+<tr>
+<td><strong>缺点</strong></td>
+<td>国内访问变慢、浪费代理流量、可能触发风控</td>
+</tr>
+<tr>
+<td><strong>适用</strong></td>
+<td>测试节点、特殊应用需求、网络环境复杂时</td>
+</tr>
+</tbody>
+</table>
+<p>⚠️ <strong>注意</strong>：访问国内网站（如淘宝、微信、B站）也会绕道国外服务器，速度可能更慢</p>
+<hr>
+<h4 id="2-绕过大陆模式-🇨🇳">2. 绕过大陆模式 🇨🇳</h4>
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs armasm">流量判断 ──┬── 大陆<span class="hljs-built_in">IP</span>/域名 ──→ 直连<br>          └── 非大陆<span class="hljs-built_in">IP</span>/域名 ─→ 代理服务器<br></code></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>规则</strong></td>
+<td>基于 IP 库/域名列表判断，大陆流量直连，其他走代理</td>
+</tr>
+<tr>
+<td><strong>优点</strong></td>
+<td>国内访问速度快、节省代理流量、体验最佳</td>
+</tr>
+<tr>
+<td><strong>缺点</strong></td>
+<td>IP 库需要更新、少数边缘情况可能判断错误</td>
+</tr>
+<tr>
+<td><strong>适用</strong></td>
+<td><strong>日常推荐使用</strong>，绝大多数用户场景</td>
+</tr>
+</tbody>
+</table>
+<p>✅ <strong>这是最智能的模式</strong>，兼顾速度和代理需求</p>
+<hr>
+<h4 id="3-黑名单模式-📝">3. 黑名单模式 📝</h4>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs">流量判断 ──┬── 在黑名单内 ──→ 代理服务器<br>          └── 不在黑名单 ──→ 直连<br></code></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>规则</strong></td>
+<td>只有命中黑名单（被墙网站）的流量才走代理</td>
+</tr>
+<tr>
+<td><strong>优点</strong></td>
+<td>代理最精准、流量消耗最少</td>
+</tr>
+<tr>
+<td><strong>缺点</strong></td>
+<td>黑名单需要维护、新被墙网站可能漏掉</td>
+</tr>
+<tr>
+<td><strong>适用</strong></td>
+<td>有明确代理目标、节省流量、企业环境</td>
+</tr>
+</tbody>
+</table>
+<p>⚠️ <strong>注意</strong>：黑名单需要定期更新，否则新被墙网站无法访问</p>
+<hr>
+<h3 id="三、路由模式与系统代理模式的搭配">三、路由模式与系统代理模式的搭配</h3>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs awk">┌─────────────────────────────────────────────────────────────┐<br>│                    系统代理模式（决定<span class="hljs-string">&quot;谁能走代理&quot;</span>）              │<br>│  自动配置 <span class="hljs-regexp">/ PAC /</span> Tun → 决定哪些应用的流量进入 v2rayN           │<br>└─────────────────────────────────────────────────────────────┘<br>                              ↓<br>┌─────────────────────────────────────────────────────────────┐<br>│                    路由模式（决定<span class="hljs-string">&quot;流量往哪去&quot;</span>）                  │<br>│  全局 <span class="hljs-regexp">/ 绕过大陆 /</span> 黑名单 → 决定流量是直连还是走代理服务器        │<br>└─────────────────────────────────────────────────────────────┘<br></code></pre></td></tr></table></figure>
+<h4 id="搭配关系说明">搭配关系说明</h4>
+<table>
+<thead>
+<tr>
+<th>系统代理模式</th>
+<th>路由模式</th>
+<th>最终效果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>自动配置系统代理</td>
+<td>绕过大陆</td>
+<td>支持代理的应用 → 大陆直连/国外代理</td>
+</tr>
+<tr>
+<td>自动配置系统代理</td>
+<td>全局</td>
+<td>支持代理的应用 → 全部走代理</td>
+</tr>
+<tr>
+<td>Tun 模式</td>
+<td>绕过大陆</td>
+<td><strong>所有应用</strong> → 大陆直连/国外代理</td>
+</tr>
+<tr>
+<td>Tun 模式</td>
+<td>全局</td>
+<td><strong>所有应用</strong> → 全部走代理</td>
+</tr>
+<tr>
+<td>PAC 模式</td>
+<td>绕过大陆</td>
+<td>双重规则判断（可能冲突，不推荐）</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="四、推荐搭配方案">四、推荐搭配方案</h3>
+<table>
+<thead>
+<tr>
+<th>使用场景</th>
+<th>系统代理模式</th>
+<th>路由模式</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>🏠 日常家用</td>
+<td>自动配置系统代理</td>
+<td>绕过大陆</td>
+<td>最常用组合，速度快</td>
+</tr>
+<tr>
+<td>🎮 游戏代理</td>
+<td>Tun 模式</td>
+<td>绕过大陆</td>
+<td>游戏流量也能智能分流</td>
+</tr>
+<tr>
+<td>💼 办公环境</td>
+<td>不改变系统代理</td>
+<td>黑名单</td>
+<td>精准代理，不影响公司网络</td>
+</tr>
+<tr>
+<td>🧪 测试节点</td>
+<td>自动配置系统代理</td>
+<td>全局</td>
+<td>测试节点连通性和速度</td>
+</tr>
+<tr>
+<td>📱 全局需求</td>
+<td>Tun 模式</td>
+<td>全局</td>
+<td>所有流量强制走代理（谨慎使用）</td>
+</tr>
+<tr>
+<td>🌏 智能分流</td>
+<td>PAC 模式</td>
+<td>绕过大陆</td>
+<td>双重智能判断</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="五、配置示意图">五、配置示意图</h3>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs">┌────────────────────────────────────────────────────────────┐<br>│                    推荐配置（大多数用户）                    │<br>├────────────────────────────────────────────────────────────┤<br>│  系统代理模式：自动配置系统代理                              │<br>│  路由模式：绕过大陆                                        │<br>│  效果：浏览器等应用 → 国内网站直连 / 国外网站代理            │<br>└────────────────────────────────────────────────────────────┘<br><br>┌────────────────────────────────────────────────────────────┐<br>│                    进阶配置（全局代理需求）                   │<br>├────────────────────────────────────────────────────────────┤<br>│  系统代理模式：Tun 模式（需管理员）                          │<br>│  路由模式：绕过大陆                                        │<br>│  效果：所有应用（含游戏/命令行）→ 智能分流                  │<br>└────────────────────────────────────────────────────────────┘<br></code></pre></td></tr></table></figure>
+<hr>
+<h3 id="六、常见问题解答">六、常见问题解答</h3>
+<p><strong>Q1: PAC 模式和路由模式会冲突吗？</strong></p>
+<blockquote>
+<p>可能会。PAC 本身已有分流规则，再叠加路由规则可能导致判断混乱。建议 PAC 模式搭配&quot;全局&quot;路由，或直接用&quot;自动配置系统代理 + 绕过大陆&quot;。</p>
+</blockquote>
+<p><strong>Q2: 为什么选了&quot;绕过大陆&quot;，国内网站还是慢？</strong></p>
+<blockquote>
+<p>检查是否误用了&quot;全局&quot;路由，或节点本身延迟高。也可尝试切换&quot;黑名单&quot;模式。</p>
+</blockquote>
+<p><strong>Q3: Tun 模式必须搭配什么路由？</strong></p>
+<blockquote>
+<p>Tun 模式建议搭配&quot;绕过大陆&quot;，否则所有流量（包括国内）都走代理会很慢。</p>
+</blockquote>
+<p><strong>Q4: 路由规则需要更新吗？</strong></p>
+<blockquote>
+<p>&quot;绕过大陆&quot;和&quot;黑名单&quot;依赖 IP/域名库，建议定期更新（v2rayN 设置中可开启自动更新）。</p>
+</blockquote>
+<hr>
+<h3 id="七、快速选择指南">七、快速选择指南</h3>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs">┌─────────────────────────────────────────────────┐<br>│  🟢 新手推荐：自动配置系统代理 + 绕过大陆        │<br>│  🟡 游戏用户：Tun 模式 + 绕过大陆               │<br>│  🔵 精准控制：不改变系统代理 + 黑名单           │<br>│  🔴 特殊测试：自动配置系统代理 + 全局           │<br>└─────────────────────────────────────────────────┘<br></code></pre></td></tr></table></figure>
+<p>✅ <strong>核心原则</strong>：系统代理模式决定&quot;哪些应用能走代理&quot;，路由模式决定&quot;流量是直连还是代理&quot;，两者配合使用才能达到最佳效果。</p>
+<h2 id="代理模式与路由模式的关联">代理模式与路由模式的关联</h2>
+<p>核心概念：两个独立的配置层级</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs txt">┌─────────────────────────────────────────────────────────────┐<br>│  第一层：流量如何进入 v2rayN（系统代理模式控制）              │<br>│  ├─ 自动配置系统代理 → Windows 系统代理设置                  │<br>│  ├─ 清除系统代理 → 无系统代理设置                           │<br>│  └─ 环境变量 HTTP_PROXY → 应用层代理设置                     │<br>└─────────────────────────────────────────────────────────────┘<br>                          ↓ 流量进入 v2rayN<br>┌─────────────────────────────────────────────────────────────┐<br>│  第二层：流量进入后如何路由（路由模式控制）⭐始终生效          │<br>│  ├─ 全局 → 所有流量走代理服务器                              │<br>│  ├─ 绕过大陆 → 大陆直连/国外代理                            │<br>│  └─ 黑名单 → 仅列表内走代理服务器                           │<br>└─────────────────────────────────────────────────────────────┘<br></code></pre></td></tr></table></figure>
+<p>关键理解：系统代理模式只决定&quot;流量能否进入 v2rayN&quot;，路由模式决定&quot;进入后往哪去&quot;。两者是独立工作的！</p>
+<p>具体分析：</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs txt">配置状态：<br>├─ 系统代理模式：清除系统代理<br>├─ 环境变量：HTTP_PROXY/HTTPS_PROXY = 127.0.0.1:10808<br>└─ 路由模式：？（全局/绕过大陆/黑名单）<br><br>流量路径：<br>PowerShell 终端<br>    │<br>    ▼<br>环境变量 HTTP_PROXY（优先级高）<br>    │<br>    ▼<br>v2rayN 本地监听端口 127.0.0.1:10808 ✅ 流量成功进入<br>    │<br>    ▼<br>【路由模式在此处生效】⭐<br>    │<br>    ├─ 全局 → 全部走代理服务器<br>    ├─ 绕过大陆 → 判断 IP/域名 → 大陆直连/国外代理<br>    └─ 黑名单 → 判断是否在列表 → 是则代理/否则直连<br>    │<br>    ▼<br>最终出口（本地网络 或 代理服务器）<br></code></pre></td></tr></table></figure>
+<p>建议配置：环境变量 + 绕过大陆路由模式 = 最佳体验（国内直连速度快，国外自动代理）</p>
+<h2 id="知识点与经验">知识点与经验</h2>
+<ul>
+<li>
+<p>v2rayN连接日志上显示的是走v2rayN配置的网络代理的连接。那么，没有产生日志的连接说明没有走v2rayN的网络代理（比如，把v2rayN的系统代理模式设置为“清除系统代理”时），或流量进入 v2rayN 但直连（路由模式：绕过大陆，大陆 IP → 直连 CN），等情况。</p>
+</li>
+<li>
+<p>在Windows 11 系统下（其它系统还没有进行测试），配置v2rayN的系统代理模式为“自动配置系统代理”后，其会接管PowerShell终端（其它终端还没有进行测试）的网络代理，此时，可以连接到外网（前提给v2rayN提供一个有效的订阅链接）。</p>
+<ul>
+<li>
+<p>“自动配置系统代理”不一定会接管所有的网络代理，因此。保险起见，可以再配置环境变量，以保证终端用的的确是v2rayN的网路代理。比如，在PowerShell终端配置临时环境变量：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs powershell"><span class="hljs-comment"># 如果您的 v2rayN 监听在 10808 端口</span><br><span class="hljs-variable">$env:HTTP_PROXY</span>=<span class="hljs-string">&quot;http://127.0.0.1:10808&quot;</span><br><span class="hljs-variable">$env:HTTPS_PROXY</span>=<span class="hljs-string">&quot;http://127.0.0.1:10808&quot;</span><br><span class="hljs-comment"># 建议把本机与常见内网段排除，避免访问本地/局域网服务也走代理导致异常</span><br><span class="hljs-variable">$env:NO_PROXY</span> = <span class="hljs-string">&quot;localhost,127.0.0.1,::1,0.0.0.0,.local,.lan,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16&quot;</span><br><br><span class="hljs-comment"># 使用 Write-Host 打印消息（带颜色）</span><br><span class="hljs-built_in">Write-Host</span> <span class="hljs-string">&quot;HTTP_PROXY: <span class="hljs-variable">$env:HTTP_PROXY</span>&quot;</span> <span class="hljs-literal">-ForegroundColor</span> Green<br><span class="hljs-built_in">Write-Host</span> <span class="hljs-string">&quot;HTTPS_PROXY: <span class="hljs-variable">$env:HTTPS_PROXY</span>&quot;</span> <span class="hljs-literal">-ForegroundColor</span> Green<br><span class="hljs-built_in">Write-Host</span> <span class="hljs-string">&quot;NO_PROXY: <span class="hljs-variable">$env:NO_PROXY</span>&quot;</span> <span class="hljs-literal">-ForegroundColor</span> Green<br><span class="hljs-comment"># 查看全部的环境变量</span><br><span class="hljs-built_in">Get-ChildItem</span> Env:<br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>如果设置的环境变量<code>HTTP_PROXY</code>和<code>HTTPS_PROXY</code>的地址不是v2rayN的本地监听端口，则终端会连不上网。</p>
+</blockquote>
+</li>
+<li>
+<p>v2rayN的系统代理模式“清除系统代理”的含义是不接管系统代理，但是，==只要v2rayN还在运行，那么其监听端口还是配置了网络代理的。也就是“清除系统代理”+在PowerShell终端配置环境变量后，仍可以连接到外网。==这一操作可以保证只有当前终端走网络代理，电脑其它位置还是国内网路环境（具体是否国内直连要看设置的路由模式）。</p>
+<blockquote>
+<p>虽然 v2rayN 的系统代理模式设置为&quot;<strong>清除系统代理</strong>&quot;，但你在 PowerShell 中手动配置的 <code>HTTP_PROXY</code> 和 <code>HTTPS_PROXY</code> 环境变量<strong>优先级更高</strong>，支持读取这些环境变量的工具会优先使用它们。</p>
+</blockquote>
+</li>
+<li>
+<p>等等。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="网络测试">网络测试</h2>
+<h3 id="测试脚本">测试脚本</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># test_proxy.py</span><br><span class="hljs-keyword">import</span> requests<br><span class="hljs-keyword">import</span> os<br><br><span class="hljs-comment"># 检查环境变量</span><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;=== 环境变量检查 ===&quot;</span>)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;HTTP_PROXY: <span class="hljs-subst">&#123;os.environ.get(<span class="hljs-string">&#x27;HTTP_PROXY&#x27;</span>, <span class="hljs-string">&#x27;未设置&#x27;</span>)&#125;</span>&quot;</span>)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;HTTPS_PROXY: <span class="hljs-subst">&#123;os.environ.get(<span class="hljs-string">&#x27;HTTPS_PROXY&#x27;</span>, <span class="hljs-string">&#x27;未设置&#x27;</span>)&#125;</span>&quot;</span>)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;NO_PROXY: <span class="hljs-subst">&#123;os.environ.get(<span class="hljs-string">&#x27;NO_PROXY&#x27;</span>, <span class="hljs-string">&#x27;未设置&#x27;</span>)&#125;</span>&quot;</span>)<br><br><span class="hljs-comment"># 测试需要代理的网站</span><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;\n=== 代理连接测试 ===&quot;</span>)<br>test_urls = [<br>    (<span class="hljs-string">&quot;Google&quot;</span>, <span class="hljs-string">&quot;https://www.google.com&quot;</span>),<br>    (<span class="hljs-string">&quot;OpenAI&quot;</span>, <span class="hljs-string">&quot;https://api.openai.com&quot;</span>),<br>    (<span class="hljs-string">&quot;GitHub&quot;</span>, <span class="hljs-string">&quot;https://api.github.com&quot;</span>),<br>]<br><br><span class="hljs-keyword">for</span> name, url <span class="hljs-keyword">in</span> test_urls:<br>    <span class="hljs-keyword">try</span>:<br>        response = requests.get(url, timeout=<span class="hljs-number">5</span>)<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;✅ <span class="hljs-subst">&#123;name&#125;</span>: 成功 (状态码: <span class="hljs-subst">&#123;response.status_code&#125;</span>)&quot;</span>)<br>    <span class="hljs-keyword">except</span> Exception <span class="hljs-keyword">as</span> e:<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;❌ <span class="hljs-subst">&#123;name&#125;</span>: 失败 (<span class="hljs-subst">&#123;<span class="hljs-built_in">str</span>(e)&#125;</span>)&quot;</span>)<br></code></pre></td></tr></table></figure>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs powershell"><span class="hljs-comment"># 测试网络端口是否存在</span><br><span class="hljs-built_in">Test-NetConnection</span> <span class="hljs-number">127.0</span>.<span class="hljs-number">0.1</span> <span class="hljs-literal">-Port</span> <span class="hljs-number">10808</span><br><br><span class="hljs-comment"># 测试访问国外网站（应该走代理）</span><br><span class="hljs-built_in">curl</span> <span class="hljs-literal">-s</span> https://api.ip.sb/ip<br><span class="hljs-comment"># 返回的应该是代理服务器的 IP</span><br><br><span class="hljs-comment"># 测试访问国内网站（路由模式决定走向）</span><br><span class="hljs-built_in">curl</span> <span class="hljs-literal">-s</span> https://ipinfo.io/ip<br></code></pre></td></tr></table></figure>
+<h3 id="网络监控工具TCPView">网络监控工具TCPView</h3>
+<ol>
+<li><strong>下载 TCPView</strong>（微软官方工具）
+<ul>
+<li>下载地址：<a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/sysinternals/downloads/tcpview">https://learn.microsoft.com/zh-cn/sysinternals/downloads/tcpview</a></li>
+</ul>
+</li>
+<li><strong>运行 TCPView</strong>，筛选（搜索） <code>python</code> 进程。</li>
+<li><strong>运行测试脚本触发网络连接。</strong></li>
+<li><strong>观察连接目标</strong>
+<ul>
+<li>如果看到连接到 <code>127.0.0.1:10808</code>（v2rayN 端口），说明代理生效。</li>
+<li>如果直接连接到外部 IP（如 <code>104.18.x.x</code>），说明未走代理。</li>
+</ul>
+</li>
 </ol>
 <h1 id="vim">vim</h1>
 <p><a target="_blank" rel="noopener" href="https://www.runoob.com/linux/linux-vim.html">参考链接</a></p>

@@ -26,7 +26,7 @@
 <meta property="og:image" content="http://zeyulong.com/posts/35f6a63b/%E5%AF%B9%E9%BD%90%E7%B1%BB%E5%9E%8B.png">
 <meta property="og:image" content="http://zeyulong.com/posts/35f6a63b/%E4%BD%8D%E5%A7%BF%E6%8A%95%E5%BD%B1.png">
 <meta property="article:published_time" content="2024-04-29T13:00:10.000Z">
-<meta property="article:modified_time" content="2025-01-03T07:52:21.280Z">
+<meta property="article:modified_time" content="2026-04-13T07:07:38.397Z">
 <meta property="article:author" content="龙泽雨">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://zeyulong.com/posts/35f6a63b/%E5%AF%B9%E9%BD%90%E7%B1%BB%E5%9E%8B.png">
@@ -217,7 +217,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          5.8k 字
+          7.3k 字
         
       </span>
     
@@ -228,7 +228,7 @@
         
         
         
-          49 分钟
+          61 分钟
         
       </span>
     
@@ -270,7 +270,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2025年1月3日 下午
+                    本文最后更新于 2026年4月13日 下午
                   
                 
               </p>
@@ -467,6 +467,58 @@
 <li><code>--t_max_diff</code> ：数据关联的最大时间戳差异 - 默认：0.01s</li>
 </ul>
 <p>所有几何对齐方法（ <code>--align</code> 、 <code>--correct_scale</code> ）都会自动执行此操作以进行点配准。您还可以仅同步轨迹的时间戳，而无需与 <code>--sync</code> 进行任何几何对齐。</p>
+<p>参数值选择：</p>
+<p>参数值不是越高越好。<code>--t_max_diff</code> 本质上是“时间同步时允许匹配的最大时间差（秒）”，它决定了 <strong>ref 与 est 的每个点最多能相差多少时间仍被当作同一时刻</strong>。开大了确实更容易“匹配上首尾”，但也更容易把<strong>不同时刻</strong>的位姿硬配在一起，导致：</p>
+<ul>
+<li>对齐（<code>-a</code>/<code>-s</code>）结果被“错误配对”拉歪；</li>
+<li>APE/RPE 数值被污染（有时反而变小或变大，失去可信度）；</li>
+<li>轨迹看起来更“贴合”但其实是在用错配点在对齐。</li>
+</ul>
+<h5 id="推荐怎么选（实用规则）">推荐怎么选（实用规则）</h5>
+<p>把它选成“略大于两条轨迹之间的典型时间误差”，而不是“保证全都能匹配上”。</p>
+<ol>
+<li>先按采样周期给一个上限</li>
+</ol>
+<p>如果两条轨迹频率差不多，经验上：</p>
+<ul>
+<li><strong>推荐起点</strong>：<code>t_max_diff ≈ 0.5 * Δt</code></li>
+<li><strong>通常不要超过</strong>：<code>t_max_diff ≈ 1.0 * Δt</code></li>
+</ul>
+<p>其中 <code>Δt = 1 / f(Hz)</code> 是“较慢那条轨迹”的平均采样周期。</p>
+<p>举例：</p>
+<ul>
+<li>10 Hz（Δt=0.1s）：先试 <code>--t_max_diff 0.05</code>，不行再到 <code>0.1</code></li>
+<li>20 Hz（Δt=0.05s）：先试 <code>0.02~0.03</code></li>
+<li>30 Hz（Δt≈0.033s）：先试 <code>0.01~0.02</code></li>
+<li>100 Hz（Δt=0.01s）：先试 <code>0.005~0.01</code></li>
+</ul>
+<p>如果两条频率差很多（比如 RTK 5 Hz，SLAM 30 Hz），以 <strong>RTK 的 Δt=0.2s</strong> 为准：先试 <code>0.1s</code>，再视情况调。</p>
+<ol start="2">
+<li>用“匹配数量/覆盖率”来反推</li>
+</ol>
+<p>你已经观察到：调大后闭合了。下一步建议你做一个小扫描，找“最小但足够”的值：</p>
+<ul>
+<li>从较小值开始（例如 0.01、0.02、0.05、0.1…）</li>
+<li>选择 <strong>最小</strong> 的那个，使得：
+<ul>
+<li>轨迹覆盖了你需要的闭环首尾；</li>
+<li>同时 APE/RPE 不出现明显跳变（跳变通常意味着开始大量错配）。</li>
+</ul>
+</li>
+</ul>
+<p>直觉：<code>t_max_diff</code> 每翻一倍，错配风险显著上升；所以优先取“刚好够用”的最小值。</p>
+<p>什么时候需要更大？什么时候不该更大？</p>
+<ul>
+<li><strong>可以更大</strong>：你确定两套时间戳存在抖动/不稳定（例如 RTK 时间戳不是严格等间隔，或记录链路有延迟抖动），并且你主要想看“形状对不对”而不是严谨误差。</li>
+<li><strong>不该更大</strong>：你想做严谨评估（APE/RPE 用于论文/报告），这时更推荐先解决时间同步问题（固定偏移用 <code>t_offset</code> 类参数/预处理修正），而不是靠很大的 <code>t_max_diff</code> 去“糊配”。</li>
+</ul>
+<h5 id="建议的操作结论">建议的操作结论</h5>
+<ol>
+<li>先按频率估一个：<code>0.5*Δt</code></li>
+<li>闭合后推荐继续<strong>下调</strong>，找到“刚好能闭合且匹配仍然可信”的<strong>最小</strong> <code>t_max_diff</code>。“能闭合”只是说明首尾那段也被匹配进来了，并不保证这些匹配都是同一时刻的正确对应；<code>t_max_diff</code> 过大时，evo 很可能在局部用“错时刻”的点强行配对，对齐（<code>-a/-s</code>）和误差（APE/RPE）都会被带偏，所以误差值反而<strong>不一定更准</strong>。因此评估里通常采用的原则是：<strong>用最严格的同步阈值，只放松到“不至于丢掉关键段（比如首尾闭环）”为止</strong>。</li>
+<li>不闭合再逐步加到 <code>Δt</code></li>
+<li>仍要更大时，优先检查是否存在<strong>固定时间偏移</strong>（这通常比增大 <code>t_max_diff</code> 更正确）。</li>
+</ol>
 <h3 id="投影变换">投影变换</h3>
 <p>您可以将位姿投影到具有 <code>--project_to_plane</code> 和所需平面（xy、xz 或 yz）的平面中。例如， <code>--project_to_plane xy</code> ：</p>
 <img src="/posts/35f6a63b/%E4%BD%8D%E5%A7%BF%E6%8A%95%E5%BD%B1.png" srcset="/img/loading.gif" lazyload class="" title="位姿投影">
@@ -637,7 +689,7 @@
 <h1 id="保存-导出为其他格式">保存/导出为其他格式</h1>
 <h2 id="保存当前结果">保存当前结果</h2>
 <ul>
-<li><code>-–save_plot pngname</code>：表示保存生成的图片名</li>
+<li><code>-–save_plot pdfname</code>：表示保存生成的图片名</li>
 <li><code>--save_results results/ORB.zip</code>：表示保存计算结果</li>
 </ul>
 <h2 id="导出为其他格式">导出为其他格式</h2>
@@ -697,7 +749,37 @@
 <blockquote>
 <p>导出的 ROS 包文件将包含 <code>geometry_msgs/PoseStamped</code> 消息</p>
 </blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># export a EuRoC groundtruth file to a TUM trajectory</span><br>evo_traj euroc data.csv --save_as_tum<br><span class="hljs-comment"># (will be saved as data.tum)</span><br><br><span class="hljs-comment"># export TUM trajectories to KITTI format</span><br>evo_traj tum traj_1.txt traj_2.txt traj_3.txt --save_as_kitti<br><span class="hljs-comment"># (will be saved as *.kitti)</span><br><br><span class="hljs-comment"># export TUM trajectories to ROS bagfile</span><br>evo_traj tum traj_1.txt traj_2.txt traj_3.txt --save_as_bag<br><span class="hljs-comment"># (will be saved as &lt;timestamp&gt;.bag with topics traj_1, traj_2 and traj_3)</span><br><br><span class="hljs-comment"># and so on...</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># export a EuRoC groundtruth file to a TUM trajectory</span><br>evo_traj euroc data.csv --save_as_tum<br><span class="hljs-comment"># (will be saved as data.tum)</span><br><br><span class="hljs-comment"># export TUM trajectories to KITTI format</span><br>evo_traj tum traj_1.txt traj_2.txt traj_3.txt --save_as_kitti<br><span class="hljs-comment"># (will be saved as *.kitti)</span><br><br><span class="hljs-comment"># export TUM trajectories to ROS bagfile</span><br>evo_traj tum traj_1.txt traj_2.txt traj_3.txt --save_as_bag<br><span class="hljs-comment"># (will be saved as &lt;timestamp&gt;.bag with topics traj_1, traj_2 and traj_3)</span><br><br>evo_traj bag your.bag --save_as_tum <span class="hljs-comment"># No topics used - specify topics or set --all_topics</span><br><br><span class="hljs-comment"># and so on...</span><br></code></pre></td></tr></table></figure>
+<h1 id="问题解决">问题解决</h1>
+<h2 id="ref后估计的轨迹收尾断开">--ref后估计的轨迹收尾断开</h2>
+<p>这是 <strong>evo 在 <code>--ref</code> + <code>-a</code>(align) 或 <code>-s</code>(scale) 时会先做“时间戳同步 / 取交集”</strong> 导致的正常现象，不是你的轨迹真的“不闭合”了。</p>
+<p>你单独画 <code>groundtruth_rtk.txt</code> 或 <code>est.txt</code> 时，evo 直接按文件里的全部点顺序连线，所以看起来闭合。但当你用：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">evo_traj tum --ref groundtruth_rtk.txt est.txt -p -a   <span class="hljs-comment"># 或 -s</span><br></code></pre></td></tr></table></figure>
+<p>evo 为了能做对齐（SE(3) alignment / Sim(3) scale alignment），会：</p>
+<ol>
+<li><strong>按时间戳把 ref 和 est 做匹配</strong>（associate）</li>
+<li><strong>只保留能匹配上的那一段“共同时间区间”的位姿序列</strong>（交集）</li>
+<li>然后在这段被裁剪后的序列上做 <code>-a</code> / <code>-s</code>，再绘图</li>
+</ol>
+<p>一旦你的 <strong>est 的“首尾闭合点”有一部分时间戳在 ref 里匹配不到</strong>（例如：起点/终点附近 ref 缺数据、频率不同、时间有偏移、或者有一段没对上），裁剪后序列就会从“环路中间某个时刻开始、在另一个时刻结束”，于是看起来“开头结尾断开”。</p>
+<h3 id="为什么“不加-a-s-时不明显”？">为什么“不加 -a/-s 时不明显”？</h3>
+<p>在某些版本里，<code>--ref</code> 仅用于叠加显示时不一定严格裁剪到交集；但 <strong>一旦需要计算对齐（-a/-s），就必须先匹配并裁剪</strong>，所以现象会在加 <code>-a/-s</code> 时突然出现得很明显。</p>
+<h3 id="解决办法（按优先级）">解决办法（按优先级）</h3>
+<h4 id="方案-A：把时间戳先对齐-修正（最根本）">方案 A：把时间戳先对齐/修正（最根本）</h4>
+<p>常见原因是 <strong>两个文件时间基准不一致</strong>（比如一个是系统时间、一个是 ros time；或起始时间不同；或单位/精度不同）。</p>
+<p>你可以先检查两者：</p>
+<ul>
+<li>起止时间是否覆盖同一圈闭合段</li>
+<li>频率差异是否过大</li>
+<li>时间戳是否有固定偏移（例如差了几秒）</li>
+</ul>
+<p>如果是固定偏移，优先用 evo 的时间偏移参数（不同版本参数名可能略有差异，比如 <code>--t_offset</code> / <code>--time_offset</code> 之类），把 est 的时间整体平移到 ref 上。</p>
+<h4 id="方案-B：调大关联匹配容忍度（让首尾也能匹配上）">方案 B：调大关联匹配容忍度（让首尾也能匹配上）</h4>
+<p>evo 做 associate 时有一个 <strong>最大时间差阈值</strong>（例如 <code>--max_diff</code> / <code>--t_max_diff</code> / <code>--sync_max_diff</code> 这类参数，不同版本名字不同）。如果阈值太小，首尾处“差一点点”的点就会匹配失败，从而被裁掉。</p>
+<p>思路是：把这个阈值适当增大（比如从 0.01s 增到 0.05s 或 0.1s），让更多点匹配上，环可能就闭合回来了。</p>
+<p><a href="#%E6%97%B6%E9%97%B4%E5%AF%B9%E9%BD%90">时间对齐</a></p>
+<h4 id="方案-C：确保-ref-也包含闭合段的首尾（最直接）">方案 C：确保 ref 也包含闭合段的首尾（最直接）</h4>
+<p>如果你的 <code>groundtruth_rtk.txt</code> 在起点/终点附近缺失（RTK 断点、掉点），那就算 est 完整闭合，<strong>交集裁剪后也会“缺一截”</strong>。做法是：补全/延长 groundtruth，或把评估时间范裁到双方都有数据且闭合的一段。</p>
 <h1 id="License">License</h1>
 <p>如果您使用此包进行研究，则可以使用带有此存储库链接的脚注： <code>github.com/MichaelGrupp/evo</code> 。</p>
 <p>或者，用 BibTeX 引用：</p>

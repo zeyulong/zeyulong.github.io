@@ -61,7 +61,7 @@
 <meta property="og:image" content="http://zeyulong.com/posts/9d7fd48f/record-ui.png">
 <meta property="og:image" content="http://zeyulong.com/posts/9d7fd48f/%E5%8F%8C%E7%9B%AE%E7%A1%AC%E4%BB%B6%E8%BF%9E%E6%8E%A5.jpg">
 <meta property="article:published_time" content="2024-04-20T02:22:09.000Z">
-<meta property="article:modified_time" content="2026-01-30T08:22:42.861Z">
+<meta property="article:modified_time" content="2026-04-10T06:28:47.179Z">
 <meta property="article:author" content="龙泽雨">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://zeyulong.com/posts/9d7fd48f/%E4%BA%A7%E5%93%81%E7%BB%86%E8%8A%82-1.png">
@@ -252,7 +252,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          19k 字
+          20k 字
         
       </span>
     
@@ -263,7 +263,7 @@
         
         
         
-          161 分钟
+          163 分钟
         
       </span>
     
@@ -305,7 +305,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2026年1月30日 下午
+                    本文最后更新于 2026年4月10日 下午
                   
                 
               </p>
@@ -1094,6 +1094,14 @@
 <p>20240521更新：</p>
 <p>在夜晚室内测试时，我发现就算开着灯，曝光值也需要调大很大图像帧才能看清物体，而此时图像帧的帧率就会很低。参考<a target="_blank" rel="noopener" href="https://blog.csdn.net/gwplovekimi/article/details/121619039">博客</a>里的说法，应该把中间的光圈调大最大（尽可能降低曝光值），把最外面的聚焦环调到最远，然后再调节最里面的变焦环进行对焦。如果变焦环调到最大相机还是没有对焦，就回调提下聚焦环。</p>
 </blockquote>
+<blockquote>
+<p>20260410更新：</p>
+<ol>
+<li>光圈调到“O”端。</li>
+<li>如果想看近看得清楚，则把聚焦环调到“F”端，变焦环调到“T”端。如果想看远看得清楚，则把聚焦环调到“N”端，变焦环调到“W”端。</li>
+<li>先调节聚焦环到最清楚的时候（在最清楚位置左右旋转图像都会变模糊），再调节变焦环让图像变得更清晰，同样有一个最清楚的位置。</li>
+</ol>
+</blockquote>
 <h2 id="相机对焦">相机对焦</h2>
 <blockquote>
 <p>DAVIS346因为事件帧和图像帧共用的是一个镜头，所以可以直接通过标定图像帧来同时确定事件帧和图像帧的内参及视惯联合标定。</p>
@@ -1337,6 +1345,12 @@
 <blockquote>
 <p>使用 help 参数可以获得有关选项的更多信息：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">kalibr_calibrate_cameras --h<br></code></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>报错[ERROR] [1668944382.174500]: initialization of focal length for cam with topic /color failed</p>
+<p>应该是缺少初始焦距，解决方法：</p>
+<p>如果提示不能得到初始焦距的时候，可以设置：export KALIBR_MANUAL_FOCAL_LENGTH_INIT=1(终端输入)。重新运行程序，当程序运行失败的时候，它会提示要手动输入一个焦距：Initialization of focal length failed. Provide manual initialization: 这时手动输入比如 400,给比较大的值，就能进行标定了。</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/GuanLingde/article/details/129415831">安装kalibr标定D435i的踩坑记录</a></p>
 </blockquote>
 </li>
 <li>
@@ -1732,6 +1746,9 @@ camera resolution [width,height] 相机分辨率[宽度，高度]</p>
 </ul>
 <p>内容示例：</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">cam0:</span><br>  <span class="hljs-attr">camera_model:</span> <span class="hljs-string">pinhole</span><br>  <span class="hljs-attr">intrinsics:</span> [<span class="hljs-number">461.629</span>, <span class="hljs-number">460.152</span>, <span class="hljs-number">362.680</span>, <span class="hljs-number">246.049</span>]<br>  <span class="hljs-attr">distortion_model:</span> <span class="hljs-string">radtan</span><br>  <span class="hljs-attr">distortion_coeffs:</span> [<span class="hljs-number">-0.27695497</span>, <span class="hljs-number">0.06712482</span>, <span class="hljs-number">0.00087538</span>, <span class="hljs-number">0.00011556</span>]<br>  <span class="hljs-attr">T_cam_imu:</span><br>  <span class="hljs-bullet">-</span> [<span class="hljs-number">0.01779318</span>, <span class="hljs-number">0.99967549</span>,<span class="hljs-number">-0.01822936</span>, <span class="hljs-number">0.07008565</span>]<br>  <span class="hljs-bullet">-</span> [<span class="hljs-number">-0.9998017</span>, <span class="hljs-number">0.01795239</span>, <span class="hljs-number">0.00860714</span>,<span class="hljs-number">-0.01771023</span>]<br>  <span class="hljs-bullet">-</span> [<span class="hljs-number">0.00893160</span>, <span class="hljs-number">0.01807260</span>, <span class="hljs-number">0.99979678</span>, <span class="hljs-number">0.00399246</span>]<br>  <span class="hljs-bullet">-</span> [<span class="hljs-number">0.0</span>, <span class="hljs-number">0.0</span>, <span class="hljs-number">0.0</span>, <span class="hljs-number">1.0</span>]<br>  <span class="hljs-attr">timeshift_cam_imu:</span> <span class="hljs-number">-8.121e-05</span><br>  <span class="hljs-attr">rostopic:</span> <span class="hljs-string">/cam0/image_raw</span><br>  <span class="hljs-attr">resolution:</span> [<span class="hljs-number">752</span>, <span class="hljs-number">480</span>]<br><span class="hljs-attr">cam1:</span><br>  <span class="hljs-attr">camera_model:</span> <span class="hljs-string">omni</span><br>  <span class="hljs-attr">intrinsics:</span> [<span class="hljs-number">0.80065662</span>, <span class="hljs-number">833.006</span>, <span class="hljs-number">830.345</span>, <span class="hljs-number">373.850</span>, <span class="hljs-number">253.749</span>]<br>  <span class="hljs-attr">distortion_model:</span> <span class="hljs-string">radtan</span><br>  <span class="hljs-attr">distortion_coeffs:</span> [<span class="hljs-number">-0.33518750</span>, <span class="hljs-number">0.13211436</span>, <span class="hljs-number">0.00055967</span>, <span class="hljs-number">0.00057686</span>]<br>  <span class="hljs-attr">T_cn_cnm1:</span><br>  <span class="hljs-bullet">-</span> [ <span class="hljs-number">0.99998854</span>, <span class="hljs-number">0.00216014</span>, <span class="hljs-number">0.00427195</span>,<span class="hljs-number">-0.11003785</span>]<br>  <span class="hljs-bullet">-</span> [<span class="hljs-number">-0.00221074</span>, <span class="hljs-number">0.99992702</span>, <span class="hljs-number">0.01187697</span>, <span class="hljs-number">0.00045792</span>]<br>  <span class="hljs-bullet">-</span> [<span class="hljs-number">-0.00424598</span>,<span class="hljs-number">-0.01188627</span>, <span class="hljs-number">0.99992034</span>,<span class="hljs-number">-0.00064487</span>]<br>  <span class="hljs-bullet">-</span> [<span class="hljs-number">0.0</span>, <span class="hljs-number">0.0</span>, <span class="hljs-number">0.0</span>, <span class="hljs-number">1.0</span>]<br>  <span class="hljs-attr">T_cam_imu:</span><br>  <span class="hljs-bullet">-</span> [ <span class="hljs-number">0.01567142</span>, <span class="hljs-number">0.99978002</span>,<span class="hljs-number">-0.01393948</span>,<span class="hljs-number">-0.03997419</span>]<br>  <span class="hljs-bullet">-</span> [<span class="hljs-number">-0.99966203</span>, <span class="hljs-number">0.01595569</span>, <span class="hljs-number">0.02052137</span>,<span class="hljs-number">-0.01735854</span>]<br>  <span class="hljs-bullet">-</span> [ <span class="hljs-number">0.02073927</span>, <span class="hljs-number">0.01361317</span>, <span class="hljs-number">0.99969223</span>, <span class="hljs-number">0.00326019</span>]<br>  <span class="hljs-bullet">-</span> [<span class="hljs-number">0.0</span>, <span class="hljs-number">0.0</span>, <span class="hljs-number">0.0</span>, <span class="hljs-number">1.0</span>]<br>  <span class="hljs-attr">timeshift_cam_imu:</span> <span class="hljs-number">-8.681e-05</span><br>  <span class="hljs-attr">rostopic:</span> <span class="hljs-string">/cam1/image_raw</span><br>  <span class="hljs-attr">resolution:</span> [<span class="hljs-number">752</span>, <span class="hljs-number">480</span>]<br></code></pre></td></tr></table></figure>
+<blockquote>
+<p><code>report-imucam-%BAGNAME%.pdf</code>和<code>results-imucam-%BAGNAME%.txt</code>里含有重力数据<code>Gravity vector in target coords</code>。</p>
+</blockquote>
 <h2 id="其它标定方法">其它标定方法</h2>
 <p>标定事件相机内参：</p>
 <ul>

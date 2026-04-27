@@ -24,7 +24,7 @@
 <meta property="og:description" content="本文主要根据大模型集成交互界面open-webui的官方文档摘取了其配置和使用方法。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-02-17T07:54:50.000Z">
-<meta property="article:modified_time" content="2026-03-13T03:18:16.740Z">
+<meta property="article:modified_time" content="2026-03-29T07:14:56.822Z">
 <meta property="article:author" content="龙泽雨">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -214,7 +214,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          19k 字
+          20k 字
         
       </span>
     
@@ -225,7 +225,7 @@
         
         
         
-          155 分钟
+          171 分钟
         
       </span>
     
@@ -267,7 +267,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2026年3月13日 上午
+                    本文最后更新于 2026年3月29日 下午
                   
                 
               </p>
@@ -345,7 +345,7 @@
 </ul>
 <h3 id="安装">安装</h3>
 <blockquote>
-<p>使用 Docker 安装 Open WebUI 时，请务必在 Docker 命令中包含 <code>-v open-webui:/app/backend/data</code> 。这一步至关重要，它可以确保数据库正确挂载，防止数据丢失。</p>
+<p>使用 Docker 安装 Open WebUI 时，请务必在 Docker 命令中包含 <code>-v open-webui:/app/backend/data</code> 。这一步至关重要，它可以确保数据库正确挂载，防止数据丢失。<a href="#%E6%95%B0%E6%8D%AE">数据导入与导出</a></p>
 </blockquote>
 <blockquote>
 <p>如果您希望使用包含 Ollama 或 CUDA 加速的 Open WebUI，我们建议您使用带有 <code>:cuda</code> 或 <code>:ollama</code> 标签的官方镜像。要启用 CUDA，您必须在 Linux/WSL 系统上安装 <a target="_blank" rel="noopener" href="https://docs.nvidia.com/dgx/nvidia-container-runtime-upgrade/">Nvidia CUDA 容器工具包 </a>。</p>
@@ -374,7 +374,7 @@
 <li>v2rayN 设置 → 参数设置 → 允许来自局域网的连接 → 启用 → 确定。</li>
 </ol>
 <h3 id="完整的启动脚本">完整的启动脚本</h3>
-<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br></pre></td><td class="code"><pre><code class="hljs powershell"><span class="hljs-comment"># =========================</span><br><span class="hljs-comment"># Open WebUI via docker run</span><br><span class="hljs-comment"># =========================</span><br><br><span class="hljs-comment"># ---- 可修改区：按需改成你的值 ----</span><br><br><span class="hljs-comment"># 安全配置（JWT 密钥）</span><br><span class="hljs-comment"># 重要：首次设置后不要随意更改，否则用户会话会失效</span><br><span class="hljs-variable">$WEBUI_SECRET_KEY</span> = <span class="hljs-string">&quot;your-secure-random-key-change-this&quot;</span><br><br><span class="hljs-comment"># 数据目录（强烈建议用本机目录，而不是匿名 volume，方便备份/迁移）</span><br><span class="hljs-variable">$DataDir</span>       = <span class="hljs-string">&quot;C:\xxx\data&quot;</span><br><br><span class="hljs-comment"># 容器基础配置</span><br><span class="hljs-variable">$ContainerName</span> = <span class="hljs-string">&quot;open-webui&quot;</span><br><span class="hljs-variable">$Image</span>         = <span class="hljs-string">&quot;ghcr.io/open-webui/open-webui:main&quot;</span><br><br><span class="hljs-comment"># WebUI 对外端口：浏览器访问 http://localhost:3000</span><br><span class="hljs-variable">$HostPort</span>      = <span class="hljs-number">3000</span><br><span class="hljs-variable">$ContainerPort</span> = <span class="hljs-number">8080</span><br><br><span class="hljs-comment"># 代理配置（v2rayN 默认端口 10808 或 10809）</span><br><span class="hljs-comment"># 如果你需要让容器内访问 HuggingFace / GitHub 等走代理</span><br><span class="hljs-variable">$PROXY_HOST</span> = <span class="hljs-string">&quot;host.docker.internal&quot;</span><br><span class="hljs-variable">$PROXY_PORT</span> = <span class="hljs-string">&quot;10808&quot;</span><br><br><span class="hljs-comment"># HuggingFace 镜像</span><br><span class="hljs-comment"># 解决报错：huggingface_hub.utils._errors.LocalEntryNotFoundError</span><br><span class="hljs-variable">$HfEndpoint</span>    = <span class="hljs-string">&quot;https://hf-mirror.com&quot;</span><br><br><span class="hljs-comment"># CORS：允许哪些前端 Origin 访问后端（通常你只在本机用 3000 就够了）</span><br><span class="hljs-comment"># 注意：Open WebUI 默认前端就是同源，只有在“前后端分离/反向代理/端口不同”时更需要配置</span><br><span class="hljs-comment"># https://docs.openwebui.com/reference/env-configuration/#cors_allow_origin</span><br><span class="hljs-comment"># 解决警告：WARNING: CORS_ALLOW_ORIGIN IS SET TO &#x27;*&#x27; - NOT RECOMMENDED FOR PRODUCTION DEPLOYMENTS.</span><br><span class="hljs-variable">$CorsAllowOrigin</span> = <span class="hljs-string">&quot;http://localhost:<span class="hljs-variable">$HostPort</span>;http://127.0.0.1:<span class="hljs-variable">$HostPort</span>&quot;</span><br><br><span class="hljs-comment"># 解决警告：WARNI [langchain_community.utils.user_agent] USER_AGENT environment variable not set, consider setting it to identify your requests.</span><br><span class="hljs-variable">$UserAgent</span> = <span class="hljs-string">&quot;open-webui/0.8.3 (https://github.com/open-webui/open-webui)&quot;</span><br><br><span class="hljs-comment"># 启用[KV 缓存优化](https://docs.openwebui.com/features/chat-conversations/rag/#kv-cache-optimization-performance-tip-)</span><br><span class="hljs-variable">$RagSystemContext</span> = <span class="hljs-string">&quot;True&quot;</span><br><br><span class="hljs-comment"># ---- 准备工作：测试网络 ----</span><br><span class="hljs-built_in">Test-NetConnection</span> <span class="hljs-number">127.0</span>.<span class="hljs-number">0.1</span> <span class="hljs-literal">-Port</span> <span class="hljs-variable">$PROXY_PORT</span><br>python C:\xxx\test_proxy.py<br><br><span class="hljs-comment"># ---- 准备工作：检查数据目录必须已存在，否则报错退出 ----</span><br><span class="hljs-keyword">if</span> (!(<span class="hljs-built_in">Test-Path</span> <span class="hljs-literal">-LiteralPath</span> <span class="hljs-variable">$DataDir</span>)) &#123;<br>  <span class="hljs-built_in">Write-Error</span> <span class="hljs-string">&quot;DATA_DIR does not exist: <span class="hljs-variable">$DataDir</span>. Please create it first (e.g. New-Item -ItemType Directory -Path &#x27;<span class="hljs-variable">$DataDir</span>&#x27;).&quot;</span><br>  <span class="hljs-keyword">exit</span> <span class="hljs-number">1</span><br>&#125;<br><br><span class="hljs-comment"># 防止 $DataDir 指向的是文件而不是目录</span><br><span class="hljs-keyword">if</span> (<span class="hljs-operator">-not</span> (<span class="hljs-built_in">Test-Path</span> <span class="hljs-literal">-LiteralPath</span> <span class="hljs-variable">$DataDir</span> <span class="hljs-literal">-PathType</span> Container)) &#123;<br>  <span class="hljs-built_in">Write-Error</span> <span class="hljs-string">&quot;DATA_DIR exists but is not a directory: <span class="hljs-variable">$DataDir</span>&quot;</span><br>  <span class="hljs-keyword">exit</span> <span class="hljs-number">1</span><br>&#125;<br><br><span class="hljs-comment"># ---- 如果已存在同名容器，先停掉并删除，避免冲突 ----</span><br><span class="hljs-variable">$existing</span> = docker <span class="hljs-built_in">ps</span> <span class="hljs-literal">-a</span> <span class="hljs-literal">--format</span> <span class="hljs-string">&quot;&#123;&#123;.Names&#125;&#125;&quot;</span> | <span class="hljs-built_in">Where-Object</span> &#123; <span class="hljs-variable">$_</span> <span class="hljs-operator">-eq</span> <span class="hljs-variable">$ContainerName</span> &#125;<br><span class="hljs-keyword">if</span> (<span class="hljs-variable">$existing</span>) &#123;<br>  <span class="hljs-built_in">Write-Host</span> <span class="hljs-string">&quot;Stopping existing container: <span class="hljs-variable">$ContainerName</span>&quot;</span><br>  docker stop <span class="hljs-variable">$ContainerName</span> | <span class="hljs-built_in">Out-Null</span><br>  <span class="hljs-built_in">Write-Host</span> <span class="hljs-string">&quot;Removing existing container: <span class="hljs-variable">$ContainerName</span>&quot;</span><br>  docker <span class="hljs-built_in">rm</span> <span class="hljs-variable">$ContainerName</span>   | <span class="hljs-built_in">Out-Null</span><br>&#125;<br><br><span class="hljs-comment"># ---- 在默认浏览器中打开网址 ----</span><br><span class="hljs-built_in">Start-Process</span> <span class="hljs-string">&quot;http://localhost:<span class="hljs-variable">$HostPort</span>&quot;</span><br><br><span class="hljs-comment"># ---- 创建并运行容器 ----</span><br>docker run <span class="hljs-literal">-d</span> `<br>  <span class="hljs-literal">--name</span> <span class="hljs-variable">$ContainerName</span> `<br>  <span class="hljs-literal">--restart</span> no `<br>  <span class="hljs-literal">-p</span> <span class="hljs-variable">$</span>&#123;HostPort&#125;:<span class="hljs-variable">$</span>&#123;ContainerPort&#125; `<br>  <span class="hljs-literal">--add-host</span>=host.docker.internal:host<span class="hljs-literal">-gateway</span> `<br>  <span class="hljs-literal">-v</span> <span class="hljs-string">&quot;<span class="hljs-variable">$</span>&#123;DataDir&#125;:/app/backend/data&quot;</span> `<br>  <span class="hljs-literal">-e</span> HTTP_PROXY=http://<span class="hljs-variable">$</span>&#123;PROXY_HOST&#125;:<span class="hljs-variable">$</span>&#123;PROXY_PORT&#125; `<br>  <span class="hljs-literal">-e</span> HTTPS_PROXY=http://<span class="hljs-variable">$</span>&#123;PROXY_HOST&#125;:<span class="hljs-variable">$</span>&#123;PROXY_PORT&#125; `<br>  <span class="hljs-literal">-e</span> NO_PROXY=<span class="hljs-string">&quot;localhost,127.0.0.1,::1,0.0.0.0,.local,.lan,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16,host.docker.internal&quot;</span> `<br>  <span class="hljs-literal">-e</span> HF_ENDPOINT=<span class="hljs-variable">$HfEndpoint</span> `<br>  <span class="hljs-literal">-e</span> DATA_DIR=<span class="hljs-string">&quot;/app/backend/data&quot;</span> `<br>  <span class="hljs-literal">-e</span> CORS_ALLOW_ORIGIN=<span class="hljs-variable">$CorsAllowOrigin</span> `<br>  <span class="hljs-literal">-e</span> USER_AGENT=<span class="hljs-variable">$UserAgent</span> `<br>  <span class="hljs-literal">-e</span> RAG_SYSTEM_CONTEXT=<span class="hljs-variable">$RagSystemContext</span> `<br>  <span class="hljs-literal">-e</span> WEBUI_SECRET_KEY=<span class="hljs-variable">$WEBUI_SECRET_KEY</span> `<br>  <span class="hljs-variable">$Image</span><br><br><span class="hljs-built_in">Write-Host</span> <span class="hljs-string">&quot;&quot;</span><br><span class="hljs-built_in">Write-Host</span> <span class="hljs-string">&quot;Open WebUI is starting...&quot;</span><br><span class="hljs-built_in">Write-Host</span> <span class="hljs-string">&quot;URL: http://localhost:<span class="hljs-variable">$HostPort</span>&quot;</span><br><span class="hljs-built_in">Write-Host</span> <span class="hljs-string">&quot;&quot;</span><br><span class="hljs-built_in">Write-Host</span> <span class="hljs-string">&quot;Logs: docker logs -f <span class="hljs-variable">$ContainerName</span>&quot;</span><br><span class="hljs-built_in">Write-Host</span> <span class="hljs-string">&quot;&quot;</span><br><br>(docker exec <span class="hljs-built_in">open-webui</span> env | <span class="hljs-built_in">Select-String</span> <span class="hljs-string">&quot;PROXY&quot;</span>).Line<br><span class="hljs-built_in">Write-Host</span> <span class="hljs-string">&quot;&quot;</span><br><br>docker logs <span class="hljs-operator">-f</span> <span class="hljs-variable">$ContainerName</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br></pre></td><td class="code"><pre><code class="hljs powershell"><span class="hljs-comment"># =========================</span><br><span class="hljs-comment"># Open WebUI via docker run</span><br><span class="hljs-comment"># =========================</span><br><br><span class="hljs-comment"># ---- 可修改区：按需改成你的值 ----</span><br><br><span class="hljs-comment"># 安全配置（JWT 密钥）</span><br><span class="hljs-comment"># 重要：首次设置后不要随意更改，否则用户会话会失效</span><br><span class="hljs-variable">$WEBUI_SECRET_KEY</span> = <span class="hljs-string">&quot;your-secure-random-key-change-this&quot;</span><br><br><span class="hljs-comment"># 数据目录（强烈建议用本机目录，而不是匿名 volume，方便备份/迁移）</span><br><span class="hljs-variable">$DataDir</span>       = <span class="hljs-string">&quot;C:\xxx\data&quot;</span><br><br><span class="hljs-comment"># 容器基础配置</span><br><span class="hljs-variable">$ContainerName</span> = <span class="hljs-string">&quot;open-webui&quot;</span><br><span class="hljs-variable">$Image</span>         = <span class="hljs-string">&quot;ghcr.io/open-webui/open-webui:main&quot;</span><br><br><span class="hljs-comment"># WebUI 对外端口：浏览器访问 http://localhost:3000</span><br><span class="hljs-variable">$HostPort</span>      = <span class="hljs-number">3000</span><br><span class="hljs-variable">$ContainerPort</span> = <span class="hljs-number">8080</span><br><br><span class="hljs-comment"># 代理配置（v2rayN 默认端口 10808 或 10809）</span><br><span class="hljs-comment"># 如果你需要让容器内访问 HuggingFace / GitHub 等走代理</span><br><span class="hljs-variable">$PROXY_HOST</span> = <span class="hljs-string">&quot;host.docker.internal&quot;</span><br><span class="hljs-variable">$PROXY_PORT</span> = <span class="hljs-string">&quot;10808&quot;</span><br><br><span class="hljs-comment"># HuggingFace 镜像</span><br><span class="hljs-comment"># 解决报错：huggingface_hub.utils._errors.LocalEntryNotFoundError</span><br><span class="hljs-variable">$HfEndpoint</span>    = <span class="hljs-string">&quot;https://hf-mirror.com&quot;</span><br><br><span class="hljs-comment"># CORS：允许哪些前端 Origin 访问后端（通常你只在本机用 3000 就够了）</span><br><span class="hljs-comment"># 注意：Open WebUI 默认前端就是同源，只有在“前后端分离/反向代理/端口不同”时更需要配置</span><br><span class="hljs-comment"># https://docs.openwebui.com/reference/env-configuration/#cors_allow_origin</span><br><span class="hljs-comment"># 解决警告：WARNING: CORS_ALLOW_ORIGIN IS SET TO &#x27;*&#x27; - NOT RECOMMENDED FOR PRODUCTION DEPLOYMENTS.</span><br><span class="hljs-variable">$CorsAllowOrigin</span> = <span class="hljs-string">&quot;http://localhost:<span class="hljs-variable">$HostPort</span>;http://127.0.0.1:<span class="hljs-variable">$HostPort</span>&quot;</span><br><br><span class="hljs-comment"># 解决警告：WARNI [langchain_community.utils.user_agent] USER_AGENT environment variable not set, consider setting it to identify your requests.</span><br><span class="hljs-variable">$UserAgent</span> = <span class="hljs-string">&quot;open-webui/0.8.3 (https://github.com/open-webui/open-webui)&quot;</span><br><br><span class="hljs-comment"># 启用[KV 缓存优化](https://docs.openwebui.com/features/chat-conversations/rag/#kv-cache-optimization-performance-tip-)</span><br><span class="hljs-variable">$RagSystemContext</span> = <span class="hljs-string">&quot;True&quot;</span><br><br><span class="hljs-comment"># ---- 准备工作：测试网络 ----</span><br><span class="hljs-built_in">Test-NetConnection</span> <span class="hljs-number">127.0</span>.<span class="hljs-number">0.1</span> <span class="hljs-literal">-Port</span> <span class="hljs-variable">$PROXY_PORT</span><br>python C:\xxx\test_proxy.py<br><br><span class="hljs-comment"># ---- 准备工作：检查数据目录必须已存在，否则报错退出 ----</span><br><span class="hljs-keyword">if</span> (!(<span class="hljs-built_in">Test-Path</span> <span class="hljs-literal">-LiteralPath</span> <span class="hljs-variable">$DataDir</span>)) &#123;<br>  <span class="hljs-built_in">Write-Error</span> <span class="hljs-string">&quot;DATA_DIR does not exist: <span class="hljs-variable">$DataDir</span>. Please create it first (e.g. New-Item -ItemType Directory -Path &#x27;<span class="hljs-variable">$DataDir</span>&#x27;).&quot;</span><br>  <span class="hljs-keyword">exit</span> <span class="hljs-number">1</span><br>&#125;<br><br><span class="hljs-comment"># 防止 $DataDir 指向的是文件而不是目录</span><br><span class="hljs-keyword">if</span> (<span class="hljs-operator">-not</span> (<span class="hljs-built_in">Test-Path</span> <span class="hljs-literal">-LiteralPath</span> <span class="hljs-variable">$DataDir</span> <span class="hljs-literal">-PathType</span> Container)) &#123;<br>  <span class="hljs-built_in">Write-Error</span> <span class="hljs-string">&quot;DATA_DIR exists but is not a directory: <span class="hljs-variable">$DataDir</span>&quot;</span><br>  <span class="hljs-keyword">exit</span> <span class="hljs-number">1</span><br>&#125;<br><br><span class="hljs-comment"># ---- 如果已存在同名容器，先停掉并删除，避免冲突 ----</span><br><span class="hljs-variable">$existing</span> = docker <span class="hljs-built_in">ps</span> <span class="hljs-literal">-a</span> <span class="hljs-literal">--format</span> <span class="hljs-string">&quot;&#123;&#123;.Names&#125;&#125;&quot;</span> | <span class="hljs-built_in">Where-Object</span> &#123; <span class="hljs-variable">$_</span> <span class="hljs-operator">-eq</span> <span class="hljs-variable">$ContainerName</span> &#125;<br><span class="hljs-keyword">if</span> (<span class="hljs-variable">$existing</span>) &#123;<br>  <span class="hljs-built_in">Write-Host</span> <span class="hljs-string">&quot;Stopping existing container: <span class="hljs-variable">$ContainerName</span>&quot;</span><br>  docker stop <span class="hljs-variable">$ContainerName</span> | <span class="hljs-built_in">Out-Null</span><br>  <span class="hljs-built_in">Write-Host</span> <span class="hljs-string">&quot;Removing existing container: <span class="hljs-variable">$ContainerName</span>&quot;</span><br>  docker <span class="hljs-built_in">rm</span> <span class="hljs-variable">$ContainerName</span>   | <span class="hljs-built_in">Out-Null</span><br>&#125;<br><br><span class="hljs-comment"># ---- 在默认浏览器中打开网址 ----</span><br><span class="hljs-built_in">Start-Process</span> <span class="hljs-string">&quot;http://localhost:<span class="hljs-variable">$HostPort</span>&quot;</span><br><br><span class="hljs-comment"># ---- 创建并运行容器 ----</span><br>docker run <span class="hljs-literal">-d</span> `<br>  <span class="hljs-literal">--name</span> <span class="hljs-variable">$ContainerName</span> `<br>  <span class="hljs-literal">--restart</span> no `<br>  <span class="hljs-literal">-p</span> <span class="hljs-variable">$</span>&#123;HostPort&#125;:<span class="hljs-variable">$</span>&#123;ContainerPort&#125; `<br>  <span class="hljs-literal">--add-host</span>=host.docker.internal:host<span class="hljs-literal">-gateway</span> `<br>  <span class="hljs-literal">-v</span> <span class="hljs-string">&quot;<span class="hljs-variable">$</span>&#123;DataDir&#125;:/app/backend/data&quot;</span> `<br>  <span class="hljs-literal">-e</span> HTTP_PROXY=http://<span class="hljs-variable">$</span>&#123;PROXY_HOST&#125;:<span class="hljs-variable">$</span>&#123;PROXY_PORT&#125; `<br>  <span class="hljs-literal">-e</span> HTTPS_PROXY=http://<span class="hljs-variable">$</span>&#123;PROXY_HOST&#125;:<span class="hljs-variable">$</span>&#123;PROXY_PORT&#125; `<br>  <span class="hljs-literal">-e</span> NO_PROXY=<span class="hljs-string">&quot;localhost,127.0.0.1,::1,0.0.0.0,.local,.lan,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16,host.docker.internal&quot;</span> `<br>  <span class="hljs-literal">-e</span> HF_ENDPOINT=<span class="hljs-variable">$HfEndpoint</span> `<br>  <span class="hljs-literal">-e</span> DATA_DIR=<span class="hljs-string">&quot;/app/backend/data&quot;</span> `<br>  <span class="hljs-literal">-e</span> CORS_ALLOW_ORIGIN=<span class="hljs-variable">$CorsAllowOrigin</span> `<br>  <span class="hljs-literal">-e</span> USER_AGENT=<span class="hljs-variable">$UserAgent</span> `<br>  <span class="hljs-literal">-e</span> RAG_SYSTEM_CONTEXT=<span class="hljs-variable">$RagSystemContext</span> `<br>  <span class="hljs-literal">-e</span> WEBUI_SECRET_KEY=<span class="hljs-variable">$WEBUI_SECRET_KEY</span> `<br>  <span class="hljs-literal">-e</span> ENABLE_CHAT_RESPONSE_BASE64_IMAGE_URL_CONVERSION=<span class="hljs-string">&quot;True&quot;</span> `<br>  <span class="hljs-literal">-e</span> CHAT_STREAM_RESPONSE_CHUNK_MAX_BUFFER_SIZE=<span class="hljs-string">&quot;20971520&quot;</span> `<br>  <span class="hljs-variable">$Image</span><br><br><span class="hljs-built_in">Write-Host</span> <span class="hljs-string">&quot;&quot;</span><br><span class="hljs-built_in">Write-Host</span> <span class="hljs-string">&quot;Open WebUI is starting...&quot;</span><br><span class="hljs-built_in">Write-Host</span> <span class="hljs-string">&quot;URL: http://localhost:<span class="hljs-variable">$HostPort</span>&quot;</span><br><span class="hljs-built_in">Write-Host</span> <span class="hljs-string">&quot;&quot;</span><br><span class="hljs-built_in">Write-Host</span> <span class="hljs-string">&quot;Logs: docker logs -f <span class="hljs-variable">$ContainerName</span>&quot;</span><br><span class="hljs-built_in">Write-Host</span> <span class="hljs-string">&quot;&quot;</span><br><br>(docker exec <span class="hljs-built_in">open-webui</span> env | <span class="hljs-built_in">Select-String</span> <span class="hljs-string">&quot;PROXY&quot;</span>).Line<br><span class="hljs-built_in">Write-Host</span> <span class="hljs-string">&quot;&quot;</span><br><br>docker logs <span class="hljs-operator">-f</span> <span class="hljs-variable">$ContainerName</span><br></code></pre></td></tr></table></figure>
 <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs powershell"><span class="hljs-comment"># 停止容器（两种策略都可以）</span><br>docker stop <span class="hljs-built_in">open-webui</span><br><br><span class="hljs-comment"># （可选）备份当前image版本</span><br>docker tag ghcr.io/<span class="hljs-built_in">open-webui</span>/<span class="hljs-built_in">open-webui</span>:main ghcr.io/<span class="hljs-built_in">open-webui</span>/<span class="hljs-built_in">open-webui</span>:v1.<span class="hljs-number">1.1</span><br><br><span class="hljs-comment"># 验证状态</span><br>docker <span class="hljs-built_in">ps</span> <span class="hljs-literal">--filter</span> name=<span class="hljs-built_in">open-webui</span><br><span class="hljs-comment"># 输出：无（容器已停止）</span><br></code></pre></td></tr></table></figure>
 <h3 id="更新">更新</h3>
 <ul>
@@ -739,6 +739,149 @@
 <p>使用 Tools and Functions 非常简单，因为所有功能都已内置于核心系统中！您只需点击一个按钮 ，即可直接从社区导入这些功能 ，无需任何编码或复杂的技术工作。</p>
 </li>
 </ul>
+<h1 id="导入与导出">导入与导出</h1>
+<h2 id="数据">数据</h2>
+<h3 id="内容">内容</h3>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://docs.openwebui.com/tutorials/maintenance/backups/#files-in-persistent-data-store">Files in persistent data store</a></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>File/Directory</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>audit.log</code></td>
+<td>Log file for auditing events. 事件审计日志文件</td>
+</tr>
+<tr>
+<td><code>cache/</code></td>
+<td>Directory for storing cached data. 用于存储缓存数据的目录</td>
+</tr>
+<tr>
+<td><code>uploads/</code></td>
+<td>Directory for storing user-uploaded files. 用于存储用户上传文件的目录</td>
+</tr>
+<tr>
+<td><code>vector_db/</code></td>
+<td>Directory containing the ChromaDB vector database. 包含 ChromaDB 向量数据库的目录</td>
+</tr>
+<tr>
+<td><code>webui.db</code></td>
+<td>SQLite database for persistent storage of other instance data. 用于持久存储其他实例数据的 SQLite 数据库</td>
+</tr>
+</tbody>
+</table>
+<h3 id="迁移">迁移</h3>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://docs.openwebui.com/tutorials/maintenance/database#exporting-database">Exporting &amp; Importing DB</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.openwebui.com/tutorials/maintenance/backups">Backing Up Your Instance</a></li>
+</ul>
+<p>如果您需要将 <strong>Open WebUI</strong> 数据（例如聊天记录、配置等）从一台服务器迁移到另一台服务器，或者需要备份数据以供日后使用，您可以导出和导入数据库。本指南假设您使用的是 Open WebUI 内部 SQLite 数据库（而非 PostgreSQL）。</p>
+<p>请按照以下步骤导出和导入包含数据库的 <code>webui.db</code> 文件。</p>
+<p>导出：</p>
+<ol>
+<li>
+<p><strong>使用 <code>docker cp</code> 复制数据库文件</strong> ： <code>webui.db</code> 文件位于容器内的 <code>/app/backend/data</code> 目录下。运行以下命令将其复制到本地计算机：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">docker <span class="hljs-built_in">cp</span> open-webui:/app/backend/data/webui.db ./webui.db<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p><strong>将导出的文件传输到新服务器</strong> ：您可以使用 <strong>FileZilla</strong> 或您选择的任何其他文件传输工具将 <code>webui.db</code> 文件移动到新服务器。</p>
+</li>
+</ol>
+<p>导入：</p>
+<ol>
+<li>
+<p><strong>在新服务器上安装并运行 Open WebUI</strong> ：使用 Docker 容器设置并运行 Open WebUI。请按照“入门指南 <a target="_blank" rel="noopener" href="https://docs.openwebui.com/getting-started">”</a> 中的说明安装并启动 Open WebUI 容器。容器运行后，请在执行导入步骤之前将其停止。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">docker stop open-webui<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p><strong>使用 <code>docker cp</code> 将数据库文件复制到容器中</strong> ：假设导出的 <code>webui.db</code> 文件位于当前工作目录中，请将其复制到容器中：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">docker <span class="hljs-built_in">cp</span> ./webui.db open-webui:/app/backend/data/webui.db<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p><strong>启动 Open WebUI 容器</strong> ：再次启动容器以使用导入的数据库。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">docker start open-webui<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>现在新服务器应该正在运行 Open WebUI，并且已经导入了您的数据库。</p>
+</li>
+</ol>
+<p>用户可以选择备份整个 <code>data</code> 目录，一次性备份所有实例数据，也可以创建更具选择性的备份作业，针对特定组件进行备份。此外，还可以为备份目标添加更具描述性的名称。一个典型的 rsync 作业可能如下所示：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><code class="hljs bash"><br><span class="hljs-comment">#!/bin/bash</span><br><br><span class="hljs-comment"># Configuration</span><br>SOURCE_DIR=<span class="hljs-string">&quot;.&quot;</span>  <span class="hljs-comment"># Current directory (where the file structure resides)</span><br>B2_BUCKET=<span class="hljs-string">&quot;b2://OpenWebUI-backups&quot;</span> <span class="hljs-comment"># Your Backblaze B2 bucket</span><br>B2_PROFILE=<span class="hljs-string">&quot;your_rclone_profile&quot;</span> <span class="hljs-comment"># Your rclone profile name</span><br><br><span class="hljs-comment"># Ensure rclone is configured with your B2 credentials</span><br><br><span class="hljs-comment"># Define source and destination directories</span><br>SOURCE_UPLOADS=<span class="hljs-string">&quot;<span class="hljs-variable">$SOURCE_DIR</span>/uploads&quot;</span><br>SOURCE_VECTORDB=<span class="hljs-string">&quot;<span class="hljs-variable">$SOURCE_DIR</span>/vector_db&quot;</span><br>SOURCE_WEBUI_DB=<span class="hljs-string">&quot;<span class="hljs-variable">$SOURCE_DIR</span>/webui.db&quot;</span><br><br>DEST_UPLOADS=<span class="hljs-string">&quot;<span class="hljs-variable">$B2_BUCKET</span>/user_uploads&quot;</span><br>DEST_CHROMADB=<span class="hljs-string">&quot;<span class="hljs-variable">$B2_BUCKET</span>/ChromaDB&quot;</span><br>DEST_MAIN_DB=<span class="hljs-string">&quot;<span class="hljs-variable">$B2_BUCKET</span>/main_database&quot;</span><br><br><span class="hljs-comment"># Exclude cache and audit.log</span><br>EXCLUDE_LIST=(<br>    <span class="hljs-string">&quot;cache/&quot;</span><br>    <span class="hljs-string">&quot;audit.log&quot;</span><br>)<br><br><span class="hljs-comment"># Construct exclude arguments for rclone</span><br>EXCLUDE_ARGS=<span class="hljs-string">&quot;&quot;</span><br><span class="hljs-keyword">for</span> EXCLUDE <span class="hljs-keyword">in</span> <span class="hljs-string">&quot;<span class="hljs-variable">$&#123;EXCLUDE_LIST[@]&#125;</span>&quot;</span>; <span class="hljs-keyword">do</span><br>    EXCLUDE_ARGS=<span class="hljs-string">&quot;<span class="hljs-variable">$EXCLUDE_ARGS</span> --exclude &#x27;<span class="hljs-variable">$EXCLUDE</span>&#x27;&quot;</span><br><span class="hljs-keyword">done</span><br><br><span class="hljs-comment"># Function to perform rclone sync with error checking</span><br><span class="hljs-function"><span class="hljs-title">rclone_sync</span></span>() &#123;<br>    SOURCE=<span class="hljs-string">&quot;<span class="hljs-variable">$1</span>&quot;</span><br>    DEST=<span class="hljs-string">&quot;<span class="hljs-variable">$2</span>&quot;</span><br>    <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;Syncing &#x27;<span class="hljs-variable">$SOURCE</span>&#x27; to &#x27;<span class="hljs-variable">$DEST</span>&#x27;...&quot;</span><br>    rclone <span class="hljs-built_in">sync</span> <span class="hljs-string">&quot;<span class="hljs-variable">$SOURCE</span>&quot;</span> <span class="hljs-string">&quot;<span class="hljs-variable">$DEST</span>&quot;</span> <span class="hljs-variable">$EXCLUDE_ARGS</span> --progress --transfers=32 --checkers=16 --profile <span class="hljs-string">&quot;<span class="hljs-variable">$B2_PROFILE</span>&quot;</span><br>    <span class="hljs-keyword">if</span> [ $? -ne 0 ]; <span class="hljs-keyword">then</span><br>        <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;Error: rclone sync failed for &#x27;<span class="hljs-variable">$SOURCE</span>&#x27; to &#x27;<span class="hljs-variable">$DEST</span>&#x27;&quot;</span><br>        <span class="hljs-built_in">exit</span> 1<br>    <span class="hljs-keyword">fi</span><br>&#125;<br><br><span class="hljs-comment"># Perform rclone sync for each directory/file</span><br>rclone_sync <span class="hljs-string">&quot;<span class="hljs-variable">$SOURCE_UPLOADS</span>&quot;</span> <span class="hljs-string">&quot;<span class="hljs-variable">$DEST_UPLOADS</span>&quot;</span><br>rclone_sync <span class="hljs-string">&quot;<span class="hljs-variable">$SOURCE_VECTORDB</span>&quot;</span> <span class="hljs-string">&quot;<span class="hljs-variable">$DEST_CHROMADB</span>&quot;</span><br>rclone_sync <span class="hljs-string">&quot;<span class="hljs-variable">$SOURCE_WEBUI_DB</span>&quot;</span> <span class="hljs-string">&quot;<span class="hljs-variable">$DEST_MAIN_DB</span>&quot;</span><br><br><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;Backup completed successfully.&quot;</span><br><span class="hljs-built_in">exit</span> 0<br></code></pre></td></tr></table></figure>
+<h2 id="对话">对话</h2>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://docs.openwebui.com/features/chat-conversations/data-controls/import-export">Import &amp; Export</a></li>
+</ul>
+<ol>
+<li>
+<p>点击侧边栏左下角的个人资料名称或头像。</p>
+</li>
+<li>
+<p>从菜单中选择 <strong>“设置”</strong> 。</p>
+</li>
+<li>
+<p>导航至 <strong>“数据控件”</strong> 选项卡。</p>
+</li>
+<li>
+<p>使用 <strong>“导入聊天记录”</strong> 或 <strong>“导出聊天记录”</strong> 按钮。</p>
+<ul>
+<li>
+<p>点击 “导出聊天记录” 按钮，即可将所有对话下载为 JSON 文件。此备份包含：</p>
+<ul>
+<li>
+<p>所有聊天消息及其元数据</p>
+</li>
+<li>
+<p>每次对话中使用的模型信息</p>
+</li>
+<li>
+<p>时间戳和对话结构</p>
+</li>
+</ul>
+</li>
+<li>
+<p>点击 <strong>“导入聊天记录”</strong> 按钮，然后选择一个 JSON 文件来恢复对话。Open WebUI 支持从以下位置导入：</p>
+<blockquote>
+<p>导入的聊天记录会添加到您现有的对话中（不会替换它们）。每个导入的聊天记录都会获得一个新的唯一 ID，因此重新导入同一个文件会创建重复项。</p>
+</blockquote>
+<ul>
+<li><strong>打开 WebUI 导出</strong> ：来自先前导出的原生 JSON 格式</li>
+<li><strong>ChatGPT 导出</strong> ：从 OpenAI 的 ChatGPT 导出的对话（自动检测和转换）</li>
+<li><strong>自定义 JSON 文件</strong> ：任何符合以下文档所述预期结构的 JSON 文件。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="模型">模型</h2>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://docs.openwebui.com/features/ai-knowledge/models/#import-and-export">Import and Export</a></li>
+</ul>
+<p>Open WebUI <code>Workspace</code> 中的 <code>Models</code> 部分是一个强大的工具，可让您创建和管理针对特定用途的自定义模型。</p>
+<p>虽然像 Ollama 这样的后端有自己的 <code>Modelfile</code> 格式，但 Open WebUI 采用了一个强大的内部<strong>预设系统</strong> 。这允许您“包装”任何模型（包括 GPT-4、Claude 或本地 Llama 3），并将特定的<strong>系统提示</strong> 、 <strong>知识库</strong> 、 <strong>工具</strong>和<strong>动态变量</strong>绑定到该模型。</p>
+<ul>
+<li><strong>导入模型</strong> ：从 <code>.json</code> 文件或 Open WebUI 社区链接导入模型。</li>
+<li><strong>导出模型</strong> ：将所有自定义模型配置导出到单个 <code>.json</code> 文件中，以便备份或迁移。</li>
+<li><strong>发现模型</strong> ：在页面底部，您可以浏览和下载由 Open WebUI 社区制作的预设。</li>
+</ul>
+<p>Open WebUI 允许在聊天会话中进行动态模型切换和并行推理。</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://docs.openwebui.com/features/ai-knowledge/models/#import-and-export">聊天中的模型切换</a></li>
+</ul>
+<ol>
+<li><strong>选择模型</strong> ：在聊天界面中，从模型切换下拉菜单中选择所需的模型。您可以同时选择最多两个模型，系统将分别生成两个模型的回复。然后，您可以使用前后箭头在它们之间切换。</li>
+<li><strong>上下文保留</strong> ：Open WebUI 在模型切换之间保留对话上下文，从而实现平滑过渡。</li>
+</ol>
+<h2 id="Skills">Skills</h2>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://docs.openwebui.com/features/ai-knowledge/skills">Skills</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.openwebui.com/features/ai-knowledge/skills#import-and-export">Import and Export</a></li>
+</ul>
+<p>技能是可重用的、基于 Markdown 的指令集，您可以将其附加到模型或在聊天中即时调用。与<a target="_blank" rel="noopener" href="https://docs.openwebui.com/features/extensibility/plugin/tools">工具 </a>（可执行的 Python 脚本）不同，技能是<strong>纯文本指令</strong> ，用于指导模型<em>如何</em>处理任务，例如代码审查指南、写作风格规则或故障排除手册。</p>
 <h1 id="文档长期记忆">文档长期记忆</h1>
 <h2 id="怎样确保它能记住？">怎样确保它能记住？</h2>
 <p>为了保险起见，建议你采取以下操作：</p>
@@ -946,9 +1089,9 @@
 </blockquote>
 <blockquote>
 <ul>
-<li><a href="https://zeyulong.com/posts/78dbcabb/#Pandoc">pandoc latex转markdown</a>表现出的效果（排版，图表、标题链接转换，等）要好于<a target="_blank" rel="noopener" href="https://github.com/docling-project/docling">docling</a>。</li>
-<li>（双栏）pdf转markdown推荐使用<a target="_blank" rel="noopener" href="https://github.com/docling-project/docling">docling</a>、<a target="_blank" rel="noopener" href="https://github.com/opendatalab/MinerU">MinerU</a>。</li>
-<li>word文档转markdown推荐使用<a target="_blank" rel="noopener" href="https://pandoc.org/">pandoc</a>、<a href="#docling%E6%9C%AC%E5%9C%B0%E9%83%A8%E7%BD%B2">docling</a>。</li>
+<li>latex转markdown：<a href="https://zeyulong.com/posts/78dbcabb/#latex%E8%BD%ACmarkdown">pandoc</a>表现出的效果（排版，图表、标题链接转换，等）要好于<a href="#docling%E6%9C%AC%E5%9C%B0%E9%83%A8%E7%BD%B2">docling</a>。</li>
+<li>（双栏）pdf转markdown：推荐使用<a href="#docling%E6%9C%AC%E5%9C%B0%E9%83%A8%E7%BD%B2">docling</a>、<a target="_blank" rel="noopener" href="https://github.com/opendatalab/MinerU">MinerU</a>。</li>
+<li>word文档转markdown：推荐使用<a target="_blank" rel="noopener" href="https://pandoc.org/">pandoc</a>、<a href="#docling%E6%9C%AC%E5%9C%B0%E9%83%A8%E7%BD%B2">docling</a>。</li>
 <li>对于个人使用而言，为了更好的内容提取效果，在可行范围内，可以在本地使用更好的转换器把文档转成markdown格式后，在使用“默认”内容提取引擎上传到知识库？</li>
 </ul>
 </blockquote>
@@ -1110,8 +1253,9 @@
 <p>验证集成：<a target="_blank" rel="noopener" href="https://docs.openwebui.com/features/chat-conversations/rag/document-extraction/docling/#troubleshooting">故障排除</a></p>
 <ol>
 <li>
-<p>powershell终端验证：</p>
+<p>PowerShell终端验证：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">curl.exe http://127.0.0.1:5001/health<br>docker <span class="hljs-built_in">exec</span> -it open-webui sh -c <span class="hljs-string">&quot;curl http://host.docker.internal:5001/health&quot;</span><br></code></pre></td></tr></table></figure>
+<p><a href="https://zeyulong.com/posts/a8aab215/#curl%E5%92%8Ccurl.exe">PowerShell下curl和curl.exe的区别</a></p>
 </li>
 <li>
 <p>访问 Docling 用户界面，地址为 <a target="_blank" rel="noopener" href="http://127.0.0.1:5001/ui">http://127.0.0.1:5001/ui</a></p>
@@ -1637,11 +1781,41 @@
 <h2 id="示例-2">示例</h2>
 <figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs txt">Serve me as a writing and programming assistant. Please ask me any clarifying questions you have about my question before every answer so that I can provide you with more information. Please be extremely comprehensive.<br></code></pre></td></tr></table></figure>
 <figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs txt">You are a professional writing assistant. Please follow these guidelines:<br><br>1. **Language**: Always respond in Chinese (简体中文).<br><br>2. **Clarification Process**: Before providing each answer, ask me clarifying questions to gather more context and details. This ensures your responses are accurate and comprehensive.<br><br>3. **Technical Documentation**: When writing technical content (such as academic papers, patents, technical reports, etc.):<br>   - Use mathematical formulas to explain concepts whenever applicable.<br>   - **Proactive Formulation**: You are authorized and encouraged to derive or construct new mathematical formulas if existing descriptions are insufficient to clarify a concept. Do not limit yourself to only restating provided formulas.<br>   - All formulas must be written in LaTeX format (inline: `$...$`, display: `$$...$$`)<br>   - Ensure formulas are properly formatted and renderable<br><br>4. **Incremental Generation**: When writing lengthy documents or chapters:<br>   - Generate content incrementally (one section at a time)<br>   - Wait for user confirmation before proceeding to the next section<br>   - This ensures accuracy and allows for course correction<br><br>5. **Response Quality**: <br>   - Be thorough and comprehensive in your explanations<br>   - Use Markdown format for structured output (headings, lists, code blocks)<br>   - Prioritize clarity and precision over brevity<br></code></pre></td></tr></table></figure>
+<h1 id="创建和编辑图片">创建和编辑图片</h1>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://docs.openwebui.com/category/create--edit-images">Create &amp; Edit Images</a></li>
+</ul>
+<h2 id="使用方法">使用方法</h2>
+<ul>
+<li>通过插件或者是通过<a target="_blank" rel="noopener" href="https://docs.openwebui.com/category/create--edit-images">自带的图片开关</a>，需要手动点击开关然后开始对话。</li>
+<li>直接和模型对话返回图片。
+<ul>
+<li>[error: Chunk too big](#error: Chunk too big)</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>图片生成走的是另外的流程，会创建图片。然后你对话又是和一个生图模型对话，他也会返回一张图。相当于生成两个图片。</p>
+</blockquote>
+<h2 id="error-Chunk-too-big">error: Chunk too big</h2>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/open-webui/open-webui/issues/17626#issuecomment-3679948762">issue: &quot;Chunk too big&quot; error when using Google Gemini 2.5 Flash with image input</a></li>
+<li><a target="_blank" rel="noopener" href="https://linux.do/t/topic/1384363/7">分享一个openwebui中生图模型chunk too big问题的解决办法</a></li>
+</ul>
+<p>配置环境变量：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">ENABLE_CHAT_RESPONSE_BASE64_IMAGE_URL_CONVERSION=<span class="hljs-string">&quot;True&quot;</span>  <span class="hljs-comment"># 扫描模型返回的每一条消息，如果发现里面有 Base64 格式的图片，且大小超过 1KB（避免处理极小的图标），则自动把这张图片保存到服务器的硬盘上，然后把消息里的那一长串 Base64 代码替换成一个指向该图片的文件链接（URL）。推荐开启。</span><br>CHAT_STREAM_RESPONSE_CHUNK_MAX_BUFFER_SIZE=<span class="hljs-string">&quot;20971520&quot;</span>  <span class="hljs-comment"># 20MB</span><br></code></pre></td></tr></table></figure>
 <h1 id="其它资料">其它资料</h1>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://docs.openwebui.com/getting-started/advanced-topics/logging">日志功能</a>：日志记录对于调试、监控和了解 Open WebUI 的运行状况至关重要。本指南解释了<strong>浏览器客户端</strong> （前端）和<strong>应用服务器/后端</strong>中的日志记录工作原理。</li>
 <li><a target="_blank" rel="noopener" href="https://docs.openwebui.com/reference/env-configuration/#">环境变量介绍</a>：Open WebUI 提供了丰富的环境变量，允许您自定义和配置应用程序的各个方面。本页面全面介绍了所有可用的环境变量，包括它们的类型、默认值和描述。</li>
 <li><a target="_blank" rel="noopener" href="https://docs.openwebui.com/features/ai-knowledge/notes">Notes</a>：Open WebUI 中的 <strong>“笔记”</strong> 功能提供了一个专门用于内容创建和知识管理的工作空间。Open WebUI 中的普通聊天会保留您的线性对话，而 <strong>“笔记”功能</strong>允许您整理特定内容，例如长篇草稿或代码速查表，这些内容独立于任何单个对话。<strong>您可以使用 LLM（逻辑逻辑模块）编写和完善这些笔记，并将其无缝地作为上下文插入到新的聊天中。</strong></li>
+<li><a target="_blank" rel="noopener" href="https://docs.openwebui.com/features/ai-knowledge/skills">Skills</a>：技能是可重用的、基于 Markdown 的指令集，您可以将其附加到模型或在聊天中即时调用。与<a target="_blank" rel="noopener" href="https://docs.openwebui.com/features/extensibility/plugin/tools">工具 </a>（可执行的 Python 脚本）不同，技能是<strong>纯文本指令</strong> ，用于指导模型<em>如何</em>处理任务，例如代码审查指南、写作风格规则或故障排除手册。
+<ul>
+<li>在聊天中用 <code>$</code> 提及技能时，其<strong>完整内容会直接注入</strong>到系统提示符中。模型无需任何额外的工具调用即可立即访问完整的技能说明。</li>
+<li>与模型绑定的技能使用<strong>延迟加载</strong>架构，以保持上下文窗口的高效运行……</li>
+</ul>
+</li>
+<li><a target="_blank" rel="noopener" href="https://docs.openwebui.com/features/extensibility/open-terminal">Open Terminal</a>：Open Terminal让你的 AI 拥有了一台真正的计算机。它不再只是在沙盒化的浏览器代码片段中运行代码，而是为模型提供了一个完整的操作系统，使其能够安装软件、运行任何语言的代码、管理文件以及执行多步骤工作流程，所有操作都可以在你的聊天窗口中完成。连接到 Open WebUI 后，所有终端功能都会<strong>自动提供</strong>给模型，无需在每次聊天中进行手动设置。此外，对话中还<strong>内置了文件浏览器</strong> ，方便您查看、编辑和管理 AI 创建的所有内容。</li>
 </ul>
 
                 

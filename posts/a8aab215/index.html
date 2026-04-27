@@ -24,7 +24,7 @@
 <meta property="og:description" content="本文主要分享了自己在使用Linux和Windows系统过程中常用的命令及快捷键。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-03-05T14:33:19.000Z">
-<meta property="article:modified_time" content="2026-02-21T09:33:18.731Z">
+<meta property="article:modified_time" content="2026-04-15T10:20:03.988Z">
 <meta property="article:author" content="龙泽雨">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -225,7 +225,7 @@
         
         
         
-          197 分钟
+          201 分钟
         
       </span>
     
@@ -267,7 +267,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2026年2月21日 下午
+                    本文最后更新于 2026年4月15日 晚上
                   
                 
               </p>
@@ -1719,29 +1719,67 @@
 <li><code>file</code>: 指定要复制的一个或多个文件。支持通配符（ *<strong><strong>或</strong>?</strong> ）。如果不指定此参数，则使用<code>*.*</code>作为默认值。</li>
 <li><code>options</code>:指定与<strong>robocopy</strong>命令一起使用的选项，包括<strong>copy</strong> 、 <strong>file</strong> 、 <strong>retry</strong> 、 <strong>logging</strong>和<strong>job</strong>选项。
 <ul>
-<li><code>/s</code>: 复制子目录。此选项自动排除空目录。</li>
-<li><code>/e</code>: 复制子目录。此选项自动包含空目录（这是增量备份的基础）。</li>
-<li><code>/v</code>: 生成详细输出，并显示所有跳过的文件。</li>
-<li><code>/mt:&lt;n&gt;</code>: 创建具有n 个线程的多线程副本。 n必须是 1 到 128 之间的整数。n的默认值为 8。为了获得更好的性能，请使用/log选项重定向输出。（慎用，如果遇到复制错误的文件，会卡在那里重复尝试）</li>
-<li><code>/MIR</code>: 镜像备份，实现增量同步（新增/修改/删除均可同步）</li>
-<li><code>/Z</code>: 可重启模式，支持断点续传（大文件传输必备）。一般用在网络共享时，在本地拷贝时意义不大。</li>
-<li><code>/R:n</code>: 失败重试次数（建议设置，避免卡死）</li>
-<li><code>/W:n</code>: 等待时间/秒</li>
-<li><code>/LOG:file_name.txt</code>: 输出日志，方便查看那些文件备复制了
+<li>
+<p><code>/s</code>: 复制子目录。此选项自动排除空目录。</p>
+</li>
+<li>
+<p><code>/e</code>: 复制子目录。此选项自动包含空目录（这是增量备份的基础）。</p>
+</li>
+<li>
+<p><code>/v</code>: 生成详细输出，并显示所有跳过的文件。</p>
+</li>
+<li>
+<p><code>/mt:&lt;n&gt;</code>: 创建具有n 个线程的多线程副本。 n必须是 1 到 128 之间的整数。n的默认值为 8。为了获得更好的性能，请使用/log选项重定向输出。（慎用，如果遇到复制错误的文件，会卡在那里重复尝试）</p>
+</li>
+<li>
+<p><code>/MIR</code>: 镜像备份，实现增量同步（新增/修改/删除均可同步）</p>
+</li>
+<li>
+<p><code>/Z</code>: 可重启模式，支持断点续传（大文件传输必备）。一般用在网络共享时，在本地拷贝时意义不大。</p>
+</li>
+<li>
+<p><code>/R:n</code>: 失败重试次数（建议设置，避免卡死）</p>
+</li>
+<li>
+<p><code>/W:n</code>: 等待时间/秒</p>
+</li>
+<li>
+<p><code>/LOG:file_name.txt</code>: 输出日志，方便查看那些文件备复制了</p>
 <ul>
 <li>只写日志文件，不显示到屏幕。</li>
 <li>配合<code>/TEE</code>参数可以实现同时将输出写到日志文件和控制台（终端）。</li>
 <li>示例：<code>/LOG:&quot;D:\backup_log.txt&quot; /TEE</code></li>
 </ul>
 </li>
-<li><code>/XD</code>: 排除指定文件夹。
+<li>
+<p><code>/nfl</code>: 指定不记录文件名。</p>
+</li>
+<li>
+<p><code>/ndl</code>: 指定不记录目录名称。</p>
+<blockquote>
+<p>如果不加<code>/nfl</code>和<code>/ndl</code>，则终端在输出时还会打印出“相同”项，这会拖慢整条命令的执行时间。</p>
+</blockquote>
+</li>
+<li>
+<p><code>/XD</code>: 排除指定文件夹。</p>
 <ul>
 <li>可以填写绝对路径或相对路径（相对于源文件夹）</li>
 <li>可写多个项目，用空格分隔。</li>
-<li>示例: <code>/XD &quot;cache&quot; &quot;temp&quot;</code></li>
+<li>示例:
+<ul>
+<li><code>/XD &quot;cache&quot; &quot;temp&quot;</code></li>
+<li><code>robocopy C:\Data D:\Backup /E /XD Logs Temp\Cache Old_Archives</code>
+<ul>
+<li>排除：<code>C:\Data\Logs</code>、<code>C:\Data\Temp\Cache</code> (嵌套路径)、<code>C:\Data\Old_Archives</code></li>
+<li>直接写相对层级，不需要写成<code>\Temp\Cache</code>。</li>
 </ul>
 </li>
-<li><code>/XF</code>: 排除特定的文件。
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><code>/XF</code>: 排除特定的文件。</p>
 <ul>
 <li>支持通配符。</li>
 <li>可写多个项目，用空格分隔。</li>
@@ -1774,7 +1812,7 @@
 <li>如果<code>C:\source_folder</code>和<code>D:\destination_folder</code>中存在相同位置的但内容不同<code>build/</code>文件夹，但是，我使用了<code>/XD &quot;build&quot;</code>，那么，<code>D:\destination_folder</code>中的<code>build/</code>文件夹会发生什么变化吗？
 <ul>
 <li><code>/XD &quot;build&quot;</code> 的作用是：<strong>无论在源(<code>C:\source_folder</code>)还是目标(<code>D:\destination_folder</code>)中，名为 <code>build</code> 的文件夹</strong></li>
-<li>都会被完全跳过，也就是：
+<li>都会被完全跳过，就算加了<code>MIR</code>参数也是，即：
 <ul>
 <li><strong>不会复制源中的 <code>build</code> 文件夹内容到目标</strong></li>
 <li><strong>不会去检查或删除目标中的 <code>build</code> 文件夹及其中内容</strong></li>
@@ -1821,6 +1859,50 @@
 </blockquote>
 <h3 id="环境变量-2">环境变量</h3>
 <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs powershell"><span class="hljs-comment"># 查看环境变量的值</span><br><span class="hljs-variable">$env:DATA_DIR</span>  <span class="hljs-comment"># 如环境变量不存在，将返回空（无显示），表示尚未设置</span><br><span class="hljs-built_in">Write-Host</span> <span class="hljs-string">&quot;DATA_DIR: <span class="hljs-variable">$env:DATA_DIR</span>&quot;</span> <span class="hljs-literal">-ForegroundColor</span> Green  <span class="hljs-comment"># 使用 Write-Host 打印消息（带颜色）</span><br><span class="hljs-built_in">Write-Host</span>  <span class="hljs-comment"># 打印空行</span><br><br><span class="hljs-comment"># 查看所有环境变量：</span><br><span class="hljs-built_in">Get-ChildItem</span> Env:<br><span class="hljs-comment"># 或简写为</span><br><span class="hljs-built_in">gci</span> env:<br><br><span class="hljs-comment"># 筛选只显示包含“DATA”的变量：</span><br><span class="hljs-built_in">gci</span> env: | <span class="hljs-built_in">Where-Object</span> &#123; <span class="hljs-variable">$_</span>.Name <span class="hljs-operator">-like</span> <span class="hljs-string">&quot;*DATA*&quot;</span> &#125;<br><br><span class="hljs-comment"># 环境变量赋值</span><br><span class="hljs-variable">$env:DATA_DIR</span>=<span class="hljs-string">&quot;.\data&quot;</span>  <span class="hljs-comment"># 设置的环境变量只在当前 PowerShell 终端会话中生效</span><br><span class="hljs-comment"># 如果你需要让 DATA_DIR 这个环境变量长期生效，可以通过**“系统环境变量”**设置，或用 PowerShell 命令修改用户/系统环境变量。例如：</span><br>[<span class="hljs-type">System.Environment</span>]::SetEnvironmentVariable(<span class="hljs-string">&#x27;DATA_DIR&#x27;</span>, <span class="hljs-string">&#x27;C:\some\path&#x27;</span>, <span class="hljs-string">&#x27;User&#x27;</span>)  <span class="hljs-comment"># 这样设置后，需要重启终端，新启动的 PowerShell/CMD/程序才会获取到这个变量。</span><br></code></pre></td></tr></table></figure>
+<h3 id="curl和curl-exe">curl和curl.exe</h3>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th><code>curl</code> (在 PowerShell 中默认)</th>
+<th><code>curl.exe</code> (真正的 curl 工具)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>真实身份</td>
+<td>PowerShell 的内置命令 (<code>Invoke-WebRequest</code>)</td>
+<td>外部可执行文件 (GNU curl)</td>
+</tr>
+<tr>
+<td>语法风格</td>
+<td>PowerShell 风格 (面向对象)</td>
+<td>Linux/Unix 风格 (纯文本参数)</td>
+</tr>
+<tr>
+<td>返回结果</td>
+<td>一个复杂的对象 (包含状态码、头信息、内容等)</td>
+<td>纯粹的文本字符串 (响应内容)</td>
+</tr>
+<tr>
+<td>代理支持</td>
+<td>默认使用系统代理设置 (IE/Edge 设置)，不自动读取 <code>$env:HTTP_PROXY</code></td>
+<td>完美支持 <code>-x</code> 参数，也支持读取环境变量</td>
+</tr>
+<tr>
+<td>典型用途</td>
+<td>PowerShell 脚本编写、处理复杂 HTTP 请求</td>
+<td>命令行快速测试、API 调试、脚本移植</td>
+</tr>
+</tbody>
+</table>
+<p><strong>验证方法</strong></p>
+<p>在 PowerShell 中输入以下命令，看看它指向哪里：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs powershell"><span class="hljs-built_in">Get-Command</span> <span class="hljs-built_in">curl</span><br></code></pre></td></tr></table></figure>
+<ul>
+<li><strong>如果显示</strong> <code>CommandType: Alias</code> 和 <code>Definition: Invoke-WebRequest</code> -&gt; 说明你用的是 PowerShell 版。</li>
+<li><strong>如果显示</strong> <code>CommandType: Application</code> 和 <code>Source: C:\Windows\System32\curl.exe</code> -&gt; 说明你用的是真 curl（这种情况较少，除非你修改了优先级或卸载了别名）。</li>
+</ul>
 <h2 id="小贴士-3">小贴士</h2>
 <h3 id="设置-重映射快捷键">设置/重映射快捷键</h3>
 <ol>
@@ -2191,16 +2273,72 @@
 <p>GitHub高级搜索：<a target="_blank" rel="noopener" href="https://github.com/search/advanced">https://github.com/search/advanced</a></p>
 </li>
 </ul>
-<p>语法：</p>
-<ul>
-<li>整词搜索：双引号。示例：&quot;关键词&quot;</li>
-<li>逻辑与：空格。示例：关键词1 关键词2</li>
-<li>逻辑或：空格OR空格。示例：关键词1 OR 关键词2</li>
-<li>逻辑非：空格-（减号前面必须是空格，减号后面没有空格，要紧跟着需要排除的词）。示例：关键词 -排除词</li>
-<li>模糊搜索：*（通配符，匹配任意词或短语）。示例：<code>国家* 匹夫*</code></li>
-<li>指定网站：关键词 site:网站地址。注意：“site:”后面跟的站点域名，不要带“http://”。site:和站点名之间，不要带空格。示例： 编程教程 site:blog.csdn.net</li>
-<li>排除指定网站：关键词 -site:网站地址。示例：编程教程 -site:blog.csdn.net</li>
-</ul>
+<table>
+<thead>
+<tr>
+<th>操作符</th>
+<th>功能描述</th>
+<th>搜索示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>空格或<code>AND</code></td>
+<td>逻辑“与”</td>
+<td><code>A B</code></td>
+</tr>
+<tr>
+<td><code>OR</code></td>
+<td>逻辑“或”，搜索结果包含多个关键词中的任意一个。</td>
+<td><code>教程 OR 指南</code></td>
+</tr>
+<tr>
+<td><code>()</code></td>
+<td>括号用于明确运算的优先级。</td>
+<td><code>人工智能 (医疗 OR 金融)</code></td>
+</tr>
+<tr>
+<td><code>*</code></td>
+<td>通配符，代表一个或多个未知词语。</td>
+<td><code>最好的 * 电影</code></td>
+</tr>
+<tr>
+<td><code>&quot;&quot;</code></td>
+<td>精确匹配短语，搜索结果<strong>必须包含</strong>引号内的完整内容。</td>
+<td><code>&quot;人工智能发展史&quot;</code></td>
+</tr>
+<tr>
+<td><code>-</code></td>
+<td>排除特定关键词，过滤不相关内容。</td>
+<td><code>苹果 -手机</code></td>
+</tr>
+<tr>
+<td><code>site:</code></td>
+<td>将搜索范围限定在特定网站或域名内。注意：<code>site:</code>后面跟的站点域名，不要带<code>https://</code>等。<code>site:</code>和站点域名之间，不要带空格。</td>
+<td><code>研究报告 site:zhihu.com</code></td>
+</tr>
+<tr>
+<td><code>-site:</code></td>
+<td>排除指定网站</td>
+<td><code>编程教程 -site:blog.csdn.net</code></td>
+</tr>
+<tr>
+<td><code>filetype:</code></td>
+<td>搜索特定格式的文件，如PDF、PPT等。</td>
+<td><code>市场分析 filetype:pdf</code></td>
+</tr>
+<tr>
+<td><code>intitle:</code></td>
+<td>搜索网页标题中包含指定关键词的页面。</td>
+<td><code>intitle:2024年趋势</code></td>
+</tr>
+<tr>
+<td><code>inurl:</code></td>
+<td>搜索网址（URL）中包含特定关键词的页面。</td>
+<td><code>inurl:blog 写作技巧</code></td>
+</tr>
+</tbody>
+</table>
 <h2 id="中英文版本的简称">中英文版本的简称</h2>
 <p>当描述一个文件是中文版本时，通常使用的语言代码有几种不同的形式，主要取决于具体的语境和标准。最常见的是“zh”，这是ISO 639-1标准下的代码，用于表示中文。然而，如果需要指明具体是简体中文还是繁体中文，人们可能会使用“zh-CN”（中国大陆使用的简体中文）和“zh-TW”（台湾地区使用的繁体中文）。这些是基于IETF语言标签（由ISO 639和ISO 3166国家代码组合而成），广泛用于网站和软件本地化中。</p>
 <p>对于英文版本，通常使用的语言代码为“en”，这同样遵循ISO 639-1标准。如需进一步区分不同地区的英语，例如美国英语和英国英语，则分别使用“en-US”和“en-GB”。</p>

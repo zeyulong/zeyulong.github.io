@@ -24,7 +24,7 @@
 <meta property="og:description" content="本文主要分享了 Microsoft Office 的排版与技巧。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-10-17T03:12:52.000Z">
-<meta property="article:modified_time" content="2026-03-12T09:36:46.180Z">
+<meta property="article:modified_time" content="2026-04-19T21:50:35.455Z">
 <meta property="article:author" content="龙泽雨">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -214,7 +214,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          6.9k 字
+          11k 字
         
       </span>
     
@@ -225,7 +225,7 @@
         
         
         
-          58 分钟
+          88 分钟
         
       </span>
     
@@ -267,7 +267,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2026年3月12日 下午
+                    本文最后更新于 2026年4月20日 凌晨
                   
                 
               </p>
@@ -287,6 +287,15 @@
 <li>
 <p>或者选中需要更新编号的部分，点击鼠标右键，选择更新域代码即可。</p>
 </li>
+</ul>
+</blockquote>
+<blockquote>
+<p>要在 Word 中锁定域以防止编辑，可以按照以下步骤操作：</p>
+<ul>
+<li>锁定域：选中需要锁定的域，然后按下 “Ctrl+F11” 组合键，这样该域就被锁定了，无法被修改。</li>
+<li>解除锁定：如果需要解除域的锁定，可以单击该域，然后按下 “Ctrl+Shift+F11” 组合键。</li>
+<li>这种方法可以有效防止域内容被意外修改，确保文档的完整性。</li>
+<li>在转换为PDF时，锁定域可以避免图表等内容的自动更新。</li>
 </ul>
 </blockquote>
 <ol>
@@ -540,6 +549,9 @@
 <li>在编号7开头回车以把原来编号7的内容“挤到”编号8去，则编号7的“标签”并没有变，那么交叉引用的“标签”就不会变。</li>
 </ol>
 </blockquote>
+<blockquote>
+<p>上述问题在题注为表题时换汤不换药。因此，想在表题前插入一行，不要在表题所在行首按下回车键，这会导致表题的域名被更新为新建行的内容。而要在表题上方一行的末尾按下回车，这样更新域后没有问题。</p>
+</blockquote>
 <ol>
 <li>引用-题注-插入题注-打开“题注”窗口。</li>
 <li>如果没有想要的标签，可以点击选项-“新建标签”。</li>
@@ -621,8 +633,27 @@
 </li>
 </ul>
 <h1 id="插入参考文献">插入参考文献</h1>
+<h2 id="方法">方法</h2>
 <p>方法一: 使用<a href="#%E5%B0%BE%E6%B3%A8">尾注</a>。</p>
 <p>方法二: 使用<a href="#%E4%BA%A4%E5%8F%89%E5%BC%95%E7%94%A8">交叉引用</a>。</p>
+<blockquote>
+<p>该方法在后期在论文中间新增和删除被引用的文献时，没有方法一方便。特别是在顺序引用时，需要明确文献的新增位置和之前被引用过的地方。</p>
+</blockquote>
+<blockquote>
+<p>新增编号时要在上一个编号处按回车来新增编号。如果是在当前编号处按回车来下移编号，更新交叉引用不会更新编号的。即：</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs txt">[13] 文献13的内容【要在这里按回车】<br>[14] 【不要在这里按回车】文献14的内容<br></code></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>删掉某一文献的编号并更新域后：</p>
+<ul>
+<li>
+<p>该文献被交叉引用的位置显示“错误！未找到引用源”。即使新增会编号也无济于事，因为新增的编号相当于一个新的标签了。除非执行“撤销”操作。</p>
+</li>
+<li>
+<p>其后的文献列表编号顺序向前递进一位，更新域后编号正常引用。</p>
+</li>
+</ul>
+</blockquote>
 <ol>
 <li>
 <p>首先在参考文献部分使用列表编辑参考文献。单击“开始—&gt;段落—&gt;编号”定义并插入一个方括号样式的列表。按照文章中参考文献出现顺序编辑参考文献列表。</p>
@@ -632,13 +663,62 @@
 </li>
 <li>
 <p>当对参考文献列表中的文献条目进行插入、删除等操作后，引用编号不会随之更新。若要更新引用编号，则需进行以下操作：按 Ctrl+A 快捷键选中全文，然后按 F9 键即可更新引用编号。或者选中需要更新编号的部分，点击鼠标右键，选择更新域代码即可。</p>
-<blockquote>
-<p>新增编号时要在上一个编号处按回车来新增编号。如果是在当前编号处按回车来下移编号，更新交叉引用不会更新编号的。</p>
-</blockquote>
 </li>
 <li>
 <p>其它对参考文献的格式配置见<a href="#%E5%B0%BE%E6%B3%A8">此处</a>。</p>
 </li>
+</ol>
+<p>方法三：使用专业的文献管理软件，比如<a target="_blank" rel="noopener" href="https://zotero-chinese.com/user-guide/ms-word-plugin.html">Zotero</a>、EndNote。</p>
+<h2 id="查找引用">查找引用</h2>
+<ol>
+<li>
+<p>开始-编辑-查找-高级查找：</p>
+</li>
+<li>
+<p>更多-勾选“使用通配符”。</p>
+</li>
+<li>
+<p>在 “查找内容” 框中输入以下代码：</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs txt">\[[0-9]&#123;1,&#125;\]<br></code></pre></td></tr></table></figure>
+<ul>
+<li><code>\[</code> ：匹配左方括号 <code>[</code>（因为 <code>[</code> 是特殊字符，所以需要加 <code>\</code> 转义）。</li>
+<li><code>[0-9]</code> ：匹配任意一个数字 0 到 9。</li>
+<li><code>&#123;1,&#125;</code> ：表示前面的数字重复 <strong>1次或多次</strong>（这样可以匹配 <code>[1]</code> 也可以匹配 <code>[100]</code>）。</li>
+<li><code>\]</code> ：匹配右方括号 <code>]</code>。</li>
+</ul>
+<p>更宽松的查找：<code>\[*\]</code></p>
+</li>
+<li>
+<p>查找下一处。可以在更多-搜索里指定搜索方向：向上、向下、全部。</p>
+</li>
+</ol>
+<h2 id="替换为上标格式">替换为上标格式</h2>
+<ol>
+<li>开始-编辑-替换：</li>
+<li>查找内容：<code>\[[0-9]&#123;1,&#125;\]</code></li>
+<li>替换为：<code>^&amp;</code> （代表查找到的原内容）</li>
+<li>光标停在“替换为”框中，点击下方格式-字体-勾选“上标”。</li>
+<li>替换。</li>
+</ol>
+<h2 id="确定光标前文献引用的最大序号">确定光标前文献引用的最大序号</h2>
+<p><a href="#%E6%96%B0%E5%BB%BAVBA%E5%AE%8F">新建VBA宏</a></p>
+<blockquote>
+<p>需要保证正文里的所有参考文献引用的表现形式是统一的<code>[num]</code>。</p>
+</blockquote>
+<blockquote>
+<p>除参考文献引用外，正文中尽量不要出现其他形如<code>[num]</code>的写法。</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><code class="hljs vba">Sub GetMaxCitationBeforeCursor_AndSuggestNext()<br>    Dim rng As Range<br>    Dim txt As String<br>    Dim regEx As Object<br>    Dim matches As Object<br>    Dim m As Object<br>    Dim num As Long<br>    Dim maxNum As Long<br>    Dim nextNum As Long<br>    <br>    Set rng = ActiveDocument.Range(Start:=0, End:=Selection.Start)<br>    txt = rng.Text<br>    <br>    Set regEx = CreateObject(&quot;VBScript.RegExp&quot;)<br>    With regEx<br>        .Global = True<br>        .IgnoreCase = True<br>        .Pattern = &quot;\[(\d+)\]&quot;<br>    End With<br>    <br>    maxNum = 0<br>    <br>    If regEx.Test(txt) Then<br>        Set matches = regEx.Execute(txt)<br>        <br>        For Each m In matches<br>            num = CLng(m.SubMatches(0))<br>            If num &gt; maxNum Then<br>                maxNum = num<br>            End If<br>        Next m<br>        <br>        nextNum = maxNum + 1<br>        <br>        MsgBox &quot;当前光标前已引用的最大参考文献编号是 [&quot; &amp; maxNum &amp; &quot;]&quot; &amp; vbCrLf &amp; _<br>               &quot;如果此处插入一篇首次出现的新文献，通常应排在参考文献第 [&quot; &amp; nextNum &amp; &quot;] 项。&quot;, _<br>               vbInformation, &quot;参考文献编号检查&quot;<br>    Else<br>        MsgBox &quot;当前光标前未找到形如 [数字] 的参考文献引用。&quot; &amp; vbCrLf &amp; _<br>               &quot;如果这里是正文中的第一篇文献，则可从 [1] 开始。&quot;, _<br>               vbExclamation, &quot;参考文献编号检查&quot;<br>    End If<br>End Sub<br></code></pre></td></tr></table></figure>
+<h1 id="自定义目录">自定义目录</h1>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/zhwzhaowei/article/details/106068906">[Word系列]1.Word自动生成的目录更改格式和字体</a></p>
+<ol>
+<li>顶部工具栏-引用-目录-目录-自定义目录。</li>
+<li>目录窗口-常规-点击右下角的“修改”。</li>
+<li>选中“TOC 1”（目录1），点击左侧的“修改”，进入“修改样式”界面。剩下的配置操作与<a href="#%E6%A0%B7%E5%BC%8F">修改样式</a>相同。</li>
+<li>依次修改其它级别的目录。</li>
+<li>确定。</li>
+<li>“是否替换当前目录？”是。</li>
+<li>完成。</li>
 </ol>
 <h1 id="手写样式">手写样式</h1>
 <ol>
@@ -659,7 +739,8 @@
 <p>完成。</p>
 </li>
 </ol>
-<h1 id="录制宏">录制宏</h1>
+<h1 id="宏">宏</h1>
+<h2 id="录制宏">录制宏</h2>
 <blockquote>
 <p>录制宏时，能使用快捷键操作就使用快捷键，而不是鼠标点击和选择。</p>
 </blockquote>
@@ -682,6 +763,212 @@
 <li>点击底部状态栏的 <strong>“停止录制”</strong> 方块，或者去 “视图” &gt; “宏” &gt; “停止录制”。</li>
 </ul>
 </li>
+</ol>
+<h2 id="新建VBA宏">新建VBA宏</h2>
+<ol>
+<li>打开 Word。</li>
+<li>按 <code>Alt + F11。</code></li>
+<li>在左侧找到（点击）你的文档（只适用于本文档），或 Normal 模板（适用于全局）。</li>
+<li>菜单选择：<strong>插入 &gt; 模块</strong>。</li>
+<li>在新模块中加入VBA代码。对于Normal模板，也可以直接添加在Normal-模块-NewMacros里，这应该<a href="#%E5%BD%95%E5%88%B6%E5%AE%8F">录制的宏</a>对应的代码位置。</li>
+<li>Ctrl+S保存。</li>
+<li>回到 Word。</li>
+<li>完成。</li>
+</ol>
+<h2 id="运行宏">运行宏</h2>
+<ol>
+<li>顶部工具栏-视图-宏-查看宏（Alt+F8）。</li>
+<li>选中指定的宏，点击右侧的“运行”。</li>
+</ol>
+<p>如果嫌麻烦，可以将宏添加到“快速访问工具栏”：</p>
+<ol>
+<li>顶部工具栏-文件-选项-快速访问工具栏。</li>
+<li>从下列位置选择命令：宏</li>
+<li>找到（点击）指定的宏。</li>
+<li>点击中间的“添加”，宏就被添加到右侧了。</li>
+<li>窗口右下角-确定。</li>
+<li>这样，指定的宏就出现在了word窗口左上角的“快速访问工具栏”，点击即可运行。</li>
+</ol>
+<p>为了更便捷，还可以<a href="#%E5%BF%AB%E6%8D%B7%E9%94%AE">新增快捷键</a>。</p>
+<h1 id="visio">visio</h1>
+<h2 id="配置">配置</h2>
+<ul>
+<li>顶部工具栏-设计-页面设置-大小-A4</li>
+<li>顶部工具栏-开始-字体-大小-12pt</li>
+<li>顶部工具栏-视图-显示-勾选“标尺”、“分页符”、“网络”、“参考线”</li>
+<li>顶部工具栏-视图-视觉帮助-更多（栏右下角符号）（Alt+F9）-对齐和粘附</li>
+<li>在 <code>文件</code> &gt; <code>选项</code> &gt; <code>自定义功能区</code> 中勾选“开发工具”。虽然新手初期用不到太深，但在批量修改形状属性或调试宏时非常有用。</li>
+</ul>
+<h2 id="技巧">技巧</h2>
+<ul>
+<li>新建文件时先选一个“<strong>模板/绘图类型</strong>”（Template）。模板本质上是帮你预置好<strong>页面大小、标尺网格、默认图形库（stencils）、主题样式</strong>等。选错也没关系，后面随时可以换主题、换页面大小、再开其它图形库。</li>
+<li>选择正确的模板，一般选：
+<ul>
+<li>常规-基本框图</li>
+<li>流程图-基本流程图</li>
+</ul>
+</li>
+<li>只用开始-工具-连接线，别用普通直线硬连。</li>
+<li>导出图片：文件-导出-更改文件类型-jpg：
+<ul>
+<li>常规-质量：100%</li>
+<li>分辨率：打印机（或自定义）</li>
+</ul>
+</li>
+<li>选中多个形状，使用 <code>开始</code> &gt; <code>排列</code> &gt; <code>对齐</code> 和 <code>重新调整位置</code>（如“横向分布”），一键让杂乱的图变得整齐划一。</li>
+<li>自由地在两个形状的任意边界位置添加连线？手动添加“连接点”，开始-工具-连接点。</li>
+</ul>
+<h2 id="适用场景">适用场景</h2>
+<table>
+<thead>
+<tr>
+<th>软件</th>
+<th>更适合什么</th>
+<th>核心原因</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Visio</strong></td>
+<td><strong>流程图</strong>、<strong>框图</strong>、系统结构图、规范化关系图</td>
+<td>它是“结构化绘图工具”，连接关系和布局管理更强</td>
+</tr>
+<tr>
+<td><strong>PowerPoint</strong></td>
+<td><strong>图片</strong>拼版、结果图整合、示意图美化、答辩图</td>
+<td>它是“自由排版工具”，插图与组合排版更灵活</td>
+</tr>
+</tbody>
+</table>
+<h2 id="容器功能与组合功能的区别">容器功能与组合功能的区别</h2>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>容器 (Container)</th>
+<th>组合 (Group)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>核心关系</td>
+<td>包含关系 (Parent-Child) 强调“内部”与“外部”的空间归属。</td>
+<td>集合关系 (Collection) 强调将多个独立对象捆绑成一个整体。</td>
+</tr>
+<tr>
+<td>大小调整</td>
+<td>动态/自动 随内部内容的增减或移动自动扩大/缩小。</td>
+<td>静态/手动 内部内容移出边界，组合框不会自动变大；需手动拉伸。</td>
+</tr>
+<tr>
+<td>添加内容</td>
+<td>智能吸附 将形状拖入容器区域，自动成为其“子元素”。</td>
+<td>无逻辑关联 形状只是视觉上在框内，逻辑上并未“进入”组合，除非重新执行组合命令。</td>
+</tr>
+<tr>
+<td>标题栏</td>
+<td>原生支持 可直接在容器属性中添加/编辑标题。</td>
+<td>不支持 需手动添加文本框并组合进去。</td>
+</tr>
+<tr>
+<td>视觉样式</td>
+<td>通常有专门的背景填充和边框样式，强调区域感。</td>
+<td>只是多个形状的集合，默认没有统一的背景（除非特意画个矩形再组合）。</td>
+</tr>
+<tr>
+<td>删除行为</td>
+<td>删除容器本身，可以选择保留内部形状。</td>
+<td>删除组合，通常会解散组合或连同内部形状一起删除（取决于操作）。</td>
+</tr>
+<tr>
+<td>适用场景</td>
+<td>架构图中的子系统、泳道、逻辑分区、云环境范围。</td>
+<td>一个由多个零件组成的单一设备（如一台服务器由机箱+屏幕组成）、固定的图标集合。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="如果选错了绘图类型，怎么改？">如果选错了绘图类型，怎么改？</h2>
+<h4 id="方法一：直接添加缺失的形状库（最推荐，保留当前内容）"><strong>方法一：直接添加缺失的形状库（最推荐，保留当前内容）</strong></h4>
+<p>如果你只是发现左侧缺少某些图标（例如选了“基本流程图”但突然想画个“数据库”），不需要换模板，直接加形状即可。</p>
+<ol>
+<li>点击顶部菜单的 <strong>更多形状 (More Shapes)</strong>。</li>
+<li>在弹出的菜单中，你会看到按类别分类的形状库（如“网络”、“工程”、“商务”等）。</li>
+<li>找到你需要的类别，点击对应的子菜单（例如 <code>网络</code> &gt; <code>基本网络形状</code>）。</li>
+<li>该形状库会立即出现在左侧边栏中，你可以直接拖拽使用。
+<ul>
+<li><em>技巧</em>：你可以同时打开十几个不同的形状库，它们会堆叠在左侧，互不干扰。</li>
+</ul>
+</li>
+</ol>
+<h4 id="方法二：更换当前文件的模板基础（彻底切换风格）"><strong>方法二：更换当前文件的模板基础（彻底切换风格）</strong></h4>
+<p>如果你想把整个文件的默认设置（如背景、主题、默认线条风格）完全换成另一种模板的风格：</p>
+<ol>
+<li>点击左上角的 <strong>文件 (File)</strong>。</li>
+<li>点击 <strong>新建 (New)</strong>。</li>
+<li>此时你会看到模板选择界面。<strong>不要关闭当前文件</strong>。</li>
+<li>选择你想要的那个正确模板（例如“跨职能流程图”）。</li>
+<li>点击 创建 (Create) 。
+<ul>
+<li><em>注意</em>：这会打开一个<strong>新窗口</strong>（新文件）。</li>
+</ul>
+</li>
+<li>回到<strong>旧文件</strong>，按 <code>Ctrl+A</code> 全选所有图形，<code>Ctrl+C</code> 复制。</li>
+<li>切换到新文件，<code>Ctrl+V</code> 粘贴。
+<ul>
+<li>Visio 通常能很好地保留格式。如果某些形状在新模板中不存在，Visio 会保留它们，只是可能失去一些智能连接特性。</li>
+</ul>
+</li>
+<li>保存新文件，删除旧文件即可。</li>
+</ol>
+<h4 id="方法三：调整页面设置（如果是尺寸或方向错了）"><strong>方法三：调整页面设置（如果是尺寸或方向错了）</strong></h4>
+<p>如果你选的模板是对的，但是<strong>页面大小</strong>（如 A4 变成了 Letter）或<strong>方向</strong>（横向变成了纵向）不对：</p>
+<ol>
+<li>点击顶部菜单的 <strong>设计 (Design)</strong> 选项卡。</li>
+<li>在 页面设置 (Page Setup) 区域：
+<ul>
+<li>点击 <strong>大小 (Size)</strong> 修改纸张尺寸（可以直接输入厘米数，适合论文）。</li>
+<li>点击 <strong>方向 (Orientation)</strong> 切换横向/纵向。</li>
+<li>点击 <strong>背景 (Background)</strong> 修改背景。</li>
+</ul>
+</li>
+<li>这些设置可以随时无限次修改，不影响已画好的图形。</li>
+</ol>
+<h1 id="Adobe-Acrobat-DC">Adobe Acrobat DC</h1>
+<h2 id="高质量打印">高质量打印</h2>
+<p>Word文档顶部栏的Acrobat加载项-创建Adobat PDF-首选项-设置-PDFMarker设置-转换设置，有如下选项。经实测，对于文档中图像的压缩程度由小到大为：</p>
+<ul>
+<li>印刷质量</li>
+<li>高质量打印</li>
+<li>标准</li>
+<li>超大页面</li>
+<li>最小文件大小</li>
+</ul>
+<p>如果连“印刷质量”打印出的PDF中图像的质量还不能满意，可以自定义打印质量：</p>
+<ol>
+<li>
+<p>“转换设置”选择“印刷质量”后，点击下方的“高级设置”。</p>
+</li>
+<li>
+<p>点击左侧“图像”栏，提高右侧的6个“像素/英寸”数。</p>
+<blockquote>
+<p>直接把压缩关掉的话生成的PDF文档大小会很大，比原Word文档都大。因此，把这里的压缩上限设置高于Word文档中图片的分辨率即可。</p>
+</blockquote>
+</li>
+<li>
+<p>修改完成后，点击下方的“另存为”，保存路径默认为：<code>C:\Users\25655\AppData\Roaming\Adobe\Adobe PDF\Settings</code>，保存为，例如，<code>自定义高质量.joboptions</code>。</p>
+</li>
+<li>
+<p>后续打印时在“转换设置”中选择“自定义高质量”即可。</p>
+</li>
+</ol>
+<blockquote>
+<p>Word顶部栏-文件-打印-打印机选择“Microsoft Print to PDF”打印出的质量还好，文件大小与Adobat的“印刷质量”接近，且图像清晰度要更高。也比“自定义高质量”打印出的文件要小。</p>
+</blockquote>
+<h2 id="打印不含批注">打印不含批注</h2>
+<ol>
+<li>Word文档顶部栏的Acrobat加载项-创建Adobat PDF-首选项-Word-Word功能-取消勾选“将显示的批注转换为Adobe PDF附注(N)”-确定。</li>
+<li>顶部栏-审阅-标记-把右上角的“所有标记”换成“无标记”。</li>
+<li>顶部栏-Acrobat-创建PDF。</li>
 </ol>
 <h1 id="快捷键">快捷键</h1>
 <h2 id="Word">Word</h2>
@@ -746,6 +1033,18 @@
 <tr>
 <td>选中一行</td>
 <td>鼠标左键三击；Home, Shift+End；End, Shift+Home</td>
+</tr>
+<tr>
+<td>更新域</td>
+<td>选中内容，F9</td>
+</tr>
+<tr>
+<td>锁定域</td>
+<td>选中内容，Ctrl+F11</td>
+</tr>
+<tr>
+<td>解除锁定域</td>
+<td>选中内容，Ctrl+Shift+F11</td>
 </tr>
 </tbody>
 </table>
@@ -816,6 +1115,14 @@
 <li>给文本框里的字体调整成你想要的字体和格式。</li>
 <li>右键点击文本框，在弹出的选项栏中找到“设置为默认文本框”。</li>
 <li>这样后期增加的任何文本都是你想要的字体格式了。</li>
+</ol>
+<h3 id="visio-2">visio</h3>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/j5856004/article/details/114398155">visio修改默认字体</a></p>
+<ol>
+<li>顶部工具栏-文件-选项-高级-常规-勾选“以开发人员模式运行”。</li>
+<li>顶部工具栏-开发工具-显示/隐藏-勾选“绘图资源管理器”。</li>
+<li>绘图资源管理器窗口-样式-正常-主题-右键点击“定义样式”-更改-文本-字体设置-确定-确定。</li>
+<li>完成。</li>
 </ol>
 <h2 id="Word-3">Word</h2>
 <h3 id="在样式栏添加永久的样式">在样式栏添加永久的样式</h3>
@@ -914,6 +1221,28 @@
 </blockquote>
 <h3 id="默认的题注一会是中文一会是英文？">默认的题注一会是中文一会是英文？</h3>
 <p>Word自动根据附近位置是中文字符还是英文字符来确定显示中文题注还是英文题注。</p>
+<h3 id="章标题过长导致第二行只剩一两个字">章标题过长导致第二行只剩一两个字</h3>
+<ol>
+<li>
+<p>选中整个标题。</p>
+</li>
+<li>
+<p>右键点击 -&gt; <strong>“字体”</strong> -&gt; <strong>“高级”</strong> 选项卡。</p>
+</li>
+<li>
+<p>在 “间距”选项中：</p>
+<ul>
+<li>如果想把第二行的字提上来：选择 <strong>“紧缩”</strong>，磅值设为 <strong>0.1~0.5</strong> 磅（肉眼几乎看不出，但能省出空间）。</li>
+<li>如果想把第一行的字挤下去（凑成两行均衡）：选择 <strong>“加宽”</strong>。</li>
+</ul>
+<blockquote>
+<p>调整幅度不要过大，否则标题会显得忽松忽紧。</p>
+</blockquote>
+</li>
+<li>
+<p>完成。</p>
+</li>
+</ol>
 <h2 id="Excel-3">Excel</h2>
 <h3 id="修改单元格的内容">修改单元格的内容</h3>
 <p>光标定位单元格后，按F2键就可以把光标定位到单元格中最后一个字符后面。</p>
@@ -1060,6 +1389,8 @@
 <li>工具栏-开始-单元格-格式-单元格大小-自动调节行高（自动调节列宽）。</li>
 </ol>
 <h2 id="PPT-2">PPT</h2>
+<h3 id="默认文本框">默认文本框</h3>
+<p>制作好一个文本框样式后，右键文本框，点击“设置为默认文本框样式”，可节省之后调整新建文本框样式的时间。</p>
 <h3 id="改大页码的字号">改大页码的字号</h3>
 <ol>
 <li>首先打开PPT文档，然后点击上方菜单栏的“视图”菜单，接着点击“幻灯片母版”选项。</li>
@@ -1084,6 +1415,51 @@
 <li>将弧形填充为背景色以遮挡线条。</li>
 <li>把不想被遮挡的线条的“排列顺序”置在弧形上方。</li>
 </ol>
+<h2 id="MathType-2">MathType</h2>
+<h3 id="大括号左对齐">大括号左对齐</h3>
+<ol>
+<li>
+<p>编辑大括号：在MathType中插入大括号，并在大括号内输入公式或内容。</p>
+</li>
+<li>
+<p>选择矩阵模板：选择矩阵模板中的第一行第二个模板，或者直接在大括号内编辑公式。</p>
+</li>
+<li>
+<p>更改矩阵对齐方式：</p>
+<ol>
+<li>
+<p>将光标定位到大括号内的公式上，确保只选中公式部分，不要选中大括号。</p>
+</li>
+<li>
+<p>在菜单栏中选择 格式 -&gt; 矩阵 -&gt; 更改矩阵。</p>
+</li>
+<li>
+<p>在弹出的对话框中，找到 列对齐方式，选择 左侧，然后点击 确定 按钮。</p>
+<blockquote>
+<p>可以同时勾选行高相等，以解决多行上下有空白的问题。</p>
+</blockquote>
+</li>
+</ol>
+</li>
+<li>
+<p>完成。</p>
+</li>
+</ol>
+<h2 id="在屏幕上插入几条竖-横线辅助排版">在屏幕上插入几条竖/横线辅助排版</h2>
+<blockquote>
+<p>Word软件内部不好实现。</p>
+</blockquote>
+<blockquote>
+<p>如果你是因为插入公式的需要，需要先把公式段落右对齐，把公式编号留在右侧，再使用空格把公式调整到页面居中的位置的话。不妨试试Word的制表符功能。插入制表符的入口在：段落-（左下角）制表符。开启“标尺”的功能在：顶部栏-视图-显示-勾选“标尺”。</p>
+</blockquote>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://getquicker.net/Sharedaction?code=826cb469-0f75-43c1-3a13-08d92e62ae35">Quicker-屏幕参考线</a></li>
+<li><a target="_blank" rel="noopener" href="https://getquicker.net/Sharedaction?code=54c098f6-d657-49ac-2706-08da1118226f">Quicker-8X8屏幕参考线</a></li>
+<li><a target="_blank" rel="noopener" href="https://getquicker.net/Sharedaction?code=4b02dafe-9f57-48d1-dbaa-08d93e239090">Quicker-mxn区</a></li>
+</ul>
+<blockquote>
+<p>在 Windows 11 系统上，目前暂时没有找到除了<a target="_blank" rel="noopener" href="https://getquicker.net/">Quicker</a>提供的动作库以外更好的解决方法。</p>
+</blockquote>
 <h1 id="参考链接">参考链接</h1>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://blog.csdn.net/QAQ_King/article/details/128776411">Word字体大小对照换算表(字号、磅、英寸、像素)</a></li>

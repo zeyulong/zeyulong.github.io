@@ -24,7 +24,7 @@
 <meta property="og:description" content="本文主要分享了Linux和Windows系统的配置。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-01-31T16:27:11.000Z">
-<meta property="article:modified_time" content="2026-06-26T09:40:56.366Z">
+<meta property="article:modified_time" content="2026-06-26T10:41:06.449Z">
 <meta property="article:author" content="龙泽雨">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -319,7 +319,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          5.6k 字
+          5.9k 字
         
       </span>
     
@@ -330,7 +330,7 @@
         
         
         
-          48 分钟
+          50 分钟
         
       </span>
     
@@ -372,7 +372,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2026年6月26日 下午
+                    本文最后更新于 2026年6月26日 晚上
                   
                 
               </p>
@@ -979,12 +979,49 @@
 <li>另外，AMD显卡也可以通过显卡自带的软件进行驱动更新，就和Nvidia一样。</li>
 </ol>
 <h2 id="取消快速访问">取消快速访问</h2>
-<p>控制面板-查看方式：小图标-文件资源管理器选项</p>
 <ul>
-<li>打开文件资源管理器时打开：此电脑</li>
-<li>隐私：取消勾选“显示最近的文件”、“显示常用文件夹”和“显示来自Office.com的文件”</li>
+<li>
+<p>控制面板-查看方式：小图标-文件资源管理器选项</p>
+</li>
+<li>
+<p>打开文件资源管理器时打开：此电脑</p>
+</li>
+<li>
+<p>隐私：取消勾选“显示最近的文件”、“显示常用文件夹”和“显示来自Office.com的文件”</p>
+</li>
 </ul>
-<p>-确定。</p>
+<ul>
+<li>确定。</li>
+</ul>
+<h2 id="Microsoft-Edge（导致电脑）卡顿">Microsoft Edge（导致电脑）卡顿</h2>
+<p><a target="_blank" rel="noopener" href="https://post.smzdm.com/p/a4ql5onl/">电脑卡顿罪魁祸首竟是它！手把手教你把Edge内存占用砍半，系统瞬间流畅如新</a></p>
+<ol>
+<li>Microsoft Edge-设置-系统和性能：</li>
+</ol>
+<ul>
+<li>系统：取消勾选“启动增强”和“关闭Microsoft Edge后继续运行后台扩展和应用”</li>
+<li>性能：
+<ul>
+<li>取消勾选“电源-启用节能模式”</li>
+<li>内存-自动将标签页置于睡眠状态-设定时间后将非活动标签页置于睡眠状态：30分钟</li>
+<li>勾选“游戏-启用资源控制”，管理Edge的RAM使用情况：5GB。控制特定用例的资源：始终</li>
+</ul>
+</li>
+</ul>
+<ol start="2">
+<li>
+<p>禁用或卸载非必要扩展插件（尤其广告拦截、视频下载类）。</p>
+<blockquote>
+<p>日常使用中，若发现某次内存异常升高，可尝试在无痕模式下测试，以排查是否由特定扩展引起。</p>
+</blockquote>
+</li>
+<li>
+<p>在“外观”设置中关闭新标签页的资讯流、小部件、快速链接等冗余功能，改用空白页，减少预加载负担。</p>
+</li>
+<li>
+<p>重启电脑以确保所有更改生效。</p>
+</li>
+</ol>
 <h2 id="取消Microsoft-Edge按下Alt-Tab后多标签显示">取消Microsoft Edge按下Alt+Tab后多标签显示</h2>
 <p>设置-系统-多任务处理-对齐或按Alt+Tab时显示应用中的标签页：不显示选项卡</p>
 <h2 id="“图片”软件收藏图片后并没有在”图片”的收藏夹里显示？">“图片”软件收藏图片后并没有在”图片”的收藏夹里显示？</h2>

@@ -24,7 +24,7 @@
 <meta property="og:description" content="本文主要分享了Linux和Windows系统的配置。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-01-31T16:27:11.000Z">
-<meta property="article:modified_time" content="2026-02-17T06:45:21.476Z">
+<meta property="article:modified_time" content="2026-06-26T09:40:56.366Z">
 <meta property="article:author" content="龙泽雨">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -155,6 +155,110 @@
           
           
           
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-steam"></i>
+                <span>摸鱼</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/2048" target="_self">
+                    
+                    <span>2048</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/bcbk/1" target="_self">
+                    
+                    <span>别踩白块-1</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/bcbk/2" target="_self">
+                    
+                    <span>别踩白块-2</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/dblk" target="_self">
+                    
+                    <span>躲避绿块</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/dr" target="_self">
+                    
+                    <span>恐龙快跑</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://mario-kart-3-js.vercel.app/" target="_self">
+                    
+                    <span>马里奥赛车</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/mf" target="_self">
+                    
+                    <span>魔方</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/cat" target="_self">
+                    
+                    <span>圈小猫</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/sl" target="_self">
+                    
+                    <span>扫雷</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/txz" target="_self">
+                    
+                    <span>推箱子</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/wzq" target="_self">
+                    
+                    <span>五子棋</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
             <li class="nav-item">
               <a class="nav-link" href="/about/" target="_self">
                 <i class="iconfont icon-user-fill"></i>
@@ -267,7 +371,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2026年2月17日 下午
+                    本文最后更新于 2026年6月26日 下午
                   
                 
               </p>
@@ -896,7 +1000,7 @@
 <p>以管理员身份运行命令提示符，添加以下注册表条目（如果可能，也可以手动添加）：</p>
 <figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs cmd"># “解锁”传统右键菜单，让其直接显示而不被折叠。<br>reg add &quot;HKCU\Software\Classes\CLSID\&#123;<span class="hljs-number">86</span>ca1aa0-<span class="hljs-number">34</span>aa-<span class="hljs-number">4</span>e8b-a509-<span class="hljs-number">50</span>c905bae2a2&#125;\InprocServer32&quot; /f /ve<br></code></pre></td></tr></table></figure>
 <p>然后重启 Windows 资源管理器（或者重启电脑）。</p>
-<p>如果你想以任何原因恢复到旧菜单，请在命令提示符中运行以下作：</p>
+<p>如果你想以任何原因恢复到旧菜单，请在命令提示符中运行以下命令：</p>
 <figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs cmd"># # “锁回”折叠行为，恢复原状。<br>reg delete &quot;HKCU\Software\Classes\CLSID\&#123;<span class="hljs-number">86</span>ca1aa0-<span class="hljs-number">34</span>aa-<span class="hljs-number">4</span>e8b-a509-<span class="hljs-number">50</span>c905bae2a2&#125;&quot; /f<br></code></pre></td></tr></table></figure>
 <blockquote>
 <p>原<a target="_blank" rel="noopener" href="https://github.com/BluePointLilac/ContextMenuManager/issues/275">解决方案</a>最后少了一个<code>&#125;</code>，这里添上了。</p>

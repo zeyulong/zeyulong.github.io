@@ -24,7 +24,7 @@
 <meta property="og:description" content="本文主要分享了自己在使用Linux和Windows系统过程中常用的命令及快捷键。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-03-05T14:33:19.000Z">
-<meta property="article:modified_time" content="2026-04-15T10:20:03.988Z">
+<meta property="article:modified_time" content="2026-05-17T13:09:08.678Z">
 <meta property="article:author" content="龙泽雨">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -225,7 +225,7 @@
         
         
         
-          201 分钟
+          202 分钟
         
       </span>
     
@@ -267,7 +267,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2026年4月15日 晚上
+                    本文最后更新于 2026年5月17日 晚上
                   
                 
               </p>
@@ -2378,6 +2378,11 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> argparse<br><span class="hljs-keyword">from</span> PIL <span class="hljs-keyword">import</span> ImageGrab  <span class="hljs-comment"># pip install pillow</span><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">capture_fixed_area</span>(<span class="hljs-params">left, top, right, bottom, output_file=<span class="hljs-string">&quot;screenshot.png&quot;</span></span>):<br>    <span class="hljs-comment"># 定义截图区域（left, top, right, bottom）</span><br>    bbox = (left, top, right, bottom)<br><br>    <span class="hljs-comment"># 截图</span><br>    screenshot = ImageGrab.grab(bbox)<br><br>    <span class="hljs-comment"># 保存截图到文件</span><br>    screenshot.save(output_file)<br><br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;截图已保存到: <span class="hljs-subst">&#123;output_file&#125;</span>&quot;</span>)<br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br>    <span class="hljs-comment"># 设置命令行参数解析</span><br>    parser = argparse.ArgumentParser(description=<span class="hljs-string">&quot;Capture a specific area of the screen.&quot;</span>)<br>    parser.add_argument(<span class="hljs-string">&quot;left&quot;</span>, <span class="hljs-built_in">type</span>=<span class="hljs-built_in">int</span>, <span class="hljs-built_in">help</span>=<span class="hljs-string">&quot;Left coordinate of the rectangle.&quot;</span>)<br>    parser.add_argument(<span class="hljs-string">&quot;top&quot;</span>, <span class="hljs-built_in">type</span>=<span class="hljs-built_in">int</span>, <span class="hljs-built_in">help</span>=<span class="hljs-string">&quot;Top coordinate of the rectangle.&quot;</span>)  <br>    parser.add_argument(<span class="hljs-string">&quot;right&quot;</span>, <span class="hljs-built_in">type</span>=<span class="hljs-built_in">int</span>, <span class="hljs-built_in">help</span>=<span class="hljs-string">&quot;Right coordinate of the rectangle.&quot;</span>)  <br>    parser.add_argument(<span class="hljs-string">&quot;bottom&quot;</span>, <span class="hljs-built_in">type</span>=<span class="hljs-built_in">int</span>, <span class="hljs-built_in">help</span>=<span class="hljs-string">&quot;Bottom coordinate of the rectangle.&quot;</span>)<br>    parser.add_argument(<br>        <span class="hljs-string">&quot;--output_file&quot;</span>, <span class="hljs-built_in">type</span>=<span class="hljs-built_in">str</span>, default=<span class="hljs-string">&quot;screenshot.png&quot;</span>, <span class="hljs-built_in">help</span>=<span class="hljs-string">&quot;Path to save the screenshot (default: screenshot.png).&quot;</span>  <br>    )<br><br>    <span class="hljs-comment"># 解析命令行参数</span><br>    args = parser.parse_args()<br><br>    <span class="hljs-comment"># 调用截图函数</span><br>    capture_fixed_area(args.left, args.top, args.right, args.bottom, args.output_file)<br></code></pre></td></tr></table></figure>
 <p>使用以下命令运行脚本，并传递截图的区域坐标和输出文件路径：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">python capture_fixed_area_with_cli.py 700 300 1200 1180 --output_file fixed_area_screenshot.png<br></code></pre></td></tr></table></figure>
+<h2 id="其它-5">其它</h2>
+<ul>
+<li><strong>统一使用小写扩展名</strong>：这是业界通用的最佳实践，能最大程度兼容各类操作系统、Web 服务器和应用程序。</li>
+<li><strong>不要试图用改扩展名来转换格式</strong>：把 <code>.png</code> 改成 <code>.jpg</code> 并不会让图片变成 JPEG 格式，反而可能导致部分严格校验文件头的软件拒绝打开它。如果需要转换格式，必须使用专门的转码工具重新编码文件内容。</li>
+</ul>
 
                 
               </div>

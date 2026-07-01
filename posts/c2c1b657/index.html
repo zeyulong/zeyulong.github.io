@@ -16,15 +16,15 @@
   <meta name="author" content="龙泽雨">
   <meta name="keywords" content="">
   
-    <meta name="description" content="本文主要分享了wsl的配置和使用。">
+    <meta name="description" content="适用于 Linux 的 Windows 子系统（WSL）是 Windows 的一项功能，可用于在 Windows 计算机上运行 Linux 环境，而无需单独的虚拟机或双重启动。 WSL 旨在为想要同时使用 Windows 和 Linux 的开发人员提供无缝高效的体验。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="wsl的配置和使用">
 <meta property="og:url" content="http://zeyulong.com/posts/c2c1b657/index.html">
 <meta property="og:site_name" content="龙泽雨的博客">
-<meta property="og:description" content="本文主要分享了wsl的配置和使用。">
+<meta property="og:description" content="适用于 Linux 的 Windows 子系统（WSL）是 Windows 的一项功能，可用于在 Windows 计算机上运行 Linux 环境，而无需单独的虚拟机或双重启动。 WSL 旨在为想要同时使用 Windows 和 Linux 的开发人员提供无缝高效的体验。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-06-26T13:11:18.000Z">
-<meta property="article:modified_time" content="2026-06-26T14:35:09.251Z">
+<meta property="article:modified_time" content="2026-07-01T09:37:00.569Z">
 <meta property="article:author" content="龙泽雨">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -319,7 +319,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          408 字
+          2k 字
         
       </span>
     
@@ -330,7 +330,7 @@
         
         
         
-          4 分钟
+          17 分钟
         
       </span>
     
@@ -372,7 +372,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2026年6月26日 晚上
+                    本文最后更新于 2026年7月1日 下午
                   
                 
               </p>
@@ -380,35 +380,128 @@
             
               <div class="markdown-body">
                 
-                <p>本文主要分享了wsl的配置和使用。</p>
+                <p>适用于 Linux 的 Windows 子系统（WSL）是 Windows 的一项功能，可用于在 Windows 计算机上运行 Linux 环境，而无需单独的虚拟机或双重启动。 WSL 旨在为想要同时使用 Windows 和 Linux 的开发人员提供无缝高效的体验。</p>
 <span id="more"></span>
-<h1 id="安装">安装</h1>
-<p><a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-us/windows/wsl/install">https://learn.microsoft.com/en-us/windows/wsl/install</a></p>
+<h1 id="WSL的基本命令">WSL的基本命令</h1>
+<blockquote>
+<p>下面的 WSL 命令以 PowerShell 或 Windows 命令提示符支持的格式列出。 要从 Bash/Linux 发行版的命令行运行这些命令，必须将 <code>wsl</code> 替换为 <code>wsl.exe</code>。</p>
+</blockquote>
+<h2 id="查询">查询</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">wsl --<span class="hljs-built_in">help</span>  <span class="hljs-comment"># 完整的命令列表</span><br>wsl --status  <span class="hljs-comment"># 检查 WSL 状态。请参阅有关 WSL 配置的常规信息，例如默认分发类型、默认分发和内核版本。</span><br>wsl --version  <span class="hljs-comment"># 检查有关 WSL 及其组件的版本信息。</span><br>wsl --list --verbose <span class="hljs-comment"># 列出已安装的 Linux 分发版；查看 Windows 计算机上安装的 Linux 分发版的列表，包括状态（分发正在运行还是已停止），以及运行分发版的 WSL 版本（WSL 1 或 WSL 2）。</span><br></code></pre></td></tr></table></figure>
+<h2 id="安装、更新与卸载">安装、更新与卸载</h2>
+<blockquote>
+<p>前置工作：</p>
+<ol>
+<li>按下 <code>Win+R</code>，输入 <code>optionalfeatures</code>，回车打开「Windows功能」窗口，勾选以下两个选项：</li>
+</ol>
+<ul>
+<li>适用于Linux的Windows子系统</li>
+<li>虚拟机平台</li>
+</ul>
+<ol start="2">
+<li>
+<p>点击窗口底部「确定」，系统会开始安装所选功能，等待安装完成（约1-3分钟，视电脑配置而定）。</p>
+</li>
+<li>
+<p>安装完成后，会提示「需要重启电脑才能生效」，点击「立即重启」（务必重启，否则后续步骤会失败）。</p>
+</li>
+</ol>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs bash">wsl --install  <span class="hljs-comment"># 安装 WSL 和 Linux 的默认 Ubuntu 分发版。在管理员模式下打开 PowerShell运行命令，然后重启计算机。</span><br><span class="hljs-comment"># 首次启动新安装的 Linux 分发版时，控制台窗口将打开，系统会要求你等待文件取消压缩并存储在计算机上。 所有未来的发射应该需要不到一秒钟的时间。</span><br><span class="hljs-comment"># 安装 WSL 后，需要为新安装的 Linux 分发版创建用户帐户和密码。 </span><br><br>wsl --list --online  <span class="hljs-comment"># 获取有效的发行版名称列表</span><br>wsl --install &lt;Distribution Name&gt;  <span class="hljs-comment"># 安装其他 Linux 分发版，比如 `wsl --install Ubuntu-20.04`。如果在 Windows 10 或更早版本上运行 WSL，则可能需要将-d标志包含在命令。如果安装过程停在 0.0%，请先运行 wsl --install --web-download -d &lt;DistroName&gt; 下载发行版，然后再进行安装。</span><br>wsl --set-default &lt;Distribution Name&gt;  <span class="hljs-comment"># 若要设置 WSL 命令将用于运行的默认 Linux 发行版，请将 &lt;Distribution Name&gt; 替换为您首选的 Linux 发行版名称。</span><br><br>wsl --set-version &lt;distribution name&gt; &lt;versionNumber&gt;  <span class="hljs-comment"># 若要指定 Linux 发行版运行的 WSL 版本（1 或 2），请将 &lt;distribution name&gt; 替换为发行版的名称，并将 &lt;versionNumber&gt; 替换为 1 或 2。</span><br>wsl --set-default-version &lt;Version&gt;  <span class="hljs-comment"># 若要设置 WSL 1 或 WSL 2 的默认版本，请将 &lt;Version&gt; 替换为数字 1 或 2。</span><br><br>wsl --update  <span class="hljs-comment"># 将 WSL 版本更新为最新版本</span><br><br>wsl --unregister &lt;DistributionName&gt;<br></code></pre></td></tr></table></figure>
+<h2 id="运行与关机">运行与关机</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs bash">wsl<span class="hljs-comment"># 启动WSL</span><br>wsl ~  <span class="hljs-comment"># 在用户主目录中启动 WSL</span><br><span class="hljs-built_in">exit</span>  <span class="hljs-comment"># 退出</span><br><br>wsl --distribution &lt;Distribution Name&gt; --user &lt;User Name&gt;  <span class="hljs-comment"># 从 PowerShell 或 CMD 运行特定的 Linux 分发版。若要打印当前用户名，请使用命令 whoami。</span><br>wsl --user &lt;Username&gt;  <span class="hljs-comment"># 为以指定用户身份运行 WSL，请将 &lt;Username&gt; 替换为 WSL 分发中存在的用户的名称。</span><br><br>wsl --shutdown  <span class="hljs-comment"># 关机。立即终止所有正在运行的分发版和 WSL 2 轻型实用工具虚拟机。</span><br>wsl --terminate &lt;Distribution Name&gt;  <span class="hljs-comment"># 若要终止指定的分发或阻止其运行，请将 &lt;Distribution Name&gt; 替换为目标分发的名称。</span><br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>查看当前的Ubuntu版本：<code>lsb_release -a</code>。</p>
+<p>我的wsl默认安装的Ubuntu版本是<code>Ubuntu 24.04.1 LTS</code>。</p>
+</blockquote>
+<blockquote>
+<p>如果<a href="https://zeyulong.com/posts/650f7f0a/#Windows-Terminal">配置了Windows Terminal</a>，则可以直接在标签页右侧的倒三角形下选择启动wsl指定的发行版。</p>
+</blockquote>
+<h2 id="导出和导入">导出和导入</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">wsl --<span class="hljs-built_in">export</span> &lt;Distribution Name&gt; &lt;FileName&gt;  <span class="hljs-comment"># 将指定分发的快照导出为新的分发文件。 默认为 tar 格式。 文件名可以是-，用于标准输入。 </span><br>wsl --import &lt;Distribution Name&gt; &lt;InstallLocation&gt; &lt;FileName&gt;  <span class="hljs-comment"># 将指定的 tar 文件导入为新的分发版。 文件名可以是-，用于标准输入。</span><br></code></pre></td></tr></table></figure>
+<h2 id="标识-IP-地址">标识 IP 地址</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">wsl hostname -I  <span class="hljs-comment"># 返回通过 WSL 2 安装的 Linux 分发版的 IP 地址（WSL 2 VM 地址）。</span><br>ip route show | grep -i default | awk <span class="hljs-string">&#x27;&#123; print $3&#125;&#x27;</span>  <span class="hljs-comment"># 返回从 WSL 2（WSL 2 VM）中看到的 Windows 计算机的 IP 地址。</span><br></code></pre></td></tr></table></figure>
+<h2 id="跨平台文件访问">跨平台文件访问</h2>
+<p>WSL访问Windows文件（无需额外配置，直接访问）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> /mnt/c  <span class="hljs-comment"># wsl访问windows的C盘</span><br></code></pre></td></tr></table></figure>
+<p>Windows访问WSL文件（两种方式）：</p>
+<ul>
+<li>在Ubuntu终端中输入 <code>explorer.exe .</code>（注意末尾有空格和点），会自动打开Windows文件管理器，定位到当前WSL目录。</li>
+<li>手动打开文件管理器，在地址栏输入 <code>\\wsl$</code>，回车，即可看到所有已安装的WSL发行版，双击进入即可访问文件。</li>
+</ul>
+<blockquote>
+<p>若想获得最快的性能速度，请将文件存储在 WSL 文件系统中，前提是使用 Linux 工具在 Linux 命令行（Ubuntu、OpenSUSE 等）中处理这些文件。 如果是使用 Windows 工具在 Windows 命令行（PowerShell、命令提示符）中工作，请将文件存储在 Windows 文件系统中。 可以跨操作系统访问文件，但这可能会显著降低性能。</p>
+<p>例如，在存储 WSL 项目文件时：</p>
+<ul>
+<li>使用 Linux 文件系统根目录：<code>\\wsl$\&lt;DistroName&gt;\home\&lt;UserName&gt;\Project</code></li>
+<li>不是 Windows 文件系统的根目录：<code>C:\Users\&lt;UserName&gt;\Project</code> 或 <code>/mnt/c/Users/&lt;UserName&gt;/Project$</code></li>
+</ul>
+</blockquote>
+<blockquote>
+<p>如果在 Windows、WSL 或容器之间使用相同的存储库文件夹，请务必设置一致的行尾。</p>
+<p>由于 Windows 和 Linux 使用不同的默认行尾，Git 可能会报告大量文件被修改，但这些文件除了行尾之外没有其他差异。 若要防止发生这种情况，可以使用 <code>.gitattributes</code> 文件或在 Windows 端全局禁用行结束转换。 请参阅此 <a target="_blank" rel="noopener" href="https://code.visualstudio.com/docs/remote/troubleshooting#_resolving-git-line-ending-issues-in-wsl-resulting-in-many-modified-files">VS Code 文档，了解如何解决 git 行结束问题</a>。</p>
+</blockquote>
+<h1 id="配置WSL开发环境"><a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows/wsl/setup/environment">配置WSL开发环境</a></h1>
+<p>了解如何运行命令以安装默认的 Bash Shell，它使用 Ubuntu，或者可以设置为安装其他 Linux 发行版、使用基本 WSL 命令、设置 Visual Studio Code 或 Visual Studio、Git、Windows 凭据管理器、MongoDB、Postgres 或 MySQL 等数据库、设置 GPU 加速、运行 GUI 应用等。</p>
+<h2 id="WSL-VSCode">WSL+VSCode</h2>
+<p>如果用VS Code开发Linux项目，直接连接WSL，可实现「在Windows中编辑，在WSL中运行」，无需切换环境。</p>
 <ol>
 <li>
-<p>以<strong>管理员</strong>模式打开 PowerShell 或 Windows 命令提示符：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">wsl --install<br></code></pre></td></tr></table></figure>
+<p>确保VS Code已安装，打开VS Code；</p>
+</li>
+<li>
+<p>安装「Remote - WSL」插件：在VS Code扩展商店中搜索「Remote - WSL」，点击安装（微软官方插件，无需额外配置）；</p>
+</li>
+<li>
+<p>启动WSL（在Windows终端中输入wsl，启动Ubuntu）；</p>
+</li>
+<li>
+<p>在VS Code中，点击左下角的「绿色图标」（Remote窗口图标），在弹出的菜单中选择「New WSL Window」；</p>
+</li>
+<li>
+<p>等待VS Code连接WSL，连接成功后，左下角会显示「WSL: Ubuntu-22.04」，此时即可在VS Code中打开WSL中的文件、编辑代码、运行命令；</p>
 <blockquote>
-<p>使用<code>wsl --install</code>命令安装的新 Linux 安装将默认设置为 WSL 2。要查看您的 Linux 发行版是设置为 WSL 1 还是 WSL 2，请使用命令： <code>wsl -l -v</code> 。</p>
+<p>连接WSL时，确保WSL已正常启动，否则会连接失败；如果连接失败，重启WSL后再尝试。</p>
 </blockquote>
 </li>
 <li>
-<p>重启计算机。</p>
-</li>
-<li>
-<p>计算机重启后会自动打开终端安装Ubuntu，提示创建用户名和密码后可正常使用。（第一次启动新安装的 Linux 发行版时，将打开一个控制台窗口，系统会要求您等待文件解压缩并存储在您的计算机上。未来所有的启动都将花费不到一秒的时间。）</p>
-</li>
-<li>
-<p>（可选）遵循<a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-us/windows/wsl/setup/environment">设置 WSL 开发环境的最佳实践</a>指南，逐步了解如何为已安装的 Linux 发行版设置用户名和密码、使用基本 WSL 命令、安装和自定义 Windows 终端、设置 Git 版本控制、使用 VS Code 远程服务器进行代码编辑和调试、文件存储的良好实践、设置数据库、安装外部驱动器、设置 GPU 加速等。</p>
-</li>
-<li>
-<p>（可选）运行<code>wsl --list --online</code>以查看可用发行版的列表，并运行<code>wsl --install -d &lt;DistroName&gt;</code>以安装发行版。</p>
-<p>要更改版本，请使用以下命令： <code>wsl --set-version &lt;distro name&gt; 2</code> 将<code>&lt;distro name&gt;</code>替换为您要更新的 Linux 发行版的名称。例如， <code>wsl --set-version Ubuntu-20.04 2</code> 将设置您的 Ubuntu 20.04 发行版以使用 WSL 2。</p>
-</li>
-<li>
-<p>（可选）要卸载 WSL，请参阅<a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-us/windows/wsl/troubleshooting#uninstall-legacy-version-of-wsl">卸载旧版本的 WSL</a>或<a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-us/windows/wsl/basic-commands#unregister-or-uninstall-a-linux-distribution">取消注册或卸载 Linux 发行版</a>。</p>
+<p>（可选）安装WSL中的VS Code插件：连接成功后，在扩展商店中搜索「C/C++」「Python」等常用插件，点击「Install in WSL: Ubuntu-20.04」，安装到WSL中，即可正常使用。</p>
 </li>
 </ol>
+<h2 id="运行Linux-GUI应用">运行Linux GUI应用</h2>
+<p>以文本编辑器为例：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># Ubuntu &lt;= 22.04</span><br>sudo apt install gedit  <br>gedit ~/.bashrc  <span class="hljs-comment"># 尝试打开文本编辑器窗口</span><br> <br><span class="hljs-comment"># Ubuntu &gt; 22.04</span><br>sudo apt install gnome-text-editor<br>gnome-text-editor ~/.bashrc  <span class="hljs-comment"># 尝试打开文本编辑器窗口</span><br></code></pre></td></tr></table></figure>
+<h2 id="配置WSL的网络"><a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows/wsl/networking">配置WSL的网络</a></h2>
+<h2 id="WSL中ML的GPU加速入门"><a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows/wsl/tutorials/gpu-compute">WSL中ML的GPU加速入门</a></h2>
+<h1 id="问题与解决">问题与解决</h1>
+<h2 id="wsl-检测到-localhost-代理配置，但未镜像到-WSL。NAT-模式下的-WSL-不支持-localhost-代理。">wsl: 检测到 localhost 代理配置，但未镜像到 WSL。NAT 模式下的 WSL 不支持 localhost 代理。</h2>
+<ol>
+<li>关闭wsl：<code>wsl --shutdown</code></li>
+<li>在开始菜单找到并打开“wsl settings”。</li>
+<li>网络-网络模式：Mirrored.</li>
+<li>完成。</li>
+</ol>
+<p>上面的步骤实际上也是执行了：</p>
+<ol>
+<li>
+<p>在用户根目录<code>C:\Users\xxx</code>下创建文件<code>.wslconfig</code>。</p>
+</li>
+<li>
+<p>写入：</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs txt">[wsl2]<br>networkingMode=Mirrored<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>保存。</p>
+</li>
+</ol>
+<h1 id="参考链接">参考链接</h1>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows/wsl/">官方文档</a></li>
+<li><a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows/wsl/compare-versions">WSL 1和WSL 2的区别</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44818765/article/details/157736533">Windows 10/11 WSL2 完整安装与使用教程</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/Ghy_01/article/details/151578239">Ubuntu 版本管理</a></li>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/15762609815">win11快速解决“wsl: 检测到 localhost 代理配置，但未镜像到 WSL。NAT 模式下的 WSL 不支持 localhost 代理”</a></li>
+</ul>
 
                 
               </div>

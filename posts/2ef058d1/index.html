@@ -1,0 +1,1830 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" >
+
+
+
+<head><!-- hexo injector head_begin start --><progress id="content_progress" value="0"></progress><!-- hexo injector head_begin end -->
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/theme/TamakoAvatar-new-zip.png">
+  <link rel="icon" href="/img/theme/TamakoAvatar-new-zip.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#000000">
+  <meta name="author" content="龙泽雨">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="本文主要分享了自己在编译运行论文《EVO: A Geometric Approach to Event-Based 6-DOF Parallel Tracking and Mapping in Real Time》的源代码时的调试记录。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="EVO编译运行调试记录">
+<meta property="og:url" content="http://zeyulong.com/posts/2ef058d1/index.html">
+<meta property="og:site_name" content="龙泽雨的博客">
+<meta property="og:description" content="本文主要分享了自己在编译运行论文《EVO: A Geometric Approach to Event-Based 6-DOF Parallel Tracking and Mapping in Real Time》的源代码时的调试记录。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-02-07T04:16:38.000Z">
+<meta property="article:modified_time" content="2024-02-07T04:37:58.278Z">
+<meta property="article:author" content="龙泽雨">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>EVO编译运行调试记录 - 龙泽雨的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/custom/Markdown/macpanel.css">
+<link rel="stylesheet" href="/custom/Fonts/CodeFont.css">
+<link rel="stylesheet" href="/custom/Fonts/inlinecode-bg-color.css">
+<link rel="stylesheet" href="/custom/live2d/font-awesome.min.css">
+<link rel="stylesheet" href="/custom/LoadingBar/pace-theme-corner-indicator.css">
+<link rel="stylesheet" href="/custom/ReadingProgress/ReadingProgress.css">
+<link rel="stylesheet" href="/custom/SelectBackgroundColor/SelectBackgroundColor.css">
+<link rel="stylesheet" href="/custom/waline/gif.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"zeyulong.com","root":"/","version":"1.9.7","typing":{"enable":false,"typeSpeed":100,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"8gUBTaCjmaSbnf4genwggan3-MdYXbMMI","app_key":"2WRxjgxRXIWRBo8EA4205Wfm","server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<!-- hexo injector head_end start --><link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@200;300;400;500;600;700;900&display=swap" rel="stylesheet"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.0.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Hello, world!</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-steam"></i>
+                <span>摸鱼</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/2048" target="_self">
+                    
+                    <span>2048</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/bcbk/1" target="_self">
+                    
+                    <span>别踩白块-1</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/bcbk/2" target="_self">
+                    
+                    <span>别踩白块-2</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/dblk" target="_self">
+                    
+                    <span>躲避绿块</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/dr" target="_self">
+                    
+                    <span>恐龙快跑</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://mario-kart-3-js.vercel.app/" target="_self">
+                    
+                    <span>马里奥赛车</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/mf" target="_self">
+                    
+                    <span>魔方</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/cat" target="_self">
+                    
+                    <span>圈小猫</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/sl" target="_self">
+                    
+                    <span>扫雷</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/txz" target="_self">
+                    
+                    <span>推箱子</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/wzq" target="_self">
+                    
+                    <span>五子棋</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/theme/GirlWithCat-cut.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle">EVO编译运行调试记录</span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        龙泽雨
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-02-07 12:16" pubdate>
+          2024年2月7日 中午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          6.2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          52 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">EVO编译运行调试记录</h1>
+            
+              <p id="updated-time" class="note note-info" style="">
+                
+                  
+                    本文最后更新于 2024年2月7日 下午
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <p>本文主要分享了自己在编译运行论文《EVO: A Geometric Approach to Event-Based 6-DOF Parallel Tracking and Mapping in Real Time》的源代码时的调试记录。</p>
+<span id="more"></span>
+<h1 id="数据集">数据集</h1>
+<p>代码附带了一个测试数据集。如果您没有事件相机并希望在更多数据上运行代码，可以执行以下操作之一：</p>
+<ul>
+<li>使用我们的事件相机数据集之一：
+<ul>
+<li><a target="_blank" rel="noopener" href="http://rpg.ifi.uzh.ch/davis_data.html">http://rpg.ifi.uzh.ch/davis_data.html</a></li>
+<li><a target="_blank" rel="noopener" href="https://dsec.ifi.uzh.ch/">https://dsec.ifi.uzh.ch/</a></li>
+<li><a target="_blank" rel="noopener" href="https://fpv.ifi.uzh.ch/">https://fpv.ifi.uzh.ch/</a></li>
+<li><a target="_blank" rel="noopener" href="http://rpg.ifi.uzh.ch/E2VID.html">http://rpg.ifi.uzh.ch/E2VID.html</a></li>
+<li><a target="_blank" rel="noopener" href="http://rpg.ifi.uzh.ch/CED.html">http://rpg.ifi.uzh.ch/CED.html</a></li>
+<li><a target="_blank" rel="noopener" href="http://rpg.ifi.uzh.ch/direct_event_camera_tracking/index.html">http://rpg.ifi.uzh.ch/direct_event_camera_tracking/index.html</a></li>
+<li><a target="_blank" rel="noopener" href="http://rpg.ifi.uzh.ch/ECCV18_stereo_davis.html">http://rpg.ifi.uzh.ch/ECCV18_stereo_davis.html</a></li>
+</ul>
+</li>
+<li>使用事件相机模拟器生成一个：<a target="_blank" rel="noopener" href="http://rpg.ifi.uzh.ch/esim/index.html">http://rpg.ifi.uzh.ch/esim/index.html</a></li>
+<li>使用我们上述引用的“视频到事件：为事件相机回收视频数据集”的代码将标准视频转换为事件：<a target="_blank" rel="noopener" href="https://github.com/uzh-rpg/rpg_vid2e">https://github.com/uzh-rpg/rpg_vid2e</a></li>
+</ul>
+<h1 id="环境配置">环境配置</h1>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 查看版本</span><br><span class="hljs-comment"># gcc</span><br>gcc -v<br><span class="hljs-comment"># cmake</span><br>cmake --version<br><span class="hljs-comment"># Eigen</span><br>gedit /usr/include/eigen3/Eigen/src/Core/util/Macros.h<br><span class="hljs-comment"># Opencv</span><br>pkg-config --modversion opencv  <span class="hljs-comment"># 查询版本</span><br>pkg-config --cflags opencv  <span class="hljs-comment"># 得到opencv的安装路径</span><br><span class="hljs-comment"># -&gt; -I/usr/local/include/opencv -I/usr/local/include</span><br>pkg-config --cflags opencv4  <span class="hljs-comment"># 附加：得到opencv4的安装路径</span><br></code></pre></td></tr></table></figure>
+<h1 id="开始使用">开始使用</h1>
+<p>本软件依赖于 <a target="_blank" rel="noopener" href="https://www.ros.org/">ROS</a>。安装说明可在<a target="_blank" rel="noopener" href="http://wiki.ros.org/melodic/Installation/Ubuntu">此处找到</a>。我们在Ubuntu 18.04和ROS Melodic上测试了这个软件。<a href="https://zeyulong.com/posts/84f91530/">ROS的安装与卸载</a></p>
+<ol>
+<li>
+<p>如有需要，创建并初始化一个新的catkin工作区。</p>
+<pre><code class="hljs">mkdir -p catkin_ws/src &amp;&amp; cd catkin_ws/
+catkin config \
+    --init --mkdirs --extend /opt/ros/melodic \
+    --merge-devel --cmake-args \
+    -DCMAKE_BUILD_TYPE=Release
+</code></pre>
+</li>
+<li>
+<p>克隆此仓库。</p>
+<pre><code class="hljs">cd src/ &amp;&amp; git clone git@github.com:uzh-rpg/rpg_dvs_evo_open.git
+</code></pre>
+</li>
+<li>
+<p>克隆（并修复）依赖关系。</p>
+<p><mark>官方说明：</mark></p>
+<pre><code class="hljs">./rpg_dvs_evo_open/install.sh [ros-version] # [ros-version]：melodic, ..
+</code></pre>
+<p>将 <code>[ros-version]</code> 替换为您实际的ROS发行版。例如：</p>
+<pre><code class="hljs">./rpg_dvs_evo_open/install.sh melodic
+</code></pre>
+<p>确保已经安装了ROS和常用的包（如rviz、rqt等）。</p>
+<p>上述命令执行以下操作：</p>
+<ul>
+<li>
+<p>首先，我们安装所需的包。</p>
+</li>
+<li>
+<p>其次，我们克隆evo所依赖的<a href="dependencies.yaml">仓库</a>。</p>
+</li>
+</ul>
+<p>如遇驱动安装问题（实时运行所需），请参考<a target="_blank" rel="noopener" href="https://github.com/uzh-rpg/rpg_dvs_ros">此存储库</a>。</p>
+<p>在实际编译编译过程中，自己踩了一些坑，主要是版本不匹配的问题，即随着时间的推移，EVO源代码的编译会因为依赖库的更新而出现报错。类似于<a target="_blank" rel="noopener" href="https://github.com/uzh-rpg/rpg_dvs_evo_open/issues/26">参考链接</a>中所说：</p>
+<ul>
+<li>我的平台是一个新的 Ubuntu 18.04 系统，没有手动安装 OpenCV，但是当我按照说明构建项目时，它不断报告有关 OpenCV 的错误。然后我发现，<code>install.sh</code> 中有一个命令<code>sudo apt-get install libopencv-dev</code>。在这个时间点（2023 年），如果我们执行这个命令，可能是因为 OpenCV 从 2021 年开始的更新，随 ROS 一起安装的 OpenCV 会被 OpenCV4 覆盖，然后我们运行<code>catkin build dvs_tracking</code>时会出现很多错误，类似于问题 <a target="_blank" rel="noopener" href="https://github.com/uzh-rpg/rpg_dvs_evo_open/issues/17">#17</a> 中提到的问题。所以我只是注释掉了上述命令，然后一切正常。我希望这个小小的修改对你们有所帮助，如果你遇到和我一样的问题。</li>
+</ul>
+<p>因此，自己更推荐以下的步骤（主要根据<a target="_blank" rel="noopener" href="https://github.com/uzh-rpg/rpg_dvs_evo_open/issues/13">参考链接</a>的说明）。当然，你也可以先按照官方的说明进行尝试，如果编译成功了，就万事大吉。如果报错了，又没有解决，可以重新回到这个步骤，推倒重来。</p>
+<blockquote>
+<p>个人更倾向于将<code>install.sh</code>里的命令单独运行，方便出现报错时的定位和处理。如果这样做的话，注意，将<code>install.sh</code>里的<code>$1</code>替换为<code>[ros-version]</code>。</p>
+</blockquote>
+<ol>
+<li>
+<p>添加PPA(Personal Package Archive)存储库。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo add-apt-repository ppa:inivation-ppa/inivation<br><span class="hljs-comment"># Ubuntu PPA for Focal 20.04 LTS and latest Ubuntu releases.</span><br><span class="hljs-comment"># For Bionic 18.04 LTS, please use &#x27;ppa:inivation-ppa/inivation-bionic&#x27;.</span><br>sudo add-apt-repository ppa:inivation-ppa/inivation-bionic<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>安装<code>libopencv-dev=3.2.0+dfsg-4ubuntu0.1</code>。</p>
+<ol>
+<li>
+<p>查看系统中已安装的<code>libopencv-dev</code>。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">apt list --installed | grep -i libopencv-dev  <span class="hljs-comment"># 模糊搜索</span><br></code></pre></td></tr></table></figure>
+<p>如果没有，或者版本为<code>3.2.0</code>就可以跳过这个步骤。如果版本为<code>4.2.0</code>，那么建议卸载重装<code>3.2.0</code>版本。</p>
+</li>
+<li>
+<p>卸载<code>libopencv-dev=4.2.0+dfsg-6~bionic</code>。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo apt remove libopencv-dev  <span class="hljs-comment"># 卸载软件</span><br>sudo apt-get purge libopencv-dev  <span class="hljs-comment"># 清除配置</span><br><span class="hljs-comment"># 会同时卸载掉libcaer-dev？所以libcaer-dev建议在后面安装。</span><br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>安装<code>libopencv-dev=3.2.0+dfsg-4ubuntu0.1</code>。</p>
+<ol>
+<li>
+<p>查看系统可选的安装版本。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo apt update	<span class="hljs-comment"># 先更新软件包列表，检查可用的软件包更新</span><br><span class="hljs-comment"># 查看可选的安装版本</span><br>apt-cache policy libopencv-dev<br>apt-cache search libopencv-dev<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>安装依赖库。如果直接使用<code>sudo apt install libopencv-dev=3.2.0+dfsg-4ubuntu0.1</code>命令安装libopencv，会报依赖库和<code>4.2.0</code>版本冲突的问题。所以，要先安装依赖库。经过尝试，按照一下步骤一次安装依赖库，没有问题。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo apt install libopencv3.2-java=3.2.0+dfsg-4ubuntu0.1<br>sudo apt install libopencv-core-dev=3.2.0+dfsg-4ubuntu0.1<br>sudo apt install libopencv-viz-dev=3.2.0+dfsg-4ubuntu0.1<br>sudo apt install libopencv-flann-dev=3.2.0+dfsg-4ubuntu0.1<br>sudo apt install libopencv-imgproc-dev=3.2.0+dfsg-4ubuntu0.1<br>sudo apt install libopencv-imgcodecs-dev=3.2.0+dfsg-4ubuntu0.1<br>sudo apt install libopencv-videoio-dev=3.2.0+dfsg-4ubuntu0.1<br>sudo apt install libopencv-highgui-dev=3.2.0+dfsg-4ubuntu0.1<br>sudo apt install libopencv-ml-dev=3.2.0+dfsg-4ubuntu0.1<br>sudo apt install libopencv-features2d-dev=3.2.0+dfsg-4ubuntu0.1<br>sudo apt install libopencv-calib3d-dev=3.2.0+dfsg-4ubuntu0.1<br>sudo apt install libopencv-photo-dev=3.2.0+dfsg-4ubuntu0.1<br>sudo apt install libopencv-video-dev=3.2.0+dfsg-4ubuntu0.1<br>sudo apt install libopencv-videostab-dev=3.2.0+dfsg-4ubuntu0.1<br>sudo apt install libopencv-ts-dev=3.2.0+dfsg-4ubuntu0.1<br>sudo apt install libopencv-superres-dev=3.2.0+dfsg-4ubuntu0.1<br>sudo apt install libopencv-objdetect-dev=3.2.0+dfsg-4ubuntu0.1<br>sudo apt install libopencv-stitching-dev=3.2.0+dfsg-4ubuntu0.1<br>sudo apt install libopencv-shape-dev=3.2.0+dfsg-4ubuntu0.1<br>sudo apt install libopencv-contrib-dev=3.2.0+dfsg-4ubuntu0.1<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>安装<code>libopencv-dev=3.2.0+dfsg-4ubuntu0.1</code>。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo apt install libopencv-dev=3.2.0+dfsg-4ubuntu0.1  <span class="hljs-comment"># 安装软件</span><br></code></pre></td></tr></table></figure>
+</li>
+<li></li>
+</ol>
+</li>
+<li></li>
+</ol>
+</li>
+<li>
+<p>源码编译安装<code>libcaer-dev</code>。</p>
+<ol>
+<li>
+<p>查看系统中是否已安装的<code>libcaer-dev</code>。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">apt list --installed | grep -i libcaer-dev  <span class="hljs-comment"># 模糊搜索</span><br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>卸载之前使用<code>sudo apt install</code>命令安装的<code>libcaer-dev</code>。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo apt remove libcaer-dev  <span class="hljs-comment"># 卸载软件</span><br>sudo apt-get purge libcaer-dev  <span class="hljs-comment"># 清除配置</span><br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>源码编译安装<code>libcaer-dev</code>。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo apt install libusb-1.0-0-dev libserialport-dev<br><span class="hljs-built_in">cd</span> ~/yourfolder<br>git <span class="hljs-built_in">clone</span> https://gitlab.com/inivation/dv/libcaer.git<br><span class="hljs-built_in">cd</span> libcaer<br><span class="hljs-built_in">mkdir</span> build &amp;&amp; <span class="hljs-built_in">cd</span> build<br>cmake -DENABLE_SERIALDEV=1 -DENABLE_OPENCV=1 ..<br>sudo make -j8<br>sudo make install<br></code></pre></td></tr></table></figure>
+</li>
+<li></li>
+</ol>
+</li>
+<li>
+<p>安装其他依赖库。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo apt-get install python3-vcstool<br>sudo apt-get install ros-melodic-sophus<br>sudo apt-get install ros-melodic-pcl-ros<br>sudo apt-get install ros-melodic-eigen-conversions<br>sudo apt-get install ros-melodic-camera-info-manager<br>sudo apt-get install ros-melodic-image-view<br>sudo apt-get install libfftw3-dev libfftw3-doc<br>sudo apt-get install libglew-dev<br>sudo apt-get install libyaml-cpp-dev<br>sudo apt-get install python-catkin-tools<br>sudo apt-get install ros-melodic-camera-info-manager<br>sudo apt-get install ros-melodic-image-geometry <br>sudo apt-get install ros-melodic-cv-bridge<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p><code>vcs-import &lt; rpg_dvs_evo_open/dependencies.yaml</code></p>
+<p>下载的第三方库在<code>./catkin_ws/src/</code>目录下，与<code>rpg_dvs_evo_open</code>文件夹同级。</p>
+</li>
+<li>
+<p>为防止网路下载不稳定的情况，可以将第三方库<code>CmakeLists.txt</code>中的下载链接替换为本地路径。</p>
+<blockquote>
+<p>注：URL可以直接使用本地地址，但是文件必需为压缩文件，编译时会自动解压。<a target="_blank" rel="noopener" href="https://cmake.org/cmake/help/latest/module/ExternalProject.html">官方文档</a>，<a target="_blank" rel="noopener" href="https://runebook.dev/zh/docs/cmake/module/externalproject">中文解读1</a>，<a target="_blank" rel="noopener" href="https://blog.csdn.net/wzj_110/article/details/116722467">中文解读2</a>。</p>
+</blockquote>
+<ol>
+<li>
+<p><code>gflags_catkin</code>。下载<a target="_blank" rel="noopener" href="https://github.com/gflags/gflags/archive/v2.2.1.zip">v2.2.1.zip</a>到<code>yourfolder/</code>并重命名为<code>gflags-2.2.1.zip</code>。打开<code>./catkin_ws/src/gflags_catkin</code>目录下的<code>Cmakelists.txt</code>文件，修改<code>URL</code>：</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs cmake"><span class="hljs-comment"># URL https://github.com/gflags/gflags/archive/v2.2.1.zip</span><br>URL <span class="hljs-string">&quot;/yourfolder/gflags-2.2.1.zip&quot;</span><br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p><code>nanoflann_catkin</code>。下载<a target="_blank" rel="noopener" href="https://github.com/cfo/nanoflann">nanoflann</a>到<code>yourfolder/</code>并重命名为<code>nanoflann.zip</code>。打开<code>./catkin_ws/src/nanoflann_catkin</code>目录下的<code>Cmakelists.txt</code>文件，修改<code>GIT_REPOSITORY</code>：</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs cmake"><span class="hljs-comment"># GIT_REPOSITORY https://github.com/cfo/nanoflann.git</span><br>URL <span class="hljs-string">&quot;/yourfolder/nanoflann.zip&quot;</span><br></code></pre></td></tr></table></figure>
+</li>
+<li></li>
+</ol>
+</li>
+<li>
+<p>你可能需要<code>autoreconf</code>来编译glog_catkin，使用以下命令安装<code>autoreconf</code>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># https://askubuntu.com/questions/265471/autoreconf-not-found-error-during-making-qemu-1-4-0/269423#269423</span><br><span class="hljs-comment"># 查询可安装的版本</span><br>apt-cache search autoreconf<br>sudo apt-get install autoconf  <span class="hljs-comment"># 13.04/14.04/16.04/18.04</span><br>sudo apt install dh-autoreconf  <span class="hljs-comment"># 20.04</span><br></code></pre></td></tr></table></figure>
+</li>
+<li></li>
+</ol>
+</li>
+<li>
+<p>构建包。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">catkin build dvs_tracking<br><span class="hljs-comment"># 如果编译报错：</span><br><span class="hljs-comment"># catkin clean 相当于 rm -r $&#123;build&#125; $&#123;devel&#125;, 但是避免了 rm -r 这种危险的操作！</span><br></code></pre></td></tr></table></figure>
+<p>构建所有内容可能需要一些时间……这或许是喝杯咖啡的好时机！😃</p>
+<p>报错处理：</p>
+<ol>
+<li>
+<ul>
+<li>
+<p>报错信息：/src/rpg_dvs_evo_open/dvs_reconstruction/src/mosaic.cpp:290:49: error: invalid initialization of reference of type ‘const Scalar&amp;’ {aka ‘const cv::Matx&lt;float, 1, 1&gt;&amp;’} from expression of type ‘const float’<br>
+290 |             const Scalar &amp;z = new_grad.at<float>(y, x);</p>
+<p>/src/rpg_dvs_evo_open/dvs_reconstruction/src/mosaic.cpp:312:35: error: conversion from ‘float’ to non-scalar type ‘const Scalar’ {aka ‘const cv::Matx&lt;float, 1, 1&gt;’} requested<br>
+312 |             const Scalar h = g.dot(v), nu = z - h, S = dhdg * P * dhdg.t() + R_;</p>
+</li>
+<li>
+<p>解决方法：使用OpenCV3.2.0，使用3.4.0版本会报错。</p>
+</li>
+<li>
+<p><a target="_blank" rel="noopener" href="https://github.com/uzh-rpg/rpg_dvs_evo_open/issues/13">参考链接</a></p>
+</li>
+</ul>
+</li>
+<li>
+<ul>
+<li>
+<p>报错信息：/catkin_ws/devel/lib/libdvs_bootstrapping_ef.so：对‘cv::imwrite(std::__cxx11::basic_string&lt;char, std::char_traits<char>, std::allocator<char> &gt; const&amp;, cv::_InputArray const&amp;, std::vector&lt;int, std::allocator<int> &gt; const&amp;)’未定义的引用<br>
+/catkin_ws/devel/lib/libdvs_bootstrapping_ef.so：对‘cv::Formatter::get(cv::Formatter::FormatType)’未定义的引用<br>
+collect2: error: ld returned 1 exit status</p>
+</li>
+<li>
+<p>解决方法：如上所述，卸载<code>libopencv-dev=4.2.0+dfsg-6~bionic</code>，安装<code>libopencv-dev=3.2.0+dfsg-4ubuntu0.1</code>。</p>
+</li>
+</ul>
+</li>
+<li>
+<p>OpenCV报错未定义的引用。使用<a href="https://zeyulong.com/posts/75ff45ce/">OpenCV的安装与版本管理</a>中的版本管理方法1（EVO使用方法2反而不行）。如果<code>rpg_dvs_ros/dvs_calibration/CMakeLists.txt</code>报错，则尝试使用版本管理方法2。</p>
+</li>
+</ol>
+</li>
+<li>
+<p>之后别忘了刷新工作区！</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">source</span> ./devel/setup.bash<br><span class="hljs-comment"># source ./devel/setup.zsh</span><br></code></pre></td></tr></table></figure>
+</li>
+<li></li>
+</ol>
+<h1 id="示例">示例</h1>
+<p>在下表中列出了每个示例的特定启动文件（精调）。最有趣和可重复的一个（由于引导序列，请参阅<a href="#%E8%BF%9B%E4%B8%80%E6%AD%A5%E6%94%B9%E8%BF%9B">进一步改进</a>）是多关键帧序列。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">示例</th>
+<th style="text-align:left">启动文件</th>
+<th style="text-align:left">Rosbag</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">多关键帧序列</td>
+<td style="text-align:left"><a href="dvs_tracking/launch/flyingroom.launch">flyingroom.launch</a></td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="http://rpg.ifi.uzh.ch/data/EVO/code_examples/evo_flyingroom.bag">538 MB</a></td>
+</tr>
+<tr>
+<td style="text-align:left">桌面序列</td>
+<td style="text-align:left"><a href="dvs_tracking/launch/desk.launch">desk.launch</a></td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="http://rpg.ifi.uzh.ch/data/EVO/code_examples/evo_desk.bag">145 MB</a></td>
+</tr>
+</tbody>
+</table>
+<p>下载rosbags，您可以使用以下命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">wget [rosbag <span class="hljs-built_in">link</span>] -O /path/to/download/folder/<br></code></pre></td></tr></table></figure>
+<p>例如，以下命令将下载多关键帧序列rosbag：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">wget http://rpg.ifi.uzh.ch/data/EVO/code_examples/evo_flyingroom.bag -O /tmp/evo_flyingroom.bag<br></code></pre></td></tr></table></figure>
+<p>要从rosbag运行管道，首先作为下面的启动管道</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">source</span> ./devel/setup.zsh &amp;&amp; roslaunch dvs_tracking [launch-file] auto_trigger:=<span class="hljs-literal">true</span><br><span class="hljs-comment"># source ./devel/setup.zsh &amp;&amp; roslaunch dvs_tracking flyingroom.launch auto_trigger:=true</span><br></code></pre></td></tr></table></figure>
+<p>然后，一旦加载了所有内容，运行rosbag如下</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">rosbag play -r 0.7 [rosbag-file]<br></code></pre></td></tr></table></figure>
+<p>例如，</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">rosbag play -r 0.7 /tmp/evo_flyingroom.bag<br></code></pre></td></tr></table></figure>
+<p>请注意，我们将<code>auto_trigger</code> 参数设置为true。您也可以将其设置为false，然后按照<a href="#%E5%AE%9E%E6%97%B6%E8%BF%90%E8%A1%8C">如何实时运行</a>的指示进行操作。</p>
+<p>如果有什么失败，只需重试（给它几个机会！），并确保严格按照上面的说明进行操作。</p>
+<p>在<a href="#%E8%BF%9B%E4%B8%80%E6%AD%A5%E6%94%B9%E8%BF%9B">进一步改进</a>部分概述了运行代码可能出现的问题。为了提高播放rosbags的可靠性（实时运行更简单），考虑使用<code>-r .7</code>来降低速率。特别是当硬件不够强大时，这会有所帮助。</p>
+<p>例如，</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">rosbag play /tmp/evo_flyingroom -r .7<br></code></pre></td></tr></table></figure>
+<p>最终，设置<code>bootstrap_image_topic:=/dvs/image_raw</code> 将从传统帧引导，然后仅切换到事件。这是目前可用的最可靠的引导方式。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">source</span> ./devel/setup.zsh &amp;&amp;  roslaunch dvs_tracking [launch-file] bootstrap_image_topic:=/dvs/image_raw auto_trigger:=<span class="hljs-literal">true</span><br><span class="hljs-comment"># source ./devel/setup.zsh &amp;&amp; roslaunch dvs_tracking flyingroom.launch bootstrap_image_topic:=/dvs/image_raw auto_trigger:=true</span><br><span class="hljs-comment"># source ./devel/setup.zsh &amp;&amp; roslaunch dvs_tracking desk.launch bootstrap_image_topic:=/dvs/image_raw auto_trigger:=true</span><br></code></pre></td></tr></table></figure>
+<h1 id="实时运行">实时运行</h1>
+<h2 id="运行">运行</h2>
+<p>该过程类似于在示例中解释的过程：</p>
+<ol>
+<li>
+<p>在第一个终端运行ros core。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">roscore<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>在第二个终端，启动事件相机驱动程序。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">source</span> ./devel/setup.zsh &amp;&amp;  rosrun davis_ros_driver davis_ros_driver<br><span class="hljs-comment"># source ./devel/setup.zsh &amp;&amp; rosrun dvs_ros_driver dvs_ros_driver</span><br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>在另一个终端，启动管道，禁用自动触发。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">source</span> ./devel/setup.zsh &amp;&amp;  roslaunch dvs_tracking live.launch auto_trigger:=<span class="hljs-literal">false</span> camera_name:=[calibration filename] events_topic:=[events topic]<br></code></pre></td></tr></table></figure>
+<p>例如：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">source</span> ./devel/setup.zsh &amp;&amp;  roslaunch dvs_tracking live.launch auto_trigger:=<span class="hljs-literal">false</span> camera_name:=DAVIS-ijrr events_topic:=/dvs/events<br></code></pre></td></tr></table></figure>
+<p>如果您的校准文件名为<code>my_camera.yaml</code>，则使用<code>camera_name:=my_camera</code>。确保为两个校准文件使用相同的名称。如果您的传感器在主题<code>/my_sensor/events</code>下输出事件，则使用<code>events_topic:=/my_sensor/events</code>。</p>
+<p>对于基于SVO的引导程序，请继续进行步骤4。对于fronto-planar启动器，请转到步骤5。如何设置fronto-planar引导程序在<a href="dvs_tracking/launch/live.launch">live.launch</a>文件中进行了解释。</p>
+<p>如果您想从传统的帧引导，您可以使用以下命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">source</span> ./devel/setup.zsh &amp;&amp;  roslaunch dvs_tracking live.launch bootstrap_image_topic:=[topic raw frames] auto_trigger:=<span class="hljs-literal">false</span><br></code></pre></td></tr></table></figure>
+<p>例如<code>bootstrap_image_topic:=/dvs/image_raw</code>.</p>
+<p>在这种情况下，只建议使用基于SVO的引导。建议使用此选项来调试/改进/扩展EVO管道的其余部分，而不必担心引导的质量。</p>
+</li>
+<li>
+<p>您应该看到两个rqt GUI。一个是SVO GUI。重置并启动管道，直到它跟踪得很好。确保将命名空间设置为<code>svo</code>。</p>
+</li>
+<li>
+<p>在EVO GUI中按下<code>Bootstrap</code>按钮。这将自动触发管道。</p>
+<p>或者，也可以一次触发一个模块：</p>
+<ul>
+<li>在<code>rqt_evo</code>中按下<code>Start/Reset</code>按钮。执行一个圆圈（或更多），然后按下<code>Update</code>。这将触发地图创建。</li>
+<li>如果地图看起来正确，请按下<code>Switch to tracking</code>开始使用EVO进行跟踪。如果不是，请重复创建地图。</li>
+<li>随着摄像机移出当前地图，如果启用了<code>Map-Expansion</code>，则后者将自动更新。您可能会禁用<code>Map-Expansion</code>来使用当前地图（单关键帧跟踪）跟踪高速运动。</li>
+<li>场景应该有足够的质感，并且运动应该类似于您可以在提供的示例中看到的运动。</li>
+</ul>
+</li>
+<li>
+<p>如果有任何失败，只需按下<code>Ctrl+C</code>并重启实时节点 😉</p>
+</li>
+</ol>
+<p>一些备注：</p>
+<ul>
+<li>校准文件路径将构建为<code>$(find dvs_tracking)/parameters/calib/ncamera/$(arg camera_name).yaml</code> 和 <code>$(find dvs_tracking)/parameters/calib/$(arg camera_name).yaml</code>，其中 <code>camera_name</code>作为启动文件的参数指定。您还可以在<code>live.launch</code>中将其设置为默认值。</li>
+<li>如果您的传感器提供位于主题<code>/my_sensor/image_raw</code>下框架，并且您想从传统帧引导，则可以使用<code>bootstrap_image_topic:=/my_sensor/image_raw</code>。</li>
+</ul>
+<p>要实时运行管道，首先根据您的传感器和场景调整模板<a href="dvs_tracking/launch/live.launch">live.launch</a>。您可以按照以下步骤操作。关于使用哪个引导程序等进一步定制，都在启动文件本身中进行了解释。</p>
+<h2 id="校准">校准</h2>
+<p>确保你为你的事件相机更新了校准文件，在 <code>dvs_tracking/parameters/calib</code> 文件夹中。</p>
+<p>确保你的 <code>.yaml</code> 文件与提供的格式相同（<a href="dvs_tracking/parameters/calib/DAVIS-evo.yaml">单个摄像机格式</a>，<a href="dvs_tracking/parameters/calib/ncamera/DAVIS-evo.yaml">多摄像机格式</a>）。</p>
+<p>请注意，我们为同一传感器有两种不同格式的两个校准文件。单个摄像机格式的文件必须放在 <code>dvs_tracking/parameters/calib</code> 文件夹中，而多摄像机格式的文件必须放在 <code>dvs_tracking/parameters/calib/ncamera</code> 文件夹中。</p>
+<p>有关校准的进一步参考资料，请查看<a href="#%E4%BA%8B%E4%BB%B6%E6%91%84%E5%83%8F%E6%9C%BA%E7%9A%84%E9%A2%9D%E5%A4%96%E8%B5%84%E6%BA%90">事件摄像机的额外资源</a>。</p>
+<h2 id="调整">调整</h2>
+<p>在启动文件 <a href="dvs_tracking/launch/template.launch"><code>dvs_tracking/launch/template.launch</code></a> 中调整参数。</p>
+<p>调整对于整个流程的良好性能至关重要，特别是建图节点中的 <code>min_depth</code> 和 <code>max_depth</code> 参数，以及 <code>bootstrap</code> 节点参数。</p>
+<p>流水线每个模块的所有参数解释可以在 <a target="_blank" rel="noopener" href="https://github.com/uzh-rpg/rpg_dvs_evo_open/wiki">Wiki</a> 中找到。</p>
+<p>主要参数可以在模板启动文件中找到，并且会根据上下文进行解释。我们仍然邀请你查看 Wiki，以发现更多的有趣特性 😉</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">git <span class="hljs-built_in">clone</span> https://github.com/uzh-rpg/rpg_dvs_evo_open.wiki.git<br></code></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">模块</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://github.com/uzh-rpg/rpg_dvs_evo_open/wiki/Global-parameters">全局参数</a></td>
+</tr>
+<tr>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://github.com/uzh-rpg/rpg_dvs_evo_open/wiki/Bootstrapping">启动引导</a></td>
+</tr>
+<tr>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://github.com/uzh-rpg/rpg_dvs_evo_open/wiki/Mapping">建图</a></td>
+</tr>
+<tr>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://github.com/uzh-rpg/rpg_dvs_evo_open/wiki/Tracking">跟踪</a></td>
+</tr>
+</tbody>
+</table>
+<p>如果你不使用平面正面启动引导器，那么你可能需要调整 SVO。</p>
+<p>请注意，这可能不是必需的。你可以从传统帧测试 SVO 调整启动引导：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">source</span> ./devel/setup.zsh &amp;&amp;  roslaunch dvs_tracking live.launch bootstrap_image_topic:=[topic of raw frames] auto_trigger:=[<span class="hljs-literal">true</span>/false]<br></code></pre></td></tr></table></figure>
+<p>例如，<code>bootstrap_image_topic:=/dvs/image_raw</code>。</p>
+<h1 id="进一步改进">进一步改进</h1>
+<p>在下面我们概述了目前已知的主要问题和可能的解决方法。非常欢迎你为这个流水线做出贡献，让它变得更好！</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">可能出现的问题</th>
+<th style="text-align:left">待办事项</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">由于操作系统调度器的随机性，rosbags 不可靠</td>
+<td style="text-align:left">实现 rosbag 数据提供者模式，并确保事件消费的正确性</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left">目前流水线使用多个节点。切换到 nodelets 或使用单个节点可以提高 rosbags 的可重复性。</td>
+</tr>
+<tr>
+<td style="text-align:left">鲁棒性</td>
+<td style="text-align:left">启动引导：捕获 SVO 不收敛的情况，并触发自动重启（即人工操作员最终会手动完成的操作）。</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left">追踪：捕获追踪器偏离的情况，并重新初始化。目前我们有两个参数来预测这种情况，即 <code>min_map_size</code> 和 <code>min_n_keypoints</code>。</td>
+</tr>
+<tr>
+<td style="text-align:left">提升启动引导的鲁棒性</td>
+<td style="text-align:left">目前我们有两种用事件启动流水线的有效方法：使用 SVO（用事件帧喂给它）和假设平面正面对准。</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left">减少所需的假设，使它们更可靠，将允许更好的启动引导，减小与从传统帧启动引导的差距（<code>bootstrap_image_topic:=/dvs/image_raw</code>）。</td>
+</tr>
+</tbody>
+</table>
+<h1 id="事件摄像机的额外资源">事件摄像机的额外资源</h1>
+<ul>
+<li><a target="_blank" rel="noopener" href="http://rpg.ifi.uzh.ch/docs/EventVisionSurvey.pdf">基于事件的视觉调查</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/uzh-rpg/event-based_vision_resources">基于事件的视觉资源列表</a></li>
+<li><a target="_blank" rel="noopener" href="http://rpg.ifi.uzh.ch/davis_data.html">事件摄像机数据集</a></li>
+<li><a target="_blank" rel="noopener" href="http://rpg.ifi.uzh.ch/esim">事件摄像机模拟器</a></li>
+<li><a target="_blank" rel="noopener" href="http://rpg.ifi.uzh.ch/research_dvs.html">RPG 研究小组关于事件摄像机的页面</a></li>
+<li><a target="_blank" rel="noopener" href="http://rpg.ifi.uzh.ch/research_calib.html">RPG 研究小组关于传感器校准的页面</a></li>
+</ul>
+<h1 id="rpg-dvs-evo-open-wiki">rpg_dvs_evo_open.wiki</h1>
+<h2 id="1-主页">1. 主页</h2>
+<p><a target="_blank" rel="noopener" href="http://rpg.ifi.uzh.ch/docs/RAL16_EVO.pdf">EVO: 实时事件驱动的6自由度并行追踪与建图的几何方法</a>的维基页面。</p>
+<p>如需超参数文档，请查看右侧主题 =================================================&gt;</p>
+<h2 id="2-启动参数">2. 启动参数</h2>
+<p>本页详细描述了影响启动模块的参数的目的。</p>
+<p>如果您计划修改或扩展启动模块，请参阅<a target="_blank" rel="noopener" href="https://uzh-rpg.github.io/rpg_dvs_evo_open/">文档</a>。</p>
+<h3 id="目录">目录</h3>
+<ol>
+<li><a href="#%E8%BF%90%E5%8A%A8%E8%A1%A5%E5%81%BF">运动补偿</a></li>
+<li><a href="#%E5%8F%AF%E8%A7%86%E5%8C%96%E4%B8%8E%E7%AE%A1%E9%81%93%E8%BF%9E%E6%8E%A5">可视化与管道连接</a></li>
+<li>[[可选] 中值滤波](#[可选] 中值滤波)</li>
+<li>[[可选] 自适应阈值](#[可选] 自适应阈值)</li>
+<li>[[可选] 将事件帧保存在磁盘上](#[可选] 将事件帧保存在磁盘上)</li>
+<li><a href="#%E5%89%8D%E5%90%91%E5%B9%B3%E9%9D%A2%E5%90%AF%E5%8A%A8">前向平面启动</a></li>
+</ol>
+<h3 id="运动补偿">运动补偿</h3>
+<p>这些是此模块最主要和最重要的参数。事件是由相机运动产生的，因此，通常情况下，仅将收集的事件在同一图像上聚合并不会产生一个聚焦的事件帧。</p>
+<p>启动器接受一组事件，并产生一个运动校正的事件帧。为此，它考虑了在一组事件的开始和结束处的<code>local_frame_size</code> 事件来聚合。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">参数</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">frame_size</td>
+<td style="text-align:left">在事件帧中聚合的事件数量</td>
+</tr>
+<tr>
+<td style="text-align:left">local_frame_size</td>
+<td style="text-align:left">用于计算变形参数的两批事件的大小</td>
+</tr>
+</tbody>
+</table>
+<p>然后，对生成的局部帧运行一个优化算法，以估计与聚合的<code>frame_size</code> 事件相关的相机运动所产生的变形。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">参数</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">unwarp_estimate_n_it</td>
+<td style="text-align:left">估计单应性的最大迭代次数</td>
+</tr>
+<tr>
+<td style="text-align:left">unwarp_estimate_eps</td>
+<td style="text-align:left">单应性估计公差</td>
+</tr>
+<tr>
+<td style="text-align:left">unwarp_estimate_pyramid_lvls</td>
+<td style="text-align:left">用于估计单应性的金字塔级别</td>
+</tr>
+</tbody>
+</table>
+<p>然后，使用估计的变形来聚合整组事件，考虑运动失真。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">参数</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">min_step_size</td>
+<td style="text-align:left">下一个事件帧之前的最小新事件数</td>
+</tr>
+<tr>
+<td style="text-align:left">events_scale_factor</td>
+<td style="text-align:left">像素强度 = 饱和(#事件 / events_scale_factor)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="可视化与管道连接">可视化与管道连接</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">参数</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">enable_visualizations</td>
+<td style="text-align:left">是否发布事件帧和光流</td>
+</tr>
+<tr>
+<td style="text-align:left">motion_corrected_topic</td>
+<td style="text-align:left">发布的事件帧的主题</td>
+</tr>
+<tr>
+<td style="text-align:left">optical_flow_topic</td>
+<td style="text-align:left">光流发布的主题</td>
+</tr>
+</tbody>
+</table>
+<p>请注意，参数<code>motion_corrected_topic</code>可用于将生成的事件帧作为输入，提供给视觉里程测量管道，例如SVO。</p>
+<p>或者，您可以简单地扩展类<a href="dvs_bootstrapping/EventsFramesBootstrapper.hpp"><code>EventsFramesBootstrapper</code></a>。这是在<a href="dvs_bootstrapping/FrontoPlanarBootstrapper.hpp"><code>FrontoPlanarBootstrapper</code></a>中使用的方法。</p>
+<h3 id="可选-中值滤波">[可选] 中值滤波</h3>
+<p>可以选择在运动补偿的事件帧上引入中值滤波。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">参数</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">median_filtering</td>
+<td style="text-align:left">是否进行中值滤波</td>
+</tr>
+<tr>
+<td style="text-align:left">median_filter_size</td>
+<td style="text-align:left">滤波器大小</td>
+</tr>
+</tbody>
+</table>
+<h3 id="可选-自适应阈值">[可选] 自适应阈值</h3>
+<p>可以选择在运动补偿的事件帧上引入自适应阈值。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">参数</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">adaptive_thresholding</td>
+<td style="text-align:left">是否进行自适应阈值处理</td>
+</tr>
+<tr>
+<td style="text-align:left">activation_threshold_min</td>
+<td style="text-align:left">最小像素强度</td>
+</tr>
+<tr>
+<td style="text-align:left">activation_threshold_patch_size</td>
+<td style="text-align:left">滤波器补丁大小</td>
+</tr>
+</tbody>
+</table>
+<h3 id="可选-将事件帧保存在磁盘上">[可选] 将事件帧保存在磁盘上</h3>
+<p>还可以将生成的事件帧存储在磁盘上，以便以后处理和分析。</p>
+<p>例如，您可能想首先在可重复的环境中离线测试基于事件帧的视觉里程测量算法。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">参数</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">max_events_frames_saved_to_file</td>
+<td style="text-align:left">存储在磁盘上的事件帧数量</td>
+</tr>
+<tr>
+<td style="text-align:left">events_frames_filename_format</td>
+<td style="text-align:left">存储的事件帧的文件名格式</td>
+</tr>
+</tbody>
+</table>
+<p>请注意，如果<code>max_events_frames_saved_to_file = 0</code>，则不存储帧。</p>
+<h3 id="前向平面启动">前向平面启动</h3>
+<p>如果你使用的是前向平面启动，你可能也想调整这些参数。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">参数</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">plane_distance</td>
+<td style="text-align:left">事件帧被重新投影的距离</td>
+</tr>
+<tr>
+<td style="text-align:left">one_shot</td>
+<td style="text-align:left">如果为真，则只发布单个地图然后进入空闲状态</td>
+</tr>
+<tr>
+<td style="text-align:left">n_subscribers_to_wait</td>
+<td style="text-align:left">在发布地图之前等待一些订阅者</td>
+</tr>
+</tbody>
+</table>
+<p>在事件帧被重新投影后，使用半径过滤器进一步过滤地图。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">参数</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">radius_search</td>
+<td style="text-align:left">半径过滤器的半径大小</td>
+</tr>
+<tr>
+<td style="text-align:left">min_num_neighbors</td>
+<td style="text-align:left">半径过滤的最小邻居数量</td>
+</tr>
+</tbody>
+</table>
+<h2 id="3-全局参数">3. 全局参数</h2>
+<p>以下参数对所有模块通用：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">参数</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">auto_trigger</td>
+<td style="text-align:left">是否自动触发管道</td>
+</tr>
+<tr>
+<td style="text-align:left">dvs_frame_id</td>
+<td style="text-align:left">启动后考虑的帧ID</td>
+</tr>
+<tr>
+<td style="text-align:left">dvs_bootstrap_frame_id</td>
+<td style="text-align:left">启动期间考虑的帧ID</td>
+</tr>
+<tr>
+<td style="text-align:left">world_frame_id</td>
+<td style="text-align:left">考虑的世界帧ID</td>
+</tr>
+<tr>
+<td style="text-align:left">min_depth</td>
+<td style="text-align:left">体素网格最小深度</td>
+</tr>
+<tr>
+<td style="text-align:left">max_depth</td>
+<td style="text-align:left">体素网格最大深度</td>
+</tr>
+<tr>
+<td style="text-align:left">num_depth_cells</td>
+<td style="text-align:left">深度单元数</td>
+</tr>
+<tr>
+<td style="text-align:left">fov_virtual_camera_deg</td>
+<td style="text-align:left">fov 虚拟相机（体素网格）</td>
+</tr>
+<tr>
+<td style="text-align:left">virtual_width</td>
+<td style="text-align:left">体素网格宽度</td>
+</tr>
+<tr>
+<td style="text-align:left">virtual_height</td>
+<td style="text-align:left">体素网格高度</td>
+</tr>
+</tbody>
+</table>
+<h2 id="4-图像重建参数">4. 图像重建参数</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">参数</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">window_size</td>
+<td style="text-align:left">EKF更新间的事件窗口</td>
+</tr>
+<tr>
+<td style="text-align:left">map_blur</td>
+<td style="text-align:left">高斯模糊核大小</td>
+</tr>
+<tr>
+<td style="text-align:left">sigma_m</td>
+<td style="text-align:left">EKF的σ</td>
+</tr>
+<tr>
+<td style="text-align:left">init_cov</td>
+<td style="text-align:left">EKF的协方差初始猜测</td>
+</tr>
+</tbody>
+</table>
+<h2 id="5-映射参数">5. 映射参数</h2>
+<p>此页面总结了影响映射模块的参数的目的。请考虑查阅<a href="#%E6%9B%B4%E5%A4%9A%E7%9A%84%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99">更多的参考资料</a>以获取更多关于映射算法如何使用这些参数的细节。</p>
+<p>如果您计划修改或扩展映射模块，请参考<a target="_blank" rel="noopener" href="https://uzh-rpg.github.io/rpg_dvs_evo_open/">文档</a>。</p>
+<h3 id="目录-2">目录</h3>
+<ol>
+<li><a href="#%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86">事件处理</a></li>
+<li><a href="#DSI">DSI</a></li>
+<li><a href="#%E6%9D%A5%E8%87%AA%E4%BD%93%E7%B4%A0%E7%BD%91%E6%A0%BC%E7%9A%84%E7%82%B9%E4%BA%91">来自体素网格的点云</a></li>
+<li><a href="#%E5%9C%B0%E5%9B%BE%E6%89%A9%E5%B1%95">地图扩展</a></li>
+<li><a href="#%E6%9B%B4%E5%A4%9A%E7%9A%84%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99">更多的参考资料</a></li>
+</ol>
+<h3 id="事件处理">事件处理</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">参数</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">skip_batches</td>
+<td style="text-align:left">在优化期间跳过的事件批次数量</td>
+</tr>
+<tr>
+<td style="text-align:left">skip_batches_for_reset</td>
+<td style="text-align:left">重置后在优化期间跳过的事件批次数量</td>
+</tr>
+<tr>
+<td style="text-align:left">max_event_rate</td>
+<td style="text-align:left">每秒处理的最大事件数；最终为满足此条件而丢弃事件</td>
+</tr>
+<tr>
+<td style="text-align:left">frame_size</td>
+<td style="text-align:left">计算新地图时聚集的事件数量</td>
+</tr>
+<tr>
+<td style="text-align:left">min_batch_size</td>
+<td style="text-align:left">需要更新地图的最小新事件数</td>
+</tr>
+<tr>
+<td style="text-align:left">events_to_recreate_kf</td>
+<td style="text-align:left">创建新关键帧以定位体素网格姿态时考虑的事件数量</td>
+</tr>
+</tbody>
+</table>
+<h3 id="DSI">DSI</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">参数</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">min_depth</td>
+<td style="text-align:left">体素网格最小深度</td>
+</tr>
+<tr>
+<td style="text-align:left">max_depth</td>
+<td style="text-align:left">体素网格最大深度</td>
+</tr>
+<tr>
+<td style="text-align:left">num_depth_cells</td>
+<td style="text-align:left">深度单元数量</td>
+</tr>
+<tr>
+<td style="text-align:left">fov_virtual_camera_deg</td>
+<td style="text-align:left">虚拟相机（体素网格）的视场角</td>
+</tr>
+<tr>
+<td style="text-align:left">virtual_width</td>
+<td style="text-align:left">体素网格宽度</td>
+</tr>
+<tr>
+<td style="text-align:left">virtual_height</td>
+<td style="text-align:left">体素网格高度</td>
+</tr>
+<tr>
+<td style="text-align:left">adaptive_threshold_kernel_size</td>
+<td style="text-align:left">自适应阈值过滤器的大小</td>
+</tr>
+<tr>
+<td style="text-align:left">size adaptive_threshold_c</td>
+<td style="text-align:left">自适应阈值常数偏移</td>
+</tr>
+</tbody>
+</table>
+<p>请注意，只有最后两个参数实际上是模块的私有参数，其他参数是共享的，并且也在<a target="_blank" rel="noopener" href="https://github.com/uzh-rpg/rpg_dvs_evo_open/wiki/Global-parameters">全局参数wiki页面</a>中描述。</p>
+<h3 id="来自体素网格的点云">来自体素网格的点云</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">参数</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">type_focus_measure</td>
+<td style="text-align:left">使用的聚焦度量类型</td>
+</tr>
+<tr>
+<td style="text-align:left">radius_search</td>
+<td style="text-align:left">半径滤波器的半径大小</td>
+</tr>
+<tr>
+<td style="text-align:left">min_num_neighbors</td>
+<td style="text-align:left">半径滤波器的最小邻居数</td>
+</tr>
+<tr>
+<td style="text-align:left">voxel_filter_leaf_size</td>
+<td style="text-align:left">体素滤波器的粒度</td>
+</tr>
+<tr>
+<td style="text-align:left">median_filter_size</td>
+<td style="text-align:left">深度图上中值滤波器的大小</td>
+</tr>
+<tr>
+<td style="text-align:left">accumulate_local_map_once_every</td>
+<td style="text-align:left">1累积所有的局部地图，n每n累积1个</td>
+</tr>
+<tr>
+<td style="text-align:left">global_point_cloud_skip_first</td>
+<td style="text-align:left">累积全局点云时跳过的局部图数量</td>
+</tr>
+<tr>
+<td style="text-align:left">radius_search_global_map</td>
+<td style="text-align:left">全局点云上半径滤波器的半径大小</td>
+</tr>
+<tr>
+<td style="text-align:left">min_num_neighbors_global_map</td>
+<td style="text-align:left">全局点云上半径滤波器的最小邻居数</td>
+</tr>
+</tbody>
+</table>
+<p>请注意，全局点云不是全局地图，但它是通过累积不同的局部点图构建的。</p>
+<p>当前可用的聚焦度量摘要在下表中。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">type_focus_measure</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">0</td>
+<td style="text-align:left"><strong>Linf</strong>: 选择体素在投票局部最大值处的3D点</td>
+</tr>
+<tr>
+<td style="text-align:left">1</td>
+<td style="text-align:left"><strong>Contrast</strong>: 选择体素网格对比度最大处的3D点</td>
+</tr>
+<tr>
+<td style="text-align:left">2</td>
+<td style="text-align:left"><strong>Gradient magnitude</strong>: 选择渐变幅度最大处的3D点</td>
+</tr>
+</tbody>
+</table>
+<h4 id="Linf">Linf</h4>
+<p>不需要额外参数。</p>
+<h4 id="Contrast">Contrast</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">参数</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">half_patchsize</td>
+<td style="text-align:left">估计对比度的高斯滤波器大小</td>
+</tr>
+</tbody>
+</table>
+<h4 id="Gradient-magnitude">Gradient magnitude</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">参数</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">half_patchsize</td>
+<td style="text-align:left">计算代数导数的索贝尔滤波器大小</td>
+</tr>
+</tbody>
+</table>
+<h3 id="地图扩展">地图扩展</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">参数</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">rate</td>
+<td style="text-align:left">节点检查是否需要扩展的频率</td>
+</tr>
+<tr>
+<td style="text-align:left">visibility_threshold</td>
+<td style="text-align:left">可见性低于此值时触发更新</td>
+</tr>
+<tr>
+<td style="text-align:left">coverage_threshold</td>
+<td style="text-align:left">投影地图覆盖的最小像素阈值</td>
+</tr>
+<tr>
+<td style="text-align:left">baseline_threshold</td>
+<td style="text-align:left">更新被触发的基线/平均深度比率上限</td>
+</tr>
+<tr>
+<td style="text-align:left">number_of_initial_maps_to_skip</td>
+<td style="text-align:left">在此数量的地图之后开始检查更新条件</td>
+</tr>
+</tbody>
+</table>
+<h3 id="更多的参考资料">更多的参考资料</h3>
+<p>要充分理解映射模块中参数的使用方式，请参考：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="http://rpg.ifi.uzh.ch/docs/IJCV17_Rebecq.pdf">EMVS: 基于事件的多视角立体 - 实时3D重建与事件相机</a></li>
+<li><a target="_blank" rel="noopener" href="http://rpg.ifi.uzh.ch/docs/RAL16_EVO.pdf">EVO: 基于几何的事件驱动6-DOF并行跟踪和映射的实时方法</a></li>
+</ul>
+<h2 id="6-跟踪参数">6. 跟踪参数</h2>
+<p>此页面总结了影响跟踪模块的参数的目的。请考虑查阅<a href="#ref">参考资料</a>以获取更多关于跟踪算法如何使用这些参数的细节。</p>
+<p>如果您计划修改或扩展跟踪模块，请参考<a target="_blank" rel="noopener" href="https://uzh-rpg.github.io/rpg_dvs_evo_open/">文档</a>。</p>
+<h3 id="目录-3">目录</h3>
+<ol>
+<li><a href="#%E5%9F%BA%E6%9C%AC%E5%8F%82%E6%95%B0">基本参数</a></li>
+<li><a href="#%E8%BD%A8%E8%BF%B9%E4%BC%B0%E8%AE%A1">轨迹估计</a></li>
+<li><a href="#LKSE3%E5%8F%82%E6%95%B0">LKSE3参数</a></li>
+<li>[[可选] 稳健性](#[可选] 稳健性)</li>
+<li>[[可选] 可视化](#[可选] 可视化)</li>
+<li><a href="#%E8%BF%9B%E4%B8%80%E6%AD%A5%E7%9A%84%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE">进一步的参考文献</a></li>
+</ol>
+<h3 id="基本参数">基本参数</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">参数</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">discard_events_when_idle</td>
+<td style="text-align:left">当处于闲置状态时是否不收集事件</td>
+</tr>
+</tbody>
+</table>
+<h3 id="轨迹估计">轨迹估计</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">参数</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">max_event_rate</td>
+<td style="text-align:left">事件被随机采样以保持速率低于此值</td>
+</tr>
+<tr>
+<td style="text-align:left">events_per_kf</td>
+<td style="text-align:left">生成新关键帧所需的事件</td>
+</tr>
+<tr>
+<td style="text-align:left">frame_size</td>
+<td style="text-align:left">考虑的事件窗口</td>
+</tr>
+<tr>
+<td style="text-align:left">step_size</td>
+<td style="text-align:left">等待更新姿态前的最少新事件数</td>
+</tr>
+<tr>
+<td style="text-align:left">noise_rate</td>
+<td style="text-align:left">如果事件速率低于此值，则跳过帧</td>
+</tr>
+<tr>
+<td style="text-align:left">pose_mean_filter_size</td>
+<td style="text-align:left">中值滤波器大小（姿态进行中值滤波）</td>
+</tr>
+</tbody>
+</table>
+<h3 id="LKSE3参数">LKSE3参数</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">参数</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">batch_size</td>
+<td style="text-align:left">批量梯度下降的批大小</td>
+</tr>
+<tr>
+<td style="text-align:left">max_iterations</td>
+<td style="text-align:left">优化中的最大迭代次数</td>
+</tr>
+<tr>
+<td style="text-align:left">map_blur</td>
+<td style="text-align:left">应用于重新投影地图的高斯滤波器的西格玛</td>
+</tr>
+<tr>
+<td style="text-align:left">pyramid_levels</td>
+<td style="text-align:left">在KLT过程中使用的金字塔级别数量</td>
+</tr>
+<tr>
+<td style="text-align:left">weight_scale_translation</td>
+<td style="text-align:left">在平移误差中使用的权重</td>
+</tr>
+<tr>
+<td style="text-align:left">weight_scale_rotation</td>
+<td style="text-align:left">在旋转误差中使用的权重</td>
+</tr>
+</tbody>
+</table>
+<p>请参考<a target="_blank" rel="noopener" href="https://uzh-rpg.github.io/rpg_dvs_evo_open/">文档</a>以深入了解这些参数如何在我们基于SE3群的Lucas-Kanade跟踪器实现中使用，或考虑阅读链接的<a href="#%E8%BF%9B%E4%B8%80%E6%AD%A5%E7%9A%84%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE">参考文献</a>。</p>
+<h3 id="可选-稳健性">[可选] 稳健性</h3>
+<p>为了进一步提高管道的稳健性，可以在满足特定条件时引入触发策略。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">参数</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">min_map_size</td>
+<td style="text-align:left">进行更新所需的最小地图点数</td>
+</tr>
+<tr>
+<td style="text-align:left">min_n_keypoints</td>
+<td style="text-align:left">需要可靠跟踪的提取关键点的最小数目 (LKSE3::keypoints_)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="可选-可视化">[可选] 可视化</h3>
+<p>这些参数用于自定义重投影地图和累积事件帧的图像并置展示。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">参数</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">event_map_overlap_rate</td>
+<td style="text-align:left">可视化的发布频率</td>
+</tr>
+<tr>
+<td style="text-align:left">max_depth</td>
+<td style="text-align:left">场景中预期的最大深度（建议使用体素网格大小）</td>
+</tr>
+<tr>
+<td style="text-align:left">min_depth</td>
+<td style="text-align:left">场景中预期的最小深度（建议使用体素网格大小）</td>
+</tr>
+</tbody>
+</table>
+<p>以下参数描述了其中的一些条件。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">参数</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">min_map_size</td>
+<td style="text-align:left">进行更新所需的最小地图点数</td>
+</tr>
+<tr>
+<td style="text-align:left">min_n_keypoints</td>
+<td style="text-align:left">需要可靠跟踪的提取关键点的最小数目 (LKSE3::keypoints_)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="进一步的参考文献">进一步的参考文献</h3>
+<p>要充分理解这些参数如何在跟踪模块中被使用，请参考：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="http://rpg.ifi.uzh.ch/docs/RAL16_EVO.pdf">EVO: A Geometric Approach to Event-Based 6-DOF Parallel Tracking and Mapping in Real-time</a></li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E4%BA%8B%E4%BB%B6%E7%9B%B8%E6%9C%BA/" class="category-chain-item">事件相机</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>EVO编译运行调试记录</div>
+      <div>http://zeyulong.com/posts/2ef058d1/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>龙泽雨</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年2月7日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/posts/6d95d81a/" title="UltimateSLAM编译运行调试记录">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">UltimateSLAM编译运行调试记录</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/60c04195/" title="Ceres-Solver的安装与卸载">
+                        <span class="hidden-mobile">Ceres-Solver的安装与卸载</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="waline"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#waline', function() {
+      Fluid.utils.createCssLink('https://cdn.staticfile.org/waline/2.15.5/waline.min.css')
+      Fluid.utils.createScript('https://cdn.staticfile.org/waline/2.15.5/waline.min.js', function() {
+        var options = Object.assign(
+          {"serverURL":"https://www.zeyulong.cn/","path":"window.location.pathname","meta":["nick","mail","link"],"requiredMeta":["nick"],"lang":"zh-CN","emoji":["https://cdn.jsdelivr.net/gh/walinejs/emojis/weibo"],"dark":"html[data-user-color-scheme=\"dark\"]","wordLimit":0,"pageSize":10,"reaction":true,"locale":{"placeholder":"花径不曾缘客扫，蓬门今始为君开。"}},
+          {
+            el: '#waline',
+            path: window.location.pathname
+          }
+        )
+        Waline.init(options);
+        Fluid.utils.waitElementVisible('#waline .vcontent', () => {
+          var imgSelector = '#waline .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> <div style="font-size: 0.85rem"> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/custom/RunTime/RunTime.js"></script> </div> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  
+<script src="/custom/live2d/live2d-widget/autoload.js"></script>
+<script src="/custom/live2d/jquery.min.js"></script>
+<script src="/custom/LabelPage/LabelPage.js"></script>
+<script src="/custom/LoadingBar/pace.min.js"></script>
+<script src="/custom/ReadingProgress/ReadingProgress.js"></script>
+<script src="/custom/typing-effect/typing-effect.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  <canvas
+    class="fireworks"
+    style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 32767"
+></canvas>
+<script type="text/javascript" src="/custom/fireworks/anime.min.js"></script> 
+<script type="text/javascript" src="/custom/fireworks/fireworks.js"></script>
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

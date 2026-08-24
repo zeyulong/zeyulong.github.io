@@ -1,0 +1,1560 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" >
+
+
+
+<head><!-- hexo injector head_begin start --><progress id="content_progress" value="0"></progress><!-- hexo injector head_begin end -->
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/theme/TamakoAvatar-new-zip.png">
+  <link rel="icon" href="/img/theme/TamakoAvatar-new-zip.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#000000">
+  <meta name="author" content="龙泽雨">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="本文主要分享了我个人在Codex使用过程中关注到的配置和使用技巧，主要摘自Codex官方文档。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Codex的配置和使用">
+<meta property="og:url" content="http://zeyulong.com/posts/b2344ec6/index.html">
+<meta property="og:site_name" content="龙泽雨的博客">
+<meta property="og:description" content="本文主要分享了我个人在Codex使用过程中关注到的配置和使用技巧，主要摘自Codex官方文档。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-07-05T11:29:40.000Z">
+<meta property="article:modified_time" content="2026-08-24T07:33:37.928Z">
+<meta property="article:author" content="龙泽雨">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>Codex的配置和使用 - 龙泽雨的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/custom/Markdown/macpanel.css">
+<link rel="stylesheet" href="/custom/Fonts/CodeFont.css">
+<link rel="stylesheet" href="/custom/Fonts/inlinecode-bg-color.css">
+<link rel="stylesheet" href="/custom/live2d/font-awesome.min.css">
+<link rel="stylesheet" href="/custom/LoadingBar/pace-theme-corner-indicator.css">
+<link rel="stylesheet" href="/custom/ReadingProgress/ReadingProgress.css">
+<link rel="stylesheet" href="/custom/SelectBackgroundColor/SelectBackgroundColor.css">
+<link rel="stylesheet" href="/custom/waline/gif.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"zeyulong.com","root":"/","version":"1.9.7","typing":{"enable":false,"typeSpeed":100,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"8gUBTaCjmaSbnf4genwggan3-MdYXbMMI","app_key":"2WRxjgxRXIWRBo8EA4205Wfm","server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<!-- hexo injector head_end start --><link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@200;300;400;500;600;700;900&display=swap" rel="stylesheet"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.0.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Hello, world!</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-steam"></i>
+                <span>摸鱼</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/2048" target="_self">
+                    
+                    <span>2048</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/bcbk/1" target="_self">
+                    
+                    <span>别踩白块-1</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/bcbk/2" target="_self">
+                    
+                    <span>别踩白块-2</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/dblk" target="_self">
+                    
+                    <span>躲避绿块</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/dr" target="_self">
+                    
+                    <span>恐龙快跑</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://mario-kart-3-js.vercel.app/" target="_self">
+                    
+                    <span>马里奥赛车</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/mf" target="_self">
+                    
+                    <span>魔方</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/cat" target="_self">
+                    
+                    <span>圈小猫</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/sl" target="_self">
+                    
+                    <span>扫雷</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/txz" target="_self">
+                    
+                    <span>推箱子</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/wzq" target="_self">
+                    
+                    <span>五子棋</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/theme/GirlWithCat-cut.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle">Codex的配置和使用</span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        龙泽雨
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-07-05 19:29" pubdate>
+          2026年7月5日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          9.3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          78 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Codex的配置和使用</h1>
+            
+              <p id="updated-time" class="note note-info" style="">
+                
+                  
+                    本文最后更新于 2026年8月24日 下午
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <p>本文主要分享了我个人在Codex使用过程中关注到的配置和使用技巧，主要摘自Codex官方文档。</p>
+<span id="more"></span>
+<h1 id="codex">codex</h1>
+<h2 id="概述">概述</h2>
+<p>Codex 是 OpenAI 的软件开发编码代理。ChatGPT Plus、Pro、Business、Edu 和 Enterprise 套餐均包含 Codex。它可以帮助您：</p>
+<ul>
+<li><strong>编写代码</strong> ：描述您想要构建的内容，Codex 会生成符合您意图的代码，并适应您现有的项目结构和约定。</li>
+<li><strong>理解不熟悉的代码库</strong> ：Codex 可以读取和解释复杂的或遗留的代码，帮助您了解团队如何组织系统。</li>
+<li><strong>代码审查</strong> ：Codex 分析代码以识别潜在的错误、逻辑错误和未处理的边界情况。</li>
+<li><strong>调试和修复问题</strong> ：当出现故障时，Codex 可以帮助追踪故障、诊断根本原因并提出有针对性的修复方案。</li>
+<li><strong>自动化开发任务</strong> ：Codex 可以运行重构、测试、迁移和设置等重复性工作流程，以便您可以专注于更高层次的工程工作。</li>
+</ul>
+<p>开发者角色的变化：</p>
+<p>引入 Codex 后，开发者的工作重心正在发生结构性转变——从亲自编写每一行代码&quot;到拆解任务、审查结果、把控架构方向。</p>
+<p>开发者核心职责的三个转变：任务拆解（把模糊需求分解为可执行的具体指令）、架构决策（Codex 不擅长全局系统设计，这仍是人类的主场）、结果审查（确保 Codex 生成的代码符合业务逻辑和质量标准）。</p>
+<h2 id="官方链接">官方链接</h2>
+<ul>
+<li>Codex官方：<a target="_blank" rel="noopener" href="https://openai.com/codex">https://openai.com/codex</a></li>
+<li>Codex文档：<a target="_blank" rel="noopener" href="https://developers.openai.com/codex">https://developers.openai.com/codex</a></li>
+<li>Github开源：<a target="_blank" rel="noopener" href="https://github.com/openai/codex">https://github.com/openai/codex</a></li>
+<li>官方用例：<a target="_blank" rel="noopener" href="https://developers.openai.com/codex/use-cases">https://developers.openai.com/codex/use-cases</a></li>
+</ul>
+<h2 id="定价">定价</h2>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://chatgpt.com/pricing/">https://chatgpt.com/pricing/</a></li>
+<li><a target="_blank" rel="noopener" href="https://learn.chatgpt.com/docs/pricing">https://learn.chatgpt.com/docs/pricing</a></li>
+</ul>
+<h2 id="使用方式">使用方式</h2>
+<p>Codex 提供四种使用方式，满足不同场景需求：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">方式</th>
+<th style="text-align:left">说明</th>
+<th style="text-align:left">适用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>App（桌面应用）</strong></td>
+<td style="text-align:left">macOS/Windows 桌面客户端</td>
+<td style="text-align:left">完整功能、多项目并行</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>IDE 扩展</strong></td>
+<td style="text-align:left">VS Code、Cursor、Windsurf 插件</td>
+<td style="text-align:left">深度集成开发环境</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>CLI（命令行）</strong></td>
+<td style="text-align:left">终端交互式工具</td>
+<td style="text-align:left">终端爱好者、脚本自动化</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Web（云端）</strong></td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="http://chatgpt.com/codex">chatgpt.com/codex</a> 网页版</td>
+<td style="text-align:left">远程访问、并行任务</td>
+</tr>
+</tbody>
+</table>
+<h2 id="定价-2">定价</h2>
+<ul>
+<li>达到使用上限会发生什么？我们希望您能够完成正在进行的工作。如果您在当前回合中达到使用限额，the agent仍可在合理使用限额的约束下继续处理该回合。</li>
+<li>ChatGPT Plus 和 Pro 用户达到使用上限后，可以购买额外的积分继续使用，而无需升级现有套餐。</li>
+<li>所有用户还可以使用 API 密钥运行额外的本地任务，使用费用按以下方式收取： <a target="_blank" rel="noopener" href="https://platform.openai.com/docs/pricing">标准 API 费率 </a>。</li>
+</ul>
+<h1 id="安装">安装</h1>
+<blockquote>
+<p>Codex 可以修改你的代码库，因此建议在每次执行任务前后创建 Git 检查点，以便在需要时轻松回滚更改。</p>
+</blockquote>
+<h2 id="App">App</h2>
+<ol>
+<li>
+<p><a target="_blank" rel="noopener" href="https://openai.com/codex">下载</a>安装。</p>
+</li>
+<li>
+<p>打开codex并使用您的 ChatGPT 帐户或 OpenAI API 密钥登录。</p>
+<blockquote>
+<p>如果您使用 OpenAI API 密钥登录，<a target="_blank" rel="noopener" href="https://developers.openai.com/codex/pricing#feature-availability"> 某些功能可能无法使用 </a>。</p>
+</blockquote>
+</li>
+<li>
+<p>选择 Codex 要在哪个项目文件夹中运行。</p>
+</li>
+<li>
+<p>选择项目后，请确保选择 <strong>“本地”</strong> ，以便 Codex 可以在您的计算机上运行，并向 Codex 发送您的第一条消息。你可以向 Codex 咨询任何关于项目或电脑方面的问题。示例：Tell me about this project</p>
+</li>
+<li>
+<p>完成。</p>
+</li>
+</ol>
+<h2 id="IDE扩展">IDE扩展</h2>
+<ul>
+<li>Visual Studio Code</li>
+<li>Cursor</li>
+<li>Windsurf</li>
+<li>Visual Studio Code Insiders</li>
+</ul>
+<h2 id="CLI">CLI</h2>
+<blockquote>
+<p>Codex CLI 可在 macOS、Windows 和 Linux 系统上使用。在 Windows 系统上，您可以使用 Windows 沙箱在 PowerShell 中原生运行 Codex，或者在需要 Linux 原生环境时使用 WSL2。有关设置详情，请参阅 <a target="_blank" rel="noopener" href="https://developers.openai.com/codex/windows">Windows 设置指南</a>。</p>
+</blockquote>
+<ol>
+<li>
+<p>安装：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># macOS or Linux</span><br>curl -fsSL https://chatgpt.com/codex/install.sh | sh<br>curl -fsSL https://chatgpt.com/codex/install.sh | sh  <span class="hljs-comment"># 升级</span><br><br><span class="hljs-comment"># Windows</span><br>powershell -ExecutionPolicy ByPass -c <span class="hljs-string">&quot;irm https://chatgpt.com/codex/install.ps1 | iex&quot;</span><br>powershell -ExecutionPolicy ByPass -c <span class="hljs-string">&quot;irm https://chatgpt.com/codex/install.ps1 | iex&quot;</span>  <span class="hljs-comment"># 升级</span><br></code></pre></td></tr></table></figure>
+<p>您也可以使用 npm 或 Homebrew 安装 Codex CLI：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">npm install -g @openai/codex<br>npm install -g @openai/codex  <span class="hljs-comment"># 升级</span><br><br>brew install --cask codex<br>brew upgrade --cask codex    <span class="hljs-comment"># 升级</span><br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>在终端运行 <code>codex</code> 即可开始使用。系统会提示您使用 ChatGPT 帐户或 API 密钥登录。</p>
+</li>
+<li>
+<p>身份验证成功后，您可以要求 Codex 在当前目录中执行任务。</p>
+</li>
+<li>
+<p>完成。</p>
+</li>
+</ol>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://developers.openai.com/codex/quickstart?setup=cli#setup">无人值守安装</a></p>
+</blockquote>
+<h2 id="Cloud">Cloud</h2>
+<ol>
+<li>
+<p>请访问 <a target="_blank" rel="noopener" href="https://chatgpt.com/codex">chatgpt.com/codex</a> 。您还可以通过在 GitHub pull request 评论中标记 <code>@codex</code> 将任务委托给 Codex（需要登录 ChatGPT）。</p>
+</li>
+<li>
+<p>在开始你的第一个任务之前，请先设置 Codex 环境。打开 <a target="_blank" rel="noopener" href="https://chatgpt.com/codex/settings/environments">chatgpt.com/codex</a> 的环境设置，并按照步骤连接 GitHub 仓库。</p>
+</li>
+<li>
+<p>环境准备就绪后，即可通过 <a target="_blank" rel="noopener" href="https://chatgpt.com/codex">Codex 界面</a>启动编码任务。您可以查看日志实时监控进度，也可以让任务在后台运行。</p>
+</li>
+<li>
+<p>任务完成后，请在差异视图中查看建议的更改。您可以根据结果进行迭代，或直接在 GitHub 仓库中创建拉取请求。</p>
+</li>
+<li>
+<p>Codex 还提供了更改预览。您可以直接接受 PR，也可以在本地检出分支来测试更改：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">git fetch<br>git checkout &lt;branch-name&gt;<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>完成。</p>
+</li>
+</ol>
+<h2 id="迁移到codex">迁移到codex</h2>
+<p>使用导入流程，您可以将其他agents的指令、设置、技能、插件、项目和最近的聊天记录导入 Codex。Codex 会直接导入受支持的项目，并允许您完成任何需要授权的导入插件或连接的设置。</p>
+<blockquote>
+<p>导入操作不会更改或删除您现有的代理设置。</p>
+</blockquote>
+<h3 id="导入流程">导入流程</h3>
+<ol>
+<li>在 Codex 应用中，打开<strong>Settings</strong> 。</li>
+<li>在 <strong>General</strong> 下，找到 <strong>Import other agent setup</strong>。</li>
+<li>选择<strong>Import</strong>。</li>
+<li>选择要从中导入的代理，然后选择 <strong>Continue</strong>。</li>
+<li>在 <strong>Select items to import</strong> 中，选择 <strong>Continue</strong> 以导入所有内容，或选择 <strong>Customize</strong> 以选择特定项目。</li>
+<li>如果要自定义导入，请选择要导入的项目，然后选择 <strong>Confirm</strong>。</li>
+<li>导入完成后，打开已导入的项目或线程继续工作。</li>
+</ol>
+<h3 id="导入类型">导入类型</h3>
+<table>
+<thead>
+<tr>
+<th>Imported item</th>
+<th>Codex destination</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Instruction files</td>
+<td><a target="_blank" rel="noopener" href="https://developers.openai.com/codex/guides/agents-md"><code>AGENTS.md</code></a></td>
+</tr>
+<tr>
+<td><code>settings.json</code></td>
+<td><a target="_blank" rel="noopener" href="https://developers.openai.com/codex/config-basic"><code>config.toml</code></a></td>
+</tr>
+<tr>
+<td>Skills</td>
+<td><a target="_blank" rel="noopener" href="https://developers.openai.com/codex/skills">Codex skills</a></td>
+</tr>
+<tr>
+<td>Plugins</td>
+<td>Codex plugins</td>
+</tr>
+<tr>
+<td>Existing project folders</td>
+<td>Codex projects using the same folders</td>
+</tr>
+<tr>
+<td>Chat sessions from the last 30 days</td>
+<td>Codex threads</td>
+</tr>
+<tr>
+<td>MCP server configuration</td>
+<td><a target="_blank" rel="noopener" href="https://developers.openai.com/codex/mcp">Codex MCP configuration</a></td>
+</tr>
+<tr>
+<td>Hooks</td>
+<td><a target="_blank" rel="noopener" href="https://developers.openai.com/codex/hooks">Codex hooks</a></td>
+</tr>
+<tr>
+<td>Slash commands</td>
+<td><a target="_blank" rel="noopener" href="https://developers.openai.com/codex/skills">Codex skills</a></td>
+</tr>
+<tr>
+<td>Subagents</td>
+<td><a target="_blank" rel="noopener" href="https://developers.openai.com/codex/subagents">Codex agents</a></td>
+</tr>
+</tbody>
+</table>
+<h1 id="配置">配置</h1>
+<h2 id="开发者工具">开发者工具</h2>
+<p>当已经安装了一些常用的开发者工具时，Codex 能发挥最佳效果：</p>
+<ul>
+<li><strong>Git</strong> ：为 Codex 应用中的审阅面板提供支持，并允许您检查或还原更改。</li>
+<li><strong>Node.js</strong> ：代理程序用来更高效地执行任务的常用工具。</li>
+<li><strong>Python</strong> ：代理程序用来更高效地执行任务的常用工具。</li>
+<li><strong>.NET SDK</strong> ：在构建原生 Windows 应用程序时非常有用。</li>
+<li><strong>GitHub CLI</strong> ：为 Codex 应用提供 GitHub 特有的功能。</li>
+</ul>
+<p>您可以使用默认的 Windows 程序包管理器 <code>winget</code> 安装它们，只需将以下命令粘贴到<a target="_blank" rel="noopener" href="https://developers.openai.com/codex/app/features#integrated-terminal">集成终端</a>中，或者让 Codex 来安装它们：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">winget install --<span class="hljs-built_in">id</span> Git.Git<br>winget install --<span class="hljs-built_in">id</span> OpenJS.NodeJS.LTS<br>winget install --<span class="hljs-built_in">id</span> Python.Python.3.14  <span class="hljs-comment"># 如果需要其他 Python 或 .NET 版本，请将包 ID 更改为所需的版本。</span><br>winget install --<span class="hljs-built_in">id</span> Microsoft.DotNet.SDK.10<br>winget install --<span class="hljs-built_in">id</span> GitHub.cli  <span class="hljs-comment"># 安装 GitHub CLI 后，运行 `gh auth login` 以在应用程序中启用 GitHub 功能。</span><br></code></pre></td></tr></table></figure>
+<h2 id="配置文件">配置文件</h2>
+<p>Codex 将用户级配置存储在 <code>~/.codex/config.toml</code> 中。要将设置限定到特定项目或子文件夹，请在您的仓库中添加 <code>.codex/config.toml</code> 文件。</p>
+<p>CLI、IDE 和 Codex 应用共享相同的configuration layers。</p>
+<p><a target="_blank" rel="noopener" href="https://developers.openai.com/codex/config-basic#common-configuration-options">常用配置选项</a></p>
+<p><a target="_blank" rel="noopener" href="https://developers.openai.com/codex/permissions">权限配置文件</a></p>
+<ul>
+<li>调整模型在得到支持时所应用的推理努力程度：<code>model_reasoning_effort = &quot;high&quot;</code></li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://developers.openai.com/codex/config-sample">配置示例</a></p>
+<h2 id="记忆">记忆</h2>
+<p>记忆功能让 Codex 可以将之前线程中的有用上下文延续到后续工作中。启用记忆功能后，Codex 可以记住稳定的偏好设置、重复的工作流程、技术栈、项目规范和已知陷阱，这样您就无需在每个线程中重复相同的上下文。</p>
+<p>启用：</p>
+<ul>
+<li>
+<p>在 Codex App中，在设置中启用“记忆”功能。</p>
+</li>
+<li>
+<p>对于基于配置的设置，请将功能标志添加到 <code>config.toml</code> 中：</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs txt">[features]<br>memories = true<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>等等。</p>
+</li>
+</ul>
+<h2 id="网络代理">网络代理</h2>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://linux.do/t/topic/2350446">解决Codex每次开启新对话都会re-connecting 5/5之后才能用的办法</a></li>
+<li><a target="_blank" rel="noopener" href="https://aicoding.csdn.net/6a3a7cb3662f9a54cb8342b1.html">【笔记】在公司服务器上通过 VS Code Remote-SSH 使用 Codex 的代理配置指南</a></li>
+</ul>
+<h1 id="App-2">App</h1>
+<h2 id="斜杠命令">斜杠命令</h2>
+<table>
+<thead>
+<tr>
+<th>Slash command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/feedback</code></td>
+<td>打开反馈对话框提交反馈，并可选择包含日志。</td>
+</tr>
+<tr>
+<td><code>/goal</code></td>
+<td>为 Codex 设定一个持续努力的目标；首先使用 <code>/plan</code> 来制定目标。</td>
+</tr>
+<tr>
+<td><code>/init</code></td>
+<td>为当前项目生成 <code>AGENTS.md</code> 框架。</td>
+</tr>
+<tr>
+<td><code>/mcp</code></td>
+<td>打开 MCP 状态查看已连接的服务器。</td>
+</tr>
+<tr>
+<td><code>/plan</code></td>
+<td>切换计划模式，进行多步骤计划。</td>
+</tr>
+<tr>
+<td><code>/review</code></td>
+<td>启动代码审查模式，以审查未提交的更改或与基础分支进行比较。</td>
+</tr>
+<tr>
+<td><code>/status</code></td>
+<td>显示线程 ID、上下文使用情况和速率限制。</td>
+</tr>
+</tbody>
+</table>
+<p><a target="_blank" rel="noopener" href="https://www.runoob.com/codex/slash-commands.html">Codex 斜杆 / 命令 | 菜鸟教程</a></p>
+<h1 id="CLI-2">CLI</h1>
+<h2 id="配置-2">配置</h2>
+<ul>
+<li>
+<p>Codex CLI 和 IDE 扩展使用同一个 <code>config.toml</code><a target="_blank" rel="noopener" href="https://developers.openai.com/codex/config-basic"> 配置文件 </a>。要指定模型，请在配置文件中添加 <code>model</code> 条目。如果您未指定模型，Codex 应用、CLI 或 IDE 扩展将默认使用<a target="_blank" rel="noopener" href="https://developers.openai.com/codex/models">推荐模型</a>。</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs txt">model = &quot;gpt-5.5&quot;<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>等等。</p>
+</li>
+</ul>
+<h2 id="命令行选项"><a target="_blank" rel="noopener" href="https://developers.openai.com/codex/cli/reference">命令行选项</a></h2>
+<h2 id="斜杠命令-2"><a target="_blank" rel="noopener" href="https://developers.openai.com/codex/cli/slash-commands">斜杠命令</a></h2>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.runoob.com/codex/slash-commands.html">Codex 斜杆 / 命令 | 菜鸟教程</a></li>
+</ul>
+<h2 id="恢复对话">恢复对话</h2>
+<p>Codex 会将您的会话记录存储在本地，这样您就可以从上次中断的地方继续，而无需重复上下文。如果您想使用相同的存储库状态和指令重新打开之前的会话，请使用 <code>resume</code> 命令。</p>
+<ul>
+<li><code>codex resume</code> 会启动一个最近交互式会话选择器。选中某个会话即可查看其摘要，按 Enter 即可重新打开该会话。</li>
+<li><code>codex resume --all</code> 显示当前工作目录之外的会话，因此您可以重新打开任何本地运行。</li>
+<li><code>codex resume --last</code> 会跳过选择器，直接跳转到当前工作目录中的最近会话（添加 <code>--all</code> 可忽略当前工作目录过滤器）。</li>
+<li><code>codex resume &lt;SESSION_ID&gt;</code> 指向特定的运行。您可以从选择器、 <code>/status</code> 或 <code>~/.codex/sessions/</code> 下的文件中复制 ID。</li>
+</ul>
+<h2 id="自动补全">自动补全</h2>
+<p>安装 shell 生成的自动补全脚本，加快日常使用速度：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">codex completion bash<br>codex completion zsh<br>codex completion fish<br></code></pre></td></tr></table></figure>
+<p>在 shell 配置文件中运行补全脚本，为新会话设置补全功能。例如，如果您使用 <code>zsh</code> ，可以将以下内容添加到 <code>~/.zshrc</code> 文件的末尾：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># ~/.zshrc</span><br><span class="hljs-built_in">eval</span> <span class="hljs-string">&quot;<span class="hljs-subst">$(codex completion zsh)</span>&quot;</span><br></code></pre></td></tr></table></figure>
+<p>启动一个新的会话，输入 <code>codex</code> ，然后按 Tab 查看命令补全。如果出现 <code>command not found: compdef</code> 错误，请在 <code>~/.zshrc</code> 文件中的 <code>eval &quot;$(codex completion zsh)&quot;</code> 这行代码之前添加 <code>autoload -Uz compinit &amp;&amp; compinit</code> ，然后重启 shell。</p>
+<h2 id="tips">tips</h2>
+<ul>
+<li>
+<p>使用 <code>/clear</code> 清除终端并开始新的聊天，或者按 Ctrl + L 清除屏幕而不开始新的对话。</p>
+</li>
+<li>
+<p>使用 Up / Down 在编辑器中浏览草稿历史记录；Codex 恢复先前的草稿文本和图像占位符。</p>
+</li>
+<li>
+<p>按 Ctrl + R 从the composer中搜索prompt的历史记录，然后按 Enter 接受匹配项或按 Esc 取消。</p>
+</li>
+<li>
+<p>按 Ctrl + C 或使用 <code>/exit</code> 关闭交互式会话。</p>
+</li>
+<li>
+<p>使用 <code>/model</code> 命令可以在会话期间切换模型，或者在启动 CLI 时指定一个模型<code>codex --model gpt-5.5</code>。</p>
+</li>
+<li>
+<p>请附上屏幕截图或设计规范，以便 Codex 可以读取图像详情以及您的提示信息。您可以将图像粘贴到交互式编辑器中，也可以通过命令行提供文件。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">codex -i screenshot.png <span class="hljs-string">&quot;Explain this error&quot;</span><br>codex --image img1.png,img2.jpg <span class="hljs-string">&quot;Summarize these diagrams&quot;</span><br></code></pre></td></tr></table></figure>
+<p>Codex 接受 PNG 和 JPEG 等常见格式。两个或多个图像请使用逗号分隔的文件名，并结合文本说明以提供上下文信息。</p>
+</li>
+<li>
+<p>您可以直接在命令行界面 (CLI) 中让 Codex 生成或编辑图像。这适用于图标、横幅、插图、精灵图和占位图等素材。如果您希望 Codex 转换或扩展现有素材，请在提示信息中附上参考图像。</p>
+</li>
+<li>
+<p>在命令行界面 (CLI) 中输入 <code>/review</code> 即可打开 Codex 的审阅预设。CLI 会启动一个专用的审阅器，读取您选择的差异并报告优先级排序的、可操作的发现，而不会触及您的工作树。默认情况下，它使用当前会话模型；您可以在 <code>config.toml</code> 中设置 <code>review_model</code> 来覆盖默认模型。</p>
+</li>
+<li>
+<p>Codex 自带一个原生网络搜索工具。对于 Codex CLI 中的本地任务，Codex 默认启用网络搜索，并从网络搜索缓存中提供搜索结果。</p>
+</li>
+<li>
+<p>审批模式定义了 Codex 在无需确认的情况下可以执行的操作范围。在交互式会话中使用 <code>/permissions</code> 可以根据您的舒适度变化切换模式。</p>
+<ul>
+<li><strong>自动</strong> （默认）模式允许 Codex 读取工作目录内的文件、编辑文件和运行命令。但它在访问工作目录之外的任何内容或使用网络之前仍然会询问。</li>
+<li><strong>只读模式</strong>使 Codex 保持咨询模式。它可以浏览文件，但在您批准方案之前，不会进行任何更改或执行命令。</li>
+<li><strong>完全访问</strong>权限赋予 Codex 在您的计算机上执行操作的权限，包括网络访问，而无需事先请求。请谨慎使用此权限，并且仅在您信任存储库和任务时才使用。</li>
+</ul>
+</li>
+<li>
+<p>在撰写较长的提示时，切换到完整编辑器，然后将结果发送回the composer可能会更容易一些。在提示输入中，按 Ctrl + G 打开由 <code>VISUAL</code> 环境变量定义的编辑器（如果未设置 <code>VISUAL</code> ，则打开 <code>EDITOR</code> ）。</p>
+</li>
+<li>
+<p>在编辑器中输入 <code>@</code> 以打开对工作区根目录的模糊文件搜索；按 Tab 或 Enter 将突出显示的路径拖放到您的邮件中。</p>
+</li>
+<li>
+<p>Codex 运行时，按 Enter 可将新指令注入当前回合，按 Tab 可将后续输入排队等待下一回合。排队的输入可以是普通提示符、斜杠命令（例如 <code>/review</code> ）或 <code>!</code> shell 命令。Codex 会在运行时解析排队的斜杠命令。</p>
+</li>
+<li>
+<p>在行首添加 <code>!</code> 即可运行本地 shell 命令（例如， <code>!ls</code> ）。Codex 会将输出视为用户提供的命令结果，并仍然应用您的批准和沙箱设置。</p>
+</li>
+<li>
+<p>在消息编辑器为空时，连续按两次 Esc 即可编辑您之前的用户消息。继续按 Esc 可返回上一条消息，然后按 Enter 从该点开始创建分支。</p>
+</li>
+<li>
+<p>从任意目录启动 Codex，使用 <code>codex --cd &lt;path&gt;</code> 即可设置工作根目录，无需先运行 <code>cd</code> 。当前路径会显示在 TUI 界面的头部。</p>
+</li>
+<li>
+<p>当您需要协调多个项目之间的更改时，可以使用 <code>--add-dir</code> 公开更多可写根目录（例如， <code>codex --cd apps/frontend --add-dir ../backend --add-dir ../shared</code> ）。</p>
+</li>
+<li>
+<p>在启动 Codex 之前，请确保您的环境已经设置完毕，以免它浪费代币来探测要激活的内容。例如，预先加载 Python 虚拟环境（或其他语言环境），启动任何所需的守护进程，并导出您预期使用的环境变量。</p>
+</li>
+<li>
+<p>要使用特定模型启动新的 Codex CLI 线程，或者为 <code>codex exec</code> 指定模型，可以使用 <code>--model</code> / <code>-m</code> 标志。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">codex -m gpt-5.5<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p><a target="_blank" rel="noopener" href="https://developers.openai.com/codex/cli/features#connect-the-tui-to-a-remote-app-server">将 TUI 连接到远程应用服务器</a></p>
+</li>
+</ul>
+<h1 id="提示技巧">提示技巧</h1>
+<ul>
+<li>Codex 能够验证其工作成果时，就能生成更高质量的输出。请提供重现问题、验证功能以及运行代码检查和提交前检查的步骤。</li>
+<li>将复杂的工作分解成更小、更专注的步骤，Codex 就能更好地处理。更小的任务便于 Codex 测试，也便于您进行审核。如果您不确定如何拆分任务，请让 Codex 生成一个方案。</li>
+</ul>
+<p>一个好的默认做法是在提示中包含以下四项内容：</p>
+<ul>
+<li><strong>目标：</strong> 你想要改变什么或建立什么？</li>
+<li><strong>上下文：</strong> 哪些文件、文件夹、文档、示例或错误与此任务相关？您可以使用 @ 符号提及特定文件作为上下文。</li>
+<li><strong>限制：</strong> Codex 应该遵循哪些标准、架构、安全要求或惯例？</li>
+<li><strong>完成条件：</strong> 任务完成之前应该满足哪些条件，例如测试通过、行为改变或错误不再重现？</li>
+</ul>
+<p>有效 Prompt 的原则：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">原则</th>
+<th style="text-align:left">说明</th>
+<th style="text-align:left">示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>包含验证步骤</strong></td>
+<td style="text-align:left">Codex 能验证工作时输出质量更高</td>
+<td style="text-align:left">&quot;写一个函数，包含测试用例验证它处理空列表&quot;</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>拆解复杂任务</strong></td>
+<td style="text-align:left">小任务更容易测试和审查</td>
+<td style="text-align:left">&quot;第一步：创建模型；完成后告诉我再继续第二步&quot;</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>提供上下文</strong></td>
+<td style="text-align:left">引用相关文件和图片</td>
+<td style="text-align:left">&quot;参考 src/auth.py 的风格，实现类似功能&quot;</td>
+</tr>
+</tbody>
+</table>
+<p>tips:</p>
+<ul>
+<li>提交提示时，请包含 Codex 可以使用的上下文信息，例如相关文件和图像的引用。Codex IDE 扩展会自动将打开的文件列表和选定的文本范围作为上下文。</li>
+<li>Prompt 应该用中文还是英文？Codex 支持多语言，但英文通常效果最好。使用中文时，确保描述足够详细和明确。</li>
+</ul>
+<h1 id="用例">用例</h1>
+<h2 id="工作流程">工作流程</h2>
+<p>每个工作流程都包含：</p>
+<ul>
+<li><strong>何时使用它</strong>以及哪种 Codex 界面最适合它（IDE、CLI 或云端）。</li>
+<li><strong>步骤</strong>及示例用户提示。</li>
+<li><strong>背景说明</strong> ：Codex 自动识别的内容与您应该附加的内容。</li>
+<li><strong>验证</strong> ：如何检查输出结果。</li>
+</ul>
+<h2 id="Fix-a-bug">Fix a bug</h2>
+<p>请向 Codex 提供复现步骤，以及您怀疑存在问题的文件：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs markdown">Bug: Clicking &quot;Save&quot; on the settings screen sometimes shows &quot;Saved&quot; but doesn&#x27;t persist the change.<br><br>Repro:<br>1) Start the app: npm run dev<br>2) Go to /settings<br>3) Toggle &quot;Enable alerts&quot;<br>4) Click Save<br>5) Refresh the page: the toggle resets<br><br>Constraints:<br><span class="hljs-bullet">-</span> Do not change the API shape.<br><span class="hljs-bullet">-</span> Keep the fix minimal and add a regression test if feasible.<br><br>Start by reproducing the bug locally, then propose a patch and run checks.<br></code></pre></td></tr></table></figure>
+<p>背景说明：</p>
+<ul>
+<li>请您提供：重现步骤和限制条件（这些比高层次的描述更重要）。</li>
+<li>Codex 提供：命令输出、发现的调用点以及它触发的任何堆栈跟踪。</li>
+</ul>
+<p>确认：</p>
+<ul>
+<li>
+<p>Codex 应该在修复后重新运行重现步骤。</p>
+</li>
+<li>
+<p>如果您有标准的检查流程，请让它运行该流程：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs markdown">After the fix, run lint + the smallest relevant test suite. Report the commands and results.<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>等等。</p>
+</li>
+</ul>
+<h2 id="在这个仓库中构建一个经典的贪吃蛇游戏">在这个仓库中构建一个经典的贪吃蛇游戏</h2>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs markdown">Build a classic Snake game in this repo.<br><br>Scope &amp; constraints:<br><span class="hljs-bullet">-</span> Implement ONLY the classic Snake loop: grid movement, growing snake, food spawn, score, game-over, restart.<br><span class="hljs-bullet">-</span> Reuse existing project tooling/frameworks; do NOT add new dependencies unless truly required.<br><span class="hljs-bullet">-</span> Keep UI minimal and consistent with the repo’s existing styles (no new design systems, no extra animations).<br><br>Implementation plan:<br>1) Inspect the repo to find the right place to add a small interactive game (existing pages/routes/components).<br>2) Implement game state (snake positions, direction, food, score, tick timer) with deterministic, testable logic.<br>3) Render: simple grid + snake + food; support keyboard controls (arrow keys/WASD) and on-screen controls if mobile is present in the repo.<br>4) Add basic tests for the core game logic (movement, collisions, growth, food placement) if the repo has a test runner.<br><br>Deliverables:<br><span class="hljs-bullet">-</span> A small set of files/changes with clear names.<br><span class="hljs-bullet">-</span> Short run instructions (how to start dev server + where to navigate).<br><span class="hljs-bullet">-</span> A brief checklist of what to manually verify (controls, pause/restart, boundaries).<br></code></pre></td></tr></table></figure>
+<h2 id="用最小的改动，高置信度地查找并修复代码库中的错误">用最小的改动，高置信度地查找并修复代码库中的错误</h2>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs markdown">Find and fix bugs in my codebase with minimal, high-confidence changes.<br><br>Method (grounded + disciplined):<br>1) Reproduce: run tests/lint/build (or follow the existing repo scripts). If I provided an error, reproduce that exact failure.<br>2) Localize: identify the smallest set of files/lines involved (stack traces, failing tests, logs).<br>3) Fix: implement the minimal change that resolves the issue without refactors or unrelated cleanup.<br>4) Prove: add/update a focused test (or a tight repro) that fails before and passes after.<br><br>Constraints:<br><span class="hljs-bullet">-</span> Do NOT invent errors or pretend to run commands you cannot run.<br><span class="hljs-bullet">-</span> No scope drift: no new features, no UI embellishments, no style overhauls.<br><span class="hljs-bullet">-</span> If information is missing, state what you can confirm from the repo and what remains unknown.<br><br>Output:<br><span class="hljs-bullet">-</span> Summary (3–6 sentences max): what was broken, why, and the fix.<br><span class="hljs-bullet">-</span> Then ≤5 bullets: What changed, Where (paths), Evidence (tests/logs), Risks, Next steps.<br></code></pre></td></tr></table></figure>
+<h1 id="个性化">个性化</h1>
+<h2 id="项目指南AGENTS-md"><a target="_blank" rel="noopener" href="http://xn--AGENTS-og5jl05hep1bod8d.md">项目指南AGENTS.md</a></h2>
+<h3 id="概述-2">概述</h3>
+<blockquote>
+<p><code>AGENTS.md</code> 为 Codex 提供持久的项目指南，该指南会随您的代码库一起传输，并在代理开始工作之前应用。请保持其简洁性。</p>
+</blockquote>
+<p>您可以使用它来设置 Codex 在代码仓库中每次都要遵循的规则，例如：</p>
+<ul>
+<li>构建和测试命令</li>
+<li>审查预期</li>
+<li>仓库特定约定</li>
+<li>目录特定说明</li>
+</ul>
+<p>一份好的 <code>AGENTS.md</code> 文件应包含以下内容：</p>
+<ul>
+<li>仓库布局和重要目录</li>
+<li>如何运行该项目</li>
+<li>构建、测试和代码检查命令</li>
+<li>工程惯例和PR预期</li>
+<li>约束和禁止规则</li>
+<li>完成工作的含义以及如何验证工作</li>
+</ul>
+<blockquote>
+<p>当代理程序对您的代码库做出错误假设时，请在 <code>AGENTS.md</code> 中进行更正，并要求代理程序更新 <code>AGENTS.md</code> ，以使修复生效。将其视为一个反馈循环。</p>
+</blockquote>
+<p>CLI 中的 <code>/init</code> 斜杠命令是一个快速启动命令，它会在当前目录下生成一个初始的 <code>AGENTS.md</code> 文件。</p>
+<p>Codex 可以从多个位置加载指南：一个位于 Codex 主目录中的全局文件（供您作为开发人员使用），以及团队可以提交的特定于代码库的文件。距离工作目录越近的文件优先级越高。使用全局文件来控制 Codex 与您沟通的方式（例如，审查风格、详细程度和默认值），并保持存储库文件专注于团队和代码库规则。</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs txt">~/.codex/<br>	AGENTS.md  # Global (for you as a developer)<br>repo-root/<br>	AGENTS.md  # repo-specific (for your team)<br></code></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Layer</th>
+<th style="text-align:left">Global</th>
+<th style="text-align:left">Repo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">AGENTS</td>
+<td style="text-align:left"><code>~/.codex/AGENTS.md</code></td>
+<td style="text-align:left"><code>AGENTS.md</code> in repo root or nested directories</td>
+</tr>
+<tr>
+<td style="text-align:left">Skills</td>
+<td style="text-align:left"><code>$HOME/.agents/skills</code></td>
+<td style="text-align:left"><code>.agents/skills</code> in repo</td>
+</tr>
+</tbody>
+</table>
+<p><a target="_blank" rel="noopener" href="https://developers.openai.com/codex/guides/agents-md">使用 AGENTS.md 进行自定义说明</a></p>
+<h3 id="示例">示例</h3>
+<p><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/2044593527619839239/answer/2069086986032493683">codex的windows桌面版真的只有在wsl中才是“满血”，才有最佳体验吗？</a></p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs txt"># 个人全局配置<br><br>## 关于我<br>- I am a hardware architecture engineer.<br>- My main work involves AI accelerators, SoC, RTL, Verilog, SystemC, and computer architecture.<br><br>## 回答偏好<br>- 回复使用中文<br>- 遇到有多种实现方案时，列出选项让我选择，而不是直接选一种<br>- 回答保持精简<br>- 写python代码时，关键模块或者函数都加上中文的docstring或者注释，以方便阅读<br><br>## 安全习惯<br>- 修改认证相关代码前主动提示我注意安全影响<br><br>## 默认的python解释器<br>使用miniconda环境中的python解释器，路径如下：<br>- D:\500software\miniconda\envs\mywork\python.exe<br><br>## 需要转换PDF到markdown文件时<br>优先使用 pymupdf4llm <br><br>## 环境<br>- OS: Windows<br>- 终端请优先使用 PowerShell 7<br>- 如果有些时候外网连不上去，你可以先尝试使用镜像之类的，如果不行，也可以使用一个本地的代理端口：http://127.0.0.1:7890<br></code></pre></td></tr></table></figure>
+<h2 id="插件">插件</h2>
+<p>插件将技能、应用程序集成和 MCP 服务器捆绑到 Codex 的可重用工作流程中。插件可以包含：</p>
+<ul>
+<li><strong>Skills：</strong> 针对特定类型工作的可重用指令。Codex 可以根据需要加载这些指令，从而遵循正确的步骤，并使用正确的参考资料或辅助脚本来完成任务。</li>
+<li><strong>Apps：</strong> 连接到 GitHub、Slack 或 Google Drive 等工具，以便 Codex 可以读取这些工具中的信息并在其中执行操作。</li>
+<li><strong>MCP servers：</strong> 为 Codex 提供访问更多工具或共享信息的服务，通常来自本地项目之外的系统。</li>
+</ul>
+<p>如果您想保留已安装的插件但将其关闭，请设置其条目。 将 <code>~/.codex/config.toml</code> 中的 <code>enabled = false</code> 改为重启 Codex：</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs txt">[plugins.&quot;gmail@openai-curated&quot;]<br>enabled = false<br></code></pre></td></tr></table></figure>
+<p>列表：</p>
+<ul>
+<li>Computer Use。在提示词中提及 <strong>@Computer</strong> 或 <strong>@AppName</strong>，或者直接让 Codex 使用 Computer Use。</li>
+<li><a target="_blank" rel="noopener" href="https://developers.openai.com/codex/security/plugin">Codex Security</a> 是一个 Codex 安全审查插件，它可以扫描代码中的漏洞，验证合理的发现，并在可审查的工作区中提供证据和补救指导。使用它可以查找您拥有或有权评估的代码中的安全问题，防止它们进入生产环境。</li>
+</ul>
+<h2 id="skills">skills</h2>
+<h3 id="概述-3">概述</h3>
+<p>技能赋予 Codex 可重用功能，从而实现可重复的工作流程。技能通常是可重用工作流程的最佳选择，因为它们支持更丰富的指令、脚本和参考资料，同时还能在不同任务中保持可重用性。</p>
+<p>技能已加载并对代理可见（至少其元数据可见），因此 Codex 可以隐式地发现并选择它们。这既能保证丰富的工作流程可用，又不会预先引入过多上下文信息。</p>
+<p>技能可以是全局的（位于您的用户目录中，供您作为开发者使用），也可以是特定于代码仓库的（提交到 <code>.agents/skills</code> 目录中，供您的团队使用）。如果工作流程适用于某个特定项目，请将代码仓库技能放在 <code>.agents/skills</code> 目录中；如果您希望所有代码仓库都拥有相同的技能，请使用您的用户目录。</p>
+<p>技能采用<strong>渐进式披露机制</strong>来高效管理上下文：Codex 首先加载每个技能的名称、描述和文件路径。只有在决定使用某个技能时，Codex 才会加载完整的 <code>SKILL.md</code> 指令。</p>
+<p>Skills是可重用工作流的创作格式。Plugins 是 Codex 中可重用技能和应用程序的可安装分发单元。使用skills设计工作流本身，然后在需要其他开发者安装时将其打包成<a target="_blank" rel="noopener" href="https://developers.openai.com/codex/plugins/build">plugin</a>。</p>
+<ul>
+<li>Skills 是编写格式，适合本地开发和仓库内的团队共享。当你需要将技能分发给其他开发者、打包多个技能、或与应用集成一起发布时，使用 Plugins 格式。</li>
+</ul>
+<p>Codex 支持两种技能激活方式：</p>
+<ul>
+<li>显式调用：在提示词中直接引用技能。在 CLI 或 IDE 中，使用 /skills 命令或输入 $ 符号来指定一个技能。显式调用时，Codex 不需要做任何匹配判断，直接加载完整 <a target="_blank" rel="noopener" href="http://SKILL.md">SKILL.md</a> 并执行。</li>
+<li>隐式匹配：当你发出的任务描述与某个技能的 <strong>description</strong> 字段匹配时，Codex 会自动选择该技能。隐式匹配的准确性完全取决于 description 字段的编写质量。</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://developers.openai.com/codex/skills#where-to-save-skills">技能保存在哪里</a></p>
+<p><a target="_blank" rel="noopener" href="https://developers.openai.com/codex/concepts/customization#skills">编写技能</a></p>
+<blockquote>
+<p>按照当前的需求搜索相关skill并<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43925843/article/details/161199333">安装</a>。</p>
+</blockquote>
+<h3 id="收集整理">收集整理</h3>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/openai/plugins%EF%BC%9A%E6%AD%A4%E4%BB%93%E5%BA%93%E5%8C%85%E5%90%AB%E7%B2%BE%E9%80%89%E7%9A%84">https://github.com/openai/plugins：此仓库包含精选的</a> Codex 插件示例集合。</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/anthropics/skills%EF%BC%9A%E6%AD%A4%E4%BB%93%E5%BA%93%E5%8C%85%E5%90%AB">https://github.com/anthropics/skills：此仓库包含</a> Anthropic 为 Claude 实现的技能。</li>
+</ul>
+<h3 id="通用">通用</h3>
+<ul>
+<li>
+<p><a target="_blank" rel="noopener" href="https://github.com/JuliusBrussee/caveman%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88%E7%94%A8%E9%82%A3%E4%B9%88%E5%A4%9Atoken%EF%BC%9F%E5%B0%91token%E5%B0%B1%E8%83%BD%E6%90%9E%E5%AE%9A%E2%80%94%E2%80%94Claude">https://github.com/JuliusBrussee/caveman：为什么用那么多token？少token就能搞定——Claude</a> Code skill，用原始人说话就能减少65%的token。</p>
+</li>
+<li>
+<p><a target="_blank" rel="noopener" href="https://www.aihero.dev/skills-grill-with-docs">工作流</a></p>
+<ul>
+<li>
+<p><a target="_blank" rel="noopener" href="https://github.com/mattpocock/skills/tree/main/skills/productivity/grill-me%EF%BC%9A%E4%B8%BA%E5%AE%8C%E5%96%84%E8%AE%A1%E5%88%92%E6%88%96%E8%AE%BE%E8%AE%A1%E8%80%8C%E8%BF%9B%E8%A1%8C%E7%9A%84%E5%8F%8D%E5%A4%8D%E8%AE%BF%E8%B0%88%E3%80%82">https://github.com/mattpocock/skills/tree/main/skills/productivity/grill-me：为完善计划或设计而进行的反复访谈。</a></p>
+<ul>
+<li>或<a target="_blank" rel="noopener" href="https://github.com/obra/superpowers">superpowers</a>里的skill brainstorming。</li>
+</ul>
+</li>
+<li>
+<p><a target="_blank" rel="noopener" href="https://github.com/mattpocock/skills/tree/main/skills/engineering/to-spec%EF%BC%9A%E5%B0%86%E5%BD%93%E5%89%8D%E7%9A%84%E5%AF%B9%E8%AF%9D%E6%95%B4%E7%90%86%E6%88%90%E8%A7%84%E8%8C%83%EF%BC%8C%E5%B9%B6%E5%8F%91%E5%B8%83%E5%88%B0%E9%A1%B9%E7%9B%AE%E9%97%AE%E9%A2%98%E8%B7%9F%E8%B8%AA%E5%99%A8%E4%B8%AD%E2%80%94%E2%80%94%E6%97%A0%E9%9C%80%E9%87%87%E8%AE%BF%EF%BC%8C%E5%8F%AA%E9%9C%80%E5%AF%B9%E4%BD%A0%E4%BB%AC%E5%B7%B2%E7%BB%8F%E8%AE%A8%E8%AE%BA%E8%BF%87%E7%9A%84%E5%86%85%E5%AE%B9%E8%BF%9B%E8%A1%8C%E6%80%BB%E7%BB%93%E5%8D%B3%E5%8F%AF%E3%80%82">https://github.com/mattpocock/skills/tree/main/skills/engineering/to-spec：将当前的对话整理成规范，并发布到项目问题跟踪器中——无需采访，只需对你们已经讨论过的内容进行总结即可。</a></p>
+<ul>
+<li>
+<p><a target="_blank" rel="noopener" href="https://github.com/mattpocock/skills/tree/main/skills/engineering/to-prd">/to-prd</a>的升级版？</p>
+</li>
+<li>
+<p>可以用来写需求文档，在<code>/grill-me</code>完成后调用。</p>
+</li>
+</ul>
+</li>
+<li>
+<p><a target="_blank" rel="noopener" href="https://github.com/mattpocock/skills/tree/main/skills/engineering/to-tickets%EF%BC%9A%E5%B0%86%E8%AE%A1%E5%88%92%E3%80%81%E8%A7%84%E8%8C%83%E6%88%96%E6%82%A8%E6%AD%A3%E5%9C%A8%E8%BF%9B%E8%A1%8C%E7%9A%84%E5%AF%B9%E8%AF%9D%E6%8B%86%E5%88%86%E6%88%90%E9%97%AE%E9%A2%98%E8%B7%9F%E8%B8%AA%E5%99%A8%E4%B8%AD%E7%9A%84%E4%B8%80%E7%B3%BB%E5%88%97%E5%B7%A5%E5%8D%95%E3%80%82%E6%AF%8F%E4%B8%AA%E5%B7%A5%E5%8D%95%E9%83%BD%E4%BC%9A%E5%A3%B0%E6%98%8E%E5%85%B6%E9%98%BB%E5%A1%9E%E8%BE%B9%E7%95%8C">https://github.com/mattpocock/skills/tree/main/skills/engineering/to-tickets：将计划、规范或您正在进行的对话拆分成问题跟踪器中的一系列工单。每个工单都会声明其阻塞边界</a> ——即其他必须完成才能开始执行的工单。</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/mattpocock/skills/tree/main/skills/engineering/to-issues">/to-issues</a>的升级版？</li>
+</ul>
+</li>
+<li>
+<p>...</p>
+</li>
+</ul>
+</li>
+<li>
+<p><a target="_blank" rel="noopener" href="https://github.com/Panniantong/Agent-Reach%EF%BC%9A%E8%B5%8B%E4%BA%88%E4%BD%A0%E7%9A%84">https://github.com/Panniantong/Agent-Reach：赋予你的</a> AI 代理整个互联网的视野。只需一个命令行界面，零 API 费用，即可阅读和搜索 Twitter、Reddit、YouTube、GitHub、Bilibili、小红书等内容。</p>
+</li>
+<li>
+<p><a target="_blank" rel="noopener" href="https://github.com/mattpocock/skills/tree/main/skills/productivity/handoff%EF%BC%9A%E5%B0%86%E5%BD%93%E5%89%8D%E5%AF%B9%E8%AF%9D%E5%86%85%E5%AE%B9%E7%B2%BE%E7%AE%80%E6%88%90%E4%B8%80%E4%BB%BD%E4%BA%A4%E6%8E%A5%E6%96%87%E4%BB%B6%EF%BC%8C%E4%BB%A5%E4%BE%BF%E5%85%B6%E5%AE%83agent%E6%8E%A5%E6%89%8B%E3%80%82">https://github.com/mattpocock/skills/tree/main/skills/productivity/handoff：将当前对话内容精简成一份交接文件，以便其它agent接手。</a></p>
+</li>
+<li>
+<p><a target="_blank" rel="noopener" href="https://github.com/affaan-m/ECC%EF%BC%9A%E6%99%BA%E8%83%BD%E4%BD%93%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E7%B3%BB%E7%BB%9F%E3%80%82">https://github.com/affaan-m/ECC：智能体性能优化系统。</a></p>
+</li>
+<li>
+<p><a target="_blank" rel="noopener" href="https://github.com/muratcankoylan/Agent-Skills-for-Context-Engineering%EF%BC%9A%E4%B8%80%E5%A5%97%E5%85%A8%E9%9D%A2%E3%80%81%E5%BC%80%E6%94%BE%E7%9A%84%E6%99%BA%E8%83%BD%E4%BD%93%E6%8A%80%E8%83%BD%E9%9B%86%EF%BC%8C%E4%B8%93%E6%B3%A8%E4%BA%8E%E4%B8%8A%E4%B8%8B%E6%96%87%E5%B7%A5%E7%A8%8B%E5%92%8C%E5%88%A9%E7%94%A8%E5%B7%A5%E7%A8%8B%E5%8E%9F%E7%90%86%E6%9D%A5%E6%9E%84%E5%BB%BA%E7%94%9F%E4%BA%A7%E7%BA%A7%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E6%99%BA%E8%83%BD%E4%BD%93%E7%B3%BB%E7%BB%9F%E3%80%82">https://github.com/muratcankoylan/Agent-Skills-for-Context-Engineering：一套全面、开放的智能体技能集，专注于上下文工程和利用工程原理来构建生产级人工智能智能体系统。</a></p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/addyosmani/agent-skills/blob/main/skills/context-engineering/SKILL.md">https://github.com/addyosmani/agent-skills/blob/main/skills/context-engineering/SKILL.md</a></li>
+</ul>
+</li>
+</ul>
+<h3 id="编程">编程</h3>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/obra/superpowers%EF%BC%9ASuperpowers">https://github.com/obra/superpowers：Superpowers</a> 是一套完整的软件开发方法论，适用于您的编码代理，它建立在一组可组合的技能和一些初始指令之上，以确保您的代理能够使用这些技能和指令。</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/multica-ai/andrej-karpathy-skills%EF%BC%9A%E4%B8%80%E4%BB%BD%E6%96%87%E4%BB%B6%E4%B8%AD%E5%8C%85%E5%90%AB%E5%9B%9B%E9%A1%B9%E5%8E%9F%E5%88%99%EF%BC%8C%E7%9B%B4%E6%8E%A5%E9%92%88%E5%AF%B9%E8%BF%99%E4%BA%9B%E9%97%AE%E9%A2%98%EF%BC%9A%E7%BC%96%E7%A0%81%E5%89%8D%E8%AF%B7%E4%B8%89%E6%80%9D%E3%80%81%E7%AE%80%E5%8D%95%E8%87%B3%E4%B8%8A%E3%80%81Surgical">https://github.com/multica-ai/andrej-karpathy-skills：一份文件中包含四项原则，直接针对这些问题：编码前请三思、简单至上、Surgical</a> Changes、目标驱动型执行</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/OthmanAdi/planning-with-files%EF%BC%9A%E4%B8%80%E7%A7%8D%E5%9F%BA%E4%BA%8E%E6%96%87%E4%BB%B6%E7%9A%84%E6%8C%81%E4%B9%85%E5%8C%96%E8%A7%84%E5%88%92%E6%8A%80%E8%83%BD%EF%BC%8C%E9%80%82%E7%94%A8%E4%BA%8E">https://github.com/OthmanAdi/planning-with-files：一种基于文件的持久化规划技能，适用于</a> AI 编码代理。</li>
+</ul>
+<h3 id="写作">写作</h3>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/blader/humanizer%EF%BC%9A%E4%B8%80%E6%AC%BE%E4%BE%BF%E6%90%BA%E5%BC%8F%E4%BB%A3%E7%90%86%E6%8A%80%E8%83%BD%EF%BC%8C%E8%83%BD%E5%A4%9F%E6%B6%88%E9%99%A4%E6%96%87%E6%9C%AC%E4%B8%AD%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E7%94%9F%E6%88%90%E7%9A%84%E7%97%95%E8%BF%B9%EF%BC%8C%E4%BD%BF%E5%85%B6%E5%90%AC%E8%B5%B7%E6%9D%A5%E6%9B%B4%E8%87%AA%E7%84%B6%E3%80%81%E6%9B%B4%E5%83%8F%E4%BA%BA%E7%B1%BB%E7%9A%84%E8%AF%AD%E8%A8%80%E3%80%82">https://github.com/blader/humanizer：一款便携式代理技能，能够消除文本中人工智能生成的痕迹，使其听起来更自然、更像人类的语言。</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/Shubhamsaboo/awesome-llm-apps/tree/main/awesome_agent_skills/technical-writer">https://github.com/Shubhamsaboo/awesome-llm-apps/tree/main/awesome_agent_skills/technical-writer</a></li>
+</ul>
+<h3 id="学术研究">学术研究</h3>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/Imbad0202/academic-research-skills%EF%BC%9A%E4%B8%80%E5%A5%97%E5%85%A8%E9%9D%A2%E7%9A%84">https://github.com/Imbad0202/academic-research-skills：一套全面的</a> Claude Code 技能，用于学术研究，涵盖从研究到发表的整个流程。</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/handsomestWei/patent-disclosure-skill%EF%BC%9A%E4%B8%AD%E5%9B%BD%E4%B8%93%E5%88%A9.skill%EF%BC%8C%E4%BB%8E%E9%A1%B9%E7%9B%AE%E6%96%87%E6%A1%A3%E5%88%B0%E5%8F%AF%E4%BA%A4%E4%BB%98%E7%9A%84%E6%8A%80%E6%9C%AF%E4%BA%A4%E5%BA%95%E4%B9%A6%EF%BC%8C%E4%B8%93%E5%88%A9%E7%82%B9%E6%8C%96%E6%8E%98%E3%80%81%E8%81%94%E7%BD%91%E5%9B%BD%E7%9F%A5%E5%B1%80%E6%9F%A5%E6%96%B0%E3%80%81%E8%84%B1%E6%95%8F%E6%88%90%E6%96%87%E4%B8%8E%E8%87%AA%E6%A3%80%E9%97%AD%E7%8E%AF%E3%80%82">https://github.com/handsomestWei/patent-disclosure-skill：中国专利.skill，从项目文档到可交付的技术交底书，专利点挖掘、联网国知局查新、脱敏成文与自检闭环。</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/zLanqing/codex-claude-academic-skills%EF%BC%9A%E6%9C%AC%E4%BB%93%E5%BA%93%E5%8C%85%E5%90%AB%E4%B8%89%E4%B8%AA%E9%9D%A2%E5%90%91%E5%AD%A6%E6%9C%AF%E7%A7%91%E7%A0%94%E4%BA%BA%E5%91%98%E7%9A%84Skills%EF%BC%8C%E8%A6%86%E7%9B%96%E4%BB%8E%E6%96%87%E7%8C%AE%E9%98%85%E8%AF%BB%E3%80%81%E8%AE%BA%E6%96%87%E5%86%99%E4%BD%9C%E5%88%B0%E7%A7%91%E5%AD%A6%E8%AE%A1%E7%AE%97%E7%9A%84%E5%AE%8C%E6%95%B4%E7%A0%94%E7%A9%B6%E5%B7%A5%E4%BD%9C%E6%B5%81%E3%80%82">https://github.com/zLanqing/codex-claude-academic-skills：本仓库包含三个面向学术科研人员的Skills，覆盖从文献阅读、论文写作到科学计算的完整研究工作流。</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/Norman-bury/research-writing-skill%EF%BC%9A%E6%8A%8A%22%E8%AE%BA%E6%96%87%E5%86%99%E4%BD%9C%22%E4%BB%8E%E4%B8%80%E6%AC%A1%E6%80%A7%E8%81%8A%E5%A4%A9%EF%BC%8C%E5%8D%87%E7%BA%A7%E6%88%90%E5%8F%AF%E8%BF%BD%E8%B8%AA%E3%80%81%E5%8F%AF%E6%81%A2%E5%A4%8D%E3%80%81%E5%8F%AF%E5%A4%8D%E7%94%A8%E7%9A%84%E5%B7%A5%E7%A8%8B%E5%8C%96%E5%8D%8F%E4%BD%9C%E6%B5%81%E7%A8%8B%E3%80%82">https://github.com/Norman-bury/research-writing-skill：把&quot;论文写作&quot;从一次性聊天，升级成可追踪、可恢复、可复用的工程化协作流程。</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/imbad0202/academic-research-skills%EF%BC%9A%E4%B8%80%E5%A5%97%E5%85%A8%E9%9D%A2%E7%9A%84">https://github.com/imbad0202/academic-research-skills：一套全面的</a> Claude Code 技能，用于学术研究，涵盖从研究到发表的整个流程。</li>
+</ul>
+<h3 id="创作">创作</h3>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/op7418/guizang-ppt-skill%EF%BC%9A%E4%B8%80%E4%B8%AA%E9%80%82%E9%85%8D">https://github.com/op7418/guizang-ppt-skill：一个适配</a> Claude Code / Codex 等 Agent 环境的网页 PPT 技能,用于生成单文件 HTML 横向翻页 PPT、PPT 配图和多平台封面。</li>
+</ul>
+<h3 id="powershell">powershell</h3>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/aloth/PowerSkills">https://github.com/aloth/PowerSkills</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/Misaka-Mikoto-Tech/agent-skills/tree/main/skills/powershell-safe-invocation">https://github.com/Misaka-Mikoto-Tech/agent-skills/tree/main/skills/powershell-safe-invocation</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/hmohamed01/powershell-expert">https://github.com/hmohamed01/powershell-expert</a></li>
+</ul>
+<h3 id="其它">其它</h3>
+<ul>
+<li>
+<p><a target="_blank" rel="noopener" href="https://github.com/anthropics/skills/tree/main/skills/skill-creator%EF%BC%9A%E5%88%9B%E9%80%A0%E6%96%B0%E6%8A%80%E8%83%BD%EF%BC%8C%E4%BF%AE%E6%94%B9%E5%92%8C%E6%94%B9%E8%BF%9B%E7%8E%B0%E6%9C%89%E6%8A%80%E8%83%BD%EF%BC%8C%E5%B9%B6%E8%A1%A1%E9%87%8F%E6%8A%80%E8%83%BD%E8%A1%A8%E7%8E%B0%E3%80%82">https://github.com/anthropics/skills/tree/main/skills/skill-creator：创造新技能，修改和改进现有技能，并衡量技能表现。</a></p>
+</li>
+<li>
+<p><a target="_blank" rel="noopener" href="https://github.com/vercel-labs/skills/tree/main/skills/find-skills%EF%BC%9A%E5%B8%AE%E5%8A%A9%E7%94%A8%E6%88%B7%E5%8F%91%E7%8E%B0%E5%92%8C%E5%AE%89%E8%A3%85agent">https://github.com/vercel-labs/skills/tree/main/skills/find-skills：帮助用户发现和安装agent</a> skills。</p>
+</li>
+</ul>
+<h2 id="子代理">子代理</h2>
+<p>Codex 可以通过并行生成专门的代理来运行子代理工作流程，以便它们可以同时探索、处理或分析工作。子代理工作流通过将繁琐的工作从主线程中移出来提供帮助：</p>
+<ul>
+<li>让<strong>主要代理人</strong>专注于需求、决策和最终结果。</li>
+<li>并行运行专门的<strong>子代理</strong> ，用于探索、测试或日志分析。</li>
+<li>返回子代理的<strong>摘要，</strong> 而不是原始中间输出。</li>
+</ul>
+<p>Codex 不会自动生成子代理，只有在您明确要求使用子代理或并行代理工作时才会使用子代理。实际上，手动触发意味着使用直接指令，例如“生成两个代理”、“并行委派这项工作”或“每个点使用一个代理”。一个好的子代理提示应该解释如何划分工作，Codex 是否应该等待所有代理完成再继续，以及要返回什么摘要或输出。</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs markdown">Review this branch with parallel subagents. Spawn one subagent for security risks, one for test gaps, and one for maintainability. Wait for all three, then summarize the findings by category with file references.<br></code></pre></td></tr></table></figure>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs markdown">I would like to review the following points on the current PR (this branch vs main). Spawn one agent per point, wait for all of them, and summarize the result for each point.<br><span class="hljs-bullet">1.</span> Security issue<br><span class="hljs-bullet">2.</span> Code quality<br><span class="hljs-bullet">3.</span> Bugs<br><span class="hljs-bullet">4.</span> Race<br><span class="hljs-bullet">5.</span> Test flakiness<br><span class="hljs-bullet">6.</span> Maintainability of the code<br></code></pre></td></tr></table></figure>
+<p>管理：</p>
+<ul>
+<li>在 CLI 中使用 <code>/agent</code> 可以在活动代理线程之间切换并检查正在运行的线程。</li>
+<li>直接请求 Codex 控制正在运行的子代理、停止子代理或关闭已完成的代理线程。</li>
+</ul>
+<h2 id="自定义模型提供商"><a target="_blank" rel="noopener" href="https://developers.openai.com/codex/config-advanced">自定义模型提供商</a></h2>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.runoob.com/codex/codex-deepseek-setup.html">CC Switch + Deepseek</a></li>
+</ul>
+<h1 id="远程连接">远程连接</h1>
+<p><a target="_blank" rel="noopener" href="https://developers.openai.com/codex/remote-connections">远程连接</a>功能允许您从其他设备或计算机使用 Codex。您可以使用 ChatGPT 移动应用中的 Codex，在已连接的 Mac 或 Windows 设备上使用 Codex，也可以从其他支持 Codex 应用的设备继续工作，或者将 Codex 应用连接到 SSH 主机上的项目。</p>
+<ul>
+<li>在主机上的项目中创建新线程，或继续现有线程。</li>
+<li>发送后续指示，回答问题，并指导正在进行的工作。</li>
+<li>批准命令和其他操作。</li>
+<li>查看输出结果、差异、测试结果、终端输出和屏幕截图。</li>
+<li>当 Codex 完成任务或需要您关注时，您将收到通知。</li>
+<li>在已连接的主机和线程之间切换。</li>
+</ul>
+<h1 id="自动化">自动化</h1>
+<h2 id="App内自动化">App内自动化</h2>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://developers.openai.com/codex/app/automations">https://developers.openai.com/codex/app/automations</a></li>
+</ul>
+<h2 id="非交互模式">非交互模式</h2>
+<p><a target="_blank" rel="noopener" href="https://developers.openai.com/codex/noninteractive">非交互模式</a>允许您从脚本（例如，持续集成 (CI) 作业）运行 Codex，而无需打开交互式 TUI。您可以使用 <code>codex exec</code> 来调用它。</p>
+<blockquote>
+<p>exec 单次执行后退出，适合自动化脚本；交互模式持续对话，适合日常开发。</p>
+</blockquote>
+<h2 id="Codex-SDK">Codex SDK</h2>
+<p>如果您通过 Codex CLI、IDE 扩展或 Codex Web 使用 Codex，您也可以通过<a target="_blank" rel="noopener" href="https://developers.openai.com/codex/sdk">编程方式</a>控制它。</p>
+<h1 id="wsl">wsl</h1>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://developers.openai.com/codex/windows#use-codex-cli-with-wsl">将 Codex CLI 与 WSL 结合使用</a></li>
+</ul>
+<h1 id="问题与解决">问题与解决</h1>
+<h2 id="reconnecting-5-5">reconnecting 5/5</h2>
+<p><a target="_blank" rel="noopener" href="https://help.boccc.co/zh/article/openai-20260702-efaa3b/#1-tips">参考链接</a></p>
+<p>codex 如果遇到了 reconnecting 5/5，请注意检查自己是否开了 tun，推荐开 tun 会恢复正常。如果不行可以尝试：</p>
+<ol>
+<li>定义代理环境变量 参考贴文： <a target="_blank" rel="noopener" href="https://linux.do/t/topic/2350446">https://linux.do/t/topic/2350446</a></li>
+<li>关闭 websocket 配置里加 supports_websockets = false</li>
+</ol>
+<h1 id="tips-2">tips</h1>
+<h2 id="模型选择">模型选择</h2>
+<ul>
+<li>网友：主模型用 Sol，默认 High；简单任务降到 Medium，困难任务升到 Extra High；关闭 Max 和 Ultra；用 <a target="_blank" rel="noopener" href="https://github.com/code-yeongyu/lazycodex">LazyCodex</a> 把子 Agent 自动分配给 Sol 和 Luna。</li>
+<li>用高级模型、高推理程度出方法，用中、低模型按方案写实现。
+<ul>
+<li>使用用高级模型、高推理程度可能会出现过度设计、冗余设计等问题。</li>
+</ul>
+</li>
+</ul>
+<h2 id="推理强度">推理强度</h2>
+<p><a target="_blank" rel="noopener" href="https://x.com/0xCheshire/status/2075606712938266959">终于看懂 Codex 这个推理强度了！</a></p>
+<blockquote>
+<p>因为翻译原因 Max 和 Ultra 都被翻译成了“极高”，目前来看主要区别在于 Ultra 会用多个子代理而 Max 不会。Ultra 很慢，很消耗 token。</p>
+</blockquote>
+<p>关于GPT-5.6Sol的推理努力：从最低设置开始，只要能完成任务就行，只有在任务真正需要更多思考时才调高。</p>
+<ul>
+<li>
+<p>轻度 &amp; 低：快速、范围明确的任务</p>
+</li>
+<li>
+<p>中度：规划、分析，或几个活动部件</p>
+</li>
+<li>
+<p>高 &amp; 超高：更难的工作，涉及多个步骤、权衡、研究或仔细验证</p>
+</li>
+<li>
+<p>Max和Utra有点不同：</p>
+<ul>
+<li>Max:一个模型花更长时间处理一个难题</li>
+<li>Utra:多个子代理并行处理一个更大问题的不同部分。ultra 和其他 reasoning effort 不一样，sol 最高 effort 是 max，ultra 是 max 的 multi agent。</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>哦，还有，就像任何新模型一样，推理级别无法直接从GPT-5.5映射到GPT-5.6。如果你习惯了5.5，在熟悉的任务上试着从比平时低一级的设置开始，只有在结果需要时才增加。</p>
+</blockquote>
+<h2 id="线程">线程</h2>
+<ul>
+<li>一个线程就是一个单独的会话：它包含你的提示信息，以及随后的模型输出和工具调用。一个线程可以包含多个提示信息。例如，你的第一个提示信息可能要求 Codex 实现某个功能，而后续的提示信息可能要求它添加测试。</li>
+<li>当 Codex 正在积极处理某个线程时，该线程就处于“运行”状态。您可以同时运行多个线程，但请避免两个线程修改相同的文件。您也可以稍后通过输入另一个提示符来恢复线程。</li>
+<li>线程既可以在本地运行，也可以在云端运行：
+<ul>
+<li><strong>本地线程</strong>在您的计算机上运行。Codex 可以读取和编辑您的文件并运行命令，因此您可以查看更改并使用现有工具。为了降低工作区外发生意外更改的风险，本地线程在<a target="_blank" rel="noopener" href="https://developers.openai.com/codex/agent-approvals-security">沙箱</a>中运行。</li>
+<li><strong>云线程</strong>在一个隔离的<a target="_blank" rel="noopener" href="https://developers.openai.com/codex/cloud/environments">环境</a>中运行。Codex 会克隆你的代码仓库并检出它正在处理的分支。当你想要并行运行任务或从其他设备委派任务时，云线程非常有用。要将云线程与你的代码仓库一起使用，请先将代码推送到 GitHub。你也可以<a target="_blank" rel="noopener" href="https://developers.openai.com/codex/ide/cloud-tasks">从本地计算机委派任务 </a>，包括你当前的工作状态。</li>
+</ul>
+</li>
+<li>每个项目使用一个线程，而不是每个任务使用一个线程。这会导致上下文臃肿，随着时间的推移，结果会越来越差。</li>
+</ul>
+<h2 id="使用">使用</h2>
+<ul>
+<li><strong>使用计划模式：</strong> 对于大多数用户而言，这是最简单有效的选择。计划模式允许 Codex 收集背景信息、提出澄清问题，并在实施前制定更完善的计划。使用 <code>/plan</code> 或 Shift + Tab 切换。</li>
+<li><strong>请 Codex 对您进行面试：</strong> 如果您对想要实现的功能有一个大致的想法，但不确定如何准确描述，可以先请 Codex 向您提问。告诉它挑战您的假设，并在编写代码之前将模糊的想法转化为具体的概念。</li>
+<li>不要仅仅要求 Codex 做出更改。还要要求它在需要时创建<a target="_blank" rel="noopener" href="https://developers.openai.com/codex/learn/best-practices#improve-reliability-with-testing-and-review">测试</a>，运行相关检查，确认结果，并在接受更改之前审查更改内容。</li>
+<li>开发一个新项目，先让codex理解一遍你的代码库效果更好。
+<ul>
+<li><code>ask</code> 模式是只读模式，适合在动手之前先理解现有代码的结构和逻辑。例如：<code>codex -a ask &quot;这个项目是如何处理用户认证的？梳理完整的认证流程&quot;</code>。</li>
+</ul>
+</li>
+<li>Codex 额度它按 5 小时滚动窗口来算，重置节奏其实可以自己卡。比如你每天习惯下午 2 点到 6 点集中用 Codex，如果你 2 点才发第一条消息，窗口要到 7 点才结束中间额度用完，就只能干等。但如果你上午 11 点先发一句“你好”，窗口就从 11 点开始算，下午 4 点额度刷新，你 2 点到 6 点这段时间，就能吃到两个窗口期。<a target="_blank" rel="noopener" href="http://xhslink.com/o/60J6dGeqsro">别等Codex额度用完才想起滚动窗口</a>
+<ul>
+<li>这个玩法还可以交给自动化处理，在左边栏找到“自动化”，新建一个每天触发的任务，时间设成你开始干活前 3 小时，随便发一句消息即可。</li>
+</ul>
+</li>
+<li>等等。</li>
+</ul>
+<h2 id="其它-2">其它</h2>
+<ul>
+<li>IDE 扩展会自动将您打开的文件包含在上下文中。在命令行界面 (CLI) 中，您通常需要显式指定路径（或者使用 <code>/mention</code> 附加文件，并使用 <code>@ path</code> 自动补全）。</li>
+<li><strong>使用 <a target="_blank" rel="noopener" href="http://PLANS.md">PLANS.md</a> 模板：</strong> 对于更高级的工作流程，您可以配置 Codex 以遵循 <code>PLANS.md</code> 或执行计划模板，从而处理耗时更长或包含多个步骤的任务。更多详情，请参阅<a target="_blank" rel="noopener" href="https://developers.openai.com/cookbook/articles/codex_exec_plans">执行计划指南</a>。</li>
+<li>工作流程稳定后，您可以设置 Codex 在后台自动运行。在 Codex 应用中，<a target="_blank" rel="noopener" href="https://developers.openai.com/codex/app/automations">自动化功能</a>允许您为重复性任务选择项目、提示、频率和执行环境。</li>
+<li>上下文窗口满了怎么办？开始新会话（/new），或让 Codex 自动压缩历史记录。</li>
+<li>发现windows powershell （也就是5.1）默认编码不是utf-8，大模型总是要读两遍后，<a href="https://zeyulong.com/posts/650f7f0a/#%E4%BF%AE%E6%94%B9PowerShell%E4%B8%BA%E9%BB%98%E8%AE%A4UTF-8%E7%BC%96%E7%A0%81">手动升级到了 powershell （7.6）并设置为 UTF-8 编码为默认</a>。<a target="_blank" rel="noopener" href="https://www.zhihu.com/question/2044593527619839239/answer/2069086986032493683">codex的windows桌面版真的只有在wsl中才是“满血”，才有最佳体验吗？</a>
+<ul>
+<li>如果使用的是 Powershell 5.x 建议升级到 Powershell 7.x，对 UTF-8 支持会更好。<a target="_blank" rel="noopener" href="https://blog.kaish.cn/posts/2026/fix-powershell-7-utf8-encoding-issue/">修改 Powershell 7 默认编码为 UTF-8</a></li>
+</ul>
+</li>
+</ul>
+<h1 id="参考链接">参考链接</h1>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.runoob.com/codex/codex-tutorial.html">Codex 教程 | 菜鸟教程</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/Yeachan-Heo/oh-my-codex">https://github.com/Yeachan-Heo/oh-my-codex</a></li>
+<li><a target="_blank" rel="noopener" href="https://marginlab.ai/">codex / claude code 性能监控网站</a></li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7%E5%BA%93/" class="category-chain-item">软件工具库</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Codex的配置和使用</div>
+      <div>http://zeyulong.com/posts/b2344ec6/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>龙泽雨</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2026年7月5日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/c2c1b657/" title="wsl的配置和使用">
+                        <span class="hidden-mobile">wsl的配置和使用</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="waline"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#waline', function() {
+      Fluid.utils.createCssLink('https://cdn.staticfile.org/waline/2.15.5/waline.min.css')
+      Fluid.utils.createScript('https://cdn.staticfile.org/waline/2.15.5/waline.min.js', function() {
+        var options = Object.assign(
+          {"serverURL":"https://www.zeyulong.cn/","path":"window.location.pathname","meta":["nick","mail","link"],"requiredMeta":["nick"],"lang":"zh-CN","emoji":["https://cdn.jsdelivr.net/gh/walinejs/emojis/weibo"],"dark":"html[data-user-color-scheme=\"dark\"]","wordLimit":0,"pageSize":10,"reaction":true,"locale":{"placeholder":"花径不曾缘客扫，蓬门今始为君开。"}},
+          {
+            el: '#waline',
+            path: window.location.pathname
+          }
+        )
+        Waline.init(options);
+        Fluid.utils.waitElementVisible('#waline .vcontent', () => {
+          var imgSelector = '#waline .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> <div style="font-size: 0.85rem"> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/custom/RunTime/RunTime.js"></script> </div> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  
+<script src="/custom/live2d/live2d-widget/autoload.js"></script>
+<script src="/custom/live2d/jquery.min.js"></script>
+<script src="/custom/LabelPage/LabelPage.js"></script>
+<script src="/custom/LoadingBar/pace.min.js"></script>
+<script src="/custom/ReadingProgress/ReadingProgress.js"></script>
+<script src="/custom/typing-effect/typing-effect.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  <canvas
+    class="fireworks"
+    style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 32767"
+></canvas>
+<script type="text/javascript" src="/custom/fireworks/anime.min.js"></script> 
+<script type="text/javascript" src="/custom/fireworks/fireworks.js"></script>
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

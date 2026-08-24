@@ -1,0 +1,56 @@
+/* noto-serif-sc-200 - chinese-simplified_latin */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Noto Serif SC';
+  font-style: normal;
+  font-weight: 200;
+  src: url('/custom/Fonts/fonts/noto-serif-sc-v22-chinese-simplified_latin-200.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+/* noto-serif-sc-300 - chinese-simplified_latin */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Noto Serif SC';
+  font-style: normal;
+  font-weight: 300;
+  src: url('/custom/Fonts/fonts/noto-serif-sc-v22-chinese-simplified_latin-300.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+/* noto-serif-sc-regular - chinese-simplified_latin */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Noto Serif SC';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/custom/Fonts/fonts/noto-serif-sc-v22-chinese-simplified_latin-regular.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+/* noto-serif-sc-500 - chinese-simplified_latin */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Noto Serif SC';
+  font-style: normal;
+  font-weight: 500;
+  src: url('/custom/Fonts/fonts/noto-serif-sc-v22-chinese-simplified_latin-500.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+/* noto-serif-sc-600 - chinese-simplified_latin */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Noto Serif SC';
+  font-style: normal;
+  font-weight: 600;
+  src: url('/custom/Fonts/fonts/noto-serif-sc-v22-chinese-simplified_latin-600.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+/* noto-serif-sc-700 - chinese-simplified_latin */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Noto Serif SC';
+  font-style: normal;
+  font-weight: 700;
+  src: url('/custom/Fonts/fonts/noto-serif-sc-v22-chinese-simplified_latin-700.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+/* noto-serif-sc-900 - chinese-simplified_latin */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Noto Serif SC';
+  font-style: normal;
+  font-weight: 900;
+  src: url('/custom/Fonts/fonts/noto-serif-sc-v22-chinese-simplified_latin-900.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}

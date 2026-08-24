@@ -1,0 +1,975 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" >
+
+
+
+<head><!-- hexo injector head_begin start --><progress id="content_progress" value="0"></progress><!-- hexo injector head_begin end -->
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/theme/TamakoAvatar-new-zip.png">
+  <link rel="icon" href="/img/theme/TamakoAvatar-new-zip.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#000000">
+  <meta name="author" content="龙泽雨">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="本文主要分享了自己在编译和运行论文《ESVIO: Event-based Stereo Visual Inertial Odometry》（下面简称为ESVIO）的代码时的调试记录。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ESVIO编译运行调试记录">
+<meta property="og:url" content="http://zeyulong.com/posts/c3a050a5/index.html">
+<meta property="og:site_name" content="龙泽雨的博客">
+<meta property="og:description" content="本文主要分享了自己在编译和运行论文《ESVIO: Event-based Stereo Visual Inertial Odometry》（下面简称为ESVIO）的代码时的调试记录。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-03-26T14:00:08.000Z">
+<meta property="article:modified_time" content="2025-08-11T07:59:40.043Z">
+<meta property="article:author" content="龙泽雨">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>ESVIO编译运行调试记录 - 龙泽雨的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/custom/Markdown/macpanel.css">
+<link rel="stylesheet" href="/custom/Fonts/CodeFont.css">
+<link rel="stylesheet" href="/custom/Fonts/inlinecode-bg-color.css">
+<link rel="stylesheet" href="/custom/live2d/font-awesome.min.css">
+<link rel="stylesheet" href="/custom/LoadingBar/pace-theme-corner-indicator.css">
+<link rel="stylesheet" href="/custom/ReadingProgress/ReadingProgress.css">
+<link rel="stylesheet" href="/custom/SelectBackgroundColor/SelectBackgroundColor.css">
+<link rel="stylesheet" href="/custom/waline/gif.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"zeyulong.com","root":"/","version":"1.9.7","typing":{"enable":false,"typeSpeed":100,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"8gUBTaCjmaSbnf4genwggan3-MdYXbMMI","app_key":"2WRxjgxRXIWRBo8EA4205Wfm","server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<!-- hexo injector head_end start --><link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@200;300;400;500;600;700;900&display=swap" rel="stylesheet"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.0.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Hello, world!</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-steam"></i>
+                <span>摸鱼</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/2048" target="_self">
+                    
+                    <span>2048</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/bcbk/1" target="_self">
+                    
+                    <span>别踩白块-1</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/bcbk/2" target="_self">
+                    
+                    <span>别踩白块-2</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/dblk" target="_self">
+                    
+                    <span>躲避绿块</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/dr" target="_self">
+                    
+                    <span>恐龙快跑</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://mario-kart-3-js.vercel.app/" target="_self">
+                    
+                    <span>马里奥赛车</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/mf" target="_self">
+                    
+                    <span>魔方</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/cat" target="_self">
+                    
+                    <span>圈小猫</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/sl" target="_self">
+                    
+                    <span>扫雷</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/txz" target="_self">
+                    
+                    <span>推箱子</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/game/wzq" target="_self">
+                    
+                    <span>五子棋</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/theme/GirlWithCat-cut.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle">ESVIO编译运行调试记录</span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        龙泽雨
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-03-26 22:00" pubdate>
+          2024年3月26日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.8k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          24 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">ESVIO编译运行调试记录</h1>
+            
+              <p id="updated-time" class="note note-info" style="">
+                
+                  
+                    本文最后更新于 2025年8月11日 下午
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <p>本文主要分享了自己在编译和运行论文《ESVIO: Event-based Stereo Visual Inertial Odometry》（下面简称为ESVIO）的代码时的调试记录。</p>
+<span id="more"></span>
+<h1 id="ESVIO">ESVIO</h1>
+<h2 id="概述">概述</h2>
+<p><a target="_blank" rel="noopener" href="https://github.com/arclab-hku/ESVIO/">GitHub地址</a></p>
+<p>ESVIO是第一个基于双目事件的视觉惯性里程计框架，包括ESIO（纯粹基于事件）和ESVIO（事件加图像辅助）。双目事件角特征通过具有时空和指数衰减内核的基于事件的表示在时间和空间上关联。然后，双目事件跟踪器紧密耦合到基于滑动窗口图的优化框架中，以估计自我运动。</p>
+<p>ESVIO 已在 IEEE RA-L 中发布，并带有 IROS2023 演示选项。 （IEEE RA-L pdf 可在<a href="(https://ieeexplore.ieee.org/document/10107754)">此处</a>获取，arxiv pdf 可在<a href="(https://arxiv.org/pdf/2212.13184.pdf)">此处</a>获取）。</p>
+<p>如果您觉得ESVIO确实对您当前的研究或工作有所帮助，一个简单的星标或对我们作品的引用应该是对我们最好的肯定。 😊</p>
+<figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs latex">@article&#123;ESVIO,<br>  title=&#123;ESVIO: Event-based Stereo Visual Inertial Odometry&#125;,<br>  author=&#123;Chen, Peiyu and Guan, Weipeng and Lu, Peng&#125;,<br>  journal=&#123;IEEE Robotics and Automation Letters&#125;,<br>  year=&#123;2023&#125;,<br>  volume=&#123;8&#125;,<br>  number=&#123;6&#125;,<br>  pages=&#123;3661-3668&#125;,<br>  publisher=&#123;IEEE&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs latex">@inproceedings&#123;EIO,<br>  title=&#123;Monocular Event Visual Inertial Odometry based on Event-corner using Sliding Windows Graph-based Optimization&#125;,<br>  author=&#123;Guan, Weipeng and Lu, Peng&#125;,<br>  booktitle=&#123;2022 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)&#125;,<br>  pages=&#123;2438-2445&#125;,<br>  year=&#123;2022&#125;,<br>  organization=&#123;IEEE&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="演示">演示</h2>
+<p>我们的视频演示可在 Bilibili 和 <a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=XqAm1q0alNY&amp;t=47s">YouTube</a> 上观看。</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1ve4y1M7v4/">https://www.bilibili.com/video/BV1ve4y1M7v4/</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Ju411P7sq/">https://www.bilibili.com/video/BV1Ju411P7sq/</a></li>
+</ul>
+<p>各种数据集的性能评估视频（包括与<a target="_blank" rel="noopener" href="https://github.com/UZ-SLAMLab/ORB_SLAM3">ORB-SLAM3</a>、<a target="_blank" rel="noopener" href="https://github.com/HKUST-Aerial-Robotics/VINS-Fusion">VINS-Fusion</a>和 <a target="_blank" rel="noopener" href="https://github.com/uzh-rpg/rpg_ultimate_slam_open">Ultimate-SLAM</a>的对比）以及户外大型和机载无人机飞行的测试也可以在 Bilibili 上找到。</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV168411778U/">https://www.bilibili.com/video/BV168411778U/</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV13G411T7eY/">https://www.bilibili.com/video/BV13G411T7eY/</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1pg411H7Yo/">https://www.bilibili.com/video/BV1pg411H7Yo/</a></li>
+</ul>
+<h1 id="编译">编译</h1>
+<h2 id="系统配置">系统配置</h2>
+<p>ESVIO使用的是 Ubuntu 20.04 与 ROS Noetic。</p>
+<p>本人使用的是 Ubuntu 18.04 与 ROS Melodic。</p>
+<p><a href="https://zeyulong.com/posts/84f91530/">ROS的安装与卸载</a></p>
+<h2 id="新建工作区">新建工作区</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> youfolder/<br><span class="hljs-built_in">mkdir</span> -p catkin_ws/src  <span class="hljs-comment"># catkin_ws可改名</span><br><br><span class="hljs-built_in">cd</span> catkin_ws<br>catkin config --init --mkdirs --extend /opt/ros/melodic --merge-devel --cmake-args -DCMAKE_BUILD_TYPE=Release<br><br><span class="hljs-built_in">cd</span> src<br>catkin_init_workspace  <span class="hljs-comment"># 创建顶层CMakeLists.txt文件，CLion利用此文件打开项目</span><br><br><span class="hljs-built_in">cd</span> ..<br>catkin build  <span class="hljs-comment"># 编译生成完整工作区</span><br></code></pre></td></tr></table></figure>
+<p>此时，<code>./catkin_ws</code>文件夹下有<code>build</code>、<code>devel</code>、<code>logs</code>和<code>src</code>四个文件夹。</p>
+<h2 id="配置依赖">配置依赖</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> src<br><span class="hljs-comment"># 把代码总放在src文件夹下</span><br>git <span class="hljs-built_in">clone</span> git@github.com:arclab-hku/ESVIO.git --recursive<br></code></pre></td></tr></table></figure>
+<h3 id="VINS-Mono需要的依赖">VINS-Mono需要的依赖</h3>
+<p>ESVIO是在<a target="_blank" rel="noopener" href="https://github.com/HKUST-Aerial-Robotics/VINS-Mono">VINS-Mono</a>框架下引入双目事件相机，因此需要配置VINS-Mono需要的依赖：</p>
+<ul>
+<li><a href="https://zeyulong.com/posts/5c3493c4/">安装Eigen-3.3.0/3.4.0</a>。</li>
+<li><a href="https://zeyulong.com/posts/75ff45ce/">安装OpenCV &gt;= 3.2.0</a>。</li>
+<li><a href="https://zeyulong.com/posts/60c04195/">安装Ceres-Solver-1.14.0</a>。
+<ul>
+<li>Ceres Solver的<a target="_blank" rel="noopener" href="http://ceres-solver.org/installation.html">官方安装说明</a>，记得<code>make install</code>并使用<a target="_blank" rel="noopener" href="https://github.com/arclab-hku/ESVIO/blob/master/dependences/ceres-solver-1.14.0.zip">1.14.0版本</a>。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 查看版本</span><br><span class="hljs-comment"># gcc g++</span><br>gcc -v<br>g++ -v<br><span class="hljs-comment"># cmake</span><br>cmake --version<br><span class="hljs-comment"># Eigen</span><br>gedit /usr/include/eigen3/Eigen/src/Core/util/Macros.h<br><span class="hljs-comment"># Opencv</span><br>pkg-config --modversion opencv  <span class="hljs-comment"># 查询版本</span><br>pkg-config --cflags opencv  <span class="hljs-comment"># 得到opencv的安装路径</span><br><span class="hljs-comment"># -&gt; -I/usr/local/include/opencv -I/usr/local/include</span><br>pkg-config --cflags opencv4  <span class="hljs-comment"># 附加：得到opencv4的安装路径</span><br></code></pre></td></tr></table></figure>
+<h3 id="ESVIO需要的依赖">ESVIO需要的依赖</h3>
+<p>ESVIO所有依赖文件都存储在文件夹 <code>./catkin_ws/src/ESVIO/dependences</code> 中。（可选）这里，我将整个<code>dependences</code>文件夹移动到了上级文件夹<code>/src</code>中，因为分析代码时一般用不到这些第三方库。</p>
+<p><a href="https://zeyulong.com/posts/c4541b88/#%E7%BC%96%E8%AF%91">编译第三方开源软件需要下载的问题</a></p>
+<ul>
+<li>
+<p><code>gflags_catkin</code>的<code>Cmakelists.txt</code>会指定编译时联网下载文件<code>v2.2.1.zip</code>到<code>./catkin_ws/build/gflags_catkin/gflags_src-prefix/src</code>目录下，并在该目录下解压为<code>gflags_src</code>。</p>
+<p>而编译时使用外网代理、网络不稳定时会下载失败，编译报错。为防止网路下载不稳定的情况，可以将下载链接替换为本地路径。下载<a target="_blank" rel="noopener" href="https://github.com/gflags/gflags/archive/v2.2.1.zip">v2.2.1.zip</a>到<code>yourfolder/</code>并重命名为<code>gflags-2.2.1.zip</code>。打开<code>./catkin_ws/src/dependences/gflags_catkin</code>目录下的<code>Cmakelists.txt</code>文件，修改<code>URL</code>：</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs cmake"><span class="hljs-comment"># URL https://github.com/gflags/gflags/archive/v2.2.1.zip</span><br>URL <span class="hljs-string">&quot;/yourfolder/gflags-2.2.1.zip&quot;</span><br></code></pre></td></tr></table></figure>
+<p>注：URL可以直接使用本地绝对地址，但是文件必需为压缩文件，编译时会自动解压。<a target="_blank" rel="noopener" href="https://cmake.org/cmake/help/latest/module/ExternalProject.html">官方文档</a>，<a target="_blank" rel="noopener" href="https://runebook.dev/zh/docs/cmake/module/externalproject">中文解读1</a>，<a target="_blank" rel="noopener" href="https://blog.csdn.net/wzj_110/article/details/116722467">中文解读2</a>。</p>
+</li>
+<li>
+<p><code>glog_catkin</code>。与<code>gflags_catkin</code>同理，下载<a target="_blank" rel="noopener" href="https://gitlab.com/libeigen/eigen/-/archive/3.3.4/eigen-3.3.4.tar.bz2">eigen-3.3.4.tar.bz2</a>，后：</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs cmake"><span class="hljs-comment"># ./catkin_ws/src/dependences/glog_catkin/Cmakelists.txt</span><br><span class="hljs-comment"># URL https://github.com/google/glog/archive/v$&#123;VERSION&#125;.zip</span><br>URL <span class="hljs-string">&quot;/yourfolder/glog-0.3.5.zip&quot;</span><br></code></pre></td></tr></table></figure>
+<p>你可能需要<code>autoreconf</code>来编译glog_catkin，使用以下命令安装<code>autoreconf</code>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># https://askubuntu.com/questions/265471/autoreconf-not-found-error-during-making-qemu-1-4-0/269423#269423</span><br><span class="hljs-comment"># 查询可安装的版本</span><br>apt-cache search autoreconf<br>sudo apt-get install autoconf  <span class="hljs-comment"># 13.04/14.04/16.04/18.04</span><br>sudo apt install dh-autoreconf  <span class="hljs-comment"># 20.04</span><br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p><code>eigen_catkin</code>。与<code>gflags_catkin</code>同理，下载<a target="_blank" rel="noopener" href="https://github.com/google/glog/archive/v0.3.5.zip">glog-0.3.5</a>，后：</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs cmake"><span class="hljs-comment"># ./catkin_ws/src/dependences/eigen_catkin/CMakeLists.txt</span><br><span class="hljs-comment"># URL https://gitlab.com/libeigen/eigen/-/archive/3.3.4/eigen-3.3.4.tar.bz2</span><br>URL <span class="hljs-string">&quot;/yourfolder/eigen-3.3.4.tar.bz2&quot;</span><br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p><code>yaml-cpp</code>用于从 <code>*.yaml</code> 文件加载校准参数。<code>yaml_cpp_catkin</code>与<code>gflags_catkin</code>同理，下载<a target="_blank" rel="noopener" href="https://github.com/jbeder/yaml-cpp/tree/11607eb5bf1258641d80f7051e7cf09e317b4746">yaml-cpp-11607eb5bf1258641d80f7051e7cf09e317b4746.zip</a>，后：</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs cmake"><span class="hljs-comment"># ./catkin_ws/src/dependences/yaml_cpp_catkin/Cmakelists.txt</span><br><span class="hljs-comment"># GIT_REPOSITORY  https://github.com/jbeder/yaml-cpp</span><br><span class="hljs-comment"># GIT_TAG $&#123;YAML_CPP_TAG&#125;</span><br>URL <span class="hljs-string">&quot;/yourfolder/yaml-cpp-11607eb5bf1258641d80f7051e7cf09e317b4746.zip&quot;</span><br>URL_MD5 f2847f928634303a8ee305a3f28ebbcc<br>UPDATE_COMMAND <span class="hljs-string">&quot;&quot;</span><br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p><code>ceres_catkin</code>。同理，下载<a target="_blank" rel="noopener" href="http://ceres-solver.org/ceres-solver-1.14.0.tar.gz">ceres-solver-1.14.0.tar.gz</a>，后：</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs cmake"><span class="hljs-comment"># ./catkin_ws/src/dependences/cere_catkin/Cmakelists.txt</span><br><span class="hljs-comment"># GIT_REPOSITORY https://github.com/ceres-solver/ceres-solver.git</span><br><span class="hljs-comment"># GIT_TAG $&#123;VERSION&#125;</span><br>URL <span class="hljs-string">&quot;/yourfolder/ceres-solver-1.14.0.tar.gz&quot;</span><br>UPDATE_COMMAND <span class="hljs-string">&quot;&quot;</span><br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>由于<code>ceres</code>库和<code>Eigen</code>库有一定的版本对应关系，因此很容易在编译期间报错。实测<code>Eigen3.3.x</code>与<code>ceres-solver-1.14.0</code>对应应该没有问题。</p>
+</blockquote>
+</li>
+<li>
+<p><code>suitesparse</code>。根据<code>./catkin_ws/src/dependences/ceres_catkin/package.xml</code>，<code>ceres_catkin</code>的编译还需要<code>suitesparse</code>。</p>
+<ol>
+<li>
+<p>下载<a target="_blank" rel="noopener" href="https://github.com/ethz-asl/suitesparse">suitesparse</a>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> /yourfloder/catkin_ws/src/dependences<br>git <span class="hljs-built_in">clone</span> https://github.com/ethz-asl/suitesparse.git<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>下载<a target="_blank" rel="noopener" href="https://github.com/ethz-asl/thirdparty_library_binaries/raw/master/SuiteSparse-4.2.1.tar.gz">SuiteSparse-4.2.1.tar.gz</a>到<code>yourfolder/</code>。</p>
+</li>
+<li>
+<p>这里我没有找到好的使用本地文件替换掉编译时下载的方法，只能：打开<code>./catkin_ws/src/dependences/suitesparse/suitesparse</code>目录下的<code>Cmakelists.txt</code>文件，注释掉<code>DOWNLOAD_COMMAND</code>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># DOWNLOAD_COMMAND rm -f SuiteSparse-$&#123;VERSION&#125;.tar.gz &amp;&amp; wget --retry-connrefused --waitretry=1 --timeout=40 --tries 3 https://github.com/ethz-asl/thirdparty_library_binaries/raw/master/SuiteSparse-$&#123;VERSION&#125;.tar.gz</span><br>DOWNLOAD_COMMAND <span class="hljs-string">&quot;&quot;</span><br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>在编译项目前，打开终端，执行命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> /yourfloder/catkin_ws/<br><span class="hljs-built_in">mkdir</span> -p build/suitesparse/suitesparse_src-prefix/src &amp;&amp; <span class="hljs-built_in">cp</span> /yourfloder/SuiteSparse-4.2.1.tar.gz ./build/suitesparse/suitesparse_src-prefix/src<br><span class="hljs-comment"># find -name SuiteSparse-4.2.1.tar.gz</span><br></code></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+<li>
+<p>（可选）使用CLion编译项目时<code>./catkin_ws/src/dependences/minkindr/minkindr_python</code>会报错找不到文件<code>catkin_boost_python_buildtool</code>和<code>numpy_eigen</code>（使用终端编译时不会报错）。猜测是CLion会自动编译工作区内所有的包，而使用终端编译时只指定了特定的包。</p>
+<p>解决方法：下载<a target="_blank" rel="noopener" href="https://github.com/ethz-asl/catkin_boost_python_buildtool">catkin_boost_python_buildtool</a>和<a target="_blank" rel="noopener" href="https://github.com/ethz-asl/numpy_eigen">numpy_eigen</a>后解压放到<code>./catkin_ws/src/dependences/</code>文件夹下重新编译。</p>
+</li>
+</ul>
+<h2 id="（可选）指定项目编译使用的OpenCV版本">（可选）指定项目编译使用的OpenCV版本</h2>
+<p><a href="https://zeyulong.com/posts/75ff45ce/#%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86">OpenCV的安装与版本管理</a></p>
+<p>检查项目中所有的<code>CmakeList.txt</code>文件，新增语句：</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs cmake"><span class="hljs-keyword">set</span>(OpenCV_DIR /usr/local/opencv/opencv345/share/OpenCV)  <span class="hljs-comment"># 新增</span><br><span class="hljs-keyword">find_package</span>(OpenCV REQUIRED)<br><span class="hljs-comment"># find_package(cv_bridge)  # 如果find_package(OpenCV REQUIRED)报错</span><br><span class="hljs-keyword">include_directories</span>(<span class="hljs-variable">$&#123;OpenCV_INCLUDE_DIRS&#125;</span>)  <span class="hljs-comment"># 新增</span><br><span class="hljs-comment"># 新增</span><br><span class="hljs-keyword">message</span>(STATUS <span class="hljs-string">&quot;opencv version: $&#123;OpenCV_VERSION&#125;&quot;</span>)<br><span class="hljs-keyword">message</span>(STATUS <span class="hljs-string">&quot;opencv lib: $&#123;OpenCV_LIBS&#125;&quot;</span>)<br><span class="hljs-keyword">message</span>(STATUS <span class="hljs-string">&quot;opencv include dir: $&#123;OpenCV_INCLUDE_DIRS&#125;&quot;</span>)<br><span class="hljs-keyword">message</span>(STATUS <span class="hljs-string">&quot;opencv config path: $&#123;openCV_CONFIG_PATH&#125;&quot;</span>)<br></code></pre></td></tr></table></figure>
+<p>涉及到的项目有：</p>
+<ul>
+<li><code>dependences/rpg_dvs_ros/dvs_calibration/CMakeLists.txt</code></li>
+<li><code>dependences/rpg_dvs_ros/dvs_renderer/CMakeLists.txt</code></li>
+<li><code>ESVIO/camera_model/CMakeLists.txt</code></li>
+<li><code>ESVIO/esvio_estimator/CMakeLists.txt</code></li>
+<li><code>ESVIO/feature_tracker/CMakeLists.txt</code></li>
+<li><code>ESVIO/pose_graph/CMakeLists.txt</code></li>
+</ul>
+<h2 id="ROS编译">ROS编译</h2>
+<h3 id="基本流程">基本流程</h3>
+<p>（可选）如果使用本地下载的<code>suitesparse</code>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> /yourfloder/catkin_ws/<br><span class="hljs-built_in">mkdir</span> -p build/suitesparse/suitesparse_src-prefix/src &amp;&amp; <span class="hljs-built_in">cp</span> /yourfloder/SuiteSparse-4.2.1.tar.gz ./build/suitesparse/suitesparse_src-prefix/src<br><span class="hljs-comment"># find -name SuiteSparse-4.2.1.tar.gz</span><br></code></pre></td></tr></table></figure>
+<p>编译项目：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> /yourfloder/catkin_ws/<br><span class="hljs-comment"># catkin build esvio_estimator feature_tracker pose_graph -DCMAKE_BUILD_TYPE=Release -j8</span><br>catkin build camera_model  <span class="hljs-comment"># 不提前编译好camera_model，编译esvio_estimator的时候会报错。</span><br>catkin build  <span class="hljs-comment"># 或 catkin_make。相当于cmake+make</span><br><span class="hljs-comment"># 编译完成后，在代码运行前，须使用source命令刷新一下工作空间的环境。否则会出现找不到“package XXX not found” 的问题。</span><br><span class="hljs-built_in">source</span> ./catkin_ws/devel/setup.bash<br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>加速编译：</p>
+<ol>
+<li>
+<p><code>catkin build</code>命令会自动执行多线程，使用最快的编译速度。</p>
+</li>
+<li>
+<p><code>catkin_make -j2 -l2</code> :</p>
+<ul>
+<li>-j2，j 是 job 的意思，代表允许 2 个编译命令同时进行，一般是以 CPU的核心数目的两倍为。</li>
+<li>-l2，l 是 load-average 的意思，代表系统加载的任务数，数目一般与-j的数目保持一致。</li>
+</ul>
+<p>注意，此处不仅限于2，可以是2，4，8，这取决于你是几核CPU。</p>
+</li>
+</ol>
+</blockquote>
+<blockquote>
+<p>完整编译一次花费了<code>Runtime: 4 minutes and 47.9 seconds total</code>，在这期间你可以去泡一杯咖啡。</p>
+</blockquote>
+<blockquote>
+<p>如果编译报错：</p>
+<p><code>catkin clean</code>相当于<code>rm -r $&#123;build&#125; $&#123;devel&#125;</code>，但是避免了<code>rm -r</code>这种危险的操作！</p>
+</blockquote>
+<h3 id="报错及解决">报错及解决</h3>
+<p>报错：SyntaxError: Non-ASCII character '\xe5' in file /catkin_ws/src/dependences/rpg_dvs_ros/dvxplorer_ros_driver/cfg/DVXplorer_ROS_Driver.cfg on line 71, but no encoding declared; see <a target="_blank" rel="noopener" href="http://python.org/dev/peps/pep-0263/">http://python.org/dev/peps/pep-0263/</a> for details</p>
+<p>原因：Python默认是以ASCII作为编码方式的，如果在自己的Python源码中包含了中文（或者其他非英语系的语言），此时即使你把自己编写的Python源文件以UTF-8格式保存了，但实际上，这依然是不行的。</p>
+<p>解决：在<code>./catkin_ws/src/dependences/rpg_dvs_ros/dvxplorer_ros_driver/cfg/DVXplorer_ROS_Driver.cfg</code>的第一行加入：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># -*- coding: UTF-8 -*-</span><br></code></pre></td></tr></table></figure>
+<h3 id="小技巧">小技巧</h3>
+<p><a href="https://zeyulong.com/posts/c4541b88/#sh%E8%84%9A%E6%9C%AC%E4%B8%80%E6%AC%A1%E6%80%A7%E5%90%AF%E5%8A%A8%E5%A4%9A%E4%B8%AA%E7%A8%8B%E5%BA%8F%EF%BC%88%E5%AF%B9%E5%BA%94%E5%A4%9A%E4%B8%AA%E7%BB%88%E7%AB%AF%EF%BC%89">编写shell脚本</a></p>
+<p>你可以通过创建一个<code>shell</code>脚本来自动执行这个编译过程，而不需要依次在终端输入命令：</p>
+<ol>
+<li>
+<p>在ROS工作空间（例如，<code>catkin_ws</code>文件夹）下创建一个脚本文件，例如<code>buildESVIO.sh</code>。</p>
+</li>
+<li>
+<p>写入内容，例如：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-meta">#!/bin/bash</span><br><span class="hljs-built_in">set</span> -e<br><br><span class="hljs-comment"># catkin clean - y </span><br><br><span class="hljs-built_in">mkdir</span> -p build/suitesparse/suitesparse_src-prefix/src &amp;&amp; <span class="hljs-built_in">cp</span> /yourfloder/SuiteSparse-4.2.1.tar.gz ./build/suitesparse/suitesparse_src-prefix/src<br><span class="hljs-built_in">sleep</span> 3s<br>catkin build camera_model<br><span class="hljs-built_in">sleep</span> 3s<br>catkin build<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>给脚本文件授予权限：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo <span class="hljs-built_in">chmod</span> 755 runROS.sh<br></code></pre></td></tr></table></figure>
+<p><a href="https://zeyulong.com/posts/a8aab215/#%E8%AE%BE%E7%BD%AE%E6%96%87%E4%BB%B6%E6%9D%83%E9%99%90">设置文件权限</a></p>
+</li>
+<li>
+<p>运行脚本文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> catkin_ws<br>./buildESVIO.sh<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>完成。</p>
+</li>
+</ol>
+<h2 id="添加环境变量（可选）">添加环境变量（可选）</h2>
+<p>代码编译完成，后面需要运行ros命令，为了避免每次打开新的shell都需要source，我们将其添加到bash配置文件中。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 方法一，使用gedit</span><br><span class="hljs-built_in">echo</span> “<span class="hljs-built_in">source</span> youfolder/catkin_ws/devel/setup.bash” &gt;&gt; ~/.bashrc<br>gedit ~/.bashrc  <span class="hljs-comment"># 注：用gedit打开文件，查看是否加入</span><br><br><span class="hljs-comment"># 方法二，使用vim</span><br>sudo  vi ~/.bashrc  <span class="hljs-comment"># 注：打开.bashrc文件</span><br><span class="hljs-comment"># 最后一行添加：</span><br><span class="hljs-built_in">source</span> youfolder/catkin_ws/devel/setup.bash	<br><span class="hljs-comment"># 注：点击键盘“E”，进入编辑（edit）模式，用“delete”键删除添加的路径</span><br></code></pre></td></tr></table></figure>
+<p>注，vim按键：</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs txt">按Esc。输入 :wq！，保存并退出。<br>注：ESC”键退出编辑模式，并输入以下命令：<br>:wq 保存后退出vi，若为:wq!则为强制存储后退出<br>:w    保存但不退出<br>:w!   若文件属性为【只读】，强制写入该档案<br>:q     离开vi<br>:q!    若曾经修改过档案，又不想存储，使用！为强制离开不存储档案<br>:e!    将档案还原到最原始状态！<br></code></pre></td></tr></table></figure>
+<h1 id="运行">运行</h1>
+<h2 id="rpg-dvs-ros">rpg_dvs_ros</h2>
+<p>事件数据可视化：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">source</span> ./devel/setup.zsh &amp;&amp; roslaunch dvs_renderer stereo_davis.launch<br>rosbag play -l /media/lll25655/Data/LLL25655/Documents/Dataset/ESVIO/StereoEVIO/VICON/hku_hdr_tran_rota.bag<br></code></pre></td></tr></table></figure>
+<h2 id="在HKU数据集上运行">在HKU数据集上运行</h2>
+<h3 id="下载我们的rosbag文件（HKU数据集）">下载我们的rosbag文件（<a target="_blank" rel="noopener" href="https://github.com/arclab-hku/Event_based_VO-VIO-SLAM">HKU数据集</a>）</h3>
+<p>我们的评估数据集可以从我们的One-drive或百度网盘下载。我们总共发布了9个用于评估ESVIO的rosbag文件，这些数据集的介绍可以在这个<a target="_blank" rel="noopener" href="https://github.com/arclab-hku/Event_based_VO-VIO-SLAM?tab=readme-ov-file#Dataset-for-stereo-evio">页面</a>找到。</p>
+<p>为了方便社区，我们还以 rosbag 的形式发布了我们方法的<a target="_blank" rel="noopener" href="https://github.com/arclab-hku/Event_based_VO-VIO-SLAM/blob/main/Results_for_comparison.md">原始结果</a>。</p>
+<h3 id="运行举例">运行举例</h3>
+<p>下载我们的bag文件后，您现在可以运行我们的示例：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 对于ESIO（事件+imu）版本：</span><br><span class="hljs-built_in">source</span> ./devel/setup.zsh &amp;&amp; roslaunch esvio_estimator esio.launch <br>rosbag play YOUR_DOWNLOADED.bag<br><br><span class="hljs-comment"># 对于ESVIO（事件+图像+imu）版本：</span><br><span class="hljs-built_in">source</span> ./devel/setup.zsh &amp;&amp; roslaunch esvio_estimator esvio.launch <br><span class="hljs-comment"># rosbag play YOUR_DOWNLOADED.bag</span><br>rosbag play --clock --pause -r 1.0 /Dataset/ESVIO/StereoEVIO/VICON/hku_hdr_tran_rota.bag<br>--clock: 使用仿真时间（bag包录制时的时间）而不是系统时间（现实时间）。但实际上，没有设置过`rosparam <span class="hljs-built_in">set</span> use_sim_time <span class="hljs-literal">true</span>`，所以在实际运行过程中并没有使用仿真时间。使用的还是系统时间？<br>--pause: 按下空格后才会开始播放bag包。<br>-r: 控制bag包播放的速率。<br></code></pre></td></tr></table></figure>
+<p>其它数据集的运行大同小异，详见<code>ESVIO/script/run.sh</code>。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># DSEC</span><br><span class="hljs-built_in">source</span> ./devel/setup.zsh &amp;&amp; roslaunch esvio_estimator esio_DSEC.launch <br><span class="hljs-built_in">source</span> ./devel/setup.zsh &amp;&amp; roslaunch esvio_estimator esvio_DSEC.launch <br><br>rosbag play --clock --pause -r 1.0 /media/lll25655/Data/LLL25655/Documents/Dataset/ESVIO/DSEC/dsec_zurich_city_04_a.bag<br></code></pre></td></tr></table></figure>
+<p><a href="https://zeyulong.com/posts/c4541b88/#sh%E8%84%9A%E6%9C%AC%E4%B8%80%E6%AC%A1%E6%80%A7%E5%90%AF%E5%8A%A8%E5%A4%9A%E4%B8%AA%E7%A8%8B%E5%BA%8F%EF%BC%88%E5%AF%B9%E5%BA%94%E5%A4%9A%E4%B8%AA%E7%BB%88%E7%AB%AF%EF%BC%89">.sh脚本一次性启动多个程序（对应多个终端）</a></p>
+<blockquote>
+<p>对于运行 VECtor 和 DSEC 数据集时警告“Not enough features or parallax; Move device around”：</p>
+<ol>
+<li>可以修改<code>stereo_estimator_node.cpp</code>中的IMU读入部分，从flight version切换到normal version（参见代码）。</li>
+<li>在配置文件中调整相机和 IMU 之间的外部参数。有关修改的指导，请参阅<code>esvio/esvio.yaml</code>文件中与flight version相关的注释。</li>
+</ol>
+</blockquote>
+<h2 id="在事件相机上运行"><a target="_blank" rel="noopener" href="https://github.com/arclab-hku/ESVIO?tab=readme-ov-file#32-run-on-your-event-camera">在事件相机上运行</a></h2>
+<p>暂无需求，略。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E4%BA%8B%E4%BB%B6%E7%9B%B8%E6%9C%BA/" class="category-chain-item">事件相机</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>ESVIO编译运行调试记录</div>
+      <div>http://zeyulong.com/posts/c3a050a5/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>龙泽雨</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年3月26日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/posts/9d7fd48f/" title="事件相机的选型、标定和使用">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">事件相机的选型、标定和使用</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/a8aab215/" title="系统常用命令及快捷键">
+                        <span class="hidden-mobile">系统常用命令及快捷键</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="waline"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#waline', function() {
+      Fluid.utils.createCssLink('https://cdn.staticfile.org/waline/2.15.5/waline.min.css')
+      Fluid.utils.createScript('https://cdn.staticfile.org/waline/2.15.5/waline.min.js', function() {
+        var options = Object.assign(
+          {"serverURL":"https://www.zeyulong.cn/","path":"window.location.pathname","meta":["nick","mail","link"],"requiredMeta":["nick"],"lang":"zh-CN","emoji":["https://cdn.jsdelivr.net/gh/walinejs/emojis/weibo"],"dark":"html[data-user-color-scheme=\"dark\"]","wordLimit":0,"pageSize":10,"reaction":true,"locale":{"placeholder":"花径不曾缘客扫，蓬门今始为君开。"}},
+          {
+            el: '#waline',
+            path: window.location.pathname
+          }
+        )
+        Waline.init(options);
+        Fluid.utils.waitElementVisible('#waline .vcontent', () => {
+          var imgSelector = '#waline .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> <div style="font-size: 0.85rem"> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/custom/RunTime/RunTime.js"></script> </div> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  
+<script src="/custom/live2d/live2d-widget/autoload.js"></script>
+<script src="/custom/live2d/jquery.min.js"></script>
+<script src="/custom/LabelPage/LabelPage.js"></script>
+<script src="/custom/LoadingBar/pace.min.js"></script>
+<script src="/custom/ReadingProgress/ReadingProgress.js"></script>
+<script src="/custom/typing-effect/typing-effect.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  <canvas
+    class="fireworks"
+    style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 32767"
+></canvas>
+<script type="text/javascript" src="/custom/fireworks/anime.min.js"></script> 
+<script type="text/javascript" src="/custom/fireworks/fireworks.js"></script>
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

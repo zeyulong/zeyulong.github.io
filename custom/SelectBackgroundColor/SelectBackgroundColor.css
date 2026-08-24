@@ -1,0 +1,16 @@
+/*
+webkit, opera, IE9 （谷歌浏览器
+::selection { 
+    background:#93b5cf; 
+    color:#fff; 
+}
+::-webkit-selection {
+    background:#93b5cf;
+    color:#fff;
+}
+mozilla firefox（火狐浏览器）
+::-moz-selection { 
+    background:#93b5cf; 
+    color:#fff; 
+}
+*/

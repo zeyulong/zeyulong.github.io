@@ -24,7 +24,7 @@
 <meta property="og:description" content="本文主要分享了v2rayN相对高阶的一些配置。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-08-24T07:41:16.000Z">
-<meta property="article:modified_time" content="2026-08-24T10:26:44.835Z">
+<meta property="article:modified_time" content="2026-09-12T07:23:47.746Z">
 <meta property="article:author" content="龙泽雨">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -319,7 +319,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.6k 字
+          2.4k 字
         
       </span>
     
@@ -330,7 +330,7 @@
         
         
         
-          14 分钟
+          20 分钟
         
       </span>
     
@@ -372,7 +372,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2026年8月24日 晚上
+                    本文最后更新于 2026年9月12日 下午
                   
                 
               </p>
@@ -590,11 +590,44 @@
 <li>“路由设置”窗口，确定。</li>
 <li>完成。</li>
 </ol>
-<h1 id="机场推荐">机场推荐</h1>
+<h1 id="导入clash订阅链接">导入clash订阅链接</h1>
 <ul>
-<li><a target="_blank" rel="noopener" href="https://github.com/DiningFactory/panda-vpn-pro">https://github.com/DiningFactory/panda-vpn-pro</a></li>
-<li><a target="_blank" rel="noopener" href="https://github.com/hwanz/SSR-V2ray-Trojan">https://github.com/hwanz/SSR-V2ray-Trojan</a></li>
-<li><a target="_blank" rel="noopener" href="https://github.com/selierlin/Share-SSR-V2ray">https://github.com/selierlin/Share-SSR-V2ray</a></li>
+<li>如果在新建的订阅分组-订阅分组设置-可选地址(Url)中输入订阅链接后，更新订阅不成功，可以尝试在订阅分组设置-User Agent(可选)填入：clash或ClashVerge等。<a target="_blank" rel="noopener" href="https://github.com/2dust/v2rayN/discussions/8963">clash前缀的订阅链接如何导入v2rayN？</a>
+<ul>
+<li>很多提供订阅的后台服务会根据 v2rayN 获取订阅内容时发送 User Agent 数据值来决定返回的内容，v2rayN 正常发送的值是 <code>v2rayN/版本号</code>。 你可以填写一些特定的 User Agent 来达到你想要内容的目的，具体的你可以在网上搜索各个订阅的后台服务支持的 User Agent 。<a target="_blank" rel="noopener" href="https://github.com/2dust/v2rayN/wiki/Description-of-some-ui">Description of some ui</a></li>
+</ul>
+</li>
+<li>导入“订阅分组”时，若选择转换订阅目标，只能将整个 profile 作为一条配置，无法把顶层静态 proxies 当作独立节点管理。<a target="_blank" rel="noopener" href="https://github.com/2dust/v2rayN/issues/9845">[Feature request]: Add a Clash proxy extraction import mode</a>
+<ul>
+<li>如果你的源订阅是 Clash ，请直接使用 mihomo 运行，这样就能获得比好的体验。Clash 支持的配置无法完全还原到 xray 中，所以解析为多个配置不是好方式。
+<ul>
+<li>订阅分组中有个选项，自定义配置核心，选择为 mihomo。<a target="_blank" rel="noopener" href="https://github.com/2dust/v2rayN/issues/10043">7.24.8 版本 clash格式订阅更新解析失败</a></li>
+<li>我先直接下载clash订阅的yaml再通过自定义配置导入，可以成功导入。</li>
+</ul>
+</li>
+<li>mihomo的yaml还原xray的话确实有的协议字段会有兼容问题</li>
+<li>提供一个方案：你目前通过从剪贴板直接导入clash类型的配置，应该是有以一个clash的yaml文件了。这里给你一个转换网址 <a target="_blank" rel="noopener" href="https://v2rayse.com/node-convert%EF%BC%8C%E5%BD%93%E7%84%B6%E4%BD%A0%E8%83%BD%E6%89%BE%E5%88%B0%E5%85%B6%E5%AE%83%E8%BD%AC%E6%8D%A2%E5%B7%A5%E5%85%B7%E4%B9%9F%E5%8F%AF%E4%BB%A5%EF%BC%8C%E9%80%9A%E8%BF%87%E8%BF%99%E4%B8%AA%E5%B7%A5%E5%85%B7%E4%BD%A0%E5%8F%AF%E4%BB%A5%E5%B0%86yaml%E4%B8%AD%E7%9A%84%E9%85%8D%E7%BD%AE%E4%BF%A1%E6%81%AF%E8%BD%AC%E6%8D%A2%E6%88%90%E4%B8%80%E4%B8%AA%E4%B8%AA%E8%8A%82%E7%82%B9%E7%9A%84url%EF%BC%8C%E7%84%B6%E5%90%8E%E5%A4%8D%E5%88%B6%E8%BF%99%E4%BA%9Burl%EF%BC%8C%E9%80%9A%E8%BF%87v2rayN%E7%9A%84%E4%BB%8E%E5%89%AA%E8%B4%B4%E6%9D%BF%E5%AF%BC%E5%85%A5%E5%B0%B1%E8%A1%8C%E4%BA%86%E3%80%82%E8%BF%99%E5%B0%B1%E6%98%AF%E7%9B%AE%E5%89%8D%E6%88%91%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95%E3%80%82%E5%A6%82%E6%9E%9C%E4%BD%A0%E8%83%BD%E6%89%BE%E5%88%B0%E5%85%B6%E4%BB%96%E6%96%B9%E6%B3%95%EF%BC%8C%E6%88%96%E8%80%85%E5%85%B6%E4%BB%96%E7%A6%BB%E7%BA%BF%E8%BD%AC%E6%8D%A2%E5%B7%A5%E5%85%B7%E4%B9%9F%E9%BA%BB%E7%83%A6%E5%88%86%E4%BA%AB%E4%B8%80%E4%B8%8B%EF%BC%8C%E8%BF%99%E4%B8%AA%E8%BD%AC%E6%8D%A2%E7%BD%91%E5%9D%80https://v2rayse.com/node-convert">https://v2rayse.com/node-convert，当然你能找到其它转换工具也可以，通过这个工具你可以将yaml中的配置信息转换成一个个节点的url，然后复制这些url，通过v2rayN的从剪贴板导入就行了。这就是目前我的解决方法。如果你能找到其他方法，或者其他离线转换工具也麻烦分享一下，这个转换网址https://v2rayse.com/node-convert</a> 虽然说是纯前端的，但是访问该网址就需要先翻墙，而且是否会记录甚至盗取节点数据我也不能确定。<a target="_blank" rel="noopener" href="https://github.com/2dust/v2rayN/issues/4356">从剪贴板直接导入clash类型的配置,可以翻墙,开启后只能看软件自己在切换节点,请问该怎么手动选用特定节点</a></li>
+</ul>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/2dust/v2rayN/discussions/5512">关于v2rayN中使用clash配置的问题</a>
+<ul>
+<li>在v2rayN中使用clash的订阅链接，是否必须开启配置转换？似乎开启转换后，会加入v2rayN的规则，但都是可以工作的。
+<ul>
+<li>不需要转换。不转换直接出来的就是clash的配置文件，直接用后可以用当前代理页面切换，和大部分客户端一样。</li>
+</ul>
+</li>
+<li>分流是如何实现的？clash订阅的规则似乎也会生效，这与v2rayN的路由如何协同工作？
+<ul>
+<li>原始clash配置文件自己就带有分流规则，这个时候不会使用v2ray的规则，没有协同；但是系统代理是可以使用的，这个是操作系统的功能。</li>
+</ul>
+</li>
+<li>在v2rayN中使用clash，更推荐使用那个核心，各核心有何优劣呢？
+<ul>
+<li>用mihomo，只有这个还在更新。</li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 <h1 id="节点质量测试">节点质量测试</h1>
 <ul>
@@ -692,6 +725,12 @@
                 <div class="post-prevnext my-3">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/posts/3ace00c3/" title="发明专利skill的使用">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">发明专利skill的使用</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">

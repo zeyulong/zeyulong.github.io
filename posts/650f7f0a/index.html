@@ -24,7 +24,7 @@
 <meta property="og:description" content="本文主要分享了常用软件的安装与配置。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-07-02T13:05:07.000Z">
-<meta property="article:modified_time" content="2026-08-24T07:33:07.856Z">
+<meta property="article:modified_time" content="2026-09-10T06:26:20.522Z">
 <meta property="article:author" content="龙泽雨">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -319,7 +319,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          25k 字
+          26k 字
         
       </span>
     
@@ -330,7 +330,7 @@
         
         
         
-          209 分钟
+          214 分钟
         
       </span>
     
@@ -372,7 +372,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2026年8月24日 下午
+                    本文最后更新于 2026年9月10日 下午
                   
                 
               </p>
@@ -383,7 +383,7 @@
                 <p>本文主要分享了常用软件的安装与配置。</p>
 <span id="more"></span>
 <blockquote>
-<p>官方文档一般比个人博客的说明要更详细。所以在下载和使用时可以优先参考官方文档，个人博客用作补充和处理特殊情况（报错，等）。</p>
+<p>官方文档一般比个人博客的说明要更详细。所以在下载和使用时可以优先参考官方文档，个人博客用作补充和处理特殊情况（报错，等）。当然，有的时候官方文档显得粗略，而个人博客更有新手向和针对性。</p>
 </blockquote>
 <h1 id="常用软件与工具汇总">常用软件与工具汇总</h1>
 <blockquote>
@@ -1342,8 +1342,25 @@
 </blockquote>
 <h1 id="git">git</h1>
 <p><a href="https://zeyulong.com/posts/5b8fd703/">Git的配置与使用</a></p>
-<h1 id="Microsoft-Edge">Microsoft Edge</h1>
+<h1 id="node-js-npm-npx">node.js/npm/npx</h1>
+<blockquote>
+<p>Node.js、npm 和 npx 是 JavaScript 开发中紧密相连的三个核心概念。简单来说，它们的关系可以概括为：<strong>Node.js 是运行环境（地基），npm 是包管理工具（仓库管理员），而 npx 是包执行工具（快递员）</strong>。</p>
+</blockquote>
 <h2 id="安装">安装</h2>
+<ol>
+<li><a target="_blank" rel="noopener" href="https://nodejs.org/en/download">下载</a>并安装。</li>
+<li>添加环境变量：
+<ul>
+<li><code>yourfolder</code>（安装的主目录）</li>
+<li><code>yourfolder\node_global</code></li>
+</ul>
+</li>
+<li>完成</li>
+</ol>
+<h2 id="更新">更新</h2>
+<p><a target="_blank" rel="noopener" href="https://nodejs.org/en/download">下载</a>新版本后可以直接配置在原安装路径覆盖安装。</p>
+<h1 id="Microsoft-Edge">Microsoft Edge</h1>
+<h2 id="安装-2">安装</h2>
 <ol>
 <li>
 <p><a target="_blank" rel="noopener" href="https://www.microsoft.com/zh-cn/edge">下载地址</a>，下载<code>*.deb</code>格式文件到本地。</p>
@@ -1371,7 +1388,7 @@
 <li>或者直接设置你喜欢的彩色PS1：<code>PS1='$&#123;debian_chroot:+($debian_chroot)&#125;\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '</code></li>
 </ul>
 <h2 id="Terminator">Terminator</h2>
-<h3 id="安装-2">安装</h3>
+<h3 id="安装-3">安装</h3>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo apt install terminator<br></code></pre></td></tr></table></figure>
 <p>对于Ubuntu系统，如果安装了terminator，那么快捷键Ctrl+Alt+T将不会启动自带的terminal，而是启动安装的terminator。</p>
 <p>如果想恢复回来，可以执行以下命令：</p>
@@ -1490,7 +1507,7 @@
 <blockquote>
 <p>下面都是以Oh My Zsh框架为例，其它方式详见<a target="_blank" rel="noopener" href="https://github.com/romkatv/powerlevel10k">Powerlevel10k官方文档</a>。</p>
 </blockquote>
-<h3 id="安装-3">安装</h3>
+<h3 id="安装-4">安装</h3>
 <ol>
 <li>
 <p>克隆仓库：</p>
@@ -1517,7 +1534,7 @@
 <p><a target="_blank" rel="noopener" href="https://github.com/romkatv/powerlevel10k?tab=readme-ov-file#horrific-mess-when-resizing-terminal-window">调整终端窗口大小时出现可怕的混乱</a>。</p>
 </li>
 </ol>
-<h3 id="更新">更新</h3>
+<h3 id="更新-2">更新</h3>
 <ol>
 <li>
 <p>更新仓库：</p>
@@ -1596,7 +1613,7 @@
 <h1 id="Mission-Center">Mission Center</h1>
 <p>类似于Windows的任务管理器。</p>
 <p><a target="_blank" rel="noopener" href="https://missioncenter.io/">Mission Center官网</a></p>
-<h2 id="安装-4">安装</h2>
+<h2 id="安装-5">安装</h2>
 <p><a target="_blank" rel="noopener" href="https://flathub.org/setup/Ubuntu">flathub官方安装教程</a></p>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/jiexijihe945/article/details/137559859">Mission Center安装参考链接</a></p>
 <ol>
@@ -1652,6 +1669,26 @@
 <li>选择 All commands(所有命令)-&gt;PasteTextOnly(粘贴纯文本)， 在 Press new shortcut key (键入新快捷键)中输入自己喜欢的快捷键，例如示例中的 Ctrl+Shift+V, 点击 Assign(确定)，即可使用快捷键 Ctrl+Shift+V 去粘贴为纯文本了。</li>
 </ol>
 <h2 id="Libre-Office">Libre Office</h2>
+<h3 id="安装-6">安装</h3>
+<h3 id="Windows">Windows</h3>
+<ol>
+<li>
+<p>到<a target="_blank" rel="noopener" href="https://www.libreoffice.org/">官网</a>下载并安装msi文件。</p>
+</li>
+<li>
+<p>添加环境变量：</p>
+<ul>
+<li><code>yourfolder\LibreOffice\program</code></li>
+</ul>
+</li>
+<li>
+<p>测试：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs powershell">soffice <span class="hljs-literal">--version</span><br>soffice <span class="hljs-literal">--help</span><br><br>soffice <span class="hljs-literal">--headless</span> <span class="hljs-literal">--invisible</span> <span class="hljs-literal">--convert-to</span> pdf yourfolder/test.docx <span class="hljs-literal">--outdir</span> yourfolder  <span class="hljs-comment"># 中文文档转换及文档中中文是否会乱码测试</span><br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>完成。</p>
+</li>
+</ol>
 <h3 id="配置-4">配置</h3>
 <h4 id="修改快捷键-2">修改快捷键</h4>
 <p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/353517766">Word中设置粘贴为纯文本的自定义快捷键</a></p>
@@ -1682,7 +1719,7 @@
 <h1 id="Okular">Okular</h1>
 <p>Linux下使用的PDF阅读器。</p>
 <p><a target="_blank" rel="noopener" href="https://okular.kde.org/">Okular官网</a></p>
-<h2 id="安装-5">安装</h2>
+<h2 id="安装-7">安装</h2>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 首先，通过运行以下命令确保所有系统包都是最新的 apt 终端中的命令。</span><br>sudo apt update<br>sudo apt upgrade<br><span class="hljs-comment"># 默认情况下，Okular 在 Ubuntu 20.04 基础存储库中不可用。 现在运行以下命令以在您的 Ubuntu 系统上启用 Universe 存储库。</span><br>sudo add-apt-repository universe<br><span class="hljs-comment"># 运行以下命令更新包索引并安装 Okular PDF 查看器。</span><br>sudo apt update <br>sudo apt install okular<br><br><span class="hljs-comment"># 或，通过 Snap 安装 Okular</span><br><span class="hljs-comment"># 如果尚未安装 Snapd 软件包，则可以通过运行以下命令来安装它</span><br>sudo apt update<br>sudo apt install snapd<br><span class="hljs-comment"># 要安装 Okular，只需使用以下命令</span><br>sudo snap install okular<br><br><span class="hljs-comment"># 或，在软件中心搜索okular，点击install。</span><br></code></pre></td></tr></table></figure>
 <h2 id="中文配置">中文配置</h2>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_34626094/article/details/112647745">参考链接</a></p>
@@ -1716,7 +1753,7 @@ sudo okular
 </li>
 </ol>
 <h1 id="Pandoc">Pandoc</h1>
-<h2 id="安装-6">安装</h2>
+<h2 id="安装-8">安装</h2>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://pandoc.org/">https://pandoc.org/</a></li>
 </ul>
@@ -1730,7 +1767,7 @@ sudo okular
 <h1 id="Piper">Piper</h1>
 <p>我使用的鼠标是Logitech G502，但是Logitech的鼠标驱动<a target="_blank" rel="noopener" href="https://support.logi.com/hc/zh-cn/articles/360025298133-Logitech-G-HUB">Logitech G HUB</a>只提供了Windows和Mac版。当然，我相信Piper提供的鼠标驱动不止适用于这款鼠标。</p>
 <p><a target="_blank" rel="noopener" href="https://github.com/libratbag/piper">项目地址</a></p>
-<h2 id="安装-7">安装</h2>
+<h2 id="安装-9">安装</h2>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo add-apt-repository ppa:libratbag-piper/piper-libratbag-git<br>sudo apt update<br><span class="hljs-comment"># 对于 &lt; Ubuntu 20.04 版本的系统，需要先添加上面的PPA</span><br>sudo apt install piper<br></code></pre></td></tr></table></figure>
 <h2 id="使用-3">使用</h2>
 <p>Win+A打开应用列表，找到Piper点击即可。</p>
@@ -1738,7 +1775,7 @@ sudo okular
 <blockquote>
 <p>Plank是一个轻量级、快速和简洁的应用程序启动栏、dock栏。</p>
 </blockquote>
-<h2 id="安装-8">安装</h2>
+<h2 id="安装-10">安装</h2>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo apt update<br>sudo apt install plank<br>plank --version<br></code></pre></td></tr></table></figure>
 <h2 id="启动">启动</h2>
 <ol>
@@ -1775,7 +1812,7 @@ sudo okular
 <h2 id="移除被固定的软件图标">移除被固定的软件图标</h2>
 <p>如果不想要被固定在dock上的图标了，只需鼠标按住图标，拖出一定范围后松开鼠标即可。</p>
 <h1 id="Powershell">Powershell</h1>
-<h2 id="更新-2">更新</h2>
+<h2 id="更新-3">更新</h2>
 <p><a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/powershell/scripting/install/installing-powershell?view=powershell-7.4">官方文档</a></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash">winget <span class="hljs-built_in">source</span> remove winget  <span class="hljs-comment"># 删除由 Microsoft 维护的官方源</span><br>winget <span class="hljs-built_in">source</span> add winget https://mirrors.ustc.edu.cn/winget-source  <span class="hljs-comment"># 添加中科大开源软件镜像源</span><br>winget <span class="hljs-built_in">source</span> list  <span class="hljs-comment"># 换源进行验证和查看</span><br><span class="hljs-comment"># 如果要恢复使用 Microsoft 官方源，可以使用以下命令进行重置</span><br>winget <span class="hljs-built_in">source</span> reset winget<br><br>winget install --<span class="hljs-built_in">id</span> Microsoft.Powershell --<span class="hljs-built_in">source</span> winget<br><span class="hljs-variable">$PSVersionTable</span>  <span class="hljs-comment"># 查看版本</span><br></code></pre></td></tr></table></figure>
 <p>安装程序在 Windows“开始”菜单中创建一个快捷方式。</p>
@@ -1872,7 +1909,7 @@ sudo okular
 <h3 id="如何卸载？">如何卸载？</h3>
 <p>请尽量使用你安装时使用的对应方式来卸载QQ Linux版（参考你所使用的系统安装包管理器说明）。同样需要root权限才能完成卸载。以下是一些例子：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo rpm -e linuxqq<br>sudo dpkg -r linuxqq<br></code></pre></td></tr></table></figure>
-<h2 id="更新-3">更新</h2>
+<h2 id="更新-4">更新</h2>
 <p>下载最新版的安装包，如<code>.deb</code>，双击安装即可覆盖。</p>
 <h1 id="搜狗输入法">搜狗输入法</h1>
 <h2 id="下载安装-3">下载安装</h2>
@@ -1978,8 +2015,8 @@ sudo okular
 <p>实现同步。</p>
 </li>
 </ol>
-<h2 id="更新-4">更新</h2>
-<h3 id="Windows">Windows</h3>
+<h2 id="更新-5">更新</h2>
+<h3 id="Windows-2">Windows</h3>
 <p><a target="_blank" rel="noopener" href="https://syncthing.net/downloads/">下载</a>最新版后，解压覆盖到原文件夹即可。</p>
 <h2 id="小技巧">小技巧</h2>
 <ul>
@@ -1995,6 +2032,10 @@ sudo okular
 <li><a target="_blank" rel="noopener" href="https://docs.syncthing.net/users/syncing.html#case-sensitivity-in-file-names">文件名区分大小写</a>。原则上，Syncthing 适用于<em>区分大小写的</em>路径，这意味着 <code>file.txt</code> 和 <code>FILE.txt</code> 表示两个独立的东西。因此，它从不认为它们以某种方式相关以同步其内容。</li>
 <li><a target="_blank" rel="noopener" href="https://forum-zh.obsidian.md/t/topic/29995">其它同步方式</a></li>
 </ul>
+<h2 id="启动syncthing时不再显示终端控制台？">启动syncthing时不再显示终端控制台？</h2>
+<p><a target="_blank" rel="noopener" href="https://forum.syncthing.net/t/win11-console-is-no-longer-displayed-when-launching-syncthing/26936">Win11: Console is no-longer displayed when launching Syncthing</a></p>
+<p>问题：有没有办法重新启用前台控制台，而不是让它在后台运行？或者在任务栏/系统托盘中显示其他表明该软件正在运行的迹象。</p>
+<p>解决：此行为已<a target="_blank" rel="noopener" href="https://github.com/syncthing/syncthing/pull/10726">在 Shablone 提交的 Pull Request #10726 · syncthing/syncthing · GitHub 的“在 Windows 上，如果未在控制台中打开，则不分配控制台”</a> 中进行了更改。如果您希望控制台保持打开状态，一个简单的技巧是创建一个快捷方式，运行类似 <code>cmd.exe /c &quot;syncthing.exe&quot;</code> 的命令，而不是直接运行 <code>syncthing.exe</code> 。</p>
 <h2 id="参考链接">参考链接</h2>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://docs.syncthing.net/intro/getting-started.html">官方文档</a></li>
@@ -3088,6 +3129,10 @@ source ~/.bashrc  # source ~/.zshrc
 <li>**这不是 C++ 语法问题，而是 IDE（如 VSCode、CLion 等）索引和跳转能力的局限。**IDE 跳转异常只是工具解析不完全导致，不影响编译和运行。</li>
 <li>如果 IDE 跳转不正常，可以尝试重新索引、清理缓存，或用“全局搜索”功能辅助跳转。</li>
 </ul>
+<h3 id="开启网络代理后频繁断开登录？">开启网络代理后频繁断开登录？</h3>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/1982777114131469814">启用全局代理后，VSCode无法登录微软账号</a></p>
+<p>可能原因：VSCode 的微软账号登录使用 Web Account Manager (WAM)，这是基于 UWP 的系统组件，由 Microsoft.Windows.CloudExperienceHost 实现，众所周知UWP为了安全，禁止访问回环地址。</p>
+<p>在用户设置里，把<code>&quot;microsoft-authentication.implementation&quot;: &quot;msal&quot;,</code>，改成<code>&quot;microsoft-authentication.implementation&quot;: &quot;msal-no-broker&quot;,</code>，其实就是改成浏览器登录。</p>
 <h1 id="微信">微信</h1>
 <ol>
 <li>
@@ -3181,12 +3226,15 @@ source ~/.bashrc  # source ~/.zshrc
 <p>完成。</p>
 </li>
 </ol>
+<h2 id="创建快捷键">创建快捷键</h2>
+<p>Windows Terminal的安装路径示例：<code>C:\Program Files\WindowsApps\Microsoft.WindowsTerminal_1.24.11911.0_x64__8wekyb3d8bbwe\wt.exe</code></p>
+<p><a href="https://zeyulong.com/posts/ad29da53/#%E5%88%9B%E5%BB%BA%E5%BF%AB%E6%8D%B7%E9%94%AE">创建快捷键</a></p>
 <h2 id="配置终端打开为现代风格的、以管理员身份运行的Anaconda-Powershell-Prompt">配置终端打开为现代风格的、以管理员身份运行的Anaconda Powershell Prompt</h2>
 <ol>
 <li>打开“终端（Windows Terminal）”：开始菜单-终端，或（文件夹）右键-在终端打开。</li>
 <li>点击左上角下三角-设置，配置你的风格。</li>
 <li>添加配置文件-复制配置文件：Windows PowerShell</li>
-<li>开始菜单-找到“Anaconda Powershell Prompt”-右键：打开文件位置-属性，按照“快捷方式”的内容填入终端。示例：
+<li>开始菜单-找到“Anaconda Powershell Prompt”-右键：打开文件位置-属性，按照“快捷方式”（在这里还可以添加快捷键）的内容填入终端。示例：
 <ol>
 <li>名称：Anaconda Powershell Prompt</li>
 <li>命令行：<code>%windir%\System32\WindowsPowerShell\v1.0\powershell.exe -ExecutionPolicy ByPass -NoExit -Command &quot;&amp; 'C:\LLL25655\softwares\installed\anaconda3\shell\condabin\conda-hook.ps1' ; conda activate 'C:\LLL25655\softwares\installed\anaconda3' &quot;</code>
@@ -3204,6 +3252,9 @@ source ~/.bashrc  # source ~/.zshrc
 <li>这样，启动“终端（Windows Terminal）”时，默认就是（以管理员身份打开的）Anaconda Powershell Prompt。</li>
 </ol>
 <h2 id="修改PowerShell为默认UTF-8编码">修改PowerShell为默认UTF-8编码</h2>
+<blockquote>
+<p>我建议你<strong>保留 PowerShell 7.6.5，但不要再做“Force UTF-8 everywhere”这种全局强制配置</strong>。PowerShell 7 本身已经默认使用 <code>utf8NoBOM</code> 写文本；为了 Codex/现代开发工具而升级到 PowerShell 7 是合理的，但没有必要再通过 <code>chcp 65001</code> 和 Console Encoding 把所有传统 Windows CLI 一起强行切到 UTF-8。微软文档明确说明 PowerShell 6+ 默认文本输出就是 <code>utf8NoBOM</code>。</p>
+</blockquote>
 <p><a target="_blank" rel="noopener" href="https://blog.kaish.cn/posts/2026/fix-powershell-7-utf8-encoding-issue/">修改 Powershell 7 默认编码为 UTF-8</a></p>
 <p>查看默认编码方式，在终端输入：</p>
 <ul>
@@ -3229,7 +3280,7 @@ source ~/.bashrc  # source ~/.zshrc
 <li>打开下载的 .dmg 文件，将 Zotero 拖到“应用程序”文件夹。之后，您可以从 Spotlight、启动台或“应用程序”文件夹运行 Zotero，并像添加其他程序一样将其添加到 Dock 栏。</li>
 <li>安装 Zotero 后，您可以弹出并删除 .dmg 文件。</li>
 </ol>
-<h3 id="Windows-2">Windows</h3>
+<h3 id="Windows-3">Windows</h3>
 <ol>
 <li>运行您下载的安装程序。</li>
 </ol>
@@ -3312,7 +3363,7 @@ source ~/.bashrc  # source ~/.zshrc
 <p>编辑-首选项</p>
 <h2 id="使用-6">使用</h2>
 <p><a href="https://zeyulong.com/posts/78dbcabb/">Linux系统下常用的命令及快捷键</a></p>
-<h2 id="更新-5">更新</h2>
+<h2 id="更新-6">更新</h2>
 <h3 id="更新Zotero">更新Zotero</h3>
 <blockquote>
 <p>Zotero 默认会自动更新，您也可以前往“帮助”菜单，选择“检查更新…”手动检查更新。此外，您还可以手动将新版本 Zotero 安装到现有版本上，而不会丢失任何数据。</p>

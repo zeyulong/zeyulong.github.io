@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://zeyulong.com/posts/df5eb46/PyTorch%E5%8C%85%E7%9A%84%E5%91%BD%E5%90%8D%E8%A7%84%E5%88%99.png">
 <meta property="article:published_time" content="2024-03-05T07:37:06.000Z">
-<meta property="article:modified_time" content="2026-08-24T06:57:42.864Z">
+<meta property="article:modified_time" content="2026-09-09T01:35:52.550Z">
 <meta property="article:author" content="龙泽雨">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://zeyulong.com/posts/df5eb46/PyTorch%E5%8C%85%E7%9A%84%E5%91%BD%E5%90%8D%E8%A7%84%E5%88%99.png">
@@ -321,7 +321,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          7.1k 字
+          7.6k 字
         
       </span>
     
@@ -332,7 +332,7 @@
         
         
         
-          60 分钟
+          63 分钟
         
       </span>
     
@@ -374,7 +374,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2026年8月24日 下午
+                    本文最后更新于 2026年9月9日 上午
                   
                 
               </p>
@@ -441,7 +441,7 @@
 <p>命令行可能不能实现跨大版本升级，因此，可以重新手动<a target="_blank" rel="noopener" href="https://repo.anaconda.com/archive/">下载</a>最新版的exe文件，重新安装一次。</p>
 <ol>
 <li>
-<p>把原安装目录重命名加上后缀<code>_old</code>。因为程序安装路径下不能有文件。</p>
+<p>把原安装目录重命名加上后缀<code>_old</code>。因为程序安装路径下不能有文件。或直接先卸载旧版本，在原安装目录中有<code>Uninstall-Anaconda3.exe</code>。</p>
 </li>
 <li>
 <p>在程序安装界面把安装路径设置为原安装目录。</p>
@@ -457,6 +457,7 @@
 </li>
 </ol>
 <h2 id="配置">配置</h2>
+<h3 id="auto-activate-base">auto_activate_base</h3>
 <p>可以通过配置<code>auto_activate_base</code>关闭自动进入conda基础环境：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">conda config --<span class="hljs-built_in">set</span> auto_activate_base <span class="hljs-literal">false</span><br></code></pre></td></tr></table></figure>
 <p>如要开启，将其设为<code>true</code>就可以了：</p>
@@ -464,6 +465,43 @@
 <blockquote>
 <p>附：<a href="https://zeyulong.com/posts/a8aab215/#Conda">conda常用命令</a></p>
 </blockquote>
+<h3 id="PowerShell因conda初始化而启动慢">PowerShell因conda初始化而启动慢</h3>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43764974/article/details/132241233">conda init 导致的 powershell 启动缓慢的问题（Loading personal and system profiles took xxxx ms.）</a></p>
+<p>当在 PowerShell 中使用 <code>conda init</code> 后，可能会导致启动速度变慢。这是因为 PowerShell 在启动时加载了 Conda 的初始化脚本，增加了配置文件的加载时间。</p>
+<p>示例问题：Loading personal and system profiles took xxxx ms!</p>
+<p>解决方案</p>
+<p>方法一：注释 Conda 配置</p>
+<p>在 PowerShell 的配置文件中注释掉与 Conda 相关的部分，这样可以显著提升启动速度。</p>
+<p><strong>操作步骤：</strong></p>
+<ol>
+<li>打开 PowerShell 配置文件：</li>
+</ol>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs powershell">notepad <span class="hljs-variable">$PROFILE</span><br></code></pre></td></tr></table></figure>
+<ol start="2">
+<li>找到以下内容并注释：</li>
+</ol>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs powershell">\<span class="hljs-comment">#region conda initialize</span><br><br>\<span class="hljs-comment"># !! Contents within this block are managed by &#x27;conda init&#x27; !!</span><br><br>\<span class="hljs-comment"># If (Test-Path &quot;C:\path\to\conda.exe&quot;) &#123;</span><br><br>\<span class="hljs-comment"># (&amp; &quot;C:\path\to\conda.exe&quot; &quot;shell.powershell&quot; &quot;hook&quot;) | Out-String | ?&#123;$_&#125; | Invoke-Expression</span><br><br>\<span class="hljs-comment"># &#125;</span><br><br>\<span class="hljs-comment">#endregion</span><br></code></pre></td></tr></table></figure>
+<ol start="3">
+<li>保存并关闭文件。</li>
+</ol>
+<p><strong>效果：</strong> PowerShell 启动速度将显著提升，但默认不会加载 Conda 环境。</p>
+<blockquote>
+<p>使用这种方法后，因为终端没有初始化conda，所以需要先<code>conda init</code>（见方法二），才能<code>conda activate env</code>。</p>
+</blockquote>
+<p>方法二：按需加载 Conda（推荐）</p>
+<p>将 Conda 的初始化脚本单独保存为一个文件，仅在需要时手动运行。</p>
+<p><strong>操作步骤：</strong></p>
+<ol>
+<li>创建一个脚本文件，例如 <code>conda.ps1</code>，内容为：</li>
+</ol>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs powershell"><span class="hljs-keyword">If</span> (<span class="hljs-built_in">Test-Path</span> <span class="hljs-string">&quot;C:\path\to\conda.exe&quot;</span>) &#123;<br><br>(&amp; <span class="hljs-string">&quot;C:\path\to\conda.exe&quot;</span> <span class="hljs-string">&quot;shell.powershell&quot;</span> <span class="hljs-string">&quot;hook&quot;</span>) | <span class="hljs-built_in">Out-String</span> | ?&#123;<span class="hljs-variable">$_</span>&#125; | <span class="hljs-built_in">Invoke-Expression</span><br><br>&#125;<br></code></pre></td></tr></table></figure>
+<ol start="2">
+<li>将该文件保存在用户目录下（如 <code>C:\Users\&lt;username&gt;\</code>）。</li>
+<li>在需要使用 Conda 时运行：<code>/conda.ps1</code></li>
+</ol>
+<p><strong>效果：</strong> 仅在需要时加载 Conda 环境，避免影响 PowerShell 的启动速度。</p>
+<p>方法三：使用 Anaconda 提供的专用终端</p>
+<p>直接使用 <strong>Anaconda PowerShell Prompt</strong> 或 <strong>Anaconda Prompt</strong>，这些终端已预配置好环境变量，无需额外设置。</p>
 <h1 id="NVIDIA显卡驱动">NVIDIA显卡驱动</h1>
 <h2 id="查询驱动">查询驱动</h2>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">lspci | grep -i nvidia  <span class="hljs-comment"># 查看是否安装NVIDIA显卡</span><br>nvidia-smi  <span class="hljs-comment"># 查看显卡信息</span><br></code></pre></td></tr></table></figure>

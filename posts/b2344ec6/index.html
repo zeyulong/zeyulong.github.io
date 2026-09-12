@@ -24,7 +24,7 @@
 <meta property="og:description" content="本文主要分享了我个人在Codex使用过程中关注到的配置和使用技巧，主要摘自Codex官方文档。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-07-05T11:29:40.000Z">
-<meta property="article:modified_time" content="2026-08-24T07:33:37.928Z">
+<meta property="article:modified_time" content="2026-09-09T06:54:08.180Z">
 <meta property="article:author" content="龙泽雨">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -319,7 +319,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          9.3k 字
+          12k 字
         
       </span>
     
@@ -330,7 +330,7 @@
         
         
         
-          78 分钟
+          102 分钟
         
       </span>
     
@@ -372,7 +372,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2026年8月24日 下午
+                    本文最后更新于 2026年9月9日 下午
                   
                 
               </p>
@@ -406,6 +406,54 @@
 <ul>
 <li><a target="_blank" rel="noopener" href="https://chatgpt.com/pricing/">https://chatgpt.com/pricing/</a></li>
 <li><a target="_blank" rel="noopener" href="https://learn.chatgpt.com/docs/pricing">https://learn.chatgpt.com/docs/pricing</a></li>
+</ul>
+<h2 id="工作形态">工作形态</h2>
+<p>ChatGPT 包含 Chat 和 Work 两个功能，桌面应用中还包含 Codex。Chat 用于提供快速的对话式帮助，解答日常问题。Work 是一款专为耗时较长、多步骤工作和最终交付物而设计的智能助手。Codex 则专注于软件开发和技术工作。</p>
+<table>
+<thead>
+<tr>
+<th>形态</th>
+<th>核心定位</th>
+<th>最适合</th>
+<th>典型例子</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ChatGPT Chat</strong></td>
+<td>思考 + 对话</td>
+<td>问问题、分析、写作、讨论方案、代码片段</td>
+<td>“解释一下 Transformer”“帮我润色这封邮件”“分析这段 SQL”（告诉我怎么做）</td>
+</tr>
+<tr>
+<td><strong>ChatGPT Work</strong></td>
+<td>代理式执行完整任务</td>
+<td>多步骤研究、操作网页、处理文件、跨工具工作流、交付成品</td>
+<td>“调查 20 家竞争对手，整理成表格和汇报”“浏览几个网站收集数据并生成报告”（你去做）</td>
+</tr>
+<tr>
+<td><strong>Codex</strong></td>
+<td>软件工程 Agent</td>
+<td>写代码、修改代码库、运行测试、排查 bug、实现功能</td>
+<td>“在这个 repo 里加 OAuth”“修复 failing tests”“重构这个模块并跑测试”</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>
+<p><strong>ChatGPT Work 和 Codex 都具有 agent 特征</strong>，两者都可以执行多步骤任务；区别主要在于 Work 是更通用的知识工作 Agent，而 Codex 是专门针对软件工程优化的 Agent。</p>
+</li>
+<li>
+<p>如果你平时主要做研究、办公、商业分析，通常是 <strong>ChatGPT + Work</strong> 用得最多；如果你经常开发软件，则往往是 <strong>ChatGPT + Codex</strong> 配合使用。</p>
+<ul>
+<li>Work 完全可能为了完成任务而自己写 Python、SQL、JavaScript 或 shell 脚本。</li>
+<li>“是否写代码”不是 Work 与 Codex 的分界线。分界线是：代码本身是不是主要工作对象 / 最终目标。</li>
+<li>Work 是“用代码做工作”；Codex 是“把代码本身当工作”。</li>
+</ul>
+</li>
+<li>
+<p><strong>ChatGPT Chat本身也会调用工具。</strong> 更准确的区别不是“会不会用工具”，而是<strong>它是否以 Agent 的方式自主编排一整套工具和步骤来完成目标</strong>。</p>
+</li>
 </ul>
 <h2 id="使用方式">使用方式</h2>
 <p>Codex 提供四种使用方式，满足不同场景需求：</p>
@@ -851,6 +899,8 @@
 <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs markdown">Build a classic Snake game in this repo.<br><br>Scope &amp; constraints:<br><span class="hljs-bullet">-</span> Implement ONLY the classic Snake loop: grid movement, growing snake, food spawn, score, game-over, restart.<br><span class="hljs-bullet">-</span> Reuse existing project tooling/frameworks; do NOT add new dependencies unless truly required.<br><span class="hljs-bullet">-</span> Keep UI minimal and consistent with the repo’s existing styles (no new design systems, no extra animations).<br><br>Implementation plan:<br>1) Inspect the repo to find the right place to add a small interactive game (existing pages/routes/components).<br>2) Implement game state (snake positions, direction, food, score, tick timer) with deterministic, testable logic.<br>3) Render: simple grid + snake + food; support keyboard controls (arrow keys/WASD) and on-screen controls if mobile is present in the repo.<br>4) Add basic tests for the core game logic (movement, collisions, growth, food placement) if the repo has a test runner.<br><br>Deliverables:<br><span class="hljs-bullet">-</span> A small set of files/changes with clear names.<br><span class="hljs-bullet">-</span> Short run instructions (how to start dev server + where to navigate).<br><span class="hljs-bullet">-</span> A brief checklist of what to manually verify (controls, pause/restart, boundaries).<br></code></pre></td></tr></table></figure>
 <h2 id="用最小的改动，高置信度地查找并修复代码库中的错误">用最小的改动，高置信度地查找并修复代码库中的错误</h2>
 <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs markdown">Find and fix bugs in my codebase with minimal, high-confidence changes.<br><br>Method (grounded + disciplined):<br>1) Reproduce: run tests/lint/build (or follow the existing repo scripts). If I provided an error, reproduce that exact failure.<br>2) Localize: identify the smallest set of files/lines involved (stack traces, failing tests, logs).<br>3) Fix: implement the minimal change that resolves the issue without refactors or unrelated cleanup.<br>4) Prove: add/update a focused test (or a tight repro) that fails before and passes after.<br><br>Constraints:<br><span class="hljs-bullet">-</span> Do NOT invent errors or pretend to run commands you cannot run.<br><span class="hljs-bullet">-</span> No scope drift: no new features, no UI embellishments, no style overhauls.<br><span class="hljs-bullet">-</span> If information is missing, state what you can confirm from the repo and what remains unknown.<br><br>Output:<br><span class="hljs-bullet">-</span> Summary (3–6 sentences max): what was broken, why, and the fix.<br><span class="hljs-bullet">-</span> Then ≤5 bullets: What changed, Where (paths), Evidence (tests/logs), Risks, Next steps.<br></code></pre></td></tr></table></figure>
+<h2 id="更多">更多</h2>
+<p><a target="_blank" rel="noopener" href="https://learn.chatgpt.com/use-cases">官方用例</a></p>
 <h1 id="个性化">个性化</h1>
 <h2 id="项目指南AGENTS-md"><a target="_blank" rel="noopener" href="http://xn--AGENTS-og5jl05hep1bod8d.md">项目指南AGENTS.md</a></h2>
 <h3 id="概述-2">概述</h3>
@@ -879,6 +929,9 @@
 <p>CLI 中的 <code>/init</code> 斜杠命令是一个快速启动命令，它会在当前目录下生成一个初始的 <code>AGENTS.md</code> 文件。</p>
 <p>Codex 可以从多个位置加载指南：一个位于 Codex 主目录中的全局文件（供您作为开发人员使用），以及团队可以提交的特定于代码库的文件。距离工作目录越近的文件优先级越高。使用全局文件来控制 Codex 与您沟通的方式（例如，审查风格、详细程度和默认值），并保持存储库文件专注于团队和代码库规则。</p>
 <figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs txt">~/.codex/<br>	AGENTS.md  # Global (for you as a developer)<br>repo-root/<br>	AGENTS.md  # repo-specific (for your team)<br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>OpenAI 对 agent context 的设计思路：<strong>全局文件表达稳定偏好，项目文件表达项目事实，深层目录文件表达局部任务规则；让每一层只包含该层真正需要的信息。</strong></p>
+</blockquote>
 <table>
 <thead>
 <tr>
@@ -901,9 +954,12 @@
 </tbody>
 </table>
 <p><a target="_blank" rel="noopener" href="https://developers.openai.com/codex/guides/agents-md">使用 AGENTS.md 进行自定义说明</a></p>
+<blockquote>
+<p>当您需要临时全局覆盖而不删除基础文件时，请使用 <code>~/.codex/AGENTS.override.md</code> 移除覆盖即可恢复共享指南。</p>
+</blockquote>
 <h3 id="示例">示例</h3>
 <p><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/2044593527619839239/answer/2069086986032493683">codex的windows桌面版真的只有在wsl中才是“满血”，才有最佳体验吗？</a></p>
-<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs txt"># 个人全局配置<br><br>## 关于我<br>- I am a hardware architecture engineer.<br>- My main work involves AI accelerators, SoC, RTL, Verilog, SystemC, and computer architecture.<br><br>## 回答偏好<br>- 回复使用中文<br>- 遇到有多种实现方案时，列出选项让我选择，而不是直接选一种<br>- 回答保持精简<br>- 写python代码时，关键模块或者函数都加上中文的docstring或者注释，以方便阅读<br><br>## 安全习惯<br>- 修改认证相关代码前主动提示我注意安全影响<br><br>## 默认的python解释器<br>使用miniconda环境中的python解释器，路径如下：<br>- D:\500software\miniconda\envs\mywork\python.exe<br><br>## 需要转换PDF到markdown文件时<br>优先使用 pymupdf4llm <br><br>## 环境<br>- OS: Windows<br>- 终端请优先使用 PowerShell 7<br>- 如果有些时候外网连不上去，你可以先尝试使用镜像之类的，如果不行，也可以使用一个本地的代理端口：http://127.0.0.1:7890<br></code></pre></td></tr></table></figure>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs markdown"><span class="hljs-section"># 个人全局配置</span><br><br><span class="hljs-section">## 关于我</span><br><span class="hljs-bullet">-</span> I am a hardware architecture engineer.<br><span class="hljs-bullet">-</span> My main work involves AI accelerators, SoC, RTL, Verilog, SystemC, and computer architecture.<br><br><span class="hljs-section">## 回答偏好</span><br><span class="hljs-bullet">-</span> 回复使用中文<br><span class="hljs-bullet">-</span> 遇到有多种实现方案时，列出选项让我选择，而不是直接选一种<br><span class="hljs-bullet">-</span> 回答保持精简<br><span class="hljs-bullet">-</span> 写python代码时，关键模块或者函数都加上中文的docstring或者注释，以方便阅读<br><br><span class="hljs-section">## 安全习惯</span><br><span class="hljs-bullet">-</span> 修改认证相关代码前主动提示我注意安全影响<br><br><span class="hljs-section">## 默认的python解释器</span><br>使用miniconda环境中的python解释器，路径如下：<br><span class="hljs-bullet">-</span> D:\500software\miniconda\envs\mywork\python.exe<br><br><span class="hljs-section">## 需要转换PDF到markdown文件时</span><br>优先使用 pymupdf4llm <br><br><span class="hljs-section">## 环境</span><br><span class="hljs-bullet">-</span> OS: Windows<br><span class="hljs-bullet">-</span> 终端请优先使用 PowerShell 7<br><span class="hljs-bullet">-</span> 如果有些时候外网连不上去，你可以先尝试使用镜像之类的，如果不行，也可以使用一个本地的代理端口：http://127.0.0.1:7890<br></code></pre></td></tr></table></figure>
 <h2 id="插件">插件</h2>
 <p>插件将技能、应用程序集成和 MCP 服务器捆绑到 Codex 的可重用工作流程中。插件可以包含：</p>
 <ul>
@@ -919,27 +975,180 @@
 <li><a target="_blank" rel="noopener" href="https://developers.openai.com/codex/security/plugin">Codex Security</a> 是一个 Codex 安全审查插件，它可以扫描代码中的漏洞，验证合理的发现，并在可审查的工作区中提供证据和补救指导。使用它可以查找您拥有或有权评估的代码中的安全问题，防止它们进入生产环境。</li>
 </ul>
 <h2 id="skills">skills</h2>
+<blockquote>
+<p>如果您想分发可重用的技能、将两个或多个技能捆绑在一起，或者将技能与connector一起发布，请将它们打包为<a target="_blank" rel="noopener" href="https://developers.openai.com/plugins/build/plugins">插件</a>。</p>
+</blockquote>
 <h3 id="概述-3">概述</h3>
-<p>技能赋予 Codex 可重用功能，从而实现可重复的工作流程。技能通常是可重用工作流程的最佳选择，因为它们支持更丰富的指令、脚本和参考资料，同时还能在不同任务中保持可重用性。</p>
-<p>技能已加载并对代理可见（至少其元数据可见），因此 Codex 可以隐式地发现并选择它们。这既能保证丰富的工作流程可用，又不会预先引入过多上下文信息。</p>
-<p>技能可以是全局的（位于您的用户目录中，供您作为开发者使用），也可以是特定于代码仓库的（提交到 <code>.agents/skills</code> 目录中，供您的团队使用）。如果工作流程适用于某个特定项目，请将代码仓库技能放在 <code>.agents/skills</code> 目录中；如果您希望所有代码仓库都拥有相同的技能，请使用您的用户目录。</p>
-<p>技能采用<strong>渐进式披露机制</strong>来高效管理上下文：Codex 首先加载每个技能的名称、描述和文件路径。只有在决定使用某个技能时，Codex 才会加载完整的 <code>SKILL.md</code> 指令。</p>
-<p>Skills是可重用工作流的创作格式。Plugins 是 Codex 中可重用技能和应用程序的可安装分发单元。使用skills设计工作流本身，然后在需要其他开发者安装时将其打包成<a target="_blank" rel="noopener" href="https://developers.openai.com/codex/plugins/build">plugin</a>。</p>
+<p>技能赋予 Codex 可重用功能，从而实现对于某一固定任务可重复的工作流程，而不是每次需要重新描述需求。</p>
+<p>技能通常是可重用工作流程的最佳选择，因为它们支持更丰富的指令、脚本和参考资料，同时还能在不同任务中保持可重用性。</p>
+<p>运用技能：</p>
 <ul>
-<li>Skills 是编写格式，适合本地开发和仓库内的团队共享。当你需要将技能分发给其他开发者、打包多个技能、或与应用集成一起发布时，使用 Plugins 格式。</li>
+<li>可重复的工作流程（发布步骤、审核流程、文档更新）</li>
+<li>团队特定专业知识</li>
+<li>需要示例、参考资料或辅助脚本的步骤</li>
 </ul>
+<p>技能已加载并对代理可见（至少其元数据可见），因此 Codex 可以隐式地发现并选择它们。这既能保证丰富的工作流程可用，又不会预先引入过多上下文信息。</p>
+<p>技能采用<strong>渐进式披露机制</strong>来高效管理上下文：Codex 首先加载每个技能的名称、描述和文件路径。只有在决定使用某个技能时，Codex 才会加载完整的 <code>SKILL.md</code> 指令。</p>
 <p>Codex 支持两种技能激活方式：</p>
 <ul>
 <li>显式调用：在提示词中直接引用技能。在 CLI 或 IDE 中，使用 /skills 命令或输入 $ 符号来指定一个技能。显式调用时，Codex 不需要做任何匹配判断，直接加载完整 <a target="_blank" rel="noopener" href="http://SKILL.md">SKILL.md</a> 并执行。</li>
 <li>隐式匹配：当你发出的任务描述与某个技能的 <strong>description</strong> 字段匹配时，Codex 会自动选择该技能。隐式匹配的准确性完全取决于 description 字段的编写质量。</li>
 </ul>
-<p><a target="_blank" rel="noopener" href="https://developers.openai.com/codex/skills#where-to-save-skills">技能保存在哪里</a></p>
-<p><a target="_blank" rel="noopener" href="https://developers.openai.com/codex/concepts/customization#skills">编写技能</a></p>
-<blockquote>
-<p>按照当前的需求搜索相关skill并<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43925843/article/details/161199333">安装</a>。</p>
-</blockquote>
-<h3 id="收集整理">收集整理</h3>
+<p>Skills是可重用工作流的创作格式。Plugins 是 Codex 中可重用技能和应用程序的可安装分发单元。使用skills设计工作流本身，然后在需要其他开发者安装时将其打包成<a target="_blank" rel="noopener" href="https://developers.openai.com/codex/plugins/build">plugin</a>。</p>
 <ul>
+<li>Skills 是编写格式，适合本地开发和仓库内的团队共享。当你需要将技能分发给其他开发者、打包多个技能、或与应用集成一起发布时，使用 Plugins 格式。</li>
+</ul>
+<h3 id="保存位置">保存位置</h3>
+<p><a target="_blank" rel="noopener" href="https://developers.openai.com/codex/skills#where-to-save-skills">技能保存在哪里</a></p>
+<p>技能可以是全局的（位于您的用户目录中，供您作为开发者使用），也可以是特定于代码仓库的（提交到 <code>.agents/skills</code> 目录中，供您的团队使用）。如果工作流程适用于某个特定项目，请将代码仓库技能放在 <code>.agents/skills</code> 目录中；如果您希望所有代码仓库都拥有相同的技能，请使用您的用户目录。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Skill Scope 技能范围</th>
+<th style="text-align:left">Location 地点</th>
+<th style="text-align:left">Suggested use 建议用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>REPO</code></td>
+<td style="text-align:left"><code>$CWD/.agents/skills</code> Current working directory: where you launch Codex. 当前工作目录：Codex 的启动目录。</td>
+<td style="text-align:left">If you’re in a repository or code environment, teams can check in skills relevant to a working folder. For example, skills only relevant to a microservice or a module. 如果您身处代码仓库或代码环境中，团队可以提交与工作文件夹相关的技能。例如，仅与微服务或模块相关的技能。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>REPO</code></td>
+<td style="text-align:left"><code>$CWD/../.agents/skills</code> A folder above CWD when you launch Codex inside a Git repository. 在 Git 仓库中启动 Codex 时，当前工作目录 (CWD) 的上一级文件夹。</td>
+<td style="text-align:left">If you’re in a repository with nested folders, organizations can check in skills relevant to a shared area in a parent folder. 如果您在一个具有嵌套文件夹的存储库中，组织可以将与父文件夹中的共享区域相关的技能签入。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>REPO</code></td>
+<td style="text-align:left"><code>$REPO_ROOT/.agents/skills</code> The topmost root folder when you launch Codex inside a Git repository. 在 Git 仓库中启动 Codex 时，最顶层的根文件夹。</td>
+<td style="text-align:left">If you’re in a repository with nested folders, organizations can check in skills relevant to everyone using the repository. These serve as root skills available to any subfolder in the repository. 如果您使用的存储库包含嵌套文件夹，组织可以提交与存储库中所有用户相关的技能。这些技能将作为根技能，供存储库中的任何子文件夹使用。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>USER</code></td>
+<td style="text-align:left"><code>$HOME/.agents/skills</code> Any skills checked into the user’s personal folder. 已将任何技能添加到用户的个人文件夹中。</td>
+<td style="text-align:left">Use to curate skills relevant to a user that apply to any repository the user may work in. 用于整理与用户相关的技能，这些技能适用于用户可能参与的任何代码库。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>ADMIN</code></td>
+<td style="text-align:left"><code>/etc/codex/skills</code> Any skills checked into the machine or container in a shared, system location. 任何技能都已检入到共享系统位置的机器或容器中。</td>
+<td style="text-align:left">Use for SDK scripts, automation, and for checking in default admin skills available to each user on the machine. 可用于 SDK 脚本、自动化以及检查机器上每个用户可用的默认管理员技能。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>SYSTEM</code></td>
+<td style="text-align:left">Bundled with Codex by OpenAI. 与 OpenAI 的 Codex 捆绑在一起。</td>
+<td style="text-align:left">Useful skills relevant to a broad audience such as the skill-creator and plan skills. Available to everyone when they start Codex. 面向广大用户的实用技能，例如技能创建和计划技能。所有 Codex 用户在注册时均可使用。</td>
+</tr>
+</tbody>
+</table>
+<p>Codex 支持符号链接的技能文件夹，并在扫描这些位置时跟随符号链接目标。</p>
+<h3 id="安装-2">安装</h3>
+<h4 id="npx">npx</h4>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43925843/article/details/161199333">参考链接</a></p>
+<blockquote>
+<p>按照当前的需求搜索相关skill并安装。</p>
+</blockquote>
+<blockquote>
+<p>Codex 会自动检测技能变更。如果未显示更新，请重启 Codex。</p>
+</blockquote>
+<p>因为 skills 通常通过 npx 安装，所以电脑上需要先有 Node.js。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">node -v<br>npx -v<br>npx skills --<span class="hljs-built_in">help</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">npx skills find keywords  <span class="hljs-comment"># 搜索 Skill</span><br>npx skills add &lt;owner/repo@skill-name&gt;  <span class="hljs-comment"># 安装 Skill；-g/--global 全局安装</span><br><span class="hljs-comment"># npx skills@latest add mattpocock/skills --skill=grill-me -g</span><br></code></pre></td></tr></table></figure>
+<p>全局安装路径：</p>
+<ul>
+<li>
+<p><code>C:\Users\xxx\.agents\skills</code>（默认支持多种agent识别）</p>
+<blockquote>
+<p>Amp, Antigravity, Antigravity CLI, Cline, Codex, Cursor, Deep Agents, Gemini CLI, GitHub Copilot, Kimi Code CLI, OpenCode, Warp, Zed, ...</p>
+</blockquote>
+</li>
+<li>
+<p><code>C:\Users\xxx\.claude\skills</code>（可选安装，推荐使用软链接，方便更新）</p>
+</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">npx skills check  <span class="hljs-comment"># 检查 Skill 更新</span><br>npx skills update  <span class="hljs-comment"># 更新已安装 Skill</span><br><span class="hljs-comment"># npx skills update skill-name</span><br></code></pre></td></tr></table></figure>
+<p>卸载：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 命令行</span><br>npx openskills manage  <span class="hljs-comment"># 列出所有已安装的 Skills</span><br>npx openskills remove skill-name  <span class="hljs-comment"># 指定名称进行删除</span><br></code></pre></td></tr></table></figure>
+<p>Skills 的本质其实就是一个包含 <code>SKILL.md</code> 描述文件的文件夹。因此，你也可以直接通过文件管理器或终端命令将其删除：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 手动</span><br><span class="hljs-built_in">rm</span> -rf .agents/skills/grill-me  <span class="hljs-comment"># 删除项目级 Skill</span><br><span class="hljs-built_in">rm</span> -rf ~/.agents/skills/grill-me  <span class="hljs-comment"># 删除全局级 Skill</span><br></code></pre></td></tr></table></figure>
+<h4 id="内置">内置</h4>
+<p>要为本地 Codex 设置添加内置技能之外的精选技能，请使用 <code>$skill-installer</code> 。例如，要安装 <code>$linear</code> 技能：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-variable">$skill</span>-installer linear<br></code></pre></td></tr></table></figure>
+<p>您还可以指示安装程序从其他存储库下载技能。Codex 会自动检测新安装的技能；如果某个技能未显示，请重启 Codex。</p>
+<h3 id="配置-3">配置</h3>
+<p>在 <a target="_blank" rel="noopener" href="https://learn.chatgpt.com/docs/app">ChatGPT 桌面应用程序</a>中添加 <code>agents/openai.yaml</code> 以配置 UI 元数据，设置调用策略，并声明工具依赖项，从而获得更流畅的技能使用体验。</p>
+<blockquote>
+<p><code>SKILL.md</code> 决定了大模型**“怎么做”<strong>，而 <code>agents/openai.yaml</code> 决定了这个 Skill 在客户端</strong>“长什么样”<strong>以及</strong>“如何被触发”**。</p>
+</blockquote>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">interface:</span><br>  <span class="hljs-attr">display_name:</span> <span class="hljs-string">&quot;Optional user-facing name&quot;</span><br>  <span class="hljs-attr">short_description:</span> <span class="hljs-string">&quot;Optional user-facing description&quot;</span><br>  <span class="hljs-attr">icon_small:</span> <span class="hljs-string">&quot;./assets/small-logo.svg&quot;</span><br>  <span class="hljs-attr">icon_large:</span> <span class="hljs-string">&quot;./assets/large-logo.png&quot;</span><br>  <span class="hljs-attr">brand_color:</span> <span class="hljs-string">&quot;#3B82F6&quot;</span><br>  <span class="hljs-attr">default_prompt:</span> <span class="hljs-string">&quot;Optional surrounding prompt to use the skill with&quot;</span><br><br><span class="hljs-attr">policy:</span><br>  <span class="hljs-attr">allow_implicit_invocation:</span> <span class="hljs-literal">false</span><br><br><span class="hljs-attr">dependencies:</span><br>  <span class="hljs-attr">tools:</span><br>    <span class="hljs-bullet">-</span> <span class="hljs-attr">type:</span> <span class="hljs-string">&quot;mcp&quot;</span><br>      <span class="hljs-attr">value:</span> <span class="hljs-string">&quot;openaiDeveloperDocs&quot;</span><br>      <span class="hljs-attr">description:</span> <span class="hljs-string">&quot;OpenAI Docs MCP server&quot;</span><br>      <span class="hljs-attr">transport:</span> <span class="hljs-string">&quot;streamable_http&quot;</span><br>      <span class="hljs-attr">url:</span> <span class="hljs-string">&quot;https://developers.openai.com/mcp&quot;</span><br></code></pre></td></tr></table></figure>
+<p><code>allow_implicit_invocation</code> （默认值： <code>true</code> ）：当设置为 <code>false</code> 时，Codex 不会根据用户提示隐式调用技能；显式 <code>$skill</code> 调用仍然有效。</p>
+<h3 id="编写">编写</h3>
+<p><a target="_blank" rel="noopener" href="https://developers.openai.com/codex/concepts/customization#skills">编写技能</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.runoob.com/skills/skills-tutorial.html">Skills 教程</a></p>
+<blockquote>
+<p>每项技能都应专注于<strong>一项</strong>工作。</p>
+</blockquote>
+<ul>
+<li>
+<p>如果您已经了解工作流程，并且演示比描述更容易，请使用 <a target="_blank" rel="noopener" href="https://learn.chatgpt.com/docs/extend/record-and-replay">录制和回放 </a>。录制器会捕捉工作流程，检查步骤，并从演示中提炼出可重用的技能。</p>
+</li>
+<li>
+<p>如果您想描述技能，请使用内置的技能创建器。在 ChatGPT Work 中，请使用 <code>@skill-creator</code> 调用它。在 Codex 中，请使用以下方式调用它: <code>$skill-creator</code>。创建者需要询问技能的功能、触发时机，以及是否仅提供指令或包含脚本。默认设置为仅提供指令。</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/anthropics/skills/tree/main/skills/skill-creator%EF%BC%9A%E5%88%9B%E9%80%A0%E6%96%B0%E6%8A%80%E8%83%BD%EF%BC%8C%E4%BF%AE%E6%94%B9%E5%92%8C%E6%94%B9%E8%BF%9B%E7%8E%B0%E6%9C%89%E6%8A%80%E8%83%BD%EF%BC%8C%E5%B9%B6%E8%A1%A1%E9%87%8F%E6%8A%80%E8%83%BD%E8%A1%A8%E7%8E%B0%E3%80%82">https://github.com/anthropics/skills/tree/main/skills/skill-creator：创造新技能，修改和改进现有技能，并衡量技能表现。</a></li>
+</ul>
+</li>
+<li>
+<p>您也可以通过创建一个包含 <code>SKILL.md</code> 文件的文件夹来手动创建技能。</p>
+</li>
+</ul>
+<p>一项技能通常是一个 <code>SKILL.md</code> 文件，外加可选的脚本、参考资料和资源。</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs txt">my-skill/<br>	SKILL.md  # 必需：说明 + 元数据<br>	scripts/  # 可选：可执行代码<br>	references/  # 可选：文档<br>	assets/  # 可选：模板、资源<br></code></pre></td></tr></table></figure>
+<p>整个 <a target="_blank" rel="noopener" href="http://SKILL.md">SKILL.md</a> 分为上下两部分：用 <strong>---</strong> 包裹的 YAML frontmatter（头部配置），以及下方的 Markdown 正文（执行说明）。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">字段</th>
+<th style="text-align:left">必填</th>
+<th style="text-align:left">说明</th>
+<th style="text-align:left">示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>name</code></td>
+<td style="text-align:left">是</td>
+<td style="text-align:left">Skill 的唯一标识符，使用 kebab-case 命名。会被 / 命令引用，是系统识别 Skill 的关键字段。推荐使用功能清晰明确而不是含糊笼统的name。name 字段最多 64 个字符，只能包含小写字母、数字和连字符。</td>
+<td style="text-align:left"><code>web-design-guidelines</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>description</code></td>
+<td style="text-align:left">是</td>
+<td style="text-align:left">一句话描述功能与触发场景。内容越具体，触发越准确。启动时，系统只会把所有 Skills 的 name 和 description 预加载进系统提示词。只有当 description 被 AI 判断与当前任务相关时，才会进一步读取完整的 <a target="_blank" rel="noopener" href="http://SKILL.md">SKILL.md</a> 内容。description 应该同时包含两部分：这个 Skill 做什么，以及什么时候 Claude 应该使用它。</td>
+<td style="text-align:left"><code>UI/UX design review for web pages</code></td>
+</tr>
+</tbody>
+</table>
+<p>示例 <code>SKILL.md</code> ：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs markdown">---<br>name: skill-name<br><span class="hljs-section">description: Explain exactly when this skill should and should not trigger.</span><br><span class="hljs-section">---</span><br><br>Skill instructions for ChatGPT or Codex to follow.<br></code></pre></td></tr></table></figure>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs markdown">---<br>name: commit<br><span class="hljs-section">description: Stage and commit changes in semantic groups. Use when the user wants to commit, organize commits, or clean up a branch before pushing.</span><br><span class="hljs-section">---</span><br><br><span class="hljs-bullet">1.</span> Do not run <span class="hljs-code">`git add .`</span>. Stage files in logical groups by purpose.<br><span class="hljs-bullet">2.</span> Group into separate commits: feat → test → docs → refactor → chore.<br><span class="hljs-bullet">3.</span> Write concise commit messages that match the change scope.<br><span class="hljs-bullet">4.</span> Keep each commit focused and reviewable.<br></code></pre></td></tr></table></figure>
+<p>技能目录可以包含一个 <code>scripts/</code> 文件夹，其中包含 Codex 在工作流程中调用的 CLI 脚本（例如，初始化数据或运行验证）。当工作流程需要外部系统（问题跟踪器、设计工具、文档服务器）时，请将该技能与 <a target="_blank" rel="noopener" href="https://learn.chatgpt.com/docs/extend/mcp">MCP</a> 结合使用。</p>
+<h3 id="调用">调用</h3>
+<p>在ChatGPT Work或Codex的聊天框中输入<code>$</code>以实现调用，或直接说明“使用xx skill，要做什么事”，gpt会自动检索可用的skill。</p>
+<h3 id="启用或禁用本地skill">启用或禁用本地skill</h3>
+<p>在 <code>~/.codex/config.toml</code> 文件中使用 <code>[[skills.config]]</code> 条目可以禁用技能而不将其删除：</p>
+<figure class="highlight toml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs toml"><span class="hljs-section">[[skills.config]]</span><br><span class="hljs-attr">path</span> = <span class="hljs-string">&quot;/path/to/skill/SKILL.md&quot;</span><br><span class="hljs-attr">enabled</span> = <span class="hljs-literal">false</span><br></code></pre></td></tr></table></figure>
+<p>修改 <code>~/.codex/config.toml</code> 后重启 Codex。</p>
+<h3 id="收集整理">收集整理</h3>
+<blockquote>
+<p>现在AI code越用，越觉得skills的重要，不然总是0-1在转悠，稍微复杂点，spec也不顶用，而且每次还得输入一堆前置对话交代前情提要。<a target="_blank" rel="noopener" href="https://linux.do/t/topic/1313354">有没有 Agent Skills 的什么聚合站？</a></p>
+</blockquote>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.skills.sh/">https://www.skills.sh/</a></li>
+<li><a target="_blank" rel="noopener" href="https://skillhub.cn/">https://skillhub.cn/</a></li>
+<li><a target="_blank" rel="noopener" href="https://skillsmp.com/">https://skillsmp.com/</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/vercel-labs/skills/tree/main/skills/find-skills%EF%BC%9A%E5%B8%AE%E5%8A%A9%E7%94%A8%E6%88%B7%E5%8F%91%E7%8E%B0%E5%92%8C%E5%AE%89%E8%A3%85agent">https://github.com/vercel-labs/skills/tree/main/skills/find-skills：帮助用户发现和安装agent</a> skills。</li>
 <li><a target="_blank" rel="noopener" href="https://github.com/openai/plugins%EF%BC%9A%E6%AD%A4%E4%BB%93%E5%BA%93%E5%8C%85%E5%90%AB%E7%B2%BE%E9%80%89%E7%9A%84">https://github.com/openai/plugins：此仓库包含精选的</a> Codex 插件示例集合。</li>
 <li><a target="_blank" rel="noopener" href="https://github.com/anthropics/skills%EF%BC%9A%E6%AD%A4%E4%BB%93%E5%BA%93%E5%8C%85%E5%90%AB">https://github.com/anthropics/skills：此仓库包含</a> Anthropic 为 Claude 实现的技能。</li>
 </ul>
@@ -949,7 +1158,7 @@
 <p><a target="_blank" rel="noopener" href="https://github.com/JuliusBrussee/caveman%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88%E7%94%A8%E9%82%A3%E4%B9%88%E5%A4%9Atoken%EF%BC%9F%E5%B0%91token%E5%B0%B1%E8%83%BD%E6%90%9E%E5%AE%9A%E2%80%94%E2%80%94Claude">https://github.com/JuliusBrussee/caveman：为什么用那么多token？少token就能搞定——Claude</a> Code skill，用原始人说话就能减少65%的token。</p>
 </li>
 <li>
-<p><a target="_blank" rel="noopener" href="https://www.aihero.dev/skills-grill-with-docs">工作流</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.aihero.dev/skills-grill-with-docs">Matt Pocock的全套工作流推荐</a></p>
 <ul>
 <li>
 <p><a target="_blank" rel="noopener" href="https://github.com/mattpocock/skills/tree/main/skills/productivity/grill-me%EF%BC%9A%E4%B8%BA%E5%AE%8C%E5%96%84%E8%AE%A1%E5%88%92%E6%88%96%E8%AE%BE%E8%AE%A1%E8%80%8C%E8%BF%9B%E8%A1%8C%E7%9A%84%E5%8F%8D%E5%A4%8D%E8%AE%BF%E8%B0%88%E3%80%82">https://github.com/mattpocock/skills/tree/main/skills/productivity/grill-me：为完善计划或设计而进行的反复访谈。</a></p>
@@ -986,7 +1195,7 @@
 <p><a target="_blank" rel="noopener" href="https://github.com/mattpocock/skills/tree/main/skills/productivity/handoff%EF%BC%9A%E5%B0%86%E5%BD%93%E5%89%8D%E5%AF%B9%E8%AF%9D%E5%86%85%E5%AE%B9%E7%B2%BE%E7%AE%80%E6%88%90%E4%B8%80%E4%BB%BD%E4%BA%A4%E6%8E%A5%E6%96%87%E4%BB%B6%EF%BC%8C%E4%BB%A5%E4%BE%BF%E5%85%B6%E5%AE%83agent%E6%8E%A5%E6%89%8B%E3%80%82">https://github.com/mattpocock/skills/tree/main/skills/productivity/handoff：将当前对话内容精简成一份交接文件，以便其它agent接手。</a></p>
 </li>
 <li>
-<p><a target="_blank" rel="noopener" href="https://github.com/affaan-m/ECC%EF%BC%9A%E6%99%BA%E8%83%BD%E4%BD%93%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E7%B3%BB%E7%BB%9F%E3%80%82">https://github.com/affaan-m/ECC：智能体性能优化系统。</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/affaan-m/ECC%EF%BC%9A%E6%99%BA%E8%83%BD%E4%BD%93%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E7%B3%BB%E7%BB%9F%EF%BC%8C%E8%A7%A3%E5%86%B3%E4%B8%80%E4%B8%AA%E5%85%B7%E4%BD%93%E9%97%AE%E9%A2%98%EF%BC%9Aagent">https://github.com/affaan-m/ECC：智能体性能优化系统，解决一个具体问题：agent</a> 每完成一次工作，如何让下一次工作的上下文负担更轻，而不是每多一次工作就多一份上下文债务。</p>
 </li>
 <li>
 <p><a target="_blank" rel="noopener" href="https://github.com/muratcankoylan/Agent-Skills-for-Context-Engineering%EF%BC%9A%E4%B8%80%E5%A5%97%E5%85%A8%E9%9D%A2%E3%80%81%E5%BC%80%E6%94%BE%E7%9A%84%E6%99%BA%E8%83%BD%E4%BD%93%E6%8A%80%E8%83%BD%E9%9B%86%EF%BC%8C%E4%B8%93%E6%B3%A8%E4%BA%8E%E4%B8%8A%E4%B8%8B%E6%96%87%E5%B7%A5%E7%A8%8B%E5%92%8C%E5%88%A9%E7%94%A8%E5%B7%A5%E7%A8%8B%E5%8E%9F%E7%90%86%E6%9D%A5%E6%9E%84%E5%BB%BA%E7%94%9F%E4%BA%A7%E7%BA%A7%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E6%99%BA%E8%83%BD%E4%BD%93%E7%B3%BB%E7%BB%9F%E3%80%82">https://github.com/muratcankoylan/Agent-Skills-for-Context-Engineering：一套全面、开放的智能体技能集，专注于上下文工程和利用工程原理来构建生产级人工智能智能体系统。</a></p>
@@ -1003,16 +1212,40 @@
 </ul>
 <h3 id="写作">写作</h3>
 <ul>
-<li><a target="_blank" rel="noopener" href="https://github.com/blader/humanizer%EF%BC%9A%E4%B8%80%E6%AC%BE%E4%BE%BF%E6%90%BA%E5%BC%8F%E4%BB%A3%E7%90%86%E6%8A%80%E8%83%BD%EF%BC%8C%E8%83%BD%E5%A4%9F%E6%B6%88%E9%99%A4%E6%96%87%E6%9C%AC%E4%B8%AD%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E7%94%9F%E6%88%90%E7%9A%84%E7%97%95%E8%BF%B9%EF%BC%8C%E4%BD%BF%E5%85%B6%E5%90%AC%E8%B5%B7%E6%9D%A5%E6%9B%B4%E8%87%AA%E7%84%B6%E3%80%81%E6%9B%B4%E5%83%8F%E4%BA%BA%E7%B1%BB%E7%9A%84%E8%AF%AD%E8%A8%80%E3%80%82">https://github.com/blader/humanizer：一款便携式代理技能，能够消除文本中人工智能生成的痕迹，使其听起来更自然、更像人类的语言。</a></li>
-<li><a target="_blank" rel="noopener" href="https://github.com/Shubhamsaboo/awesome-llm-apps/tree/main/awesome_agent_skills/technical-writer">https://github.com/Shubhamsaboo/awesome-llm-apps/tree/main/awesome_agent_skills/technical-writer</a></li>
+<li>
+<p><a target="_blank" rel="noopener" href="https://github.com/blader/humanizer%EF%BC%9A%E4%B8%80%E6%AC%BE%E4%BE%BF%E6%90%BA%E5%BC%8F%E4%BB%A3%E7%90%86%E6%8A%80%E8%83%BD%EF%BC%8C%E8%83%BD%E5%A4%9F%E6%B6%88%E9%99%A4%E6%96%87%E6%9C%AC%E4%B8%AD%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E7%94%9F%E6%88%90%E7%9A%84%E7%97%95%E8%BF%B9%EF%BC%8C%E4%BD%BF%E5%85%B6%E5%90%AC%E8%B5%B7%E6%9D%A5%E6%9B%B4%E8%87%AA%E7%84%B6%E3%80%81%E6%9B%B4%E5%83%8F%E4%BA%BA%E7%B1%BB%E7%9A%84%E8%AF%AD%E8%A8%80%E3%80%82">https://github.com/blader/humanizer：一款便携式代理技能，能够消除文本中人工智能生成的痕迹，使其听起来更自然、更像人类的语言。</a></p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/op7418/Humanizer-zh">https://github.com/op7418/Humanizer-zh</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/jiji262/humanizer-chinese">https://github.com/jiji262/humanizer-chinese</a></li>
+</ul>
+</li>
+<li>
+<p><a target="_blank" rel="noopener" href="https://github.com/hardikpandya/stop-slop%EF%BC%9AA">https://github.com/hardikpandya/stop-slop：A</a> skill for removing AI tells from prose.</p>
+</li>
+<li>
+<p><a target="_blank" rel="noopener" href="https://github.com/zenstory-ai/oh-story-claudecode%EF%BC%9A%E7%BD%91%E6%96%87/%E5%B0%8F%E8%AF%B4%E5%86%99%E4%BD%9C">https://github.com/zenstory-ai/oh-story-claudecode：网文/小说写作</a> skill 包，覆盖长篇与短篇网络小说的扫榜、拆文、写作、去AI味、封面图全流程</p>
+</li>
+<li>
+<p><a target="_blank" rel="noopener" href="https://skillhub.cn/skills/user_ab5ae6ee/unclecheng-reduce-ai-perception-v2%EF%BC%9A%E5%8E%BB%E9%99%A4%E6%96%87%E6%9C%AC%E4%B8%AD%E7%9A%84AI%E5%86%99%E4%BD%9C%E7%97%95%E8%BF%B9%EF%BC%8C%E8%AE%A9%E6%96%87%E5%AD%97%E8%AF%BB%E8%B5%B7%E6%9D%A5%E6%9B%B4%E5%83%8F%E4%BA%BA%E7%B1%BB%E5%86%99%E4%BD%9C%E3%80%82">https://skillhub.cn/skills/user_ab5ae6ee/unclecheng-reduce-ai-perception-v2：去除文本中的AI写作痕迹，让文字读起来更像人类写作。</a></p>
+</li>
+<li>
+<p><a target="_blank" rel="noopener" href="https://skillhub.cn/skills/user_741dc82b/libai%EF%BC%9A%E6%9D%8E%E7%99%BD.Skill:%E6%B6%A6%E8%89%B2%E4%B8%93%E5%AE%B6">https://skillhub.cn/skills/user_741dc82b/libai：李白.Skill:润色专家</a> 检测并消除中文文本中的AI生成痕迹，将生硬的机器输出转化为自然流畅的人类文笔。</p>
+</li>
+<li>
+<p><a target="_blank" rel="noopener" href="https://github.com/Shubhamsaboo/awesome-llm-apps/tree/main/awesome_agent_skills/technical-writer%EF%BC%9A%E4%B8%BA%E5%BC%80%E5%8F%91%E8%80%85%E5%92%8C%E7%94%A8%E6%88%B7%E5%88%9B%E5%BB%BA%E6%B8%85%E6%99%B0%E7%9A%84%E6%96%87%E6%A1%A3%E3%80%81API">https://github.com/Shubhamsaboo/awesome-llm-apps/tree/main/awesome_agent_skills/technical-writer：为开发者和用户创建清晰的文档、API</a> 参考、指南和技术内容。适用场景：编写文档、创建 README 文件、编写 API 文档、编写教程、创建用户指南，或者当用户提及文档、技术写作，或需要帮助清晰地解释技术概念时。</p>
+</li>
 </ul>
 <h3 id="学术研究">学术研究</h3>
+<h4 id="论文">论文</h4>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://github.com/Imbad0202/academic-research-skills%EF%BC%9A%E4%B8%80%E5%A5%97%E5%85%A8%E9%9D%A2%E7%9A%84">https://github.com/Imbad0202/academic-research-skills：一套全面的</a> Claude Code 技能，用于学术研究，涵盖从研究到发表的整个流程。</li>
-<li><a target="_blank" rel="noopener" href="https://github.com/handsomestWei/patent-disclosure-skill%EF%BC%9A%E4%B8%AD%E5%9B%BD%E4%B8%93%E5%88%A9.skill%EF%BC%8C%E4%BB%8E%E9%A1%B9%E7%9B%AE%E6%96%87%E6%A1%A3%E5%88%B0%E5%8F%AF%E4%BA%A4%E4%BB%98%E7%9A%84%E6%8A%80%E6%9C%AF%E4%BA%A4%E5%BA%95%E4%B9%A6%EF%BC%8C%E4%B8%93%E5%88%A9%E7%82%B9%E6%8C%96%E6%8E%98%E3%80%81%E8%81%94%E7%BD%91%E5%9B%BD%E7%9F%A5%E5%B1%80%E6%9F%A5%E6%96%B0%E3%80%81%E8%84%B1%E6%95%8F%E6%88%90%E6%96%87%E4%B8%8E%E8%87%AA%E6%A3%80%E9%97%AD%E7%8E%AF%E3%80%82">https://github.com/handsomestWei/patent-disclosure-skill：中国专利.skill，从项目文档到可交付的技术交底书，专利点挖掘、联网国知局查新、脱敏成文与自检闭环。</a></li>
 <li><a target="_blank" rel="noopener" href="https://github.com/zLanqing/codex-claude-academic-skills%EF%BC%9A%E6%9C%AC%E4%BB%93%E5%BA%93%E5%8C%85%E5%90%AB%E4%B8%89%E4%B8%AA%E9%9D%A2%E5%90%91%E5%AD%A6%E6%9C%AF%E7%A7%91%E7%A0%94%E4%BA%BA%E5%91%98%E7%9A%84Skills%EF%BC%8C%E8%A6%86%E7%9B%96%E4%BB%8E%E6%96%87%E7%8C%AE%E9%98%85%E8%AF%BB%E3%80%81%E8%AE%BA%E6%96%87%E5%86%99%E4%BD%9C%E5%88%B0%E7%A7%91%E5%AD%A6%E8%AE%A1%E7%AE%97%E7%9A%84%E5%AE%8C%E6%95%B4%E7%A0%94%E7%A9%B6%E5%B7%A5%E4%BD%9C%E6%B5%81%E3%80%82">https://github.com/zLanqing/codex-claude-academic-skills：本仓库包含三个面向学术科研人员的Skills，覆盖从文献阅读、论文写作到科学计算的完整研究工作流。</a></li>
 <li><a target="_blank" rel="noopener" href="https://github.com/Norman-bury/research-writing-skill%EF%BC%9A%E6%8A%8A%22%E8%AE%BA%E6%96%87%E5%86%99%E4%BD%9C%22%E4%BB%8E%E4%B8%80%E6%AC%A1%E6%80%A7%E8%81%8A%E5%A4%A9%EF%BC%8C%E5%8D%87%E7%BA%A7%E6%88%90%E5%8F%AF%E8%BF%BD%E8%B8%AA%E3%80%81%E5%8F%AF%E6%81%A2%E5%A4%8D%E3%80%81%E5%8F%AF%E5%A4%8D%E7%94%A8%E7%9A%84%E5%B7%A5%E7%A8%8B%E5%8C%96%E5%8D%8F%E4%BD%9C%E6%B5%81%E7%A8%8B%E3%80%82">https://github.com/Norman-bury/research-writing-skill：把&quot;论文写作&quot;从一次性聊天，升级成可追踪、可恢复、可复用的工程化协作流程。</a></li>
-<li><a target="_blank" rel="noopener" href="https://github.com/imbad0202/academic-research-skills%EF%BC%9A%E4%B8%80%E5%A5%97%E5%85%A8%E9%9D%A2%E7%9A%84">https://github.com/imbad0202/academic-research-skills：一套全面的</a> Claude Code 技能，用于学术研究，涵盖从研究到发表的整个流程。</li>
+</ul>
+<h4 id="专利">专利</h4>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/handsomestWei/patent-disclosure-skill%EF%BC%9A%E4%B8%AD%E5%9B%BD%E4%B8%93%E5%88%A9.skill%EF%BC%8C%E4%BB%8E%E9%A1%B9%E7%9B%AE%E6%96%87%E6%A1%A3%E5%88%B0%E5%8F%AF%E4%BA%A4%E4%BB%98%E7%9A%84%E6%8A%80%E6%9C%AF%E4%BA%A4%E5%BA%95%E4%B9%A6%EF%BC%8C%E4%B8%93%E5%88%A9%E7%82%B9%E6%8C%96%E6%8E%98%E3%80%81%E8%81%94%E7%BD%91%E5%9B%BD%E7%9F%A5%E5%B1%80%E6%9F%A5%E6%96%B0%E3%80%81%E8%84%B1%E6%95%8F%E6%88%90%E6%96%87%E4%B8%8E%E8%87%AA%E6%A3%80%E9%97%AD%E7%8E%AF%E3%80%82%E9%80%9A%E4%BF%97%E8%A7%A3%E8%AF%BB%E4%B8%93%E5%88%A9%EF%BC%8C%E5%97%85%E6%8E%A2%E6%94%BF%E7%AD%96%E5%8A%A8%E5%90%91%EF%BC%8C%E8%BE%85%E5%8A%A9%E5%AE%A1%E6%9F%A5%E7%AD%94%E5%A4%8D%E3%80%82">https://github.com/handsomestWei/patent-disclosure-skill：中国专利.skill，从项目文档到可交付的技术交底书，专利点挖掘、联网国知局查新、脱敏成文与自检闭环。通俗解读专利，嗅探政策动向，辅助审查答复。</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/7toCR/paper2patent%EF%BC%9A%E9%9D%A2%E5%90%91%E7%A7%91%E7%A0%94%E6%88%90%E6%9E%9C%E8%BD%AC%E5%8C%96%E7%9A%84%E8%AE%BA%E6%96%87%E8%BD%AC%E4%B8%93%E5%88%A9%E6%99%BA%E8%83%BD%E6%A8%A1%E6%9D%BF%E5%BA%93%EF%BC%8C%E6%8F%90%E4%BE%9B">https://github.com/7toCR/paper2patent：面向科研成果转化的论文转专利智能模板库，提供</a> Flash/Pro Prompt、专利附图生成与 Agent Skills，辅助规范生成中国发明专利申请文本。</li>
 </ul>
 <h3 id="创作">创作</h3>
 <ul>
@@ -1024,21 +1257,26 @@
 <li><a target="_blank" rel="noopener" href="https://github.com/Misaka-Mikoto-Tech/agent-skills/tree/main/skills/powershell-safe-invocation">https://github.com/Misaka-Mikoto-Tech/agent-skills/tree/main/skills/powershell-safe-invocation</a></li>
 <li><a target="_blank" rel="noopener" href="https://github.com/hmohamed01/powershell-expert">https://github.com/hmohamed01/powershell-expert</a></li>
 </ul>
-<h3 id="其它">其它</h3>
+<h3 id="grilling">grilling</h3>
+<p>你想掌握三种<a target="_blank" rel="noopener" href="https://www.aihero.dev/ai-coding-dictionary/grilling">grilling</a>技巧中的哪一种，取决于你面前的食材：</p>
 <ul>
-<li>
-<p><a target="_blank" rel="noopener" href="https://github.com/anthropics/skills/tree/main/skills/skill-creator%EF%BC%9A%E5%88%9B%E9%80%A0%E6%96%B0%E6%8A%80%E8%83%BD%EF%BC%8C%E4%BF%AE%E6%94%B9%E5%92%8C%E6%94%B9%E8%BF%9B%E7%8E%B0%E6%9C%89%E6%8A%80%E8%83%BD%EF%BC%8C%E5%B9%B6%E8%A1%A1%E9%87%8F%E6%8A%80%E8%83%BD%E8%A1%A8%E7%8E%B0%E3%80%82">https://github.com/anthropics/skills/tree/main/skills/skill-creator：创造新技能，修改和改进现有技能，并衡量技能表现。</a></p>
-</li>
-<li>
-<p><a target="_blank" rel="noopener" href="https://github.com/vercel-labs/skills/tree/main/skills/find-skills%EF%BC%9A%E5%B8%AE%E5%8A%A9%E7%94%A8%E6%88%B7%E5%8F%91%E7%8E%B0%E5%92%8C%E5%AE%89%E8%A3%85agent">https://github.com/vercel-labs/skills/tree/main/skills/find-skills：帮助用户发现和安装agent</a> skills。</p>
-</li>
+<li><strong>任何事物，任何地点</strong>：<a target="_blank" rel="noopener" href="https://www.aihero.dev/skills-grill-me">grill-me</a>。它不需要代码仓库，不写入任何文件，主题也不一定是代码。
+<ul>
+<li><code>grill-me</code> 是一个<strong>独立的程序，可以在任何地方、任何平台上运行</strong> 。它的<a target="_blank" rel="noopener" href="https://www.aihero.dev/ai-coding-dictionary/stateless">无状态特性</a>使其具有很强的可移植性：无需代码库、工作区、无需设置，甚至无需任何软件相关的前提条件。人们将其用于商业决策、写作、下一步行动等各种需要思考和应对的问题。</li>
 </ul>
+</li>
+<li><strong>一个用于比对的代码库</strong>：<a target="_blank" rel="noopener" href="https://www.aihero.dev/skills-grill-with-docs">grill-with-docs</a>。同样的面试，但<a target="_blank" rel="noopener" href="https://www.aihero.dev/ai-coding-dictionary/stateful">有状态</a>：它会读取你的代码，并将学习到的信息保存在 <code>CONTEXT.md</code> 和 ADR 中。</li>
+<li><strong>内容太多，一次会议无法完成</strong>：<a target="_blank" rel="noopener" href="https://www.aihero.dev/skills-wayfinder">wayfinder</a>。它将工作计划绘制成地图，并在地图内进行深入探讨。</li>
+</ul>
+<blockquote>
+<p>关闭<a target="_blank" rel="noopener" href="https://www.aihero.dev/ai-coding-dictionary/agent-mode">plan mode</a>。<a target="_blank" rel="noopener" href="https://www.aihero.dev/ai-coding-dictionary/agent-mode">plan mode</a>会让代理人急于制定计划，这与保持探究状态背道而驰。</p>
+</blockquote>
 <h2 id="子代理">子代理</h2>
 <p>Codex 可以通过并行生成专门的代理来运行子代理工作流程，以便它们可以同时探索、处理或分析工作。子代理工作流通过将繁琐的工作从主线程中移出来提供帮助：</p>
 <ul>
 <li>让<strong>主要代理人</strong>专注于需求、决策和最终结果。</li>
-<li>并行运行专门的<strong>子代理</strong> ，用于探索、测试或日志分析。</li>
-<li>返回子代理的<strong>摘要，</strong> 而不是原始中间输出。</li>
+<li>并行运行专门的<strong>子代理</strong>，用于探索、测试或日志分析。</li>
+<li>返回子代理的**摘要，**而不是原始中间输出。</li>
 </ul>
 <p>Codex 不会自动生成子代理，只有在您明确要求使用子代理或并行代理工作时才会使用子代理。实际上，手动触发意味着使用直接指令，例如“生成两个代理”、“并行委派这项工作”或“每个点使用一个代理”。一个好的子代理提示应该解释如何划分工作，Codex 是否应该等待所有代理完成再继续，以及要返回什么摘要或输出。</p>
 <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs markdown">Review this branch with parallel subagents. Spawn one subagent for security risks, one for test gaps, and one for maintainability. Wait for all three, then summarize the findings by category with file references.<br></code></pre></td></tr></table></figure>
@@ -1152,7 +1390,7 @@
 </li>
 <li>等等。</li>
 </ul>
-<h2 id="其它-2">其它</h2>
+<h2 id="其它">其它</h2>
 <ul>
 <li>IDE 扩展会自动将您打开的文件包含在上下文中。在命令行界面 (CLI) 中，您通常需要显式指定路径（或者使用 <code>/mention</code> 附加文件，并使用 <code>@ path</code> 自动补全）。</li>
 <li><strong>使用 <a target="_blank" rel="noopener" href="http://PLANS.md">PLANS.md</a> 模板：</strong> 对于更高级的工作流程，您可以配置 Codex 以遵循 <code>PLANS.md</code> 或执行计划模板，从而处理耗时更长或包含多个步骤的任务。更多详情，请参阅<a target="_blank" rel="noopener" href="https://developers.openai.com/cookbook/articles/codex_exec_plans">执行计划指南</a>。</li>
